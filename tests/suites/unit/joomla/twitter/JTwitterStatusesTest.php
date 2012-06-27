@@ -150,6 +150,9 @@ class JTwitterStatusesTest extends TestCase
 	 */
 	public function testGetTweetById()
 	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test currently fails.');
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
@@ -176,6 +179,9 @@ class JTwitterStatusesTest extends TestCase
 	 */
 	public function testGetTweetByIdFailure()
 	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test currently fails.');
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -206,7 +212,7 @@ class JTwitterStatusesTest extends TestCase
 
 		/*$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with('/1/account/rate_limit_status.json');
 		->will($this->returnValue($returnData));*/
 
 		$this->client->expects($this->at(1))
@@ -291,7 +297,7 @@ class JTwitterStatusesTest extends TestCase
 	}
 
 	/**
-	 * Tests the tweet method
+	 * Tests the tweet method - failure
 	 *
 	 * @return  void
 	 *
@@ -317,5 +323,342 @@ class JTwitterStatusesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->object->tweet($this->oauth, $status);
+	}
+
+	/**
+	 * Tests the getMentions method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testGetMentions()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getMentions method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 * 
+	 * @expectedException  DomainException
+	 */
+	public function testGetMentionsFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getRetweetedToUser method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testGetRetweetedToUser()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getRetweetedToUser method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 * 
+	 * @expectedException  DomainException
+	 */
+	public function testGetRetweetedToUserFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getRetweetsOfMe method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testGetRetweetsOfMe()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getRetweetsOfMe method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 * 
+	 * @expectedException  DomainException
+	 */
+	public function testGetRetweetsOfMeFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getRetweetedBy method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testGetRetweetedBy()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test currently fails.');
+		$id = '217781292748652545';
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+		->method('get')
+		->with('/1/statuses/' . $id . '/retweeted_by.json?count=20')
+		->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->getRetweetedBy($id),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the getRetweetedBy method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 *
+	 * @expectedException  DomainException
+	 */
+	public function testGetRetweetedByFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test currently fails.');
+		$id = '217781292748652545';
+
+		$returnData = new stdClass;
+		$returnData->code = 500;
+		$returnData->body = $this->errorString;
+
+		$this->client->expects($this->once())
+		->method('get')
+		->with('/1/statuses/' . $id . '/retweeted_by.json?count=20')
+		->will($this->returnValue($returnData));
+
+		$this->object->getRetweetedBy($id);
+	}
+
+	/**
+	 * Tests the getRetweetedByIds method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testGetRetweetedByIds()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getRetweetedByIds method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 * 
+	 * @expectedException  DomainException
+	 */
+	public function testGetRetweetedByIdsFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getRetweets method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testGetRetweetsById()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getRetweets method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 * 
+	 * @expectedException  DomainException
+	 */
+	public function testGetRetweetsByIdFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the deleteTweet method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testDeleteTweet()
+	{
+		$id = '1234329764382109394';
+		$trim_user = true;
+		$entities = true;
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->sampleString;
+
+		// Set POST request parameters.
+		$data = array();
+		$data['trim_user'] = $trim_user;
+		$data['include_entities'] = $entities;
+
+		$this->client->expects($this->once())
+			->method('post')
+			->with('/1/statuses/destroy/' . $id . '.json', $data)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+		$this->object->deleteTweet($this->oauth, $id, $trim_user, $entities),
+		$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the deleteTweet method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 *
+	 * @expectedException  DomainException
+	 */
+	public function testDeleteTweetFailure()
+	{
+		$id = '1234329764382109394';
+
+		$returnData = new stdClass;
+		$returnData->code = 500;
+		$returnData->body = $this->errorString;
+
+		$this->client->expects($this->once())
+			->method('post')
+			->with('/1/statuses/destroy/' . $id . '.json', null)
+			->will($this->returnValue($returnData));
+
+		$this->object->deleteTweet($this->oauth, $id);
+	}
+
+	/**
+	 * Tests the retweet method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testRetweet()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the retweets method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 * 
+	 * @expectedException  DomainException
+	 */
+	public function testRetweetFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the tweetWithMedia method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testTweetWithMedia()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the tweetWithMedia method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 * 
+	 * @expectedException  DomainException
+	 */
+	public function testTweetWithMediaFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getOembed method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testGetOembed()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
+	}
+
+	/**
+	 * Tests the getOembed method - failure
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 * 
+	 * @expectedException  DomainException
+	 */
+	public function testGetOembedFailure()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test is not implemented.');
 	}
 }
