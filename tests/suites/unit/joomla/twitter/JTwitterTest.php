@@ -117,6 +117,21 @@ class JTwitterTest extends TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - users
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function test__GetUsers()
+	{
+		$this->assertThat(
+			$this->object->users,
+			$this->isInstanceOf('JTwitterUsers')
+		);
+	}
+
+	/**
 	 * Tests the setOption method
 	 *
 	 * @return  void
