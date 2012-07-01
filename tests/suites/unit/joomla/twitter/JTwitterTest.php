@@ -147,6 +147,21 @@ class JTwitterTest extends TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - favorites
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function test__GetFavorites()
+	{
+		$this->assertThat(
+			$this->object->favorites,
+			$this->isInstanceOf('JTwitterFavorites')
+		);
+	}
+
+	/**
 	 * Tests the setOption method
 	 *
 	 * @return  void
