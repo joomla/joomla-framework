@@ -132,6 +132,21 @@ class JTwitterTest extends TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - search
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function test__GetSearch()
+	{
+		$this->assertThat(
+			$this->object->search,
+			$this->isInstanceOf('JTwitterSearch')
+		);
+	}
+
+	/**
 	 * Tests the setOption method
 	 *
 	 * @return  void

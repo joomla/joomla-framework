@@ -62,7 +62,7 @@ class JTwitterStatusesTest extends TestCase
 	 * @var    string  Sample JSON error message.
 	 * @since  12.1
 	 */
-	protected $errorString = '{"error": "Generic Error."}';
+	protected $errorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
