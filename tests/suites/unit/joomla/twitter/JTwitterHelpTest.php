@@ -13,6 +13,11 @@ require_once JPATH_PLATFORM . '/joomla/twitter/help.php';
 
 /**
  * Test class for JTwitterHelp.
+ *
+ * @package     Joomla.UnitTest
+ * @subpackage  Twitter
+ *
+ * @since       12.1
  */
 class JTwitterHelpTest extends TestCase
 {
@@ -58,14 +63,6 @@ class JTwitterHelpTest extends TestCase
 		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
 
 		$this->object = new JTwitterHelp($this->options, $this->client);
-	}
-
-	protected function getMethod($name)
-	{
-		$class = new ReflectionClass('JTwitterHelp');
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-		return $method;
 	}
 
 	/**

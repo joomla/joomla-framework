@@ -13,6 +13,11 @@ require_once __DIR__ . '/stubs/JTwitterObjectMock.php';
 
 /**
  * Test class for JTwitterObject.
+ *
+ * @package     Joomla.UnitTest
+ * @subpackage  Twitter
+ *
+ * @since       12.1
  */
 class JTwitterObjectTest extends TestCase
 {

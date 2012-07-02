@@ -62,7 +62,13 @@ class JTwitterStatusesTest extends TestCase
 	 * @var    string  Sample JSON error message.
 	 * @since  12.1
 	 */
-	protected $errorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
+	protected $errorString = '{"error":"Generic error"}';
+
+	/**
+	 * @var    string  Sample JSON Twitter error message.
+	 * @since  12.1
+	 */
+	protected $twitterErrorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -84,14 +90,6 @@ class JTwitterStatusesTest extends TestCase
 		$this->object = new JTwitterStatuses($this->options, $this->client);
 		$this->oauth = new JTwitterOAuth($key, $secret, $my_url, $this->client);
 		$this->oauth->setToken($key, $secret);
-	}
-
-	protected function getMethod($name)
-	{
-		$class = new ReflectionClass('JTwitterStatuses');
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-		return $method;
 	}
 
 	/**
@@ -1185,8 +1183,8 @@ class JTwitterStatusesTest extends TestCase
 	{
 		// User ID or screen name
 		return array(
-			array('{"X-MediaRateLimit-Remaining":10}'),
-			array('{"X-MediaRateLimit-Remaining":0,"X-MediaRateLimit-Reset":1243245654}')
+			array(array("X-MediaRateLimit-Remaining" => 10)),
+			array(array("X-MediaRateLimit-Remaining" => 0, "X-MediaRateLimit-Reset" => 1243245654))
 			);
 	}
 
@@ -1241,7 +1239,7 @@ class JTwitterStatusesTest extends TestCase
 			->with('https://upload.twitter.com/1/statuses/update_with_media.json', $data)
 			->will($this->returnValue($returnData));
 
-		$headers_array = json_decode($returnData->headers, true);
+		$headers_array = $returnData->headers;
 		if ($headers_array['X-MediaRateLimit-Remaining'] == 0)
 		{
 			$this->setExpectedException('RuntimeException');

@@ -55,7 +55,13 @@ class JTwitterUsersTest extends TestCase
 	 * @var    string  Sample JSON error message.
 	 * @since  12.1
 	 */
-	protected $errorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
+	protected $errorString = '{"error":"Generic error"}';
+
+	/**
+	 * @var    string  Sample JSON Twitter error message.
+	 * @since  12.1
+	 */
+	protected $twitterErrorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
 
 	/**
 	 * @var    string  Sample JSON string.
@@ -83,14 +89,6 @@ class JTwitterUsersTest extends TestCase
 		$this->object = new JTwitterUsers($this->options, $this->client);
 		$this->oauth = new JTwitterOAuth($key, $secret, $my_url, $this->client);
 		$this->oauth->setToken($key, $secret);
-	}
-
-	protected function getMethod($name)
-	{
-		$class = new ReflectionClass('JTwitterUsers');
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-		return $method;
 	}
 
 	/**
@@ -322,8 +320,8 @@ class JTwitterUsersTest extends TestCase
 	{
 		// User ID or screen name
 		return array(
-			array('{"X-FeatureRateLimit-Remaining":10}'),
-			array('{"X-FeatureRateLimit-Remaining":0,"X-FeatureRateLimit-Reset":1243245654}')
+			array(array("X-FeatureRateLimit-Remaining" => 10)),
+			array(array("X-FeatureRateLimit-Remaining" => 0, "X-FeatureRateLimit-Reset" => 1243245654))
 			);
 	}
 
@@ -373,7 +371,7 @@ class JTwitterUsersTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$headers_array = json_decode($returnData->headers, true);
+		$headers_array = $returnData->headers;
 		if ($headers_array['X-FeatureRateLimit-Remaining'] == 0)
 		{
 			$this->setExpectedException('RuntimeException');

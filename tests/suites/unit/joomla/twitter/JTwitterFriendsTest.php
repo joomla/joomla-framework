@@ -55,7 +55,13 @@ class JTwitterFriendsTest extends TestCase
 	 * @var    string  Sample JSON error message.
 	 * @since  12.1
 	 */
-	protected $errorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
+	protected $errorString = '{"error":"Generic error"}';
+
+	/**
+	 * @var    string  Sample JSON Twitter error message.
+	 * @since  12.1
+	 */
+	protected $twitterErrorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
 
 	/**
 	 * @var    string  Sample JSON string.
@@ -83,14 +89,6 @@ class JTwitterFriendsTest extends TestCase
 		$this->object = new JTwitterFriends($this->options, $this->client);
 		$this->oauth = new JTwitterOAuth($key, $secret, $my_url, $this->client);
 		$this->oauth->setToken($key, $secret);
-	}
-
-	protected function getMethod($name)
-	{
-		$class = new ReflectionClass('JTwitterFriends');
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-		return $method;
 	}
 
 	/**

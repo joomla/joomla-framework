@@ -177,6 +177,21 @@ class JTwitterTest extends TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - lists
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function test__GetLists()
+	{
+		$this->assertThat(
+			$this->object->lists,
+			$this->isInstanceOf('JTwitterLists')
+		);
+	}
+
+	/**
 	 * Tests the setOption method
 	 *
 	 * @return  void
