@@ -162,6 +162,21 @@ class JTwitterTest extends TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - directMessages
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function test__GetDirectMessages()
+	{
+		$this->assertThat(
+			$this->object->directMessages,
+			$this->isInstanceOf('JTwitterDirectMessages')
+		);
+	}
+
+	/**
 	 * Tests the setOption method
 	 *
 	 * @return  void
