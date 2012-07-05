@@ -192,6 +192,21 @@ class JTwitterTest extends TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - places
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function test__GetPlaces()
+	{
+		$this->assertThat(
+			$this->object->places,
+			$this->isInstanceOf('JTwitterPlaces')
+		);
+	}
+
+	/**
 	 * Tests the setOption method
 	 *
 	 * @return  void
