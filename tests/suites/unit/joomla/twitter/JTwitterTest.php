@@ -222,6 +222,21 @@ class JTwitterTest extends TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - block
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function test__GetBlock()
+	{
+		$this->assertThat(
+			$this->object->block,
+			$this->isInstanceOf('JTwitterBlock')
+		);
+	}
+
+	/**
 	 * Tests the setOption method
 	 *
 	 * @return  void

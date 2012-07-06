@@ -9,17 +9,17 @@
 
 require_once JPATH_PLATFORM . '/joomla/twitter/twitter.php';
 require_once JPATH_PLATFORM . '/joomla/twitter/http.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/trends.php';
+require_once JPATH_PLATFORM . '/joomla/twitter/block.php';
 
 /**
- * Test class for JTwitterTrends.
+ * Test class for JTwitterBlock.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
  * @since       12.1
  */
-class JTwitterTrendsTest extends TestCase
+class JTwitterBlockTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Twitter object.
@@ -80,22 +80,24 @@ class JTwitterTrendsTest extends TestCase
 		$this->options = new JRegistry;
 		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
 
-		$this->object = new JTwitterTrends($this->options, $this->client);
+		$this->object = new JTwitterBlock($this->options, $this->client);
 		$this->oauth = new JTwitterOAuth($key, $secret, $my_url, $this->client);
 		$this->oauth->setToken($key, $secret);
 	}
 
 	/**
-	 * Tests the getTrends method
+	 * Tests the getBlocking method
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
 	 */
-	public function testGetTrends()
+	public function testGetBlocking()
 	{
-		$woeid = '1a2b3c4d';
-		$exclude = 'hashtags';
+		$page = 1;
+		$per_page = 10;
+		$entities = true;
+		$skip_status = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -110,9 +112,12 @@ class JTwitterTrendsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$data['exclude'] = $exclude;
+		$data['page'] = $page;
+		$data['per_page'] = $per_page;
+		$data['include_entities'] = $entities;
+		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/trends/' . $woeid . '.json', $data);
+		$path = $this->object->fetchUrl('/1/blocks/blocking.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -120,23 +125,25 @@ class JTwitterTrendsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getTrends($woeid, $exclude),
+			$this->object->getBlocking($this->oauth, $page, $per_page, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the getTrends method - failure
+	 * Tests the getBlocking method - failure
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
 	 * @expectedException DomainException
 	 */
-	public function testGetTrendsFailure()
+	public function testGetBlockingFailure()
 	{
-		$woeid = '1a2b3c4d';
-		$exclude = 'hashtags';
+		$page = 1;
+		$per_page = 10;
+		$entities = true;
+		$skip_status = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -151,29 +158,52 @@ class JTwitterTrendsTest extends TestCase
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$data['exclude'] = $exclude;
+		$data['page'] = $page;
+		$data['per_page'] = $per_page;
+		$data['include_entities'] = $entities;
+		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/trends/' . $woeid . '.json', $data);
+		$path = $this->object->fetchUrl('/1/blocks/blocking.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getTrends($woeid, $exclude);
+		$this->object->getBlocking($this->oauth, $page, $per_page, $entities, $skip_status);
 	}
 
 	/**
-	 * Tests the getLocations method
+	* Provides test data for request format detection.
+	*
+	* @return array
+	*
+	* @since 12.1
+	*/
+	public function seedUser()
+	{
+		// User ID or screen name
+		return array(
+			array(234654235457),
+			array('testUser'),
+			array(null)
+			);
+	}
+
+	/**
+	 * Tests the block method
+	 *
+	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
 	 * @return  void
 	 *
+	 * @dataProvider  seedUser
 	 * @since   12.1
 	 */
-	public function testGetLocations()
+	public function testBlock($user)
 	{
-		$lat = 45;
-		$long = 45;
+		$entities = true;
+		$skip_status = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -188,34 +218,52 @@ class JTwitterTrendsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$data['lat'] = $lat;
-		$data['long'] = $long;
+		// Set request parameters.
+		if (is_numeric($user))
+		{
+			$data['user_id'] = $user;
+		}
+		elseif (is_string($user))
+		{
+			$data['screen_name'] = $user;
+		}
+		else
+		{
+			$this->setExpectedException('RuntimeException');
+			$this->object->block($this->oauth, $user);
+		}
 
-		$path = $this->object->fetchUrl('/1/trends/available.json', $data);
+		$data['include_entities'] = $entities;
+		$data['skip_status'] = $skip_status;
+
+		$path = $this->object->fetchUrl('/1/blocks/create.json');
 
 		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
+		->method('post')
+		->with($path, $data)
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getLocations($lat, $long),
+			$this->object->block($this->oauth, $user, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the getLocations method - failure
+	 * Tests the block method - failure
+	 *
+	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @dataProvider  seedUser
 	 * @expectedException DomainException
+	 * @since   12.1
 	 */
-	public function testGetLocationsFailure()
+	public function testBlockFailure($user)
 	{
-		$lat = 45;
-		$long = 45;
+		$entities = true;
+		$skip_status = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -230,30 +278,48 @@ class JTwitterTrendsTest extends TestCase
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$data['lat'] = $lat;
-		$data['long'] = $long;
+		// Set request parameters.
+		if (is_numeric($user))
+		{
+			$data['user_id'] = $user;
+		}
+		elseif (is_string($user))
+		{
+			$data['screen_name'] = $user;
+		}
+		else
+		{
+			$this->setExpectedException('RuntimeException');
+			$this->object->block($this->oauth, $user);
+		}
 
-		$path = $this->object->fetchUrl('/1/trends/available.json', $data);
+		$data['include_entities'] = $entities;
+		$data['skip_status'] = $skip_status;
+
+		$path = $this->object->fetchUrl('/1/blocks/create.json');
 
 		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
+		->method('post')
+		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->getLocations($lat, $long);
+		$this->object->block($this->oauth, $user, $entities, $skip_status);
 	}
 
 	/**
-	 * Tests the getDailyTrends method
+	 * Tests the unblock method
+	 *
+	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
 	 * @return  void
 	 *
+	 * @dataProvider  seedUser
 	 * @since   12.1
 	 */
-	public function testGetDailyTrends()
+	public function testUnlock($user)
 	{
-		$date = '2010-06-20';
-		$exclude = 'hashtags';
+		$entities = true;
+		$skip_status = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -268,34 +334,52 @@ class JTwitterTrendsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$data['date'] = $date;
-		$data['exclude'] = $exclude;
+		// Set request parameters.
+		if (is_numeric($user))
+		{
+			$data['user_id'] = $user;
+		}
+		elseif (is_string($user))
+		{
+			$data['screen_name'] = $user;
+		}
+		else
+		{
+			$this->setExpectedException('RuntimeException');
+			$this->object->unblock($this->oauth, $user);
+		}
 
-		$path = $this->object->fetchUrl('/1/trends/daily.json', $data);
+		$data['include_entities'] = $entities;
+		$data['skip_status'] = $skip_status;
+
+		$path = $this->object->fetchUrl('/1/blocks/destroy.json');
 
 		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
+		->method('post')
+		->with($path, $data)
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getDailyTrends($date, $exclude),
+			$this->object->unblock($this->oauth, $user, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the getDailyTrends method - failure
+	 * Tests the unblock method - failure
+	 *
+	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @dataProvider  seedUser
 	 * @expectedException DomainException
+	 * @since   12.1
 	 */
-	public function testGetDailyTrendsFailure()
+	public function testUnblockFailure($user)
 	{
-		$date = '2010-06-20';
-		$exclude = 'hashtags';
+		$entities = true;
+		$skip_status = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -310,96 +394,31 @@ class JTwitterTrendsTest extends TestCase
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$data['date'] = $date;
-		$data['exclude'] = $exclude;
+		// Set request parameters.
+		if (is_numeric($user))
+		{
+			$data['user_id'] = $user;
+		}
+		elseif (is_string($user))
+		{
+			$data['screen_name'] = $user;
+		}
+		else
+		{
+			$this->setExpectedException('RuntimeException');
+			$this->object->unblock($this->oauth, $user);
+		}
 
-		$path = $this->object->fetchUrl('/1/trends/daily.json', $data);
+		$data['include_entities'] = $entities;
+		$data['skip_status'] = $skip_status;
 
-		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->object->getDailyTrends($date, $exclude);
-	}
-
-	/**
-	 * Tests the getWeeklyTrends method
-	 *
-	 * @return  void
-	 *
-	 * @since   12.1
-	 */
-	public function testGetWeeklyTrends()
-	{
-		$date = '2010-06-20';
-		$exclude = 'hashtags';
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
-
-		$data['date'] = $date;
-		$data['exclude'] = $exclude;
-
-		$path = $this->object->fetchUrl('/1/trends/weekly.json', $data);
+		$path = $this->object->fetchUrl('/1/blocks/destroy.json');
 
 		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
+		->method('post')
+		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->assertThat(
-			$this->object->getWeeklyTrends($date, $exclude),
-			$this->equalTo(json_decode($this->sampleString))
-		);
-	}
-
-	/**
-	 * Tests the getWeeklyTrends method - failure
-	 *
-	 * @return  void
-	 *
-	 * @since   12.1
-	 * @expectedException DomainException
-	 */
-	public function testGetWeeklyTrendsFailure()
-	{
-		$date = '2010-06-20';
-		$exclude = 'hashtags';
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		$data['date'] = $date;
-		$data['exclude'] = $exclude;
-
-		$path = $this->object->fetchUrl('/1/trends/weekly.json', $data);
-
-		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->object->getWeeklyTrends($date, $exclude);
+		$this->object->unblock($this->oauth, $user, $entities, $skip_status);
 	}
 }
