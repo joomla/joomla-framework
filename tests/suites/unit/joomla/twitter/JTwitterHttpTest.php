@@ -21,6 +21,8 @@ class JTwitterHttpTest extends TestCase
 {
 	/**
 	 * Dummy method to prevent errors
+	 *
+	 * @return void
 	 */
 	public function testDummy()
 	{

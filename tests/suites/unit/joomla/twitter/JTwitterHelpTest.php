@@ -62,6 +62,8 @@ class JTwitterHelpTest extends TestCase
 	 * This method is called before a test is executed.
 	 *
 	 * @access protected
+	 *
+	 * @return void
 	 */
 	protected function setUp()
 	{

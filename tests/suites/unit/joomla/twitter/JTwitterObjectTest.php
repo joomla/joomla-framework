@@ -56,6 +56,8 @@ class JTwitterObjectTest extends TestCase
 	 * This method is called before a test is executed.
 	 *
 	 * @access protected
+	 *
+	 * @return void
 	 */
 	protected function setUp()
 	{
@@ -70,14 +72,21 @@ class JTwitterObjectTest extends TestCase
 	 * This method is called after a test is executed.
 	 *
 	 * @access protected
+	 *
+	 * @return void
 	 */
 	protected function tearDown()
 	{
 	}
 
 	/**
+	 * Tests the checkRateLimit method
+	 *
 	 * @covers JTwitterObject::checkRateLimit
+	 *
 	 * @todo   Implement testCheckRateLimit().
+	 *
+	 * @return void
 	 */
 	public function testCheckRateLimit()
 	{
@@ -86,8 +95,13 @@ class JTwitterObjectTest extends TestCase
 	}
 
 	/**
+	 * Tests the fetchUrl method
+	 *
 	 * @covers JTwitterObject::fetchUrl
+	 *
 	 * @todo   Implement testFetchUrl().
+	 *
+	 * @return void
 	 */
 	public function testFetchUrl()
 	{
@@ -146,6 +160,8 @@ class JTwitterObjectTest extends TestCase
 	}
 
 	/**
+	 * Tests the getSendRequest method
+	 *
 	 * @covers JTwitterObject::sendRequest
 	 *
 	 * @return  void
