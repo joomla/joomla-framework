@@ -207,6 +207,21 @@ class JTwitterTest extends TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - trends
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function test__GetTrends()
+	{
+		$this->assertThat(
+			$this->object->trends,
+			$this->isInstanceOf('JTwitterTrends')
+		);
+	}
+
+	/**
 	 * Tests the setOption method
 	 *
 	 * @return  void
