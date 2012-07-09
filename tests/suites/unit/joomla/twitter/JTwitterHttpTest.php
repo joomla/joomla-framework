@@ -15,7 +15,7 @@ require_once JPATH_PLATFORM . '/joomla/twitter/http.php';
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
- * @since       12.1
+ * @since       12.3
  */
 class JTwitterHttpTest extends TestCase
 {

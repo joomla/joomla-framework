@@ -17,49 +17,49 @@ require_once JPATH_PLATFORM . '/joomla/twitter/block.php';
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
- * @since       12.1
+ * @since 12.3
  */
 class JTwitterBlockTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Twitter object.
-	 * @since  12.1
+	 * @since 12.3
 	 */
 	protected $options;
 
 	/**
 	 * @var    JTwitterHttp  Mock client object.
-	 * @since  12.1
+	 * @since 12.3
 	 */
 	protected $client;
 
 	/**
-	 * @var    JTwitterPlaces  Object under test.
-	 * @since  12.1
+	 * @var    JTwitterBlock  Object under test.
+	 * @since 12.3
 	 */
 	protected $object;
 
 	/**
 	 * @var    JTwitterOAuth  Authentication object for the Twitter object.
-	 * @since  12.1
+	 * @since 12.3
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since 12.3
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.1
+	 * @since 12.3
 	 */
 	protected $errorString = '{"error":"Generic error"}';
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since 12.3
 	 */
 	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
 
@@ -90,7 +90,7 @@ class JTwitterBlockTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since 12.3
 	 */
 	public function testGetBlocking()
 	{
@@ -135,7 +135,7 @@ class JTwitterBlockTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since 12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetBlockingFailure()
@@ -178,7 +178,7 @@ class JTwitterBlockTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.1
+	* @since 12.3
 	*/
 	public function seedUser()
 	{
@@ -198,7 +198,7 @@ class JTwitterBlockTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedUser
-	 * @since   12.1
+	 * @since 12.3
 	 */
 	public function testBlock($user)
 	{
@@ -258,7 +258,7 @@ class JTwitterBlockTest extends TestCase
 	 *
 	 * @dataProvider  seedUser
 	 * @expectedException DomainException
-	 * @since   12.1
+	 * @since 12.3
 	 */
 	public function testBlockFailure($user)
 	{
@@ -314,7 +314,7 @@ class JTwitterBlockTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedUser
-	 * @since   12.1
+	 * @since 12.3
 	 */
 	public function testUnlock($user)
 	{
@@ -374,7 +374,7 @@ class JTwitterBlockTest extends TestCase
 	 *
 	 * @dataProvider  seedUser
 	 * @expectedException DomainException
-	 * @since   12.1
+	 * @since 12.3
 	 */
 	public function testUnblockFailure($user)
 	{

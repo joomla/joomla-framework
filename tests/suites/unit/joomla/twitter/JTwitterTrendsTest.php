@@ -17,49 +17,49 @@ require_once JPATH_PLATFORM . '/joomla/twitter/trends.php';
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
- * @since       12.1
+ * @since       12.3
  */
 class JTwitterTrendsTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
 	 * @var    JTwitterHttp  Mock client object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $client;
 
 	/**
 	 * @var    JTwitterPlaces  Object under test.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $object;
 
 	/**
 	 * @var    JTwitterOAuth  Authentication object for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $errorString = '{"error":"Generic error"}';
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
 
@@ -90,7 +90,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testGetTrends()
 	{
@@ -130,7 +130,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetTrendsFailure()
@@ -168,7 +168,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testGetLocations()
 	{
@@ -209,7 +209,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetLocationsFailure()
@@ -248,7 +248,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testGetDailyTrends()
 	{
@@ -289,7 +289,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetDailyTrendsFailure()
@@ -328,7 +328,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testGetWeeklyTrends()
 	{
@@ -369,7 +369,7 @@ class JTwitterTrendsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetWeeklyTrendsFailure()

@@ -17,55 +17,55 @@ require_once JPATH_PLATFORM . '/joomla/twitter/lists.php';
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
- * @since       12.1
+ * @since       12.3
  */
 class JTwitterListsTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
 	 * @var    JTwitterHttp  Mock client object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $client;
 
 	/**
 	 * @var    JTwitterLists  Object under test.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $object;
 
 	/**
 	 * @var    JTwitterOAuth  Authentication object for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $errorString = '{"error":"Generic error"}';
 
 	/**
 	 * @var    string  Sample JSON Twitter error message.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $twitterErrorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
 
@@ -96,7 +96,7 @@ class JTwitterListsTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.1
+	* @since 12.3
 	*/
 	public function seedUser()
 	{
@@ -115,7 +115,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 */
 	public function testGetAllLists($user)
@@ -168,7 +168,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 * @expectedException DomainException
 	 */
@@ -217,7 +217,7 @@ class JTwitterListsTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.1
+	* @since 12.3
 	*/
 	public function seedListStatuses()
 	{
@@ -239,7 +239,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
 	public function testGetListStatuses($list, $owner)
@@ -322,7 +322,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
@@ -388,7 +388,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 */
 	public function testGetListMemberships($user)
@@ -444,7 +444,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 * @expectedException DomainException
 	 */
@@ -499,7 +499,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
 	public function testGetListSubscribers($list, $owner)
@@ -574,7 +574,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
@@ -644,7 +644,7 @@ class JTwitterListsTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.1
+	* @since 12.3
 	*/
 	public function seedListMembers()
 	{
@@ -670,7 +670,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListMembers
 	 */
 	public function testDeleteListMembers($list, $user_id, $screen_name, $owner)
@@ -746,7 +746,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListMembers
 	 * @expectedException DomainException
 	 */
@@ -818,7 +818,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
 	public function testSubscribe($list, $owner)
@@ -887,7 +887,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
@@ -951,7 +951,7 @@ class JTwitterListsTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.1
+	* @since 12.3
 	*/
 	public function seedListUserOwner()
 	{
@@ -975,7 +975,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListUserOwner
 	 */
 	public function testIsListMember($list, $user, $owner)
@@ -1066,7 +1066,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListUserOwner
 	 * @expectedException DomainException
 	 */
@@ -1155,7 +1155,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListUserOwner
 	 */
 	public function testIsListSubscriber($list, $user, $owner)
@@ -1246,7 +1246,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListUserOwner
 	 * @expectedException DomainException
 	 */
@@ -1334,7 +1334,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
 	public function testUnsubscribe($list, $owner)
@@ -1394,7 +1394,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
@@ -1454,7 +1454,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListMembers
 	 */
 	public function testAddListMembers($list, $user_id, $screen_name, $owner)
@@ -1530,7 +1530,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListMembers
 	 * @expectedException DomainException
 	 */
@@ -1602,7 +1602,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
 	public function testGetListMembers($list, $owner)
@@ -1677,7 +1677,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
@@ -1750,7 +1750,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
 	public function testGetListByIdtMembers($list, $owner)
@@ -1819,7 +1819,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
@@ -1885,7 +1885,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 */
 	public function testGetLists($user)
@@ -1938,7 +1938,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 * @expectedException DomainException
 	 */
@@ -1989,7 +1989,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 */
 	public function testGetSubscriptions($user)
@@ -2045,7 +2045,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 * @expectedException DomainException
 	 */
@@ -2100,7 +2100,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
 	public function testUpdateList($list, $owner)
@@ -2168,7 +2168,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
@@ -2231,7 +2231,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 */
 	public function testCreateList()
 	{
@@ -2265,7 +2265,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @expectedException DomainException
 	 */
 	public function testCreateListFailure()
@@ -2300,7 +2300,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
 	public function testDeleteList($list, $owner)
@@ -2360,7 +2360,7 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */

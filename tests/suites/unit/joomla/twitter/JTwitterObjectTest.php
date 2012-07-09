@@ -17,37 +17,43 @@ require_once __DIR__ . '/stubs/JTwitterObjectMock.php';
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
- * @since       12.1
+ * @since       12.3
  */
 class JTwitterObjectTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
 	 * @var    JTwitterHttp  Mock client object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $client;
 
 	/**
 	 * @var    JTwitterObjectMock  Object under test.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $object;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
+	 * @var    string  Sample JSON string.
+	 * @since  12.3
+	 */
+	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+
+	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $errorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
 
@@ -82,31 +88,36 @@ class JTwitterObjectTest extends TestCase
 	/**
 	 * Tests the checkRateLimit method
 	 *
-	 * @covers JTwitterObject::checkRateLimit
-	 *
-	 * @todo   Implement testCheckRateLimit().
-	 *
 	 * @return void
+	 *
+	 * @since 12.3
+	 * @expectedException RuntimeException
 	 */
 	public function testCheckRateLimit()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = '{"remaining_hits":0, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+
+		$this->client->expects($this->once())
+		->method('get')
+		->with('/1/account/rate_limit_status.json')
+		->will($this->returnValue($returnData));
+
+		$this->object->checkRateLimit();
 	}
 
 	/**
 	 * Tests the fetchUrl method
 	 *
-	 * @covers JTwitterObject::fetchUrl
-	 *
-	 * @todo   Implement testFetchUrl().
-	 *
 	 * @return void
+	 *
+	 * @since 12.3
 	 */
 	public function testFetchUrl()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		// Method tested via requesting classes
+		$this->markTestSkipped('This method is tested via requesting classes.');
 	}
 
 	/**
@@ -114,7 +125,7 @@ class JTwitterObjectTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testGetRateLimit()
 	{
@@ -138,15 +149,12 @@ class JTwitterObjectTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 *
 	 * @expectedException  DomainException
 	 */
 	public function testGetRateLimitFailure()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test currently fails.');
-
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -166,11 +174,28 @@ class JTwitterObjectTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testSendRequest()
 	{
 		// Method tested via requesting classes
 		$this->markTestSkipped('This method is tested via requesting classes.');
+	}
+
+	/**
+	 * Tests the setOption method
+	 *
+	 * @return void
+	 *
+	 * @since 12.3
+	 */
+	public function testSetOption()
+	{
+		$this->object->setOption('api.url', 'https://example.com/settest');
+
+		$this->assertThat(
+			$this->options->get('api.url'),
+			$this->equalTo('https://example.com/settest')
+		);
 	}
 }

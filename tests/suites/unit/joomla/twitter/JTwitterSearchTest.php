@@ -17,55 +17,55 @@ require_once JPATH_PLATFORM . '/joomla/twitter/search.php';
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
- * @since       12.1
+ * @since       12.3
  */
 class JTwitterSearchTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
 	 * @var    JTwitterHttp  Mock client object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $client;
 
 	/**
 	 * @var    JTwitterSearch  Object under test.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $object;
 
 	/**
 	 * @var    JTwitterOAuth  Authentication object for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $errorString = '{"error":"Generic error"}';
 
 	/**
 	 * @var    string  Sample JSON Twitter error message.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $twitterErrorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
 
@@ -96,7 +96,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testSearch()
 	{
@@ -160,7 +160,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testSearchFailure()
@@ -198,7 +198,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testGetSavedSearches()
 	{
@@ -233,7 +233,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetSavedSearchesFailure()
@@ -266,7 +266,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testGetSavedSearchesById()
 	{
@@ -303,7 +303,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetSavedSearchesByIdFailure()
@@ -338,7 +338,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testCreateSavedSearch()
 	{
@@ -369,7 +369,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testCreateSavedSearchFailure()
@@ -398,7 +398,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 */
 	public function testDeleteSavedSearch()
 	{
@@ -426,7 +426,7 @@ class JTwitterSearchTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   12.3
 	 * @expectedException DomainException
 	 */
 	public function testDeleteSavedSearchFailure()

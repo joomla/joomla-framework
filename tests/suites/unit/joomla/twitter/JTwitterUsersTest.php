@@ -17,55 +17,49 @@ require_once JPATH_PLATFORM . '/joomla/twitter/users.php';
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
- * @since       12.1
+ * @since       12.3
  */
 class JTwitterUsersTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
 	 * @var    JTwitterHttp  Mock client object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $client;
 
 	/**
 	 * @var    JTwitterUsers  Object under test.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $object;
 
 	/**
 	 * @var    JTwitterOAuth  Authentication object for the Twitter object.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $errorString = '{"error":"Generic error"}';
 
 	/**
-	 * @var    string  Sample JSON Twitter error message.
-	 * @since  12.1
-	 */
-	protected $twitterErrorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
-
-	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.1
+	 * @since  12.3
 	 */
 	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
 
@@ -96,7 +90,7 @@ class JTwitterUsersTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.1
+	* @since 12.3
 	*/
 	public function seedFriendshipsLookup()
 	{
@@ -120,7 +114,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedFriendshipsLookup
 	 */
 	public function testGetUsersLookup($screen_name, $id)
@@ -179,7 +173,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedFriendshipsLookup
 	 * @expectedException  DomainException
 	 */
@@ -230,7 +224,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 */
 	public function testGetUserProfileImage()
 	{
@@ -248,7 +242,8 @@ class JTwitterUsersTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$returnData->body = '{"body":"You are being redirected."}';
+		$returnData->headers = array('Location' => 'image/location');
 
 		// Set request parameters.
 		$data['screen_name'] = $screen_name;
@@ -263,7 +258,7 @@ class JTwitterUsersTest extends TestCase
 
 		$this->assertThat(
 			$this->object->getUserProfileImage($screen_name, $size),
-			$this->equalTo(json_decode($this->sampleString))
+			$this->equalTo('image/location')
 		);
 	}
 
@@ -274,7 +269,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @expectedException  DomainException
 	 */
 	public function testGetUserProfileImageFailure()
@@ -314,7 +309,7 @@ class JTwitterUsersTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.1
+	* @since 12.3
 	*/
 	public function seedSearchUsers()
 	{
@@ -334,7 +329,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedSearchUsers
 	 */
 	public function testSearchUsers($header)
@@ -390,7 +385,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @expectedException  DomainException
 	 */
 	public function testSearchUsersFailure()
@@ -428,7 +423,7 @@ class JTwitterUsersTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.1
+	* @since 12.3
 	*/
 	public function seedUser()
 	{
@@ -449,7 +444,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 */
 	public function testGetUser($user)
@@ -507,7 +502,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 * @expectedException DomainException
 	 */
@@ -563,7 +558,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 */
 	public function testGetContributees($user)
@@ -623,7 +618,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 * @expectedException DomainException
 	 */
@@ -681,7 +676,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 */
 	public function testGetContributors($user)
@@ -741,7 +736,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @dataProvider seedUser
 	 * @expectedException DomainException
 	 */
@@ -797,7 +792,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 */
 	public function testGetSuggestions()
 	{
@@ -839,7 +834,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetSuggestionsFailure()
@@ -879,7 +874,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 */
 	public function testGetSuggestionsSlug()
 	{
@@ -922,7 +917,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetSuggestionsSlugFailure()
@@ -963,7 +958,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 */
 	public function testGetSuggestionsSlugMembers()
 	{
@@ -1002,7 +997,7 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since 12.1
+	 * @since 12.3
 	 * @expectedException DomainException
 	 */
 	public function testGetSuggestionsSlugMembersFailure()
