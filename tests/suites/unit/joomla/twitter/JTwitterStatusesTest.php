@@ -88,7 +88,12 @@ class JTwitterStatusesTest extends TestCase
 		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
 
 		$this->object = new JTwitterStatuses($this->options, $this->client);
-		$this->oauth = new JTwitterOAuth($key, $secret, $my_url, $this->client);
+
+		$this->options->set('consumer_key', $key);
+		$this->options->set('consumer_secret', $secret);
+		$this->options->set('callback', $my_url);
+		$this->options->set('sendheaders', true);
+		$this->oauth = new JTwitterOAuth($this->options, $this->client);
 		$this->oauth->setToken($key, $secret);
 	}
 
@@ -189,7 +194,7 @@ class JTwitterStatusesTest extends TestCase
 		$data = array();
 		$data['trim_user'] = $trim_user;
 		$data['include_entities'] = $entities;
-		$data['incluce_my_retweet'] = $my_retweet;
+		$data['include_my_retweet'] = $my_retweet;
 
 		$path = $this->object->fetchUrl('/1/statuses/show/' . $id . '.json', $data);
 

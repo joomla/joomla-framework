@@ -81,7 +81,12 @@ class JTwitterProfileTest extends TestCase
 		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
 
 		$this->object = new JTwitterProfile($this->options, $this->client);
-		$this->oauth = new JTwitterOAuth($key, $secret, $my_url, $this->client);
+
+		$this->options->set('consumer_key', $key);
+		$this->options->set('consumer_secret', $secret);
+		$this->options->set('callback', $my_url);
+		$this->options->set('sendheaders', true);
+		$this->oauth = new JTwitterOAuth($this->options, $this->client);
 		$this->oauth->setToken($key, $secret);
 	}
 

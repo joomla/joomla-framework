@@ -87,7 +87,12 @@ class JTwitterFriendsTest extends TestCase
 		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
 
 		$this->object = new JTwitterFriends($this->options, $this->client);
-		$this->oauth = new JTwitterOAuth($key, $secret, $my_url, $this->client);
+
+		$this->options->set('consumer_key', $key);
+		$this->options->set('consumer_secret', $secret);
+		$this->options->set('callback', $my_url);
+		$this->options->set('sendheaders', true);
+		$this->oauth = new JTwitterOAuth($this->options, $this->client);
 		$this->oauth->setToken($key, $secret);
 	}
 
@@ -1050,7 +1055,7 @@ class JTwitterFriendsTest extends TestCase
 			$this->object->getFriendshipsLookup($this->oauth, $screen_name, $id);
 		}
 
-		$path = $this->object->fetchUrl('/1/friendships/lookup.json', $data);
+		$path = $this->oauth->toUrl('/1/friendships/lookup.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1106,7 +1111,7 @@ class JTwitterFriendsTest extends TestCase
 			$this->object->getFriendshipsLookup($this->oauth, $screen_name, $id);
 		}
 
-		$path = $this->object->fetchUrl('/1/friendships/lookup.json', $data);
+		$path = $this->oauth->toUrl('/1/friendships/lookup.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
