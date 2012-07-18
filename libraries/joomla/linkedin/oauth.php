@@ -96,10 +96,28 @@ class JLinkedinOAuth extends JOAuth1aClient
 	 */
 	public function validateResponse($url, $response)
 	{
-		if (strpos($url, '::(~)') === false && $response->code != 200)
+		// Check throttle limit.
+		if ($response->code == 403)
 		{
-			$error = json_decode($response->body);
-			throw new DomainException('Error code ' . $error->errorCode . ' received with message: ' . $error->message . '.');
+			throw new DomainException('Throttle limit for calls to this resource is reached. Daily counters reset at midnight UTC.');
+		}
+
+		if (!$code = $this->getOption('sucess_code'))
+		{
+			$code = 200;
+		}
+
+		if (strpos($url, '::(~)') === false && $response->code != $code)
+		{
+			if (!is_string($response->body))
+			{
+				$error = json_decode($response->body);
+				throw new DomainException('Error code ' . $error->errorCode . ' received with message: ' . $error->message . '.');
+			}
+			else
+			{
+				throw new DomainException($response->body);
+			}
 		}
 	}
 }
