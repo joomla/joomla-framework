@@ -184,12 +184,14 @@ class JLinkedinGroupsTest extends TestCase
 	/**
 	 * Tests the getMemberships method
 	 *
+	 * @param   string  $person_id  The unique identifier for a user.
+	 *
 	 * @return  void
 	 *
 	 * @dataProvider seedId
 	 * @since   12.3
 	 */
-	public function testGetMemberships($id)
+	public function testGetMemberships($person_id)
 	{
 		$fields = '(id,name,short-description,description,relation-to-viewer:(membership-state,available-actions),is-open-to-non-members)';
 		$start = 1;
@@ -202,9 +204,9 @@ class JLinkedinGroupsTest extends TestCase
 		$data['count'] = $count;
 		$data['membership-state'] = $membership_state;
 
-		if ($id)
+		if ($person_id)
 		{
-			$path = '/v1/people/' . $id . '/group-memberships';
+			$path = '/v1/people/' . $person_id . '/group-memberships';
 		}
 		else
 		{
@@ -225,7 +227,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getMemberships($this->oauth, $id, $fields, $start, $count, $membership_state),
+			$this->object->getMemberships($this->oauth, $person_id, $fields, $start, $count, $membership_state),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -233,13 +235,15 @@ class JLinkedinGroupsTest extends TestCase
 	/**
 	 * Tests the getMemberships method - failure
 	 *
+	 * @param   string  $person_id  The unique identifier for a user.
+	 *
 	 * @return  void
 	 *
 	 * @dataProvider seedId
 	 * @expectedException DomainException
 	 * @since   12.3
 	 */
-	public function testGetMembershipsFailure($id)
+	public function testGetMembershipsFailure($person_id)
 	{
 		$fields = '(id,name,short-description,description,relation-to-viewer:(membership-state,available-actions),is-open-to-non-members)';
 		$start = 1;
@@ -252,9 +256,9 @@ class JLinkedinGroupsTest extends TestCase
 		$data['count'] = $count;
 		$data['membership-state'] = $membership_state;
 
-		if ($id)
+		if ($person_id)
 		{
-			$path = '/v1/people/' . $id . '/group-memberships';
+			$path = '/v1/people/' . $person_id . '/group-memberships';
 		}
 		else
 		{
@@ -274,11 +278,13 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getMemberships($this->oauth, $id, $fields, $start, $count, $membership_state);
+		$this->object->getMemberships($this->oauth, $person_id, $fields, $start, $count, $membership_state);
 	}
 
 	/**
 	 * Tests the getSettings method
+	 *
+	 * @param   string  $person_id  The unique identifier for a user.
 	 *
 	 * @return  void
 	 *
@@ -288,7 +294,8 @@ class JLinkedinGroupsTest extends TestCase
 	public function testGetSettings($person_id)
 	{
 		$group_id = '12345';
-		$fields = '(group:(id,name),membership-state,email-digest-frequency,email-announcements-from-managers,allow-messages-from-members,email-for-every-new-post)';
+		$fields = '(group:(id,name),membership-state,email-digest-frequency,email-announcements-from-managers,
+			allow-messages-from-members,email-for-every-new-post)';
 		$start = 1;
 		$count = 10;
 
@@ -330,6 +337,8 @@ class JLinkedinGroupsTest extends TestCase
 	/**
 	 * Tests the getSettings method - failure
 	 *
+	 * @param   string  $person_id  The unique identifier for a user.
+	 *
 	 * @return  void
 	 *
 	 * @dataProvider seedId
@@ -339,7 +348,8 @@ class JLinkedinGroupsTest extends TestCase
 	public function testGetSettingsFailure($person_id)
 	{
 		$group_id = '12345';
-		$fields = '(group:(id,name),membership-state,email-digest-frequency,email-announcements-from-managers,allow-messages-from-members,email-for-every-new-post)';
+		$fields = '(group:(id,name),membership-state,email-digest-frequency,email-announcements-from-managers,
+			allow-messages-from-members,email-for-every-new-post)';
 		$start = 1;
 		$count = 10;
 
@@ -710,6 +720,8 @@ class JLinkedinGroupsTest extends TestCase
 	/**
 	 * Tests the getUserPosts method
 	 *
+	 * @param   string  $person_id  The unique identifier for a user.
+	 *
 	 * @return  void
 	 *
 	 * @dataProvider seedId
@@ -980,6 +992,7 @@ class JLinkedinGroupsTest extends TestCase
 		$returnData = new stdClass;
 		$returnData->code = 201;
 		$returnData->body = $this->sampleString;
+		$returnData->headers = array('Location' => 'https://api.linkedin.com/v1/posts/g_12334_234512');
 
 		$this->client->expects($this->once())
 			->method('post', $xml, $header)
@@ -988,7 +1001,7 @@ class JLinkedinGroupsTest extends TestCase
 
 		$this->assertThat(
 			$this->object->createPost($this->oauth, $group_id, $title, $summary),
-			$this->equalTo($returnData)
+			$this->equalTo('g_12334_234512')
 		);
 	}
 
@@ -1025,13 +1038,13 @@ class JLinkedinGroupsTest extends TestCase
 	}
 
 	/**
-	 * Tests the like_unlike method
+	 * Tests the _likeUnlike method
 	 *
 	 * @return  void
 	 *
 	 * @since   12.3
 	 */
-	public function testLike_unlike()
+	public function test_likeUnlike()
 	{
 		// Method tested via requesting classes
 		$this->markTestSkipped('This method is tested via requesting classes.');
@@ -1129,5 +1142,593 @@ class JLinkedinGroupsTest extends TestCase
 			$this->object->unlikePost($this->oauth, $post_id),
 			$this->equalTo($returnData)
 		);
+	}
+
+	/**
+	 * Tests the _followUnfollow method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function test_followUnfollow()
+	{
+		// Method tested via requesting classes
+		$this->markTestSkipped('This method is tested via requesting classes.');
+	}
+
+	/**
+	 * Tests the followPost method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function testFollowPost()
+	{
+		$post_id = 'g_12345';
+
+		$path = '/v1/posts/' . $post_id . '/relation-to-viewer/is-following';
+
+		$xml = '<is-following>true</is-following>';
+
+		$header['Content-Type'] = 'text/xml';
+
+		$returnData = new stdClass;
+		$returnData->code = 204;
+		$returnData->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('put', $xml, $header)
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->followPost($this->oauth, $post_id),
+			$this->equalTo($returnData)
+		);
+	}
+
+	/**
+	 * Tests the followPost method - failure
+	 *
+	 * @return  void
+	 *
+	 * @expectedException DomainException
+	 * @since   12.3
+	 */
+	public function testFollowPostFailure()
+	{
+		$post_id = 'g_12345';
+
+		$path = '/v1/posts/' . $post_id . '/relation-to-viewer/is-following';
+
+		$xml = '<is-following>true</is-following>';
+
+		$header['Content-Type'] = 'text/xml';
+
+		$returnData = new stdClass;
+		$returnData->code = 401;
+		$returnData->body = $this->errorString;
+
+		$this->client->expects($this->once())
+			->method('put', $xml, $header)
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->object->followPost($this->oauth, $post_id);
+	}
+
+	/**
+	 * Tests the unfollowPost method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function testUnfollowPost()
+	{
+		$post_id = 'g_12345';
+
+		$path = '/v1/posts/' . $post_id . '/relation-to-viewer/is-following';
+
+		$xml = '<is-following>false</is-following>';
+
+		$header['Content-Type'] = 'text/xml';
+
+		$returnData = new stdClass;
+		$returnData->code = 204;
+		$returnData->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('put', $xml, $header)
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->unfollowPost($this->oauth, $post_id),
+			$this->equalTo($returnData)
+		);
+	}
+
+	/**
+	 * Tests the flagPost method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function testFalgPost()
+	{
+		$flag = 'promotion';
+		$post_id = 'g_12345';
+
+		$path = '/v1/posts/' . $post_id . '/category/code';
+
+		$xml = '<code>' . $flag . '</code>';
+
+		$header['Content-Type'] = 'text/xml';
+
+		$returnData = new stdClass;
+		$returnData->code = 204;
+		$returnData->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('put', $xml, $header)
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->flagPost($this->oauth, $post_id, $flag),
+			$this->equalTo($returnData)
+		);
+	}
+
+	/**
+	 * Tests the flagPost method - failure
+	 *
+	 * @return  void
+	 *
+	 * @expectedException DomainException
+	 * @since   12.3
+	 */
+	public function testFalgPostFailure()
+	{
+		$flag = 'promotion';
+		$post_id = 'g_12345';
+
+		$path = '/v1/posts/' . $post_id . '/category/code';
+
+		$xml = '<code>' . $flag . '</code>';
+
+		$header['Content-Type'] = 'text/xml';
+
+		$returnData = new stdClass;
+		$returnData->code = 401;
+		$returnData->body = $this->errorString;
+
+		$this->client->expects($this->once())
+			->method('put', $xml, $header)
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->object->flagPost($this->oauth, $post_id, $flag);
+	}
+
+	/**
+	 * Tests the deletePost method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function testDeletePost()
+	{
+		$post_id = 'g_12345';
+
+		$path = '/v1/posts/' . $post_id;
+
+		$returnData = new stdClass;
+		$returnData->code = 204;
+		$returnData->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->deletePost($this->oauth, $post_id),
+			$this->equalTo($returnData)
+		);
+	}
+
+	/**
+	 * Tests the deletePost method - failure
+	 *
+	 * @return  void
+	 *
+	 * @expectedException DomainException
+	 * @since   12.3
+	 */
+	public function testDeletePostFailure()
+	{
+		$post_id = 'g_12345';
+
+		$path = '/v1/posts/' . $post_id;
+
+		$returnData = new stdClass;
+		$returnData->code = 401;
+		$returnData->body = $this->errorString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->object->deletePost($this->oauth, $post_id);
+	}
+
+	/**
+	 * Tests the getComment method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function testGetComment()
+	{
+		$comment_id = 'g-12345';
+		$fields = '(id,text,creator,creation-timestamp,relation-to-viewer)';
+
+		// Set request parameters.
+		$data['format'] = 'json';
+
+		$path = '/v1/comments/' . $comment_id;
+
+		$path .= ':' . $fields;
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->sampleString;
+
+		$path = $this->oauth->toUrl($path, $data);
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->getComment($this->oauth, $comment_id, $fields),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the getComment method - failure
+	 *
+	 * @return  void
+	 *
+	 * @expectedException DomainException
+	 * @since   12.3
+	 */
+	public function testGetCommentFailure()
+	{
+		$comment_id = 'g-12345';
+		$fields = '(id,text,creator,creation-timestamp,relation-to-viewer)';
+
+		// Set request parameters.
+		$data['format'] = 'json';
+
+		$path = '/v1/comments/' . $comment_id;
+
+		$path .= ':' . $fields;
+
+		$returnData = new stdClass;
+		$returnData->code = 401;
+		$returnData->body = $this->errorString;
+
+		$path = $this->oauth->toUrl($path, $data);
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->object->getComment($this->oauth, $comment_id, $fields);
+	}
+
+	/**
+	 * Tests the addComment method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function testAddComment()
+	{
+		$post_id = 'g_12345';
+		$comment = 'some comment';
+
+		$path = '/v1/posts/' . $post_id . '/comments';
+
+		$xml = '<comment><text>' . $comment . '</text></comment>';
+
+		$header['Content-Type'] = 'text/xml';
+
+		$returnData = new stdClass;
+		$returnData->code = 201;
+		$returnData->body = $this->sampleString;
+		$returnData->headers = array('Location' => 'https://api.linkedin.com/v1/comments/g_12334_234512');
+
+		$this->client->expects($this->once())
+			->method('post', $xml, $header)
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->addComment($this->oauth, $post_id, $comment),
+			$this->equalTo('g_12334_234512')
+		);
+	}
+
+	/**
+	 * Tests the addComment method - failure
+	 *
+	 * @return  void
+	 *
+	 * @expectedException DomainException
+	 * @since   12.3
+	 */
+	public function testAddCommentFailure()
+	{
+		$post_id = 'g_12345';
+		$comment = 'some comment';
+
+		$path = '/v1/posts/' . $post_id . '/comments';
+
+		$xml = '<comment><text>' . $comment . '</text></comment>';
+
+		$header['Content-Type'] = 'text/xml';
+
+		$returnData = new stdClass;
+		$returnData->code = 401;
+		$returnData->body = $this->errorString;
+
+		$this->client->expects($this->once())
+			->method('post', $xml, $header)
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->object->addComment($this->oauth, $post_id, $comment);
+	}
+
+	/**
+	 * Tests the deleteComment method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function testDeleteComment()
+	{
+		$comment_id = 'g_12345';
+
+		$path = '/v1/comments/' . $comment_id;
+
+		$returnData = new stdClass;
+		$returnData->code = 204;
+		$returnData->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->deleteComment($this->oauth, $comment_id),
+			$this->equalTo($returnData)
+		);
+	}
+
+	/**
+	 * Tests the deleteComment method - failure
+	 *
+	 * @return  void
+	 *
+	 * @expectedException DomainException
+	 * @since   12.3
+	 */
+	public function testDeleteCommentFailure()
+	{
+		$comment_id = 'g_12345';
+
+		$path = '/v1/comments/' . $comment_id;
+
+		$returnData = new stdClass;
+		$returnData->code = 401;
+		$returnData->body = $this->errorString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->object->deleteComment($this->oauth, $comment_id);
+	}
+
+	/**
+	 * Tests the getSuggested method
+	 *
+	 * @param   string  $person_id  The unique identifier for a user.
+	 *
+	 * @return  void
+	 *
+	 * @dataProvider seedId
+	 * @since   12.3
+	 */
+	public function testGetSuggested($person_id)
+	{
+		$fields = '(id,name,is-open-to-non-members)';
+
+		// Set request parameters.
+		$data['format'] = 'json';
+
+		// Set the API base
+		$path = '/v1/people/';
+
+		if ($person_id)
+		{
+			$path .= $person_id . '/suggestions/groups';
+		}
+		else
+		{
+			$path .= '~/suggestions/groups';
+		}
+
+		$path .= ':' . $fields;
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->sampleString;
+
+		$path = $this->oauth->toUrl($path, $data);
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->getSuggested($this->oauth, $person_id, $fields),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the getSuggested method - failure
+	 *
+	 * @param   string  $person_id  The unique identifier for a user.
+	 *
+	 * @return  void
+	 *
+	 * @dataProvider seedId
+	 * @expectedException DomainException
+	 * @since   12.3
+	 */
+	public function testGetSuggestedFailure($person_id)
+	{
+		$fields = '(id,name,is-open-to-non-members)';
+
+		// Set request parameters.
+		$data['format'] = 'json';
+
+		// Set the API base
+		$path = '/v1/people/';
+
+		if ($person_id)
+		{
+			$path .= $person_id . '/suggestions/groups';
+		}
+		else
+		{
+			$path .= '~/suggestions/groups';
+		}
+
+		$path .= ':' . $fields;
+
+		$returnData = new stdClass;
+		$returnData->code = 401;
+		$returnData->body = $this->errorString;
+
+		$path = $this->oauth->toUrl($path, $data);
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->object->getSuggested($this->oauth, $person_id, $fields);
+	}
+
+	/**
+	 * Tests the deleteSuggestion method
+	 *
+	 * @param   string  $person_id  The unique identifier for a user.
+	 *
+	 * @return  void
+	 *
+	 * @dataProvider seedId
+	 * @since   12.3
+	 */
+	public function testDeleteSuggestion($person_id)
+	{
+		$suggestion_id = '12345';
+
+		// Set the API base
+		$path = '/v1/people/';
+
+		if ($person_id)
+		{
+			$path .= $person_id . '/suggestions/groups/' . $suggestion_id;
+		}
+		else
+		{
+			$path .= '~/suggestions/groups/' . $suggestion_id;
+		}
+
+		$returnData = new stdClass;
+		$returnData->code = 204;
+		$returnData->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->assertThat(
+			$this->object->deleteSuggestion($this->oauth, $suggestion_id, $person_id),
+			$this->equalTo($returnData)
+		);
+	}
+
+	/**
+	 * Tests the deleteSuggestion method - failure
+	 *
+	 * @param   string  $person_id  The unique identifier for a user.
+	 *
+	 * @return  void
+	 *
+	 * @dataProvider seedId
+	 * @expectedException DomainException
+	 * @since   12.3
+	 */
+	public function testDeleteSuggestionFailure($person_id)
+	{
+		$suggestion_id = '12345';
+
+		// Set the API base
+		$path = '/v1/people/';
+
+		if ($person_id)
+		{
+			$path .= $person_id . '/suggestions/groups/' . $suggestion_id;
+		}
+		else
+		{
+			$path .= '~/suggestions/groups/' . $suggestion_id;
+		}
+
+		$returnData = new stdClass;
+		$returnData->code = 401;
+		$returnData->body = $this->errorString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with($path)
+			->will($this->returnValue($returnData));
+
+		$this->object->deleteSuggestion($this->oauth, $suggestion_id, $person_id);
 	}
 }

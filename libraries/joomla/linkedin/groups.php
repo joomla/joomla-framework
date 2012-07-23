@@ -221,7 +221,8 @@ class JLinkedinGroups extends JLinkedinObject
 	 *
 	 * @since   12.3
 	 */
-	public function changeSettings($oauth, $group_id, $show_logo = null, $digest_frequency = null, $announcements = null, $allow_messages = null, $new_post = null)
+	public function changeSettings($oauth, $group_id, $show_logo = null, $digest_frequency = null, $announcements = null,
+		$allow_messages = null, $new_post = null)
 	{
 		// Set parameters.
 		$parameters = array(
@@ -287,7 +288,8 @@ class JLinkedinGroups extends JLinkedinObject
 	 *
 	 * @since   12.3
 	 */
-	public function joinGroup($oauth, $group_id, $show_logo = null, $digest_frequency = null, $announcements = null, $allow_messages = null, $new_post = null)
+	public function joinGroup($oauth, $group_id, $show_logo = null, $digest_frequency = null, $announcements = null,
+		$allow_messages = null, $new_post = null)
 	{
 		// Set parameters.
 		$parameters = array(
@@ -344,8 +346,8 @@ class JLinkedinGroups extends JLinkedinObject
 	/**
 	 * Method to leave a group.
 	 *
-	 * @param   JLinkedinOAuth  $oauth             The JLinkedinOAuth object.
-	 * @param   string          $group_id          The unique identifier for a group.
+	 * @param   JLinkedinOAuth  $oauth     The JLinkedinOAuth object.
+	 * @param   string          $group_id  The unique identifier for a group.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
@@ -464,7 +466,8 @@ class JLinkedinGroups extends JLinkedinObject
 	 *
 	 * @since   12.3
 	 */
-	public function getUserPosts($oauth, $group_id, $role, $person_id = null, $fields = null, $start = 0, $count = 0, $order = null, $category = 'discussion', $modified_since = null)
+	public function getUserPosts($oauth, $group_id, $role, $person_id = null, $fields = null, $start = 0, $count = 0,
+		$order = null, $category = 'discussion', $modified_since = null)
 	{
 		// Set parameters.
 		$parameters = array(
@@ -632,7 +635,7 @@ class JLinkedinGroups extends JLinkedinObject
 	 * @param   string          $title     Post title.
 	 * @param   string          $summary   Post summary.
 	 *
-	 * @return  array  The decoded JSON response
+	 * @return  string  The created post's id.
 	 *
 	 * @since   12.3
 	 */
@@ -660,7 +663,9 @@ class JLinkedinGroups extends JLinkedinObject
 		// Send the request.
 		$response = $oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
 
-		return $response;
+		// Return the post id.
+		$response = explode('posts/', $response->headers['Location']);
+		return $response[1];
 	}
 
 	/**
@@ -674,7 +679,7 @@ class JLinkedinGroups extends JLinkedinObject
 	 *
 	 * @since   12.3
 	 */
-	private function like_unlike($oauth, $post_id, $like)
+	private function _likeUnlike($oauth, $post_id, $like)
 	{
 		// Set parameters.
 		$parameters = array(
@@ -713,7 +718,7 @@ class JLinkedinGroups extends JLinkedinObject
 	 */
 	public function likePost($oauth, $post_id)
 	{
-		return $this->like_unlike($oauth, $post_id, true);
+		return $this->_likeUnlike($oauth, $post_id, true);
 	}
 
 	/**
@@ -728,6 +733,345 @@ class JLinkedinGroups extends JLinkedinObject
 	 */
 	public function unlikePost($oauth, $post_id)
 	{
-		return $this->like_unlike($oauth, $post_id, false);
+		return $this->_likeUnlike($oauth, $post_id, false);
+	}
+
+	/**
+	 * Method to follow or unfollow a post.
+	 *
+	 * @param   JLinkedinOAuth  $oauth    The JLinkedinOAuth object.
+	 * @param   string          $post_id  The unique identifier for a group.
+	 * @param   boolean         $follow   True to like post, false otherwise.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	private function _followUnfollow($oauth, $post_id, $follow)
+	{
+		// Set parameters.
+		$parameters = array(
+			'oauth_token' => $oauth->getToken('key')
+		);
+
+		// Set the success response code.
+		$oauth->setOption('success_code', 204);
+
+		// Set the API base
+		$base = '/v1/posts/' . $post_id . '/relation-to-viewer/is-following';
+
+		// Build xml.
+		$xml = '<is-following>' . $this->boolean_to_string($follow) . '</is-following>';
+
+		// Build the request path.
+		$path = $this->getOption('api.url') . $base;
+
+		$header['Content-Type'] = 'text/xml';
+
+		// Send the request.
+		$response = $oauth->oauthRequest($path, 'PUT', $parameters, $xml, $header);
+
+		return $response;
+	}
+
+	/**
+	 * Method used to follow a post.
+	 *
+	 * @param   JLinkedinOAuth  $oauth    The JLinkedinOAuth object.
+	 * @param   string          $post_id  The unique identifier for a group.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	public function followPost($oauth, $post_id)
+	{
+		return $this->_followUnfollow($oauth, $post_id, true);
+	}
+
+	/**
+	 * Method used to unfollow a post.
+	 *
+	 * @param   JLinkedinOAuth  $oauth    The JLinkedinOAuth object.
+	 * @param   string          $post_id  The unique identifier for a group.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	public function unfollowPost($oauth, $post_id)
+	{
+		return $this->_followUnfollow($oauth, $post_id, false);
+	}
+
+	/**
+	 * Method to flag a post as a Promotion or Job.
+	 *
+	 * @param   JLinkedinOAuth  $oauth    The JLinkedinOAuth object.
+	 * @param   string          $post_id  The unique identifier for a group.
+	 * @param   string          $flag     Flag as a 'promotion' or 'job'.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	public function flagPost($oauth, $post_id, $flag)
+	{
+		// Set parameters.
+		$parameters = array(
+			'oauth_token' => $oauth->getToken('key')
+		);
+
+		// Set the success response code.
+		$oauth->setOption('success_code', 204);
+
+		// Set the API base
+		$base = '/v1/posts/' . $post_id . '/category/code';
+
+		// Build xml.
+		$xml = '<code>' . $flag . '</code>';
+
+		// Build the request path.
+		$path = $this->getOption('api.url') . $base;
+
+		$header['Content-Type'] = 'text/xml';
+
+		// Send the request.
+		$response = $oauth->oauthRequest($path, 'PUT', $parameters, $xml, $header);
+
+		return $response;
+	}
+
+	/**
+	 * Method to delete a post if the current user is the creator or flag it as inappropriate otherwise.
+	 *
+	 * @param   JLinkedinOAuth  $oauth    The JLinkedinOAuth object.
+	 * @param   string          $post_id  The unique identifier for a group.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	public function deletePost($oauth, $post_id)
+	{
+		// Set parameters.
+		$parameters = array(
+			'oauth_token' => $oauth->getToken('key')
+		);
+
+		// Set the success response code.
+		$oauth->setOption('success_code', 204);
+
+		// Set the API base
+		$base = '/v1/posts/' . $post_id;
+
+		// Build the request path.
+		$path = $this->getOption('api.url') . $base;
+
+		// Send the request.
+		$response = $oauth->oauthRequest($path, 'DELETE', $parameters);
+
+		return $response;
+	}
+
+	/**
+	 * Method to access the comments resource.
+	 *
+	 * @param   JLinkedinOAuth  $oauth       The JLinkedinOAuth object.
+	 * @param   string          $comment_id  The unique identifier for a comment.
+	 * @param   string          $fields      Request fields beyond the default ones.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	public function getComment($oauth, $comment_id, $fields = null)
+	{
+		// Set parameters.
+		$parameters = array(
+			'oauth_token' => $oauth->getToken('key')
+		);
+
+		// Set the API base
+		$base = '/v1/comments/' . $comment_id;
+
+		$data['format'] = 'json';
+
+		// Check if fields is specified.
+		if ($fields)
+		{
+			$base .= ':' . $fields;
+		}
+
+		// Build the request path.
+		$path = $this->getOption('api.url') . $base;
+
+		// Send the request.
+		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+
+		return json_decode($response->body);
+	}
+
+	/**
+	 * Method to add a comment to a post
+	 *
+	 * @param   JLinkedinOAuth  $oauth    The JLinkedinOAuth object.
+	 * @param   string          $post_id  The unique identifier for a group.
+	 * @param   string          $comment  The post comment's text.
+	 *
+	 * @return  string   The created comment's id.
+	 *
+	 * @since   12.3
+	 */
+	public function addComment($oauth, $post_id, $comment)
+	{
+		// Set parameters.
+		$parameters = array(
+			'oauth_token' => $oauth->getToken('key')
+		);
+
+		// Set the success response code.
+		$oauth->setOption('success_code', 201);
+
+		// Set the API base
+		$base = '/v1/posts/' . $post_id . '/comments';
+
+		// Build xml.
+		$xml = '<comment><text>' . $comment . '</text></comment>';
+
+		// Build the request path.
+		$path = $this->getOption('api.url') . $base;
+
+		$header['Content-Type'] = 'text/xml';
+
+		// Send the request.
+		$response = $oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+
+		// Return the comment id.
+		$response = explode('comments/', $response->headers['Location']);
+		return $response[1];
+	}
+
+	/**
+	 * Method to delete a comment if the current user is the creator or flag it as inappropriate otherwise.
+	 *
+	 * @param   JLinkedinOAuth  $oauth       The JLinkedinOAuth object.
+	 * @param   string          $comment_id  The unique identifier for a group.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	public function deleteComment($oauth, $comment_id)
+	{
+		// Set parameters.
+		$parameters = array(
+			'oauth_token' => $oauth->getToken('key')
+		);
+
+		// Set the success response code.
+		$oauth->setOption('success_code', 204);
+
+		// Set the API base
+		$base = '/v1/comments/' . $comment_id;
+
+		// Build the request path.
+		$path = $this->getOption('api.url') . $base;
+
+		// Send the request.
+		$response = $oauth->oauthRequest($path, 'DELETE', $parameters);
+
+		return $response;
+	}
+
+	/**
+	 * Method to get suggested groups for a user.
+	 *
+	 * @param   JLinkedinOAuth  $oauth      The JLinkedinOAuth object.
+	 * @param   string          $person_id  The unique identifier for a user.
+	 * @param   string          $fields     Request fields beyond the default ones.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	public function getSuggested($oauth, $person_id = null, $fields = null)
+	{
+		// Set parameters.
+		$parameters = array(
+			'oauth_token' => $oauth->getToken('key')
+		);
+
+		// Set the API base
+		$base = '/v1/people/';
+
+		// Check if person_id is specified.
+		if ($person_id)
+		{
+			$base .= $person_id . '/suggestions/groups';
+		}
+		else
+		{
+			$base .= '~/suggestions/groups';
+		}
+
+		$data['format'] = 'json';
+
+		// Check if fields is specified.
+		if ($fields)
+		{
+			$base .= ':' . $fields;
+		}
+
+		// Build the request path.
+		$path = $this->getOption('api.url') . $base;
+
+		// Send the request.
+		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+
+		return json_decode($response->body);
+	}
+
+	/**
+	 * Method to delete a group suggestion for a user.
+	 *
+	 * @param   JLinkedinOAuth  $oauth          The JLinkedinOAuth object.
+	 * @param   string          $suggestion_id  The unique identifier for a suggestion.
+	 * @param   string          $person_id      The unique identifier for a user.
+	 *
+	 * @return  array  The decoded JSON response
+	 *
+	 * @since   12.3
+	 */
+	public function deleteSuggestion($oauth, $suggestion_id, $person_id = null)
+	{
+		// Set parameters.
+		$parameters = array(
+			'oauth_token' => $oauth->getToken('key')
+		);
+
+		// Set the success response code.
+		$oauth->setOption('success_code', 204);
+
+		// Set the API base
+		$base = '/v1/people/';
+
+		// Check if person_id is specified.
+		if ($person_id)
+		{
+			$base .= $person_id . '/suggestions/groups/' . $suggestion_id;
+		}
+		else
+		{
+			$base .= '~/suggestions/groups/' . $suggestion_id;
+		}
+
+		// Build the request path.
+		$path = $this->getOption('api.url') . $base;
+
+		// Send the request.
+		$response = $oauth->oauthRequest($path, 'DELETE', $parameters);
+
+		return $response;
 	}
 }
