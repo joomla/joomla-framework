@@ -819,7 +819,7 @@ class JTwitterFriendsTest extends TestCase
 	}
 
 	/**
-	 * Tests the createFriendship method
+	 * Tests the follow method
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
@@ -829,7 +829,7 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @since   12.3
 	 */
-	public function testCreateFriendship($user)
+	public function testFollow($user)
 	{
 		$follow = true;
 
@@ -849,7 +849,7 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->createFriendship($this->oauth, $user, $follow);
+			$this->object->follow($this->oauth, $user, $follow);
 		}
 		$data['follow'] = $follow;
 
@@ -859,13 +859,13 @@ class JTwitterFriendsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->createFriendship($this->oauth, $user, $follow),
+			$this->object->follow($this->oauth, $user, $follow),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the createFriendship method - failure
+	 * Tests the follow method - failure
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
@@ -877,7 +877,7 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @expectedException  DomainException
 	 */
-	public function testCreateFriendshipFailure($user)
+	public function testFollowFailure($user)
 	{
 		$returnData = new stdClass;
 		$returnData->code = 500;
@@ -895,7 +895,7 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->createFriendship($this->oauth, $user);
+			$this->object->follow($this->oauth, $user);
 		}
 
 		$this->client->expects($this->once())
@@ -903,11 +903,11 @@ class JTwitterFriendsTest extends TestCase
 			->with('/1/friendships/create.json', $data)
 			->will($this->returnValue($returnData));
 
-		$this->object->createFriendship($this->oauth, $user);
+		$this->object->follow($this->oauth, $user);
 	}
 
 	/**
-	 * Tests the deleteFriendship method
+	 * Tests the unfollow method
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
@@ -917,7 +917,7 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @since   12.3
 	 */
-	public function testDeleteFriendship($user)
+	public function testUnfollow($user)
 	{
 		$entities = true;
 
@@ -937,7 +937,7 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->deleteFriendship($this->oauth, $user, $entities);
+			$this->object->unfollow($this->oauth, $user, $entities);
 		}
 		$data['include_entities'] = $entities;
 
@@ -947,13 +947,13 @@ class JTwitterFriendsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->deleteFriendship($this->oauth, $user, $entities),
+			$this->object->unfollow($this->oauth, $user, $entities),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the deleteFriendship method - failure
+	 * Tests the unfollow method - failure
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
@@ -965,7 +965,7 @@ class JTwitterFriendsTest extends TestCase
 	 *
 	 * @expectedException  DomainException
 	 */
-	public function testDeleteFriendshipFailure($user)
+	public function testUnfollowFailure($user)
 	{
 		$returnData = new stdClass;
 		$returnData->code = 500;
@@ -983,7 +983,7 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->deleteFriendship($this->oauth, $user);
+			$this->object->unfollow($this->oauth, $user);
 		}
 
 		$this->client->expects($this->once())
@@ -991,7 +991,7 @@ class JTwitterFriendsTest extends TestCase
 			->with('/1/friendships/destroy.json', $data)
 			->will($this->returnValue($returnData));
 
-		$this->object->deleteFriendship($this->oauth, $user);
+		$this->object->unfollow($this->oauth, $user);
 	}
 
 	/**
