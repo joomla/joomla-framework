@@ -7,50 +7,55 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/linkedin/communications.php';
-
 /**
  * Test class for JLinkedinCommunications.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Linkedin
- * @since       12.3
+ *
+ * @since       13.1
  */
 class JLinkedinCommunicationsTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $options;
 
 	/**
-	 * @var    JLinkedinHttp  Mock http object.
-	 * @since  12.3
+	 * @var    JHttp  Mock http object.
+	 * @since  13.1
 	 */
 	protected $client;
 
 	/**
+	 * @var    JInput The input object to use in retrieving GET/POST data.
+	 * @since  13.1
+	 */
+	protected $input;
+
+	/**
 	 * @var    JLinkedinCommunications  Object under test.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $object;
 
 	/**
 	 * @var    JLinkedinOAuth  Authentication object for the Twitter object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
 
@@ -62,20 +67,28 @@ class JLinkedinCommunicationsTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		parent::setUp();
+
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/linkedin_test.php";
 
 		$this->options = new JRegistry;
-		$this->client = $this->getMock('JLinkedinHttp', array('get', 'post', 'delete', 'put'));
+		$this->input = new JInput;
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JLinkedinOauth($this->options, $this->client, $this->input);
+		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 
-		$this->object = new JLinkedinCommunications($this->options, $this->client);
+		$this->object = new JLinkedinCommunications($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
-		$this->oauth = new JLinkedinOAuth($this->options, $this->client);
-		$this->oauth->setToken($key, $secret);
 	}
 
 	/**
@@ -93,7 +106,7 @@ class JLinkedinCommunicationsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testInviteByEmail()
 	{
@@ -137,7 +150,7 @@ class JLinkedinCommunicationsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->inviteByEmail($this->oauth, $email, $first_name, $last_name, $subject, $body, $connection),
+			$this->object->inviteByEmail($email, $first_name, $last_name, $subject, $body, $connection),
 			$this->equalTo($returnData)
 		);
 	}
@@ -148,7 +161,7 @@ class JLinkedinCommunicationsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testInviteByEmailFailure()
 	{
@@ -191,7 +204,7 @@ class JLinkedinCommunicationsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->inviteByEmail($this->oauth, $email, $first_name, $last_name, $subject, $body, $connection);
+		$this->object->inviteByEmail($email, $first_name, $last_name, $subject, $body, $connection);
 	}
 
 	/**
@@ -199,7 +212,7 @@ class JLinkedinCommunicationsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testInviteById()
 	{
@@ -266,7 +279,7 @@ class JLinkedinCommunicationsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->inviteById($this->oauth, $id, $first_name, $last_name, $subject, $body, $connection),
+			$this->object->inviteById($id, $first_name, $last_name, $subject, $body, $connection),
 			$this->equalTo($returnData)
 		);
 	}
@@ -277,7 +290,7 @@ class JLinkedinCommunicationsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException RuntimeException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testInviteByIdFailure()
 	{
@@ -308,7 +321,7 @@ class JLinkedinCommunicationsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->inviteById($this->oauth, $id, $first_name, $last_name, $subject, $body, $connection);
+		$this->object->inviteById($id, $first_name, $last_name, $subject, $body, $connection);
 	}
 
 	/**
@@ -316,7 +329,7 @@ class JLinkedinCommunicationsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testSendMessage()
 	{
@@ -352,7 +365,7 @@ class JLinkedinCommunicationsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->sendMessage($this->oauth, $recipient, $subject, $body),
+			$this->object->sendMessage($recipient, $subject, $body),
 			$this->equalTo($returnData)
 		);
 	}
@@ -363,7 +376,7 @@ class JLinkedinCommunicationsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testSendMessageFailure()
 	{
@@ -398,6 +411,6 @@ class JLinkedinCommunicationsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->sendMessage($this->oauth, $recipient, $subject, $body);
+		$this->object->sendMessage($recipient, $subject, $body);
 	}
 }

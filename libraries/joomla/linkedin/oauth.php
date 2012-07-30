@@ -8,7 +8,6 @@
  */
 
 defined('JPATH_PLATFORM') or die();
-jimport('joomla.oauth.oauth1aClient');
 
 /**
  * Joomla Platform class for generating Linkedin API access token.
@@ -16,35 +15,36 @@ jimport('joomla.oauth.oauth1aClient');
  * @package     Joomla.Platform
  * @subpackage  Linkedin
  *
- * @since       12.3
+ * @since       13.1
  */
-class JLinkedinOauth extends JOauth1aClient
+class JLinkedinOauth extends JOAuth1Client
 {
 	/**
 	* @var    JRegistry  Options for the JLinkedinOauth object.
-	* @since  12.3
+	* @since  13.1
 	*/
 	protected $options;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry      $options  JLinkedinOauth options object.
-	 * @param   JLinkedinHttp  $client   The HTTP client object.
+	 * @param   JRegistry  $options  JLinkedinOauth options object.
+	 * @param   JHttp      $client   The HTTP client object.
+	 * @param   JInput     $input    The input object
 	 *
-	 * @since 12.3
+	 * @since 13.1
 	 */
-	public function __construct(JRegistry $options = null, JLinkedinHttp $client = null)
+	public function __construct(JRegistry $options = null, JHttp $client = null, JInput $input = null)
 	{
 		$this->options = isset($options) ? $options : new JRegistry;
 
-		$this->setOption('accessTokenURL', 'https://www.linkedin.com/uas/oauth/accessToken');
-		$this->setOption('authenticateURL', 'https://www.linkedin.com/uas/oauth/authenticate');
-		$this->setOption('authoriseURL', 'https://www.linkedin.com/uas/oauth/authorize');
-		$this->setOption('requestTokenURL', 'https://www.linkedin.com/uas/oauth/requestToken');
+		$this->options->def('accessTokenURL', 'https://www.linkedin.com/uas/oauth/accessToken');
+		$this->options->def('authenticateURL', 'https://www.linkedin.com/uas/oauth/authenticate');
+		$this->options->def('authoriseURL', 'https://www.linkedin.com/uas/oauth/authorize');
+		$this->options->def('requestTokenURL', 'https://www.linkedin.com/uas/oauth/requestToken');
 
-		// Call the JOauth1aClient constructor to setup the object.
-		parent::__construct($this->options, $client);
+		// Call the JOauthV1aclient constructor to setup the object.
+		parent::__construct($this->options, $client, $input);
 	}
 
 	/**
@@ -52,13 +52,15 @@ class JLinkedinOauth extends JOauth1aClient
 	 *
 	 * @return  boolean  Returns true if the access token is valid and false otherwise.
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function verifyCredentials()
 	{
+		$token = $this->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $this->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		$data['format'] = 'json';
@@ -88,17 +90,11 @@ class JLinkedinOauth extends JOauth1aClient
 	 *
 	 * @return  void
 	 *
-	 * @since  12.3
+	 * @since  13.1
 	 * @throws DomainException
 	 */
 	public function validateResponse($url, $response)
 	{
-		// Check throttle limit.
-		if ($response->code == 403)
-		{
-			throw new DomainException('Throttle limit for calls to this resource is reached. Daily counters reset at midnight UTC.');
-		}
-
 		if (!$code = $this->getOption('success_code'))
 		{
 			$code = 200;
@@ -115,5 +111,34 @@ class JLinkedinOauth extends JOauth1aClient
 				throw new DomainException($response->body);
 			}
 		}
+	}
+
+	/**
+	 * Method used to set permissions.
+	 *
+	 * @param   mixed  $scope  String or an array of string containing permissions.
+	 *
+	 * @return  JLinkedinOauth  This object for method chaining
+	 *
+	 * @see     https://developer.linkedin.com/documents/authentication
+	 * @since   13.1
+	 */
+	public function setScope($scope)
+	{
+		$this->setOption('scope', $scope);
+
+		return $this;
+	}
+
+	/**
+	 * Method to get the current scope
+	 *
+	 * @return  string String or an array of string containing permissions.
+	 *
+	 * @since   13.1
+	 */
+	public function getScope()
+	{
+		return $this->getOption('scope');
 	}
 }

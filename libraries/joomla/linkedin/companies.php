@@ -14,25 +14,24 @@ defined('JPATH_PLATFORM') or die();
  *
  * @package     Joomla.Platform
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinCompanies extends JLinkedinObject
 {
 	/**
 	 * Method to retrieve companies using a company ID, a universal name, or an email domain.
 	 *
-	 * @param   JLinkedinOAuth  $oauth   The JLinkedinOAuth object.
-	 * @param   integer         $id      The unique internal numeric company identifier.
-	 * @param   string          $name    The unique string identifier for a company.
-	 * @param   string          $domain  Company email domains.
-	 * @param   string          $fields  Request fields beyond the default ones.
+	 * @param   integer  $id      The unique internal numeric company identifier.
+	 * @param   string   $name    The unique string identifier for a company.
+	 * @param   string   $domain  Company email domains.
+	 * @param   string   $fields  Request fields beyond the default ones.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 * @throws  RuntimeException
 	 */
-	public function getCompanies($oauth, $id = null, $name = null, $domain = null, $fields = null)
+	public function getCompanies($id = null, $name = null, $domain = null, $fields = null)
 	{
 		// At least one value is needed to retrieve data.
 		if ($id == null && $name == null && $domain == null)
@@ -41,9 +40,11 @@ class JLinkedinCompanies extends JLinkedinObject
 			throw new RuntimeException('You must specify a company ID, a universal name, or an email domain.');
 		}
 
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -80,28 +81,30 @@ class JLinkedinCompanies extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to read shares for a particular company .
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $id     The unique company identifier.
-	 * @param   string          $type   Any valid Company Update Type from the table: https://developer.linkedin.com/reading-company-updates.
-	 * @param   integer         $count  Maximum number of updates to return.
-	 * @param   integer         $start  The offset by which to start Network Update pagination.
+	 * @param   string   $id     The unique company identifier.
+	 * @param   string   $type   Any valid Company Update Type from the table: https://developer.linkedin.com/reading-company-updates.
+	 * @param   integer  $count  Maximum number of updates to return.
+	 * @param   integer  $start  The offset by which to start Network Update pagination.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getUpdates($oauth, $id, $type = null, $count = 0, $start = 0)
+	public function getUpdates($id, $type = null, $count = 0, $start = 0)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -132,35 +135,37 @@ class JLinkedinCompanies extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to search across company pages.
 	 *
-	 * @param   JLinkedinOAuth  $oauth     The JLinkedinOAuth object.
-	 * @param   string          $fields    Request fields beyond the default ones.
-	 * @param   string          $keywords  Members who have all the keywords anywhere in their profile.
-	 * @param   boolean         $hq        Matching companies by the headquarters location. When this is set to "true" and a location facet is used,
-	 * 									   this restricts returned companies to only those whose headquarters resides in the specified location.
-	 * @param   string          $facets    Facet buckets to return, e.g. location.
-	 * @param   array           $facet     Array of facet values to search over. Contains values for location, industry, network, company-size,
-	 * 									   num-followers-range and fortune, in exactly this order, null must be specified for an element if no value.
-	 * @param   integer         $start     Starting location within the result set for paginated returns.
-	 * @param   integer         $count     The number of results returned.
-	 * @param   string          $sort      Controls the search result order. There are four options: relevance, relationship,
-	 * 									   followers and company-size.
+	 * @param   string   $fields    Request fields beyond the default ones.
+	 * @param   string   $keywords  Members who have all the keywords anywhere in their profile.
+	 * @param   boolean  $hq        Matching companies by the headquarters location. When this is set to "true" and a location facet is used,
+	 * 								this restricts returned companies to only those whose headquarters resides in the specified location.
+	 * @param   string   $facets    Facet buckets to return, e.g. location.
+	 * @param   array    $facet     Array of facet values to search over. Contains values for location, industry, network, company-size,
+	 * 								num-followers-range and fortune, in exactly this order, null must be specified for an element if no value.
+	 * @param   integer  $start     Starting location within the result set for paginated returns.
+	 * @param   integer  $count     The number of results returned.
+	 * @param   string   $sort      Controls the search result order. There are four options: relevance, relationship,
+	 * 								followers and company-size.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function search($oauth, $fields = null, $keywords = null, $hq = false, $facets = null, $facet = null, $start = 0, $count = 0, $sort = null)
+	public function search($fields = null, $keywords = null, $hq = false, $facets = null, $facet = null, $start = 0, $count = 0, $sort = null)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -250,25 +255,27 @@ class JLinkedinCompanies extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to get a list of companies the current member is following.
 	 *
-	 * @param   JLinkedinOAuth  $oauth   The JLinkedinOAuth object.
-	 * @param   string          $fields  Request fields beyond the default ones.
+	 * @param   string  $fields  Request fields beyond the default ones.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getFollowed($oauth, $fields = null)
+	public function getFollowed($fields = null)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -286,29 +293,31 @@ class JLinkedinCompanies extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to follow a company.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $id     The unique identifier for a company.
+	 * @param   string  $id  The unique identifier for a company.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function follow($oauth, $id)
+	public function follow($id)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 201);
+		$this->oauth->setOption('success_code', 201);
 
 		// Set the API base
 		$base = '/v1/people/~/following/companies';
@@ -322,7 +331,7 @@ class JLinkedinCompanies extends JLinkedinObject
 		$header['Content-Type'] = 'text/xml';
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+		$response = $this->oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
 
 		return $response;
 	}
@@ -330,22 +339,23 @@ class JLinkedinCompanies extends JLinkedinObject
 	/**
 	 * Method to unfollow a company.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $id     The unique identifier for a company.
+	 * @param   string  $id  The unique identifier for a company.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function unfollow($oauth, $id)
+	public function unfollow($id)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 204);
+		$this->oauth->setOption('success_code', 204);
 
 		// Set the API base
 		$base = '/v1/people/~/following/companies/id=' . $id;
@@ -354,7 +364,7 @@ class JLinkedinCompanies extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'DELETE', $parameters);
+		$response = $this->oauth->oauthRequest($path, 'DELETE', $parameters);
 
 		return $response;
 	}
@@ -362,20 +372,21 @@ class JLinkedinCompanies extends JLinkedinObject
 	/**
 	 * Method to get a collection of suggested companies for the current user.
 	 *
-	 * @param   JLinkedinOAuth  $oauth   The JLinkedinOAuth object.
-	 * @param   string          $fields  Request fields beyond the default ones.
-	 * @param   integer         $start   Starting location within the result set for paginated returns.
-	 * @param   integer         $count   The number of results returned.
+	 * @param   string   $fields  Request fields beyond the default ones.
+	 * @param   integer  $start   Starting location within the result set for paginated returns.
+	 * @param   integer  $count   The number of results returned.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getSuggested($oauth, $fields = null, $start = 0, $count = 0)
+	public function getSuggested($fields = null, $start = 0, $count = 0)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -405,28 +416,30 @@ class JLinkedinCompanies extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to get a collection of suggested companies for the current user.
 	 *
-	 * @param   JLinkedinOAuth  $oauth   The JLinkedinOAuth object.
-	 * @param   string          $id      The unique identifier for a company.
-	 * @param   string          $fields  Request fields beyond the default ones.
-	 * @param   integer         $start   Starting location within the result set for paginated returns.
-	 * @param   integer         $count   The number of results returned.
+	 * @param   string   $id      The unique identifier for a company.
+	 * @param   string   $fields  Request fields beyond the default ones.
+	 * @param   integer  $start   Starting location within the result set for paginated returns.
+	 * @param   integer  $count   The number of results returned.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getProducts($oauth, $id, $fields = null, $start = 0, $count = 0)
+	public function getProducts($id, $fields = null, $start = 0, $count = 0)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -456,7 +469,8 @@ class JLinkedinCompanies extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 }

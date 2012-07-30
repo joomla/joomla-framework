@@ -14,43 +14,49 @@ require_once JPATH_PLATFORM . '/joomla/linkedin/stream.php';
  *
  * @package     Joomla.UnitTest
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinStreamTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $options;
 
 	/**
-	 * @var    JLinkedinHttp  Mock http object.
-	 * @since  12.3
+	 * @var    JHttp  Mock http object.
+	 * @since  13.1
 	 */
 	protected $client;
 
 	/**
+	 * @var    JInput The input object to use in retrieving GET/POST data.
+	 * @since  13.1
+	 */
+	protected $input;
+
+	/**
 	 * @var    JLinkedinStream  Object under test.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $object;
 
 	/**
 	 * @var    JLinkedinOAuth  Authentication object for the Twitter object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
 
@@ -62,20 +68,28 @@ class JLinkedinStreamTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		parent::setUp();
+
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/linkedin_test.php";
 
 		$this->options = new JRegistry;
-		$this->client = $this->getMock('JLinkedinHttp', array('get', 'post', 'delete', 'put'));
+		$this->input = new JInput;
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JLinkedinOauth($this->options, $this->client, $this->input);
+		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 
-		$this->object = new JLinkedinStream($this->options, $this->client);
+		$this->object = new JLinkedinStream($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
-		$this->oauth = new JLinkedinOAuth($this->options, $this->client);
-		$this->oauth->setToken($key, $secret);
 	}
 
 	/**
@@ -93,7 +107,7 @@ class JLinkedinStreamTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.3
+	* @since 13.1
 	*/
 	public function seedShare()
 	{
@@ -116,7 +130,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedShare
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testShare($comment, $title, $url, $image, $description)
 	{
@@ -150,7 +164,7 @@ class JLinkedinStreamTest extends TestCase
 		elseif (!$comment)
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->share($this->oauth, $visibility, $comment, $title, $url, $image, $description, $twitter);
+			$this->object->share($visibility, $comment, $title, $url, $image, $description, $twitter);
 		}
 
 		$xml .= '</share>';
@@ -167,7 +181,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->share($this->oauth, $visibility, $comment, $title, $url, $image, $description, $twitter),
+			$this->object->share($visibility, $comment, $title, $url, $image, $description, $twitter),
 			$this->equalTo($returnData)
 		);
 	}
@@ -178,7 +192,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testShareFailure()
 	{
@@ -206,7 +220,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->share($this->oauth, $visibility, $comment);
+		$this->object->share($visibility, $comment);
 	}
 
 	/**
@@ -214,7 +228,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testReshare()
 	{
@@ -256,7 +270,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->reshare($this->oauth, $visibility, $id, $comment, $twitter),
+			$this->object->reshare($visibility, $id, $comment, $twitter),
 			$this->equalTo($returnData)
 		);
 	}
@@ -267,7 +281,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testReshareFailure()
 	{
@@ -308,7 +322,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->reshare($this->oauth, $visibility, $id, $comment, $twitter);
+		$this->object->reshare($visibility, $id, $comment, $twitter);
 	}
 
 	/**
@@ -316,7 +330,7 @@ class JLinkedinStreamTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.3
+	* @since 13.1
 	*/
 	public function seedIdUrl()
 	{
@@ -337,7 +351,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedIdUrl
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetCurrentShare($id, $url)
 	{
@@ -374,7 +388,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getCurrentShare($this->oauth, $id, $url),
+			$this->object->getCurrentShare($id, $url),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -385,7 +399,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetCurrentShareFailure()
 	{
@@ -405,7 +419,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getCurrentShare($this->oauth);
+		$this->object->getCurrentShare();
 	}
 
 	/**
@@ -417,7 +431,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedIdUrl
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetShareStream($id, $url)
 	{
@@ -456,7 +470,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getShareStream($this->oauth, $id, $url),
+			$this->object->getShareStream($id, $url),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -467,7 +481,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetShareStreamFailure()
 	{
@@ -489,7 +503,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getShareStream($this->oauth);
+		$this->object->getShareStream();
 	}
 
 	/**
@@ -497,7 +511,7 @@ class JLinkedinStreamTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.3
+	* @since 13.1
 	*/
 	public function seedId()
 	{
@@ -516,7 +530,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedId
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetNetworkUpdates($id)
 	{
@@ -563,7 +577,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getNetworkUpdates($this->oauth, $id, $self, $type, $count, $start, $after, $before, $hidden),
+			$this->object->getNetworkUpdates($id, $self, $type, $count, $start, $after, $before, $hidden),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -574,7 +588,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetNetworkUpdatesFailure()
 	{
@@ -609,7 +623,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getNetworkUpdates($this->oauth, null, $self, $type, $count, $start, $after, $before, $hidden);
+		$this->object->getNetworkUpdates(null, $self, $type, $count, $start, $after, $before, $hidden);
 	}
 
 	/**
@@ -617,7 +631,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetNetworkStats()
 	{
@@ -638,7 +652,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getNetworkStats($this->oauth),
+			$this->object->getNetworkStats(),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -649,7 +663,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetNetworkStatsFailure()
 	{
@@ -669,7 +683,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getNetworkStats($this->oauth);
+		$this->object->getNetworkStats();
 	}
 
 	/**
@@ -677,7 +691,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testPostNetworkUpdate()
 	{
@@ -705,7 +719,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->postNetworkUpdate($this->oauth, $body),
+			$this->object->postNetworkUpdate($body),
 			$this->equalTo($returnData)
 		);
 	}
@@ -716,7 +730,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testPostNetworkUpdateFailure()
 	{
@@ -743,7 +757,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->postNetworkUpdate($this->oauth, $body);
+		$this->object->postNetworkUpdate($body);
 	}
 
 	/**
@@ -751,7 +765,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetComments()
 	{
@@ -774,7 +788,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getComments($this->oauth, $key),
+			$this->object->getComments($key),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -785,7 +799,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetCommentsFailure()
 	{
@@ -807,7 +821,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getComments($this->oauth, $key);
+		$this->object->getComments($key);
 	}
 
 	/**
@@ -815,7 +829,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testPostComment()
 	{
@@ -841,7 +855,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->postComment($this->oauth, $key, $comment),
+			$this->object->postComment($key, $comment),
 			$this->equalTo($returnData)
 		);
 	}
@@ -852,7 +866,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testPostCommentFailure()
 	{
@@ -877,7 +891,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->postComment($this->oauth, $key, $comment);
+		$this->object->postComment($key, $comment);
 	}
 
 	/**
@@ -885,7 +899,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetLikes()
 	{
@@ -908,7 +922,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getLikes($this->oauth, $key),
+			$this->object->getLikes($key),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -919,7 +933,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetLikesFailure()
 	{
@@ -941,7 +955,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getLikes($this->oauth, $key);
+		$this->object->getLikes($key);
 	}
 
 	/**
@@ -949,7 +963,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test_likeUnlike()
 	{
@@ -962,7 +976,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testLike()
 	{
@@ -984,7 +998,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->like($this->oauth, $key),
+			$this->object->like($key),
 			$this->equalTo($returnData)
 		);
 	}
@@ -995,7 +1009,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testLikeFailure()
 	{
@@ -1016,7 +1030,7 @@ class JLinkedinStreamTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->like($this->oauth, $key);
+		$this->object->like($key);
 	}
 
 	/**
@@ -1024,7 +1038,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testUnlike()
 	{
@@ -1046,7 +1060,7 @@ class JLinkedinStreamTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->unlike($this->oauth, $key),
+			$this->object->unlike($key),
 			$this->equalTo($returnData)
 		);
 	}

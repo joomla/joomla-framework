@@ -14,27 +14,33 @@ require_once JPATH_PLATFORM . '/joomla/linkedin/linkedin.php';
  *
  * @package     Joomla.UnitTest
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $options;
 
 	/**
-	 * @var    JLinkedinHttp  Mock http object.
-	 * @since  12.3
+	 * @var    JHttp  Mock http object.
+	 * @since  13.1
 	 */
 	protected $client;
 
 	/**
 	 * @var    JLinkedin  Object under test.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $object;
+
+	/**
+	 * @var JTLinkedinrOAuth Facebook OAuth 2 client
+	 * @since 13.1
+	 */
+	protected $oauth;
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -44,10 +50,15 @@ class JLinkedinTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$this->options = new JRegistry;
-		$this->client = $this->getMock('JLinkedinHttp', array('get', 'post', 'delete', 'put'));
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
-		$this->object = new JLinkedin($this->options, $this->client);
+		$this->options = new JRegistry;
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+
+		$this->object = new JLinkedin($this->oauth, $this->options, $this->client);
 	}
 
 	/**
@@ -65,7 +76,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test__GetPeople()
 	{
@@ -80,7 +91,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test__GetGroups()
 	{
@@ -95,7 +106,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test__GetCompanies()
 	{
@@ -110,7 +121,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test__GetJobs()
 	{
@@ -125,7 +136,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test__GetStream()
 	{
@@ -140,7 +151,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test__GetCommunications()
 	{
@@ -155,7 +166,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test__GetOther()
 	{
@@ -170,7 +181,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testSetOption()
 	{
@@ -187,7 +198,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetOption()
 	{

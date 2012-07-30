@@ -14,43 +14,49 @@ require_once JPATH_PLATFORM . '/joomla/linkedin/companies.php';
  *
  * @package     Joomla.UnitTest
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinCompaniesTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $options;
 
 	/**
-	 * @var    JLinkedinHttp  Mock http object.
-	 * @since  12.3
+	 * @var    JHttp  Mock http object.
+	 * @since  13.1
 	 */
 	protected $client;
 
 	/**
+	 * @var    JInput The input object to use in retrieving GET/POST data.
+	 * @since  13.1
+	 */
+	protected $input;
+
+	/**
 	 * @var    JLinkedinCompanies  Object under test.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $object;
 
 	/**
 	 * @var    JLinkedinOAuth  Authentication object for the Twitter object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
 
@@ -62,20 +68,28 @@ class JLinkedinCompaniesTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		parent::setUp();
+
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/linkedin_test.php";
 
 		$this->options = new JRegistry;
-		$this->client = $this->getMock('JLinkedinHttp', array('get', 'post', 'delete', 'put'));
+		$this->input = new JInput;
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JLinkedinOauth($this->options, $this->client, $this->input);
+		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 
-		$this->object = new JLinkedinCompanies($this->options, $this->client);
+		$this->object = new JLinkedinCompanies($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
-		$this->oauth = new JLinkedinOAuth($this->options, $this->client);
-		$this->oauth->setToken($key, $secret);
 	}
 
 	/**
@@ -93,7 +107,7 @@ class JLinkedinCompaniesTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.3
+	* @since 13.1
 	*/
 	public function seedGetCompanies()
 	{
@@ -117,7 +131,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedGetCompanies
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetCompanies($id, $name, $domain)
 	{
@@ -126,7 +140,7 @@ class JLinkedinCompaniesTest extends TestCase
 		if ($id == null && $name == null && $domain == null)
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getCompanies($this->oauth, $id, $name, $domain, $fields);
+			$this->object->getCompanies($id, $name, $domain, $fields);
 		}
 
 		// Set request parameters.
@@ -166,7 +180,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getCompanies($this->oauth, $id, $name, $domain, $fields),
+			$this->object->getCompanies($id, $name, $domain, $fields),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -177,7 +191,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetCompaniesFailure()
 	{
@@ -203,7 +217,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getCompanies($this->oauth, $id, $name, $domain, $fields);
+		$this->object->getCompanies($id, $name, $domain, $fields);
 	}
 
 	/**
@@ -211,7 +225,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetUpdates()
 	{
@@ -240,7 +254,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getUpdates($this->oauth, $id, $type, $count, $start),
+			$this->object->getUpdates($id, $type, $count, $start),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -251,7 +265,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetUpdatesFailure()
 	{
@@ -279,7 +293,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getUpdates($this->oauth, $id, $type, $count, $start);
+		$this->object->getUpdates($id, $type, $count, $start);
 	}
 
 	/**
@@ -287,7 +301,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testSearch()
 	{
@@ -333,7 +347,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->search($this->oauth, $fields, $keywords, $hq, $facets, $facet, $start, $count, $sort),
+			$this->object->search($fields, $keywords, $hq, $facets, $facet, $start, $count, $sort),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -344,7 +358,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testSearchFailure()
 	{
@@ -387,7 +401,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->search($this->oauth, $fields, $keywords, $hq, $facets, $facet, $start, $count, $sort);
+		$this->object->search($fields, $keywords, $hq, $facets, $facet, $start, $count, $sort);
 	}
 
 	/**
@@ -395,7 +409,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetFollowed()
 	{
@@ -418,7 +432,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getFollowed($this->oauth, $fields),
+			$this->object->getFollowed($fields),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -429,7 +443,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetFollowedFailure()
 	{
@@ -451,7 +465,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getFollowed($this->oauth, $fields);
+		$this->object->getFollowed($fields);
 	}
 
 	/**
@@ -459,7 +473,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testFollow()
 	{
@@ -481,7 +495,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->follow($this->oauth, $id),
+			$this->object->follow($id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -492,7 +506,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testFollowFailure()
 	{
@@ -513,7 +527,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->follow($this->oauth, $id);
+		$this->object->follow($id);
 	}
 
 	/**
@@ -521,7 +535,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testUnfollow()
 	{
@@ -539,7 +553,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->unfollow($this->oauth, $id),
+			$this->object->unfollow($id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -550,7 +564,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testUnfollowFailure()
 	{
@@ -567,7 +581,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->unfollow($this->oauth, $id);
+		$this->object->unfollow($id);
 	}
 
 	/**
@@ -575,7 +589,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetSuggested()
 	{
@@ -602,7 +616,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getSuggested($this->oauth, $fields, $start, $count),
+			$this->object->getSuggested($fields, $start, $count),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -613,7 +627,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetSuggestedFailure()
 	{
@@ -639,7 +653,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getSuggested($this->oauth, $fields, $start, $count);
+		$this->object->getSuggested($fields, $start, $count);
 	}
 
 	/**
@@ -647,7 +661,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetProducts()
 	{
@@ -675,7 +689,7 @@ class JLinkedinCompaniesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getProducts($this->oauth, $id, $fields, $start, $count),
+			$this->object->getProducts($id, $fields, $start, $count),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -686,7 +700,7 @@ class JLinkedinCompaniesTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetProductsFailure()
 	{
@@ -713,6 +727,6 @@ class JLinkedinCompaniesTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getProducts($this->oauth, $id, $fields, $start, $count);
+		$this->object->getProducts($id, $fields, $start, $count);
 	}
 }

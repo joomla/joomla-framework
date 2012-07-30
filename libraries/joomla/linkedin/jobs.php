@@ -14,26 +14,27 @@ defined('JPATH_PLATFORM') or die();
  *
  * @package     Joomla.Platform
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinJobs extends JLinkedinObject
 {
 	/**
 	 * Method to retrieve detailed information about a job.
 	 *
-	 * @param   JLinkedinOAuth  $oauth   The JLinkedinOAuth object.
-	 * @param   integer         $id      The unique identifier for a job.
-	 * @param   string          $fields  Request fields beyond the default ones.
+	 * @param   integer  $id      The unique identifier for a job.
+	 * @param   string   $fields  Request fields beyond the default ones.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getJob($oauth, $id, $fields = null)
+	public function getJob($id, $fields = null)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -52,25 +53,27 @@ class JLinkedinJobs extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to get a list of bookmarked jobs for the current member.
 	 *
-	 * @param   JLinkedinOAuth  $oauth   The JLinkedinOAuth object.
-	 * @param   string          $fields  Request fields beyond the default ones.
+	 * @param   string  $fields  Request fields beyond the default ones.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getBookmarked($oauth, $fields = null)
+	public function getBookmarked($fields = null)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -89,29 +92,31 @@ class JLinkedinJobs extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to bookmark a job to the current user's account.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   integer         $id     The unique identifier for a job.
+	 * @param   integer  $id     The unique identifier for a job.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function bookmark($oauth, $id)
+	public function bookmark($id)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 201);
+		$this->oauth->setOption('success_code', 201);
 
 		// Set the API base
 		$base = '/v1/people/~/job-bookmarks';
@@ -125,29 +130,31 @@ class JLinkedinJobs extends JLinkedinObject
 		$header['Content-Type'] = 'text/xml';
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+		$response = $this->oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+
 		return $response;
 	}
 
 	/**
 	 * Method to delete a bookmark.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   integer         $id     The unique identifier for a job.
+	 * @param   integer  $id     The unique identifier for a job.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function deleteBookmark($oauth, $id)
+	public function deleteBookmark($id)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 204);
+		$this->oauth->setOption('success_code', 204);
 
 		// Set the API base
 		$base = '/v1/people/~/job-bookmarks/' . $id;
@@ -156,27 +163,29 @@ class JLinkedinJobs extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'DELETE', $parameters);
+		$response = $this->oauth->oauthRequest($path, 'DELETE', $parameters);
+
 		return $response;
 	}
 
 	/**
 	 * Method to retrieve job suggestions for the current user.
 	 *
-	 * @param   JLinkedinOAuth  $oauth   The JLinkedinOAuth object.
-	 * @param   string          $fields  Request fields beyond the default ones.
-	 * @param   integer         $start   Starting location within the result set for paginated returns.
-	 * @param   integer         $count   The number of results returned.
+	 * @param   string   $fields  Request fields beyond the default ones.
+	 * @param   integer  $start   Starting location within the result set for paginated returns.
+	 * @param   integer  $count   The number of results returned.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getSuggested($oauth, $fields = null, $start = 0, $count = 0)
+	public function getSuggested($fields = null, $start = 0, $count = 0)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -206,41 +215,43 @@ class JLinkedinJobs extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to search across LinkedIn's job postings.
 	 *
-	 * @param   JLinkedinOAuth  $oauth         The JLinkedinOAuth object.
-	 * @param   string          $fields        Request fields beyond the default ones.
-	 * @param   string          $keywords      Members who have all the keywords anywhere in their profile.
-	 * @param   string          $company_name  Jobs with a matching company name.
-	 * @param   string          $job_title     Matches jobs with the same job title.
-	 * @param   string          $country_code  Matches members with a location in a specific country. Values are defined in by ISO 3166 standard.
-	 * 										   Country codes must be in all lower case.
-	 * @param   integer         $postal_code   Matches members centered around a Postal Code. Must be combined with the country-code parameter.
-	 * 										   Not supported for all countries.
-	 * @param   integer         $distance      Matches members within a distance from a central point. This is measured in miles.
-	 * @param   string          $facets        Facet buckets to return, e.g. location.
-	 * @param   array           $facet         Array of facet values to search over. Contains values for company, date-posted, location, job-function,
-	 * 										   industry, and salary, in exactly this order, null must be specified for an element if no value.
-	 * @param   integer         $start         Starting location within the result set for paginated returns.
-	 * @param   integer         $count         The number of results returned.
-	 * @param   string          $sort          Controls the search result order. There are four options: R (relationship), DA (date-posted-asc),
-	 * 										   DD (date-posted-desc).
+	 * @param   string   $fields        Request fields beyond the default ones.
+	 * @param   string   $keywords      Members who have all the keywords anywhere in their profile.
+	 * @param   string   $company_name  Jobs with a matching company name.
+	 * @param   string   $job_title     Matches jobs with the same job title.
+	 * @param   string   $country_code  Matches members with a location in a specific country. Values are defined in by ISO 3166 standard.
+	 * 									Country codes must be in all lower case.
+	 * @param   integer  $postal_code   Matches members centered around a Postal Code. Must be combined with the country-code parameter.
+	 * 									Not supported for all countries.
+	 * @param   integer  $distance      Matches members within a distance from a central point. This is measured in miles.
+	 * @param   string   $facets        Facet buckets to return, e.g. location.
+	 * @param   array    $facet         Array of facet values to search over. Contains values for company, date-posted, location, job-function,
+	 * 									industry, and salary, in exactly this order, null must be specified for an element if no value.
+	 * @param   integer  $start         Starting location within the result set for paginated returns.
+	 * @param   integer  $count         The number of results returned.
+	 * @param   string   $sort          Controls the search result order. There are four options: R (relationship), DA (date-posted-asc),
+	 * 									DD (date-posted-desc).
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function search($oauth, $fields = null, $keywords = null, $company_name = null, $job_title = null, $country_code = null, $postal_code = null,
+	public function search($fields = null, $keywords = null, $company_name = null, $job_title = null, $country_code = null, $postal_code = null,
 		$distance = null, $facets = null, $facet = null, $start = 0, $count = 0, $sort = null)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -306,7 +317,7 @@ class JLinkedinJobs extends JLinkedinObject
 				{
 					if ($i == 0)
 					{
-						$data['facet'][] = 'company,' . $oauth->safeEncode($facet[$i]);
+						$data['facet'][] = 'company,' . $this->oauth->safeEncode($facet[$i]);
 					}
 					if ($i == 1)
 					{
@@ -318,7 +329,7 @@ class JLinkedinJobs extends JLinkedinObject
 					}
 					if ($i == 3)
 					{
-						$data['facet'][] = 'job-function,' . $oauth->safeEncode($facet[$i]);
+						$data['facet'][] = 'job-function,' . $this->oauth->safeEncode($facet[$i]);
 					}
 					if ($i == 4)
 					{
@@ -354,7 +365,8 @@ class JLinkedinJobs extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 }

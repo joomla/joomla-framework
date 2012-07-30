@@ -14,43 +14,49 @@ require_once JPATH_PLATFORM . '/joomla/linkedin/jobs.php';
  *
  * @package     Joomla.UnitTest
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinJobsTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $options;
 
 	/**
-	 * @var    JLinkedinHttp  Mock http object.
-	 * @since  12.3
+	 * @var    JHttp  Mock http object.
+	 * @since  13.1
 	 */
 	protected $client;
 
 	/**
+	 * @var    JInput The input object to use in retrieving GET/POST data.
+	 * @since  13.1
+	 */
+	protected $input;
+
+	/**
 	 * @var    JLinkedinJobs  Object under test.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $object;
 
 	/**
 	 * @var    JLinkedinOAuth  Authentication object for the Twitter object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
 
@@ -62,20 +68,28 @@ class JLinkedinJobsTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		parent::setUp();
+
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/linkedin_test.php";
 
 		$this->options = new JRegistry;
-		$this->client = $this->getMock('JLinkedinHttp', array('get', 'post', 'delete', 'put'));
+		$this->input = new JInput;
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JLinkedinOauth($this->options, $this->client, $this->input);
+		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 
-		$this->object = new JLinkedinJobs($this->options, $this->client);
+		$this->object = new JLinkedinJobs($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
-		$this->oauth = new JLinkedinOAuth($this->options, $this->client);
-		$this->oauth->setToken($key, $secret);
 	}
 
 	/**
@@ -93,7 +107,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetJob()
 	{
@@ -117,7 +131,7 @@ class JLinkedinJobsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getJob($this->oauth, $id, $fields),
+			$this->object->getJob($id, $fields),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -128,7 +142,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetJobFailure()
 	{
@@ -151,7 +165,7 @@ class JLinkedinJobsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getJob($this->oauth, $id, $fields);
+		$this->object->getJob($id, $fields);
 	}
 
 	/**
@@ -159,7 +173,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetBookmarked()
 	{
@@ -182,7 +196,7 @@ class JLinkedinJobsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getBookmarked($this->oauth, $fields),
+			$this->object->getBookmarked($fields),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -193,7 +207,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetBookmarkedFailure()
 	{
@@ -215,7 +229,7 @@ class JLinkedinJobsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getBookmarked($this->oauth, $fields);
+		$this->object->getBookmarked($fields);
 	}
 
 	/**
@@ -223,7 +237,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testBookmark()
 	{
@@ -245,7 +259,7 @@ class JLinkedinJobsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->bookmark($this->oauth, $id),
+			$this->object->bookmark($id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -256,7 +270,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testBookmarkFailure()
 	{
@@ -277,7 +291,7 @@ class JLinkedinJobsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->bookmark($this->oauth, $id);
+		$this->object->bookmark($id);
 	}
 
 	/**
@@ -285,7 +299,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testDeleteBookmark()
 	{
@@ -303,7 +317,7 @@ class JLinkedinJobsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->deleteBookmark($this->oauth, $id),
+			$this->object->deleteBookmark($id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -314,7 +328,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testDeleteBookmarkFailure()
 	{
@@ -331,7 +345,7 @@ class JLinkedinJobsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->deleteBookmark($this->oauth, $id);
+		$this->object->deleteBookmark($id);
 	}
 
 	/**
@@ -339,7 +353,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetSuggested()
 	{
@@ -366,7 +380,7 @@ class JLinkedinJobsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getSuggested($this->oauth, $fields, $start, $count),
+			$this->object->getSuggested($fields, $start, $count),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -377,7 +391,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetSuggestedFailure()
 	{
@@ -403,7 +417,7 @@ class JLinkedinJobsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getSuggested($this->oauth, $fields, $start, $count);
+		$this->object->getSuggested($fields, $start, $count);
 	}
 
 	/**
@@ -411,7 +425,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testSearch()
 	{
@@ -466,7 +480,7 @@ class JLinkedinJobsTest extends TestCase
 
 		$this->assertThat(
 			$this->object->search(
-				$this->oauth, $fields, $keywords, $company_name, $job_title, $country_code, $postal_code, $distance,
+				$fields, $keywords, $company_name, $job_title, $country_code, $postal_code, $distance,
 				$facets, $facet, $start, $count, $sort
 				),
 			$this->equalTo(json_decode($this->sampleString))
@@ -479,7 +493,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testSearchFailure()
 	{
@@ -533,7 +547,7 @@ class JLinkedinJobsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->object->search(
-			$this->oauth, $fields, $keywords, $company_name, $job_title, $country_code, $postal_code, $distance,
+			$fields, $keywords, $company_name, $job_title, $country_code, $postal_code, $distance,
 			$facets, $facet, $start, $count, $sort
 			);
 	}

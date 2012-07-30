@@ -14,50 +14,56 @@ require_once JPATH_PLATFORM . '/joomla/linkedin/people.php';
  *
  * @package     Joomla.UnitTest
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinPeopleTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $options;
 
 	/**
-	 * @var    JLinkedinHttp  Mock http object.
-	 * @since  12.3
+	 * @var    JHttp  Mock http object.
+	 * @since  13.1
 	 */
 	protected $client;
 
 	/**
+	 * @var    JInput The input object to use in retrieving GET/POST data.
+	 * @since  13.1
+	 */
+	protected $input;
+
+	/**
 	 * @var    JLinkedinPeople  Object under test.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $object;
 
 	/**
 	 * @var    JLinkedinOAuth  Authentication object for the Twitter object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON string used to access out of network profiles.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $outString = '{"headers": { "_total": 1, "values": [{ "name": "x-li-auth-token",
 				"value": "NAME_SEARCH:-Ogn" }] }, "url": "/v1/people/oAFz-3CZyv"}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
 
@@ -69,20 +75,28 @@ class JLinkedinPeopleTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		parent::setUp();
+
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/linkedin_test.php";
 
 		$this->options = new JRegistry;
-		$this->client = $this->getMock('JLinkedinHttp', array('get', 'post', 'delete', 'put'));
+		$this->input = new JInput;
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JLinkedinOauth($this->options, $this->client, $this->input);
+		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 
-		$this->object = new JLinkedinPeople($this->options, $this->client);
+		$this->object = new JLinkedinPeople($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
-		$this->oauth = new JLinkedinOAuth($this->options, $this->client);
-		$this->oauth->setToken($key, $secret);
 	}
 
 	/**
@@ -100,7 +114,7 @@ class JLinkedinPeopleTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.3
+	* @since 13.1
 	*/
 	public function seedIdUrl()
 	{
@@ -121,7 +135,7 @@ class JLinkedinPeopleTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedIdUrl
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetProfile($id, $url)
 	{
@@ -167,7 +181,7 @@ class JLinkedinPeopleTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getProfile($this->oauth, $id, $url, $fields, $type, $language),
+			$this->object->getProfile($id, $url, $fields, $type, $language),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -181,7 +195,7 @@ class JLinkedinPeopleTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedIdUrl
-	 * @since   12.3
+	 * @since   13.1
 	 * @expectedException DomainException
 	 */
 	public function testGetProfileFailure($id, $url)
@@ -227,21 +241,17 @@ class JLinkedinPeopleTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getProfile($this->oauth, $id, $url, $fields, $type, $language);
+		$this->object->getProfile($id, $url, $fields, $type, $language);
 	}
 
 	/**
 	 * Tests the getConnections method
 	 *
-	 * @param   string  $id   Member id of the profile you want.
-	 * @param   string  $url  The public profile URL.
-	 *
 	 * @return  void
 	 *
-	 * @dataProvider seedIdUrl
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function testGetConnections($id, $url)
+	public function testGetConnections()
 	{
 		$fields = '(id,first-name,last-name)';
 		$start = 1;
@@ -256,21 +266,7 @@ class JLinkedinPeopleTest extends TestCase
 		$data['modified'] = $modified;
 		$data['modified-since'] = $modified_since;
 
-		$path = '/v1/people/';
-
-		if ($url)
-		{
-			$path .= 'url=' . $this->oauth->safeEncode($url) . '/connections';
-		}
-
-		if ($id)
-		{
-			$path .= 'id=' . $id . '/connections';
-		}
-		elseif (!$url)
-		{
-			$path .= '~' . '/connections';
-		}
+		$path = '/v1/people/~/connections';
 
 		$path .= ':' . $fields;
 
@@ -286,7 +282,7 @@ class JLinkedinPeopleTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getConnections($this->oauth, $id, $url, $fields, $start, $count, $modified, $modified_since),
+			$this->object->getConnections($fields, $start, $count, $modified, $modified_since),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -294,16 +290,12 @@ class JLinkedinPeopleTest extends TestCase
 	/**
 	 * Tests the getConnections method - failure
 	 *
-	 * @param   string  $id   Member id of the profile you want.
-	 * @param   string  $url  The public profile URL.
-	 *
 	 * @return  void
 	 *
-	 * @dataProvider seedIdUrl
-	 * @since   12.3
+	 * @since   13.1
 	 * @expectedException DomainException
 	 */
-	public function testGetConnectionsFailure($id, $url)
+	public function testGetConnectionsFailure()
 	{
 		$fields = '(id,first-name,last-name)';
 		$start = 1;
@@ -318,21 +310,7 @@ class JLinkedinPeopleTest extends TestCase
 		$data['modified'] = $modified;
 		$data['modified-since'] = $modified_since;
 
-		$path = '/v1/people/';
-
-		if ($url)
-		{
-			$path .= 'url=' . $this->oauth->safeEncode($url) . '/connections';
-		}
-
-		if ($id)
-		{
-			$path .= 'id=' . $id . '/connections';
-		}
-		elseif (!$url)
-		{
-			$path .= '~' . '/connections';
-		}
+		$path = '/v1/people/~/connections';
 
 		$path .= ':' . $fields;
 
@@ -347,7 +325,7 @@ class JLinkedinPeopleTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getConnections($this->oauth, $id, $url, $fields, $start, $count, $modified, $modified_since);
+		$this->object->getConnections($fields, $start, $count, $modified, $modified_since);
 	}
 
 	/**
@@ -355,7 +333,7 @@ class JLinkedinPeopleTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.3
+	* @since 13.1
 	*/
 	public function seedFields()
 	{
@@ -374,7 +352,7 @@ class JLinkedinPeopleTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedFields
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testSearch($fields)
 	{
@@ -471,7 +449,7 @@ class JLinkedinPeopleTest extends TestCase
 
 		$this->assertThat(
 			$this->object->search(
-				$this->oauth, $fields, $keywords, $first_name, $last_name, $company_name,
+				$fields, $keywords, $first_name, $last_name, $company_name,
 				$current_company, $title, $current_title, $school_name, $current_school, $country_code,
 				$postal_code, $distance, $facets, $facet, $start, $count, $sort
 				),
@@ -484,7 +462,7 @@ class JLinkedinPeopleTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 * @expectedException DomainException
 	 */
 	public function testSearchFailure()
@@ -552,7 +530,7 @@ class JLinkedinPeopleTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->object->search(
-			$this->oauth, $fields, $keywords, $first_name, $last_name, $company_name,
+			$fields, $keywords, $first_name, $last_name, $company_name,
 			$current_company, $title, $current_title, $school_name, $current_school, $country_code,
 			$postal_code, $distance, $facets, $facet, $start, $count, $sort
 			);

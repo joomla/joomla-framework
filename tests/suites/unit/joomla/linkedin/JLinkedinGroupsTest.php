@@ -14,43 +14,49 @@ require_once JPATH_PLATFORM . '/joomla/linkedin/groups.php';
  *
  * @package     Joomla.UnitTest
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinGroupsTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $options;
 
 	/**
-	 * @var    JLinkedinHttp  Mock http object.
-	 * @since  12.3
+	 * @var    JHttp  Mock http object.
+	 * @since  13.1
 	 */
 	protected $client;
 
 	/**
+	 * @var    JInput The input object to use in retrieving GET/POST data.
+	 * @since  13.1
+	 */
+	protected $input;
+
+	/**
 	 * @var    JLinkedinGroups  Object under test.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $object;
 
 	/**
 	 * @var    JLinkedinOAuth  Authentication object for the Twitter object.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  13.1
 	 */
 	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
 
@@ -62,20 +68,28 @@ class JLinkedinGroupsTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		parent::setUp();
+
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/linkedin_test.php";
 
 		$this->options = new JRegistry;
-		$this->client = $this->getMock('JLinkedinHttp', array('get', 'post', 'delete', 'put'));
+		$this->input = new JInput;
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JLinkedinOauth($this->options, $this->client, $this->input);
+		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 
-		$this->object = new JLinkedinGroups($this->options, $this->client);
+		$this->object = new JLinkedinGroups($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
-		$this->oauth = new JLinkedinOAuth($this->options, $this->client);
-		$this->oauth->setToken($key, $secret);
 	}
 
 	/**
@@ -93,7 +107,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetGroup()
 	{
@@ -123,7 +137,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getGroup($this->oauth, $id, $fields, $start, $count),
+			$this->object->getGroup($id, $fields, $start, $count),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -133,7 +147,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 * @expectedException DomainException
 	 */
 	public function testGetGroupFailure()
@@ -162,7 +176,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getGroup($this->oauth, $id, $fields, $start, $count);
+		$this->object->getGroup($id, $fields, $start, $count);
 	}
 
 	/**
@@ -170,7 +184,7 @@ class JLinkedinGroupsTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 12.3
+	* @since 13.1
 	*/
 	public function seedId()
 	{
@@ -189,7 +203,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedId
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetMemberships($person_id)
 	{
@@ -227,7 +241,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getMemberships($this->oauth, $person_id, $fields, $start, $count, $membership_state),
+			$this->object->getMemberships($person_id, $fields, $start, $count, $membership_state),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -241,7 +255,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @dataProvider seedId
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetMembershipsFailure($person_id)
 	{
@@ -278,7 +292,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getMemberships($this->oauth, $person_id, $fields, $start, $count, $membership_state);
+		$this->object->getMemberships($person_id, $fields, $start, $count, $membership_state);
 	}
 
 	/**
@@ -289,7 +303,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedId
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetSettings($person_id)
 	{
@@ -329,7 +343,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getSettings($this->oauth, $person_id, $group_id, $fields, $start, $count),
+			$this->object->getSettings($person_id, $group_id, $fields, $start, $count),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -343,7 +357,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @dataProvider seedId
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetSettingsFailure($person_id)
 	{
@@ -382,7 +396,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getSettings($this->oauth, $person_id, $group_id, $fields, $start, $count);
+		$this->object->getSettings($person_id, $group_id, $fields, $start, $count);
 	}
 
 	/**
@@ -390,7 +404,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testChangeSettings()
 	{
@@ -425,7 +439,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->changeSettings($this->oauth, $group_id, $show_logo, $digest_frequency, $announcements, $allow_messages, $new_post),
+			$this->object->changeSettings($group_id, $show_logo, $digest_frequency, $announcements, $allow_messages, $new_post),
 			$this->equalTo($returnData)
 		);
 	}
@@ -436,7 +450,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testChangeSettingsFailure()
 	{
@@ -470,7 +484,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->changeSettings($this->oauth, $group_id, $show_logo, $digest_frequency, $announcements, $allow_messages, $new_post);
+		$this->object->changeSettings($group_id, $show_logo, $digest_frequency, $announcements, $allow_messages, $new_post);
 	}
 
 	/**
@@ -478,7 +492,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testJoinGroup()
 	{
@@ -519,7 +533,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->joinGroup($this->oauth, $group_id, $show_logo, $digest_frequency, $announcements, $allow_messages, $new_post),
+			$this->object->joinGroup($group_id, $show_logo, $digest_frequency, $announcements, $allow_messages, $new_post),
 			$this->equalTo($returnData)
 		);
 	}
@@ -530,7 +544,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testJoinGroupFailure()
 	{
@@ -570,7 +584,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->joinGroup($this->oauth, $group_id, $show_logo, $digest_frequency, $announcements, $allow_messages, $new_post);
+		$this->object->joinGroup($group_id, $show_logo, $digest_frequency, $announcements, $allow_messages, $new_post);
 	}
 
 	/**
@@ -578,7 +592,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testLeaveGroup()
 	{
@@ -596,7 +610,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->leaveGroup($this->oauth, $group_id),
+			$this->object->leaveGroup($group_id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -607,7 +621,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testLeaveGroupFailure()
 	{
@@ -624,7 +638,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->leaveGroup($this->oauth, $group_id);
+		$this->object->leaveGroup($group_id);
 	}
 
 	/**
@@ -632,7 +646,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetDiscussions()
 	{
@@ -668,7 +682,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getDiscussions($this->oauth, $id, $fields, $start, $count, $order, $category, $modified_since),
+			$this->object->getDiscussions($id, $fields, $start, $count, $order, $category, $modified_since),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -679,7 +693,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetDiscussionsFailure()
 	{
@@ -714,7 +728,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getDiscussions($this->oauth, $id, $fields, $start, $count, $order, $category, $modified_since);
+		$this->object->getDiscussions($id, $fields, $start, $count, $order, $category, $modified_since);
 	}
 
 	/**
@@ -725,7 +739,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedId
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetUserPosts($person_id)
 	{
@@ -770,7 +784,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getUserPosts($this->oauth, $group_id, $role, $person_id, $fields, $start, $count, $order, $category, $modified_since),
+			$this->object->getUserPosts($group_id, $role, $person_id, $fields, $start, $count, $order, $category, $modified_since),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -781,7 +795,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetUserPostsFailure()
 	{
@@ -819,7 +833,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getUserPosts($this->oauth, $group_id, $role, $person_id, $fields, $start, $count, $order, $category, $modified_since);
+		$this->object->getUserPosts($group_id, $role, $person_id, $fields, $start, $count, $order, $category, $modified_since);
 	}
 
 	/**
@@ -827,7 +841,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetPost()
 	{
@@ -853,7 +867,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getPost($this->oauth, $post_id, $fields),
+			$this->object->getPost($post_id, $fields),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -864,7 +878,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetPostFailure()
 	{
@@ -889,7 +903,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getPost($this->oauth, $post_id, $fields);
+		$this->object->getPost($post_id, $fields);
 	}
 
 	/**
@@ -897,7 +911,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetPostComments()
 	{
@@ -927,7 +941,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getPostComments($this->oauth, $post_id, $fields, $start, $count),
+			$this->object->getPostComments($post_id, $fields, $start, $count),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -938,7 +952,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetPostCommentsFailure()
 	{
@@ -967,7 +981,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getPostComments($this->oauth, $post_id, $fields, $start, $count);
+		$this->object->getPostComments($post_id, $fields, $start, $count);
 	}
 
 	/**
@@ -975,7 +989,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testCreatePost()
 	{
@@ -1000,7 +1014,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->createPost($this->oauth, $group_id, $title, $summary),
+			$this->object->createPost($group_id, $title, $summary),
 			$this->equalTo('g_12334_234512')
 		);
 	}
@@ -1011,7 +1025,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testCreatePostFailure()
 	{
@@ -1034,7 +1048,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->createPost($this->oauth, $group_id, $title, $summary);
+		$this->object->createPost($group_id, $title, $summary);
 	}
 
 	/**
@@ -1042,7 +1056,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test_likeUnlike()
 	{
@@ -1055,7 +1069,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testLikePost()
 	{
@@ -1077,7 +1091,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->likePost($this->oauth, $post_id),
+			$this->object->likePost($post_id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -1088,7 +1102,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testLikePostFailure()
 	{
@@ -1109,7 +1123,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->likePost($this->oauth, $post_id);
+		$this->object->likePost($post_id);
 	}
 
 	/**
@@ -1117,7 +1131,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testUnlikePost()
 	{
@@ -1139,7 +1153,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->unlikePost($this->oauth, $post_id),
+			$this->object->unlikePost($post_id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -1149,7 +1163,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function test_followUnfollow()
 	{
@@ -1162,7 +1176,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testFollowPost()
 	{
@@ -1184,7 +1198,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->followPost($this->oauth, $post_id),
+			$this->object->followPost($post_id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -1195,7 +1209,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testFollowPostFailure()
 	{
@@ -1216,7 +1230,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->followPost($this->oauth, $post_id);
+		$this->object->followPost($post_id);
 	}
 
 	/**
@@ -1224,7 +1238,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testUnfollowPost()
 	{
@@ -1246,7 +1260,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->unfollowPost($this->oauth, $post_id),
+			$this->object->unfollowPost($post_id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -1256,7 +1270,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testFalgPost()
 	{
@@ -1279,7 +1293,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->flagPost($this->oauth, $post_id, $flag),
+			$this->object->flagPost($post_id, $flag),
 			$this->equalTo($returnData)
 		);
 	}
@@ -1290,7 +1304,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testFalgPostFailure()
 	{
@@ -1312,7 +1326,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->flagPost($this->oauth, $post_id, $flag);
+		$this->object->flagPost($post_id, $flag);
 	}
 
 	/**
@@ -1320,7 +1334,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testDeletePost()
 	{
@@ -1338,7 +1352,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->deletePost($this->oauth, $post_id),
+			$this->object->deletePost($post_id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -1349,7 +1363,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testDeletePostFailure()
 	{
@@ -1366,7 +1380,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->deletePost($this->oauth, $post_id);
+		$this->object->deletePost($post_id);
 	}
 
 	/**
@@ -1374,7 +1388,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetComment()
 	{
@@ -1400,7 +1414,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getComment($this->oauth, $comment_id, $fields),
+			$this->object->getComment($comment_id, $fields),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1411,7 +1425,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetCommentFailure()
 	{
@@ -1436,7 +1450,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getComment($this->oauth, $comment_id, $fields);
+		$this->object->getComment($comment_id, $fields);
 	}
 
 	/**
@@ -1444,7 +1458,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testAddComment()
 	{
@@ -1468,7 +1482,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->addComment($this->oauth, $post_id, $comment),
+			$this->object->addComment($post_id, $comment),
 			$this->equalTo('g_12334_234512')
 		);
 	}
@@ -1479,7 +1493,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testAddCommentFailure()
 	{
@@ -1501,7 +1515,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->addComment($this->oauth, $post_id, $comment);
+		$this->object->addComment($post_id, $comment);
 	}
 
 	/**
@@ -1509,7 +1523,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testDeleteComment()
 	{
@@ -1527,7 +1541,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->deleteComment($this->oauth, $comment_id),
+			$this->object->deleteComment($comment_id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -1538,7 +1552,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testDeleteCommentFailure()
 	{
@@ -1555,7 +1569,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->deleteComment($this->oauth, $comment_id);
+		$this->object->deleteComment($comment_id);
 	}
 
 	/**
@@ -1566,7 +1580,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedId
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetSuggested($person_id)
 	{
@@ -1601,7 +1615,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getSuggested($this->oauth, $person_id, $fields),
+			$this->object->getSuggested($person_id, $fields),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1615,7 +1629,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @dataProvider seedId
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testGetSuggestedFailure($person_id)
 	{
@@ -1649,7 +1663,7 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->getSuggested($this->oauth, $person_id, $fields);
+		$this->object->getSuggested($person_id, $fields);
 	}
 
 	/**
@@ -1660,7 +1674,7 @@ class JLinkedinGroupsTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedId
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testDeleteSuggestion($person_id)
 	{
@@ -1688,7 +1702,7 @@ class JLinkedinGroupsTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->deleteSuggestion($this->oauth, $suggestion_id, $person_id),
+			$this->object->deleteSuggestion($suggestion_id, $person_id),
 			$this->equalTo($returnData)
 		);
 	}
@@ -1702,7 +1716,7 @@ class JLinkedinGroupsTest extends TestCase
 	 *
 	 * @dataProvider seedId
 	 * @expectedException DomainException
-	 * @since   12.3
+	 * @since   13.1
 	 */
 	public function testDeleteSuggestionFailure($person_id)
 	{
@@ -1729,6 +1743,6 @@ class JLinkedinGroupsTest extends TestCase
 			->with($path)
 			->will($this->returnValue($returnData));
 
-		$this->object->deleteSuggestion($this->oauth, $suggestion_id, $person_id);
+		$this->object->deleteSuggestion($suggestion_id, $person_id);
 	}
 }

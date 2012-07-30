@@ -14,36 +14,37 @@ defined('JPATH_PLATFORM') or die();
  *
  * @package     Joomla.Platform
  * @subpackage  Linkedin
- * @since       12.3
+ * @since       13.1
  */
 class JLinkedinStream extends JLinkedinObject
 {
 	/**
 	 * Method to add a new share. Note: post must contain comment and/or (title and url).
 	 *
-	 * @param   JLinkedinOAuth  $oauth        The JLinkedinOAuth object.
-	 * @param   string          $visibility   One of anyone: all members or connections-only: connections only.
-	 * @param   string          $comment      Text of member's comment.
-	 * @param   string          $title        Title of shared document.
-	 * @param   string          $url          URL for shared content.
-	 * @param   string          $image        URL for image of shared content.
-	 * @param   string          $description  Description of shared content.
-	 * @param   boolean         $twitter      True to have LinkedIn pass the status message along to a member's tethered Twitter account.
+	 * @param   string   $visibility   One of anyone: all members or connections-only: connections only.
+	 * @param   string   $comment      Text of member's comment.
+	 * @param   string   $title        Title of shared document.
+	 * @param   string   $url          URL for shared content.
+	 * @param   string   $image        URL for image of shared content.
+	 * @param   string   $description  Description of shared content.
+	 * @param   boolean  $twitter      True to have LinkedIn pass the status message along to a member's tethered Twitter account.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 * @throws  RuntimeException
 	 */
-	public function share($oauth, $visibility, $comment = null, $title = null, $url = null, $image = null, $description = null, $twitter = false)
+	public function share($visibility, $comment = null, $title = null, $url = null, $image = null, $description = null, $twitter = false)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 201);
+		$this->oauth->setOption('success_code', 201);
 
 		// Set the API base
 		$base = '/v1/people/~/shares';
@@ -100,33 +101,35 @@ class JLinkedinStream extends JLinkedinObject
 		$header['Content-Type'] = 'text/xml';
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+		$response = $this->oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+
 		return $response;
 	}
 
 	/**
 	 * Method to reshare an existing share.
 	 *
-	 * @param   JLinkedinOAuth  $oauth       The JLinkedinOAuth object.
-	 * @param   string          $visibility  One of anyone: all members or connections-only: connections only.
-	 * @param   string          $id          The unique identifier for a share.
-	 * @param   string          $comment     Text of member's comment.
-	 * @param   boolean         $twitter     True to have LinkedIn pass the status message along to a member's tethered Twitter account.
+	 * @param   string   $visibility  One of anyone: all members or connections-only: connections only.
+	 * @param   string   $id          The unique identifier for a share.
+	 * @param   string   $comment     Text of member's comment.
+	 * @param   boolean  $twitter     True to have LinkedIn pass the status message along to a member's tethered Twitter account.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 * @throws  RuntimeException
 	 */
-	public function reshare($oauth, $visibility, $id, $comment = null, $twitter = false)
+	public function reshare($visibility, $id, $comment = null, $twitter = false)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 201);
+		$this->oauth->setOption('success_code', 201);
 
 		// Set the API base
 		$base = '/v1/people/~/shares';
@@ -162,26 +165,28 @@ class JLinkedinStream extends JLinkedinObject
 		$header['Content-Type'] = 'text/xml';
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+		$response = $this->oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+
 		return $response;
 	}
 
 	/**
 	 * Method to get a particular member's current share.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $id     Member id of the profile you want.
-	 * @param   string          $url    The public profile URL.
+	 * @param   string  $id     Member id of the profile you want.
+	 * @param   string  $url    The public profile URL.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getCurrentShare($oauth, $id = null, $url = null)
+	public function getCurrentShare($id = null, $url = null)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -200,7 +205,7 @@ class JLinkedinStream extends JLinkedinObject
 		// Check if profile url is specified.
 		if ($url)
 		{
-			$base .= 'url=' . $oauth->safeEncode($url);
+			$base .= 'url=' . $this->oauth->safeEncode($url);
 		}
 
 		$base .= ':(current-share)';
@@ -212,27 +217,29 @@ class JLinkedinStream extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to get a particular member's current share.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $id     Member id of the profile you want.
-	 * @param   string          $url    The public profile URL.
-	 * @param   boolean         $self   Used to return member's feed. Omitted to return aggregated network feed.
+	 * @param   string   $id     Member id of the profile you want.
+	 * @param   string   $url    The public profile URL.
+	 * @param   boolean  $self   Used to return member's feed. Omitted to return aggregated network feed.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getShareStream($oauth, $id = null, $url = null, $self = true)
+	public function getShareStream($id = null, $url = null, $self = true)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -251,7 +258,7 @@ class JLinkedinStream extends JLinkedinObject
 		// Check if profile url is specified.
 		if ($url)
 		{
-			$base .= 'url=' . $oauth->safeEncode($url);
+			$base .= 'url=' . $this->oauth->safeEncode($url);
 		}
 
 		$base .= '/network';
@@ -270,34 +277,36 @@ class JLinkedinStream extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to get the users network updates.
 	 *
-	 * @param   JLinkedinOAuth  $oauth   The JLinkedinOAuth object.
-	 * @param   string          $id      Member id.
-	 * @param   boolean         $self    Used to return member's feed. Omitted to return aggregated network feed.
-	 * @param   mixed           $type    String containing any valid Network Update Type from the table or an array of strings
-	 * 									 to specify more than one Network Update type.
-	 * @param   integer         $count   Number of updates to return, with a maximum of 250.
-	 * @param   integer         $start   The offset by which to start Network Update pagination.
-	 * @param   string          $after   Timestamp after which to retrieve updates.
-	 * @param   string          $before  Timestamp before which to retrieve updates.
-	 * @param   boolean         $hidden  Whether to display updates from people the member has chosen to "hide" from their update stream.
+	 * @param   string   $id      Member id.
+	 * @param   boolean  $self    Used to return member's feed. Omitted to return aggregated network feed.
+	 * @param   mixed    $type    String containing any valid Network Update Type from the table or an array of strings
+	 * 							  to specify more than one Network Update type.
+	 * @param   integer  $count   Number of updates to return, with a maximum of 250.
+	 * @param   integer  $start   The offset by which to start Network Update pagination.
+	 * @param   string   $after   Timestamp after which to retrieve updates.
+	 * @param   string   $before  Timestamp before which to retrieve updates.
+	 * @param   boolean  $hidden  Whether to display updates from people the member has chosen to "hide" from their update stream.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getNetworkUpdates($oauth, $id = null, $self = true, $type = null, $count = 0, $start = 0, $after = null, $before = null,
+	public function getNetworkUpdates($id = null, $self = true, $type = null, $count = 0, $start = 0, $after = null, $before = null,
 		$hidden = false)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -364,24 +373,25 @@ class JLinkedinStream extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to get information about the current member's network.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getNetworkStats($oauth)
+	public function getNetworkStats()
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -394,30 +404,32 @@ class JLinkedinStream extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to get the users network updates.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $body   The actual content of the update. You can use HTML to include links to the user name and the content the user
-	 * 									created. Other HTML tags are not supported. All body text should be HTML entity escaped and UTF-8 compliant.
+	 * @param   string  $body   The actual content of the update. You can use HTML to include links to the user name and the content the user
+	 * 							created. Other HTML tags are not supported. All body text should be HTML entity escaped and UTF-8 compliant.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function postNetworkUpdate($oauth, $body)
+	public function postNetworkUpdate($body)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 201);
+		$this->oauth->setOption('success_code', 201);
 
 		// Set the API base
 		$base = '/v1/people/~/person-activities';
@@ -434,25 +446,27 @@ class JLinkedinStream extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+		$response = $this->oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+
 		return $response;
 	}
 
 	/**
 	 * Method to retrieve all comments for a given network update.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $key    update/update-key representing an update.
+	 * @param   string  $key  update/update-key representing an update.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getComments($oauth, $key)
+	public function getComments($key)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -465,30 +479,32 @@ class JLinkedinStream extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to post a new comment to an existing update.
 	 *
-	 * @param   JLinkedinOAuth  $oauth    The JLinkedinOAuth object.
-	 * @param   string          $key      update/update-key representing an update.
-	 * @param   string          $comment  Maximum length of 700 characters
+	 * @param   string  $key      update/update-key representing an update.
+	 * @param   string  $comment  Maximum length of 700 characters
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function postComment($oauth, $key, $comment)
+	public function postComment($key, $comment)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 201);
+		$this->oauth->setOption('success_code', 201);
 
 		// Set the API base
 		$base = '/v1/people/~/network/updates/key=' . $key . '/update-comments';
@@ -504,25 +520,27 @@ class JLinkedinStream extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+		$response = $this->oauth->oauthRequest($path, 'POST', $parameters, $xml, $header);
+
 		return $response;
 	}
 
 	/**
 	 * Method to retrieve the complete list of people who liked an update.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $key    update/update-key representing an update.
+	 * @param   string  $key  update/update-key representing an update.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function getLikes($oauth, $key)
+	public function getLikes($key)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the API base
@@ -535,30 +553,32 @@ class JLinkedinStream extends JLinkedinObject
 		$path = $this->getOption('api.url') . $base;
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'GET', $parameters, $data);
+		$response = $this->oauth->oauthRequest($path, 'GET', $parameters, $data);
+
 		return json_decode($response->body);
 	}
 
 	/**
 	 * Method to like or unlike an update.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $key    Update/update-key representing an update.
-	 * @param   boolean         $like   True to like update, false otherwise.
+	 * @param   string   $key   Update/update-key representing an update.
+	 * @param   boolean  $like  True to like update, false otherwise.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	private function _likeUnlike($oauth, $key, $like)
+	private function _likeUnlike($key, $like)
 	{
+		$token = $this->oauth->getToken();
+
 		// Set parameters.
 		$parameters = array(
-			'oauth_token' => $oauth->getToken('key')
+			'oauth_token' => $token['key']
 		);
 
 		// Set the success response code.
-		$oauth->setOption('success_code', 204);
+		$this->oauth->setOption('success_code', 204);
 
 		// Set the API base
 		$base = '/v1/people/~/network/updates/key=' . $key . '/is-liked';
@@ -572,7 +592,7 @@ class JLinkedinStream extends JLinkedinObject
 		$header['Content-Type'] = 'text/xml';
 
 		// Send the request.
-		$response = $oauth->oauthRequest($path, 'PUT', $parameters, $xml, $header);
+		$response = $this->oauth->oauthRequest($path, 'PUT', $parameters, $xml, $header);
 
 		return $response;
 	}
@@ -580,30 +600,28 @@ class JLinkedinStream extends JLinkedinObject
 	/**
 	 * Method used to like an update.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $key    Update/update-key representing an update.
+	 * @param   string  $key  Update/update-key representing an update.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function like($oauth, $key)
+	public function like($key)
 	{
-		return $this->_likeUnlike($oauth, $key, true);
+		return $this->_likeUnlike($key, true);
 	}
 
 	/**
 	 * Method used to unlike an update.
 	 *
-	 * @param   JLinkedinOAuth  $oauth  The JLinkedinOAuth object.
-	 * @param   string          $key    Update/update-key representing an update.
+	 * @param   string  $key  Update/update-key representing an update.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   12.3
+	 * @since   13.1
 	 */
-	public function unlike($oauth, $key)
+	public function unlike($key)
 	{
-		return $this->_likeUnlike($oauth, $key, false);
+		return $this->_likeUnlike($key, false);
 	}
 }
