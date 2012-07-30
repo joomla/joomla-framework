@@ -9,57 +9,57 @@
 
 require_once JPATH_PLATFORM . '/joomla/twitter/twitter.php';
 require_once JPATH_PLATFORM . '/joomla/twitter/http.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/help.php';
+require_once JPATH_PLATFORM . '/joomla/twitter/directmessages.php';
 
 /**
- * Test class for JTwitterHelp.
+ * Test class for JTwitterFriends.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Twitter
  *
- * @since       12.3
+ * @since       12.1
  */
-class JTwitterHelpTest extends TestCase
+class JTwitterDirectmessagesTest extends TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Twitter object.
-	 * @since  12.3
+	 * @since  12.1
 	 */
 	protected $options;
 
 	/**
 	 * @var    JTwitterHttp  Mock client object.
-	 * @since  12.3
+	 * @since  12.1
 	 */
 	protected $client;
 
 	/**
-	 * @var    JInput The input object to use in retrieving GET/POST data.
-	 * @since  12.3
-	 */
-	protected $input;
-
-	/**
-	 * @var    JTwitterHelp  Object under test.
-	 * @since  12.3
+	 * @var    JTwitterDirectMessages  Object under test.
+	 * @since  12.1
 	 */
 	protected $object;
 
 	/**
+	 * @var    JTwitterOAuth  Authentication object for the Twitter object.
+	 * @since  12.1
+	 */
+	protected $oauth;
+
+	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  12.1
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  12.1
 	 */
 	protected $errorString = '{"errors":[{"message":"Sorry, that page does not exist","code":34}]}';
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  12.1
 	 */
 	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
 
@@ -78,28 +78,37 @@ class JTwitterHelpTest extends TestCase
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
 
 		$this->options = new JRegistry;
-		$this->input = new JInput;
 		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
 
-		$this->object = new JTwitterHelp($this->options, $this->client);
+		$this->object = new JTwitterDirectmessages($this->options, $this->client);
+		$this->oauth = new JTwitterOAuth($key, $secret, $my_url, $this->client);
+		$this->oauth->setToken($key, $secret);
+	}
 
-		$this->options->set('consumer_key', $key);
-		$this->options->set('consumer_secret', $secret);
-		$this->options->set('callback', $my_url);
-		$this->options->set('sendheaders', true);
-		$this->oauth = new JTwitterOauth($this->options, $this->client, $this->input);
-		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
+	protected function getMethod($name)
+	{
+		$class = new ReflectionClass('JTwitterDirectmessages');
+		$method = $class->getMethod($name);
+		$method->setAccessible(true);
+		return $method;
 	}
 
 	/**
-	 * Tests the getLanguages method
+	 * Tests the getDirectMessages method
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   12.1
 	 */
-	public function testGetLanguages()
+	public function testDirectMessages()
 	{
+		$since_id = 12345;
+		$max_id = 54321;
+		$count = 10;
+		$page = 1;
+		$entities = true;
+		$skip_status = true;
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
@@ -113,7 +122,15 @@ class JTwitterHelpTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$path = $this->object->fetchUrl('/1/help/languages.json');
+		// Set request parameters.
+		$data['since_id'] = $since_id;
+		$data['max_id'] = $max_id;
+		$data['count'] = $count;
+		$data['page'] = $page;
+		$data['include_entities'] = $entities;
+		$data['skip_status'] = $skip_status;
+
+		$path = $this->object->fetchUrl('/1/direct_messages.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -121,21 +138,27 @@ class JTwitterHelpTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getLanguages(),
+			$this->object->getDirectMessages($this->oauth, $since_id, $max_id, $count, $page, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the getLanguages method - failure
+	 * Tests the getDirectMessages method - failure
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
 	 * @expectedException DomainException
+	 * @since   12.1
 	 */
-	public function testGetLanguagesFailure()
+	public function testDirectMessagesFailure()
 	{
+		$since_id = 12345;
+		$max_id = 54321;
+		$count = 10;
+		$page = 1;
+		$entities = true;
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
@@ -149,25 +172,38 @@ class JTwitterHelpTest extends TestCase
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$path = $this->object->fetchUrl('/1/help/languages.json');
+		// Set request parameters.
+		$data['since_id'] = $since_id;
+		$data['max_id'] = $max_id;
+		$data['count'] = $count;
+		$data['page'] = $page;
+		$data['include_entities'] = $entities;
+
+		$path = $this->object->fetchUrl('/1/direct_messages.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getLanguages();
+		$this->object->getDirectMessages($this->oauth, $since_id, $max_id, $count, $page, $entities);
 	}
 
 	/**
-	 * Tests the getConfiguration method
+	 * Tests the getSentDirectMessages method
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   12.1
 	 */
-	public function testGetConfiguration()
+	public function testSentDirectMessages()
 	{
+		$since_id = 12345;
+		$max_id = 54321;
+		$count = 10;
+		$page = 1;
+		$entities = true;
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
@@ -181,7 +217,14 @@ class JTwitterHelpTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$path = $this->object->fetchUrl('/1/help/configuration.json');
+		// Set request parameters.
+		$data['since_id'] = $since_id;
+		$data['max_id'] = $max_id;
+		$data['count'] = $count;
+		$data['page'] = $page;
+		$data['include_entities'] = $entities;
+
+		$path = $this->object->fetchUrl('/1/direct_messages/sent.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -189,21 +232,27 @@ class JTwitterHelpTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getConfiguration(),
+			$this->object->getSentDirectMessages($this->oauth, $since_id, $max_id, $count, $page, $entities),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the getConfiguration method - failure
+	 * Tests the getSentDirectMessages method - failure
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
 	 * @expectedException DomainException
+	 * @since   12.1
 	 */
-	public function testGetConfigurationFailure()
+	public function testSentDirectMessagesFailure()
 	{
+		$since_id = 12345;
+		$max_id = 54321;
+		$count = 10;
+		$page = 1;
+		$entities = true;
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
@@ -217,63 +266,20 @@ class JTwitterHelpTest extends TestCase
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$path = $this->object->fetchUrl('/1/help/configuration.json');
+		// Set request parameters.
+		$data['since_id'] = $since_id;
+		$data['max_id'] = $max_id;
+		$data['count'] = $count;
+		$data['page'] = $page;
+		$data['include_entities'] = $entities;
+
+		$path = $this->object->fetchUrl('/1/direct_messages/sent.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getConfiguration();
-	}
-
-	/**
-	 * Tests the test method
-	 *
-	 * @return  void
-	 *
-	 * @since   12.3
-	 */
-	public function testTest()
-	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
-
-		$path = $this->object->fetchUrl('/1/help/test.json');
-
-		$this->client->expects($this->once())
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->assertThat(
-			$this->object->test(),
-			$this->equalTo(json_decode($this->sampleString))
-		);
-	}
-
-	/**
-	 * Tests the test method - failure
-	 *
-	 * @return  void
-	 *
-	 * @since   12.3
-	 * @expectedException DomainException
-	 */
-	public function testTestFailure()
-	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		$path = $this->object->fetchUrl('/1/help/test.json');
-
-		$this->client->expects($this->once())
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->object->test();
+		$this->object->getSentDirectMessages($this->oauth, $since_id, $max_id, $count, $page, $entities);
 	}
 }

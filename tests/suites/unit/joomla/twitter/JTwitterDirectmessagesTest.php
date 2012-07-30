@@ -34,13 +34,19 @@ class JTwitterDirectmessagesTest extends TestCase
 	protected $client;
 
 	/**
+	 * @var    JInput The input object to use in retrieving GET/POST data.
+	 * @since  12.3
+	 */
+	protected $input;
+
+	/**
 	 * @var    JTwitterDirectMessages  Object under test.
 	 * @since  12.3
 	 */
 	protected $object;
 
 	/**
-	 * @var    JTwitterOAuth  Authentication object for the Twitter object.
+	 * @var    JTwitterOauth  Authentication object for the Twitter object.
 	 * @since  12.3
 	 */
 	protected $oauth;
@@ -84,6 +90,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
 
 		$this->options = new JRegistry;
+		$this->input = new JInput;
 		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
 
 		$this->object = new JTwitterDirectmessages($this->options, $this->client);
@@ -92,8 +99,8 @@ class JTwitterDirectmessagesTest extends TestCase
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
 		$this->options->set('sendheaders', true);
-		$this->oauth = new JTwitterOAuth($this->options, $this->client);
-		$this->oauth->setToken($key, $secret);
+		$this->oauth = new JTwitterOauth($this->options, $this->client, $this->input);
+		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 	}
 
 	/**
@@ -455,7 +462,7 @@ class JTwitterDirectmessagesTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$returnData->body = $this->twitterErrorString;
 
 		$path = $this->object->fetchUrl('/1/direct_messages/show/' . $id . '.json');
 

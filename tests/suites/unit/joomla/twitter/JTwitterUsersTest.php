@@ -34,13 +34,19 @@ class JTwitterUsersTest extends TestCase
 	protected $client;
 
 	/**
+	 * @var    JInput The input object to use in retrieving GET/POST data.
+	 * @since  12.3
+	 */
+	protected $input;
+
+	/**
 	 * @var    JTwitterUsers  Object under test.
 	 * @since  12.3
 	 */
 	protected $object;
 
 	/**
-	 * @var    JTwitterOAuth  Authentication object for the Twitter object.
+	 * @var    JTwitterOauth  Authentication object for the Twitter object.
 	 * @since  12.3
 	 */
 	protected $oauth;
@@ -78,6 +84,7 @@ class JTwitterUsersTest extends TestCase
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
 
 		$this->options = new JRegistry;
+		$this->input = new JInput;
 		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
 
 		$this->object = new JTwitterUsers($this->options, $this->client);
@@ -86,8 +93,8 @@ class JTwitterUsersTest extends TestCase
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
 		$this->options->set('sendheaders', true);
-		$this->oauth = new JTwitterOAuth($this->options, $this->client);
-		$this->oauth->setToken($key, $secret);
+		$this->oauth = new JTwitterOauth($this->options, $this->client, $this->input);
+		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 	}
 
 	/**
@@ -247,7 +254,7 @@ class JTwitterUsersTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = '{"body":"You are being redirected."}';
+		$returnData->body = 'You are being redirected.';
 		$returnData->headers = array('Location' => 'image/location');
 
 		// Set request parameters.
