@@ -7,10 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/twitter/twitter.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/http.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/users.php';
-
 /**
  * Test class for JTwitterUsers.
  *
@@ -28,7 +24,7 @@ class JTwitterUsersTest extends TestCase
 	protected $options;
 
 	/**
-	 * @var    JTwitterHttp  Mock client object.
+	 * @var    JHttp  Mock client object.
 	 * @since  12.3
 	 */
 	protected $client;
@@ -79,22 +75,29 @@ class JTwitterUsersTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+		
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
+		
+		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
 		$this->input = new JInput;
-		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JTwitterOAuth($this->options, $this->client, $this->input);
+		$this->oauth->setToken($access_token);
 
-		$this->object = new JTwitterUsers($this->options, $this->client);
+		$this->object = new JTwitterUsers($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
 		$this->options->set('sendheaders', true);
-		$this->oauth = new JTwitterOauth($this->options, $this->client, $this->input);
-		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 	}
 
 	/**
@@ -121,8 +124,6 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @param   string  $screen_name  A comma separated list of screen names, up to 100 are allowed in a single request.
 	 * @param   string  $id           A comma separated list of user IDs, up to 100 are allowed in a single request.
-	 *
-	 * @covers JTwitterUsers::getUsersLookup
 	 *
 	 * @return  void
 	 *
@@ -181,8 +182,6 @@ class JTwitterUsersTest extends TestCase
 	 * @param   string  $screen_name  A comma separated list of screen names, up to 100 are allowed in a single request.
 	 * @param   string  $id           A comma separated list of user IDs, up to 100 are allowed in a single request.
 	 *
-	 * @covers JTwitterUsers::getUsersLookup
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -232,8 +231,6 @@ class JTwitterUsersTest extends TestCase
 	/**
 	 * Tests the getUserProfileImage method
 	 *
-	 * @covers JTwitterUsers::getUserProfileImage
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -269,15 +266,13 @@ class JTwitterUsersTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getUserProfileImage($screen_name, $size),
+			$this->object->getUserProfileImage($screen_name, false, $size),
 			$this->equalTo('image/location')
 		);
 	}
 
 	/**
 	 * Tests the getUserProfileImage method - failure
-	 *
-	 * @covers JTwitterUsers::getUserProfileImage
 	 *
 	 * @return  void
 	 *
@@ -313,7 +308,7 @@ class JTwitterUsersTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getUserProfileImage($screen_name, $size);
+		$this->object->getUserProfileImage($screen_name, false, $size);
 	}
 
 	/**
@@ -336,8 +331,6 @@ class JTwitterUsersTest extends TestCase
 	 * Tests the searchUsers method
 	 *
 	 * @param   string  $header  The JSON encoded header.
-	 *
-	 * @covers JTwitterUsers::searchUsers
 	 *
 	 * @return  void
 	 *
@@ -385,15 +378,13 @@ class JTwitterUsersTest extends TestCase
 		}
 
 		$this->assertThat(
-			$this->object->searchUsers($this->oauth, $query, $page, $per_page, $entities),
+			$this->object->searchUsers($query, $page, $per_page, $entities),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
 	 * Tests the searchUsers method - failure
-	 *
-	 * @covers JTwitterUsers::searchUsers
 	 *
 	 * @return  void
 	 *
@@ -427,7 +418,7 @@ class JTwitterUsersTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->searchUsers($this->oauth, $query);
+		$this->object->searchUsers($query);
 	}
 
 	/**
@@ -451,8 +442,6 @@ class JTwitterUsersTest extends TestCase
 	 * Tests the getUser method
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
-	 *
-	 * @covers JTwitterUsers::getUser
 	 *
 	 * @return  void
 	 *
@@ -510,8 +499,6 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
-	 * @covers JTwitterUsers::getUser
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -565,8 +552,6 @@ class JTwitterUsersTest extends TestCase
 	 * Tests the getContributees method
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
-	 *
-	 * @covers JTwitterUsers::getContributees
 	 *
 	 * @return  void
 	 *
@@ -626,8 +611,6 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
-	 * @covers JTwitterUsers::getContributees
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -683,8 +666,6 @@ class JTwitterUsersTest extends TestCase
 	 * Tests the getContributors method
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
-	 *
-	 * @covers JTwitterUsers::getContributors
 	 *
 	 * @return  void
 	 *
@@ -744,8 +725,6 @@ class JTwitterUsersTest extends TestCase
 	 *
 	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
-	 * @covers JTwitterUsers::getContributors
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -800,8 +779,6 @@ class JTwitterUsersTest extends TestCase
 	/**
 	 * Tests the getSuggestions method
 	 *
-	 * @covers JTwitterUsers::getSuggestions
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -842,8 +819,6 @@ class JTwitterUsersTest extends TestCase
 	/**
 	 * Tests the getSuggestions method - failure
 	 *
-	 * @covers JTwitterUsers::getSuggestions
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -881,8 +856,6 @@ class JTwitterUsersTest extends TestCase
 
 	/**
 	 * Tests the getSuggestionsSlug method
-	 *
-	 * @covers JTwitterUsers::getSuggestionsSlug
 	 *
 	 * @return  void
 	 *
@@ -925,8 +898,6 @@ class JTwitterUsersTest extends TestCase
 	/**
 	 * Tests the getSuggestionsSlug method - failure
 	 *
-	 * @covers JTwitterUsers::getSuggestionsSlug
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -966,8 +937,6 @@ class JTwitterUsersTest extends TestCase
 	/**
 	 * Tests the getSuggestionsSlugMembers method
 	 *
-	 * @covers JTwitterUsers::getSuggestionsSlugMembers
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
@@ -1004,8 +973,6 @@ class JTwitterUsersTest extends TestCase
 
 	/**
 	 * Tests the getSuggestionsSlugMembers method - failure
-	 *
-	 * @covers JTwitterUsers::getSuggestionsSlugMembers
 	 *
 	 * @return  void
 	 *

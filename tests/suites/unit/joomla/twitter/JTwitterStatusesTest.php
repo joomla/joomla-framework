@@ -7,11 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/twitter/twitter.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/http.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/statuses.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/oauth.php';
-
 /**
 * Test class for JTwitterStatuses.
 *
@@ -29,7 +24,7 @@ class JTwitterStatusesTest extends TestCase
 	protected $options;
 
 	/**
-	 * @var    JTwitterHttp  Mock client object.
+	 * @var    JHttp  Mock client object.
 	 * @since  12.3
 	 */
 	protected $client;
@@ -80,22 +75,29 @@ class JTwitterStatusesTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+		
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
+		
+		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
 		$this->input = new JInput;
-		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JTwitterOAuth($this->options, $this->client, $this->input);
+		$this->oauth->setToken($access_token);
 
-		$this->object = new JTwitterStatuses($this->options, $this->client);
+		$this->object = new JTwitterStatuses($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
 		$this->options->set('sendheaders', true);
-		$this->oauth = new JTwitterOauth($this->options, $this->client, $this->input);
-		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 	}
 
 	/**
@@ -431,7 +433,7 @@ class JTwitterStatusesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-		$this->object->tweet($this->oauth, $status, $in_reply_to_status_id, $lat, $long, $place_id, $display_coordinates, $trim_user, $entities),
+		$this->object->tweet($status, $in_reply_to_status_id, $lat, $long, $place_id, $display_coordinates, $trim_user, $entities),
 		$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -462,7 +464,7 @@ class JTwitterStatusesTest extends TestCase
 			->with('/1/statuses/update.json', $data)
 			->will($this->returnValue($returnData));
 
-		$this->object->tweet($this->oauth, $status);
+		$this->object->tweet($status);
 	}
 
 	/**
@@ -515,7 +517,7 @@ class JTwitterStatusesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getMentions($this->oauth, $count, $include_rts, $entities, $since_id, $max_id, $page, $trim_user, $contributor),
+			$this->object->getMentions($count, $include_rts, $entities, $since_id, $max_id, $page, $trim_user, $contributor),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -559,7 +561,7 @@ class JTwitterStatusesTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getMentions($this->oauth, $count, $include_rts);
+		$this->object->getMentions($count, $include_rts);
 	}
 
 	/**
@@ -729,7 +731,7 @@ class JTwitterStatusesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getRetweetsOfMe($this->oauth, $count, $since_id, $entities, $max_id, $page, $trim_user),
+			$this->object->getRetweetsOfMe($count, $since_id, $entities, $max_id, $page, $trim_user),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -770,7 +772,7 @@ class JTwitterStatusesTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getRetweetsOfMe($this->oauth, $count);
+		$this->object->getRetweetsOfMe($count);
 	}
 
 	/**
@@ -898,7 +900,7 @@ class JTwitterStatusesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getRetweetedByIds($this->oauth, $id, $count, $page, $string_ids),
+			$this->object->getRetweetedByIds($id, $count, $page, $string_ids),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -940,7 +942,7 @@ class JTwitterStatusesTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getRetweetedByIds($this->oauth, $id, $count);
+		$this->object->getRetweetedByIds($id, $count);
 	}
 
 	/**
@@ -983,7 +985,7 @@ class JTwitterStatusesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getRetweetsById($this->oauth, $id, $count, $entities, $trim_user),
+			$this->object->getRetweetsById($id, $count, $entities, $trim_user),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1025,7 +1027,7 @@ class JTwitterStatusesTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getRetweetsById($this->oauth, $id, $count);
+		$this->object->getRetweetsById($id, $count);
 	}
 
 	/**
@@ -1056,7 +1058,7 @@ class JTwitterStatusesTest extends TestCase
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-		$this->object->deleteTweet($this->oauth, $id, $trim_user, $entities),
+		$this->object->deleteTweet($id, $trim_user, $entities),
 		$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1090,7 +1092,7 @@ class JTwitterStatusesTest extends TestCase
 			->with('/1/statuses/destroy/' . $id . '.json', $data)
 			->will($this->returnValue($returnData));
 
-		$this->object->deleteTweet($this->oauth, $id, $trim_user, $entities);
+		$this->object->deleteTweet($id, $trim_user, $entities);
 	}
 
 	/**
@@ -1131,7 +1133,7 @@ class JTwitterStatusesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->retweet($this->oauth, $id, $entities, $trim_user),
+			$this->object->retweet($id, $entities, $trim_user),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1175,7 +1177,7 @@ class JTwitterStatusesTest extends TestCase
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->retweet($this->oauth, $id, $entities, $trim_user);
+		$this->object->retweet($id, $entities, $trim_user);
 	}
 
 	/**
@@ -1252,7 +1254,7 @@ class JTwitterStatusesTest extends TestCase
 		}
 
 		$this->assertThat(
-			$this->object->tweetWithMedia($this->oauth, $status, $media, $in_reply_to_status_id, $lat, $long, $place_id, $display_coordinates, $sensitive),
+			$this->object->tweetWithMedia($status, $media, $in_reply_to_status_id, $lat, $long, $place_id, $display_coordinates, $sensitive),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1294,7 +1296,7 @@ class JTwitterStatusesTest extends TestCase
 			->with('https://upload.twitter.com/1/statuses/update_with_media.json', $data)
 			->will($this->returnValue($returnData));
 
-		$this->object->tweetWithMedia($this->oauth, $status, $media);
+		$this->object->tweetWithMedia($status, $media);
 	}
 
 	/**

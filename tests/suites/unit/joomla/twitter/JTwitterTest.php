@@ -7,8 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/twitter/twitter.php';
-
 /**
  * Test class for JTwitter.
  *
@@ -25,7 +23,7 @@ class JTwitterTest extends TestCase
 	protected $options;
 
 	/**
-	 * @var    JTwitterHttp  Mock http object.
+	 * @var    JHttp  Mock http object.
 	 * @since  12.3
 	 */
 	protected $client;
@@ -35,6 +33,12 @@ class JTwitterTest extends TestCase
 	 * @since  12.3
 	 */
 	protected $object;
+	
+	/**
+	 * @var JTwitterOAuth Facebook OAuth 2 client
+	 * @since 12.3
+	 */
+	protected $oauth;
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -44,10 +48,15 @@ class JTwitterTest extends TestCase
 	 */
 	protected function setUp()
 	{
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+		
 		$this->options = new JRegistry;
-		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
 
-		$this->object = new JTwitter($this->options, $this->client);
+		$this->object = new JTwitter($this->oauth, $this->options, $this->client);
 	}
 
 	/**
@@ -176,7 +185,7 @@ class JTwitterTest extends TestCase
 	{
 		$this->assertThat(
 			$this->object->directMessages,
-			$this->isInstanceOf('JTwitterDirectMessages')
+			$this->isInstanceOf('JTwitterDirectmessages')
 		);
 	}
 

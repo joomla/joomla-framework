@@ -7,10 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/twitter/twitter.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/http.php';
-require_once JPATH_PLATFORM . '/joomla/twitter/directmessages.php';
-
 /**
  * Test class for JTwitterFriends.
  *
@@ -28,7 +24,7 @@ class JTwitterDirectmessagesTest extends TestCase
 	protected $options;
 
 	/**
-	 * @var    JTwitterHttp  Mock client object.
+	 * @var    JHttp  Mock client object.
 	 * @since  12.3
 	 */
 	protected $client;
@@ -85,22 +81,29 @@ class JTwitterDirectmessagesTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$key = "lIio7RcLe5IASG5jpnZrA";
-		$secret = "dl3BrWij7LT04NUpy37BRJxGXpWgjNvMrneuQ11EveE";
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+		
+		$key = "app_key";
+		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
+		
+		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
 		$this->input = new JInput;
-		$this->client = $this->getMock('JTwitterHttp', array('get', 'post', 'delete', 'put'));
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JTwitterOAuth($this->options, $this->client, $this->input);
+		$this->oauth->setToken($access_token);
 
-		$this->object = new JTwitterDirectmessages($this->options, $this->client);
+		$this->object = new JTwitterDirectmessages($this->options, $this->client, $this->oauth);
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
 		$this->options->set('sendheaders', true);
-		$this->oauth = new JTwitterOauth($this->options, $this->client, $this->input);
-		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 	}
 
 	/**
@@ -148,7 +151,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getDirectMessages($this->oauth, $since_id, $max_id, $count, $page, $entities, $skip_status),
+			$this->object->getDirectMessages($since_id, $max_id, $count, $page, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -196,7 +199,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getDirectMessages($this->oauth, $since_id, $max_id, $count, $page, $entities);
+		$this->object->getDirectMessages($since_id, $max_id, $count, $page, $entities);
 	}
 
 	/**
@@ -242,7 +245,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getSentDirectMessages($this->oauth, $since_id, $max_id, $count, $page, $entities),
+			$this->object->getSentDirectMessages($since_id, $max_id, $count, $page, $entities),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -290,7 +293,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getSentDirectMessages($this->oauth, $since_id, $max_id, $count, $page, $entities);
+		$this->object->getSentDirectMessages($since_id, $max_id, $count, $page, $entities);
 	}
 
 	/**
@@ -340,7 +343,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->sendDirectMessages($this->oauth, $user, $text);
+			$this->object->sendDirectMessages($user, $text);
 		}
 		$data['text'] = $text;
 
@@ -352,7 +355,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->sendDirectMessages($this->oauth, $user, $text),
+			$this->object->sendDirectMessages($user, $text),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -388,7 +391,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->sendDirectMessages($this->oauth, $user, $text);
+			$this->object->sendDirectMessages($user, $text);
 		}
 		$data['text'] = $text;
 
@@ -399,7 +402,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->sendDirectMessages($this->oauth, $user, $text);
+		$this->object->sendDirectMessages($user, $text);
 	}
 
 	/**
@@ -434,7 +437,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getDirectMessagesById($this->oauth, $id),
+			$this->object->getDirectMessagesById($id),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -471,7 +474,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getDirectMessagesById($this->oauth, $id);
+		$this->object->getDirectMessagesById($id);
 	}
 
 	/**
@@ -501,7 +504,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->deleteDirectMessages($this->oauth, $id, $entities),
+			$this->object->deleteDirectMessages($id, $entities),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -533,6 +536,6 @@ class JTwitterDirectmessagesTest extends TestCase
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->deleteDirectMessages($this->oauth, $id, $entities);
+		$this->object->deleteDirectMessages($id, $entities);
 	}
 }
