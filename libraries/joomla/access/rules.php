@@ -11,6 +11,8 @@ namespace Joomla\Access;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Object\Object;
+
 /**
  * JAccessRules class.
  *
@@ -116,7 +118,7 @@ class Rules
 				$this->mergeAction($action, $identities);
 			}
 		}
-		elseif ($actions instanceof \JAccessRules)
+		elseif ($actions instanceof self)
 		{
 			$data = $actions->getData();
 
@@ -147,7 +149,7 @@ class Rules
 		else
 		{
 			// If new, add the action.
-			$this->data[$action] = new JAccessRule($identities);
+			$this->data[$action] = new Rule($identities);
 		}
 	}
 
@@ -187,7 +189,7 @@ class Rules
 	public function getAllowed($identity)
 	{
 		// Sweep for the allowed actions.
-		$allowed = new \JObject;
+		$allowed = new Object;
 
 		foreach ($this->data as $name => &$action)
 		{

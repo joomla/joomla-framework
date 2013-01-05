@@ -72,7 +72,7 @@ class Rule
 	 */
 	public function mergeIdentities($identities)
 	{
-		if ($identities instanceof \JAccessRule)
+		if ($identities instanceof self)
 		{
 			$identities = $identities->getData();
 		}
