@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Access;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Access
  * @since       11.4
  */
-class JAccessRule
+class Rule
 {
 	/**
 	 * A named array
@@ -70,7 +72,7 @@ class JAccessRule
 	 */
 	public function mergeIdentities($identities)
 	{
-		if ($identities instanceof JAccessRule)
+		if ($identities instanceof \JAccessRule)
 		{
 			$identities = $identities->getData();
 		}

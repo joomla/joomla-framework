@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Application
  * @since       12.1
  */
-abstract class JApplicationBase
+abstract class Base
 {
 	/**
 	 * The application dispatcher object.
@@ -81,7 +83,7 @@ abstract class JApplicationBase
 	 */
 	public function registerEvent($event, $handler)
 	{
-		if ($this->dispatcher instanceof JEventDispatcher)
+		if ($this->dispatcher instanceof \JEventDispatcher)
 		{
 			$this->dispatcher->register($event, $handler);
 		}
@@ -101,7 +103,7 @@ abstract class JApplicationBase
 	 */
 	public function triggerEvent($event, array $args = null)
 	{
-		if ($this->dispatcher instanceof JEventDispatcher)
+		if ($this->dispatcher instanceof \JEventDispatcher)
 		{
 			return $this->dispatcher->trigger($event, $args);
 		}
@@ -122,9 +124,9 @@ abstract class JApplicationBase
 	 *
 	 * @since   12.1
 	 */
-	public function loadDispatcher(JEventDispatcher $dispatcher = null)
+	public function loadDispatcher(\JEventDispatcher $dispatcher = null)
 	{
-		$this->dispatcher = ($dispatcher === null) ? JEventDispatcher::getInstance() : $dispatcher;
+		$this->dispatcher = ($dispatcher === null) ? \JEventDispatcher::getInstance() : $dispatcher;
 
 		return $this;
 	}
@@ -142,9 +144,9 @@ abstract class JApplicationBase
 	 *
 	 * @since   12.1
 	 */
-	public function loadIdentity(JUser $identity = null)
+	public function loadIdentity(\JUser $identity = null)
 	{
-		$this->identity = ($identity === null) ? JFactory::getUser() : $identity;
+		$this->identity = ($identity === null) ? \JFactory::getUser() : $identity;
 
 		return $this;
 	}

@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Access;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Access
  * @since       11.4
  */
-class JAccessRules
+class Rules
 {
 	/**
 	 * A named array.
@@ -114,7 +116,7 @@ class JAccessRules
 				$this->mergeAction($action, $identities);
 			}
 		}
-		elseif ($actions instanceof JAccessRules)
+		elseif ($actions instanceof \JAccessRules)
 		{
 			$data = $actions->getData();
 
@@ -185,7 +187,7 @@ class JAccessRules
 	public function getAllowed($identity)
 	{
 		// Sweep for the allowed actions.
-		$allowed = new JObject;
+		$allowed = new \JObject;
 
 		foreach ($this->data as $name => &$action)
 		{

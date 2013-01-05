@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -22,7 +24,7 @@ const JROUTER_MODE_SEF = 1;
  * @subpackage  Application
  * @since       11.1
  */
-class JRouter
+class Router
 {
 	/**
 	 * The rewrite mode
@@ -123,14 +125,14 @@ class JRouter
 		if (empty(self::$instances[$client]))
 		{
 			// Create a JRouter object
-			$classname = 'JRouter' . ucfirst($client);
+			$classname = '\JRouter' . ucfirst($client);
 
 			if (!class_exists($classname))
 			{
-				JLog::add('Non-autoloadable JRouter subclasses are deprecated.', JLog::WARNING, 'deprecated');
+				\JLog::add('Non-autoloadable JRouter subclasses are deprecated.', JLog::WARNING, 'deprecated');
 
 				// Load the router object
-				$info = JApplicationHelper::getClientInfo($client, true);
+				$info = \JApplicationHelper::getClientInfo($client, true);
 
 				if (is_object($info))
 				{
@@ -149,7 +151,7 @@ class JRouter
 			}
 			else
 			{
-				throw new RuntimeException(JText::sprintf('JLIB_APPLICATION_ERROR_ROUTER_LOAD', $client), 500);
+				throw new RuntimeException(\JText::sprintf('JLIB_APPLICATION_ERROR_ROUTER_LOAD', $client), 500);
 			}
 		}
 
@@ -471,7 +473,7 @@ class JRouter
 				}
 			}
 
-			$url = 'index.php?' . JURI::buildQuery($vars);
+			$url = 'index.php?' . \JUri::buildQuery($vars);
 		}
 
 		// Decompose link into url component parts

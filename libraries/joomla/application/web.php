@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Application
  * @since       11.4
  */
-class JApplicationWeb extends JApplicationBase
+class Web extends Base
 {
 	/**
 	 * @var    string  Character encoding string.
@@ -93,39 +95,39 @@ class JApplicationWeb extends JApplicationBase
 	 *
 	 * @since   11.3
 	 */
-	public function __construct(JInput $input = null, JRegistry $config = null, JApplicationWebClient $client = null)
+	public function __construct(\JInput $input = null, \JRegistry $config = null, \JApplicationWebClient $client = null)
 	{
 		// If a input object is given use it.
-		if ($input instanceof JInput)
+		if ($input instanceof \JInput)
 		{
 			$this->input = $input;
 		}
 		// Create the input based on the application logic.
 		else
 		{
-			$this->input = new JInput;
+			$this->input = new \JInput;
 		}
 
 		// If a config object is given use it.
-		if ($config instanceof JRegistry)
+		if ($config instanceof \JRegistry)
 		{
 			$this->config = $config;
 		}
 		// Instantiate a new configuration object.
 		else
 		{
-			$this->config = new JRegistry;
+			$this->config = new \JRegistry;
 		}
 
 		// If a client object is given use it.
-		if ($client instanceof JApplicationWebClient)
+		if ($client instanceof \JApplicationWebClient)
 		{
 			$this->client = $client;
 		}
 		// Instantiate a new web client object.
 		else
 		{
-			$this->client = new JApplicationWebClient;
+			$this->client = new \JApplicationWebClient;
 		}
 
 		// Load the configuration object.
@@ -136,7 +138,7 @@ class JApplicationWeb extends JApplicationBase
 		$this->set('execution.timestamp', time());
 
 		// Setup the response object.
-		$this->response = new stdClass;
+		$this->response = new \stdClass;
 		$this->response->cachable = false;
 		$this->response->headers = array();
 		$this->response->body = array();
@@ -161,13 +163,13 @@ class JApplicationWeb extends JApplicationBase
 		// Only create the object if it doesn't exist.
 		if (empty(self::$instance))
 		{
-			if (class_exists($name) && (is_subclass_of($name, 'JApplicationWeb')))
+			if (class_exists($name) && (is_subclass_of($name, '\JApplicationWeb')))
 			{
 				self::$instance = new $name;
 			}
 			else
 			{
-				self::$instance = new JApplicationWeb;
+				self::$instance = new \JApplicationWeb;
 			}
 		}
 
@@ -250,7 +252,7 @@ class JApplicationWeb extends JApplicationBase
 		$this->triggerEvent('onAfterExecute');
 
 		// If we have an application document object, render it.
-		if ($this->document instanceof JDocument)
+		if ($this->document instanceof \JDocument)
 		{
 			// Trigger the onBeforeRender event.
 			$this->triggerEvent('onBeforeRender');
@@ -433,7 +435,7 @@ class JApplicationWeb extends JApplicationBase
 			$this->setHeader('Expires', gmdate('D, d M Y H:i:s', time() + 900) . ' GMT');
 
 			// Last modified.
-			if ($this->modifiedDate instanceof JDate)
+			if ($this->modifiedDate instanceof \JDate)
 			{
 				$this->setHeader('Last-Modified', $this->modifiedDate->format('D, d M Y H:i:s'));
 			}
@@ -481,7 +483,7 @@ class JApplicationWeb extends JApplicationBase
 		if (!preg_match('#^[a-z]+\://#i', $url))
 		{
 			// Get a JURI instance for the requested URI.
-			$uri = JURI::getInstance($this->get('uri.request'));
+			$uri = \JUri::getInstance($this->get('uri.request'));
 
 			// Get a base URL to prepend from the requested URI.
 			$prefix = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
@@ -509,7 +511,7 @@ class JApplicationWeb extends JApplicationBase
 		else
 		{
 			// We have to use a JavaScript redirect here because MSIE doesn't play nice with utf-8 URLs.
-			if (($this->client->engine == JApplicationWebClient::TRIDENT) && !utf8_is_ascii($url))
+			if (($this->client->engine == \JApplicationWebClient::TRIDENT) && !utf8_is_ascii($url))
 			{
 				$html = '<html><head>';
 				$html .= '<meta http-equiv="content-type" content="text/html; charset=' . $this->charSet . '" />';
@@ -912,7 +914,7 @@ class JApplicationWeb extends JApplicationBase
 
 		if (!empty($file))
 		{
-			JLoader::register($class, $file);
+			\JLoader::register($class, $file);
 
 			if (class_exists($class))
 			{
@@ -920,7 +922,7 @@ class JApplicationWeb extends JApplicationBase
 			}
 			else
 			{
-				throw new RuntimeException('Configuration class does not exist.');
+				throw new \RuntimeException('Configuration class does not exist.');
 			}
 		}
 
@@ -973,9 +975,9 @@ class JApplicationWeb extends JApplicationBase
 	 *
 	 * @since   11.3
 	 */
-	public function loadDocument(JDocument $document = null)
+	public function loadDocument(\JDocument $document = null)
 	{
-		$this->document = ($document === null) ? JFactory::getDocument() : $document;
+		$this->document = ($document === null) ? \JFactory::getDocument() : $document;
 
 		return $this;
 	}
@@ -993,9 +995,9 @@ class JApplicationWeb extends JApplicationBase
 	 *
 	 * @since   11.3
 	 */
-	public function loadLanguage(JLanguage $language = null)
+	public function loadLanguage(\JLanguage $language = null)
 	{
-		$this->language = ($language === null) ? JFactory::getLanguage() : $language;
+		$this->language = ($language === null) ? \JFactory::getLanguage() : $language;
 
 		return $this;
 	}
@@ -1013,7 +1015,7 @@ class JApplicationWeb extends JApplicationBase
 	 *
 	 * @since   11.3
 	 */
-	public function loadSession(JSession $session = null)
+	public function loadSession(\JSession $session = null)
 	{
 		if ($session !== null)
 		{
@@ -1041,7 +1043,7 @@ class JApplicationWeb extends JApplicationBase
 		$this->registerEvent('onAfterSessionStart', array($this, 'afterSessionStart'));
 
 		// Instantiate the session object.
-		$session = JSession::getInstance($handler, $options);
+		$session = \JSession::getInstance($handler, $options);
 		$session->initialise($this->input, $this->dispatcher);
 
 		if ($session->getState() == 'expired')
@@ -1068,12 +1070,12 @@ class JApplicationWeb extends JApplicationBase
 	 */
 	public function afterSessionStart()
 	{
-		$session = JFactory::getSession();
+		$session = \JFactory::getSession();
 
 		if ($session->isNew())
 		{
-			$session->set('registry', new JRegistry('session'));
-			$session->set('user', new JUser);
+			$session->set('registry', new \JRegistry('session'));
+			$session->set('user', new \JUser);
 		}
 	}
 
@@ -1106,13 +1108,13 @@ class JApplicationWeb extends JApplicationBase
 
 		if ($siteUri != '')
 		{
-			$uri = JUri::getInstance($siteUri);
+			$uri = \JUri::getInstance($siteUri);
 		}
 		// No explicit base URI was set so we need to detect it.
 		else
 		{
 			// Start with the requested URI.
-			$uri = JUri::getInstance($this->get('uri.request'));
+			$uri = \JUri::getInstance($this->get('uri.request'));
 
 			// If we are working from a CGI SAPI with the 'cgi.fix_pathinfo' directive disabled we use PHP_SELF.
 			if (strpos(php_sapi_name(), 'cgi') !== false && !ini_get('cgi.fix_pathinfo') && !empty($_SERVER['REQUEST_URI']))

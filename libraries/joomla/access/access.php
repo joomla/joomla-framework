@@ -7,9 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Access;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.utilities.arrayhelper');
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Class that handles all access authorisation routines.
@@ -18,7 +20,7 @@ jimport('joomla.utilities.arrayhelper');
  * @subpackage  Access
  * @since       11.1
  */
-class JAccess
+class Access
 {
 	/**
 	 * Array of view levels
@@ -98,8 +100,8 @@ class JAccess
 		// Default to the root asset node.
 		if (empty($asset))
 		{
-			$db = JFactory::getDbo();
-			$assets = JTable::getInstance('Asset', 'JTable', array('dbo' => $db));
+			$db = \JFactory::getDbo();
+			$assets = \JTable::getInstance('Asset', 'JTable', array('dbo' => $db));
 			$rootId = $assets->getRootId();
 			$asset = $rootId;
 		}
@@ -141,8 +143,8 @@ class JAccess
 		// Default to the root asset node.
 		if (empty($asset))
 		{
-			$db = JFactory::getDbo();
-			$assets = JTable::getInstance('Asset', 'JTable', array('dbo' => $db));
+			$db = \JFactory::getDbo();
+			$assets = \JTable::getInstance('Asset', 'JTable', array('dbo' => $db));
 			$rootId = $assets->getRootId();
 		}
 
@@ -170,7 +172,7 @@ class JAccess
 		// Preload all groups
 		if (empty(self::$userGroups))
 		{
-			$db = JFactory::getDbo();
+			$db = \JFactory::getDbo();
 			$query = $db->getQuery(true)
 				->select('parent.id, parent.lft, parent.rgt')
 				->from('#__usergroups AS parent')
@@ -217,7 +219,7 @@ class JAccess
 	public static function getAssetRules($asset, $recursive = false)
 	{
 		// Get the database connection object.
-		$db = JFactory::getDbo();
+		$db = \JFactory::getDbo();
 
 		// Build the database query to get the rules for the asset.
 		$query = $db->getQuery(true);
@@ -251,8 +253,8 @@ class JAccess
 		// Get the root even if the asset is not found and in recursive mode
 		if (empty($result))
 		{
-			$db = JFactory::getDbo();
-			$assets = JTable::getInstance('Asset', 'JTable', array('dbo' => $db));
+			$db = \JFactory::getDbo();
+			$assets = \JTable::getInstance('Asset', 'JTable', array('dbo' => $db));
 			$rootId = $assets->getRootId();
 			$query = $db->getQuery(true);
 			$query->select('rules');
@@ -263,7 +265,7 @@ class JAccess
 			$result = array($result);
 		}
 		// Instantiate and return the JAccessRules object for the asset rules.
-		$rules = new JAccessRules;
+		$rules = new \JAccessRules;
 		$rules->mergeCollection($result);
 
 		return $rules;
@@ -289,9 +291,9 @@ class JAccess
 		if (!isset(self::$groupsByUser[$storeId]))
 		{
 			// TODO: Uncouple this from JComponentHelper and allow for a configuration setting or value injection.
-			if (class_exists('JComponentHelper'))
+			if (class_exists('\JComponentHelper'))
 			{
-				$guestUsergroup = JComponentHelper::getParams('com_users')->get('guest_usergroup', 1);
+				$guestUsergroup = \JComponentHelper::getParams('com_users')->get('guest_usergroup', 1);
 			}
 			else
 			{
@@ -306,7 +308,7 @@ class JAccess
 			// Registered user and guest if all groups are requested
 			else
 			{
-				$db = JFactory::getDbo();
+				$db = \JFactory::getDbo();
 
 				// Build the database query to get the rules for the asset.
 				$query = $db->getQuery(true);
@@ -335,7 +337,7 @@ class JAccess
 				$result = $db->loadColumn();
 
 				// Clean up any NULL or duplicate values, just in case
-				JArrayHelper::toInteger($result);
+				\JArrayHelper::toInteger($result);
 
 				if (empty($result))
 				{
@@ -367,7 +369,7 @@ class JAccess
 	public static function getUsersByGroup($groupId, $recursive = false)
 	{
 		// Get a database object.
-		$db = JFactory::getDbo();
+		$db = \JFactory::getDbo();
 
 		$test = $recursive ? '>=' : '=';
 
@@ -384,7 +386,7 @@ class JAccess
 		$result = $db->loadColumn();
 
 		// Clean up any NULL values, just in case
-		JArrayHelper::toInteger($result);
+		\JArrayHelper::toInteger($result);
 
 		return $result;
 	}
@@ -407,7 +409,7 @@ class JAccess
 		if (empty(self::$viewLevels))
 		{
 			// Get a database object.
-			$db = JFactory::getDBO();
+			$db = \JFactory::getDBO();
 
 			// Build the base query.
 			$query = $db->getQuery(true);
@@ -488,7 +490,7 @@ class JAccess
 	public static function getActionsFromData($data, $xpath = "/access/section[@name='component']/")
 	{
 		// If the data to load isn't already an XML element or string return false.
-		if ((!($data instanceof SimpleXMLElement)) && (!is_string($data)))
+		if ((!($data instanceof \SimpleXMLElement)) && (!is_string($data)))
 		{
 			return false;
 		}
@@ -500,7 +502,7 @@ class JAccess
 			{
 				$data = new SimpleXMLElement($data);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				return false;
 			}
