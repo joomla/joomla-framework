@@ -7,10 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Archive;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.file');
-jimport('joomla.filesystem.folder');
+use Joomla\Factory;
+use Joomla\Filesystem\Path;
+use Joomla\Filesystem\File;
+use Joomla\Filesystem\Folder;
 
 /**
  * An Archive handling class
@@ -19,7 +23,7 @@ jimport('joomla.filesystem.folder');
  * @subpackage  Archive
  * @since       11.1
  */
-class JArchive
+class Archive
 {
 	/**
 	 * @var    array  The array of instantiated archive adapters.
@@ -42,10 +46,10 @@ class JArchive
 	{
 		$untar = false;
 		$result = false;
-		$ext = JFile::getExt(strtolower($archivename));
+		$ext = File::getExt(strtolower($archivename));
 
 		// Check if a tar is embedded...gzip/bzip2 can just be plain files!
-		if (JFile::getExt(JFile::stripExt(strtolower($archivename))) == 'tar')
+		if (File::getExt(File::stripExt(strtolower($archivename))) == 'tar')
 		{
 			$untar = true;
 		}
@@ -81,7 +85,7 @@ class JArchive
 
 				if ($adapter)
 				{
-					$config = JFactory::getConfig();
+					$config = Factory::getConfig();
 					$tmpfname = $config->get('tmp_path') . '/' . uniqid('gzip');
 					$gzresult = $adapter->extract($archivename, $tmpfname);
 
@@ -104,9 +108,9 @@ class JArchive
 					}
 					else
 					{
-						$path = JPath::clean($extractdir);
-						JFolder::create($path);
-						$result = JFile::copy($tmpfname, $path . '/' . JFile::stripExt(basename(strtolower($archivename))), null, 1);
+						$path = Path::clean($extractdir);
+						Folder::create($path);
+						$result = File::copy($tmpfname, $path . '/' . File::stripExt(basename(strtolower($archivename))), null, 1);
 					}
 
 					@unlink($tmpfname);
@@ -124,11 +128,11 @@ class JArchive
 
 				if ($adapter)
 				{
-					$config = JFactory::getConfig();
+					$config = Factory::getConfig();
 					$tmpfname = $config->get('tmp_path') . '/' . uniqid('bzip2');
 					$bzresult = $adapter->extract($archivename, $tmpfname);
 
-					if ($bzresult instanceof Exception)
+					if ($bzresult instanceof \Exception)
 					{
 						@unlink($tmpfname);
 
@@ -147,9 +151,9 @@ class JArchive
 					}
 					else
 					{
-						$path = JPath::clean($extractdir);
-						JFolder::create($path);
-						$result = JFile::copy($tmpfname, $path . '/' . JFile::stripExt(basename(strtolower($archivename))), null, 1);
+						$path = Path::clean($extractdir);
+						Folder::create($path);
+						$result = File::copy($tmpfname, $path . '/' . File::stripExt(basename(strtolower($archivename))), null, 1);
 					}
 
 					@unlink($tmpfname);
@@ -157,10 +161,10 @@ class JArchive
 				break;
 
 			default:
-				throw new InvalidArgumentException('Unknown Archive Type');
+				throw new \InvalidArgumentException('Unknown Archive Type');
 		}
 
-		if (!$result || $result instanceof Exception)
+		if (!$result || $result instanceof \Exception)
 		{
 			return false;
 		}
@@ -183,11 +187,11 @@ class JArchive
 		if (!isset(self::$adapters[$type]))
 		{
 			// Try to load the adapter object
-			$class = 'JArchive' . ucfirst($type);
+			$class = '\\Joomla\\Archive\\' . ucfirst($type);
 
 			if (!class_exists($class))
 			{
-				throw new UnexpectedValueException('Unable to load archive', 500);
+				throw new \UnexpectedValueException('Unable to load archive', 500);
 			}
 
 			self::$adapters[$type] = new $class;

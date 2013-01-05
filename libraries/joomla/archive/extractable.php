@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Archive;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Archive
  * @since       12.1
  */
-interface JArchiveExtractable
+interface Extractable
 {
 	/**
 	 * Extract a compressed file to a given path

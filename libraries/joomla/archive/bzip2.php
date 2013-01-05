@@ -7,9 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Archive;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.stream');
+use Joomla\Factory;
+use Joomla\Filesystem\File;
 
 /**
  * Bzip2 format adapter for the JArchive class
@@ -18,7 +21,7 @@ jimport('joomla.filesystem.stream');
  * @subpackage  Archive
  * @since       11.1
  */
-class JArchiveBzip2 implements JArchiveExtractable
+class Bzip2 implements Extractable
 {
 	/**
 	 * Bzip2 file data buffer
@@ -46,13 +49,13 @@ class JArchiveBzip2 implements JArchiveExtractable
 
 		if (!extension_loaded('bz2'))
 		{
-			if (class_exists('JError'))
+			if (class_exists('\\JError'))
 			{
-				return JError::raiseWarning(100, 'The bz2 extension is not available.');
+				return \JError::raiseWarning(100, 'The bz2 extension is not available.');
 			}
 			else
 			{
-				throw new RuntimeException('The bz2 extension is not available.');
+				throw new \RuntimeException('The bz2 extension is not available.');
 			}
 		}
 
@@ -63,13 +66,13 @@ class JArchiveBzip2 implements JArchiveExtractable
 
 			if (!$this->_data)
 			{
-				if (class_exists('JError'))
+				if (class_exists('\\JError'))
 				{
-					return JError::raiseWarning(100, 'Unable to read archive');
+					return \JError::raiseWarning(100, 'Unable to read archive');
 				}
 				else
 				{
-					throw new RuntimeException('Unable to read archive');
+					throw new \RuntimeException('Unable to read archive');
 				}
 			}
 
@@ -78,25 +81,25 @@ class JArchiveBzip2 implements JArchiveExtractable
 
 			if (empty($buffer))
 			{
-				if (class_exists('JError'))
+				if (class_exists('\\JError'))
 				{
-					return JError::raiseWarning(100, 'Unable to decompress data');
+					return \JError::raiseWarning(100, 'Unable to decompress data');
 				}
 				else
 				{
-					throw new RuntimeException('Unable to decompress data');
+					throw new \RuntimeException('Unable to decompress data');
 				}
 			}
 
-			if (JFile::write($destination, $buffer) === false)
+			if (File::write($destination, $buffer) === false)
 			{
-				if (class_exists('JError'))
+				if (class_exists('\\JError'))
 				{
-					return JError::raiseWarning(100, 'Unable to write archive');
+					return \JError::raiseWarning(100, 'Unable to write archive');
 				}
 				else
 				{
-					throw new RuntimeException('Unable to write archive');
+					throw new \RuntimeException('Unable to write archive');
 				}
 			}
 
@@ -104,36 +107,36 @@ class JArchiveBzip2 implements JArchiveExtractable
 		else
 		{
 			// New style! streams!
-			$input = JFactory::getStream();
+			$input = Factory::getStream();
 
 			// Use bzip
 			$input->set('processingmethod', 'bz');
 
 			if (!$input->open($archive))
 			{
-				if (class_exists('JError'))
+				if (class_exists('\\JError'))
 				{
-					return JError::raiseWarning(100, 'Unable to read archive (bz2)');
+					return \JError::raiseWarning(100, 'Unable to read archive (bz2)');
 				}
 				else
 				{
-					throw new RuntimeException('Unable to read archive (bz2)');
+					throw new \RuntimeException('Unable to read archive (bz2)');
 				}
 			}
 
-			$output = JFactory::getStream();
+			$output = Factory::getStream();
 
 			if (!$output->open($destination, 'w'))
 			{
 				$input->close();
 
-				if (class_exists('JError'))
+				if (class_exists('\\JError'))
 				{
-					return JError::raiseWarning(100, 'Unable to write archive (bz2)');
+					return \JError::raiseWarning(100, 'Unable to write archive (bz2)');
 				}
 				else
 				{
-					throw new RuntimeException('Unable to write archive (bz2)');
+					throw new \RuntimeException('Unable to write archive (bz2)');
 				}
 			}
 
@@ -147,13 +150,13 @@ class JArchiveBzip2 implements JArchiveExtractable
 					{
 						$input->close();
 
-						if (class_exists('JError'))
+						if (class_exists('\\JError'))
 						{
-							return JError::raiseWarning(100, 'Unable to write archive (bz2)');
+							return \JError::raiseWarning(100, 'Unable to write archive (bz2)');
 						}
 						else
 						{
-							throw new RuntimeException('Unable to write archive (bz2)');
+							throw new \RuntimeException('Unable to write archive (bz2)');
 						}
 					}
 				}
