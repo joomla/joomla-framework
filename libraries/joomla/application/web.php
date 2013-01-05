@@ -11,6 +11,17 @@ namespace Joomla\Application;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Loader;
+use Joomla\Factory;
+use Joomla\Uri\Uri;
+use Joomla\User\User;
+use Joomla\Date\Date;
+use Joomla\Input\Input;
+use Joomla\Session\Session;
+use Joomla\Language\Language;
+use Joomla\Registry\Registry;
+use Joomla\Document\Document;
+
 /**
  * Base class for a Joomla! Web application.
  *
@@ -95,39 +106,39 @@ class Web extends Base
 	 *
 	 * @since   11.3
 	 */
-	public function __construct(\JInput $input = null, \JRegistry $config = null, \JApplicationWebClient $client = null)
+	public function __construct(Input $input = null, Registry $config = null, Web\Client $client = null)
 	{
 		// If a input object is given use it.
-		if ($input instanceof \JInput)
+		if ($input instanceof Input)
 		{
 			$this->input = $input;
 		}
 		// Create the input based on the application logic.
 		else
 		{
-			$this->input = new \JInput;
+			$this->input = new Input;
 		}
 
 		// If a config object is given use it.
-		if ($config instanceof \JRegistry)
+		if ($config instanceof Registry)
 		{
 			$this->config = $config;
 		}
 		// Instantiate a new configuration object.
 		else
 		{
-			$this->config = new \JRegistry;
+			$this->config = new Registry;
 		}
 
 		// If a client object is given use it.
-		if ($client instanceof \JApplicationWebClient)
+		if ($client instanceof Web\Client)
 		{
 			$this->client = $client;
 		}
 		// Instantiate a new web client object.
 		else
 		{
-			$this->client = new \JApplicationWebClient;
+			$this->client = new Web\Client;
 		}
 
 		// Load the configuration object.
@@ -163,13 +174,13 @@ class Web extends Base
 		// Only create the object if it doesn't exist.
 		if (empty(self::$instance))
 		{
-			if (class_exists($name) && (is_subclass_of($name, '\JApplicationWeb')))
+			if (class_exists($name) && (is_subclass_of($name, __CLASS__)))
 			{
 				self::$instance = new $name;
 			}
 			else
 			{
-				self::$instance = new \JApplicationWeb;
+				self::$instance = new static;
 			}
 		}
 
@@ -252,7 +263,7 @@ class Web extends Base
 		$this->triggerEvent('onAfterExecute');
 
 		// If we have an application document object, render it.
-		if ($this->document instanceof \JDocument)
+		if ($this->document instanceof Document)
 		{
 			// Trigger the onBeforeRender event.
 			$this->triggerEvent('onBeforeRender');
@@ -435,7 +446,7 @@ class Web extends Base
 			$this->setHeader('Expires', gmdate('D, d M Y H:i:s', time() + 900) . ' GMT');
 
 			// Last modified.
-			if ($this->modifiedDate instanceof \JDate)
+			if ($this->modifiedDate instanceof Date)
 			{
 				$this->setHeader('Last-Modified', $this->modifiedDate->format('D, d M Y H:i:s'));
 			}
@@ -483,7 +494,7 @@ class Web extends Base
 		if (!preg_match('#^[a-z]+\://#i', $url))
 		{
 			// Get a JURI instance for the requested URI.
-			$uri = \JUri::getInstance($this->get('uri.request'));
+			$uri = Uri::getInstance($this->get('uri.request'));
 
 			// Get a base URL to prepend from the requested URI.
 			$prefix = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
@@ -511,7 +522,7 @@ class Web extends Base
 		else
 		{
 			// We have to use a JavaScript redirect here because MSIE doesn't play nice with utf-8 URLs.
-			if (($this->client->engine == \JApplicationWebClient::TRIDENT) && !utf8_is_ascii($url))
+			if (($this->client->engine == Web\Client::TRIDENT) && !utf8_is_ascii($url))
 			{
 				$html = '<html><head>';
 				$html .= '<meta http-equiv="content-type" content="text/html; charset=' . $this->charSet . '" />';
@@ -914,7 +925,7 @@ class Web extends Base
 
 		if (!empty($file))
 		{
-			\JLoader::register($class, $file);
+			Loader::register($class, $file);
 
 			if (class_exists($class))
 			{
@@ -975,9 +986,9 @@ class Web extends Base
 	 *
 	 * @since   11.3
 	 */
-	public function loadDocument(\JDocument $document = null)
+	public function loadDocument(Document $document = null)
 	{
-		$this->document = ($document === null) ? \JFactory::getDocument() : $document;
+		$this->document = ($document === null) ? Factory::getDocument() : $document;
 
 		return $this;
 	}
@@ -995,9 +1006,9 @@ class Web extends Base
 	 *
 	 * @since   11.3
 	 */
-	public function loadLanguage(\JLanguage $language = null)
+	public function loadLanguage(Language $language = null)
 	{
-		$this->language = ($language === null) ? \JFactory::getLanguage() : $language;
+		$this->language = ($language === null) ? Factory::getLanguage() : $language;
 
 		return $this;
 	}
@@ -1015,7 +1026,7 @@ class Web extends Base
 	 *
 	 * @since   11.3
 	 */
-	public function loadSession(\JSession $session = null)
+	public function loadSession(Session $session = null)
 	{
 		if ($session !== null)
 		{
@@ -1043,7 +1054,7 @@ class Web extends Base
 		$this->registerEvent('onAfterSessionStart', array($this, 'afterSessionStart'));
 
 		// Instantiate the session object.
-		$session = \JSession::getInstance($handler, $options);
+		$session = Session::getInstance($handler, $options);
 		$session->initialise($this->input, $this->dispatcher);
 
 		if ($session->getState() == 'expired')
@@ -1070,12 +1081,12 @@ class Web extends Base
 	 */
 	public function afterSessionStart()
 	{
-		$session = \JFactory::getSession();
+		$session = Factory::getSession();
 
 		if ($session->isNew())
 		{
-			$session->set('registry', new \JRegistry('session'));
-			$session->set('user', new \JUser);
+			$session->set('registry', new Registry('session'));
+			$session->set('user', new User);
 		}
 	}
 
@@ -1108,13 +1119,13 @@ class Web extends Base
 
 		if ($siteUri != '')
 		{
-			$uri = \JUri::getInstance($siteUri);
+			$uri = Uri::getInstance($siteUri);
 		}
 		// No explicit base URI was set so we need to detect it.
 		else
 		{
 			// Start with the requested URI.
-			$uri = \JUri::getInstance($this->get('uri.request'));
+			$uri = Uri::getInstance($this->get('uri.request'));
 
 			// If we are working from a CGI SAPI with the 'cgi.fix_pathinfo' directive disabled we use PHP_SELF.
 			if (strpos(php_sapi_name(), 'cgi') !== false && !ini_get('cgi.fix_pathinfo') && !empty($_SERVER['REQUEST_URI']))

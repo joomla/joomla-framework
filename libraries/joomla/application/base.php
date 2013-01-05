@@ -11,6 +11,10 @@ namespace Joomla\Application;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Factory;
+use Joomla\User\User;
+use Joomla\Event\Dispatcher;
+
 /**
  * Joomla Platform Base Application Class
  *
@@ -83,7 +87,7 @@ abstract class Base
 	 */
 	public function registerEvent($event, $handler)
 	{
-		if ($this->dispatcher instanceof \JEventDispatcher)
+		if ($this->dispatcher instanceof Dispatcher)
 		{
 			$this->dispatcher->register($event, $handler);
 		}
@@ -103,7 +107,7 @@ abstract class Base
 	 */
 	public function triggerEvent($event, array $args = null)
 	{
-		if ($this->dispatcher instanceof \JEventDispatcher)
+		if ($this->dispatcher instanceof Dispatcher)
 		{
 			return $this->dispatcher->trigger($event, $args);
 		}
@@ -124,9 +128,9 @@ abstract class Base
 	 *
 	 * @since   12.1
 	 */
-	public function loadDispatcher(\JEventDispatcher $dispatcher = null)
+	public function loadDispatcher(Dispatcher $dispatcher = null)
 	{
-		$this->dispatcher = ($dispatcher === null) ? \JEventDispatcher::getInstance() : $dispatcher;
+		$this->dispatcher = ($dispatcher === null) ? Dispatcher::getInstance() : $dispatcher;
 
 		return $this;
 	}
@@ -144,9 +148,9 @@ abstract class Base
 	 *
 	 * @since   12.1
 	 */
-	public function loadIdentity(\JUser $identity = null)
+	public function loadIdentity(User $identity = null)
 	{
-		$this->identity = ($identity === null) ? \JFactory::getUser() : $identity;
+		$this->identity = ($identity === null) ? Factory::getUser() : $identity;
 
 		return $this;
 	}

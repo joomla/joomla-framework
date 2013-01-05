@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Loader;
+use Joomla\Input\Input;
+use Joomla\Event\Dispatcher;
+use Joomla\Registry\Registry;
+
+use Joomla\Input\Cli as InputCli;
 
 /**
  * Base class for a Joomla! command line application.
@@ -16,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Application
  * @since       11.4
  */
-class JApplicationCli extends JApplicationBase
+class Cli extends Base
 {
 	/**
 	 * @var    JRegistry  The application configuration object.
@@ -47,7 +56,7 @@ class JApplicationCli extends JApplicationBase
 	 * @see     loadDispatcher()
 	 * @since   11.1
 	 */
-	public function __construct(JInputCli $input = null, JRegistry $config = null, JEventDispatcher $dispatcher = null)
+	public function __construct(InputCli $input = null, Registry $config = null, Dispatcher $dispatcher = null)
 	{
 		// Close the application if we are not executed from the command line.
 		// @codeCoverageIgnoreStart
@@ -58,28 +67,28 @@ class JApplicationCli extends JApplicationBase
 		// @codeCoverageIgnoreEnd
 
 		// If a input object is given use it.
-		if ($input instanceof JInput)
+		if ($input instanceof Input)
 		{
 			$this->input = $input;
 		}
 		// Create the input based on the application logic.
 		else
 		{
-			if (class_exists('JInput'))
+			if (class_exists('\\Joomla\\Input'))
 			{
-				$this->input = new JInputCLI;
+				$this->input = new InputCLI;
 			}
 		}
 
 		// If a config object is given use it.
-		if ($config instanceof JRegistry)
+		if ($config instanceof Registry)
 		{
 			$this->config = $config;
 		}
 		// Instantiate a new configuration object.
 		else
 		{
-			$this->config = new JRegistry;
+			$this->config = new Registry;
 		}
 
 		$this->loadDispatcher($dispatcher);
@@ -126,13 +135,13 @@ class JApplicationCli extends JApplicationBase
 		// Only create the object if it doesn't exist.
 		if (empty(self::$instance))
 		{
-			if (class_exists($name) && (is_subclass_of($name, 'JApplicationCli')))
+			if (class_exists($name) && (is_subclass_of($name, __CLASS__)))
 			{
 				self::$instance = new $name;
 			}
 			else
 			{
-				self::$instance = new JApplicationCli;
+				self::$instance = new static;
 			}
 		}
 
@@ -263,7 +272,7 @@ class JApplicationCli extends JApplicationBase
 
 		if (!empty($file))
 		{
-			JLoader::register($class, $file);
+			Loader::register($class, $file);
 
 			if (class_exists($class))
 			{
@@ -271,7 +280,7 @@ class JApplicationCli extends JApplicationBase
 			}
 			else
 			{
-				throw new RuntimeException('Configuration class does not exist.');
+				throw new \RuntimeException('Configuration class does not exist.');
 			}
 		}
 

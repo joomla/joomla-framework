@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application\Web;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -29,7 +31,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Application
  * @since       12.1
  */
-class JApplicationWebClient
+class Client
 {
 	const WINDOWS = 1;
 	const WINDOWS_PHONE = 2;

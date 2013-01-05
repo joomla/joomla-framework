@@ -11,6 +11,9 @@ namespace Joomla\Application;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Log\Log;
+use Joomla\Uri\Uri;
+
 /**
  * Set the available masks for the routing mode
  */
@@ -125,14 +128,14 @@ class Router
 		if (empty(self::$instances[$client]))
 		{
 			// Create a JRouter object
-			$classname = '\JRouter' . ucfirst($client);
+			$classname = '\\Joomla\\Router\\' . ucfirst($client);
 
 			if (!class_exists($classname))
 			{
-				\JLog::add('Non-autoloadable JRouter subclasses are deprecated.', JLog::WARNING, 'deprecated');
+				Log::add('Non-autoloadable JRouter subclasses are deprecated.', Log::WARNING, 'deprecated');
 
 				// Load the router object
-				$info = \JApplicationHelper::getClientInfo($client, true);
+				$info = Helper::getClientInfo($client, true);
 
 				if (is_object($info))
 				{
@@ -151,7 +154,7 @@ class Router
 			}
 			else
 			{
-				throw new RuntimeException(\JText::sprintf('JLIB_APPLICATION_ERROR_ROUTER_LOAD', $client), 500);
+				throw new \RuntimeException('Unable to load router: ' . $client, 500);
 			}
 		}
 
@@ -477,7 +480,7 @@ class Router
 		}
 
 		// Decompose link into url component parts
-		return new JURI($url);
+		return new Uri($url);
 	}
 
 	/**

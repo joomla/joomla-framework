@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Uri\Uri;
 
 /**
  * Route handling class
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Application
  * @since       11.1
  */
-class JRoute
+class Route
 {
 	/**
 	 * The route object so we don't have to keep fetching it.
@@ -44,7 +49,7 @@ class JRoute
 		if (!self::$_router)
 		{
 			// Get the router.
-			self::$_router = JFactory::getApplication()->getRouter();
+			self::$_router = Factory::getApplication()->getRouter();
 
 			// Make sure that we have our router
 			if (!self::$_router)
@@ -74,7 +79,7 @@ class JRoute
 		 */
 		if ((int) $ssl)
 		{
-			$uri = JURI::getInstance();
+			$uri = Uri::getInstance();
 
 			// Get additional parts.
 			static $prefix;

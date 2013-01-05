@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application\Web\Router;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Application
  * @since       12.2
  */
-class JApplicationWebRouterRest extends JApplicationWebRouterBase
+class Rest extends Base
 {
 	/**
 	 * @var     boolean  A boolean allowing to pass _method as parameter in POST requests
@@ -121,7 +123,7 @@ class JApplicationWebRouterRest extends JApplicationWebRouterBase
 		// Validate that we have a map to handle the given HTTP method.
 		if (!isset($this->suffixMap[$this->input->getMethod()]))
 		{
-			throw new RuntimeException(sprintf('Unable to support the HTTP method `%s`.', $this->input->getMethod()), 404);
+			throw new \RuntimeException(sprintf('Unable to support the HTTP method `%s`.', $this->input->getMethod()), 404);
 		}
 
 		// Check if request method is POST

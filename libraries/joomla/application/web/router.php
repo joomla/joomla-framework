@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application\Web;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Input\Input;
+use Joomla\Application\Web;
 
 /**
  * Class to define an abstract Web application router.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Application
  * @since       12.2
  */
-abstract class JApplicationWebRouter
+abstract class Router
 {
 	/**
 	 * @var    JApplicationWeb  The web application on whose behalf we are routing the request.
@@ -51,7 +56,7 @@ abstract class JApplicationWebRouter
 	 *
 	 * @since   12.2
 	 */
-	public function __construct(JApplicationWeb $app, JInput $input = null)
+	public function __construct(Web $app, Input $input = null)
 	{
 		$this->app   = $app;
 		$this->input = ($input === null) ? $this->app->input : $input;
@@ -140,9 +145,9 @@ abstract class JApplicationWebRouter
 		$class = $this->controllerPrefix . ucfirst($name);
 
 		// If the controller class does not exist panic.
-		if (!class_exists($class) || !is_subclass_of($class, 'JController'))
+		if (!class_exists($class) || !is_subclass_of($class, '\\Joomla\\Controller\\Controller'))
 		{
-			throw new RuntimeException(sprintf('Unable to locate controller `%s`.', $class), 404);
+			throw new \RuntimeException(sprintf('Unable to locate controller `%s`.', $class), 404);
 		}
 
 		// Instantiate the controller.

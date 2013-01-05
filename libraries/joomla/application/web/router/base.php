@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application\Web\Router;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Application\Web\Router;
 
 /**
  * Basic Web application router class for the Joomla Platform.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Application
  * @since       12.2
  */
-class JApplicationWebRouterBase extends JApplicationWebRouter
+class Base extends Router
 {
 	/**
 	 * @var    array  An array of rules, each rule being an associative array('regex'=> $regex, 'vars' => $vars, 'controller' => $controller)
@@ -169,7 +173,7 @@ class JApplicationWebRouterBase extends JApplicationWebRouter
 		// We were unable to find a route match for the request.  Panic.
 		if (!$controller)
 		{
-			throw new InvalidArgumentException(sprintf('Unable to handle request for route `%s`.', $route), 404);
+			throw new \InvalidArgumentException(sprintf('Unable to handle request for route `%s`.', $route), 404);
 		}
 
 		return $controller;
