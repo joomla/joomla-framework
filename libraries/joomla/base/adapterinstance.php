@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Base;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Object\Object;
+
+use Joomla\Database\Driver as DatabaseDriver;
 
 /**
  * Adapter Instance Class
@@ -16,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Base
  * @since       11.1
  */
-class JAdapterInstance extends JObject
+class AdapterInstance extends Object
 {
 	/**
 	 * Parent
@@ -43,7 +50,7 @@ class JAdapterInstance extends JObject
 	 *
 	 * @since   11.1
 	 */
-	public function __construct(JAdapter $parent, JDatabaseDriver $db, array $options = array())
+	public function __construct(Adapter $parent, DatabaseDriver $db, array $options = array())
 	{
 		// Set the properties from the options array that is passed in
 		$this->setProperties($options);
@@ -52,7 +59,7 @@ class JAdapterInstance extends JObject
 		$this->parent = $parent;
 
 		// Pull in the global dbo in case something happened to it.
-		$this->db = $db ?: JFactory::getDBO();
+		$this->db = $db ?: Factory::getDBO();
 	}
 
 	/**

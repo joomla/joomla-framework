@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Base;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Object\Object;
 
 /**
  * Adapter Class
@@ -18,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Base
  * @since       11.1
  */
-class JAdapter extends JObject
+class Adapter extends Object
 {
 	/**
 	 * Associative array of adapters
@@ -163,7 +167,7 @@ class JAdapter extends JObject
 	 */
 	public function loadAllAdapters($options = array())
 	{
-		$files = new DirectoryIterator($this->_basepath . '/' . $this->_adapterfolder);
+		$files = new \DirectoryIterator($this->_basepath . '/' . $this->_adapterfolder);
 
 		foreach ($files as $file)
 		{
