@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Controller;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Cache\Cache;
+use Joomla\Cache\Controller;
 
 /**
  * Joomla! Cache view type object
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Cache
  * @since       11.1
  */
-class JCacheControllerView extends JCacheController
+class View extends Controller
 {
 	/**
 	 * Get the cached view data
@@ -40,7 +46,7 @@ class JCacheControllerView extends JCacheController
 
 		$data = $this->cache->get($id);
 
-		$locktest = new stdClass;
+		$locktest = new \stdClass;
 		$locktest->locked = null;
 		$locktest->locklooped = null;
 
@@ -65,7 +71,7 @@ class JCacheControllerView extends JCacheController
 
 			if ($wrkarounds === true)
 			{
-				echo JCache::getWorkarounds($data);
+				echo Cache::getWorkarounds($data);
 			}
 			else
 			{
@@ -107,7 +113,7 @@ class JCacheControllerView extends JCacheController
 			 */
 			$cached = array();
 
-			$cached = $wrkarounds == true ? JCache::setWorkarounds($data) : $data;
+			$cached = $wrkarounds == true ? Cache::setWorkarounds($data) : $data;
 
 			// Store the cache data
 			$this->cache->store(serialize($cached), $id);
@@ -132,6 +138,6 @@ class JCacheControllerView extends JCacheController
 	 */
 	protected function _makeId(&$view, $method)
 	{
-		return md5(serialize(array(JCache::makeId(), get_class($view), $method)));
+		return md5(serialize(array(Cache::makeId(), get_class($view), $method)));
 	}
 }

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Filesystem\Path;
 
 /**
  * Public cache handler
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Cache
  * @since       11.1
  */
-class JCacheController
+class Controller
 {
 	/**
 	 * @var    JCache
@@ -39,7 +43,7 @@ class JCacheController
 	 */
 	public function __construct($options)
 	{
-		$this->cache = new JCache($options);
+		$this->cache = new Cache($options);
 		$this->options = & $this->cache->_options;
 
 		// Overwrite default options with given options
@@ -86,20 +90,18 @@ class JCacheController
 
 		$type = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $type));
 
-		$class = 'JCacheController' . ucfirst($type);
+		$class = '\\Joomla\\Cache\\Controller\\' . ucfirst($type);
 
 		if (!class_exists($class))
 		{
 			// Search for the class file in the JCache include paths.
-			jimport('joomla.filesystem.path');
-
-			if ($path = JPath::find(self::addIncludePath(), strtolower($type) . '.php'))
+			if ($path = Path::find(self::addIncludePath(), strtolower($type) . '.php'))
 			{
 				include_once $path;
 			}
 			else
 			{
-				throw new RuntimeException('Unable to load Cache Controller: ' . $type, 500);
+				throw new \RuntimeException('Unable to load Cache Controller: ' . $type, 500);
 			}
 		}
 
@@ -154,8 +156,7 @@ class JCacheController
 		}
 		if (!empty($path) && !in_array($path, $paths))
 		{
-			jimport('joomla.filesystem.path');
-			array_unshift($paths, JPath::clean($path));
+			array_unshift($paths, Path::clean($path));
 		}
 		return $paths;
 	}
@@ -177,7 +178,7 @@ class JCacheController
 
 		if ($data === false)
 		{
-			$locktest = new stdClass;
+			$locktest = new \stdClass;
 			$locktest->locked = null;
 			$locktest->locklooped = null;
 			$locktest = $this->cache->lock($id, $group);
@@ -214,7 +215,7 @@ class JCacheController
 	 */
 	public function store($data, $id, $group = null)
 	{
-		$locktest = new stdClass;
+		$locktest = new \stdClass;
 		$locktest->locked = null;
 		$locktest->locklooped = null;
 

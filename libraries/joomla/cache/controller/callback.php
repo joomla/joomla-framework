@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Controller;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joola\Factory;
+use Joomla\Cache\Cache;
+use Joomla\Cache\Controller;
 
 /**
  * Joomla! Cache callback type object
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Cache
  * @since       11.1
  */
-class JCacheControllerCallback extends JCacheController
+class Callback extends Controller
 {
 	/**
 	 * Executes a cacheable callback if not found in cache else returns cached output and result
@@ -96,7 +102,7 @@ class JCacheControllerCallback extends JCacheController
 
 		$data = $this->cache->get($id);
 
-		$locktest = new stdClass;
+		$locktest = new \stdClass;
 		$locktest->locked = null;
 		$locktest->locklooped = null;
 
@@ -117,7 +123,7 @@ class JCacheControllerCallback extends JCacheController
 
 			$cached = unserialize(trim($data));
 			$coptions['mergehead'] = isset($woptions['mergehead']) ? $woptions['mergehead'] : 0;
-			$output = ($wrkarounds == false) ? $cached['output'] : JCache::getWorkarounds($cached['output'], $coptions);
+			$output = ($wrkarounds == false) ? $cached['output'] : Cache::getWorkarounds($cached['output'], $coptions);
 			$result = $cached['result'];
 
 			if ($locktest->locked == true)
@@ -145,7 +151,7 @@ class JCacheControllerCallback extends JCacheController
 
 			if (isset($woptions['modulemode']) && $woptions['modulemode'] == 1)
 			{
-				$document = JFactory::getDocument();
+				$document = Factory::getDocument();
 				$coptions['modulemode'] = 1;
 				$coptions['headerbefore'] = $document->getHeadData();
 			}
@@ -168,7 +174,7 @@ class JCacheControllerCallback extends JCacheController
 			$coptions['nohead'] = isset($woptions['nohead']) ? $woptions['nohead'] : 1;
 			$coptions['nomodules'] = isset($woptions['nomodules']) ? $woptions['nomodules'] : 1;
 
-			$cached['output'] = ($wrkarounds == false) ? $output : JCache::setWorkarounds($output, $coptions);
+			$cached['output'] = ($wrkarounds == false) ? $output : Cache::setWorkarounds($output, $coptions);
 			$cached['result'] = $result;
 
 			// Store the cache data

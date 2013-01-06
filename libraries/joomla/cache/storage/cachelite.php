@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Cache\Storage;
+use Joomla\Filesystem\Folder;
 
 /**
  * Cache lite storage handler
@@ -17,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://pear.php.net/package/Cache_Lite/
  * @since       11.1
  */
-class JCacheStorageCachelite extends JCacheStorage
+class Cachelite extends Storage
 {
 	/**
 	 * @var    object
@@ -74,7 +79,7 @@ class JCacheStorageCachelite extends JCacheStorage
 	{
 		require_once 'Cache/Lite.php';
 
-		self::$CacheLiteInstance = new Cache_Lite($cloptions);
+		self::$CacheLiteInstance = new \Cache_Lite($cloptions);
 
 		return self::$CacheLiteInstance;
 	}
@@ -111,7 +116,7 @@ class JCacheStorageCachelite extends JCacheStorage
 		parent::getAll();
 
 		$path = $this->_root;
-		$folders = new DirectoryIterator($path);
+		$folders = new \DirectoryIterator($path);
 		$data = array();
 
 		foreach ($folders as $folder)
@@ -123,8 +128,8 @@ class JCacheStorageCachelite extends JCacheStorage
 
 			$foldername = $folder->getFilename();
 
-			$files = new DirectoryIterator($path . '/' . $foldername);
-			$item  = new JCacheStorageHelper($foldername);
+			$files = new \DirectoryIterator($path . '/' . $foldername);
+			$item  = new Helper($foldername);
 
 			foreach ($files as $file)
 			{
@@ -227,8 +232,6 @@ class JCacheStorageCachelite extends JCacheStorage
 	 */
 	public function clean($group, $mode = null)
 	{
-		jimport('joomla.filesystem.folder');
-
 		if (trim($group) == '')
 		{
 			$clmode = 'notgroup';
@@ -252,7 +255,7 @@ class JCacheStorageCachelite extends JCacheStorage
 					$clmode = $group;
 					self::$CacheLiteInstance->setOption('cacheDir', $this->_root . '/' . $group . '/');
 					$success = self::$CacheLiteInstance->clean($group, $clmode);
-					JFolder::delete($this->_root . '/' . $group);
+					Folder::delete($this->_root . '/' . $group);
 				}
 				else
 				{

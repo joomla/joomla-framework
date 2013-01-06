@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Filesystem\Path;
 
 /**
  * Joomla! Cache base object
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Cache
  * @since       11.1
  */
-class JCache
+class Cache
 {
 	/**
 	 * @var    object  Storage handler
@@ -39,7 +44,7 @@ class JCache
 	 */
 	public function __construct($options)
 	{
-		$conf = JFactory::getConfig();
+		$conf = Factory::getConfig();
 
 		$this->_options = array(
 			'cachebase' => $conf->get('cache_path', JPATH_CACHE),
@@ -79,7 +84,7 @@ class JCache
 	 */
 	public static function getInstance($type = 'output', $options = array())
 	{
-		return JCacheController::getInstance($type, $options);
+		return Controller::getInstance($type, $options);
 	}
 
 	/**
@@ -94,7 +99,7 @@ class JCache
 		$handlers = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new DirectoryIterator(__DIR__ . '/storage');
+		$iterator = new \DirectoryIterator(__DIR__ . '/storage');
 
 		foreach ($iterator as $file)
 		{
@@ -110,7 +115,7 @@ class JCache
 			}
 
 			// Derive the class name from the type.
-			$class = str_ireplace('.php', '', 'JCacheStorage' . ucfirst(trim($fileName)));
+			$class = str_ireplace('.php', '', '\\Joomla\\Cache\\Storage\\' . ucfirst(trim($fileName)));
 
 			// If the class doesn't exist we have nothing left to do but look at the next type. We did our best.
 			if (!class_exists($class))
@@ -187,7 +192,7 @@ class JCache
 		// Get the storage
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof Exception) && $this->_options['caching'])
+		if (!($handler instanceof \Exception) && $this->_options['caching'])
 		{
 			return $handler->get($id, $group, $this->_options['checkTime']);
 		}
@@ -206,7 +211,7 @@ class JCache
 		// Get the storage
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof Exception) && $this->_options['caching'])
+		if (!($handler instanceof \Exception) && $this->_options['caching'])
 		{
 			return $handler->getAll();
 		}
@@ -232,7 +237,7 @@ class JCache
 		// Get the storage and store the cached data
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof Exception) && $this->_options['caching'])
+		if (!($handler instanceof \Exception) && $this->_options['caching'])
 		{
 			$handler->_lifetime = $this->_options['lifetime'];
 
@@ -259,7 +264,7 @@ class JCache
 		// Get the storage
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof Exception))
+		if (!($handler instanceof \Exception))
 		{
 			return $handler->remove($id, $group);
 		}
@@ -287,7 +292,7 @@ class JCache
 		// Get the storage handler
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof Exception))
+		if (!($handler instanceof \Exception))
 		{
 			return $handler->clean($group, $mode);
 		}
@@ -306,7 +311,7 @@ class JCache
 		// Get the storage handler
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof Exception))
+		if (!($handler instanceof \Exception))
 		{
 			return $handler->gc();
 		}
@@ -326,7 +331,7 @@ class JCache
 	 */
 	public function lock($id, $group = null, $locktime = null)
 	{
-		$returning = new stdClass;
+		$returning = new \stdClass;
 		$returning->locklooped = false;
 
 		// Get the default group
@@ -339,7 +344,7 @@ class JCache
 		// NOTE drivers with lock need also unlock or unlocking will fail because of false $id
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof Exception) && $this->_options['locking'] == true && $this->_options['caching'] == true)
+		if (!($handler instanceof \Exception) && $this->_options['locking'] == true && $this->_options['caching'] == true)
 		{
 			$locked = $handler->lock($id, $group, $locktime);
 
@@ -422,7 +427,7 @@ class JCache
 		// Allow handlers to perform unlocking on their own
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof Exception) && $this->_options['caching'])
+		if (!($handler instanceof \Exception) && $this->_options['caching'])
 		{
 			$unlocked = $handler->unlock($id, $group);
 
@@ -457,7 +462,7 @@ class JCache
 			return self::$_handler[$hash];
 		}
 
-		self::$_handler[$hash] = JCacheStorage::getInstance($this->_options['storage'], $this->_options);
+		self::$_handler[$hash] = Storage::getInstance($this->_options['storage'], $this->_options);
 
 		return self::$_handler[$hash];
 	}
@@ -474,8 +479,8 @@ class JCache
 	 */
 	public static function getWorkarounds($data, $options = array())
 	{
-		$app = JFactory::getApplication();
-		$document = JFactory::getDocument();
+		$app = Factory::getApplication();
+		$document = Factory::getDocument();
 		$body = null;
 
 		// Get the document head out of the cache.
@@ -666,7 +671,7 @@ class JCache
 	 */
 	public static function makeId()
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Get url parameters set by plugins
 		$registeredurlparams = $app->registeredurlparams;
@@ -679,7 +684,7 @@ class JCache
 		$registeredurlparams->tpl = 'CMD';
 		$registeredurlparams->id = 'INT';
 
-		$safeuriaddon = new stdClass;
+		$safeuriaddon = new \stdClass;
 
 		foreach ($registeredurlparams as $key => $value)
 		{
@@ -709,8 +714,7 @@ class JCache
 		}
 		if (!empty($path) && !in_array($path, $paths))
 		{
-			jimport('joomla.filesystem.path');
-			array_unshift($paths, JPath::clean($path));
+			array_unshift($paths, Path::clean($path));
 		}
 		return $paths;
 	}

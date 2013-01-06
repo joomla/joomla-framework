@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Cache\Storage;
 
 /**
  * XCache cache storage handler
@@ -17,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @link        http://xcache.lighttpd.net/
  * @since       11.1
  */
-class JCacheStorageXcache extends JCacheStorage
+class Xcache extends Storage
 {
 	/**
 	 * Get cached data by id and group
@@ -73,7 +77,7 @@ class JCacheStorageXcache extends JCacheStorage
 
 				if (!isset($data[$group]))
 				{
-					$item = new JCacheStorageHelper($group);
+					$item = new Helper($group);
 				}
 				else
 				{

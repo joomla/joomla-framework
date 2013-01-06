@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Log\Log;
+use Joomla\Cache\Storage;
+use Joomla\Language\Text;
 
 /**
  * File cache storage handler
@@ -16,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Cache
  * @since       11.1
  */
-class JCacheStorageFile extends JCacheStorage
+class File extends Storage
 {
 	/**
 	 * @var    string
@@ -96,7 +103,7 @@ class JCacheStorageFile extends JCacheStorage
 		{
 			$files = array();
 			$files = $this->_filesInFolder($path . '/' . $folder);
-			$item = new JCacheStorageHelper($folder);
+			$item = new Helper($folder);
 
 			foreach ($files as $file)
 			{
@@ -250,7 +257,7 @@ class JCacheStorageFile extends JCacheStorage
 	 */
 	public static function isSupported()
 	{
-		$conf = JFactory::getConfig();
+		$conf = Factory::getConfig();
 
 		return is_writable($conf->get('cache_path', JPATH_CACHE));
 	}
@@ -268,7 +275,7 @@ class JCacheStorageFile extends JCacheStorage
 	 */
 	public function lock($id, $group, $locktime)
 	{
-		$returning = new stdClass;
+		$returning = new \stdClass;
 		$returning->locklooped = false;
 
 		$looptime = $locktime * 10;
@@ -415,7 +422,7 @@ class JCacheStorageFile extends JCacheStorage
 		if (!$path || !is_dir($path) || empty($this->_root))
 		{
 			// Bad programmer! Bad Bad programmer!
-			JLog::add('JCacheStorageFile::_deleteFolder ' . JText::_('JLIB_FILESYSTEM_ERROR_DELETE_BASE_DIRECTORY'), JLog::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder ' . Text::_('JLIB_FILESYSTEM_ERROR_DELETE_BASE_DIRECTORY'), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -427,7 +434,7 @@ class JCacheStorageFile extends JCacheStorage
 
 		if ($pos === false || $pos > 0)
 		{
-			JLog::add('JCacheStorageFile::_deleteFolder' . JText::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), JLog::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -458,7 +465,7 @@ class JCacheStorageFile extends JCacheStorage
 				else
 				{
 					$filename = basename($file);
-					JLog::add('JCacheStorageFile::_deleteFolder' . JText::sprintf('JLIB_FILESYSTEM_DELETE_FAILED', $filename), JLog::WARNING, 'jerror');
+					Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . Text::sprintf('JLIB_FILESYSTEM_DELETE_FAILED', $filename), Log::WARNING, 'jerror');
 
 					return false;
 				}
@@ -492,7 +499,7 @@ class JCacheStorageFile extends JCacheStorage
 		}
 		else
 		{
-			JLog::add('JCacheStorageFile::_deleteFolder' . JText::sprintf('JLIB_FILESYSTEM_ERROR_FOLDER_DELETE', $path), JLog::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . Text::sprintf('JLIB_FILESYSTEM_ERROR_FOLDER_DELETE', $path), Log::WARNING, 'jerror');
 			$ret = false;
 		}
 		return $ret;
@@ -552,7 +559,7 @@ class JCacheStorageFile extends JCacheStorage
 		// Is the path a folder?
 		if (!is_dir($path))
 		{
-			JLog::add('JCacheStorageFile::_filesInFolder' . JText::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), JLog::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_filesInFolder' . Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -640,7 +647,7 @@ class JCacheStorageFile extends JCacheStorage
 		// Is the path a folder?
 		if (!is_dir($path))
 		{
-			JLog::add('JCacheStorageFile::_folders' . JText::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), JLog::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_folders' . Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), Log::WARNING, 'jerror');
 
 			return false;
 		}

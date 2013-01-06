@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Controller;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Cache\Cache;
+use Joomla\Cache\Controller;
 
 /**
  * Joomla Cache output type object
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Cache
  * @since       11.1
  */
-class JCacheControllerOutput extends JCacheController
+class Output extends Controller
 {
 	/**
 	 * @since   11.1
@@ -48,7 +53,7 @@ class JCacheControllerOutput extends JCacheController
 		// If we have data in cache use that.
 		$data = $this->cache->get($id, $group);
 
-		$this->_locktest = new stdClass;
+		$this->_locktest = new \stdClass;
 		$this->_locktest->locked = null;
 		$this->_locktest->locklooped = null;
 

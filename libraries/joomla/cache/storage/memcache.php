@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Cache\Storage;
 
 /**
  * Memcache cache storage handler
@@ -17,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://php.net/manual/en/book.memcache.php
  * @since       11.1
  */
-class JCacheStorageMemcache extends JCacheStorage
+class Memcache extends Storage
 {
 	/**
 	 * @var    Memcache
@@ -69,7 +74,7 @@ class JCacheStorageMemcache extends JCacheStorage
 			return false;
 		}
 
-		$config = JFactory::getConfig();
+		$config = Factory::getConfig();
 		$this->_persistent = $config->get('memcache_persist', true);
 		$this->_compress = $config->get('memcache_compress', false) == false ? 0 : MEMCACHE_COMPRESSED;
 
@@ -83,14 +88,14 @@ class JCacheStorageMemcache extends JCacheStorage
 		$server['port'] = $config->get('memcache_server_port', 11211);
 
 		// Create the memcache connection
-		self::$_db = new Memcache;
+		self::$_db = new \Memcache;
 		self::$_db->addServer($server['host'], $server['port'], $this->_persistent);
 
 		$memcachetest = @self::$_db->connect($server['host'], $server['port']);
 
 		if ($memcachetest == false)
 		{
-			throw new RuntimeException('Could not connect to memcache server', 404);
+			throw new \RuntimeException('Could not connect to memcache server', 404);
 		}
 
 		// Memcahed has no list keys, we do our own accounting, initialise key index
@@ -155,7 +160,7 @@ class JCacheStorageMemcache extends JCacheStorage
 
 					if (!isset($data[$group]))
 					{
-						$item = new JCacheStorageHelper($group);
+						$item = new Helper($group);
 					}
 					else
 					{
@@ -199,7 +204,7 @@ class JCacheStorageMemcache extends JCacheStorage
 			$index = array();
 		}
 
-		$tmparr = new stdClass;
+		$tmparr = new \stdClass;
 		$tmparr->name = $cache_id;
 		$tmparr->size = strlen($data);
 		$index[] = $tmparr;
@@ -312,11 +317,11 @@ class JCacheStorageMemcache extends JCacheStorage
 			return false;
 		}
 
-		$config = JFactory::getConfig();
+		$config = Factory::getConfig();
 		$host = $config->get('memcache_server_host', 'localhost');
 		$port = $config->get('memcache_server_port', 11211);
 
-		$memcache = new Memcache;
+		$memcache = new \Memcache;
 		$memcachetest = @$memcache->connect($host, $port);
 
 		if (!$memcachetest)
@@ -342,7 +347,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 */
 	public function lock($id, $group, $locktime)
 	{
-		$returning = new stdClass;
+		$returning = new \stdClass;
 		$returning->locklooped = false;
 
 		$looptime = $locktime * 10;
@@ -361,7 +366,7 @@ class JCacheStorageMemcache extends JCacheStorage
 			$index = array();
 		}
 
-		$tmparr = new stdClass;
+		$tmparr = new \stdClass;
 		$tmparr->name = $cache_id;
 		$tmparr->size = 1;
 		$index[] = $tmparr;

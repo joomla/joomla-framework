@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Cache\Storage;
 
 /**
  * APC cache storage handler
@@ -17,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://php.net/manual/en/book.apc.php
  * @since       11.1
  */
-class JCacheStorageApc extends JCacheStorage
+class Apc extends Storage
 {
 	/**
 	 * Get cached data from APC by id and group
@@ -66,7 +70,7 @@ class JCacheStorageApc extends JCacheStorage
 
 				if (!isset($data[$group]))
 				{
-					$item = new JCacheStorageHelper($group);
+					$item = new Helper($group);
 				}
 				else
 				{
@@ -138,7 +142,6 @@ class JCacheStorageApc extends JCacheStorage
 
 		foreach ($keys as $key)
 		{
-
 			if (strpos($key['info'], $secret . '-cache-' . $group . '-') === 0 xor $mode != 'group')
 			{
 				apc_delete($key['info']);
@@ -194,7 +197,7 @@ class JCacheStorageApc extends JCacheStorage
 	 */
 	public function lock($id, $group, $locktime)
 	{
-		$returning = new stdClass;
+		$returning = new \stdClass;
 		$returning->locklooped = false;
 
 		$looptime = $locktime * 10;
@@ -205,14 +208,12 @@ class JCacheStorageApc extends JCacheStorage
 
 		if ($data_lock === false)
 		{
-
 			$lock_counter = 0;
 
 			// Loop until you find that the lock has been released.
 			// That implies that data get from other thread has finished
 			while ($data_lock === false)
 			{
-
 				if ($lock_counter > $looptime)
 				{
 					$returning->locked = false;

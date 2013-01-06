@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Filesystem\Path;
 
 /**
  * Abstract cache storage handler
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Cache
  * @since       11.1
  */
-class JCacheStorage
+class Storage
 {
 	/**
 	 * @var    string  Rawname
@@ -69,7 +74,7 @@ class JCacheStorage
 	 */
 	public function __construct($options = array())
 	{
-		$config = JFactory::getConfig();
+		$config = Factory::getConfig();
 		$this->_hash = md5($config->get('secret'));
 		$this->_application = (isset($options['application'])) ? $options['application'] : null;
 		$this->_language = (isset($options['language'])) ? $options['language'] : 'en-GB';
@@ -112,12 +117,12 @@ class JCacheStorage
 
 		if (!isset($handler))
 		{
-			$conf = JFactory::getConfig();
+			$conf = Factory::getConfig();
 			$handler = $conf->get('cache_handler');
 
 			if (empty($handler))
 			{
-				throw new UnexpectedValueException('Cache Storage Handler not set.');
+				throw new \UnexpectedValueException('Cache Storage Handler not set.');
 			}
 		}
 
@@ -131,20 +136,18 @@ class JCacheStorage
 		// We can't cache this since options may change...
 		$handler = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $handler));
 
-		$class = 'JCacheStorage' . ucfirst($handler);
+		$class = '\\Joomla\\Cache\\Storage\\' . ucfirst($handler);
 
 		if (!class_exists($class))
 		{
 			// Search for the class file in the JCacheStorage include paths.
-			jimport('joomla.filesystem.path');
-
-			if ($path = JPath::find(self::addIncludePath(), strtolower($handler) . '.php'))
+			if ($path = Path::find(self::addIncludePath(), strtolower($handler) . '.php'))
 			{
 				include_once $path;
 			}
 			else
 			{
-				throw new RuntimeException(sprintf('Unable to load Cache Storage: %s', $handler));
+				throw new \RuntimeException(sprintf('Unable to load Cache Storage: %s', $handler));
 			}
 		}
 
@@ -177,7 +180,7 @@ class JCacheStorage
 	 */
 	public function getAll()
 	{
-		if (!class_exists('JCacheStorageHelper', false))
+		if (!class_exists('\\Joomla\\Cache\\Storage\\Helper', false))
 		{
 			include_once JPATH_PLATFORM . '/joomla/cache/storage/helper.php';
 		}
@@ -326,8 +329,7 @@ class JCacheStorage
 
 		if (!empty($path) && !in_array($path, $paths))
 		{
-			jimport('joomla.filesystem.path');
-			array_unshift($paths, JPath::clean($path));
+			array_unshift($paths, Path::clean($path));
 		}
 
 		return $paths;

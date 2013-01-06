@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Cache\Storage;
 
 /**
  * WINCACHE cache storage handler
@@ -17,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://php.net/manual/en/book.wincache.php
  * @since       11.1
  */
-class JCacheStorageWincache extends JCacheStorage
+class Wincache extends Storage
 {
 	/**
 	 * Constructor
@@ -77,7 +81,7 @@ class JCacheStorageWincache extends JCacheStorage
 
 				if (!isset($data[$group]))
 				{
-					$item = new JCacheStorageHelper($group);
+					$item = new Helper($group);
 				}
 				else
 				{
