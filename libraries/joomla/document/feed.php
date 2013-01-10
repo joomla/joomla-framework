@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Language\Text;
 
 /**
  * DocumentFeed class, provides an easy interface to parse and display any feed document
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentFeed extends JDocument
+class Feed extends Document
 {
 	/**
 	 * Syndication URL feed element
@@ -194,14 +199,14 @@ class JDocumentFeed extends JDocument
 	public function render($cache = false, $params = array())
 	{
 		// Get the feed type
-		$type = JFactory::getApplication()->input->get('type', 'rss');
+		$type = Factory::getApplication()->input->get('type', 'rss');
 
 		// Instantiate feed renderer and set the mime encoding
 		$renderer = $this->loadRenderer(($type) ? $type : 'rss');
 
-		if (!is_a($renderer, 'JDocumentRenderer'))
+		if (!is_a($renderer, '\\Joomla\\Document\\Renderer'))
 		{
-			throw new Exception(JText::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
+			throw new \Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
 		}
 		$this->setMimeEncoding($renderer->getContentType());
 
@@ -233,267 +238,11 @@ class JDocumentFeed extends JDocument
 	 *
 	 * @since   11.1
 	 */
-	public function addItem(JFeedItem $item)
+	public function addItem(Feed\Item $item)
 	{
 		$item->source = $this->link;
 		$this->items[] = $item;
 
 		return $this;
 	}
-}
-
-/**
- * JFeedItem is an internal class that stores feed item information
- *
- * @package     Joomla.Platform
- * @subpackage  Document
- * @since       11.1
- */
-class JFeedItem
-{
-	/**
-	 * Title item element
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $title;
-
-	/**
-	 * Link item element
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $link;
-
-	/**
-	 * Description item element
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $description;
-
-	/**
-	 * Author item element
-	 *
-	 * optional
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $author;
-
-	/**
-	 * Author email element
-	 *
-	 * optional
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $authorEmail;
-
-	/**
-	 * Category element
-	 *
-	 * optional
-	 *
-	 * @var    array or string
-	 * @since  11.1
-	 */
-	public $category;
-
-	/**
-	 * Comments element
-	 *
-	 * optional
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $comments;
-
-	/**
-	 * Enclosure element
-	 *
-	 * @var    object
-	 * @since  11.1
-	 */
-	public $enclosure = null;
-
-	/**
-	 * Guid element
-	 *
-	 * optional
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $guid;
-
-	/**
-	 * Published date
-	 *
-	 * optional
-	 *
-	 * May be in one of the following formats:
-	 *
-	 * RFC 822:
-	 * "Mon, 20 Jan 03 18:05:41 +0400"
-	 * "20 Jan 03 18:05:41 +0000"
-	 *
-	 * ISO 8601:
-	 * "2003-01-20T18:05:41+04:00"
-	 *
-	 * Unix:
-	 * 1043082341
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $date;
-
-	/**
-	 * Source element
-	 *
-	 * optional
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $source;
-
-	/**
-	 * Set the JFeedEnclosure for this item
-	 *
-	 * @param   JFeedEnclosure  $enclosure  The JFeedEnclosure to add to the feed.
-	 *
-	 * @return  JFeedItem instance of $this to allow chaining
-	 *
-	 * @since   11.1
-	 */
-	public function setEnclosure(JFeedEnclosure $enclosure)
-	{
-		$this->enclosure = $enclosure;
-
-		return $this;
-	}
-}
-
-/**
- * JFeedEnclosure is an internal class that stores feed enclosure information
- *
- * @package     Joomla.Platform
- * @subpackage  Document
- * @since       11.1
- */
-class JFeedEnclosure
-{
-	/**
-	 * URL enclosure element
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $url = "";
-
-	/**
-	 * Length enclosure element
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $length = "";
-
-	/**
-	 * Type enclosure element
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $type = "";
-}
-
-/**
- * JFeedImage is an internal class that stores feed image information
- *
- * @package     Joomla.Platform
- * @subpackage  Document
- * @since       11.1
- */
-class JFeedImage
-{
-	/**
-	 * Title image attribute
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $title = "";
-
-	/**
-	 * URL image attribute
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $url = "";
-
-	/**
-	 * Link image attribute
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $link = "";
-
-	/**
-	 * Width image attribute
-	 *
-	 * optional
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $width;
-
-	/**
-	 * Title feed attribute
-	 *
-	 * optional
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $height;
-
-	/**
-	 * Title feed attribute
-	 *
-	 * optional
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $description;
 }

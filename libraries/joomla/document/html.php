@@ -7,9 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.utilities.utility');
+use Joomla\Factory;
+use Joomla\Log\Log;
+use Joomla\Uri\Uri;
+use Joomla\Cache\Cache;
+use Joomla\Utilities\Utility;
+use Joomla\Filter\Input as FilterInput;
 
 /**
  * DocumentHTML class, provides an easy interface to parse and display a HTML document
@@ -18,7 +25,7 @@ jimport('joomla.utilities.utility');
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentHTML extends JDocument
+class Html extends Document
 {
 	/**
 	 * Array of Header <link> tags
@@ -373,13 +380,13 @@ class JDocumentHTML extends JDocument
 
 		if ($this->_caching == true && $type == 'modules')
 		{
-			$cache = JFactory::getCache('com_modules', '');
+			$cache = Factory::getCache('com_modules', '');
 			$hash = md5(serialize(array($name, $attribs, null, $renderer)));
 			$cbuffer = $cache->get('cbuffer_' . $type);
 
 			if (isset($cbuffer[$hash]))
 			{
-				return JCache::getWorkarounds($cbuffer[$hash], array('mergehead' => 1));
+				return Cache::getWorkarounds($cbuffer[$hash], array('mergehead' => 1));
 			}
 			else
 			{
@@ -391,7 +398,7 @@ class JDocumentHTML extends JDocument
 				$this->setBuffer($renderer->render($name, $attribs, null), $type, $name);
 				$data = parent::$_buffer[$type][$name][$title];
 
-				$tmpdata = JCache::setWorkarounds($data, $options);
+				$tmpdata = Cache::setWorkarounds($data, $options);
 
 				$cbuffer[$hash] = $tmpdata;
 
@@ -494,12 +501,12 @@ class JDocumentHTML extends JDocument
 		{
 			$name = strtolower($words[0]);
 			$result = ((isset(parent::$_buffer['modules'][$name])) && (parent::$_buffer['modules'][$name] === false))
-						? 0 : count(JModuleHelper::getModules($name));
+						? 0 : count(\JModuleHelper::getModules($name));
 
 			return $result;
 		}
 
-		JLog::add('Using an expression in JDocumentHtml::countModules() is deprecated.', JLog::WARNING, 'deprecated');
+		Log::add('Using an expression in JDocumentHtml::countModules() is deprecated.', Log::WARNING, 'deprecated');
 
 		for ($i = 0, $n = count($words); $i < $n; $i += 2)
 		{
@@ -507,7 +514,7 @@ class JDocumentHTML extends JDocument
 			$name = strtolower($words[$i]);
 			$words[$i] = ((isset(parent::$_buffer['modules'][$name])) && (parent::$_buffer['modules'][$name] === false))
 				? 0
-				: count(JModuleHelper::getModules($name));
+				: count(\JModuleHelper::getModules($name));
 		}
 
 		$str = 'return ' . implode(' ', $words) . ';';
@@ -528,8 +535,8 @@ class JDocumentHTML extends JDocument
 
 		if (!isset($children))
 		{
-			$dbo = JFactory::getDbo();
-			$app = JFactory::getApplication();
+			$dbo = Factory::getDbo();
+			$app = Factory::getApplication();
 			$menu = $app->getMenu();
 			$active = $menu->getActive();
 
@@ -592,7 +599,7 @@ class JDocumentHTML extends JDocument
 			{
 				$path = str_replace(JPATH_BASE . '/', '', $dir);
 				$path = str_replace('\\', '/', $path);
-				$this->addFavicon(JURI::base(true) . '/' . $path . 'favicon.ico');
+				$this->addFavicon(Uri::base(true) . '/' . $path . 'favicon.ico');
 				break;
 			}
 		}
@@ -613,7 +620,7 @@ class JDocumentHTML extends JDocument
 	{
 		// Check
 		$directory = isset($params['directory']) ? $params['directory'] : 'templates';
-		$filter = JFilterInput::getInstance();
+		$filter = FilterInput::getInstance();
 		$template = $filter->clean($params['template'], 'cmd');
 		$file = $filter->clean($params['file'], 'cmd');
 
@@ -633,7 +640,7 @@ class JDocumentHTML extends JDocument
 
 		// Assign the variables
 		$this->template = $template;
-		$this->baseurl = JURI::base(true);
+		$this->baseurl = Uri::base(true);
 		$this->params = isset($params['params']) ? $params['params'] : new JRegistry;
 
 		// Load
@@ -662,7 +669,7 @@ class JDocumentHTML extends JDocument
 			for ($i = count($matches[0]) - 1; $i >= 0; $i--)
 			{
 				$type = $matches[1][$i];
-				$attribs = empty($matches[2][$i]) ? array() : JUtility::parseAttributes($matches[2][$i]);
+				$attribs = empty($matches[2][$i]) ? array() : Utility::parseAttributes($matches[2][$i]);
 				$name = isset($attribs['name']) ? $attribs['name'] : null;
 
 				// Separate buffers to be executed first and last

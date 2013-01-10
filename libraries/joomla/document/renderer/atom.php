@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document\Renderer;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Language\Text;
+use Joomla\Application\Route;
+use Joomla\Document\Renderer;
 
 /**
  * JDocumentRenderer_Atom is a feed that implements the atom specification
@@ -21,7 +28,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://www.atomenabled.org/developers/syndication/atom-format-spec.php
  * @since       11.1
  */
-class JDocumentRendererAtom extends JDocumentRenderer
+class Atom extends Renderer
 {
 	/**
 	 * Document mime type
@@ -45,26 +52,26 @@ class JDocumentRendererAtom extends JDocumentRenderer
 	 */
 	public function render($name = '', $params = null, $content = null)
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Gets and sets timezone offset from site configuration
-		$tz = new DateTimeZone($app->getCfg('offset'));
-		$now = JFactory::getDate();
+		$tz = new \DateTimeZone($app->getCfg('offset'));
+		$now = Factory::getDate();
 		$now->setTimeZone($tz);
 
 		$data = $this->_doc;
 
-		$uri = JURI::getInstance();
+		$uri = Uri::getInstance();
 		$url = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
-		$syndicationURL = JRoute::_('&format=feed&type=atom');
+		$syndicationURL = Route::_('&format=feed&type=atom');
 
 		if ($app->getCfg('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $data->title);
+			$title = Text::sprintf('JPAGETITLE', $app->getCfg('sitename'), $data->title);
 		}
 		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $data->title, $app->getCfg('sitename'));
+			$title = Text::sprintf('JPAGETITLE', $data->title, $app->getCfg('sitename'));
 		}
 		else
 		{
@@ -125,7 +132,7 @@ class JDocumentRendererAtom extends JDocumentRenderer
 			{
 				$data->items[$i]->date = $now->toUnix();
 			}
-			$itemDate = JFactory::getDate($data->items[$i]->date);
+			$itemDate = Factory::getDate($data->items[$i]->date);
 			$itemDate->setTimeZone($tz);
 			$feed .= "		<published>" . htmlspecialchars($itemDate->toISO8601(true), ENT_COMPAT, 'UTF-8') . "</published>\n";
 			$feed .= "		<updated>" . htmlspecialchars($itemDate->toISO8601(true), ENT_COMPAT, 'UTF-8') . "</updated>\n";

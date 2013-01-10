@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Environment\Response;
 
 /**
  * DocumentXML class, provides an easy interface to parse and display XML output
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentXml extends JDocument
+class Xml extends Document
 {
 	/**
 	 * Document name
@@ -57,7 +61,7 @@ class JDocumentXml extends JDocument
 	public function render($cache = false, $params = array())
 	{
 		parent::render();
-		JResponse::setHeader('Content-disposition', 'inline; filename="' . $this->getName() . '.xml"', true);
+		Response::setHeader('Content-disposition', 'inline; filename="' . $this->getName() . '.xml"', true);
 
 		return $this->getBuffer();
 	}

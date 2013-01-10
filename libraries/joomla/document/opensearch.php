@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Uri\Uri;
+use Joomla\Factory;
+use Joomla\Application\Route;
 
 /**
  * OpenSearch class, provides an easy interface to display an OpenSearch document
@@ -17,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://www.opensearch.org/
  * @since       11.1
  */
-class JDocumentOpensearch extends JDocument
+class Opensearch extends Document
 {
 	/**
 	 * ShortName element
@@ -65,15 +71,15 @@ class JDocumentOpensearch extends JDocument
 		$this->_mime = 'application/opensearchdescription+xml';
 
 		// Add the URL for self updating
-		$update = new JOpenSearchUrl;
+		$update = new Opensearch\Url;
 		$update->type = 'application/opensearchdescription+xml';
 		$update->rel = 'self';
-		$update->template = JRoute::_(JURI::getInstance());
+		$update->template = Route::_(Uri::getInstance());
 		$this->addUrl($update);
 
 		// Add the favicon as the default image
 		// Try to find a favicon by checking the template and root folder
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$dirs = array(JPATH_THEMES . '/' . $app->getTemplate(), JPATH_BASE);
 
 		foreach ($dirs as $dir)
@@ -84,8 +90,8 @@ class JDocumentOpensearch extends JDocument
 				$path = str_replace(JPATH_BASE . '/', '', $dir);
 				$path = str_replace('\\', '/', $path);
 
-				$favicon = new JOpenSearchImage;
-				$favicon->data = JURI::base() . $path . '/favicon.ico';
+				$favicon = new Opensearch\Image;
+				$favicon->data = Uri::base() . $path . '/favicon.ico';
 				$favicon->height = '16';
 				$favicon->width = '16';
 				$favicon->type = 'image/vnd.microsoft.icon';
@@ -190,7 +196,7 @@ class JDocumentOpensearch extends JDocument
 	 *
 	 * @since   11.1
 	 */
-	public function addUrl(JOpenSearchUrl $url)
+	public function addUrl(Opensearch\Url $url)
 	{
 		$this->_urls[] = $url;
 
@@ -206,100 +212,10 @@ class JDocumentOpensearch extends JDocument
 	 *
 	 * @since   11.1
 	 */
-	public function addImage(JOpenSearchImage $image)
+	public function addImage(Opensearch\Image $image)
 	{
 		$this->_images[] = $image;
 
 		return $this;
 	}
-}
-
-/**
- * JOpenSearchUrl is an internal class that stores the search URLs for the OpenSearch description
- *
- * @package     Joomla.Platform
- * @subpackage  Document
- * @since       11.1
- */
-class JOpenSearchUrl
-{
-	/**
-	 * Type item element
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $type = 'text/html';
-
-	/**
-	 * Rel item element
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $rel = 'results';
-
-	/**
-	 * Template item element. Has to contain the {searchTerms} parameter to work.
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $template;
-}
-
-/**
- * JOpenSearchImage is an internal class that stores Images for the OpenSearch Description
- *
- * @package     Joomla.Platform
- * @subpackage  Document
- * @since       11.1
- */
-class JOpenSearchImage
-{
-	/**
-	 * The images MIME type
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $type = "";
-
-	/**
-	 * URL of the image or the image as base64 encoded value
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $data = "";
-
-	/**
-	 * The image's width
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $width;
-
-	/**
-	 * The image's height
-	 *
-	 * required
-	 *
-	 * @var    string
-	 * @since  11.1
-	 */
-	public $height;
 }

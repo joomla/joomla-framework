@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentRenderer
+class Renderer
 {
 	/**
 	 * Reference to the JDocument object that instantiated the renderer
@@ -41,7 +43,7 @@ class JDocumentRenderer
 	 *
 	 * @since   11.1
 	 */
-	public function __construct(JDocument $doc)
+	public function __construct(Document $doc)
 	{
 		$this->_doc = $doc;
 	}

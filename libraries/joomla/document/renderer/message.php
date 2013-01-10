@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document\Renderer;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Language\Text;
+use Joomla\Registry\Registry;
+use Joomla\Document\Renderer;
 
 /**
  * JDocument system message renderer
@@ -16,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentRendererMessage extends JDocumentRenderer
+class Message extends Renderer
 {
 	/**
 	 * Renders the error stack and returns the results as a string
@@ -33,7 +40,7 @@ class JDocumentRendererMessage extends JDocumentRenderer
 	{
 		$msgList = $this->getData();
 		$buffer = null;
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$chromePath = JPATH_THEMES . '/' . $app->getTemplate() . '/html/message.php';
 		$itemOverride = false;
 
@@ -65,7 +72,7 @@ class JDocumentRendererMessage extends JDocumentRenderer
 		$lists = array();
 
 		// Get the message queue
-		$messages = JFactory::getApplication()->getMessageQueue();
+		$messages = Factory::getApplication()->getMessageQueue();
 
 		// Build the sorted message list
 		if (is_array($messages) && !empty($messages))
@@ -106,7 +113,7 @@ class JDocumentRendererMessage extends JDocumentRenderer
 			{
 				if (count($msgs))
 				{
-					$buffer .= "\n<dt class=\"" . strtolower($type) . "\">" . JText::_($type) . "</dt>";
+					$buffer .= "\n<dt class=\"" . strtolower($type) . "\">" . Text::_($type) . "</dt>";
 					$buffer .= "\n<dd class=\"" . strtolower($type) . " message\">";
 					$buffer .= "\n\t<ul>";
 

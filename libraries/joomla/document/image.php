@@ -7,33 +7,37 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Factory;
+
 /**
- * DocumentRAW class, provides an easy interface to parse and display raw output
+ * DocumentImage class, provides an easy interface to output image data
  *
  * @package     Joomla.Platform
  * @subpackage  Document
- * @since       11.1
+ * @since       12.1
  */
-class JDocumentRaw extends JDocument
+class Image extends Document
 {
 	/**
 	 * Class constructor
 	 *
 	 * @param   array  $options  Associative array of options
 	 *
-	 * @since   11.1
+	 * @since   12.1
 	 */
 	public function __construct($options = array())
 	{
 		parent::__construct($options);
 
 		// Set mime type
-		$this->_mime = 'text/html';
+		$this->_mime = 'image/png';
 
 		// Set document type
-		$this->_type = 'raw';
+		$this->_type = 'image';
 	}
 
 	/**
@@ -44,10 +48,30 @@ class JDocumentRaw extends JDocument
 	 *
 	 * @return  The rendered data
 	 *
-	 * @since   11.1
+	 * @since   12.1
 	 */
 	public function render($cache = false, $params = array())
 	{
+		// Get the image type
+		$type = Factory::getApplication()->input->get('type', 'png');
+
+		switch ($type)
+		{
+			case 'jpg':
+			case 'jpeg':
+				$this->_mime = 'image/jpeg';
+				break;
+			case 'gif':
+				$this->_mime = 'image/gif';
+				break;
+			case 'png':
+			default:
+				$this->_mime = 'image/png';
+				break;
+		}
+
+		$this->_charset = null;
+
 		parent::render();
 
 		return $this->getBuffer();

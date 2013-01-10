@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Environment\Response;
 
 /**
  * JDocumentJSON class, provides an easy interface to parse and display JSON output
@@ -17,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://www.json.org/
  * @since       11.1
  */
-class JDocumentJSON extends JDocument
+class Json extends Document
 {
 	/**
 	 * Document name
@@ -57,8 +61,8 @@ class JDocumentJSON extends JDocument
 	 */
 	public function render($cache = false, $params = array())
 	{
-		JResponse::allowCache(false);
-		JResponse::setHeader('Content-disposition', 'attachment; filename="' . $this->getName() . '.json"', true);
+		Response::allowCache(false);
+		Response::setHeader('Content-disposition', 'attachment; filename="' . $this->getName() . '.json"', true);
 
 		parent::render();
 

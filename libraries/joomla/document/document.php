@@ -7,9 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.environment.response');
+use Joomla\Environment\Response;
 
 /**
  * Document class, provides an easy interface to parse and display a document
@@ -18,7 +20,7 @@ jimport('joomla.environment.response');
  * @subpackage  Document
  * @since       11.1
  */
-class JDocument
+class Document
 {
 	/**
 	 * Document title
@@ -289,7 +291,7 @@ class JDocument
 				}
 				else
 				{
-					throw new RuntimeException('Invalid JDocument Class', 500);
+					throw new \RuntimeException('Invalid JDocument Class', 500);
 				}
 			}
 
@@ -905,7 +907,7 @@ class JDocument
 	 */
 	public function loadRenderer($type)
 	{
-		$class = 'JDocumentRenderer' . ucfirst($type);
+		$class = '\\Joomla\\Document\\Renderer\\' . ucfirst($type);
 
 		if (!class_exists($class))
 		{
@@ -917,7 +919,7 @@ class JDocument
 			}
 			else
 			{
-				throw new RuntimeException('Unable to load renderer class', 500);
+				throw new \RuntimeException('Unable to load renderer class', 500);
 			}
 		}
 
@@ -959,9 +961,9 @@ class JDocument
 	{
 		if ($mdate = $this->getModifiedDate())
 		{
-			JResponse::setHeader('Last-Modified', $mdate /* gmdate('D, d M Y H:i:s', time() + 900) . ' GMT' */);
+			Response::setHeader('Last-Modified', $mdate /* gmdate('D, d M Y H:i:s', time() + 900) . ' GMT' */);
 		}
 
-		JResponse::setHeader('Content-Type', $this->_mime . ($this->_charset ? '; charset=' . $this->_charset : ''));
+		Response::setHeader('Content-Type', $this->_mime . ($this->_charset ? '; charset=' . $this->_charset : ''));
 	}
 }

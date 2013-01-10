@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document\Renderer;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Document\Renderer;
 
 /**
  * JDocument Modules renderer
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentRendererModules extends JDocumentRenderer
+class Modules extends Renderer
 {
 	/**
 	 * Renders multiple modules script and returns the results as a string
@@ -34,7 +38,7 @@ class JDocumentRendererModules extends JDocumentRenderer
 		$renderer = $this->_doc->loadRenderer('module');
 		$buffer = '';
 
-		foreach (JModuleHelper::getModules($position) as $mod)
+		foreach (\JModuleHelper::getModules($position) as $mod)
 		{
 			$buffer .= $renderer->render($mod, $params, $content);
 		}

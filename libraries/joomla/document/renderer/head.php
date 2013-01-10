@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document\Renderer;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Language\Text;
+use Joomla\Registry\Registry;
+use Joomla\Document\Document;
+use Joomla\Document\Renderer;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * JDocument head renderer
@@ -16,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentRendererHead extends JDocumentRenderer
+class Head extends Renderer
 {
 	/**
 	 * Renders the document head and returns the results as a string
@@ -50,10 +59,10 @@ class JDocumentRendererHead extends JDocumentRenderer
 	 *
 	 * @since   11.1
 	 */
-	public function fetchHead(JDocument $document)
+	public function fetchHead(Document $document)
 	{
 		// Trigger the onBeforeCompileHead event (skip for installation, since it causes an error)
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 		$app->triggerEvent('onBeforeCompileHead');
 
 		// Get line endings
@@ -115,7 +124,7 @@ class JDocumentRendererHead extends JDocumentRenderer
 		{
 			$buffer .= $tab . '<link href="' . $link . '" ' . $linkAtrr['relType'] . '="' . $linkAtrr['relation'] . '"';
 
-			if ($temp = JArrayHelper::toString($linkAtrr['attribs']))
+			if ($temp = ArrayHelper::toString($linkAtrr['attribs']))
 			{
 				$buffer .= ' ' . $temp;
 			}
@@ -131,7 +140,7 @@ class JDocumentRendererHead extends JDocumentRenderer
 			{
 				$buffer .= ' media="' . $strAttr['media'] . '" ';
 			}
-			if ($temp = JArrayHelper::toString($strAttr['attribs']))
+			if ($temp = ArrayHelper::toString($strAttr['attribs']))
 			{
 				$buffer .= ' ' . $temp;
 			}
@@ -201,11 +210,11 @@ class JDocumentRendererHead extends JDocumentRenderer
 		}
 
 		// Generate script language declarations.
-		if (count(JText::script()))
+		if (count(Text::script()))
 		{
 			$buffer .= $tab . '<script type="text/javascript">' . $lnEnd;
 			$buffer .= $tab . $tab . '(function() {' . $lnEnd;
-			$buffer .= $tab . $tab . $tab . 'var strings = ' . json_encode(JText::script()) . ';' . $lnEnd;
+			$buffer .= $tab . $tab . $tab . 'var strings = ' . json_encode(Text::script()) . ';' . $lnEnd;
 			$buffer .= $tab . $tab . $tab . 'if (typeof Joomla == \'undefined\') {' . $lnEnd;
 			$buffer .= $tab . $tab . $tab . $tab . 'Joomla = {};' . $lnEnd;
 			$buffer .= $tab . $tab . $tab . $tab . 'Joomla.JText = strings;' . $lnEnd;

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document\Renderer;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Document\Renderer;
 
 /**
  * Component renderer
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentRendererComponent extends JDocumentRenderer
+class Component extends Renderer
 {
 	/**
 	 * Renders a component script and returns the results as a string

@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document\Renderer;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Registry\Registry;
+use Joomla\Document\Renderer;
 
 /**
  * JDocument Module renderer
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentRendererModule extends JDocumentRenderer
+class Module extends Renderer
 {
 	/**
 	 * Renders a module script and returns the results as a string
@@ -35,7 +41,7 @@ class JDocumentRendererModule extends JDocumentRenderer
 		{
 			$title = isset($attribs['title']) ? $attribs['title'] : null;
 
-			$module = JModuleHelper::getModule($module, $title);
+			$module = \JModuleHelper::getModule($module, $title);
 
 			if (!is_object($module))
 			{
@@ -50,7 +56,7 @@ class JDocumentRendererModule extends JDocumentRenderer
 					 * we want to render it
 					 */
 					$tmp = $module;
-					$module = new stdClass;
+					$module = new \stdClass;
 					$module->params = null;
 					$module->module = $tmp;
 					$module->id = 0;
@@ -61,7 +67,7 @@ class JDocumentRendererModule extends JDocumentRenderer
 
 		// Get the user and configuration object
 		// $user = JFactory::getUser();
-		$conf = JFactory::getConfig();
+		$conf = Factory::getConfig();
 
 		// Set the module content
 		if (!is_null($content))
@@ -70,13 +76,13 @@ class JDocumentRendererModule extends JDocumentRenderer
 		}
 
 		// Get module parameters
-		$params = new JRegistry;
+		$params = new Registry;
 		$params->loadString($module->params);
 
 		// Use parameters from template
 		if (isset($attribs['params']))
 		{
-			$template_params = new JRegistry;
+			$template_params = new Registry;
 			$template_params->loadString(html_entity_decode($attribs['params'], ENT_COMPAT, 'UTF-8'));
 			$params->merge($template_params);
 			$module = clone $module;
@@ -93,18 +99,18 @@ class JDocumentRendererModule extends JDocumentRenderer
 		{
 
 			// Default to itemid creating method and workarounds on
-			$cacheparams = new stdClass;
+			$cacheparams = new \stdClass;
 			$cacheparams->cachemode = $cachemode;
 			$cacheparams->class = 'JModuleHelper';
 			$cacheparams->method = 'renderModule';
 			$cacheparams->methodparams = array($module, $attribs);
 
-			$contents = JModuleHelper::ModuleCache($module, $params, $cacheparams);
+			$contents = \JModuleHelper::ModuleCache($module, $params, $cacheparams);
 
 		}
 		else
 		{
-			$contents = JModuleHelper::renderModule($module, $attribs);
+			$contents = \JModuleHelper::renderModule($module, $attribs);
 		}
 
 		return $contents;

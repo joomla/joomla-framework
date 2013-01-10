@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Document;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Uri\Uri;
+use Joomla\Environment\Response;
+use Joomla\Filter\Input as FilterInput;
 
 /**
  * DocumentError class, provides an easy interface to parse and display an error page
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Document
  * @since       11.1
  */
-class JDocumentError extends JDocument
+class Error extends Document
 {
 	/**
 	 * Error Object
@@ -55,7 +61,7 @@ class JDocumentError extends JDocument
 	 */
 	public function setError($error)
 	{
-		if ($error instanceof Exception)
+		if ($error instanceof \Exception)
 		{
 			$this->_error = & $error;
 
@@ -86,12 +92,12 @@ class JDocumentError extends JDocument
 		}
 
 		// Set the status header
-		JResponse::setHeader('status', $this->_error->getCode() . ' ' . str_replace("\n", ' ', $this->_error->getMessage()));
+		Response::setHeader('status', $this->_error->getCode() . ' ' . str_replace("\n", ' ', $this->_error->getMessage()));
 		$file = 'error.php';
 
 		// Check template
 		$directory = isset($params['directory']) ? $params['directory'] : 'templates';
-		$template = isset($params['template']) ? JFilterInput::getInstance()->clean($params['template'], 'cmd') : 'system';
+		$template = isset($params['template']) ? FilterInput::getInstance()->clean($params['template'], 'cmd') : 'system';
 
 		if (!file_exists($directory . '/' . $template . '/' . $file))
 		{
@@ -99,7 +105,7 @@ class JDocumentError extends JDocument
 		}
 
 		// Set variables
-		$this->baseurl = JURI::base(true);
+		$this->baseurl = Uri::base(true);
 		$this->template = $template;
 		$this->debug = isset($params['debug']) ? $params['debug'] : false;
 		$this->error = $this->_error;
