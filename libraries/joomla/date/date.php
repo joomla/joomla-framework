@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Date;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Language\Text;
+use Joomla\Database\Driver;
 
 /**
  * JDate is a class that stores a date and provides logic to manipulate
@@ -30,7 +36,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Date
  * @since       11.1
  */
-class JDate extends DateTime
+class Date extends \DateTime
 {
 	const DAY_ABBR = "\x021\x03";
 	const DAY_NAME = "\x022\x03";
@@ -83,12 +89,12 @@ class JDate extends DateTime
 		// Create the base GMT and server time zone objects.
 		if (empty(self::$gmt) || empty(self::$stz))
 		{
-			self::$gmt = new DateTimeZone('GMT');
-			self::$stz = new DateTimeZone(@date_default_timezone_get());
+			self::$gmt = new \DateTimeZone('GMT');
+			self::$stz = new \DateTimeZone(@date_default_timezone_get());
 		}
 
 		// If the time zone object is not set, attempt to build it.
-		if (!($tz instanceof DateTimeZone))
+		if (!($tz instanceof \DateTimeZone))
 		{
 			if ($tz === null)
 			{
@@ -96,7 +102,7 @@ class JDate extends DateTime
 			}
 			elseif (is_string($tz))
 			{
-				$tz = new DateTimeZone($tz);
+				$tz = new \DateTimeZone($tz);
 			}
 		}
 
@@ -231,19 +237,19 @@ class JDate extends DateTime
 		switch ($day)
 		{
 			case 0:
-				return $abbr ? JText::_('SUN') : JText::_('SUNDAY');
+				return $abbr ? Text::_('SUN') : Text::_('SUNDAY');
 			case 1:
-				return $abbr ? JText::_('MON') : JText::_('MONDAY');
+				return $abbr ? Text::_('MON') : Text::_('MONDAY');
 			case 2:
-				return $abbr ? JText::_('TUE') : JText::_('TUESDAY');
+				return $abbr ? Text::_('TUE') : Text::_('TUESDAY');
 			case 3:
-				return $abbr ? JText::_('WED') : JText::_('WEDNESDAY');
+				return $abbr ? Text::_('WED') : Text::_('WEDNESDAY');
 			case 4:
-				return $abbr ? JText::_('THU') : JText::_('THURSDAY');
+				return $abbr ? Text::_('THU') : Text::_('THURSDAY');
 			case 5:
-				return $abbr ? JText::_('FRI') : JText::_('FRIDAY');
+				return $abbr ? Text::_('FRI') : Text::_('FRIDAY');
 			case 6:
-				return $abbr ? JText::_('SAT') : JText::_('SATURDAY');
+				return $abbr ? Text::_('SAT') : Text::_('SATURDAY');
 		}
 	}
 
@@ -355,29 +361,29 @@ class JDate extends DateTime
 		switch ($month)
 		{
 			case 1:
-				return $abbr ? JText::_('JANUARY_SHORT') : JText::_('JANUARY');
+				return $abbr ? Text::_('JANUARY_SHORT') : Text::_('JANUARY');
 			case 2:
-				return $abbr ? JText::_('FEBRUARY_SHORT') : JText::_('FEBRUARY');
+				return $abbr ? Text::_('FEBRUARY_SHORT') : Text::_('FEBRUARY');
 			case 3:
-				return $abbr ? JText::_('MARCH_SHORT') : JText::_('MARCH');
+				return $abbr ? Text::_('MARCH_SHORT') : Text::_('MARCH');
 			case 4:
-				return $abbr ? JText::_('APRIL_SHORT') : JText::_('APRIL');
+				return $abbr ? Text::_('APRIL_SHORT') : Text::_('APRIL');
 			case 5:
-				return $abbr ? JText::_('MAY_SHORT') : JText::_('MAY');
+				return $abbr ? Text::_('MAY_SHORT') : Text::_('MAY');
 			case 6:
-				return $abbr ? JText::_('JUNE_SHORT') : JText::_('JUNE');
+				return $abbr ? Text::_('JUNE_SHORT') : Text::_('JUNE');
 			case 7:
-				return $abbr ? JText::_('JULY_SHORT') : JText::_('JULY');
+				return $abbr ? Text::_('JULY_SHORT') : Text::_('JULY');
 			case 8:
-				return $abbr ? JText::_('AUGUST_SHORT') : JText::_('AUGUST');
+				return $abbr ? Text::_('AUGUST_SHORT') : Text::_('AUGUST');
 			case 9:
-				return $abbr ? JText::_('SEPTEMBER_SHORT') : JText::_('SEPTEMBER');
+				return $abbr ? Text::_('SEPTEMBER_SHORT') : Text::_('SEPTEMBER');
 			case 10:
-				return $abbr ? JText::_('OCTOBER_SHORT') : JText::_('OCTOBER');
+				return $abbr ? Text::_('OCTOBER_SHORT') : Text::_('OCTOBER');
 			case 11:
-				return $abbr ? JText::_('NOVEMBER_SHORT') : JText::_('NOVEMBER');
+				return $abbr ? Text::_('NOVEMBER_SHORT') : Text::_('NOVEMBER');
 			case 12:
-				return $abbr ? JText::_('DECEMBER_SHORT') : JText::_('DECEMBER');
+				return $abbr ? Text::_('DECEMBER_SHORT') : Text::_('DECEMBER');
 		}
 	}
 
@@ -411,7 +417,7 @@ class JDate extends DateTime
 	 */
 	public function toISO8601($local = false)
 	{
-		return $this->format(DateTime::RFC3339, $local, false);
+		return $this->format(\DateTime::RFC3339, $local, false);
 	}
 
 	/**
@@ -425,11 +431,11 @@ class JDate extends DateTime
 	 * @link http://dev.mysql.com/doc/refman/5.0/en/datetime.html
 	 * @since   11.4
 	 */
-	public function toSql($local = false, JDatabaseDriver $dbo = null)
+	public function toSql($local = false, Driver $dbo = null)
 	{
 		if ($dbo === null)
 		{
-			$dbo = JFactory::getDbo();
+			$dbo = Factory::getDbo();
 		}
 		return $this->format($dbo->getDateFormat(), $local, false);
 	}
@@ -447,7 +453,7 @@ class JDate extends DateTime
 	 */
 	public function toRFC822($local = false)
 	{
-		return $this->format(DateTime::RFC2822, $local, false);
+		return $this->format(\DateTime::RFC2822, $local, false);
 	}
 
 	/**
