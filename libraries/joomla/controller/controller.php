@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Controller;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Controller
  * @since       12.1
  */
-interface JController extends Serializable
+interface Controller extends \Serializable
 {
 	/**
 	 * Execute the controller.

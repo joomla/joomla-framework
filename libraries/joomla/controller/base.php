@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Controller;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Input\Input;
+use Joomla\Application\Base as ApplicationBase;
 
 /**
  * Joomla Platform Base Controller Class
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Controller
  * @since       12.1
  */
-abstract class JControllerBase implements JController
+abstract class Base implements Controller
 {
 	/**
 	 * The application object.
@@ -42,7 +48,7 @@ abstract class JControllerBase implements JController
 	 *
 	 * @since  12.1
 	 */
-	public function __construct(JInput $input = null, JApplicationBase $app = null)
+	public function __construct(Input $input = null, ApplicationBase $app = null)
 	{
 		// Setup dependencies.
 		$this->app = isset($app) ? $app : $this->loadApplication();
@@ -103,9 +109,9 @@ abstract class JControllerBase implements JController
 		// Unserialize the input.
 		$this->input = unserialize($input);
 
-		if (!($this->input instanceof JInput))
+		if (!($this->input instanceof Input))
 		{
-			throw new UnexpectedValueException(sprintf('%s::unserialize would not accept a `%s`.', get_class($this), gettype($this->input)));
+			throw new \UnexpectedValueException(sprintf('%s::unserialize would not accept a `%s`.', get_class($this), gettype($this->input)));
 		}
 
 		return $this;
@@ -120,7 +126,7 @@ abstract class JControllerBase implements JController
 	 */
 	protected function loadApplication()
 	{
-		return JFactory::getApplication();
+		return Factory::getApplication();
 	}
 
 	/**
