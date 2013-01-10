@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt\Password;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Crypt\Password;
 
 /**
  * Joomla Platform Password Crypter
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Crypt
  * @since       12.2
  */
-class JCryptPasswordSimple implements JCryptPassword
+class Simple implements Password
 {
 	/**
 	 * @var    integer  The cost parameter for hashing algorithms.
@@ -49,7 +53,7 @@ class JCryptPasswordSimple implements JCryptPassword
 		switch ($type)
 		{
 			case '$2a$':
-			case JCryptPassword::BLOWFISH:
+			case Password::BLOWFISH:
 				$salt = $this->getSalt(22);
 
 				if (version_compare(PHP_VERSION, '5.3.7') >= 0)
@@ -65,20 +69,20 @@ class JCryptPasswordSimple implements JCryptPassword
 
 			return crypt($password, $salt);
 
-			case JCryptPassword::MD5:
+			case Password::MD5:
 				$salt = $this->getSalt(12);
 
 				$salt = '$1$' . $salt;
 
 			return crypt($password, $salt);
 
-			case JCryptPassword::JOOMLA:
+			case Password::JOOMLA:
 				$salt = $this->getSalt(32);
 
 			return md5($password . $salt) . ':' . $salt;
 
 			default:
-				throw new InvalidArgumentException(sprintf('Hash type %s is not supported', $type));
+				throw new \InvalidArgumentException(sprintf('Hash type %s is not supported', $type));
 				break;
 		}
 	}

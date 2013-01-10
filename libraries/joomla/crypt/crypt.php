@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Crypt
  * @since       12.1
  */
-class JCrypt
+class Crypt
 {
 	/**
 	 * @var    JCryptCipher  The encryption cipher object.
@@ -39,13 +41,13 @@ class JCrypt
 	 *
 	 * @since   12.1
 	 */
-	public function __construct(JCryptCipher $cipher = null, JCryptKey $key = null)
+	public function __construct(Cipher $cipher = null, Key $key = null)
 	{
 		// Set the encryption key[/pair)].
 		$this->_key = $key;
 
 		// Set the encryption cipher.
-		$this->_cipher = isset($cipher) ? $cipher : new JCryptCipherSimple;
+		$this->_cipher = isset($cipher) ? $cipher : new Cipher_Simple;
 	}
 
 	/**
@@ -99,7 +101,7 @@ class JCrypt
 	 *
 	 * @since   12.1
 	 */
-	public function setKey(JCryptKey $key)
+	public function setKey(Key $key)
 	{
 		$this->_key = $key;
 

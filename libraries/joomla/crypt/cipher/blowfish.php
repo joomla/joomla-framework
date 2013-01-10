@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Crypt
  * @since       12.1
  */
-class JCryptCipherBlowfish extends JCryptCipherMcrypt
+class Cipher_Blowfish extends Cipher_Mcrypt
 {
 	/**
 	 * @var    integer  The mcrypt cipher constant.

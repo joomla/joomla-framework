@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Crypt
  * @since       12.1
  */
-class JCryptCipherSimple implements JCryptCipher
+class Cipher_Simple implements Cipher
 {
 	/**
 	 * Method to decrypt a data string.
@@ -29,12 +31,12 @@ class JCryptCipherSimple implements JCryptCipher
 	 * @since   12.1
 	 * @throws  InvalidArgumentException
 	 */
-	public function decrypt($data, JCryptKey $key)
+	public function decrypt($data, Key $key)
 	{
 		// Validate key.
 		if ($key->type != 'simple')
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected simple.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected simple.');
 		}
 
 		$decrypted = '';
@@ -70,7 +72,7 @@ class JCryptCipherSimple implements JCryptCipher
 	 * @since   12.1
 	 * @throws  InvalidArgumentException
 	 */
-	public function encrypt($data, JCryptKey $key)
+	public function encrypt($data, Key $key)
 	{
 		// Validate key.
 		if ($key->type != 'simple')
@@ -112,7 +114,7 @@ class JCryptCipherSimple implements JCryptCipher
 	public function generateKey(array $options = array())
 	{
 		// Create the new encryption key[/pair] object.
-		$key = new JCryptKey('simple');
+		$key = new Key('simple');
 
 		// Just a random key of a given length.
 		$key->private = $this->_getRandomKey();

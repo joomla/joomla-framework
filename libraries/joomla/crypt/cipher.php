@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Crypt
  * @since       12.1
  */
-interface JCryptCipher
+interface Cipher
 {
 	/**
 	 * Method to decrypt a data string.
@@ -28,7 +30,7 @@ interface JCryptCipher
 	 *
 	 * @since   12.1
 	 */
-	public function decrypt($data, JCryptKey $key);
+	public function decrypt($data, Key $key);
 
 	/**
 	 * Method to encrypt a data string.
@@ -40,7 +42,7 @@ interface JCryptCipher
 	 *
 	 * @since   12.1
 	 */
-	public function encrypt($data, JCryptKey $key);
+	public function encrypt($data, Key $key);
 
 	/**
 	 * Method to generate a new encryption key[/pair] object.

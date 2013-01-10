@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Crypt
  * @since       12.1
  */
-abstract class JCryptCipherMcrypt implements JCryptCipher
+abstract class Cipher_Mcrypt implements Cipher
 {
 	/**
 	 * @var    integer  The mcrypt cipher constant.
@@ -48,7 +50,7 @@ abstract class JCryptCipherMcrypt implements JCryptCipher
 	{
 		if (!is_callable('mcrypt_encrypt'))
 		{
-			throw new RuntimeException('The mcrypt extension is not available.');
+			throw new \RuntimeException('The mcrypt extension is not available.');
 		}
 	}
 
@@ -62,12 +64,12 @@ abstract class JCryptCipherMcrypt implements JCryptCipher
 	 *
 	 * @since   12.1
 	 */
-	public function decrypt($data, JCryptKey $key)
+	public function decrypt($data, Key $key)
 	{
 		// Validate key.
 		if ($key->type != $this->keyType)
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
 		}
 
 		// Decrypt the data.
@@ -86,12 +88,12 @@ abstract class JCryptCipherMcrypt implements JCryptCipher
 	 *
 	 * @since   12.1
 	 */
-	public function encrypt($data, JCryptKey $key)
+	public function encrypt($data, Key $key)
 	{
 		// Validate key.
 		if ($key->type != $this->keyType)
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
 		}
 
 		// Encrypt the data.
@@ -112,7 +114,7 @@ abstract class JCryptCipherMcrypt implements JCryptCipher
 	public function generateKey(array $options = array())
 	{
 		// Create the new encryption key object.
-		$key = new JCryptKey($this->keyType);
+		$key = new Key($this->keyType);
 
 		// Generate an initialisation vector based on the algorithm.
 		$key->public = mcrypt_create_iv(mcrypt_get_iv_size($this->type, $this->mode));
