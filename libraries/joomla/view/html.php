@@ -11,12 +11,10 @@ namespace Joomla\View;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Model\Model;
 use Joomla\Filesystem\Path;
+use Joomla\Model\Model;
 use SplPriorityQueue;
 use RuntimeException;
-
-jimport('joomla.filesystem.path');
 
 /**
  * Joomla Platform HTML View Class

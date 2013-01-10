@@ -11,9 +11,9 @@ namespace Joomla\Table;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Registry\Registry;
 use Joomla\Database\Driver;
 use Joomla\Language\Text;
-use Joomla\Registry\Registry;
 
 /**
  * Update table

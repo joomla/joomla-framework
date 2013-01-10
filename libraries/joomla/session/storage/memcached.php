@@ -22,7 +22,7 @@ use RuntimeException;
  * @subpackage  Session
  * @since       11.1
  */
-class JSessionStorageMemcached extends Storage
+class Memcached extends Storage
 {
 	/**
 	 * Constructor
