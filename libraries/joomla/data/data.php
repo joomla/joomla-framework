@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Data;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Date\Date;
+use Joomla\Registry\Registry;
 
 /**
  * JData is a class that is used to store data but allowing you to access the data
@@ -17,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Data
  * @since       12.3
  */
-class JData implements JDataDumpable, IteratorAggregate, JsonSerializable, Countable
+class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countable
 {
 	/**
 	 * The data properties.
@@ -130,11 +135,11 @@ class JData implements JDataDumpable, IteratorAggregate, JsonSerializable, Count
 		// Check the properties data type.
 		if (!is_array($properties) && !is_object($properties))
 		{
-			throw new InvalidArgumentException(sprintf('%s(%s)', __METHOD__, gettype($properties)));
+			throw new \InvalidArgumentException(sprintf('%s(%s)', __METHOD__, gettype($properties)));
 		}
 
 		// Check if the object is traversable.
-		if ($properties instanceof Traversable)
+		if ($properties instanceof \Traversable)
 		{
 			// Convert iterator to array.
 			$properties = iterator_to_array($properties);
@@ -174,19 +179,19 @@ class JData implements JDataDumpable, IteratorAggregate, JsonSerializable, Count
 	 *
 	 * @since   12.3
 	 */
-	public function dump($depth = 3, SplObjectStorage $dumped = null)
+	public function dump($depth = 3, \SplObjectStorage $dumped = null)
 	{
 		// Check if we should initialise the recursion tracker.
 		if ($dumped === null)
 		{
-			$dumped = new SplObjectStorage;
+			$dumped = new \SplObjectStorage;
 		}
 
 		// Add this object to the dumped stack.
 		$dumped->attach($this);
 
 		// Setup a container.
-		$dump = new stdClass;
+		$dump = new \stdClass;
 
 		// Dump all object properties.
 		foreach (array_keys($this->_properties) as $property)
@@ -239,14 +244,14 @@ class JData implements JDataDumpable, IteratorAggregate, JsonSerializable, Count
 	 *
 	 * @since   12.3
 	 */
-	protected function dumpProperty($property, $depth, SplObjectStorage $dumped)
+	protected function dumpProperty($property, $depth, \SplObjectStorage $dumped)
 	{
 		$value = $this->getProperty($property);
 
 		if ($depth > 0)
 		{
 			// Check if the object is also an dumpable object.
-			if ($value instanceof JDataDumpable)
+			if ($value instanceof Dumpable)
 			{
 				// Do not dump the property if it has already been dumped.
 				if (!$dumped->contains($value))
@@ -255,12 +260,12 @@ class JData implements JDataDumpable, IteratorAggregate, JsonSerializable, Count
 				}
 			}
 			// Check if the object is a date.
-			if ($value instanceof JDate)
+			if ($value instanceof Date)
 			{
 				$value = (string) $value;
 			}
 			// Check if the object is a registry.
-			elseif ($value instanceof JRegistry)
+			elseif ($value instanceof Registry)
 			{
 				$value = $value->toObject();
 			}

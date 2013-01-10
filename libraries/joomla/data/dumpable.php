@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Data;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Data
  * @since       12.3
  */
-interface JDataDumpable
+interface Dumpable
 {
 	/**
 	 * Dumps the object properties into a stdClass object, recursively if appropriate.
@@ -30,5 +32,5 @@ interface JDataDumpable
 	 *
 	 * @since   12.3
 	 */
-	public function dump($depth = 3, SplObjectStorage $dumped = null);
+	public function dump($depth = 3, \SplObjectStorage $dumped = null);
 }

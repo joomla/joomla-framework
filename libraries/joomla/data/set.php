@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Data;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -17,7 +19,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Data
  * @since       12.3
  */
-class JDataSet implements JDataDumpable, ArrayAccess, Countable, Iterator
+class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 {
 	/**
 	 * The current position of the iterator.
@@ -241,12 +243,12 @@ class JDataSet implements JDataDumpable, ArrayAccess, Countable, Iterator
 	 * @see     JData::dump()
 	 * @since   12.3
 	 */
-	public function dump($depth = 3, SplObjectStorage $dumped = null)
+	public function dump($depth = 3, \SplObjectStorage $dumped = null)
 	{
 		// Check if we should initialise the recursion tracker.
 		if ($dumped === null)
 		{
-			$dumped = new SplObjectStorage;
+			$dumped = new \SplObjectStorage;
 		}
 
 		// Add this object to the dumped stack.
@@ -405,9 +407,9 @@ class JDataSet implements JDataDumpable, ArrayAccess, Countable, Iterator
 	public function offsetSet($offset, $object)
 	{
 		// Check if the object is a JData object.
-		if (!($object instanceof JData))
+		if (!($object instanceof Data))
 		{
-			throw new InvalidArgumentException(sprintf('%s("%s", *%s*)', __METHOD__, $offset, gettype($object)));
+			throw new \InvalidArgumentException(sprintf('%s("%s", *%s*)', __METHOD__, $offset, gettype($object)));
 		}
 
 		// Set the offset.
