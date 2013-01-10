@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\View;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Model\Model;
 
 /**
  * Joomla Platform Base View Class
@@ -16,12 +20,12 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  View
  * @since       12.1
  */
-abstract class JViewBase implements JView
+abstract class ViewBase implements View
 {
 	/**
 	 * The model object.
 	 *
-	 * @var    JModel
+	 * @var    Model
 	 * @since  12.1
 	 */
 	protected $model;
@@ -29,11 +33,11 @@ abstract class JViewBase implements JView
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   JModel  $model  The model object.
+	 * @param   Model  $model  The model object.
 	 *
-	 * @since  12.1
+	 * @since   12.1
 	 */
-	public function __construct(JModel $model)
+	public function __construct(Model $model)
 	{
 		// Setup dependencies.
 		$this->model = $model;
@@ -46,7 +50,7 @@ abstract class JViewBase implements JView
 	 *
 	 * @return  string  The escaped output.
 	 *
-	 * @see     JView::escape()
+	 * @see     View::escape()
 	 * @since   12.1
 	 */
 	public function escape($output)

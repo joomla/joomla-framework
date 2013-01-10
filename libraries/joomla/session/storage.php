@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Session;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Filter\Input;
 
 /**
  * Custom session storage handler for PHP
@@ -18,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @todo        When dropping compatibility with PHP 5.3 use the SessionHandlerInterface and the SessionHandler class
  * @since       11.1
  */
-abstract class JSessionStorage
+abstract class Storage
 {
 	/**
 	 * @var    array  JSessionStorage instances container.
@@ -44,13 +48,13 @@ abstract class JSessionStorage
 	 * @param   string  $name     The session store to instantiate
 	 * @param   array   $options  Array of options
 	 *
-	 * @return  JSessionStorage
+	 * @return  Storage
 	 *
 	 * @since   11.1
 	 */
 	public static function getInstance($name = 'none', $options = array())
 	{
-		$name = strtolower(JFilterInput::getInstance()->clean($name, 'word'));
+		$name = strtolower(Input::getInstance()->clean($name, 'word'));
 
 		if (empty(self::$instances[$name]))
 		{

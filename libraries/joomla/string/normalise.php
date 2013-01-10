@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\String;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  String
  * @since       11.3
  */
-abstract class JStringNormalise
+abstract class Normalise
 {
 	/**
 	 * Method to convert a string from camel case.

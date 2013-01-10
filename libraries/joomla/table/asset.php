@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Table;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Driver;
 
 /**
  * Table class supporting modified pre-order tree traversal behavior.
@@ -17,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @link        http://docs.joomla.org/JTableAsset
  * @since       11.1
  */
-class JTableAsset extends JTableNested
+class Asset extends Nested
 {
 	/**
 	 * The primary key of the asset.
@@ -54,11 +58,11 @@ class JTableAsset extends JTableNested
 	/**
 	 * Constructor
 	 *
-	 * @param   JDatabaseDriver  $db  Database driver object.
+	 * @param   Driver  $db  Database driver object.
 	 *
 	 * @since   11.1
 	 */
-	public function __construct(JDatabaseDriver $db)
+	public function __construct(Driver $db)
 	{
 		parent::__construct('#__assets', 'id', $db);
 	}

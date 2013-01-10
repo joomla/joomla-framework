@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Session\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Session\Storage;
+use RuntimeException;
 
 /**
  * APC session storage handler for PHP
@@ -17,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
  * @since       11.1
  */
-class JSessionStorageApc extends JSessionStorage
+class Apc extends Storage
 {
 	/**
 	 * Constructor

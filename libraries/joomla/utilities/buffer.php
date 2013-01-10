@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Utilities;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -19,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Utilities
  * @since       11.1
  */
-class JBuffer
+class Buffer
 {
 	/**
 	 * Stream position
@@ -196,4 +198,4 @@ class JBuffer
 	}
 }
 // Register the stream
-stream_wrapper_register('buffer', 'JBuffer');
+stream_wrapper_register('buffer', 'Joomla\\Utilities\\Buffer');

@@ -7,16 +7,20 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Utilities;
+
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\String\String;
+
 /**
- * JArrayHelper is an array utility class for doing all sorts of odds and ends with arrays.
+ * ArrayHelper is an array utility class for doing all sorts of odds and ends with arrays.
  *
  * @package     Joomla.Platform
  * @subpackage  Utilities
  * @since       11.1
  */
-abstract class JArrayHelper
+abstract class ArrayHelper
 {
 	/**
 	 * Option to perform case-sensitive sorts.
@@ -342,7 +346,7 @@ abstract class JArrayHelper
 	 *     'New' => array('1000', '1500', '1750'),
 	 *     'Used' => array('3000', '4000', '5000', '6000')
 	 * );
-	 * $output = JArrayHelper::invert($input);
+	 * $output = ArrayHelper::invert($input);
 	 *
 	 * Output would be equal to:
 	 * $output = array(
@@ -527,7 +531,7 @@ abstract class JArrayHelper
 	 *
 	 * @return  integer  Comparison status
 	 *
-	 * @see     JArrayHelper::sortObjects()
+	 * @see     ArrayHelper::sortObjects()
 	 * @since   11.1
 	 */
 	protected static function _sortObjects(&$a, &$b)
@@ -560,11 +564,11 @@ abstract class JArrayHelper
 			}
 			elseif ($caseSensitive)
 			{
-				$cmp = JString::strcmp($va, $vb, $locale);
+				$cmp = String::strcmp($va, $vb, $locale);
 			}
 			else
 			{
-				$cmp = JString::strcasecmp($va, $vb, $locale);
+				$cmp = String::strcasecmp($va, $vb, $locale);
 			}
 
 			if ($cmp > 0)

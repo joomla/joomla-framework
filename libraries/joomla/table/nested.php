@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Table;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Utilities\ArrayHelper;
+use UnexpectedValueException;
+use InvalidArgumentException;
+use RuntimeException;
+use Exception;
+use stdClass;
 
 /**
  * Table class supporting modified pre-order tree traversal behavior.
@@ -17,7 +26,7 @@ defined('JPATH_PLATFORM') or die;
  * @link        http://docs.joomla.org/JTableNested
  * @since       11.1
  */
-class JTableNested extends JTable
+class Nested extends Table
 {
 	/**
 	 * Object property holding the primary key of the parent node.  Provides
@@ -531,7 +540,7 @@ class JTableNested extends JTable
 		if ($this->_trackAssets)
 		{
 			$name = $this->_getAssetName();
-			$asset = JTable::getInstance('Asset');
+			$asset = Table::getInstance('Asset');
 
 			// Lock the table for writing.
 			if (!$asset->_lock())
@@ -875,7 +884,7 @@ class JTableNested extends JTable
 		$k = $this->_tbl_key;
 
 		// Sanitize input.
-		JArrayHelper::toInteger($pks);
+		ArrayHelper::toInteger($pks);
 		$userId = (int) $userId;
 		$state = (int) $state;
 

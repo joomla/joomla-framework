@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Session\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Session\Storage;
+use Joomla\Factory;
+use RuntimeException;
 
 /**
  * Memcache session storage handler for PHP
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Session
  * @since       11.1
  */
-class JSessionStorageMemcache extends JSessionStorage
+class Memcache extends Storage
 {
 	/**
 	 * Constructor
@@ -35,7 +41,7 @@ class JSessionStorageMemcache extends JSessionStorage
 
 		parent::__construct($options);
 
-		$config = JFactory::getConfig();
+		$config = Factory::getConfig();
 
 		// This will be an array of loveliness
 		// @todo: multiple servers

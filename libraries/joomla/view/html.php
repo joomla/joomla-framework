@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\View;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Model\Model;
+use Joomla\Filesystem\Path;
+use SplPriorityQueue;
+use RuntimeException;
 
 jimport('joomla.filesystem.path');
 
@@ -18,7 +25,7 @@ jimport('joomla.filesystem.path');
  * @subpackage  View
  * @since       12.1
  */
-abstract class JViewHtml extends JViewBase
+abstract class ViewHtml extends ViewBase
 {
 	/**
 	 * The view layout.
@@ -39,12 +46,12 @@ abstract class JViewHtml extends JViewBase
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   JModel            $model  The model object.
+	 * @param   Model             $model  The model object.
 	 * @param   SplPriorityQueue  $paths  The paths queue.
 	 *
 	 * @since   12.1
 	 */
-	public function __construct(JModel $model, SplPriorityQueue $paths = null)
+	public function __construct(Model $model, SplPriorityQueue $paths = null)
 	{
 		parent::__construct($model);
 
@@ -71,7 +78,7 @@ abstract class JViewHtml extends JViewBase
 	 *
 	 * @return  string  The escaped output.
 	 *
-	 * @see     JView::escape()
+	 * @see     View::escape()
 	 * @since   12.1
 	 */
 	public function escape($output)
@@ -105,10 +112,10 @@ abstract class JViewHtml extends JViewBase
 	public function getPath($layout, $ext = 'php')
 	{
 		// Get the layout file name.
-		$file = JPath::clean($layout . '.' . $ext);
+		$file = Path::clean($layout . '.' . $ext);
 
 		// Find the layout file path.
-		$path = JPath::find(clone($this->paths), $file);
+		$path = Path::find(clone($this->paths), $file);
 
 		return $path;
 	}
@@ -161,7 +168,7 @@ abstract class JViewHtml extends JViewBase
 	 *
 	 * @param   string  $layout  The layout name.
 	 *
-	 * @return  JViewHtml  Method supports chaining.
+	 * @return  ViewHtml  Method supports chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -177,7 +184,7 @@ abstract class JViewHtml extends JViewBase
 	 *
 	 * @param   SplPriorityQueue  $paths  The paths queue.
 	 *
-	 * @return  JViewHtml  Method supports chaining.
+	 * @return  ViewHtml  Method supports chaining.
 	 *
 	 * @since   12.1
 	 */

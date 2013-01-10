@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Session\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Session\Storage;
+use Joomla\Factory;
+use Exception;
 
 /**
  * Database session storage handler for PHP
@@ -17,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
  * @since       11.1
  */
-class JSessionStorageDatabase extends JSessionStorage
+class Database extends Storage
 {
 	/**
 	 * Read the data for a particular session identifier from the SessionHandler backend.
@@ -31,7 +37,7 @@ class JSessionStorageDatabase extends JSessionStorage
 	public function read($id)
 	{
 		// Get the database connection object and verify that it is connected.
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		try
 		{
@@ -64,7 +70,7 @@ class JSessionStorageDatabase extends JSessionStorage
 	public function write($id, $data)
 	{
 		// Get the database connection object and verify that it is connected.
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		try
 		{
@@ -104,7 +110,7 @@ class JSessionStorageDatabase extends JSessionStorage
 	public function destroy($id)
 	{
 		// Get the database connection object and verify that it is connected.
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		try
 		{
@@ -135,7 +141,7 @@ class JSessionStorageDatabase extends JSessionStorage
 	public function gc($lifetime = 1440)
 	{
 		// Get the database connection object and verify that it is connected.
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		// Determine the timestamp threshold with which to purge old sessions.
 		$past = time() - $lifetime;

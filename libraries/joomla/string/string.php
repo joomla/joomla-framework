@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\String;
+
 defined('JPATH_PLATFORM') or die;
 
 // PHP mbstring and iconv local configuration
@@ -44,7 +46,7 @@ jimport('phputf8.strcasecmp');
  * @subpackage  String
  * @since       11.1
  */
-abstract class JString
+abstract class String
 {
 	/**
 	 * Increment styles.
