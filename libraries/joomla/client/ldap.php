@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Client;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Client
  * @since       12.1
  */
-class JClientLdap
+class Ldap
 {
 	/**
 	 * @var    string  Hostname of LDAP server
