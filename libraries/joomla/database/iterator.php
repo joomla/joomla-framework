@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       12.1
  */
-abstract class JDatabaseIterator implements Countable, Iterator
+abstract class Iterator implements \Countable, \Iterator
 {
 	/**
 	 * The database cursor.
@@ -75,7 +77,7 @@ abstract class JDatabaseIterator implements Countable, Iterator
 	 *
 	 * @throws  InvalidArgumentException
 	 */
-	public function __construct($cursor, $column = null, $class = 'stdClass')
+	public function __construct($cursor, $column = null, $class = '\\stdClass')
 	{
 		if (!class_exists($class))
 		{

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Query;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Query;
 
 /**
  * PDO Query Building Class.
@@ -16,6 +20,6 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       12.1
  */
-class JDatabaseQueryPdo extends JDatabaseQuery
+class Pdo extends Query
 {
 }

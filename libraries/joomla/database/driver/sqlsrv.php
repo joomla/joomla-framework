@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Driver;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Log;
+use Joomla\Language\Text;
+use Joomla\Database\Driver;
 
 /**
  * SQL Server database driver
@@ -17,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://msdn.microsoft.com/en-us/library/cc296152(SQL.90).aspx
  * @since       12.1
  */
-class JDatabaseDriverSqlsrv extends JDatabaseDriver
+class Sqlsrv extends Driver
 {
 	/**
 	 * The name of the database driver.
@@ -124,13 +130,13 @@ class JDatabaseDriverSqlsrv extends JDatabaseDriver
 		// Make sure the SQLSRV extension for PHP is installed and enabled.
 		if (!function_exists('sqlsrv_connect'))
 		{
-			throw new RuntimeException('PHP extension sqlsrv_connect is not available.');
+			throw new \RuntimeException('PHP extension sqlsrv_connect is not available.');
 		}
 
 		// Attempt to connect to the server.
 		if (!($this->connection = @ sqlsrv_connect($this->options['host'], $config)))
 		{
-			throw new RuntimeException('Database sqlsrv_connect failed');
+			throw new \RuntimeException('Database sqlsrv_connect failed');
 		}
 
 		// Make sure that DB warnings are not returned as errors.
@@ -559,8 +565,8 @@ class JDatabaseDriverSqlsrv extends JDatabaseDriver
 
 		if (!is_resource($this->connection))
 		{
-			JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'database');
-			throw new RuntimeException($this->errorMsg, $this->errorNum);
+			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
+			throw new \RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -580,7 +586,7 @@ class JDatabaseDriverSqlsrv extends JDatabaseDriver
 			// Add the query to the object queue.
 			$this->log[] = $sql;
 
-			JLog::add($sql, JLog::DEBUG, 'databasequery');
+			Log::add($sql, Log::DEBUG, 'databasequery');
 		}
 
 		// Reset the error values.
@@ -621,8 +627,8 @@ class JDatabaseDriverSqlsrv extends JDatabaseDriver
 					$this->errorMsg = $errors[0]['message'] . 'SQL=' . $sql;
 
 					// Throw the normal query exception.
-					JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'databasequery');
-					throw new RuntimeException($this->errorMsg, $this->errorNum);
+					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+					throw new \RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -637,8 +643,8 @@ class JDatabaseDriverSqlsrv extends JDatabaseDriver
 				$this->errorMsg = $errors[0]['message'] . 'SQL=' . $sql;
 
 				// Throw the normal query exception.
-				JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'databasequery');
-				throw new RuntimeException($this->errorMsg, $this->errorNum);
+				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+				throw new \RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
 
@@ -764,7 +770,7 @@ class JDatabaseDriverSqlsrv extends JDatabaseDriver
 
 		if (!sqlsrv_query($this->connection, 'USE ' . $database, null, array('scrollable' => SQLSRV_CURSOR_STATIC)))
 		{
-			throw new RuntimeException('Could not connect to database');
+			throw new \RuntimeException('Could not connect to database');
 		}
 
 		return true;

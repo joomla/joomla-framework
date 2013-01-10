@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Query;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       11.1
  */
-class JDatabaseQuerySqlazure extends JDatabaseQuerySqlsrv
+class Sqlazure extends Sqlsrv
 {
 	/**
 	 * The character(s) used to quote SQL statement names such as table names or field names,

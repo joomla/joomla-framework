@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Iterator;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Iterator;
 
 /**
  * MySQL database iterator.
@@ -17,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://dev.mysql.com/doc/
  * @since       12.1
  */
-class JDatabaseIteratorMysql extends JDatabaseIterator
+class Mysql extends Iterator
 {
 	/**
 	 * Get the number of rows in the result set for the executed SQL given by the cursor.

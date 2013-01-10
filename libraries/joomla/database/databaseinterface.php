@@ -12,13 +12,20 @@ namespace Joomla\Database;
 defined('JPATH_PLATFORM') or die;
 
 /**
- * Joomla Platform Database Exporter Class
+ * Joomla Platform Database Interface
  *
  * @package     Joomla.Platform
  * @subpackage  Database
- * @since       12.1
+ * @since       11.2
  */
-abstract class Exporter
+interface DatabaseInterface
 {
-
+	/**
+	 * Test to see if the connector is available.
+	 *
+	 * @return  boolean  True on success, false otherwise.
+	 *
+	 * @since   11.2
+	 */
+	public static function isSupported();
 }

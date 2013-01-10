@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Driver;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Log;
+use Joomla\Language\Text;
+use Joomla\Database\Driver;
+use Joolmla\Database\Query\Postgresql as QueryPostgresql;
 
 /**
  * PostgreSQL database driver
@@ -16,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       12.1
  */
-class JDatabaseDriverPostgresql extends JDatabaseDriver
+class Postgresql extends Driver
 {
 	/**
 	 * The database driver name
@@ -108,7 +115,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 		// Make sure the postgresql extension for PHP is installed and enabled.
 		if (!function_exists('pg_connect'))
 		{
-			throw new RuntimeException('PHP extension pg_connect is not available.');
+			throw new \RuntimeException('PHP extension pg_connect is not available.');
 		}
 
 		// Build the DSN for the connection.
@@ -117,7 +124,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 		// Attempt to connect to the server.
 		if (!($this->connection = @pg_connect($dsn)))
 		{
-			throw new RuntimeException('Error connecting to PGSQL database.');
+			throw new \RuntimeException('Error connecting to PGSQL database.');
 		}
 
 		pg_set_error_verbosity($this->connection, PGSQL_ERRORS_DEFAULT);
@@ -280,12 +287,12 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 		if ($new)
 		{
 			// Make sure we have a query class for this driver.
-			if (!class_exists('JDatabaseQueryPostgresql'))
+			if (!class_exists('\\Joomla\\Database\\Query\\Postgresql'))
 			{
-				throw new RuntimeException('JDatabaseQueryPostgresql Class not found.');
+				throw new \RuntimeException('\\Joomla\\Database\\Query\\Postgresql Class not found.');
 			}
 
-			$this->queryObject = new JDatabaseQueryPostgresql($this);
+			$this->queryObject = new QueryPostgresql($this);
 
 			return $this->queryObject;
 		}
@@ -613,8 +620,8 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 
 		if (!is_resource($this->connection))
 		{
-			JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'database');
-			throw new RuntimeException($this->errorMsg, $this->errorNum);
+			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
+			throw new \RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -634,7 +641,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 			// Add the query to the object queue.
 			$this->log[] = $sql;
 
-			JLog::add($sql, JLog::DEBUG, 'databasequery');
+			Log::add($sql, Log::DEBUG, 'databasequery');
 		}
 
 		// Reset the error values.
@@ -661,11 +668,11 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 				{
 					// Get the error number and message.
 					$this->errorNum = (int) pg_result_error_field($this->cursor, PGSQL_DIAG_SQLSTATE) . ' ';
-					$this->errorMsg = JText::_('JLIB_DATABASE_QUERY_FAILED') . "\n" . pg_last_error($this->connection) . "\nSQL=$sql";
+					$this->errorMsg = Text::_('JLIB_DATABASE_QUERY_FAILED') . "\n" . pg_last_error($this->connection) . "\nSQL=$sql";
 
 					// Throw the normal query exception.
-					JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'databasequery');
-					throw new RuntimeException($this->errorMsg);
+					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+					throw new \RuntimeException($this->errorMsg);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -676,11 +683,11 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 			{
 				// Get the error number and message.
 				$this->errorNum = (int) pg_result_error_field($this->cursor, PGSQL_DIAG_SQLSTATE) . ' ';
-				$this->errorMsg = JText::_('JLIB_DATABASE_QUERY_FAILED') . "\n" . pg_last_error($this->connection) . "\nSQL=$sql";
+				$this->errorMsg = Text::_('JLIB_DATABASE_QUERY_FAILED') . "\n" . pg_last_error($this->connection) . "\nSQL=$sql";
 
 				// Throw the normal query exception.
-				JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'databasequery');
-				throw new RuntimeException($this->errorMsg);
+				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+				throw new \RuntimeException($this->errorMsg);
 			}
 		}
 
@@ -711,7 +718,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 		if ( !in_array($oldTable, $tableList) )
 		{
 			// Origin Table not found
-			throw new RuntimeException('Table not found in Postgresql database.');
+			throw new \RuntimeException('Table not found in Postgresql database.');
 		}
 		else
 		{
@@ -1114,7 +1121,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 	 *
 	 * @return int   The position of $substring in $string
 	 */
-	public function getStringPositionSQL( $substring, $string )
+	public function getStringPositionSQL($substring, $string)
 	{
 		$this->connect();
 
@@ -1149,7 +1156,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 	 *
 	 * @since   12.1
 	 */
-	public function getAlterDbCharacterSet( $dbName )
+	public function getAlterDbCharacterSet($dbName)
 	{
 		$query = 'ALTER DATABASE ' . $this->quoteName($dbName) . ' SET CLIENT_ENCODING TO ' . $this->quote('UTF8');
 
@@ -1263,7 +1270,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 	 *
 	 * @since   12.1
 	 */
-	public function releaseTransactionSavepoint( $savepointName )
+	public function releaseTransactionSavepoint($savepointName)
 	{
 		$this->connect();
 		$this->setQuery('RELEASE SAVEPOINT ' . $this->escape($savepointName));
@@ -1279,7 +1286,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 	 *
 	 * @since   12.1
 	 */
-	public function transactionSavepoint( $savepointName )
+	public function transactionSavepoint($savepointName)
 	{
 		$this->connect();
 		$this->setQuery('SAVEPOINT ' . $this->escape($savepointName));

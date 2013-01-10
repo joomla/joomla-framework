@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Log;
+use Joomla\Language\Text;
 
 /**
  * Database connector class.
@@ -17,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @since       11.1
  * @deprecated  13.3
  */
-abstract class JDatabase
+abstract class Database
 {
 	/**
 	 * Gets the error message from the database connection.
@@ -31,7 +36,7 @@ abstract class JDatabase
 	 */
 	public function getErrorMsg($escaped = false)
 	{
-		JLog::add('JDatabase::getErrorMsg() is deprecated, use exception handling instead.', JLog::WARNING, 'deprecated');
+		Log::add('JDatabase::getErrorMsg() is deprecated, use exception handling instead.', Log::WARNING, 'deprecated');
 
 		if ($escaped)
 		{
@@ -53,7 +58,7 @@ abstract class JDatabase
 	 */
 	public function getErrorNum()
 	{
-		JLog::add('JDatabase::getErrorNum() is deprecated, use exception handling instead.', JLog::WARNING, 'deprecated');
+		Log::add('JDatabase::getErrorNum() is deprecated, use exception handling instead.', Log::WARNING, 'deprecated');
 
 		return $this->errorNum;
 	}
@@ -70,16 +75,16 @@ abstract class JDatabase
 	 */
 	public function stderr($showSQL = false)
 	{
-		JLog::add('JDatabase::stderr() is deprecated.', JLog::WARNING, 'deprecated');
+		Log::add('JDatabase::stderr() is deprecated.', Log::WARNING, 'deprecated');
 
 		if ($this->errorNum != 0)
 		{
-			return JText::sprintf('JLIB_DATABASE_ERROR_FUNCTION_FAILED', $this->errorNum, $this->errorMsg)
+			return Text::sprintf('JLIB_DATABASE_ERROR_FUNCTION_FAILED', $this->errorNum, $this->errorMsg)
 			. ($showSQL ? "<br />SQL = <pre>$this->sql</pre>" : '');
 		}
 		else
 		{
-			return JText::_('JLIB_DATABASE_FUNCTION_NOERROR');
+			return Text::_('JLIB_DATABASE_FUNCTION_NOERROR');
 		}
 	}
 }

@@ -7,128 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database;
+
 defined('JPATH_PLATFORM') or die;
-
-/**
- * Query Element Class.
- *
- * @property-read    string  $name      The name of the element.
- * @property-read    array   $elements  An array of elements.
- * @property-read    string  $glue      Glue piece.
- *
- * @package     Joomla.Platform
- * @subpackage  Database
- * @since       11.1
- */
-class JDatabaseQueryElement
-{
-	/**
-	 * @var    string  The name of the element.
-	 * @since  11.1
-	 */
-	protected $name = null;
-
-	/**
-	 * @var    array  An array of elements.
-	 * @since  11.1
-	 */
-	protected $elements = null;
-
-	/**
-	 * @var    string  Glue piece.
-	 * @since  11.1
-	 */
-	protected $glue = null;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param   string  $name      The name of the element.
-	 * @param   mixed   $elements  String or array.
-	 * @param   string  $glue      The glue for elements.
-	 *
-	 * @since   11.1
-	 */
-	public function __construct($name, $elements, $glue = ',')
-	{
-		$this->elements = array();
-		$this->name = $name;
-		$this->glue = $glue;
-
-		$this->append($elements);
-	}
-
-	/**
-	 * Magic function to convert the query element to a string.
-	 *
-	 * @return  string
-	 *
-	 * @since   11.1
-	 */
-	public function __toString()
-	{
-		if (substr($this->name, -2) == '()')
-		{
-			return PHP_EOL . substr($this->name, 0, -2) . '(' . implode($this->glue, $this->elements) . ')';
-		}
-		else
-		{
-			return PHP_EOL . $this->name . ' ' . implode($this->glue, $this->elements);
-		}
-	}
-
-	/**
-	 * Appends element parts to the internal list.
-	 *
-	 * @param   mixed  $elements  String or array.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 */
-	public function append($elements)
-	{
-		if (is_array($elements))
-		{
-			$this->elements = array_merge($this->elements, $elements);
-		}
-		else
-		{
-			$this->elements = array_merge($this->elements, array($elements));
-		}
-	}
-
-	/**
-	 * Gets the elements of this element.
-	 *
-	 * @return  string
-	 *
-	 * @since   11.1
-	 */
-	public function getElements()
-	{
-		return $this->elements;
-	}
-
-	/**
-	 * Method to provide deep copy support to nested objects and arrays
-	 * when cloning.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function __clone()
-	{
-		foreach ($this as $k => $v)
-		{
-			if (is_object($v) || is_array($v))
-			{
-				$this->{$k} = unserialize(serialize($v));
-			}
-		}
-	}
-}
 
 /**
  * Query Building Class.
@@ -141,7 +22,7 @@ class JDatabaseQueryElement
  * @method      string  qn()  qs($name, $as = null)     Alias for quoteName method
  * @method      string  e()   e($text, $extra = false)   Alias for escape method
  */
-abstract class JDatabaseQuery
+abstract class Query
 {
 	/**
 	 * @var    JDatabaseDriver  The database driver.
@@ -309,7 +190,7 @@ abstract class JDatabaseQuery
 	 *
 	 * @since   11.1
 	 */
-	public function __construct(JDatabaseDriver $db = null)
+	public function __construct(Driver $db = null)
 	{
 		$this->db = $db;
 	}
@@ -453,7 +334,7 @@ abstract class JDatabaseQuery
 				break;
 		}
 
-		if ($this instanceof JDatabaseQueryLimitable)
+		if ($this instanceof Query\Limitable)
 		{
 			$query = $this->processLimit($query, $this->limit, $this->offset);
 		}
@@ -497,7 +378,7 @@ abstract class JDatabaseQuery
 
 		if (is_null($this->call))
 		{
-			$this->call = new JDatabaseQueryElement('CALL', $columns);
+			$this->call = new Query\Element('CALL', $columns);
 		}
 		else
 		{
@@ -678,7 +559,7 @@ abstract class JDatabaseQuery
 	{
 		if (is_null($this->columns))
 		{
-			$this->columns = new JDatabaseQueryElement('()', $columns);
+			$this->columns = new Query\Element('()', $columns);
 		}
 		else
 		{
@@ -740,7 +621,7 @@ abstract class JDatabaseQuery
 	 */
 	public function dateFormat()
 	{
-		if (!($this->db instanceof JDatabaseDriver))
+		if (!($this->db instanceof Driver))
 		{
 			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
@@ -780,7 +661,7 @@ abstract class JDatabaseQuery
 	public function delete($table = null)
 	{
 		$this->type = 'delete';
-		$this->delete = new JDatabaseQueryElement('DELETE', null);
+		$this->delete = new Query\Element('DELETE', null);
 
 		if (!empty($table))
 		{
@@ -808,9 +689,9 @@ abstract class JDatabaseQuery
 	 */
 	public function escape($text, $extra = false)
 	{
-		if (!($this->db instanceof JDatabaseDriver))
+		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->escape($text, $extra);
@@ -838,7 +719,7 @@ abstract class JDatabaseQuery
 
 		if (is_null($this->exec))
 		{
-			$this->exec = new JDatabaseQueryElement('EXEC', $columns);
+			$this->exec = new Query\Element('EXEC', $columns);
 		}
 		else
 		{
@@ -873,13 +754,13 @@ abstract class JDatabaseQuery
 			{
 				if (is_null($subQueryAlias))
 				{
-					throw new RuntimeException('JLIB_DATABASE_ERROR_NULL_SUBQUERY_ALIAS');
+					throw new \RuntimeException('JLIB_DATABASE_ERROR_NULL_SUBQUERY_ALIAS');
 				}
 
 				$tables = '( ' . (string) $tables . ' ) AS ' . $this->quoteName($subQueryAlias);
 			}
 
-			$this->from = new JDatabaseQueryElement('FROM', $tables);
+			$this->from = new Query\Element('FROM', $tables);
 		}
 		else
 		{
@@ -1007,7 +888,7 @@ abstract class JDatabaseQuery
 	{
 		if (is_null($this->group))
 		{
-			$this->group = new JDatabaseQueryElement('GROUP BY', $columns);
+			$this->group = new Query\Element('GROUP BY', $columns);
 		}
 		else
 		{
@@ -1035,7 +916,7 @@ abstract class JDatabaseQuery
 		if (is_null($this->having))
 		{
 			$glue = strtoupper($glue);
-			$this->having = new JDatabaseQueryElement('HAVING', $conditions, " $glue ");
+			$this->having = new Query\Element('HAVING', $conditions, " $glue ");
 		}
 		else
 		{
@@ -1084,7 +965,7 @@ abstract class JDatabaseQuery
 	public function insert($table, $incrementField=false)
 	{
 		$this->type = 'insert';
-		$this->insert = new JDatabaseQueryElement('INSERT INTO', $table);
+		$this->insert = new Query\Element('INSERT INTO', $table);
 		$this->autoIncrementField = $incrementField;
 
 		return $this;
@@ -1109,7 +990,7 @@ abstract class JDatabaseQuery
 		{
 			$this->join = array();
 		}
-		$this->join[] = new JDatabaseQueryElement(strtoupper($type) . ' JOIN', $conditions);
+		$this->join[] = new Query\Element(strtoupper($type) . ' JOIN', $conditions);
 
 		return $this;
 	}
@@ -1169,9 +1050,9 @@ abstract class JDatabaseQuery
 	 */
 	public function nullDate($quoted = true)
 	{
-		if (!($this->db instanceof JDatabaseDriver))
+		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		$result = $this->db->getNullDate($quoted);
@@ -1201,7 +1082,7 @@ abstract class JDatabaseQuery
 	{
 		if (is_null($this->order))
 		{
-			$this->order = new JDatabaseQueryElement('ORDER BY', $columns);
+			$this->order = new Query\Element('ORDER BY', $columns);
 		}
 		else
 		{
@@ -1253,9 +1134,9 @@ abstract class JDatabaseQuery
 	 */
 	public function quote($text, $escape = true)
 	{
-		if (!($this->db instanceof JDatabaseDriver))
+		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->quote($text, $escape);
@@ -1286,9 +1167,9 @@ abstract class JDatabaseQuery
 	 */
 	public function quoteName($name, $as = null)
 	{
-		if (!($this->db instanceof JDatabaseDriver))
+		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->quoteName($name, $as);
@@ -1335,7 +1216,7 @@ abstract class JDatabaseQuery
 
 		if (is_null($this->select))
 		{
-			$this->select = new JDatabaseQueryElement('SELECT', $columns);
+			$this->select = new Query\Element('SELECT', $columns);
 		}
 		else
 		{
@@ -1365,7 +1246,7 @@ abstract class JDatabaseQuery
 		if (is_null($this->set))
 		{
 			$glue = strtoupper($glue);
-			$this->set = new JDatabaseQueryElement('SET', $conditions, "\n\t$glue ");
+			$this->set = new Query\Element('SET', $conditions, "\n\t$glue ");
 		}
 		else
 		{
@@ -1413,7 +1294,7 @@ abstract class JDatabaseQuery
 	public function update($table)
 	{
 		$this->type = 'update';
-		$this->update = new JDatabaseQueryElement('UPDATE', $table);
+		$this->update = new Query\Element('UPDATE', $table);
 
 		return $this;
 	}
@@ -1435,7 +1316,7 @@ abstract class JDatabaseQuery
 	{
 		if (is_null($this->values))
 		{
-			$this->values = new JDatabaseQueryElement('()', $values, '),(');
+			$this->values = new Query\Element('()', $values, '),(');
 		}
 		else
 		{
@@ -1465,7 +1346,7 @@ abstract class JDatabaseQuery
 		if (is_null($this->where))
 		{
 			$glue = strtoupper($glue);
-			$this->where = new JDatabaseQueryElement('WHERE', $conditions, " $glue ");
+			$this->where = new Query\Element('WHERE', $conditions, " $glue ");
 		}
 		else
 		{
@@ -1536,7 +1417,7 @@ abstract class JDatabaseQuery
 		// Get the JDatabaseQueryElement if it does not exist
 		if (is_null($this->union))
 		{
-				$this->union = new JDatabaseQueryElement($name, $query, "$glue");
+				$this->union = new Query\Element($name, $query, "$glue");
 		}
 		// Otherwise append the second UNION.
 		else

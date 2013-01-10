@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Driver;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -17,7 +19,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://php.net/pdo
  * @since       12.1
  */
-class JDatabaseDriverOracle extends JDatabaseDriverPdo
+class Oracle extends Pdo
 {
 	/**
 	 * The name of the database driver.
@@ -249,9 +251,9 @@ class JDatabaseDriverOracle extends JDatabaseDriverPdo
 		$columns = array();
 		$query = $this->getQuery(true);
 
-		$fieldCasing = $this->getOption(PDO::ATTR_CASE);
+		$fieldCasing = $this->getOption(\PDO::ATTR_CASE);
 
-		$this->setOption(PDO::ATTR_CASE, PDO::CASE_UPPER);
+		$this->setOption(\PDO::ATTR_CASE, \PDO::CASE_UPPER);
 
 		$table = strtoupper($table);
 
@@ -280,7 +282,7 @@ class JDatabaseDriverOracle extends JDatabaseDriverPdo
 			}
 		}
 
-		$this->setOption(PDO::ATTR_CASE, $fieldCasing);
+		$this->setOption(\PDO::ATTR_CASE, $fieldCasing);
 
 		return $columns;
 	}
@@ -301,9 +303,9 @@ class JDatabaseDriverOracle extends JDatabaseDriverPdo
 
 		$query = $this->getQuery(true);
 
-		$fieldCasing = $this->getOption(PDO::ATTR_CASE);
+		$fieldCasing = $this->getOption(\PDO::ATTR_CASE);
 
-		$this->setOption(PDO::ATTR_CASE, PDO::CASE_UPPER);
+		$this->setOption(\PDO::ATTR_CASE, \PDO::CASE_UPPER);
 
 		$table = strtoupper($table);
 		$query->select('*');
@@ -315,7 +317,7 @@ class JDatabaseDriverOracle extends JDatabaseDriverPdo
 		$this->setQuery($query);
 		$keys = $this->loadObjectList();
 
-		$this->setOption(PDO::ATTR_CASE, $fieldCasing);
+		$this->setOption(\PDO::ATTR_CASE, $fieldCasing);
 
 		return $keys;
 	}
@@ -519,7 +521,7 @@ class JDatabaseDriverOracle extends JDatabaseDriverPdo
 	 */
 	public static function isSupported()
 	{
-		return class_exists('PDO') && in_array('oci', PDO::getAvailableDrivers());
+		return class_exists('\\PDO') && in_array('oci', \PDO::getAvailableDrivers());
 	}
 
 	/**

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Query;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Query;
 
 /**
  * Query Building Class.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       11.1
  */
-class JDatabaseQueryMysqli extends JDatabaseQuery implements JDatabaseQueryLimitable
+class Mysqli extends Query implements Limitable
 {
 	/**
 	 * @var    interger  The offset for the result set.

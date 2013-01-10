@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Query;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -19,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       12.1
  */
-interface JDatabaseQueryLimitable
+interface Limitable
 {
 	/**
 	 * Method to modify a query already in string format with the needed

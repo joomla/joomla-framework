@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Exporter;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Driver\Mysql as DriverMysql;
 
 /**
  * MySQL export driver.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       11.1
  */
-class JDatabaseExporterMysql extends JDatabaseExporterMysqli
+class Mysql extends Mysqli
 {
 	/**
 	 * Checks if all data and options are in order prior to exporting.
@@ -30,15 +34,15 @@ class JDatabaseExporterMysql extends JDatabaseExporterMysqli
 	public function check()
 	{
 		// Check if the db connector has been set.
-		if (!($this->db instanceof JDatabaseDriverMysql))
+		if (!($this->db instanceof DriverMysql))
 		{
-			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;
@@ -53,7 +57,7 @@ class JDatabaseExporterMysql extends JDatabaseExporterMysqli
 	 *
 	 * @since   11.1
 	 */
-	public function setDbo(JDatabaseDriverMysql $db)
+	public function setDbo(DriverMysql $db)
 	{
 		$this->db = $db;
 

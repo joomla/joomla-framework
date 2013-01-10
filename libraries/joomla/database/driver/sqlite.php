@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Driver;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -17,7 +19,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://php.net/pdo
  * @since       12.1
  */
-class JDatabaseDriverSqlite extends JDatabaseDriverPdo
+class Sqlite extends Pdo
 {
 	/**
 	 * The name of the database driver.
@@ -105,7 +107,7 @@ class JDatabaseDriverSqlite extends JDatabaseDriverPdo
 			return $text;
 		}
 
-		return SQLite3::escapeString($text);
+		return \SQLite3::escapeString($text);
 	}
 
 	/**
@@ -160,9 +162,9 @@ class JDatabaseDriverSqlite extends JDatabaseDriverPdo
 		$columns = array();
 		$query = $this->getQuery(true);
 
-		$fieldCasing = $this->getOption(PDO::ATTR_CASE);
+		$fieldCasing = $this->getOption(\PDO::ATTR_CASE);
 
-		$this->setOption(PDO::ATTR_CASE, PDO::CASE_UPPER);
+		$this->setOption(\PDO::ATTR_CASE, \PDO::CASE_UPPER);
 
 		$table = strtoupper($table);
 
@@ -194,7 +196,7 @@ class JDatabaseDriverSqlite extends JDatabaseDriverPdo
 			}
 		}
 
-		$this->setOption(PDO::ATTR_CASE, $fieldCasing);
+		$this->setOption(\PDO::ATTR_CASE, $fieldCasing);
 
 		return $columns;
 	}
@@ -216,9 +218,9 @@ class JDatabaseDriverSqlite extends JDatabaseDriverPdo
 		$keys = array();
 		$query = $this->getQuery(true);
 
-		$fieldCasing = $this->getOption(PDO::ATTR_CASE);
+		$fieldCasing = $this->getOption(\PDO::ATTR_CASE);
 
-		$this->setOption(PDO::ATTR_CASE, PDO::CASE_UPPER);
+		$this->setOption(\PDO::ATTR_CASE, \PDO::CASE_UPPER);
 
 		$table = strtoupper($table);
 		$query->setQuery('pragma table_info( ' . $table . ')');
@@ -236,7 +238,7 @@ class JDatabaseDriverSqlite extends JDatabaseDriverPdo
 			}
 		}
 
-		$this->setOption(PDO::ATTR_CASE, $fieldCasing);
+		$this->setOption(\PDO::ATTR_CASE, $fieldCasing);
 
 		return $keys;
 	}
@@ -379,7 +381,7 @@ class JDatabaseDriverSqlite extends JDatabaseDriverPdo
 	 */
 	public static function isSupported()
 	{
-		return class_exists('PDO') && in_array('sqlite', PDO::getAvailableDrivers());
+		return class_exists('\\PDO') && in_array('sqlite', \PDO::getAvailableDrivers());
 	}
 
 	/**

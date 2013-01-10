@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Driver;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -17,7 +19,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://msdn.microsoft.com/en-us/library/ee336279.aspx
  * @since       12.1
  */
-class JDatabaseDriverSqlazure extends JDatabaseDriverSqlsrv
+class Sqlazure extends Sqlsrv
 {
 	/**
 	 * The name of the database driver.

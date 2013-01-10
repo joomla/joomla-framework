@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Query;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Query;
 
 /**
  * Query Building Class.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       11.3
  */
-class JDatabaseQueryPostgresql extends JDatabaseQuery implements JDatabaseQueryLimitable
+class Postgresql extends JDatabaseQuery implements Limitable
 {
 	/**
 	 * @var    object  The FOR UPDATE element used in "FOR UPDATE"  lock
@@ -335,7 +339,7 @@ class JDatabaseQueryPostgresql extends JDatabaseQuery implements JDatabaseQueryL
 		if ( is_null($this->forUpdate) )
 		{
 			$glue = strtoupper($glue);
-			$this->forUpdate = new JDatabaseQueryElement('FOR UPDATE', 'OF ' . $table_name, "$glue ");
+			$this->forUpdate = new Element('FOR UPDATE', 'OF ' . $table_name, "$glue ");
 		}
 		else
 		{
@@ -362,7 +366,7 @@ class JDatabaseQueryPostgresql extends JDatabaseQuery implements JDatabaseQueryL
 		if ( is_null($this->forShare) )
 		{
 			$glue = strtoupper($glue);
-			$this->forShare = new JDatabaseQueryElement('FOR SHARE', 'OF ' . $table_name, "$glue ");
+			$this->forShare = new Element('FOR SHARE', 'OF ' . $table_name, "$glue ");
 		}
 		else
 		{
@@ -481,13 +485,13 @@ class JDatabaseQueryPostgresql extends JDatabaseQuery implements JDatabaseQueryL
 	 *
 	 * @since   11.3
 	 */
-	public function noWait ()
+	public function noWait()
 	{
 		$this->type = 'noWait';
 
 		if ( is_null($this->noWait) )
 		{
-			$this->noWait = new JDatabaseQueryElement('NOWAIT', null);
+			$this->noWait = new Element('NOWAIT', null);
 		}
 
 		return $this;
@@ -502,11 +506,11 @@ class JDatabaseQueryPostgresql extends JDatabaseQuery implements JDatabaseQueryL
 	 *
 	 * @since   11.3
 	 */
-	public function limit( $limit = 0 )
+	public function limit($limit = 0)
 	{
 		if (is_null($this->limit))
 		{
-			$this->limit = new JDatabaseQueryElement('LIMIT', (int) $limit);
+			$this->limit = new Element('LIMIT', (int) $limit);
 		}
 
 		return $this;
@@ -521,11 +525,11 @@ class JDatabaseQueryPostgresql extends JDatabaseQuery implements JDatabaseQueryL
 	 *
 	 * @since   11.3
 	 */
-	public function offset( $offset = 0 )
+	public function offset($offset = 0)
 	{
 		if (is_null($this->offset))
 		{
-			$this->offset = new JDatabaseQueryElement('OFFSET', (int) $offset);
+			$this->offset = new Element('OFFSET', (int) $offset);
 		}
 
 		return $this;
@@ -540,11 +544,11 @@ class JDatabaseQueryPostgresql extends JDatabaseQuery implements JDatabaseQueryL
 	 *
 	 * @since   11.3
 	 */
-	public function returning( $pkCol )
+	public function returning($pkCol)
 	{
 		if (is_null($this->returning))
 		{
-			$this->returning = new JDatabaseQueryElement('RETURNING', $pkCol);
+			$this->returning = new Element('RETURNING', $pkCol);
 		}
 
 		return $this;

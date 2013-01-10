@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Itator;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,6 +18,6 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       12.1
  */
-class JDatabaseIteratorOracle extends JDatabaseIteratorPdo
+class Oracle extends Pdo
 {
 }

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Iterator;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Iterator;
 
 /**
  * SQL server database iterator.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       12.1
  */
-class JDatabaseIteratorSqlsrv extends JDatabaseIterator
+class Sqlsrv extends Iterator
 {
 	/**
 	 * Get the number of rows in the result set for the executed SQL given by the cursor.

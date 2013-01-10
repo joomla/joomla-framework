@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Exporter;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Exporter;
+use Joomla\Database\Driver\Mysqli as DriverMysqli;
 
 /**
  * MySQLi export driver.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       11.1
  */
-class JDatabaseExporterMysqli extends JDatabaseExporter
+class Mysqli extends Exporter
 {
 	/**
 	 * An array of cached data.
@@ -67,7 +72,7 @@ class JDatabaseExporterMysqli extends JDatabaseExporter
 	 */
 	public function __construct()
 	{
-		$this->options = new stdClass;
+		$this->options = new \stdClass;
 
 		$this->cache = array('columns' => array(), 'keys' => array());
 
@@ -202,15 +207,15 @@ class JDatabaseExporterMysqli extends JDatabaseExporter
 	public function check()
 	{
 		// Check if the db connector has been set.
-		if (!($this->db instanceof JDatabaseDriverMysqli))
+		if (!($this->db instanceof DriverMysqli))
 		{
-			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;
@@ -258,7 +263,7 @@ class JDatabaseExporterMysqli extends JDatabaseExporter
 		}
 		else
 		{
-			throw new Exception('JPLATFORM_ERROR_INPUT_REQUIRES_STRING_OR_ARRAY');
+			throw new \Exception('JPLATFORM_ERROR_INPUT_REQUIRES_STRING_OR_ARRAY');
 		}
 
 		return $this;
@@ -273,7 +278,7 @@ class JDatabaseExporterMysqli extends JDatabaseExporter
 	 *
 	 * @since   11.1
 	 */
-	public function setDbo(JDatabaseDriverMysqli $db)
+	public function setDbo(DriverMysqli $db)
 	{
 		$this->db = $db;
 

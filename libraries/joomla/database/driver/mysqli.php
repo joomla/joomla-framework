@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Driver;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Log;
+use Joomla\Language\Text;
+use Joomla\Database\Driver;
 
 /**
  * MySQLi database driver
@@ -17,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://php.net/manual/en/book.mysqli.php
  * @since       12.1
  */
-class JDatabaseDriverMysqli extends JDatabaseDriver
+class Mysqli extends Driver
 {
 	/**
 	 * The name of the database driver.
@@ -134,7 +140,7 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 		// Make sure the MySQLi extension for PHP is installed and enabled.
 		if (!function_exists('mysqli_connect'))
 		{
-			throw new RuntimeException('The MySQL adapter mysqli is not available');
+			throw new \RuntimeException('The MySQL adapter mysqli is not available');
 		}
 
 		$this->connection = @mysqli_connect(
@@ -144,7 +150,7 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 		// Attempt to connect to the server.
 		if (!$this->connection)
 		{
-			throw new RuntimeException('Could not connect to MySQL.');
+			throw new \RuntimeException('Could not connect to MySQL.');
 		}
 
 		// Set sql_mode to non_strict mode
@@ -474,8 +480,8 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 
 		if (!is_object($this->connection))
 		{
-			JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'database');
-			throw new RuntimeException($this->errorMsg, $this->errorNum);
+			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
+			throw new \RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -495,7 +501,7 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 			// Add the query to the object queue.
 			$this->log[] = $sql;
 
-			JLog::add($sql, JLog::DEBUG, 'databasequery');
+			Log::add($sql, Log::DEBUG, 'databasequery');
 		}
 
 		// Reset the error values.
@@ -523,8 +529,8 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 				// If connect fails, ignore that exception and throw the normal exception.
 				catch (RuntimeException $e)
 				{
-					JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'databasequery');
-					throw new RuntimeException($this->errorMsg, $this->errorNum);
+					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+					throw new \RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -533,8 +539,8 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 			// The server was not disconnected.
 			else
 			{
-				JLog::add(JText::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), JLog::ERROR, 'databasequery');
-				throw new RuntimeException($this->errorMsg, $this->errorNum);
+				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+				throw new \RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
 
@@ -582,7 +588,7 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 
 		if (!mysqli_select_db($this->connection, $database))
 		{
-			throw new RuntimeException('Could not connect to database.');
+			throw new \RuntimeException('Could not connect to database.');
 		}
 
 		return true;
@@ -733,7 +739,7 @@ class JDatabaseDriverMysqli extends JDatabaseDriver
 	 *
 	 * @since   12.1
 	 */
-	protected function fetchObject($cursor = null, $class = 'stdClass')
+	protected function fetchObject($cursor = null, $class = '\\stdClass')
 	{
 		return mysqli_fetch_object($cursor ? $cursor : $this->cursor, $class);
 	}
