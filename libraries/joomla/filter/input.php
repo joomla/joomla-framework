@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Filter;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -19,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Filter
  * @since       11.1
  */
-class JFilterInput
+class Input
 {
 	/**
 	 * A container for JFilterInput instances.
@@ -158,7 +160,7 @@ class JFilterInput
 
 		if (empty(self::$instances[$sig]))
 		{
-			self::$instances[$sig] = new JFilterInput($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto);
+			self::$instances[$sig] = new self($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto);
 		}
 
 		return self::$instances[$sig];

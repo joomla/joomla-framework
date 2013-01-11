@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Filter;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\String\String;
 
 /**
  * JFilterOutput
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Filter
  * @since       11.1
  */
-class JFilterOutput
+class Output
 {
 	/**
 	 * Makes an object safe to display in forms
@@ -89,11 +94,11 @@ class JFilterOutput
 		// Remove any '-' from the string since they will be used as concatenaters
 		$str = str_replace('-', ' ', $string);
 
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 		$str = $lang->transliterate($str);
 
 		// Trim white spaces at beginning and end of alias and make lowercase
-		$str = trim(JString::strtolower($str));
+		$str = trim(String::strtolower($str));
 
 		// Remove any duplicate whitespace, and ensure all characters are alphanumeric
 		$str = preg_replace('/(\s|[^A-Za-z0-9\-])+/', '-', $str);
@@ -130,7 +135,7 @@ class JFilterOutput
 		$str = str_replace('?', '', $str);
 
 		// Trim white spaces at beginning and end of alias and make lowercase
-		$str = trim(JString::strtolower($str));
+		$str = trim(String::strtolower($str));
 
 		// Remove any duplicate whitespace and replace whitespaces by hyphens
 		$str = preg_replace('#\x20+#', '-', $str);
