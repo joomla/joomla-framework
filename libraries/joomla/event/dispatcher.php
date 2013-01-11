@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Event;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Object\Object;
+use InvalidArgumentException;
 
 /**
  * Class to handle dispatching of events.
@@ -21,7 +26,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         JPlugin
  * @since       12.1
  */
-class JEventDispatcher extends JObject
+class Dispatcher extends Object
 {
 	/**
 	 * An array of Observer objects to notify
@@ -207,7 +212,7 @@ class JEventDispatcher extends JObject
 		}
 		else
 		{
-			if (!($observer instanceof JEvent))
+			if (!($observer instanceof Event))
 			{
 				return;
 			}
@@ -224,7 +229,7 @@ class JEventDispatcher extends JObject
 			}
 
 			$this->_observers[] = $observer;
-			$methods = array_diff(get_class_methods($observer), get_class_methods('JPlugin'));
+			$methods = array_diff(get_class_methods($observer), get_class_methods('\\Joomla\\Plugin\\Plugin'));
 		}
 
 		$key = key($this->_observers);

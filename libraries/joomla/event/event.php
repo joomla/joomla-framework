@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Event;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Object\Object;
 
 /**
  * JEvent Class
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Event
  * @since       11.1
  */
-abstract class JEvent extends JObject
+abstract class Event extends Object
 {
 	/**
 	 * Event object to observe.
