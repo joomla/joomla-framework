@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Logger;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Logger;
+use Joomla\Log\Entry;
+use Joomla\Log\Log;
 
 /**
  * Joomla! Syslog Log class
@@ -21,21 +27,21 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerSyslog extends JLogLogger
+class Syslog extends Logger
 {
 	/**
 	 * @var array Translation array for JLogEntry priorities to SysLog priority names.
 	 * @since 11.1
 	 */
 	protected $priorities = array(
-		JLog::EMERGENCY => 'EMERG',
-		JLog::ALERT => 'ALERT',
-		JLog::CRITICAL => 'CRIT',
-		JLog::ERROR => 'ERR',
-		JLog::WARNING => 'WARNING',
-		JLog::NOTICE => 'NOTICE',
-		JLog::INFO => 'INFO',
-		JLog::DEBUG => 'DEBUG');
+		Log::EMERGENCY => 'EMERG',
+		Log::ALERT => 'ALERT',
+		Log::CRITICAL => 'CRIT',
+		Log::ERROR => 'ERR',
+		Log::WARNING => 'WARNING',
+		Log::NOTICE => 'NOTICE',
+		Log::INFO => 'INFO',
+		Log::DEBUG => 'DEBUG');
 
 	/**
 	 * Constructor.
@@ -113,13 +119,13 @@ class JLogLoggerSyslog extends JLogLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+	 * @param   Entry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
-	public function addEntry(JLogEntry $entry)
+	public function addEntry(Entry $entry)
 	{
 		// Generate the value for the priority based on predefined constants.
 		$priority = constant(strtoupper('LOG_' . $this->priorities[$entry->priority]));

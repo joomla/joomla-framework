@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Language;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\String\String;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileObject;
+use RuntimeException;
 
 /**
  * Allows for quoting in language .ini files.
@@ -21,7 +29,7 @@ define('_QQ_', '"');
  * @subpackage  Language
  * @since       11.1
  */
-class JLanguage
+class Language
 {
 	protected static $languages = array();
 
@@ -264,7 +272,7 @@ class JLanguage
 	 * @param   string   $lang   The language to use.
 	 * @param   boolean  $debug  The debug mode.
 	 *
-	 * @return  JLanguage  The Language object.
+	 * @return  Language  The Language object.
 	 *
 	 * @since   11.1
 	 */
@@ -272,7 +280,7 @@ class JLanguage
 	{
 		if (!isset(self::$languages[$lang . $debug]))
 		{
-			self::$languages[$lang . $debug] = new JLanguage($lang, $debug);
+			self::$languages[$lang . $debug] = new self($lang, $debug);
 		}
 
 		return self::$languages[$lang . $debug];
@@ -369,8 +377,8 @@ class JLanguage
 			return call_user_func($this->transliterator, $string);
 		}
 
-		$string = JLanguageTransliterate::utf8_latin_to_ascii($string);
-		$string = JString::strtolower($string);
+		$string = Transliterate::utf8_latin_to_ascii($string);
+		$string = String::strtolower($string);
 
 		return $string;
 	}
@@ -862,7 +870,7 @@ class JLanguage
 			{
 				if (basename($filename) != $this->lang . '.ini')
 				{
-					$this->errorfiles[$filename] = $filename . JText::sprintf('JERROR_PARSING_LANGUAGE_FILE', implode(', ', $errors));
+					$this->errorfiles[$filename] = $filename . Text::sprintf('JERROR_PARSING_LANGUAGE_FILE', implode(', ', $errors));
 				}
 				else
 				{

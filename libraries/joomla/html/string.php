@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\String\String as StringString;
 
 /**
  * HTML helper class for rendering manipulated strings.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlString
+abstract class String
 {
 	/**
 	 * Truncates text blocks over the specified character limit and closes
@@ -46,7 +50,7 @@ abstract class JHtmlString
 			// Deal with spacing issues in the input.
 			$text = str_replace('>', '> ', $text);
 			$text = str_replace(array('&nbsp;', '&#160;'), ' ', $text);
-			$text = JString::trim(preg_replace('#\s+#mui', ' ', $text));
+			$text = StringString::trim(preg_replace('#\s+#mui', ' ', $text));
 
 			// Strip the tags from the input and decode entities.
 			$text = strip_tags($text);
@@ -54,13 +58,13 @@ abstract class JHtmlString
 
 			// Remove remaining extra spaces.
 			$text = str_replace('&nbsp;', ' ', $text);
-			$text = JString::trim(preg_replace('#\s+#mui', ' ', $text));
+			$text = StringString::trim(preg_replace('#\s+#mui', ' ', $text));
 		}
 
 		// Whether or not allowing HTML, truncate the item text if it is too long.
-		if ($length > 0 && JString::strlen($text) > $length)
+		if ($length > 0 && StringString::strlen($text) > $length)
 		{
-			$tmp = trim(JString::substr($text, 0, $length));
+			$tmp = trim(StringString::substr($text, 0, $length));
 
 			if (substr($tmp, 0, 1) == '<' && strpos($tmp, '>') === false)
 			{
@@ -71,8 +75,8 @@ abstract class JHtmlString
 			if ($noSplit)
 			{
 				// Find the position of the last space within the allowed length.
-				$offset = JString::strrpos($tmp, ' ');
-				$tmp = JString::substr($tmp, 0, $offset + 1);
+				$offset = StringString::strrpos($tmp, ' ');
+				$tmp = StringString::substr($tmp, 0, $offset + 1);
 
 				// If there are no spaces and the string is longer than the maximum
 				// we need to just use the ellipsis. In that case we are done.
@@ -81,9 +85,9 @@ abstract class JHtmlString
 					return '...';
 				}
 
-				if (JString::strlen($tmp) > $length - 3)
+				if (StringString::strlen($tmp) > $length - 3)
 				{
-					$tmp = trim(JString::substr($tmp, 0, JString::strrpos($tmp, ' ')));
+					$tmp = trim(StringString::substr($tmp, 0, StringString::strrpos($tmp, ' ')));
 				}
 			}
 
@@ -192,7 +196,7 @@ abstract class JHtmlString
 		}
 
 		// First get the truncated plain text string. This is the rendered text we want to end up with.
-		$ptString = JHtml::_('string.truncate', $html, $maxLength, $noSplit, $allowHtml = false);
+		$ptString = Html::_('string.truncate', $html, $maxLength, $noSplit, $allowHtml = false);
 
 		// It's all HTML, just return it.
 		if (strlen($ptString) == 0)
@@ -211,7 +215,7 @@ abstract class JHtmlString
 		if ($ptString == '...')
 		{
 			$stripped = substr(strip_tags($html), 0, $maxLength);
-			$ptString = JHtml::_('string.truncate', $stripped, $maxLength, $noSplit, $allowHtml = false);
+			$ptString = Html::_('string.truncate', $stripped, $maxLength, $noSplit, $allowHtml = false);
 		}
 		// We need to trim the ellipsis that truncate adds.
 		$ptString = rtrim($ptString, '.');
@@ -222,7 +226,7 @@ abstract class JHtmlString
 		while ($maxLength <= $baseLength)
 		{
 			// Get the truncated string assuming HTML is allowed.
-			$htmlString = JHtml::_('string.truncate', $html, $maxLength, $noSplit, $allowHtml = true);
+			$htmlString = Html::_('string.truncate', $html, $maxLength, $noSplit, $allowHtml = true);
 
 			if ($htmlString == '...' && strlen($ptString) + 3 > $maxLength)
 			{
@@ -232,7 +236,7 @@ abstract class JHtmlString
 			$htmlString = rtrim($htmlString, '.');
 
 			// Now get the plain text from the HTML string and trim it.
-			$htmlStringToPtString = JHtml::_('string.truncate', $htmlString, $maxLength, $noSplit, $allowHtml = false);
+			$htmlStringToPtString = Html::_('string.truncate', $htmlString, $maxLength, $noSplit, $allowHtml = false);
 			$htmlStringToPtString = rtrim($htmlStringToPtString, '.');
 
 			// If the new plain text string matches the original plain text string we are done.
@@ -275,14 +279,14 @@ abstract class JHtmlString
 	public static function abridge($text, $length = 50, $intro = 30)
 	{
 		// Abridge the item text if it is too long.
-		if (JString::strlen($text) > $length)
+		if (StringString::strlen($text) > $length)
 		{
 			// Determine the remaining text length.
 			$remainder = $length - ($intro + 3);
 
 			// Extract the beginning and ending text sections.
-			$beg = JString::substr($text, 0, $intro);
-			$end = JString::substr($text, JString::strlen($text) - $remainder);
+			$beg = StringString::substr($text, 0, $intro);
+			$end = StringString::substr($text, StringString::strlen($text) - $remainder);
 
 			// Build the resulting string.
 			$text = $beg . '...' . $end;

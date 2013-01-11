@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Http;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTTP
  * @since       11.3
  */
-class JHttpResponse
+class Response
 {
 	/**
 	 * @var    integer  The server response code.

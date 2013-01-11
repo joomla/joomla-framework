@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Environment\Response;
+use Joomla\Language\Text;
+use Joomla\Log\Log;
+use Joomla\Uri\Uri;
+use Joomla\Factory;
 
 /**
  * Utility class for javascript behaviors
@@ -16,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlBehavior
+abstract class Behavior
 {
 	/**
 	 * @var   array   array containing information for loaded files
@@ -48,7 +56,7 @@ abstract class JHtmlBehavior
 		// If no debugging value is set, use the configuration setting
 		if ($debug === null)
 		{
-			$config = JFactory::getConfig();
+			$config = Factory::getConfig();
 			$debug = $config->get('debug');
 		}
 
@@ -57,8 +65,8 @@ abstract class JHtmlBehavior
 			self::framework(false, $debug);
 		}
 
-		JHtml::_('script', 'system/mootools-' . $type . '.js', false, true, false, false, $debug);
-		JHtml::_('script', 'system/core.js', false, true);
+		Html::_('script', 'system/mootools-' . $type . '.js', false, true, false, false, $debug);
+		Html::_('script', 'system/core.js', false, true);
 		self::$loaded[__METHOD__][$type] = true;
 
 		return;
@@ -84,10 +92,10 @@ abstract class JHtmlBehavior
 		// Include MooTools framework
 		self::framework();
 
-		JHtml::_('script', 'system/caption.js', true, true);
+		Html::_('script', 'system/caption.js', true, true);
 
 		// Attach caption to document
-		JFactory::getDocument()->addScriptDeclaration(
+		Factory::getDocument()->addScriptDeclaration(
 			"window.addEvent('load', function() {
 				new JCaption('" . $selector . "');
 			});"
@@ -118,12 +126,12 @@ abstract class JHtmlBehavior
 		}
 
 		// Add validate.js language strings
-		JText::script('JLIB_FORM_FIELD_INVALID');
+		Text::script('JLIB_FORM_FIELD_INVALID');
 
 		// Include MooTools framework
 		self::framework();
 
-		JHtml::_('script', 'system/validate.js', true, true);
+		Html::_('script', 'system/validate.js', true, true);
 		self::$loaded[__METHOD__] = true;
 	}
 
@@ -146,7 +154,7 @@ abstract class JHtmlBehavior
 		// Include MooTools framework
 		self::framework();
 
-		JHtml::_('script', 'system/switcher.js', true, true);
+		Html::_('script', 'system/switcher.js', true, true);
 
 		$script = "
 			document.switcher = null;
@@ -158,7 +166,7 @@ abstract class JHtmlBehavior
 				}
 			});";
 
-		JFactory::getDocument()->addScriptDeclaration($script);
+		Factory::getDocument()->addScriptDeclaration($script);
 		self::$loaded[__METHOD__] = true;
 	}
 
@@ -181,7 +189,7 @@ abstract class JHtmlBehavior
 		// Include MooTools framework
 		self::framework();
 
-		JHtml::_('script', 'system/combobox.js', true, true);
+		Html::_('script', 'system/combobox.js', true, true);
 		self::$loaded[__METHOD__] = true;
 	}
 
@@ -236,10 +244,10 @@ abstract class JHtmlBehavior
 		$opt['onShow']    = (isset($params['onShow'])) ? '\\' . $params['onShow'] : null;
 		$opt['onHide']    = (isset($params['onHide'])) ? '\\' . $params['onHide'] : null;
 
-		$options = JHtml::getJSObject($opt);
+		$options = Html::getJSObject($opt);
 
 		// Attach tooltips to document
-		JFactory::getDocument()->addScriptDeclaration(
+		Factory::getDocument()->addScriptDeclaration(
 			"window.addEvent('domready', function() {
 			$$('$selector').each(function(el) {
 				var title = el.get('title');
@@ -282,7 +290,7 @@ abstract class JHtmlBehavior
 	 */
 	public static function modal($selector = 'a.modal', $params = array())
 	{
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 
 		// Load the necessary files if they haven't yet been loaded
 		if (!isset(self::$loaded[__METHOD__]))
@@ -291,8 +299,8 @@ abstract class JHtmlBehavior
 			self::framework(true);
 
 			// Load the javascript and css
-			JHtml::_('script', 'system/modal.js', true, true);
-			JHtml::_('stylesheet', 'system/modal.css', array(), true);
+			Html::_('script', 'system/modal.js', true, true);
+			Html::_('stylesheet', 'system/modal.css', array(), true);
 		}
 
 		$sig = md5(serialize(array($selector, $params)));
@@ -326,7 +334,7 @@ abstract class JHtmlBehavior
 			$opt['size']      = array('x' => '\\window.getSize().x-80', 'y' => '\\window.getSize().y-80');
 		}
 
-		$options = JHtml::getJSObject($opt);
+		$options = Html::getJSObject($opt);
 
 		// Attach modal behavior to document
 		$document
@@ -367,10 +375,10 @@ abstract class JHtmlBehavior
 		// Include MooTools framework
 		self::framework();
 
-		JHtml::_('script', 'system/multiselect.js', true, true);
+		Html::_('script', 'system/multiselect.js', true, true);
 
 		// Attach multiselect to document
-		JFactory::getDocument()->addScriptDeclaration(
+		Factory::getDocument()->addScriptDeclaration(
 			"window.addEvent('domready', function() {
 				new Joomla.JMultiSelect('" . $id . "');
 			});"
@@ -398,35 +406,35 @@ abstract class JHtmlBehavior
 		// Include MooTools framework
 		self::framework();
 
-		JHtml::_('script', 'system/swf.js', true, true);
-		JHtml::_('script', 'system/progressbar.js', true, true);
-		JHtml::_('script', 'system/uploader.js', true, true);
+		Html::_('script', 'system/swf.js', true, true);
+		Html::_('script', 'system/progressbar.js', true, true);
+		Html::_('script', 'system/uploader.js', true, true);
 
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 
 		if (!isset(self::$loaded[__METHOD__]))
 		{
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_FILENAME');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_UPLOAD_COMPLETED');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_OCCURRED');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_ALL_FILES');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_PROGRESS_OVERALL');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_CURRENT_TITLE');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_REMOVE');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_REMOVE_TITLE');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_CURRENT_FILE');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_CURRENT_PROGRESS');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_FILE_ERROR');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_FILE_SUCCESSFULLY_UPLOADED');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_DUPLICATE');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_SIZELIMITMIN');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_SIZELIMITMAX');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_FILELISTMAX');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_FILELISTSIZEMAX');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_HTTPSTATUS');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_SECURITYERROR');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_IOERROR');
-			JText::script('JLIB_HTML_BEHAVIOR_UPLOADER_ALL_FILES');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_FILENAME');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_UPLOAD_COMPLETED');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_OCCURRED');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_ALL_FILES');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_PROGRESS_OVERALL');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_CURRENT_TITLE');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_REMOVE');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_REMOVE_TITLE');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_CURRENT_FILE');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_CURRENT_PROGRESS');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_FILE_ERROR');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_FILE_SUCCESSFULLY_UPLOADED');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_DUPLICATE');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_SIZELIMITMIN');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_SIZELIMITMAX');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_FILELISTMAX');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_VALIDATION_ERROR_FILELISTSIZEMAX');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_HTTPSTATUS');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_SECURITYERROR');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_ERROR_IOERROR');
+			Text::script('JLIB_HTML_BEHAVIOR_UPLOADER_ALL_FILES');
 		}
 
 		if (isset(self::$loaded[__METHOD__][$id]))
@@ -451,7 +459,7 @@ abstract class JHtmlBehavior
 		// Setup options object
 		$opt['verbose']         = true;
 		$opt['url']             = (isset($params['targetURL'])) ? $params['targetURL'] : null;
-		$opt['path']            = (isset($params['swf'])) ? $params['swf'] : JURI::root(true) . '/media/system/swf/uploader.swf';
+		$opt['path']            = (isset($params['swf'])) ? $params['swf'] : Uri::root(true) . '/media/system/swf/uploader.swf';
 		$opt['height']          = (isset($params['height'])) && $params['height'] ? (int) $params['height'] : null;
 		$opt['width']           = (isset($params['width'])) && $params['width'] ? (int) $params['width'] : null;
 		$opt['multiple']        = (isset($params['multiple']) && !($params['multiple'])) ? false : true;
@@ -534,7 +542,7 @@ abstract class JHtmlBehavior
 				});
 			}';
 
-		$options = JHtml::getJSObject($opt);
+		$options = Html::getJSObject($opt);
 
 		// Attach tooltips to document
 		$uploaderInit = 'window.addEvent(\'domready\', function(){
@@ -564,8 +572,8 @@ abstract class JHtmlBehavior
 		// Include MooTools framework
 		self::framework();
 
-		JHtml::_('script', 'system/mootree.js', true, true, false, false);
-		JHtml::_('stylesheet', 'system/mootree.css', array(), true);
+		Html::_('script', 'system/mootree.js', true, true, false, false);
+		Html::_('stylesheet', 'system/mootree.css', array(), true);
 
 		if (isset(self::$loaded[__METHOD__][$id]))
 		{
@@ -576,7 +584,7 @@ abstract class JHtmlBehavior
 		$opt['div']   = (array_key_exists('div', $params)) ? $params['div'] : $id . '_tree';
 		$opt['mode']  = (array_key_exists('mode', $params)) ? $params['mode'] : 'folders';
 		$opt['grid']  = (array_key_exists('grid', $params)) ? '\\' . $params['grid'] : true;
-		$opt['theme'] = (array_key_exists('theme', $params)) ? $params['theme'] : JHtml::_('image', 'system/mootree.gif', '', array(), true, true);
+		$opt['theme'] = (array_key_exists('theme', $params)) ? $params['theme'] : Html::_('image', 'system/mootree.gif', '', array(), true, true);
 
 		// Event handlers
 		$opt['onExpand'] = (array_key_exists('onExpand', $params)) ? '\\' . $params['onExpand'] : null;
@@ -584,7 +592,7 @@ abstract class JHtmlBehavior
 		$opt['onClick']  = (array_key_exists('onClick', $params)) ? '\\' . $params['onClick']
 		: '\\function(node){  window.open(node.data.url, node.data.target != null ? node.data.target : \'_self\'); }';
 
-		$options = JHtml::getJSObject($opt);
+		$options = Html::getJSObject($opt);
 
 		// Setup root node
 		$rt['text']     = (array_key_exists('text', $root)) ? $root['text'] : 'Root';
@@ -594,7 +602,7 @@ abstract class JHtmlBehavior
 		$rt['icon']     = (array_key_exists('icon', $root)) ? $root['icon'] : null;
 		$rt['openicon'] = (array_key_exists('openicon', $root)) ? $root['openicon'] : null;
 		$rt['data']     = (array_key_exists('data', $root)) ? $root['data'] : null;
-		$rootNode = JHtml::getJSObject($rt);
+		$rootNode = Html::getJSObject($rt);
 
 		$treeName = (array_key_exists('treeName', $params)) ? $params['treeName'] : '';
 
@@ -603,7 +611,7 @@ abstract class JHtmlBehavior
 			tree' . $treeName . '.adopt(\'' . $id . '\');})';
 
 		// Attach tooltips to document
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 		$document->addScriptDeclaration($js);
 
 		// Set static array
@@ -627,12 +635,12 @@ abstract class JHtmlBehavior
 			return;
 		}
 
-		$document = JFactory::getDocument();
-		$tag = JFactory::getLanguage()->getTag();
+		$document = Factory::getDocument();
+		$tag = Factory::getLanguage()->getTag();
 
-		JHtml::_('stylesheet', 'system/calendar-jos.css', array(' title' => JText::_('JLIB_HTML_BEHAVIOR_GREEN'), ' media' => 'all'), true);
-		JHtml::_('script', $tag . '/calendar.js', false, true);
-		JHtml::_('script', $tag . '/calendar-setup.js', false, true);
+		Html::_('stylesheet', 'system/calendar-jos.css', array(' title' => Text::_('JLIB_HTML_BEHAVIOR_GREEN'), ' media' => 'all'), true);
+		Html::_('script', $tag . '/calendar.js', false, true);
+		Html::_('script', $tag . '/calendar-setup.js', false, true);
 
 		$translation = self::_calendartranslation();
 
@@ -661,10 +669,10 @@ abstract class JHtmlBehavior
 		// Include MooTools framework
 		self::framework(true);
 
-		JHtml::_('stylesheet', 'system/mooRainbow.css', array('media' => 'all'), true);
-		JHtml::_('script', 'system/mooRainbow.js', false, true);
+		Html::_('stylesheet', 'system/mooRainbow.css', array('media' => 'all'), true);
+		Html::_('script', 'system/mooRainbow.js', false, true);
 
-		JFactory::getDocument()
+		Factory::getDocument()
 			->addScriptDeclaration(
 			"window.addEvent('domready', function(){
 				var nativeColorUi = false;
@@ -677,7 +685,7 @@ abstract class JHtmlBehavior
 					} else {
 						new MooRainbow(item, {
 							id: item.id,
-							imgPath: '" . JURI::root(true) . "/media/system/images/mooRainbow/',
+							imgPath: '" . Uri::root(true) . "/media/system/images/mooRainbow/',
 							onComplete: function(color) {
 								this.element.value = color.hex;
 							},
@@ -709,7 +717,7 @@ abstract class JHtmlBehavior
 		// Include MooTools framework
 		self::framework();
 
-		$config = JFactory::getConfig();
+		$config = Factory::getConfig();
 		$lifetime = ($config->get('lifetime') * 60000);
 		$refreshTime = ($lifetime <= 60000) ? 30000 : $lifetime - 60000;
 
@@ -721,7 +729,7 @@ abstract class JHtmlBehavior
 			$refreshTime = 3600000;
 		}
 
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 		$script = '';
 		$script .= 'function keepAlive() {';
 		$script .= '	var myAjax = new Request({method: "get", url: "index.php"}).send();';
@@ -760,11 +768,11 @@ abstract class JHtmlBehavior
 			return;
 		}
 
-		JHtml::_('script', 'system/highlighter.js', true, true);
+		Html::_('script', 'system/highlighter.js', true, true);
 
 		$terms = str_replace('"', '\"', $terms);
 
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 		$document->addScriptDeclaration("
 			window.addEvent('domready', function () {
 				var start = document.id('" . $start . "');
@@ -809,11 +817,11 @@ abstract class JHtmlBehavior
 
 		$js = "window.addEvent('domready', function () {if (top == self) {document.documentElement.style.display = 'block'; }" .
 			" else {top.location = self.location; }});";
-		$document = JFactory::getDocument();
+		$document = Factory::getDocument();
 		$document->addStyleDeclaration('html { display:none }');
 		$document->addScriptDeclaration($js);
 
-		JResponse::setHeader('X-Frames-Options', 'SAME-ORIGIN');
+		Response::setHeader('X-Frames-Options', 'SAME-ORIGIN');
 
 		self::$loaded[__METHOD__] = true;
 	}
@@ -830,9 +838,9 @@ abstract class JHtmlBehavior
 	 */
 	protected static function _getJSObject($array = array())
 	{
-		JLog::add('JHtmlBehavior::_getJSObject() is deprecated. JHtml::getJSObject() instead..', JLog::WARNING, 'deprecated');
+		Log::add('JHtmlBehavior::_getJSObject() is deprecated. JHtml::getJSObject() instead..', Log::WARNING, 'deprecated');
 
-		JHtml::getJSObject($array);
+		Html::getJSObject($array);
 	}
 
 	/**
@@ -882,17 +890,17 @@ abstract class JHtmlBehavior
 
 		// This will become an object in Javascript but define it first in PHP for readability
 		$text = array(
-			'INFO'			=> JText::_('JLIB_HTML_BEHAVIOR_ABOUT_THE_CALENDAR'),
+			'INFO'			=> Text::_('JLIB_HTML_BEHAVIOR_ABOUT_THE_CALENDAR'),
 
 			'ABOUT'			=> "DHTML Date/Time Selector\n"
 				. "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n"
 				. "For latest version visit: http://www.dynarch.com/projects/calendar/\n"
 				. "Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details."
 				. "\n\n"
-				. JText::_('JLIB_HTML_BEHAVIOR_DATE_SELECTION')
-				. JText::_('JLIB_HTML_BEHAVIOR_YEAR_SELECT')
-				. JText::_('JLIB_HTML_BEHAVIOR_MONTH_SELECT')
-				. JText::_('JLIB_HTML_BEHAVIOR_HOLD_MOUSE'),
+				. Text::_('JLIB_HTML_BEHAVIOR_DATE_SELECTION')
+				. Text::_('JLIB_HTML_BEHAVIOR_YEAR_SELECT')
+				. Text::_('JLIB_HTML_BEHAVIOR_MONTH_SELECT')
+				. Text::_('JLIB_HTML_BEHAVIOR_HOLD_MOUSE'),
 
 			'ABOUT_TIME'	=> "\n\n"
 				. "Time selection:\n"
@@ -900,22 +908,22 @@ abstract class JHtmlBehavior
 				. "- or Shift-click to decrease it\n"
 				. "- or click and drag for faster selection.",
 
-			'PREV_YEAR'		=> JText::_('JLIB_HTML_BEHAVIOR_PREV_YEAR_HOLD_FOR_MENU'),
-			'PREV_MONTH'	=> JText::_('JLIB_HTML_BEHAVIOR_PREV_MONTH_HOLD_FOR_MENU'),
-			'GO_TODAY'		=> JText::_('JLIB_HTML_BEHAVIOR_GO_TODAY'),
-			'NEXT_MONTH'	=> JText::_('JLIB_HTML_BEHAVIOR_NEXT_MONTH_HOLD_FOR_MENU'),
-			'SEL_DATE'		=> JText::_('JLIB_HTML_BEHAVIOR_SELECT_DATE'),
-			'DRAG_TO_MOVE'	=> JText::_('JLIB_HTML_BEHAVIOR_DRAG_TO_MOVE'),
-			'PART_TODAY'	=> JText::_('JLIB_HTML_BEHAVIOR_TODAY'),
-			'DAY_FIRST'		=> JText::_('JLIB_HTML_BEHAVIOR_DISPLAY_S_FIRST'),
+			'PREV_YEAR'		=> Text::_('JLIB_HTML_BEHAVIOR_PREV_YEAR_HOLD_FOR_MENU'),
+			'PREV_MONTH'	=> Text::_('JLIB_HTML_BEHAVIOR_PREV_MONTH_HOLD_FOR_MENU'),
+			'GO_TODAY'		=> Text::_('JLIB_HTML_BEHAVIOR_GO_TODAY'),
+			'NEXT_MONTH'	=> Text::_('JLIB_HTML_BEHAVIOR_NEXT_MONTH_HOLD_FOR_MENU'),
+			'SEL_DATE'		=> Text::_('JLIB_HTML_BEHAVIOR_SELECT_DATE'),
+			'DRAG_TO_MOVE'	=> Text::_('JLIB_HTML_BEHAVIOR_DRAG_TO_MOVE'),
+			'PART_TODAY'	=> Text::_('JLIB_HTML_BEHAVIOR_TODAY'),
+			'DAY_FIRST'		=> Text::_('JLIB_HTML_BEHAVIOR_DISPLAY_S_FIRST'),
 			'WEEKEND'		=> "0,6",
-			'CLOSE'			=> JText::_('JLIB_HTML_BEHAVIOR_CLOSE'),
-			'TODAY'			=> JText::_('JLIB_HTML_BEHAVIOR_TODAY'),
-			'TIME_PART'		=> JText::_('JLIB_HTML_BEHAVIOR_SHIFT_CLICK_OR_DRAG_TO_CHANGE_VALUE'),
+			'CLOSE'			=> Text::_('JLIB_HTML_BEHAVIOR_CLOSE'),
+			'TODAY'			=> Text::_('JLIB_HTML_BEHAVIOR_TODAY'),
+			'TIME_PART'		=> Text::_('JLIB_HTML_BEHAVIOR_SHIFT_CLICK_OR_DRAG_TO_CHANGE_VALUE'),
 			'DEF_DATE_FORMAT'	=> "%Y-%m-%d",
-			'TT_DATE_FORMAT'	=> JText::_('JLIB_HTML_BEHAVIOR_TT_DATE_FORMAT'),
-			'WK'			=> JText::_('JLIB_HTML_BEHAVIOR_WK'),
-			'TIME'			=> JText::_('JLIB_HTML_BEHAVIOR_TIME')
+			'TT_DATE_FORMAT'	=> Text::_('JLIB_HTML_BEHAVIOR_TT_DATE_FORMAT'),
+			'WK'			=> Text::_('JLIB_HTML_BEHAVIOR_WK'),
+			'TIME'			=> Text::_('JLIB_HTML_BEHAVIOR_TIME')
 		);
 
 		return 'Calendar._DN = ' . json_encode($weekdays_full) . ';'

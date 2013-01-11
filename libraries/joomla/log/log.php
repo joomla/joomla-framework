@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log;
+
 defined('JPATH_PLATFORM') or die;
+
+use RuntimeException;
 
 /**
  * Joomla! Log Class
@@ -22,7 +26,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       11.1
  */
-class JLog
+class Log
 {
 	/**
 	 * All log priorities.
@@ -88,8 +92,8 @@ class JLog
 	const DEBUG = 128;
 
 	/**
-	 * The global JLog instance.
-	 * @var    JLog
+	 * The global Log instance.
+	 * @var    Log
 	 * @since  11.1
 	 */
 	protected static $instance;
@@ -141,13 +145,13 @@ class JLog
 		// Automatically instantiate the singleton object if not already done.
 		if (empty(self::$instance))
 		{
-			self::setInstance(new JLog);
+			self::setInstance(new self);
 		}
 
 		// If the entry object isn't a JLogEntry object let's make one.
-		if (!($entry instanceof JLogEntry))
+		if (!($entry instanceof Entry))
 		{
-			$entry = new JLogEntry((string) $entry, $priority, $category, $date);
+			$entry = new Entry((string) $entry, $priority, $category, $date);
 		}
 
 		self::$instance->addLogEntry($entry);
@@ -170,7 +174,7 @@ class JLog
 		// Automatically instantiate the singleton object if not already done.
 		if (empty(self::$instance))
 		{
-			self::setInstance(new JLog);
+			self::setInstance(new self);
 		}
 
 		// The default logger is the formatted text log file.
@@ -213,7 +217,7 @@ class JLog
 	 * Returns a reference to the a JLog object, only creating it if it doesn't already exist.
 	 * Note: This is principally made available for testing and internal purposes.
 	 *
-	 * @param   JLog  $instance  The logging object instance to be used by the static methods.
+	 * @param   Log  $instance  The logging object instance to be used by the static methods.
 	 *
 	 * @return  void
 	 *
@@ -221,7 +225,7 @@ class JLog
 	 */
 	public static function setInstance($instance)
 	{
-		if (($instance instanceof JLog) || $instance === null)
+		if (($instance instanceof Log) || $instance === null)
 		{
 			self::$instance = & $instance;
 		}
@@ -230,14 +234,14 @@ class JLog
 	/**
 	 * Method to add an entry to the appropriate loggers.
 	 *
-	 * @param   JLogEntry  $entry  The JLogEntry object to send to the loggers.
+	 * @param   Entry  $entry  The JLogEntry object to send to the loggers.
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
 	 */
-	protected function addLogEntry(JLogEntry $entry)
+	protected function addLogEntry(Entry $entry)
 	{
 		// Find all the appropriate loggers based on priority and category for the entry.
 		$loggers = $this->findLoggers($entry->priority, $entry->category);
@@ -247,8 +251,7 @@ class JLog
 			// Attempt to instantiate the logger object if it doesn't already exist.
 			if (empty($this->loggers[$signature]))
 			{
-
-				$class = 'JLogLogger' . ucfirst($this->configurations[$signature]['logger']);
+				$class = '\\Joomla\\Log\\Logger\\' . ucfirst($this->configurations[$signature]['logger']);
 
 				if (class_exists($class))
 				{

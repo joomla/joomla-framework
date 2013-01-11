@@ -27,7 +27,7 @@ use RuntimeException;
 abstract class Query
 {
 	/**
-	 * @var    JDatabaseDriver  The database driver.
+	 * @var    Driver  The database driver.
 	 * @since  11.1
 	 */
 	protected $db = null;
@@ -45,85 +45,85 @@ abstract class Query
 	protected $type = '';
 
 	/**
-	 * @var    JDatabaseQueryElement  The query element for a generic query (type = null).
+	 * @var    \Joomla\Database\Query\Element  The query element for a generic query (type = null).
 	 * @since  11.1
 	 */
 	protected $element = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The select element.
+	 * @var    \Joomla\Database\Query\Element  The select element.
 	 * @since  11.1
 	 */
 	protected $select = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The delete element.
+	 * @var    \Joomla\Database\Query\Element  The delete element.
 	 * @since  11.1
 	 */
 	protected $delete = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The update element.
+	 * @var    \Joomla\Database\Query\Element  The update element.
 	 * @since  11.1
 	 */
 	protected $update = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The insert element.
+	 * @var    \Joomla\Database\Query\Element  The insert element.
 	 * @since  11.1
 	 */
 	protected $insert = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The from element.
+	 * @var    \Joomla\Database\Query\Element  The from element.
 	 * @since  11.1
 	 */
 	protected $from = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The join element.
+	 * @var    \Joomla\Database\Query\Element  The join element.
 	 * @since  11.1
 	 */
 	protected $join = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The set element.
+	 * @var    \Joomla\Database\Query\Element  The set element.
 	 * @since  11.1
 	 */
 	protected $set = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The where element.
+	 * @var    \Joomla\Database\Query\Element  The where element.
 	 * @since  11.1
 	 */
 	protected $where = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The group by element.
+	 * @var    \Joomla\Database\Query\Element  The group by element.
 	 * @since  11.1
 	 */
 	protected $group = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The having element.
+	 * @var    \Joomla\Database\Query\Element  The having element.
 	 * @since  11.1
 	 */
 	protected $having = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The column list for an INSERT statement.
+	 * @var    \Joomla\Database\Query\Element  The column list for an INSERT statement.
 	 * @since  11.1
 	 */
 	protected $columns = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The values list for an INSERT statement.
+	 * @var    \Joomla\Database\Query\Element  The values list for an INSERT statement.
 	 * @since  11.1
 	 */
 	protected $values = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The order element.
+	 * @var    \Joomla\Database\Query\Element  The order element.
 	 * @since  11.1
 	 */
 	protected $order = null;
@@ -135,19 +135,19 @@ abstract class Query
 	protected $autoIncrementField = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The call element.
+	 * @var    \Joomla\Database\Query\Element  The call element.
 	 * @since  12.1
 	 */
 	protected $call = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The exec element.
+	 * @var    \Joomla\Database\Query\Element  The exec element.
 	 * @since  12.1
 	 */
 	protected $exec = null;
 
 	/**
-	 * @var    JDatabaseQueryElement  The union element.
+	 * @var    \Joomla\Database\Query\Element  The union element.
 	 * @since  12.1
 	 */
 	protected $union = null;
@@ -188,7 +188,7 @@ abstract class Query
 	/**
 	 * Class constructor.
 	 *
-	 * @param   JDatabaseDriver  $db  The database driver.
+	 * @param   Driver  $db  The database driver.
 	 *
 	 * @since   11.1
 	 */
@@ -370,7 +370,7 @@ abstract class Query
 	 *
 	 * @param   mixed  $columns  A string or an array of field names.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -435,7 +435,7 @@ abstract class Query
 	 *
 	 * @param   string  $clause  Optionally, the name of the clause to clear, or nothing to clear the whole query.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -553,7 +553,7 @@ abstract class Query
 	 *
 	 * @param   mixed  $columns  A column name, or array of column names.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -656,7 +656,7 @@ abstract class Query
 	 *
 	 * @param   string  $table  The name of the table to delete from.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -711,7 +711,7 @@ abstract class Query
 	 *
 	 * @param   mixed  $columns  A string or an array of field names.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -744,7 +744,7 @@ abstract class Query
 	 *                                  as a subquery in FROM clause along with a value for $subQueryAlias.
 	 * @param   string  $subQueryAlias  Alias used when $tables is a JDatabaseQuery.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -882,7 +882,7 @@ abstract class Query
 	 *
 	 * @param   mixed  $columns  A string or array of ordering columns.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -909,7 +909,7 @@ abstract class Query
 	 * @param   mixed   $conditions  A string or array of columns.
 	 * @param   string  $glue        The glue by which to join the conditions. Defaults to AND.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -936,7 +936,7 @@ abstract class Query
 	 *
 	 * @param   string  $condition  The join condition.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -960,7 +960,7 @@ abstract class Query
 	 * @param   mixed    $table           The name of the table to insert data into.
 	 * @param   boolean  $incrementField  The name of the field to auto increment.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -982,7 +982,7 @@ abstract class Query
 	 * @param   string  $type        The type of join. This string is prepended to the JOIN keyword.
 	 * @param   string  $conditions  A string or array of conditions.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1005,7 +1005,7 @@ abstract class Query
 	 *
 	 * @param   string  $condition  The join condition.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1076,7 +1076,7 @@ abstract class Query
 	 *
 	 * @param   mixed  $columns  A string or array of ordering columns.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1102,7 +1102,7 @@ abstract class Query
 	 *
 	 * @param   string  $condition  The join condition.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1185,7 +1185,7 @@ abstract class Query
 	 *
 	 * @param   string  $condition  The join condition.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1208,7 +1208,7 @@ abstract class Query
 	 *
 	 * @param   mixed  $columns  A string or an array of field names.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1239,7 +1239,7 @@ abstract class Query
 	 * @param   string  $glue        The glue by which to join the condition strings. Defaults to ,.
 	 *                               Note that the glue is set on first use and cannot be changed.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1268,7 +1268,7 @@ abstract class Query
 	 *
 	 * @param   mixed  $sql  An SQL Query
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -1289,7 +1289,7 @@ abstract class Query
 	 *
 	 * @param   string  $table  A table to update.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1310,7 +1310,7 @@ abstract class Query
 	 *
 	 * @param   string  $values  A single tuple, or array of tuples.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1339,7 +1339,7 @@ abstract class Query
 	 * @param   string  $glue        The glue by which to join the conditions. Defaults to AND.
 	 *                               Note that the glue is set on first use and cannot be changed.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
 	 */

@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Image;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Log;
+use InvalidArgumentException;
+use RuntimeException;
+use LogicException;
+use stdClass;
 
 /**
  * Class to manipulate an image.
@@ -16,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Image
  * @since       11.3
  */
-class JImage
+class Image
 {
 	/**
 	 * @const  integer
@@ -74,7 +82,7 @@ class JImage
 		if (!extension_loaded('gd'))
 		{
 			// @codeCoverageIgnoreStart
-			JLog::add('The GD extension for PHP is not available.', JLog::ERROR);
+			Log::add('The GD extension for PHP is not available.', Log::ERROR);
 			throw new RuntimeException('The GD extension for PHP is not available.');
 
 			// @codeCoverageIgnoreEnd
@@ -108,7 +116,7 @@ class JImage
 	 *
 	 * @param   string  $path  The filesystem path to the image for which to get properties.
 	 *
-	 * @return  stdClass
+	 * @return  \stdClass
 	 *
 	 * @since   11.3
 	 * @throws  InvalidArgumentException
@@ -288,7 +296,7 @@ class JImage
 	 * @param   bool     $createNew  If true the current image will be cloned, cropped and returned; else
 	 *                               the current image will be cropped and returned.
 	 *
-	 * @return  JImage
+	 * @return  Image
 	 *
 	 * @since   11.3
 	 * @throws  LogicException
@@ -351,7 +359,7 @@ class JImage
 		if ($createNew)
 		{
 			// @codeCoverageIgnoreStart
-			$new = new JImage($handle);
+			$new = new Image($handle);
 
 			return $new;
 
@@ -375,7 +383,7 @@ class JImage
 	 * @param   string  $type     The name of the image filter to apply.
 	 * @param   array   $options  An array of options for the filter.
 	 *
-	 * @return  JImage
+	 * @return  Image
 	 *
 	 * @since   11.3
 	 * @see     JImageFilter
@@ -519,7 +527,7 @@ class JImage
 				if (empty(self::$formats[IMAGETYPE_GIF]))
 				{
 					// @codeCoverageIgnoreStart
-					JLog::add('Attempting to load an image of unsupported type GIF.', JLog::ERROR);
+					Log::add('Attempting to load an image of unsupported type GIF.', Log::ERROR);
 					throw new RuntimeException('Attempting to load an image of unsupported type GIF.');
 
 					// @codeCoverageIgnoreEnd
@@ -543,7 +551,7 @@ class JImage
 				if (empty(self::$formats[IMAGETYPE_JPEG]))
 				{
 					// @codeCoverageIgnoreStart
-					JLog::add('Attempting to load an image of unsupported type JPG.', JLog::ERROR);
+					Log::add('Attempting to load an image of unsupported type JPG.', Log::ERROR);
 					throw new RuntimeException('Attempting to load an image of unsupported type JPG.');
 
 					// @codeCoverageIgnoreEnd
@@ -567,7 +575,7 @@ class JImage
 				if (empty(self::$formats[IMAGETYPE_PNG]))
 				{
 					// @codeCoverageIgnoreStart
-					JLog::add('Attempting to load an image of unsupported type PNG.', JLog::ERROR);
+					Log::add('Attempting to load an image of unsupported type PNG.', Log::ERROR);
 					throw new RuntimeException('Attempting to load an image of unsupported type PNG.');
 
 					// @codeCoverageIgnoreEnd
@@ -587,7 +595,7 @@ class JImage
 				break;
 
 			default:
-				JLog::add('Attempting to load an image of unsupported type: ' . $properties->mime, JLog::ERROR);
+				Log::add('Attempting to load an image of unsupported type: ' . $properties->mime, Log::ERROR);
 				throw new InvalidArgumentException('Attempting to load an image of unsupported type: ' . $properties->mime);
 				break;
 		}
@@ -605,7 +613,7 @@ class JImage
 	 *                                 the current image will be resized and returned.
 	 * @param   integer  $scaleMethod  Which method to use for scaling
 	 *
-	 * @return  JImage
+	 * @return  Image
 	 *
 	 * @since   11.3
 	 * @throws  LogicException
@@ -655,7 +663,7 @@ class JImage
 		if ($createNew)
 		{
 			// @codeCoverageIgnoreStart
-			$new = new JImage($handle);
+			$new = new Image($handle);
 
 			return $new;
 
@@ -681,7 +689,7 @@ class JImage
 	 * @param   bool     $createNew   If true the current image will be cloned, rotated and returned; else
 	 *                                the current image will be rotated and returned.
 	 *
-	 * @return  JImage
+	 * @return  Image
 	 *
 	 * @since   11.3
 	 * @throws  LogicException
@@ -714,7 +722,7 @@ class JImage
 		if ($createNew)
 		{
 			// @codeCoverageIgnoreStart
-			$new = new JImage($handle);
+			$new = new Image($handle);
 
 			return $new;
 
@@ -774,7 +782,7 @@ class JImage
 	 *
 	 * @param   string  $type  The image filter type to get.
 	 *
-	 * @return  JImageFilter
+	 * @return  Filter
 	 *
 	 * @since   11.3
 	 * @throws  RuntimeException
@@ -785,11 +793,11 @@ class JImage
 		$type = strtolower(preg_replace('#[^A-Z0-9_]#i', '', $type));
 
 		// Verify that the filter type exists.
-		$className = 'JImageFilter' . ucfirst($type);
+		$className = '\\Joomla\\Image\\Filter\\' . ucfirst($type);
 
 		if (!class_exists($className))
 		{
-			JLog::add('The ' . ucfirst($type) . ' image filter is not available.', JLog::ERROR);
+			Log::add('The ' . ucfirst($type) . ' image filter is not available.', Log::ERROR);
 			throw new RuntimeException('The ' . ucfirst($type) . ' image filter is not available.');
 		}
 
@@ -797,10 +805,10 @@ class JImage
 		$instance = new $className($this->handle);
 
 		// Verify that the filter type is valid.
-		if (!($instance instanceof JImageFilter))
+		if (!($instance instanceof Filter))
 		{
 			// @codeCoverageIgnoreStart
-			JLog::add('The ' . ucfirst($type) . ' image filter is not valid.', JLog::ERROR);
+			Log::add('The ' . ucfirst($type) . ' image filter is not valid.', Log::ERROR);
 			throw new RuntimeException('The ' . ucfirst($type) . ' image filter is not valid.');
 
 			// @codeCoverageIgnoreEnd

@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Language;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use stdClass;
 
 /**
  * Language helper class
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Language
  * @since       11.1
  */
-class JLanguageHelper
+class Helper
 {
 	/**
 	 * Builds a list of the system languages which can be used in a select option
@@ -35,11 +40,11 @@ class JLanguageHelper
 		$list = array();
 
 		// Cache activation
-		$langs = JLanguage::getKnownLanguages($basePath);
+		$langs = Language::getKnownLanguages($basePath);
 
 		if ($installed)
 		{
-			$db = JFactory::getDBO();
+			$db = Factory::getDBO();
 			$query = $db->getQuery(true);
 			$query->select('element');
 			$query->from('#__extensions');
@@ -135,10 +140,10 @@ class JLanguageHelper
 		if (empty($languages))
 		{
 			// Installation uses available languages
-			if (JFactory::getApplication()->getClientId() == 2)
+			if (Factory::getApplication()->getClientId() == 2)
 			{
 				$languages[$key] = array();
-				$knownLangs = JLanguage::getKnownLanguages(JPATH_BASE);
+				$knownLangs = Language::getKnownLanguages(JPATH_BASE);
 
 				foreach ($knownLangs as $metadata)
 				{
@@ -150,11 +155,11 @@ class JLanguageHelper
 			}
 			else
 			{
-				$cache = JFactory::getCache('com_languages', '');
+				$cache = Factory::getCache('com_languages', '');
 
 				if (!$languages = $cache->get('languages'))
 				{
-					$db = JFactory::getDBO();
+					$db = Factory::getDBO();
 					$query = $db->getQuery(true);
 					$query->select('*')
 						->from('#__languages')

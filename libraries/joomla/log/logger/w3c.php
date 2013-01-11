@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Logger;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Logger\Formattedtext;
 
 /**
  * Joomla! W3c Logging class
@@ -19,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerW3c extends JLogLoggerFormattedtext
+class W3c extends Formattedtext
 {
 	/**
 	 * @var    string  The format which each entry follows in the log file.  All fields must be

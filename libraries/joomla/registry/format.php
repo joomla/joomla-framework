@@ -7,19 +7,23 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Registry;
+
 defined('JPATH_PLATFORM') or die;
 
+use InvalidArgumentException;
+
 /**
- * Abstract Format for JRegistry
+ * Abstract Format for Registry
  *
  * @package     Joomla.Platform
  * @subpackage  Registry
  * @since       11.1
  */
-abstract class JRegistryFormat
+abstract class Format
 {
 	/**
-	 * @var    array  JRegistryFormat instances container.
+	 * @var    array  Format instances container.
 	 * @since  11.3
 	 */
 	protected static $instances = array();
@@ -30,7 +34,7 @@ abstract class JRegistryFormat
 	 *
 	 * @param   string  $type  The format to load
 	 *
-	 * @return  JRegistryFormat  Registry format handler
+	 * @return  Format  Registry format handler
 	 *
 	 * @since   11.1
 	 * @throws  InvalidArgumentException
@@ -44,7 +48,7 @@ abstract class JRegistryFormat
 		if (!isset(self::$instances[$type]))
 		{
 			// Only load the file the class does not exist.
-			$class = 'JRegistryFormat' . $type;
+			$class = '\\Joomla\\Registry\\Format\\' . ucfirst($type);
 
 			if (!class_exists($class))
 			{

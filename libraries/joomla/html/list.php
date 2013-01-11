@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Language\Text;
+use Joomla\Factory;
+use DirectoryIterator;
+use Joomla\String\String;
 
 /**
  * Utility class for creating different select lists
@@ -16,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlList
+abstract class List_
 {
 	/**
 	 * Build the select list to choose an image
@@ -46,7 +53,7 @@ abstract class JHtmlList
 		}
 
 		$imageFiles = new DirectoryIterator(JPATH_SITE . '/' . $directory);
-		$images = array(JHtml::_('select.option', '', JText::_('JOPTION_SELECT_IMAGE')));
+		$images = array(Html::_('select.option', '', Text::_('JOPTION_SELECT_IMAGE')));
 
 		foreach ($imageFiles as $file)
 		{
@@ -59,11 +66,11 @@ abstract class JHtmlList
 
 			if (preg_match('#(' . $extensions . ')$#', $fileName))
 			{
-				$images[] = JHtml::_('select.option', $fileName);
+				$images[] = Html::_('select.option', $fileName);
 			}
 		}
 
-		$images = JHtml::_(
+		$images = Html::_(
 			'select.genericlist',
 			$images,
 			$name,
@@ -88,7 +95,7 @@ abstract class JHtmlList
 	 */
 	public static function genericordering($sql, $chop = 30)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$options = array();
 		$db->setQuery($sql);
 
@@ -96,29 +103,29 @@ abstract class JHtmlList
 
 		if (empty($items))
 		{
-			$options[] = JHtml::_('select.option', 1, JText::_('JOPTION_ORDER_FIRST'));
+			$options[] = Html::_('select.option', 1, Text::_('JOPTION_ORDER_FIRST'));
 
 			return $options;
 		}
 
-		$options[] = JHtml::_('select.option', 0, '0 ' . JText::_('JOPTION_ORDER_FIRST'));
+		$options[] = Html::_('select.option', 0, '0 ' . Text::_('JOPTION_ORDER_FIRST'));
 
 		for ($i = 0, $n = count($items); $i < $n; $i++)
 		{
-			$items[$i]->text = JText::_($items[$i]->text);
+			$items[$i]->text = Text::_($items[$i]->text);
 
-			if (JString::strlen($items[$i]->text) > $chop)
+			if (String::strlen($items[$i]->text) > $chop)
 			{
-				$text = JString::substr($items[$i]->text, 0, $chop) . "...";
+				$text = String::substr($items[$i]->text, 0, $chop) . "...";
 			}
 			else
 			{
 				$text = $items[$i]->text;
 			}
 
-			$options[] = JHtml::_('select.option', $items[$i]->value, $items[$i]->value . '. ' . $text);
+			$options[] = Html::_('select.option', $items[$i]->value, $items[$i]->value . '. ' . $text);
 		}
-		$options[] = JHtml::_('select.option', $items[$i - 1]->value + 1, ($items[$i - 1]->value + 1) . ' ' . JText::_('JOPTION_ORDER_LAST'));
+		$options[] = Html::_('select.option', $items[$i - 1]->value + 1, ($items[$i - 1]->value + 1) . ' ' . Text::_('JOPTION_ORDER_LAST'));
 
 		return $options;
 	}
@@ -145,18 +152,18 @@ abstract class JHtmlList
 
 		if (empty($neworder))
 		{
-			$orders = JHtml::_('list.genericordering', $query);
-			$html = JHtml::_('select.genericlist', $orders, $name, array('list.attr' => $attribs, 'list.select' => (int) $selected));
+			$orders = Html::_('list.genericordering', $query);
+			$html = Html::_('select.genericlist', $orders, $name, array('list.attr' => $attribs, 'list.select' => (int) $selected));
 		}
 		else
 		{
 			if ($neworder > 0)
 			{
-				$text = JText::_('JGLOBAL_NEWITEMSLAST_DESC');
+				$text = Text::_('JGLOBAL_NEWITEMSLAST_DESC');
 			}
 			elseif ($neworder <= 0)
 			{
-				$text = JText::_('JGLOBAL_NEWITEMSFIRST_DESC');
+				$text = Text::_('JGLOBAL_NEWITEMSFIRST_DESC');
 			}
 			$html = '<input type="hidden" name="' . $name . '" value="' . (int) $selected . '" />' . '<span class="readonly">' . $text . '</span>';
 		}
@@ -178,7 +185,7 @@ abstract class JHtmlList
 	 */
 	public static function users($name, $active, $nouser = 0, $javascript = null, $order = 'name')
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('u.id AS value, u.name AS text');
@@ -191,7 +198,7 @@ abstract class JHtmlList
 
 		if ($nouser)
 		{
-			$users[] = JHtml::_('select.option', '0', JText::_('JOPTION_NO_USER'));
+			$users[] = Html::_('select.option', '0', Text::_('JOPTION_NO_USER'));
 			$users = array_merge($users, $db->loadObjectList());
 		}
 		else
@@ -199,7 +206,7 @@ abstract class JHtmlList
 			$users = $db->loadObjectList();
 		}
 
-		$users = JHtml::_(
+		$users = Html::_(
 			'select.genericlist',
 			$users,
 			$name,
@@ -235,25 +242,25 @@ abstract class JHtmlList
 
 		if ($none)
 		{
-			$pos[''] = JText::_('JNONE');
+			$pos[''] = Text::_('JNONE');
 		}
 
 		if ($center)
 		{
-			$pos['center'] = JText::_('JGLOBAL_CENTER');
+			$pos['center'] = Text::_('JGLOBAL_CENTER');
 		}
 
 		if ($left)
 		{
-			$pos['left'] = JText::_('JGLOBAL_LEFT');
+			$pos['left'] = Text::_('JGLOBAL_LEFT');
 		}
 
 		if ($right)
 		{
-			$pos['right'] = JText::_('JGLOBAL_RIGHT');
+			$pos['right'] = Text::_('JGLOBAL_RIGHT');
 		}
 
-		$positions = JHtml::_(
+		$positions = Html::_(
 			'select.genericlist', $pos, $name,
 			array(
 				'id' => $id,

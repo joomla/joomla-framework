@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Http\Transport;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
+use Joomla\Http\Transport;
+use Joomla\Http\Response;
+use Joomla\Uri\Uri;
+use UnexpectedValueException;
+use RuntimeException;
 
 /**
  * HTTP transport class for using PHP streams.
@@ -16,10 +25,10 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTTP
  * @since       11.3
  */
-class JHttpTransportStream implements JHttpTransport
+class Stream implements Transport
 {
 	/**
-	 * @var    JRegistry  The client options.
+	 * @var    Registry  The client options.
 	 * @since  11.3
 	 */
 	protected $options;
@@ -27,12 +36,12 @@ class JHttpTransportStream implements JHttpTransport
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Client options object.
+	 * @param   Registry  $options  Client options object.
 	 *
 	 * @since   11.3
 	 * @throws  RuntimeException
 	 */
-	public function __construct(JRegistry $options)
+	public function __construct(Registry $options)
 	{
 		// Verify that fopen() is available.
 		if (!self::isSupported())
@@ -53,17 +62,17 @@ class JHttpTransportStream implements JHttpTransport
 	 * Send a request to the server and return a JHttpResponse object with the response.
 	 *
 	 * @param   string   $method     The HTTP method for sending the request.
-	 * @param   JUri     $uri        The URI to the resource to request.
+	 * @param   Uri      $uri        The URI to the resource to request.
 	 * @param   mixed    $data       Either an associative array or a string to be sent with the request.
 	 * @param   array    $headers    An array of request headers to send with the request.
 	 * @param   integer  $timeout    Read timeout in seconds.
 	 * @param   string   $userAgent  The optional user agent string to send with the request.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
-	public function request($method, JUri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
+	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
 		// Create the stream context options array with the required method offset.
 		$options = array('method' => strtoupper($method));
@@ -139,6 +148,7 @@ class JHttpTransportStream implements JHttpTransport
 			if (!$php_errormsg)
 			{
 				// Error but nothing from php? Create our own
+				// @todo $err and $errno are undefined variables.
 				$php_errormsg = sprintf('Could not connect to resource: %s', $uri, $err, $errno);
 			}
 			// Restore error tracking to give control to the exception handler
@@ -182,7 +192,7 @@ class JHttpTransportStream implements JHttpTransport
 	 * @param   array   $headers  The response headers as an array.
 	 * @param   string  $body     The response body as a string.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 * @throws  UnexpectedValueException
@@ -190,7 +200,7 @@ class JHttpTransportStream implements JHttpTransport
 	protected function getResponse(array $headers, $body)
 	{
 		// Create the response object.
-		$return = new JHttpResponse;
+		$return = new Response;
 
 		// Set the body for the response.
 		$return->body = $body;

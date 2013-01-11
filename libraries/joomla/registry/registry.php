@@ -7,18 +7,22 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Registry;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.utilities.arrayhelper');
+use Joomla\Compat\JsonSerializable;
+use Joomla\Utilities\ArrayHelper;
+use stdClass;
 
 /**
- * JRegistry class
+ * Registry class
  *
  * @package     Joomla.Platform
  * @subpackage  Registry
  * @since       11.1
  */
-class JRegistry implements JsonSerializable
+class Registry implements JsonSerializable
 {
 	/**
 	 * Registry Object
@@ -29,7 +33,7 @@ class JRegistry implements JsonSerializable
 	protected $data;
 
 	/**
-	 * @var    array  JRegistry instances container.
+	 * @var    array  Registry instances container.
 	 * @since  11.3
 	 */
 	protected static $instances = array();
@@ -37,7 +41,7 @@ class JRegistry implements JsonSerializable
 	/**
 	 * Constructor
 	 *
-	 * @param   mixed  $data  The data to bind to the new JRegistry object.
+	 * @param   mixed  $data  The data to bind to the new Registry object.
 	 *
 	 * @since   11.1
 	 */
@@ -60,7 +64,7 @@ class JRegistry implements JsonSerializable
 	/**
 	 * Magic function to clone the registry object.
 	 *
-	 * @return  JRegistry
+	 * @return  Registry
 	 *
 	 * @since   11.1
 	 */
@@ -83,7 +87,7 @@ class JRegistry implements JsonSerializable
 
 	/**
 	 * Implementation for the JsonSerializable interface.
-	 * Allows us to pass JRegistry objects to json_encode.
+	 * Allows us to pass Registry objects to json_encode.
 	 *
 	 * @return  object
 	 *
@@ -200,15 +204,15 @@ class JRegistry implements JsonSerializable
 	}
 
 	/**
-	 * Returns a reference to a global JRegistry object, only creating it
+	 * Returns a reference to a global Registry object, only creating it
 	 * if it doesn't already exist.
 	 *
 	 * This method must be invoked as:
-	 * <pre>$registry = JRegistry::getInstance($id);</pre>
+	 * <pre>$registry = Registry::getInstance($id);</pre>
 	 *
 	 * @param   string  $id  An ID for the registry instance
 	 *
-	 * @return  JRegistry  The JRegistry object.
+	 * @return  Registry  The Registry object.
 	 *
 	 * @since   11.1
 	 */
@@ -216,7 +220,7 @@ class JRegistry implements JsonSerializable
 	{
 		if (empty(self::$instances[$id]))
 		{
-			self::$instances[$id] = new JRegistry;
+			self::$instances[$id] = new self;
 		}
 
 		return self::$instances[$id];
@@ -286,7 +290,7 @@ class JRegistry implements JsonSerializable
 	public function loadString($data, $format = 'JSON', $options = array())
 	{
 		// Load a string into the given namespace [or default namespace if not given]
-		$handler = JRegistryFormat::getInstance($format);
+		$handler = Format::getInstance($format);
 
 		$obj = $handler->stringToObject($data, $options);
 		$this->loadObject($obj);
@@ -295,9 +299,9 @@ class JRegistry implements JsonSerializable
 	}
 
 	/**
-	 * Merge a JRegistry object into this one
+	 * Merge a Registry object into this one
 	 *
-	 * @param   JRegistry  $source  Source JRegistry object to merge.
+	 * @param   Registry  $source  Source Registry object to merge.
 	 *
 	 * @return  boolean  True on success
 	 *
@@ -305,7 +309,7 @@ class JRegistry implements JsonSerializable
 	 */
 	public function merge($source)
 	{
-		if (!$source instanceof JRegistry)
+		if (!$source instanceof Registry)
 		{
 			return false;
 		}
@@ -395,7 +399,7 @@ class JRegistry implements JsonSerializable
 	public function toString($format = 'JSON', $options = array())
 	{
 		// Return a namespace in a given format
-		$handler = JRegistryFormat::getInstance($format);
+		$handler = Format::getInstance($format);
 
 		return $handler->objectToString($this->data, $options);
 	}
@@ -424,7 +428,7 @@ class JRegistry implements JsonSerializable
 
 		foreach ($data as $k => $v)
 		{
-			if ((is_array($v) && JArrayHelper::isAssociative($v)) || is_object($v))
+			if ((is_array($v) && ArrayHelper::isAssociative($v)) || is_object($v))
 			{
 				$parent->$k = new stdClass;
 				$this->bindData($parent->$k, $v);

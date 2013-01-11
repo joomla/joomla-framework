@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Filter\Input as FilterInput;
 
 /**
  * Joomla! Input Cookie Class
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Input
  * @since       11.1
  */
-class JInputCookie extends JInput
+class Cookie extends Input
 {
 	/**
 	 * Constructor.
@@ -34,7 +38,7 @@ class JInputCookie extends JInput
 		}
 		else
 		{
-			$this->filter = JFilterInput::getInstance();
+			$this->filter = FilterInput::getInstance();
 		}
 
 		// Set the data source.

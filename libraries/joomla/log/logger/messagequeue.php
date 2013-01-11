@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Logger;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Logger;
+use Joomla\Log\Entry;
+use Joomla\Log\Log;
+use Joomla\Factory;
 
 /**
  * Joomla MessageQueue logger class.
@@ -20,35 +27,35 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerMessagequeue extends JLogLogger
+class Messagequeue extends Logger
 {
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+	 * @param   Entry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
-	public function addEntry(JLogEntry $entry)
+	public function addEntry(Entry $entry)
 	{
 		switch ($entry->priority)
 		{
-			case JLog::EMERGENCY:
-			case JLog::ALERT:
-			case JLog::CRITICAL:
-			case JLog::ERROR:
-				JFactory::getApplication()->enqueueMessage($entry->message, 'error');
+			case Log::EMERGENCY:
+			case Log::ALERT:
+			case Log::CRITICAL:
+			case Log::ERROR:
+				Factory::getApplication()->enqueueMessage($entry->message, 'error');
 				break;
-			case JLog::WARNING:
-				JFactory::getApplication()->enqueueMessage($entry->message, 'warning');
+			case Log::WARNING:
+				Factory::getApplication()->enqueueMessage($entry->message, 'warning');
 				break;
-			case JLog::NOTICE:
-				JFactory::getApplication()->enqueueMessage($entry->message, 'notice');
+			case Log::NOTICE:
+				Factory::getApplication()->enqueueMessage($entry->message, 'notice');
 				break;
-			case JLog::INFO:
-				JFactory::getApplication()->enqueueMessage($entry->message, 'message');
+			case Log::INFO:
+				Factory::getApplication()->enqueueMessage($entry->message, 'message');
 				break;
 			default:
 				// Ignore other priorities.

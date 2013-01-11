@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Language;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -17,7 +19,7 @@ defined('JPATH_PLATFORM') or die;
  * @since       11.1
  * @note        Port of phputf8's utf8_accents_to_ascii()
  */
-class JLanguageTransliterate
+class Transliterate
 {
 	/**
 	 * Returns strings transliterated from UTF-8 to Latin

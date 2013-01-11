@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Language;
+
 defined('JPATH_PLATFORM') or die;
+
+use RuntimeException;
 
 /**
  * Stemmer base class.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Language
  * @since       12.1
  */
-abstract class JLanguageStemmer
+abstract class Stemmer
 {
 	/**
 	 * An internal cache of stemmed tokens.
@@ -37,7 +41,7 @@ abstract class JLanguageStemmer
 	 *
 	 * @param   string  $adapter  The type of stemmer to load.
 	 *
-	 * @return  JLanguageStemmer  A JLanguageStemmer instance.
+	 * @return  Stemmer  A JLanguageStemmer instance.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException on invalid stemmer.
@@ -51,13 +55,13 @@ abstract class JLanguageStemmer
 		}
 
 		// Setup the adapter for the stemmer.
-		$class = 'JLanguageStemmer' . ucfirst(trim($adapter));
+		$class = '\\Joomla\\Language\\Stemmer\\' . ucfirst(trim($adapter));
 
 		// Check if a stemmer exists for the adapter.
 		if (!class_exists($class))
 		{
 			// Throw invalid adapter exception.
-			throw new RuntimeException(JText::sprintf('JLIB_STEMMER_INVALID_STEMMER', $adapter));
+			throw new RuntimeException(Text::sprintf('JLIB_STEMMER_INVALID_STEMMER', $adapter));
 		}
 
 		self::$instances[$adapter] = new $class;

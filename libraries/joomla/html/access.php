@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Access\Access as AuthorizationAccess;
+use Joomla\Language\Text;
+use Joomla\Factory;
 
 /**
  * Extended Utility class for all HTML drawing classes.
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlAccess
+abstract class Access
 {
 	/**
 	 * A cached array of the asset groups
@@ -43,7 +49,7 @@ abstract class JHtmlAccess
 	 */
 	public static function level($name, $selected, $attribs = '', $params = true, $id = false)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('a.id AS value, a.title AS text');
@@ -64,10 +70,10 @@ abstract class JHtmlAccess
 		// If all levels is allowed, push it into the array.
 		elseif ($params)
 		{
-			array_unshift($options, JHtml::_('select.option', '', JText::_('JOPTION_ACCESS_SHOW_ALL_LEVELS')));
+			array_unshift($options, Html::_('select.option', '', Text::_('JOPTION_ACCESS_SHOW_ALL_LEVELS')));
 		}
 
-		return JHtml::_(
+		return Html::_(
 			'select.genericlist',
 			$options,
 			$name,
@@ -95,7 +101,7 @@ abstract class JHtmlAccess
 	 */
 	public static function usergroup($name, $selected, $attribs = '', $allowAll = true)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.id AS value, a.title AS text, COUNT(DISTINCT b.id) AS level');
 		$query->from($db->quoteName('#__usergroups') . ' AS a');
@@ -113,10 +119,10 @@ abstract class JHtmlAccess
 		// If all usergroups is allowed, push it into the array.
 		if ($allowAll)
 		{
-			array_unshift($options, JHtml::_('select.option', '', JText::_('JOPTION_ACCESS_SHOW_ALL_GROUPS')));
+			array_unshift($options, Html::_('select.option', '', Text::_('JOPTION_ACCESS_SHOW_ALL_GROUPS')));
 		}
 
-		return JHtml::_('select.genericlist', $options, $name, array('list.attr' => $attribs, 'list.select' => $selected));
+		return Html::_('select.genericlist', $options, $name, array('list.attr' => $attribs, 'list.select' => $selected));
 	}
 
 	/**
@@ -136,9 +142,9 @@ abstract class JHtmlAccess
 
 		$count++;
 
-		$isSuperAdmin = JFactory::getUser()->authorise('core.admin');
+		$isSuperAdmin = Factory::getUser()->authorise('core.admin');
 
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.*, COUNT(DISTINCT b.id) AS level');
 		$query->from($db->quoteName('#__usergroups') . ' AS a');
@@ -157,7 +163,7 @@ abstract class JHtmlAccess
 			$item = &$groups[$i];
 
 			// If checkSuperAdmin is true, only add item if the user is superadmin or the group is not super admin
-			if ((!$checkSuperAdmin) || $isSuperAdmin || (!JAccess::checkGroup($item->id, 'core.admin')))
+			if ((!$checkSuperAdmin) || $isSuperAdmin || (!AuthorizationAccess::checkGroup($item->id, 'core.admin')))
 			{
 				// Setup  the variable attributes.
 				$eid = $count . 'group_' . $item->id;
@@ -205,7 +211,7 @@ abstract class JHtmlAccess
 
 		$count++;
 
-		$actions = JAccess::getActionsFromFile(
+		$actions = AuthorizationAccess::getActionsFromFile(
 			JPATH_ADMINISTRATOR . '/components/' . $component . '/access.xml',
 			"/access/section[@name='" . $section . "']/"
 		);
@@ -226,7 +232,7 @@ abstract class JHtmlAccess
 			$html[] = '		<input type="checkbox" name="' . $name . '[]" value="' . $item->id . '" id="' . $eid . '"';
 			$html[] = '			' . $checked . ' />';
 			$html[] = '		<label for="' . $eid . '">';
-			$html[] = '			' . JText::_($item->title);
+			$html[] = '			' . Text::_($item->title);
 			$html[] = '		</label>';
 			$html[] = '	</li>';
 		}
@@ -246,7 +252,7 @@ abstract class JHtmlAccess
 	{
 		if (empty(self::$asset_groups))
 		{
-			$db = JFactory::getDbo();
+			$db = Factory::getDbo();
 			$query = $db->getQuery(true);
 
 			$query->select('a.id AS value, a.title AS text');
@@ -281,10 +287,10 @@ abstract class JHtmlAccess
 
 		if (isset($config['title']))
 		{
-			array_unshift($options, JHtml::_('select.option', '', $config['title']));
+			array_unshift($options, Html::_('select.option', '', $config['title']));
 		}
 
-		return JHtml::_(
+		return Html::_(
 			'select.genericlist',
 			$options,
 			$name,

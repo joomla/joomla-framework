@@ -7,16 +7,20 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Registry\Format;
+
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Registry\Format;
+
 /**
- * PHP class format handler for JRegistry
+ * PHP class format handler for Registry
  *
  * @package     Joomla.Platform
  * @subpackage  Registry
  * @since       11.1
  */
-class JRegistryFormatPHP extends JRegistryFormat
+class Php extends Format
 {
 	/**
 	 * Converts an object into a php class string.

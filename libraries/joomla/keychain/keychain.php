@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Keychain;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
+use RuntimeException;
+use stdClass;
 
 /**
  * Keychain Class
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Keychain
  * @since       12.3
  */
-class JKeychain extends JRegistry
+class Keychain extends Registry
 {
 	/**
 	 * @var    string  Method to use for encryption.

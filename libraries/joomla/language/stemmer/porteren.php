@@ -8,7 +8,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Language;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Language\Stemmer;
 
 /**
  * Porter English stemmer class.
@@ -20,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Language
  * @since       12.1
  */
-class JLanguageStemmerPorteren extends JLanguageStemmer
+class Porteren extends Stemmer
 {
 	/**
 	 * Regex for matching a consonant.

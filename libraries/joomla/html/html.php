@@ -7,11 +7,19 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.environment.browser');
-jimport('joomla.filesystem.file');
-jimport('joomla.filesystem.path');
+use Joomla\Environment\Browser;
+use Joomla\Utilities\ArrayHelper;
+use Joomla\Filesystem\File;
+use Joomla\Filesystem\Path;
+use Joomla\Language\Text;
+use Joomla\Uri\Uri;
+use Joomla\Factory;
+use DateTimeZone;
+use InvalidArgumentException;
 
 /**
  * Utility class for all HTML drawing classes
@@ -20,7 +28,7 @@ jimport('joomla.filesystem.path');
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtml
+abstract class Html
 {
 	/**
 	 * Option values related to the generation of HTML output. Recognized
@@ -109,7 +117,7 @@ abstract class JHtml
 
 		if (!class_exists($className))
 		{
-			$path = JPath::find(self::$includePaths, strtolower($file) . '.php');
+			$path = Path::find(self::$includePaths, strtolower($file) . '.php');
 
 			if ($path)
 			{
@@ -250,7 +258,7 @@ abstract class JHtml
 	{
 		if (is_array($attribs))
 		{
-			$attribs = JArrayHelper::toString($attribs);
+			$attribs = ArrayHelper::toString($attribs);
 		}
 
 		return '<a href="' . $url . '" ' . $attribs . '>' . $text . '</a>';
@@ -272,7 +280,7 @@ abstract class JHtml
 	{
 		if (is_array($attribs))
 		{
-			$attribs = JArrayHelper::toString($attribs);
+			$attribs = ArrayHelper::toString($attribs);
 		}
 
 		return '<iframe src="' . $url . '" ' . $attribs . ' name="' . $name . '">' . $noFrames . '</iframe>';
@@ -302,8 +310,8 @@ abstract class JHtml
 		else
 		{
 			// Extract extension and strip the file
-			$strip		= JFile::stripExt($file);
-			$ext		= JFile::getExt($file);
+			$strip		= File::stripExt($file);
+			$ext		= File::getExt($file);
 
 			// Prepare array of files
 			$includes = array();
@@ -311,7 +319,7 @@ abstract class JHtml
 			// Detect browser and compute potential files
 			if ($detect_browser)
 			{
-				$navigator = JBrowser::getInstance();
+				$navigator = Browser::getInstance();
 				$browser = $navigator->getBrowser();
 				$major = $navigator->getMajor();
 				$minor = $navigator->getMinor();
@@ -330,7 +338,7 @@ abstract class JHtml
 			if ($relative)
 			{
 				// Get the template
-				$app = JFactory::getApplication();
+				$app = Factory::getApplication();
 				$template = $app->getTemplate();
 
 				// For each potential files
@@ -339,7 +347,7 @@ abstract class JHtml
 					$files = array();
 
 					// Detect debug mode
-					if ($detect_debug && JFactory::getConfig()->get('debug'))
+					if ($detect_debug && Factory::getConfig()->get('debug'))
 					{
 						/*
 						 * Detect if we received a file in the format name.min.ext
@@ -371,7 +379,7 @@ abstract class JHtml
 						if (file_exists($path))
 						{
 							$md5 = dirname($path) . '/MD5SUM';
-							$includes[] = JURI::base(true) . "/templates/$template/$folder/$file" .
+							$includes[] = Uri::base(true) . "/templates/$template/$folder/$file" .
 								(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 							break;
 						}
@@ -395,7 +403,7 @@ abstract class JHtml
 									if (file_exists($path))
 									{
 										$md5 = dirname($path) . '/MD5SUM';
-										$includes[] = JURI::root(true) . "/media/$extension/$element/$folder/$file" .
+										$includes[] = Uri::root(true) . "/media/$extension/$element/$folder/$file" .
 											(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 										break;
 									}
@@ -406,7 +414,7 @@ abstract class JHtml
 									if (file_exists($path))
 									{
 										$md5 = dirname($path) . '/MD5SUM';
-										$includes[] = JURI::root(true) . "/media/$extension/$folder/$element/$file" .
+										$includes[] = Uri::root(true) . "/media/$extension/$folder/$element/$file" .
 											(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 										break;
 									}
@@ -417,7 +425,7 @@ abstract class JHtml
 									if (file_exists($path))
 									{
 										$md5 = dirname($path) . '/MD5SUM';
-										$includes[] = JURI::root(true) . "/templates/$template/$folder/system/$element/$file" .
+										$includes[] = Uri::root(true) . "/templates/$template/$folder/system/$element/$file" .
 											(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 										break;
 									}
@@ -428,7 +436,7 @@ abstract class JHtml
 									if (file_exists($path))
 									{
 										$md5 = dirname($path) . '/MD5SUM';
-										$includes[] = JURI::root(true) . "/media/system/$folder/$element/$file" .
+										$includes[] = Uri::root(true) . "/media/system/$folder/$element/$file" .
 											(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 										break;
 									}
@@ -441,7 +449,7 @@ abstract class JHtml
 									if (file_exists($path))
 									{
 										$md5 = dirname($path) . '/MD5SUM';
-										$includes[] = JURI::root(true) . "/media/$extension/$folder/$file" .
+										$includes[] = Uri::root(true) . "/media/$extension/$folder/$file" .
 											(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 										break;
 									}
@@ -452,7 +460,7 @@ abstract class JHtml
 									if (file_exists($path))
 									{
 										$md5 = dirname($path) . '/MD5SUM';
-										$includes[] = JURI::root(true) . "/templates/$template/$folder/system/$file" .
+										$includes[] = Uri::root(true) . "/templates/$template/$folder/system/$file" .
 											(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 										break;
 									}
@@ -463,7 +471,7 @@ abstract class JHtml
 									if (file_exists($path))
 									{
 										$md5 = dirname($path) . '/MD5SUM';
-										$includes[] = JURI::root(true) . "/media/system/$folder/$file" .
+										$includes[] = Uri::root(true) . "/media/system/$folder/$file" .
 											(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 										break;
 									}
@@ -477,7 +485,7 @@ abstract class JHtml
 								if (file_exists($path))
 								{
 									$md5 = dirname($path) . '/MD5SUM';
-									$includes[] = JURI::root(true) . "/media/system/$folder/$file" .
+									$includes[] = Uri::root(true) . "/media/system/$folder/$file" .
 											(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 									break;
 								}
@@ -494,7 +502,7 @@ abstract class JHtml
 					$files = array();
 
 					// Detect debug mode
-					if ($detect_debug && JFactory::getConfig()->get('debug'))
+					if ($detect_debug && Factory::getConfig()->get('debug'))
 					{
 						$files[] = $strip . '-uncompressed.' . $ext;
 					}
@@ -512,7 +520,7 @@ abstract class JHtml
 						if (file_exists($path))
 						{
 							$md5 = dirname($path) . '/MD5SUM';
-							$includes[] = JURI::root(true) . "/$file" .
+							$includes[] = Uri::root(true) . "/$file" .
 								(file_exists($md5) ? ('?' . file_get_contents($md5)) : '');
 							break;
 						}
@@ -540,7 +548,7 @@ abstract class JHtml
 	{
 		if (is_array($attribs))
 		{
-			$attribs = JArrayHelper::toString($attribs);
+			$attribs = ArrayHelper::toString($attribs);
 		}
 
 		$includes = self::includeRelativeFiles('images', $file, $relative, false, false);
@@ -625,7 +633,7 @@ abstract class JHtml
 		// If inclusion is required
 		else
 		{
-			$document = JFactory::getDocument();
+			$document = Factory::getDocument();
 
 			foreach ($includes as $include)
 			{
@@ -678,7 +686,7 @@ abstract class JHtml
 		// If inclusion is required
 		else
 		{
-			$document = JFactory::getDocument();
+			$document = Factory::getDocument();
 
 			foreach ($includes as $include)
 			{
@@ -727,14 +735,14 @@ abstract class JHtml
 	public static function date($input = 'now', $format = null, $tz = true, $gregorian = false)
 	{
 		// Get some system objects.
-		$config = JFactory::getConfig();
-		$user = JFactory::getUser();
+		$config = Factory::getConfig();
+		$user = Factory::getUser();
 
 		// UTC date converted to user time zone.
 		if ($tz === true)
 		{
 			// Get a date object based on UTC.
-			$date = JFactory::getDate($input, 'UTC');
+			$date = Factory::getDate($input, 'UTC');
 
 			// Set the correct time zone based on the user configuration.
 			$date->setTimeZone(new DateTimeZone($user->getParam('timezone', $config->get('offset'))));
@@ -743,7 +751,7 @@ abstract class JHtml
 		elseif ($tz === false)
 		{
 			// Get a date object based on UTC.
-			$date = JFactory::getDate($input, 'UTC');
+			$date = Factory::getDate($input, 'UTC');
 
 			// Set the correct time zone based on the server configuration.
 			$date->setTimeZone(new DateTimeZone($config->get('offset')));
@@ -751,13 +759,13 @@ abstract class JHtml
 		// No date conversion.
 		elseif ($tz === null)
 		{
-			$date = JFactory::getDate($input);
+			$date = Factory::getDate($input);
 		}
 		// UTC date converted to given time zone.
 		else
 		{
 			// Get a date object based on UTC.
-			$date = JFactory::getDate($input, 'UTC');
+			$date = Factory::getDate($input, 'UTC');
 
 			// Set the correct time zone based on the server configuration.
 			$date->setTimeZone(new DateTimeZone($tz));
@@ -766,12 +774,12 @@ abstract class JHtml
 		// If no format is given use the default locale based format.
 		if (!$format)
 		{
-			$format = JText::_('DATE_FORMAT_LC1');
+			$format = Text::_('DATE_FORMAT_LC1');
 		}
 		// $format is an existing language key
-		elseif (JFactory::getLanguage()->hasKey($format))
+		elseif (Factory::getLanguage()->hasKey($format))
 		{
-			$format = JText::_($format);
+			$format = Text::_($format);
 		}
 
 		if ($gregorian)
@@ -874,7 +882,7 @@ abstract class JHtml
 
 		if (is_array($attribs))
 		{
-			$attribs = JArrayHelper::toString($attribs);
+			$attribs = ArrayHelper::toString($attribs);
 		}
 
 		if (!$readonly && !$disabled)
@@ -886,7 +894,7 @@ abstract class JHtml
 			// Only display the triggers once for each control.
 			if (!in_array($id, $done))
 			{
-				$document = JFactory::getDocument();
+				$document = Factory::getDocument();
 				$document
 					->addScriptDeclaration(
 					'window.addEvent(\'domready\', function() {Calendar.setup({
@@ -899,14 +907,14 @@ abstract class JHtml
 				// Alignment (defaults to "Bl")
 				align: "Tl",
 				singleClick: true,
-				firstDay: ' . JFactory::getLanguage()->getFirstDay() . '
+				firstDay: ' . Factory::getLanguage()->getFirstDay() . '
 				});});'
 				);
 				$done[] = $id;
 			}
 			return '<input type="text" title="' . (0 !== (int) $value ? self::_('date', $value, null, null) : '') . '" name="' . $name . '" id="' . $id
 				. '" value="' . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '" ' . $attribs . ' />'
-				. self::_('image', 'system/calendar.png', JText::_('JLIB_HTML_CALENDAR'), array('class' => 'calendar', 'id' => $id . '_img'), true);
+				. self::_('image', 'system/calendar.png', Text::_('JLIB_HTML_CALENDAR'), array('class' => 'calendar', 'id' => $id . '_img'), true);
 		}
 		else
 		{
@@ -936,7 +944,7 @@ abstract class JHtml
 			if (!empty($dir) && !in_array($dir, self::$includePaths))
 			{
 				jimport('joomla.filesystem.path');
-				array_unshift(self::$includePaths, JPath::clean($dir));
+				array_unshift(self::$includePaths, Path::clean($dir));
 			}
 		}
 

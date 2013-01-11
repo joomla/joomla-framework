@@ -216,7 +216,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	 *
 	 * @param   array  $options  Parameters to be passed to the database driver.
 	 *
-	 * @return  JDatabaseDriver  A database object.
+	 * @return  Driver  A database object.
 	 *
 	 * @since   11.1
 	 */
@@ -401,7 +401,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	 * @param   string   $table     The name of the database table to drop.
 	 * @param   boolean  $ifExists  Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  JDatabaseDriver     Returns this object to support chaining.
+	 * @return  Driver     Returns this object to support chaining.
 	 *
 	 * @since   11.4
 	 * @throws  RuntimeException
@@ -594,7 +594,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	/**
 	 * Gets an exporter class object.
 	 *
-	 * @return  JDatabaseExporter  An exporter object.
+	 * @return  Exporter  An exporter object.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -620,7 +620,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	/**
 	 * Gets an importer class object.
 	 *
-	 * @return  JDatabaseImporter  An importer object.
+	 * @return  Importer  An importer object.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -648,7 +648,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	 *
 	 * @param   boolean  $new  False to return the current query object, True to return a new JDatabaseQuery object.
 	 *
-	 * @return  JDatabaseQuery  The current query object or a new object extending the JDatabaseQuery class.
+	 * @return  Query  The current query object or a new object extending the JDatabaseQuery class.
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
@@ -681,7 +681,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	 * @param   string  $column  An option column to use as the iterator key.
 	 * @param   string  $class   The class of object that is returned.
 	 *
-	 * @return  JDatabaseIterator  A new database iterator.
+	 * @return  DatabaseIterator  A new database iterator.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -1242,7 +1242,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	 *
 	 * @param   string  $tableName  The name of the table to unlock.
 	 *
-	 * @return  JDatabaseDriver     Returns this object to support chaining.
+	 * @return  Driver  Returns this object to support chaining.
 	 *
 	 * @since   11.4
 	 * @throws  RuntimeException
@@ -1471,7 +1471,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	 * @param   string  $backup    Table prefix
 	 * @param   string  $prefix    For the table - used to rename constraints in non-mysql databases
 	 *
-	 * @return  JDatabaseDriver    Returns this object to support chaining.
+	 * @return  Driver  Returns this object to support chaining.
 	 *
 	 * @since   11.4
 	 * @throws  RuntimeException
@@ -1514,7 +1514,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	 * @param   integer  $offset  The affected row offset to set.
 	 * @param   integer  $limit   The maximum affected rows to set.
 	 *
-	 * @return  JDatabaseDriver  This object to support method chaining.
+	 * @return  Driver  This object to support method chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -1684,7 +1684,7 @@ abstract class Driver extends Database implements DatabaseInterface
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  JDatabaseDriver  Returns this object to support chaining.
+	 * @return  Driver  Returns this object to support chaining.
 	 *
 	 * @since   11.4
 	 * @throws  RuntimeException

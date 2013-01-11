@@ -11,6 +11,8 @@ namespace Joomla\Object;
 
 defined('JPATH_PLATFORM') or die;
 
+use Exception;
+
 /**
  * Joomla Platform Object Class
  *

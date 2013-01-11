@@ -7,9 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Logger;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.folder');
+// @†odo dependency on JPlatform here
+use Joomla\Filesystem\Folder;
+use Joomla\Log\Logger;
+use Joomla\Log\Entry;
+use Joomla\Factory;
+use RuntimeException;
 
 /**
  * Joomla! Formatted Text File Log class
@@ -21,7 +28,7 @@ jimport('joomla.filesystem.folder');
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerFormattedtext extends JLogLogger
+class Formattedtext extends Logger
 {
 	/**
 	 * @var    resource  The file pointer for the log file.
@@ -69,7 +76,7 @@ class JLogLoggerFormattedtext extends JLogLogger
 		// The name of the text file path defaults to that which is set in configuration if not explicitly given.
 		if (empty($this->options['text_file_path']))
 		{
-			$this->options['text_file_path'] = JFactory::getConfig()->get('log_path');
+			$this->options['text_file_path'] = Factory::getConfig()->get('log_path');
 		}
 
 		// False to treat the log file as a php file.
@@ -107,14 +114,14 @@ class JLogLoggerFormattedtext extends JLogLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+	 * @param   Entry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  boolean  True on success.
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
 	 */
-	public function addEntry(JLogEntry $entry)
+	public function addEntry(Entry $entry)
 	{
 		// Initialise the file if not already done.
 		if (!is_resource($this->file))
@@ -219,7 +226,7 @@ class JLogLoggerFormattedtext extends JLogLogger
 		{
 
 			// Make sure the folder exists in which to create the log file.
-			JFolder::create(dirname($this->path));
+			Folder::create(dirname($this->path));
 
 			// Build the log file header.
 			$head = $this->generateFileHeader();

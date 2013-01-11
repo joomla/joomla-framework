@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Utilities\ArrayHelper;
+use Joomla\Language\Text;
+use Joomla\Log\Log;
+use RuntimeException;
+use stdClass;
 
 /**
  * Utility class for creating HTML select lists
@@ -16,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlSelect
+abstract class Select
 {
 	/**
 	 * Default values for options. Organized by option group.
@@ -46,9 +54,9 @@ abstract class JHtmlSelect
 	 */
 	public static function booleanlist($name, $attribs = null, $selected = null, $yes = 'JYES', $no = 'JNO', $id = false)
 	{
-		$arr = array(JHtml::_('select.option', '0', JText::_($no)), JHtml::_('select.option', '1', JText::_($yes)));
+		$arr = array(Html::_('select.option', '0', Text::_($no)), Html::_('select.option', '1', Text::_($yes)));
 
-		return JHtml::_('select.radiolist', $arr, $name, $attribs, 'value', 'text', (int) $selected, $id);
+		return Html::_('select.radiolist', $arr, $name, $attribs, 'value', 'text', (int) $selected, $id);
 	}
 
 	/**
@@ -82,7 +90,7 @@ abstract class JHtmlSelect
 		$translate = false)
 	{
 		// Set default options
-		$options = array_merge(JHtml::$formatOptions, array('format.depth' => 0, 'id' => false));
+		$options = array_merge(Html::$formatOptions, array('format.depth' => 0, 'id' => false));
 
 		if (is_array($attribs) && func_num_args() == 3)
 		{
@@ -105,7 +113,7 @@ abstract class JHtmlSelect
 		{
 			if (is_array($options['list.attr']))
 			{
-				$attribs = JArrayHelper::toString($options['list.attr']);
+				$attribs = ArrayHelper::toString($options['list.attr']);
 			}
 			else
 			{
@@ -163,7 +171,7 @@ abstract class JHtmlSelect
 	{
 		// Set default options and overwrite with anything passed in
 		$options = array_merge(
-			JHtml::$formatOptions,
+			Html::$formatOptions,
 			array('format.depth' => 0, 'group.items' => 'items', 'group.label' => 'text', 'group.label.toHtml' => true, 'id' => false),
 			$options
 		);
@@ -180,7 +188,7 @@ abstract class JHtmlSelect
 		{
 			if (is_array($options['list.attr']))
 			{
-				$attribs = JArrayHelper::toString($options['list.attr']);
+				$attribs = ArrayHelper::toString($options['list.attr']);
 			}
 			else
 			{
@@ -287,7 +295,7 @@ abstract class JHtmlSelect
 	public static function integerlist($start, $end, $inc, $name, $attribs = null, $selected = null, $format = '')
 	{
 		// Set default options
-		$options = array_merge(JHtml::$formatOptions, array('format.depth' => 0, 'option.format' => '', 'id' => null));
+		$options = array_merge(Html::$formatOptions, array('format.depth' => 0, 'option.format' => '', 'id' => null));
 
 		if (is_array($attribs) && func_num_args() == 5)
 		{
@@ -318,7 +326,7 @@ abstract class JHtmlSelect
 		// Tell genericlist() to use array keys
 		$options['option.key'] = null;
 
-		return JHtml::_('select.genericlist', $data, $name, $options);
+		return Html::_('select.genericlist', $data, $name, $options);
 	}
 
 	/**
@@ -336,7 +344,7 @@ abstract class JHtmlSelect
 	 */
 	public static function optgroup($text, $optKey = 'value', $optText = 'text')
 	{
-		JLog::add('JHtmlSelect::optgroup is deprecated.', JLog::WARNING, 'deprecated');
+		Log::add('JHtmlSelect::optgroup is deprecated.', Log::WARNING, 'deprecated');
 
 		// Set initial state
 		static $state = 'open';
@@ -489,7 +497,7 @@ abstract class JHtmlSelect
 	public static function options($arr, $optKey = 'value', $optText = 'text', $selected = null, $translate = false)
 	{
 		$options = array_merge(
-			JHtml::$formatOptions,
+			Html::$formatOptions,
 			self::$optionDefaults['option'],
 			array('format.depth' => 0, 'groups' => true, 'list.select' => null, 'list.translate' => false)
 		);
@@ -602,7 +610,7 @@ abstract class JHtmlSelect
 
 				if ($options['list.translate'] && !empty($label))
 				{
-					$label = JText::_($label);
+					$label = Text::_($label);
 				}
 				if ($options['option.label.toHtml'])
 				{
@@ -610,7 +618,7 @@ abstract class JHtmlSelect
 				}
 				if (is_array($attr))
 				{
-					$attr = JArrayHelper::toString($attr);
+					$attr = ArrayHelper::toString($attr);
 				}
 				else
 				{
@@ -638,7 +646,7 @@ abstract class JHtmlSelect
 
 				if ($options['list.translate'])
 				{
-					$text = JText::_($text);
+					$text = Text::_($text);
 				}
 
 				// Generate the option, encoding as required
@@ -676,7 +684,7 @@ abstract class JHtmlSelect
 
 		if (is_array($attribs))
 		{
-			$attribs = JArrayHelper::toString($attribs);
+			$attribs = ArrayHelper::toString($attribs);
 		}
 
 		$id_text = $idtag ? $idtag : $name;
@@ -684,7 +692,7 @@ abstract class JHtmlSelect
 		foreach ($data as $obj)
 		{
 			$k = $obj->$optKey;
-			$t = $translate ? JText::_($obj->$optText) : $obj->$optText;
+			$t = $translate ? Text::_($obj->$optText) : $obj->$optText;
 			$id = (isset($obj->id) ? $obj->id : null);
 
 			$extra = '';

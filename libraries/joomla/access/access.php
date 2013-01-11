@@ -18,7 +18,7 @@ use Joomla\Table;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\Factory;
 use Exception;
-use SimplXMLElement;
+use SimpleXMLElement;
 use JComponentHelper;
 
 /**

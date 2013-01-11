@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Filter\Input as FilterInput;
+use Serializable;
+use Countable;
 
 /**
  * Joomla! Input Base Class
@@ -18,12 +24,12 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Input
  * @since       11.1
  *
- * @property-read    JInput        $get
- * @property-read    JInput        $post
- * @property-read    JInput        $request
- * @property-read    JInput        $server
- * @property-read    JInputFiles   $files
- * @property-read    JInputCookie  $cookie
+ * @property-read    Input   $get
+ * @property-read    Input   $post
+ * @property-read    Input   $request
+ * @property-read    Input   $server
+ * @property-read    Files   $files
+ * @property-read    Cookie  $cookie
  *
  * @method      integer  getInt()       getInt($name, $default = null)    Get a signed integer.
  * @method      integer  getUint()      getUint($name, $default = null)   Get an unsigned integer.
@@ -38,7 +44,7 @@ defined('JPATH_PLATFORM') or die;
  * @method      string   getPath()      getPath($name, $default = null)
  * @method      string   getUsername()  getUsername($name, $default = null)
  */
-class JInput implements Serializable, Countable
+class Input implements Serializable, Countable
 {
 	/**
 	 * Options array for the JInput instance.
@@ -51,7 +57,7 @@ class JInput implements Serializable, Countable
 	/**
 	 * Filter object to use.
 	 *
-	 * @var    JFilterInput
+	 * @var    FilterInput
 	 * @since  11.1
 	 */
 	protected $filter = null;
@@ -88,7 +94,7 @@ class JInput implements Serializable, Countable
 		}
 		else
 		{
-			$this->filter = JFilterInput::getInstance();
+			$this->filter = FilterInput::getInstance();
 		}
 
 		if (is_null($source))
@@ -109,7 +115,7 @@ class JInput implements Serializable, Countable
 	 *
 	 * @param   mixed  $name  Name of the input object to retrieve.
 	 *
-	 * @return  JInput  The request input object
+	 * @return  Input  The request input object
 	 *
 	 * @since   11.1
 	 */
@@ -120,7 +126,7 @@ class JInput implements Serializable, Countable
 			return $this->inputs[$name];
 		}
 
-		$className = 'JInput' . ucfirst($name);
+		$className = '\\Joomla\\Input\\' . ucfirst($name);
 
 		if (class_exists($className))
 		{
@@ -133,7 +139,7 @@ class JInput implements Serializable, Countable
 
 		if (isset($GLOBALS[$superGlobal]))
 		{
-			$this->inputs[$name] = new JInput($GLOBALS[$superGlobal], $this->options);
+			$this->inputs[$name] = new Input($GLOBALS[$superGlobal], $this->options);
 
 			return $this->inputs[$name];
 		}
@@ -278,7 +284,6 @@ class JInput implements Serializable, Countable
 	{
 		if (substr($name, 0, 3) == 'get')
 		{
-
 			$filter = substr($name, 3);
 
 			$default = null;
@@ -332,7 +337,7 @@ class JInput implements Serializable, Countable
 	 *
 	 * @param   string  $input  The serialized input.
 	 *
-	 * @return  JInput  The input object.
+	 * @return  Input  The input object.
 	 *
 	 * @since   12.1
 	 */
@@ -348,7 +353,7 @@ class JInput implements Serializable, Countable
 		}
 		else
 		{
-			$this->filter = JFilterInput::getInstance();
+			$this->filter = FilterInput::getInstance();
 		}
 	}
 

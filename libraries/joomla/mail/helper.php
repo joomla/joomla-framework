@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Mail;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -19,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Mail
  * @since       11.1
  */
-abstract class JMailHelper
+abstract class Helper
 {
 	/**
 	 * Cleans single line inputs.

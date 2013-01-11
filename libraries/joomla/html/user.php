@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Access\Access;
+use Joomla\Factory;
 
 /**
  * Utility class working with users
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.4
  */
-abstract class JHtmlUser
+abstract class User
 {
 	/**
 	 * Displays a list of user groups.
@@ -29,7 +34,7 @@ abstract class JHtmlUser
 	 */
 	public static function groups($includeSuperAdmin = false)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('a.id AS value, a.title AS text, COUNT(DISTINCT b.id) AS level');
 		$query->from($db->quoteName('#__usergroups') . ' AS a');
@@ -42,7 +47,7 @@ abstract class JHtmlUser
 		for ($i = 0, $n = count($options); $i < $n; $i++)
 		{
 			$options[$i]->text = str_repeat('- ', $options[$i]->level) . $options[$i]->text;
-			$groups[] = JHtml::_('select.option', $options[$i]->value, $options[$i]->text);
+			$groups[] = Html::_('select.option', $options[$i]->value, $options[$i]->text);
 		}
 
 		// Exclude super admin groups if requested
@@ -52,7 +57,7 @@ abstract class JHtmlUser
 
 			foreach ($groups as $group)
 			{
-				if (!JAccess::checkGroup($group->value, 'core.admin'))
+				if (!Access::checkGroup($group->value, 'core.admin'))
 				{
 					$filteredGroups[] = $group;
 				}
@@ -73,7 +78,7 @@ abstract class JHtmlUser
 	public static function userlist()
 	{
 		// Get the database object and a new query object.
-		$db    = JFactory::getDBO();
+		$db    = Factory::getDBO();
 		$query = $db->getQuery(true);
 
 		// Build the query.

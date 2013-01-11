@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -19,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       12.2
  */
-abstract class JLogLogger
+abstract class Logger
 {
 	/**
 	 * Options array for the JLog instance.
@@ -33,14 +35,14 @@ abstract class JLogLogger
 	 * @since  12.2
 	 */
 	protected $priorities = array(
-		JLog::EMERGENCY => 'EMERGENCY',
-		JLog::ALERT => 'ALERT',
-		JLog::CRITICAL => 'CRITICAL',
-		JLog::ERROR => 'ERROR',
-		JLog::WARNING => 'WARNING',
-		JLog::NOTICE => 'NOTICE',
-		JLog::INFO => 'INFO',
-		JLog::DEBUG => 'DEBUG');
+		Log::EMERGENCY => 'EMERGENCY',
+		Log::ALERT => 'ALERT',
+		Log::CRITICAL => 'CRITICAL',
+		Log::ERROR => 'ERROR',
+		Log::WARNING => 'WARNING',
+		Log::NOTICE => 'NOTICE',
+		Log::INFO => 'INFO',
+		Log::DEBUG => 'DEBUG');
 
 	/**
 	 * Constructor.
@@ -58,13 +60,13 @@ abstract class JLogLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+	 * @param   Entry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   12.2
 	 */
-	abstract public function addEntry(JLogEntry $entry);
+	abstract public function addEntry(Entry $entry);
 }
 
 /**
@@ -75,7 +77,7 @@ abstract class JLogLogger
  * @since       11.1
  * @deprecated  13.3
  */
-abstract class JLogger extends JLogLogger
+abstract class JLogger extends Logger
 {
 	/**
 	 * Constructor.
@@ -87,7 +89,7 @@ abstract class JLogger extends JLogLogger
 	 */
 	public function __construct(array &$options)
 	{
-		JLog::add('JLogger is deprecated. Use JLogLogger instead.', JLog::WARNING, 'deprecated');
+		Log::add('JLogger is deprecated. Use JLogLogger instead.', Log::WARNING, 'deprecated');
 		parent::__construct($options);
 	}
 }

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Date\Date;
 
 /**
  * Joomla! Log Entry class
@@ -19,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       11.1
  */
-class JLogEntry
+class Entry
 {
 	/**
 	 * Application responsible for log entry.
@@ -30,7 +34,7 @@ class JLogEntry
 
 	/**
 	 * The date the message was logged.
-	 * @var    JDate
+	 * @var    Date
 	 * @since  11.1
 	 */
 	public $date;
@@ -48,7 +52,7 @@ class JLogEntry
 	 * @since  11.1
 	 * @see    $priorities
 	 */
-	public $priority = JLog::INFO;
+	public $priority = Log::INFO;
 
 	/**
 	 * List of available log priority levels [Based on the Syslog default levels].
@@ -56,14 +60,14 @@ class JLogEntry
 	 * @since  11.1
 	 */
 	protected $priorities = array(
-		JLog::EMERGENCY,
-		JLog::ALERT,
-		JLog::CRITICAL,
-		JLog::ERROR,
-		JLog::WARNING,
-		JLog::NOTICE,
-		JLog::INFO,
-		JLog::DEBUG
+		Log::EMERGENCY,
+		Log::ALERT,
+		Log::CRITICAL,
+		Log::ERROR,
+		Log::WARNING,
+		Log::NOTICE,
+		Log::INFO,
+		Log::DEBUG
 	);
 
 	/**
@@ -76,14 +80,14 @@ class JLogEntry
 	 *
 	 * @since   11.1
 	 */
-	public function __construct($message, $priority = JLog::INFO, $category = '', $date = null)
+	public function __construct($message, $priority = Log::INFO, $category = '', $date = null)
 	{
 		$this->message = (string) $message;
 
 		// Sanitize the priority.
 		if (!in_array($priority, $this->priorities, true))
 		{
-			$priority = JLog::INFO;
+			$priority = Log::INFO;
 		}
 		$this->priority = $priority;
 
@@ -94,6 +98,6 @@ class JLogEntry
 		}
 
 		// Get the date as a JDate object.
-		$this->date = new JDate($date ? $date : 'now');
+		$this->date = new Date($date ? $date : 'now');
 	}
 }
