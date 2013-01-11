@@ -7,12 +7,17 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Filesystem;
+
 defined('JPATH_PLATFORM') or die;
+
+use Exception;
+use Iterator;
 
 if (!defined('JPATH_ROOT'))
 {
 	// Define a string constant for the root directory of the file system in native format
-	define('JPATH_ROOT', JPath::clean(JPATH_SITE));
+	define('JPATH_ROOT', Path::clean(JPATH_SITE));
 }
 
 /**
@@ -22,7 +27,7 @@ if (!defined('JPATH_ROOT'))
  * @subpackage  FileSystem
  * @since       11.1
  */
-class JPath
+class Path
 {
 	/**
 	 * Checks if a path's permissions can be changed.
@@ -241,13 +246,13 @@ class JPath
 
 			// Create the test file
 			$blank = '';
-			JFile::write($test, $blank, false);
+			File::write($test, $blank, false);
 
 			// Test ownership
 			$return = (fileowner($test) == fileowner($path));
 
 			// Delete the test file
-			JFile::delete($test);
+			File::delete($test);
 
 			return $return;
 		}

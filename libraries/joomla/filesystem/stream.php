@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Filesystem;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Language\Text;
+use Joomla\Object\Object;
 
 /**
  * Joomla! Stream Interface
@@ -28,7 +33,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         http://php.net/manual/en/transports.php Socket Transports (used by some options, particularly HTTP proxy)
  * @since       11.1
  */
-class JStream extends JObject
+class Stream extends Object
 {
 	// Publicly settable vars (protected to let our parent read them)
 	/**
@@ -181,7 +186,7 @@ class JStream extends JObject
 
 		if (!$filename)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILENAME'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILENAME'));
 
 			return false;
 		}
@@ -195,7 +200,7 @@ class JStream extends JObject
 		if (isset($url['scheme']))
 		{
 			// If we're dealing with a Joomla! stream, load it
-			if (JFilesystemHelper::isJoomlaStream($url['scheme']))
+			if (Helper::isJoomlaStream($url['scheme']))
 			{
 				require_once __DIR__ . '/streams/' . $url['scheme'] . '.php';
 			}
@@ -296,7 +301,7 @@ class JStream extends JObject
 	{
 		if (!$this->fh)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return true;
 		}
@@ -359,7 +364,7 @@ class JStream extends JObject
 	{
 		if (!$this->fh)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return false;
 		}
@@ -405,7 +410,7 @@ class JStream extends JObject
 	{
 		if (!$this->filename)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return false;
 		}
@@ -429,7 +434,7 @@ class JStream extends JObject
 				$tmp_error = $php_errormsg;
 			}
 
-			$res = JFilesystemHelper::remotefsize($this->filename);
+			$res = Helper::remotefsize($this->filename);
 
 			if (!$res)
 			{
@@ -441,7 +446,7 @@ class JStream extends JObject
 				else
 				{
 					// Error but nothing from php? How strange! Create our own
-					$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_SIZE'));
+					$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_SIZE'));
 				}
 			}
 			else
@@ -476,7 +481,7 @@ class JStream extends JObject
 	{
 		if (!$this->fh)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return false;
 		}
@@ -549,7 +554,7 @@ class JStream extends JObject
 
 		if (!$this->fh)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return false;
 		}
@@ -636,7 +641,7 @@ class JStream extends JObject
 	{
 		if (!$this->fh)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return false;
 		}
@@ -689,7 +694,7 @@ class JStream extends JObject
 	{
 		if (!$this->fh)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return false;
 		}
@@ -751,7 +756,7 @@ class JStream extends JObject
 	{
 		if (!$this->fh)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return false;
 		}
@@ -795,7 +800,7 @@ class JStream extends JObject
 			{
 				// Wrote nothing?
 				$remaining = 0;
-				$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_NO_DATA_WRITTEN'));
+				$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_NO_DATA_WRITTEN'));
 			}
 			else
 			{
@@ -829,7 +834,7 @@ class JStream extends JObject
 		{
 			if (!isset($this->filename) || !$this->filename)
 			{
-				$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILENAME'));
+				$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILENAME'));
 
 				return false;
 			}
@@ -856,7 +861,7 @@ class JStream extends JObject
 		{
 			case 'ftp':
 			case 'ftps':
-				$res = JFilesystemHelper::ftpChmod($filename, $mode);
+				$res = Helper::ftpChmod($filename, $mode);
 				break;
 
 			default:
@@ -893,7 +898,7 @@ class JStream extends JObject
 	{
 		if (!$this->fh)
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
 
 			return false;
 		}
@@ -1337,7 +1342,7 @@ class JStream extends JObject
 		}
 		else
 		{
-			$this->setError(JText::_('JLIB_FILESYSTEM_ERROR_STREAMS_NOT_UPLOADED_FILE'));
+			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_NOT_UPLOADED_FILE'));
 
 			return false;
 		}
@@ -1388,7 +1393,7 @@ class JStream extends JObject
 
 			// Check if it's a write mode then add the appropriate prefix
 			// Get rid of JPATH_ROOT (legacy compat) along the way
-			if (in_array($tmode, JFilesystemHelper::getWriteModes()))
+			if (in_array($tmode, Helper::getWriteModes()))
 			{
 				if (!$relative && $this->writeprefix)
 				{

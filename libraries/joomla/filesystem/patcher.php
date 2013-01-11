@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package     Joomla.Platform
  * @subpackage  FileSystem
@@ -8,9 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Filesystem;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.file');
+use RuntimeException;
 
 /**
  * A Unified Diff Format Patcher class
@@ -21,7 +22,7 @@ jimport('joomla.filesystem.file');
  * @link        http://sourceforge.net/projects/phppatcher/ This has been derived from the PhpPatcher version 0.1.1 written by Giuseppe Mazzotta
  * @since       12.1
  */
-class JFilesystemPatcher
+class Patcher
 {
 	/**
 	 * Regular expression for searching source files
@@ -173,7 +174,7 @@ class JFilesystemPatcher
 		// Patch each destination file
 		foreach ($this->destinations as $file => $content)
 		{
-			if (JFile::write($file, implode("\n", $content)))
+			if (File::write($file, implode("\n", $content)))
 			{
 				if (isset($this->sources[$file]))
 				{
@@ -186,7 +187,7 @@ class JFilesystemPatcher
 		// Remove each removed file
 		foreach ($this->removals as $file)
 		{
-			if (JFile::delete($file))
+			if (File::delete($file))
 			{
 				if (isset($this->sources[$file]))
 				{

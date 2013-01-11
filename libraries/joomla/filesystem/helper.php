@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Filesystem;
+
 defined('JPATH_PLATFORM') or die;
+
+use DirectoryIterator;
 
 /**
  * File system helper
@@ -18,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  FileSystem
  * @since       11.1
  */
-class JFilesystemHelper
+class Helper
 {
 	/**
 	 * Remote file size function for streams that don't support it
