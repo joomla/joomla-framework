@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Logger;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Language\Text;
+use Joomla\Log\Entry;
+use Joomla\Log\Logger;
+use Exception;
 
 /**
  * Joomla! Callback Log class
@@ -19,7 +26,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       12.2
  */
-class JLogLoggerCallback extends JLogLogger
+class Callback extends Logger
 {
 	/**
 	 * @var    callable  The function to call when an entry is added - should return True on success
@@ -46,21 +53,21 @@ class JLogLoggerCallback extends JLogLogger
 		}
 		else
 		{
-			throw new JLogException(JText::_('JLogLoggerCallback created without valid callback function.'));
+			throw new Exception(Text::_('JLogLoggerCallback created without valid callback function.'));
 		}
 	}
 
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+	 * @param   Entry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  boolean  True on success.
 	 *
 	 * @since   12.2
-	 * @throws  LogException
+	 * @throws  Exception
 	 */
-	public function addEntry(JLogEntry $entry)
+	public function addEntry(Entry $entry)
 	{
 		// Pass the log entry to the callback function
 		call_user_func($this->callback, $entry);

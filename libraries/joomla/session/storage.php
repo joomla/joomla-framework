@@ -58,7 +58,7 @@ abstract class Storage
 
 		if (empty(self::$instances[$name]))
 		{
-			$class = 'JSessionStorage' . ucfirst($name);
+			$class = '\\Joomla\\Session\\Storage\\' . ucfirst($name);
 
 			if (!class_exists($class))
 			{

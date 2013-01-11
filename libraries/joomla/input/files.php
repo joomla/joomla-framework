@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Filter\Input as FilterInput;
 
 /**
  * Joomla! Input Files Class
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Input
  * @since       11.1
  */
-class JInputFiles extends JInput
+class Files extends Input
 {
 	/**
 	 * The pivoted data from a $_FILES or compatible array.
@@ -43,7 +47,7 @@ class JInputFiles extends JInput
 		}
 		else
 		{
-			$this->filter = JFilterInput::getInstance();
+			$this->filter = FilterInput::getInstance();
 		}
 
 		// Set the data source.

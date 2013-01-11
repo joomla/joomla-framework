@@ -7,16 +7,21 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Registry\Format;
+
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Registry\Format;
+use stdClass;
+
 /**
- * INI format handler for JRegistry.
+ * INI format handler for Registry.
  *
  * @package     Joomla.Platform
  * @subpackage  Registry
  * @since       11.1
  */
-class JRegistryFormatINI extends JRegistryFormat
+class Ini extends Format
 {
 	protected static $cache = array();
 

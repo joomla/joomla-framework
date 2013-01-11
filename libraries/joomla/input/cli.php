@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Filter\Input as FilterInput;
 
 /**
  * Joomla! Input CLI Class
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Input
  * @since       11.1
  */
-class JInputCLI extends JInput
+class Cli extends Input
 {
 	/**
 	 * The executable that was called to run the CLI script.
@@ -51,7 +55,7 @@ class JInputCLI extends JInput
 		}
 		else
 		{
-			$this->filter = JFilterInput::getInstance();
+			$this->filter = FilterInput::getInstance();
 		}
 
 		// Get the command line options
@@ -87,7 +91,7 @@ class JInputCLI extends JInput
 	 *
 	 * @param   string  $input  The serialized input.
 	 *
-	 * @return  JInput  The input object.
+	 * @return  Input  The input object.
 	 *
 	 * @since   12.1
 	 */
@@ -103,7 +107,7 @@ class JInputCLI extends JInput
 		}
 		else
 		{
-			$this->filter = JFilterInput::getInstance();
+			$this->filter = FilterInput::getInstance();
 		}
 	}
 

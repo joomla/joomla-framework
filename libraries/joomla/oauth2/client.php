@@ -7,8 +7,18 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Oauth2;
+
 defined('JPATH_PLATFORM') or die;
-jimport('joomla.environment.response');
+
+use Joomla\Registry\Registry;
+use Joomla\Application\Web;
+use Joomla\Input\Input;
+use Joomla\Http\Http;
+use Joomla\Factory;
+use InvalidArgumentException;
+use RuntimeException;
+use Exception;
 
 /**
  * Joomla Platform class for interacting with an OAuth 2.0 server.
@@ -17,28 +27,28 @@ jimport('joomla.environment.response');
  * @subpackage  Oauth
  * @since       12.3
  */
-class JOAuth2Client
+class Client
 {
 	/**
-	 * @var    JRegistry  Options for the JOAuth2Client object.
+	 * @var    Registry  Options for the Client object.
 	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttp  The HTTP client object to use in sending HTTP requests.
+	 * @var    Http  The HTTP client object to use in sending HTTP requests.
 	 * @since  12.3
 	 */
 	protected $http;
 
 	/**
-	 * @var    JInput  The input object to use in retrieving GET/POST data.
+	 * @var    Input  The input object to use in retrieving GET/POST data.
 	 * @since  12.3
 	 */
 	protected $input;
 
 	/**
-	 * @var    JApplicationWeb  The application object to send HTTP headers for redirects.
+	 * @var    Web  The application object to send HTTP headers for redirects.
 	 * @since  12.3
 	 */
 	protected $application;
@@ -46,19 +56,19 @@ class JOAuth2Client
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry        $options      JOAuth2Client options object
-	 * @param   JHttp            $http         The HTTP client object
-	 * @param   JInput           $input        The input object
-	 * @param   JApplicationWeb  $application  The application object
+	 * @param   Registry  $options      JOAuth2Client options object
+	 * @param   Http      $http         The HTTP client object
+	 * @param   Input     $input        The input object
+	 * @param   Web       $application  The application object
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JHttp $http = null, JInput $input = null, JApplicationWeb $application = null)
+	public function __construct(Registry $options = null, Http $http = null, Input $input = null, Web $application = null)
 	{
-		$this->options = isset($options) ? $options : new JRegistry;
-		$this->http = isset($http) ? $http : new JHttp($this->options);
-		$this->input = isset($input) ? $input : JFactory::getApplication()->input;
-		$this->application = isset($application) ? $application : new JApplicationWeb;
+		$this->options = isset($options) ? $options : new Registry;
+		$this->http = isset($http) ? $http : new Http($this->options);
+		$this->input = isset($input) ? $input : Factory::getApplication()->input;
+		$this->application = isset($application) ? $application : new Web;
 	}
 
 	/**
@@ -271,12 +281,12 @@ class JOAuth2Client
 	}
 
 	/**
-	 * Set an option for the JOAuth2Client instance.
+	 * Set an option for the Client instance.
 	 *
 	 * @param   string  $key    The name of the option to set
 	 * @param   mixed   $value  The option value to set
 	 *
-	 * @return  JOAuth2Client  This object for method chaining
+	 * @return  Client  This object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -288,7 +298,7 @@ class JOAuth2Client
 	}
 
 	/**
-	 * Get the access token from the JOAuth2Client instance.
+	 * Get the access token from the Client instance.
 	 *
 	 * @return  array  The access token
 	 *
@@ -300,11 +310,11 @@ class JOAuth2Client
 	}
 
 	/**
-	 * Set an option for the JOAuth2Client instance.
+	 * Set an option for the Client instance.
 	 *
 	 * @param   array  $value  The access token
 	 *
-	 * @return  JOAuth2Client  This object for method chaining
+	 * @return  Client  This object for method chaining
 	 *
 	 * @since   12.3
 	 */

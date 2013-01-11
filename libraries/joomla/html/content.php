@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Event\Dispatcher;
+use Joomla\Object\Object;
+use Joomla\Plugin\Helper;
+use stdClass;
 
 /**
  * Utility class to fire onContentPrepare for non-article based content.
@@ -16,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlContent
+abstract class Content
 {
 	/**
 	 * Fire onContentPrepare for content that isn't part of an article.
@@ -33,12 +40,12 @@ abstract class JHtmlContent
 	{
 		if ($params === null)
 		{
-			$params = new JObject;
+			$params = new Object;
 		}
 		$article = new stdClass;
 		$article->text = $text;
-		JPluginHelper::importPlugin('content');
-		$dispatcher = JEventDispatcher::getInstance();
+		Helper::importPlugin('content');
+		$dispatcher = Dispatcher::getInstance();
 		$dispatcher->trigger('onContentPrepare', array($context, &$article, &$params, 0));
 
 		return $article->text;

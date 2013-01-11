@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Logger;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Driver;
+use Joomla\Log\Logger;
+use Joomla\Log\Entry;
+use Joomla\Factory;
 
 /**
  * Joomla! MySQL Database Log class
@@ -20,7 +27,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerDatabase extends JLogLogger
+class Database extends Logger
 {
 	/**
 	 * @var    string  The name of the database driver to use for connecting to the database.
@@ -59,7 +66,7 @@ class JLogLoggerDatabase extends JLogLogger
 	protected $table = 'jos_';
 
 	/**
-	 * @var    JDatabaseDriver  The database driver object for the logger.
+	 * @var    Driver  The database driver object for the logger.
 	 * @since  11.1
 	 */
 	protected $dbo;
@@ -79,7 +86,7 @@ class JLogLoggerDatabase extends JLogLogger
 		// If both the database object and driver options are empty we want to use the system database connection.
 		if (empty($this->options['db_driver']))
 		{
-			$this->dbo = JFactory::getDBO();
+			$this->dbo = Factory::getDBO();
 			$this->driver = null;
 			$this->host = null;
 			$this->user = null;
@@ -105,13 +112,13 @@ class JLogLoggerDatabase extends JLogLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+	 * @param   Entry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
-	public function addEntry(JLogEntry $entry)
+	public function addEntry(Entry $entry)
 	{
 		// Connect to the database if not connected.
 		if (empty($this->dbo))
@@ -131,7 +138,7 @@ class JLogLoggerDatabase extends JLogLogger
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function connect()
 	{
@@ -144,7 +151,7 @@ class JLogLoggerDatabase extends JLogLogger
 			'database' => $this->database,
 			'prefix' => $this->prefix);
 
-		$db = JDatabaseDriver::getInstance($options);
+		$db = Driver::getInstance($options);
 
 		// Assign the database connector to the class.
 		$this->dbo = $db;

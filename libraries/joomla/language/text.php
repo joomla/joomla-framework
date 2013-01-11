@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Language;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
 
 /**
  * Text handling class.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Language
  * @since       11.1
  */
-class JText
+class Text
 {
 	/**
 	 * javascript strings
@@ -45,7 +49,7 @@ class JText
 	 */
 	public static function _($string, $jsSafe = false, $interpretBackSlashes = true, $script = false)
 	{
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 
 		if (is_array($jsSafe))
 		{
@@ -97,7 +101,7 @@ class JText
 	 */
 	public static function alt($string, $alt, $jsSafe = false, $interpretBackSlashes = true, $script = false)
 	{
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 
 		if ($lang->hasKey($string . '_' . $alt))
 		{
@@ -138,7 +142,7 @@ class JText
 	 */
 	public static function plural($string, $n)
 	{
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -219,7 +223,7 @@ class JText
 	 */
 	public static function sprintf($string)
 	{
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -261,7 +265,7 @@ class JText
 	 */
 	public static function printf($string)
 	{
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -317,7 +321,7 @@ class JText
 		if ($string !== null)
 		{
 			// Normalize the key and translate the string.
-			self::$strings[strtoupper($string)] = JFactory::getLanguage()->_($string, $jsSafe, $interpretBackSlashes);
+			self::$strings[strtoupper($string)] = Factory::getLanguage()->_($string, $jsSafe, $interpretBackSlashes);
 		}
 
 		return self::$strings;

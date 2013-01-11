@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
 
 /**
  * Utility class for Tabs elements.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.2
  */
-abstract class JHtmlTabs
+abstract class Tabs
 {
 	/**
 	 * Creates a panes and creates the JavaScript object for it.
@@ -79,7 +83,7 @@ abstract class JHtmlTabs
 		if (!array_key_exists((string) $group, $loaded))
 		{
 			// Include MooTools framework
-			JHtml::_('behavior.framework', true);
+			Html::_('behavior.framework', true);
 
 			$opt['onActive']            = (isset($params['onActive'])) ? '\\' . $params['onActive'] : null;
 			$opt['onBackground']        = (isset($params['onBackground'])) ? '\\' . $params['onBackground'] : null;
@@ -88,7 +92,7 @@ abstract class JHtmlTabs
 			$opt['titleSelector']       = "dt.tabs";
 			$opt['descriptionSelector'] = "dd.tabs";
 
-			$options = JHtml::getJSObject($opt);
+			$options = Html::getJSObject($opt);
 
 			$js = '	window.addEvent(\'domready\', function(){
 						$$(\'dl#' . $group . '.tabs\').each(function(tabs){
@@ -96,9 +100,9 @@ abstract class JHtmlTabs
 						});
 					});';
 
-			$document = JFactory::getDocument();
+			$document = Factory::getDocument();
 			$document->addScriptDeclaration($js);
-			JHtml::_('script', 'system/tabs.js', false, true);
+			Html::_('script', 'system/tabs.js', false, true);
 
 			$loaded[(string) $group] = true;
 		}

@@ -7,16 +7,22 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Registry\Format;
+
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Registry\Format;
+use SimpleXMLElement;
+use stdClass;
+
 /**
- * XML format handler for JRegistry.
+ * XML format handler for Registry.
  *
  * @package     Joomla.Platform
  * @subpackage  Registry
  * @since       11.1
  */
-class JRegistryFormatXML extends JRegistryFormat
+class Xml extends Format
 {
 	/**
 	 * Converts an object into an XML formatted string.

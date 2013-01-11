@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Logger;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Logger;
+use Joomla\Log\Entry;
 
 /**
  * Joomla Echo logger class.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerEcho extends JLogLogger
+class Echo_ extends Logger
 {
 	/**
 	 * @var    string  Value to use at the end of an echoed log entry to separate lines.
@@ -44,13 +49,13 @@ class JLogLoggerEcho extends JLogLogger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   JLogEntry  $entry  The log entry object to add to the log.
+	 * @param   Entry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
-	public function addEntry(JLogEntry $entry)
+	public function addEntry(Entry $entry)
 	{
 		echo $this->priorities[$entry->priority] . ': '
 			. $entry->message . (empty($entry->category) ? '' : ' [' . $entry->category . ']')

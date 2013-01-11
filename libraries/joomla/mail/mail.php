@@ -7,9 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Mail;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('phpmailer.phpmailer');
+// @todo dependency on JError here
+use Joomla\Language\Text;
+use PHPMailer;
+use InvalidArgumentException;
+use UnexpectedValueException;
+use RuntimeException;
 
 /**
  * Email Class.  Provides a common interface to send email from the Joomla! Platform
@@ -18,7 +25,7 @@ jimport('phpmailer.phpmailer');
  * @subpackage  Mail
  * @since       11.1
  */
-class JMail extends PHPMailer
+class Mail extends PHPMailer
 {
 	/**
 	 * @var    array  JMail instances container.
@@ -50,7 +57,7 @@ class JMail extends PHPMailer
 	 *
 	 * @param   string  $id  The id string for the JMail instance [optional]
 	 *
-	 * @return  JMail  The global JMail object
+	 * @return  Mail  The global JMail object
 	 *
 	 * @since   11.1
 	 */
@@ -58,7 +65,7 @@ class JMail extends PHPMailer
 	{
 		if (empty(self::$instances[$id]))
 		{
-			self::$instances[$id] = new JMail;
+			self::$instances[$id] = new self;
 		}
 
 		return self::$instances[$id];
@@ -78,7 +85,7 @@ class JMail extends PHPMailer
 		{
 			if (class_exists('JError'))
 			{
-				return JError::raiseNotice(500, JText::_('JLIB_MAIL_FUNCTION_DISABLED'));
+				return JError::raiseNotice(500, Text::_('JLIB_MAIL_FUNCTION_DISABLED'));
 			}
 			else
 			{
@@ -92,7 +99,7 @@ class JMail extends PHPMailer
 		{
 			if (class_exists('JError'))
 			{
-				$result = JError::raiseNotice(500, JText::_($this->ErrorInfo));
+				$result = JError::raiseNotice(500, Text::_($this->ErrorInfo));
 			}
 			else
 			{
@@ -110,7 +117,7 @@ class JMail extends PHPMailer
 	 *                        <code>array([0] => email Address, [1] => Name)</code>
 	 *                        or as a string
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -122,17 +129,17 @@ class JMail extends PHPMailer
 			if (isset($from[2]))
 			{
 				// If it is an array with entries, use them
-				$this->SetFrom(JMailHelper::cleanLine($from[0]), JMailHelper::cleanLine($from[1]), (bool) $from[2]);
+				$this->SetFrom(Helper::cleanLine($from[0]), Helper::cleanLine($from[1]), (bool) $from[2]);
 			}
 			else
 			{
-				$this->SetFrom(JMailHelper::cleanLine($from[0]), JMailHelper::cleanLine($from[1]));
+				$this->SetFrom(Helper::cleanLine($from[0]), Helper::cleanLine($from[1]));
 			}
 		}
 		elseif (is_string($from))
 		{
 			// If it is a string we assume it is just the address
-			$this->SetFrom(JMailHelper::cleanLine($from));
+			$this->SetFrom(Helper::cleanLine($from));
 		}
 		else
 		{
@@ -148,13 +155,13 @@ class JMail extends PHPMailer
 	 *
 	 * @param   string  $subject  Subject of the email
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   11.1
 	 */
 	public function setSubject($subject)
 	{
-		$this->Subject = JMailHelper::cleanLine($subject);
+		$this->Subject = Helper::cleanLine($subject);
 
 		return $this;
 	}
@@ -164,7 +171,7 @@ class JMail extends PHPMailer
 	 *
 	 * @param   string  $content  Body of the email
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -174,7 +181,7 @@ class JMail extends PHPMailer
 		 * Filter the Body
 		 * TODO: Check for XSS
 		 */
-		$this->Body = JMailHelper::cleanText($content);
+		$this->Body = Helper::cleanText($content);
 
 		return $this;
 	}
@@ -186,7 +193,7 @@ class JMail extends PHPMailer
 	 * @param   mixed   $name       Either a string or array of strings [name(s)]
 	 * @param   string  $method     The parent method's name.
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -206,25 +213,25 @@ class JMail extends PHPMailer
 
 				foreach ($combined as $recipientEmail => $recipientName)
 				{
-					$recipientEmail = JMailHelper::cleanLine($recipientEmail);
-					$recipientName = JMailHelper::cleanLine($recipientName);
+					$recipientEmail = Helper::cleanLine($recipientEmail);
+					$recipientName = Helper::cleanLine($recipientName);
 					call_user_func('parent::' . $method, $recipientEmail, $recipientName);
 				}
 			}
 			else
 			{
-				$name = JMailHelper::cleanLine($name);
+				$name = Helper::cleanLine($name);
 
 				foreach ($recipient as $to)
 				{
-					$to = JMailHelper::cleanLine($to);
+					$to = Helper::cleanLine($to);
 					call_user_func('parent::' . $method, $to, $name);
 				}
 			}
 		}
 		else
 		{
-			$recipient = JMailHelper::cleanLine($recipient);
+			$recipient = Helper::cleanLine($recipient);
 			call_user_func('parent::' . $method, $recipient, $name);
 		}
 
@@ -237,7 +244,7 @@ class JMail extends PHPMailer
 	 * @param   mixed  $recipient  Either a string or array of strings [email address(es)]
 	 * @param   mixed  $name       Either a string or array of strings [name(s)]
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -254,7 +261,7 @@ class JMail extends PHPMailer
 	 * @param   mixed  $cc    Either a string or array of strings [email address(es)]
 	 * @param   mixed  $name  Either a string or array of strings [name(s)]
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -275,7 +282,7 @@ class JMail extends PHPMailer
 	 * @param   mixed  $bcc   Either a string or array of strings [email address(es)]
 	 * @param   mixed  $name  Either a string or array of strings [name(s)]
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -298,7 +305,7 @@ class JMail extends PHPMailer
 	 * @param   mixed  $encoding    The encoding of the attachment
 	 * @param   mixed  $type        The mime type
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   12.2
 	 * @throws  InvalidArgumentException
@@ -342,7 +349,7 @@ class JMail extends PHPMailer
 	 * @param   mixed  $replyto  Either a string or array of strings [email address(es)]
 	 * @param   mixed  $name     Either a string or array of strings [name(s)]
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   11.1
 	 */
@@ -358,7 +365,7 @@ class JMail extends PHPMailer
 	 *
 	 * @param   bool  $ishtml  Boolean true or false.
 	 *
-	 * @return  JMail  Returns this object for chaining.
+	 * @return  Mail  Returns this object for chaining.
 	 *
 	 * @since   12.3
 	 */
@@ -513,10 +520,10 @@ class JMail extends PHPMailer
 	 */
 	public function sendAdminMail($adminName, $adminEmail, $email, $type, $title, $author, $url = null)
 	{
-		$subject = JText::sprintf('JLIB_MAIL_USER_SUBMITTED', $type);
+		$subject = Text::sprintf('JLIB_MAIL_USER_SUBMITTED', $type);
 
-		$message = sprintf(JText::_('JLIB_MAIL_MSG_ADMIN'), $adminName, $type, $title, $author, $url, $url, 'administrator', $type);
-		$message .= JText::_('JLIB_MAIL_MSG') . "\n";
+		$message = sprintf(Text::_('JLIB_MAIL_MSG_ADMIN'), $adminName, $type, $title, $author, $url, $url, 'administrator', $type);
+		$message .= Text::_('JLIB_MAIL_MSG') . "\n";
 
 		$this->addRecipient($adminEmail);
 		$this->setSubject($subject);

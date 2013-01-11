@@ -32,7 +32,7 @@ use ArrayIterator;
  * @subpackage  Session
  * @since       11.1
  */
-class JSession implements IteratorAggregate
+class Session implements IteratorAggregate
 {
 	/**
 	 * Internal state.
@@ -83,7 +83,7 @@ class JSession implements IteratorAggregate
 	protected $_force_ssl = false;
 
 	/**
-	 * @var    JSession  JSession instances container.
+	 * @var    Session  JSession instances container.
 	 * @since  11.3
 	 */
 	protected static $instance;
@@ -177,7 +177,7 @@ class JSession implements IteratorAggregate
 	 * @param   string  $handler  The type of session handler.
 	 * @param   array   $options  An array of configuration options (for new sessions only).
 	 *
-	 * @return  JSession  The Session object.
+	 * @return  Session  The Session object.
 	 *
 	 * @since   11.1
 	 */
@@ -185,7 +185,7 @@ class JSession implements IteratorAggregate
 	{
 		if (!is_object(self::$instance))
 		{
-			self::$instance = new JSession($handler, $options);
+			self::$instance = new self($handler, $options);
 		}
 
 		return self::$instance;
@@ -407,7 +407,7 @@ class JSession implements IteratorAggregate
 			}
 
 			// Derive the class name from the type.
-			$class = str_ireplace('.php', '', 'JSessionStorage' . ucfirst(trim($fileName)));
+			$class = str_ireplace('.php', '', '\\Joomla\\Session\\Storage\\' . ucfirst(trim($fileName)));
 
 			// If the class doesn't exist we have nothing left to do but look at the next type. We did our best.
 			if (!class_exists($class))

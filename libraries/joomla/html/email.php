@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Language\Text;
 
 /**
  * Utility class for cloaking email addresses
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlEmail
+abstract class Email
 {
 	/**
 	 * Simple Javascript email Cloaker
@@ -95,7 +99,7 @@ abstract class JHtmlEmail
 		$replacement .= "\n document.write('<span style=\'display: none;\'>');";
 		$replacement .= "\n //-->";
 		$replacement .= "\n </script>";
-		$replacement .= JText::_('JLIB_HTML_CLOAKING');
+		$replacement .= Text::_('JLIB_HTML_CLOAKING');
 		$replacement .= "\n <script type='text/javascript'>";
 		$replacement .= "\n <!--";
 		$replacement .= "\n document.write('</');";

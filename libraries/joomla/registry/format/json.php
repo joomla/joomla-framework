@@ -7,16 +7,20 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Registry\Format;
+
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Registry\Format;
+
 /**
- * JSON format handler for JRegistry.
+ * JSON format handler for Registry.
  *
  * @package     Joomla.Platform
  * @subpackage  Registry
  * @since       11.1
  */
-class JRegistryFormatJSON extends JRegistryFormat
+class Json extends Format
 {
 	/**
 	 * Converts an object into a JSON formatted string.
@@ -51,7 +55,7 @@ class JRegistryFormatJSON extends JRegistryFormat
 
 		if ((substr($data, 0, 1) != '{') && (substr($data, -1, 1) != '}'))
 		{
-			$ini = JRegistryFormat::getInstance('INI');
+			$ini = Format::getInstance('Ini');
 			$obj = $ini->stringToObject($data, $options);
 		}
 		else

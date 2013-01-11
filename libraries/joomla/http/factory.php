@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Http;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
+use DirectoryIterator;
 
 /**
  * HTTP factory class.
@@ -16,38 +21,38 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTTP
  * @since       12.1
  */
-class JHttpFactory
+class Factory
 {
 	/**
 	 * Method to recieve Http instance.
 	 *
-	 * @param   JRegistry  $options   Client options object.
-	 * @param   mixed      $adapters  Adapter (string) or queue of adapters (array) to use for communication.
+	 * @param   Registry  $options   Client options object.
+	 * @param   mixed     $adapters  Adapter (string) or queue of adapters (array) to use for communication.
 	 *
-	 * @return  JHttp      Joomla Http class
+	 * @return  Http  Joomla Http class
 	 *
 	 * @since   12.1
 	 */
-	public static function getHttp(JRegistry $options = null, $adapters = null)
+	public static function getHttp(Registry $options = null, $adapters = null)
 	{
 		if (empty($options))
 		{
-			$options = new JRegistry;
+			$options = new Registry;
 		}
-		return new JHttp($options, self::getAvailableDriver($options, $adapters));
+		return new Http($options, self::getAvailableDriver($options, $adapters));
 	}
 
 	/**
 	 * Finds an available http transport object for communication
 	 *
-	 * @param   JRegistry  $options  Option for creating http transport object
-	 * @param   mixed      $default  Adapter (string) or queue of adapters (array) to use
+	 * @param   Registry  $options  Option for creating http transport object
+	 * @param   mixed     $default  Adapter (string) or queue of adapters (array) to use
 	 *
-	 * @return  JHttpTransport Interface sub-class
+	 * @return  Transport  Interface sub-class
 	 *
 	 * @since   12.1
 	 */
-	public static function getAvailableDriver(JRegistry $options, $default = null)
+	public static function getAvailableDriver(Registry $options, $default = null)
 	{
 		if (is_null($default))
 		{
@@ -65,7 +70,7 @@ class JHttpFactory
 		}
 		foreach ($availableAdapters as $adapter)
 		{
-			$class = 'JHttpTransport' . ucfirst($adapter);
+			$class = '\\Joomla\\Http\\Transport\\' . ucfirst($adapter);
 
 			if ($class::isSupported())
 			{

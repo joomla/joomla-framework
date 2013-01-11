@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Http;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
+use Joomla\Uri\Uri;
 
 /**
  * HTTP client class.
@@ -16,16 +21,16 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTTP
  * @since       11.3
  */
-class JHttp
+class Http
 {
 	/**
-	 * @var    JRegistry  Options for the HTTP client.
+	 * @var    Registry  Options for the HTTP client.
 	 * @since  11.3
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttpTransport  The HTTP transport object to use in sending HTTP requests.
+	 * @var    Transport  The HTTP transport object to use in sending HTTP requests.
 	 * @since  11.3
 	 */
 	protected $transport;
@@ -33,16 +38,16 @@ class JHttp
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry       $options    Client options object. If the registry contains any headers.* elements,
-	 *                                      these will be added to the request headers.
-	 * @param   JHttpTransport  $transport  The HTTP transport object.
+	 * @param   Registry   $options    Client options object. If the registry contains any headers.* elements,
+	 *                                 these will be added to the request headers.
+	 * @param   Transport  $transport  The HTTP transport object.
 	 *
 	 * @since   11.3
 	 */
-	public function __construct(JRegistry $options = null, JHttpTransport $transport = null)
+	public function __construct(Registry $options = null, Transport $transport = null)
 	{
-		$this->options   = isset($options) ? $options : new JRegistry;
-		$this->transport = isset($transport) ? $transport : JHttpFactory::getAvailableDriver($this->options);
+		$this->options   = isset($options) ? $options : new Registry;
+		$this->transport = isset($transport) ? $transport : Factory::getAvailableDriver($this->options);
 	}
 
 	/**
@@ -65,7 +70,7 @@ class JHttp
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JHttp  This object for method chaining.
+	 * @return  Http  This object for method chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -83,7 +88,7 @@ class JHttp
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request.
 	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
@@ -106,7 +111,7 @@ class JHttp
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('OPTIONS', new JUri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('OPTIONS', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 
 	/**
@@ -116,7 +121,7 @@ class JHttp
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request.
 	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
@@ -139,7 +144,7 @@ class JHttp
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('HEAD', new JUri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('HEAD', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 
 	/**
@@ -149,7 +154,7 @@ class JHttp
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request.
 	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
@@ -172,7 +177,7 @@ class JHttp
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('GET', new JUri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('GET', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 
 	/**
@@ -183,7 +188,7 @@ class JHttp
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request
 	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
@@ -206,7 +211,7 @@ class JHttp
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('POST', new JUri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('POST', new Uri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 
 	/**
@@ -217,7 +222,7 @@ class JHttp
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request.
 	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
@@ -240,7 +245,7 @@ class JHttp
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('PUT', new JUri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('PUT', new Uri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 
 	/**
@@ -250,7 +255,7 @@ class JHttp
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request.
 	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
@@ -273,7 +278,7 @@ class JHttp
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('DELETE', new JUri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('DELETE', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 
 	/**
@@ -283,7 +288,7 @@ class JHttp
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request.
 	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
@@ -306,7 +311,7 @@ class JHttp
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('TRACE', new JUri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('TRACE', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 
 	/**
@@ -317,7 +322,7 @@ class JHttp
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request.
 	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   12.2
 	 */
@@ -340,6 +345,6 @@ class JHttp
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('PATCH', new JUri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('PATCH', new Uri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 }

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Filter\Input as FilterInput;
 
 /**
  * Joomla! Input JSON Class
@@ -19,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Input
  * @since       12.2
  */
-class JInputJSON extends JInput
+class Json extends Input
 {
 	/**
 	 * @var    string  The raw JSON string from the request.
@@ -43,7 +47,7 @@ class JInputJSON extends JInput
 		}
 		else
 		{
-			$this->filter = JFilterInput::getInstance();
+			$this->filter = FilterInput::getInstance();
 		}
 
 		if (is_null($source))

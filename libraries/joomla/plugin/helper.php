@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Plugin;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Event\Dispatcher;
+use Joomla\Factory;
 
 /**
  * Plugin helper class
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Plugin
  * @since       11.1
  */
-abstract class JPluginHelper
+abstract class Helper
 {
 	/**
 	 * A persistent cache of the loaded plugins.
@@ -39,7 +44,7 @@ abstract class JPluginHelper
 	 */
 	public static function getLayoutPath($type, $name, $layout = 'default')
 	{
-		$template = JFactory::getApplication()->getTemplate();
+		$template = Factory::getApplication()->getTemplate();
 		$defaultLayout = $layout;
 
 		if (strpos($layout, ':') !== false)
@@ -136,16 +141,16 @@ abstract class JPluginHelper
 	 * Loads all the plugin files for a particular type if no specific plugin is specified
 	 * otherwise only the specific plugin is loaded.
 	 *
-	 * @param   string            $type        The plugin type, relates to the sub-directory in the plugins directory.
-	 * @param   string            $plugin      The plugin name.
-	 * @param   boolean           $autocreate  Autocreate the plugin.
-	 * @param   JEventDispatcher  $dispatcher  Optionally allows the plugin to use a different dispatcher.
+	 * @param   string      $type        The plugin type, relates to the sub-directory in the plugins directory.
+	 * @param   string      $plugin      The plugin name.
+	 * @param   boolean     $autocreate  Autocreate the plugin.
+	 * @param   Dispatcher  $dispatcher  Optionally allows the plugin to use a different dispatcher.
 	 *
 	 * @return  boolean  True on success.
 	 *
 	 * @since   11.1
 	 */
-	public static function importPlugin($type, $plugin = null, $autocreate = true, JEventDispatcher $dispatcher = null)
+	public static function importPlugin($type, $plugin = null, $autocreate = true, Dispatcher $dispatcher = null)
 	{
 		static $loaded = array();
 
@@ -188,15 +193,15 @@ abstract class JPluginHelper
 	/**
 	 * Loads the plugin file.
 	 *
-	 * @param   object            $plugin      The plugin.
-	 * @param   boolean           $autocreate  True to autocreate.
-	 * @param   JEventDispatcher  $dispatcher  Optionally allows the plugin to use a different dispatcher.
+	 * @param   object      $plugin      The plugin.
+	 * @param   boolean     $autocreate  True to autocreate.
+	 * @param   Dispatcher  $dispatcher  Optionally allows the plugin to use a different dispatcher.
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
-	protected static function _import($plugin, $autocreate = true, JEventDispatcher $dispatcher = null)
+	protected static function _import($plugin, $autocreate = true, Dispatcher $dispatcher = null)
 	{
 		static $paths = array();
 
@@ -220,7 +225,7 @@ abstract class JPluginHelper
 					// Makes sure we have an event dispatcher
 					if (!is_object($dispatcher))
 					{
-						$dispatcher = JEventDispatcher::getInstance();
+						$dispatcher = Dispatcher::getInstance();
 					}
 
 					$className = 'plg' . $plugin->type . $plugin->name;
@@ -260,14 +265,14 @@ abstract class JPluginHelper
 			return self::$plugins;
 		}
 
-		$user = JFactory::getUser();
-		$cache = JFactory::getCache('com_plugins', '');
+		$user = Factory::getUser();
+		$cache = Factory::getCache('com_plugins', '');
 
 		$levels = implode(',', $user->getAuthorisedViewLevels());
 
 		if (!self::$plugins = $cache->get($levels))
 		{
-			$db = JFactory::getDbo();
+			$db = Factory::getDbo();
 			$query = $db->getQuery(true);
 
 			$query->select('folder AS type, element AS name, params')

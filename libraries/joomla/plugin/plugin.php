@@ -7,21 +7,27 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Plugin;
+
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Registry\Registry;
+use Joomla\Event\Event;
+use Joomla\Factory;
+
 /**
- * JPlugin Class
+ * Plugin Class
  *
  * @package     Joomla.Platform
  * @subpackage  Plugin
  * @since       11.1
  */
-abstract class JPlugin extends JEvent
+abstract class Plugin extends Event
 {
 	/**
-	 * A JRegistry object holding the parameters for the plugin
+	 * A Registry object holding the parameters for the plugin
 	 *
-	 * @var    JRegistry
+	 * @var    Registry
 	 * @since  11.1
 	 */
 	public $params = null;
@@ -57,13 +63,13 @@ abstract class JPlugin extends JEvent
 		// Get the parameters.
 		if (isset($config['params']))
 		{
-			if ($config['params'] instanceof JRegistry)
+			if ($config['params'] instanceof Registry)
 			{
 				$this->params = $config['params'];
 			}
 			else
 			{
-				$this->params = new JRegistry;
+				$this->params = new Registry;
 				$this->params->loadString($config['params']);
 			}
 		}
@@ -100,7 +106,7 @@ abstract class JPlugin extends JEvent
 			$extension = 'plg_' . $this->_type . '_' . $this->_name;
 		}
 
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 
 		return $lang->load(strtolower($extension), $basePath, null, false, false)
 			|| $lang->load(strtolower($extension), JPATH_PLUGINS . '/' . $this->_type . '/' . $this->_name, null, false, false)

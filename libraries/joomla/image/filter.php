@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Image;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Log;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Class to manipulate an image.
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Image
  * @since       11.3
  */
-abstract class JImageFilter
+abstract class Filter
 {
 	/**
 	 * @var    resource  The image resource handle.
@@ -38,7 +44,7 @@ abstract class JImageFilter
 		if (!function_exists('imagefilter'))
 		{
 			// @codeCoverageIgnoreStart
-			JLog::add('The imagefilter function for PHP is not available.', JLog::ERROR);
+			Log::add('The imagefilter function for PHP is not available.', Log::ERROR);
 			throw new RuntimeException('The imagefilter function for PHP is not available.');
 
 			// @codeCoverageIgnoreEnd
@@ -47,7 +53,7 @@ abstract class JImageFilter
 		// Make sure the file handle is valid.
 		if (!is_resource($handle) || (get_resource_type($handle) != 'gd'))
 		{
-			JLog::add('The image handle is invalid for the image filter.', JLog::ERROR);
+			Log::add('The image handle is invalid for the image filter.', Log::ERROR);
 			throw new InvalidArgumentException('The image handle is invalid for the image filter.');
 		}
 

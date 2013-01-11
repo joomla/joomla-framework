@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Http\Transport;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
+use Joomla\Http\Transport;
+use Joomla\Http\Response;
+use Joomla\Uri\Uri;
+use UnexpectedValueException;
+use RuntimeException;
 
 /**
  * HTTP transport class for using cURL.
@@ -16,10 +25,10 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTTP
  * @since       11.3
  */
-class JHttpTransportCurl implements JHttpTransport
+class Curl implements Transport
 {
 	/**
-	 * @var    JRegistry  The client options.
+	 * @var    Registry  The client options.
 	 * @since  11.3
 	 */
 	protected $options;
@@ -27,13 +36,13 @@ class JHttpTransportCurl implements JHttpTransport
 	/**
 	 * Constructor. CURLOPT_FOLLOWLOCATION must be disabled when open_basedir or safe_mode are enabled.
 	 *
-	 * @param   JRegistry  $options  Client options object.
+	 * @param   Registry  $options  Client options object.
 	 *
 	 * @see     http://www.php.net/manual/en/function.curl-setopt.php
 	 * @since   11.3
 	 * @throws  RuntimeException
 	 */
-	public function __construct(JRegistry $options)
+	public function __construct(Registry $options)
 	{
 		if (!function_exists('curl_init') || !is_callable('curl_init'))
 		{
@@ -47,17 +56,17 @@ class JHttpTransportCurl implements JHttpTransport
 	 * Send a request to the server and return a JHttpResponse object with the response.
 	 *
 	 * @param   string   $method     The HTTP method for sending the request.
-	 * @param   JUri     $uri        The URI to the resource to request.
+	 * @param   Uri      $uri        The URI to the resource to request.
 	 * @param   mixed    $data       Either an associative array or a string to be sent with the request.
 	 * @param   array    $headers    An array of request headers to send with the request.
 	 * @param   integer  $timeout    Read timeout in seconds.
 	 * @param   string   $userAgent  The optional user agent string to send with the request.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 */
-	public function request($method, JUri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
+	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
 		// Setup the cURL handle.
 		$ch = curl_init();
@@ -174,10 +183,10 @@ class JHttpTransportCurl implements JHttpTransport
 	 * Method to get a response object from a server response.
 	 *
 	 * @param   string  $content  The complete server response, including headers
-	 *                            as a string if the response has no errors. 
+	 *                            as a string if the response has no errors.
 	 * @param   array   $info     The cURL request information.
 	 *
-	 * @return  JHttpResponse
+	 * @return  Response
 	 *
 	 * @since   11.3
 	 * @throws  UnexpectedValueException
@@ -185,7 +194,7 @@ class JHttpTransportCurl implements JHttpTransport
 	protected function getResponse($content, $info)
 	{
 		// Create the response object.
-		$return = new JHttpResponse;
+		$return = new Response;
 
 		// Get the number of redirects that occurred.
 		$redirects = isset($info['redirect_count']) ? $info['redirect_count'] : 0;

@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Image\Filter;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Image\Filter;
+use InvalidArgumentException;
 
 /**
  * Image Filter class adjust the contrast of an image.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Image
  * @since       11.3
  */
-class JImageFilterContrast extends JImageFilter
+class Contrast extends Filter
 {
 	/**
 	 * Method to apply a filter to an image resource.

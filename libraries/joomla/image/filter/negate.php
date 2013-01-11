@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Image\Filter;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Image\Filter;
 
 /**
  * Image Filter class to negate the colors of an image.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Image
  * @since       11.3
  */
-class JImageFilterNegate extends JImageFilter
+class Negate extends Filter
 {
 	/**
 	 * Method to apply a filter to an image resource.

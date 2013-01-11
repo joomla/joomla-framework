@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Session\Session;
 
 /**
  * Utility class for form elements
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlForm
+abstract class Form
 {
 	/**
 	 * Displays a hidden token field to reduce the risk of CSRF exploits
@@ -30,6 +34,6 @@ abstract class JHtmlForm
 	 */
 	public static function token()
 	{
-		return '<input type="hidden" name="' . JSession::getFormToken() . '" value="1" />';
+		return '<input type="hidden" name="' . Session::getFormToken() . '" value="1" />';
 	}
 }

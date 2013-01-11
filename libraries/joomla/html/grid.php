@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Html;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Table\Table;
+use Joomla\Language\Text;
+use Joomla\Factory;
 
 /**
  * Utility class for creating HTML Grids
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class JHtmlGrid
+abstract class Grid
 {
 	/**
 	 * Display a boolean setting widget.
@@ -36,8 +42,8 @@ abstract class JHtmlGrid
 		self::behavior();
 
 		// Build the title.
-		$title = ($value) ? JText::_('JYES') : JText::_('JNO');
-		$title .= '::' . JText::_('JGLOBAL_CLICK_TO_TOGGLE_STATE');
+		$title = ($value) ? Text::_('JYES') : Text::_('JNO');
+		$title .= '::' . Text::_('JGLOBAL_CLICK_TO_TOGGLE_STATE');
 
 		// Build the <a> tag.
 		$bool = ($value) ? 'true' : 'false';
@@ -87,12 +93,12 @@ abstract class JHtmlGrid
 		}
 
 		$html = '<a href="#" onclick="Joomla.tableOrdering(\'' . $order . '\',\'' . $direction . '\',\'' . $task . '\'); return false;" title="'
-			. JText::_('JGLOBAL_CLICK_TO_SORT_THIS_COLUMN') . '">';
-		$html .= JText::_($title);
+			. Text::_('JGLOBAL_CLICK_TO_SORT_THIS_COLUMN') . '">';
+		$html .= Text::_($title);
 
 		if ($order == $selected)
 		{
-			$html .= JHtml::_('image', 'system/' . $images[$index], '', null, true);
+			$html .= Html::_('image', 'system/' . $images[$index], '', null, true);
 		}
 
 		$html .= '</a>';
@@ -119,7 +125,7 @@ abstract class JHtmlGrid
 		else
 		{
 			return '<input type="checkbox" id="cb' . $rowNum . '" name="' . $name . '[]" value="' . $recId
-				. '" onclick="Joomla.isChecked(this.checked);" title="' . JText::sprintf('JGRID_CHECKBOX_ROW_N', ($rowNum + 1)) . '" />';
+				. '" onclick="Joomla.isChecked(this.checked);" title="' . Text::sprintf('JGRID_CHECKBOX_ROW_N', ($rowNum + 1)) . '" />';
 		}
 	}
 
@@ -136,12 +142,12 @@ abstract class JHtmlGrid
 	 */
 	public static function checkedOut(&$row, $i, $identifier = 'id')
 	{
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 		$userid = $user->get('id');
 
 		$result = false;
 
-		if ($row instanceof JTable)
+		if ($row instanceof Table)
 		{
 			$result = $row->isCheckedOut($userid);
 		}
@@ -160,11 +166,11 @@ abstract class JHtmlGrid
 		{
 			if ($identifier == 'id')
 			{
-				$checked = JHtml::_('grid.id', $i, $row->$identifier);
+				$checked = Html::_('grid.id', $i, $row->$identifier);
 			}
 			else
 			{
-				$checked = JHtml::_('grid.id', $i, $row->$identifier, $result, $identifier);
+				$checked = Html::_('grid.id', $i, $row->$identifier, $result, $identifier);
 			}
 		}
 
@@ -193,12 +199,12 @@ abstract class JHtmlGrid
 
 		$img = $value ? $img1 : $img0;
 		$task = $value ? 'unpublish' : 'publish';
-		$alt = $value ? JText::_('JPUBLISHED') : JText::_('JUNPUBLISHED');
-		$action = $value ? JText::_('JLIB_HTML_UNPUBLISH_ITEM') : JText::_('JLIB_HTML_PUBLISH_ITEM');
+		$alt = $value ? Text::_('JPUBLISHED') : Text::_('JUNPUBLISHED');
+		$action = $value ? Text::_('JLIB_HTML_UNPUBLISH_ITEM') : Text::_('JLIB_HTML_PUBLISH_ITEM');
 
 		$href = '
 		<a href="#" onclick="return listItemTask(\'cb' . $i . '\',\'' . $prefix . $task . '\')" title="' . $action . '">'
-			. JHtml::_('image', 'admin/' . $img, $alt, null, true) . '</a>';
+			. Html::_('image', 'admin/' . $img, $alt, null, true) . '</a>';
 
 		return $href;
 	}
@@ -218,19 +224,19 @@ abstract class JHtmlGrid
 	 */
 	public static function state($filter_state = '*', $published = 'Published', $unpublished = 'Unpublished', $archived = null, $trashed = null)
 	{
-		$state = array('' => '- ' . JText::_('JLIB_HTML_SELECT_STATE') . ' -', 'P' => JText::_($published), 'U' => JText::_($unpublished));
+		$state = array('' => '- ' . Text::_('JLIB_HTML_SELECT_STATE') . ' -', 'P' => Text::_($published), 'U' => Text::_($unpublished));
 
 		if ($archived)
 		{
-			$state['A'] = JText::_($archived);
+			$state['A'] = Text::_($archived);
 		}
 
 		if ($trashed)
 		{
-			$state['T'] = JText::_($trashed);
+			$state['T'] = Text::_($trashed);
 		}
 
-		return JHtml::_(
+		return Html::_(
 			'select.genericlist',
 			$state,
 			'filter_state',
@@ -255,7 +261,7 @@ abstract class JHtmlGrid
 	public static function order($rows, $image = 'filesave.png', $task = 'saveorder')
 	{
 		$href = '<a href="javascript:saveorder(' . (count($rows) - 1) . ', \'' . $task . '\')" class="saveorder" title="'
-			. JText::_('JLIB_HTML_SAVE_ORDER') . '"></a>';
+			. Text::_('JLIB_HTML_SAVE_ORDER') . '"></a>';
 
 		return $href;
 	}
@@ -278,14 +284,14 @@ abstract class JHtmlGrid
 		{
 			$text = addslashes(htmlspecialchars($row->editor, ENT_COMPAT, 'UTF-8'));
 
-			$date = JHtml::_('date', $row->checked_out_time, JText::_('DATE_FORMAT_LC1'));
-			$time = JHtml::_('date', $row->checked_out_time, 'H:i');
+			$date = Html::_('date', $row->checked_out_time, Text::_('DATE_FORMAT_LC1'));
+			$time = Html::_('date', $row->checked_out_time, 'H:i');
 
-			$hover = '<span class="editlinktip hasTip" title="' . JText::_('JLIB_HTML_CHECKED_OUT') . '::' . $text . '<br />' . $date . '<br />'
+			$hover = '<span class="editlinktip hasTip" title="' . Text::_('JLIB_HTML_CHECKED_OUT') . '::' . $text . '<br />' . $date . '<br />'
 				. $time . '">';
 		}
 
-		$checked = $hover . JHtml::_('image', 'admin/checked_out.png', null, null, true) . '</span>';
+		$checked = $hover . Html::_('image', 'admin/checked_out.png', null, null, true) . '</span>';
 
 		return $checked;
 	}
@@ -333,7 +339,7 @@ abstract class JHtmlGrid
 		});';
 
 			// Add the behavior to the document head.
-			$document = JFactory::getDocument();
+			$document = Factory::getDocument();
 			$document->addScriptDeclaration($js);
 
 			$loaded = true;
