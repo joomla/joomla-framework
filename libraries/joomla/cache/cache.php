@@ -13,6 +13,9 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Filesystem\Path;
+use DirectoryIterator;
+use Exception;
+use stdClass;
 
 /**
  * Joomla! Cache base object
@@ -99,7 +102,7 @@ class Cache
 		$handlers = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new \DirectoryIterator(__DIR__ . '/storage');
+		$iterator = new DirectoryIterator(__DIR__ . '/storage');
 
 		foreach ($iterator as $file)
 		{
@@ -192,7 +195,7 @@ class Cache
 		// Get the storage
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof \Exception) && $this->_options['caching'])
+		if (!($handler instanceof Exception) && $this->_options['caching'])
 		{
 			return $handler->get($id, $group, $this->_options['checkTime']);
 		}
@@ -211,7 +214,7 @@ class Cache
 		// Get the storage
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof \Exception) && $this->_options['caching'])
+		if (!($handler instanceof Exception) && $this->_options['caching'])
 		{
 			return $handler->getAll();
 		}
@@ -237,7 +240,7 @@ class Cache
 		// Get the storage and store the cached data
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof \Exception) && $this->_options['caching'])
+		if (!($handler instanceof Exception) && $this->_options['caching'])
 		{
 			$handler->_lifetime = $this->_options['lifetime'];
 
@@ -264,7 +267,7 @@ class Cache
 		// Get the storage
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof \Exception))
+		if (!($handler instanceof Exception))
 		{
 			return $handler->remove($id, $group);
 		}
@@ -292,7 +295,7 @@ class Cache
 		// Get the storage handler
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof \Exception))
+		if (!($handler instanceof Exception))
 		{
 			return $handler->clean($group, $mode);
 		}
@@ -311,7 +314,7 @@ class Cache
 		// Get the storage handler
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof \Exception))
+		if (!($handler instanceof Exception))
 		{
 			return $handler->gc();
 		}
@@ -331,7 +334,7 @@ class Cache
 	 */
 	public function lock($id, $group = null, $locktime = null)
 	{
-		$returning = new \stdClass;
+		$returning = new stdClass;
 		$returning->locklooped = false;
 
 		// Get the default group
@@ -344,7 +347,7 @@ class Cache
 		// NOTE drivers with lock need also unlock or unlocking will fail because of false $id
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof \Exception) && $this->_options['locking'] == true && $this->_options['caching'] == true)
+		if (!($handler instanceof Exception) && $this->_options['locking'] == true && $this->_options['caching'] == true)
 		{
 			$locked = $handler->lock($id, $group, $locktime);
 
@@ -427,7 +430,7 @@ class Cache
 		// Allow handlers to perform unlocking on their own
 		$handler = $this->_getStorage();
 
-		if (!($handler instanceof \Exception) && $this->_options['caching'])
+		if (!($handler instanceof Exception) && $this->_options['caching'])
 		{
 			$unlocked = $handler->unlock($id, $group);
 
@@ -684,7 +687,7 @@ class Cache
 		$registeredurlparams->tpl = 'CMD';
 		$registeredurlparams->id = 'INT';
 
-		$safeuriaddon = new \stdClass;
+		$safeuriaddon = new stdClass;
 
 		foreach ($registeredurlparams as $key => $value)
 		{

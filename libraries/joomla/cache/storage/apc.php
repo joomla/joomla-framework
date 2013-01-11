@@ -12,6 +12,7 @@ namespace Joomla\Cache\Storage;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Cache\Storage;
+use stdClass;
 
 /**
  * APC cache storage handler
@@ -197,7 +198,7 @@ class Apc extends Storage
 	 */
 	public function lock($id, $group, $locktime)
 	{
-		$returning = new \stdClass;
+		$returning = new stdClass;
 		$returning->locklooped = false;
 
 		$looptime = $locktime * 10;

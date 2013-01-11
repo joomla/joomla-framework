@@ -14,6 +14,7 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Log\Log;
 use Joomla\Language\Text;
 use Joomla\Database\Driver;
+use RuntimeException;
 
 /**
  * MySQLi database driver
@@ -140,7 +141,7 @@ class Mysqli extends Driver
 		// Make sure the MySQLi extension for PHP is installed and enabled.
 		if (!function_exists('mysqli_connect'))
 		{
-			throw new \RuntimeException('The MySQL adapter mysqli is not available');
+			throw new RuntimeException('The MySQL adapter mysqli is not available');
 		}
 
 		$this->connection = @mysqli_connect(
@@ -150,7 +151,7 @@ class Mysqli extends Driver
 		// Attempt to connect to the server.
 		if (!$this->connection)
 		{
-			throw new \RuntimeException('Could not connect to MySQL.');
+			throw new RuntimeException('Could not connect to MySQL.');
 		}
 
 		// Set sql_mode to non_strict mode
@@ -481,7 +482,7 @@ class Mysqli extends Driver
 		if (!is_object($this->connection))
 		{
 			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
-			throw new \RuntimeException($this->errorMsg, $this->errorNum);
+			throw new RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -530,7 +531,7 @@ class Mysqli extends Driver
 				catch (RuntimeException $e)
 				{
 					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-					throw new \RuntimeException($this->errorMsg, $this->errorNum);
+					throw new RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -540,7 +541,7 @@ class Mysqli extends Driver
 			else
 			{
 				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-				throw new \RuntimeException($this->errorMsg, $this->errorNum);
+				throw new RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
 
@@ -588,7 +589,7 @@ class Mysqli extends Driver
 
 		if (!mysqli_select_db($this->connection, $database))
 		{
-			throw new \RuntimeException('Could not connect to database.');
+			throw new RuntimeException('Could not connect to database.');
 		}
 
 		return true;

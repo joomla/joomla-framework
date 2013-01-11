@@ -12,6 +12,8 @@ namespace Joomla\Database;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Log\Log;
+use RuntimeException;
+use DirectoryIterator;
 
 /**
  * Joomla Platform Database Driver Class
@@ -169,7 +171,7 @@ abstract class Driver extends Database implements DatabaseInterface
 		$connectors = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new \DirectoryIterator(__DIR__ . '/driver');
+		$iterator = new DirectoryIterator(__DIR__ . '/driver');
 
 		foreach ($iterator as $file)
 		{
@@ -238,7 +240,7 @@ abstract class Driver extends Database implements DatabaseInterface
 			// If the class still doesn't exist we have nothing left to do but throw an exception.  We did our best.
 			if (!class_exists($class))
 			{
-				throw new \RuntimeException(sprintf('Unable to load Database Driver: %s', $options['driver']));
+				throw new RuntimeException(sprintf('Unable to load Database Driver: %s', $options['driver']));
 			}
 
 			// Create our new JDatabaseDriver connector based on the options given.
@@ -246,9 +248,9 @@ abstract class Driver extends Database implements DatabaseInterface
 			{
 				$instance = new $class($options);
 			}
-			catch (\RuntimeException $e)
+			catch (RuntimeException $e)
 			{
-				throw new \RuntimeException(sprintf('Unable to connect to the Database: %s', $e->getMessage()));
+				throw new RuntimeException(sprintf('Unable to connect to the Database: %s', $e->getMessage()));
 			}
 
 			// Set the new connector to the global instances based on signature.
@@ -606,7 +608,7 @@ abstract class Driver extends Database implements DatabaseInterface
 		if (!class_exists($class))
 		{
 			// If it doesn't exist we are at an impasse so throw an exception.
-			throw new \RuntimeException('Database Exporter not found.');
+			throw new RuntimeException('Database Exporter not found.');
 		}
 
 		$o = new $class;
@@ -632,7 +634,7 @@ abstract class Driver extends Database implements DatabaseInterface
 		if (!class_exists($class))
 		{
 			// If it doesn't exist we are at an impasse so throw an exception.
-			throw new \RuntimeException('Database Importer not found');
+			throw new RuntimeException('Database Importer not found');
 		}
 
 		$o = new $class;
@@ -662,7 +664,7 @@ abstract class Driver extends Database implements DatabaseInterface
 			if (!class_exists($class))
 			{
 				// If it doesn't exist we are at an impasse so throw an exception.
-				throw new \RuntimeException('Database Query Class not found.');
+				throw new RuntimeException('Database Query Class not found.');
 			}
 
 			return new $class($this);
@@ -693,7 +695,7 @@ abstract class Driver extends Database implements DatabaseInterface
 		if (!class_exists($iteratorClass))
 		{
 			// If it doesn't exist we are at an impasse so throw an exception.
-			throw new \RuntimeException(sprintf('class *%s* is not defined', $iteratorClass));
+			throw new RuntimeException(sprintf('class *%s* is not defined', $iteratorClass));
 		}
 
 		// Return a new iterator

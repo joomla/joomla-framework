@@ -11,6 +11,8 @@ namespace Joomla\Data;
 
 defined('JPATH_PLATFORM') or die;
 
+use SplObjectStorage;
+
 /**
  * An interface to define if an object is dumpable.
  *
@@ -32,5 +34,5 @@ interface Dumpable
 	 *
 	 * @since   12.3
 	 */
-	public function dump($depth = 3, \SplObjectStorage $dumped = null);
+	public function dump($depth = 3, SplObjectStorage $dumped = null);
 }

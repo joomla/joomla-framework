@@ -11,6 +11,12 @@ namespace Joomla\Data;
 
 defined('JPATH_PLATFORM') or die;
 
+use InvalidArgumentException;
+use SplObjectStorage;
+use ArrayAccess;
+use Countable;
+use Iterator;
+
 /**
  * JDataSet is a collection class that allows the developer to operate on a set of JData objects as if they were in a
  * typical PHP array.
@@ -19,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Data
  * @since       12.3
  */
-class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
+class Set implements Dumpable, ArrayAccess, Countable, Iterator
 {
 	/**
 	 * The current position of the iterator.
@@ -243,12 +249,12 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	 * @see     JData::dump()
 	 * @since   12.3
 	 */
-	public function dump($depth = 3, \SplObjectStorage $dumped = null)
+	public function dump($depth = 3, SplObjectStorage $dumped = null)
 	{
 		// Check if we should initialise the recursion tracker.
 		if ($dumped === null)
 		{
-			$dumped = new \SplObjectStorage;
+			$dumped = new SplObjectStorage;
 		}
 
 		// Add this object to the dumped stack.
@@ -409,7 +415,7 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 		// Check if the object is a JData object.
 		if (!($object instanceof Data))
 		{
-			throw new \InvalidArgumentException(sprintf('%s("%s", *%s*)', __METHOD__, $offset, gettype($object)));
+			throw new InvalidArgumentException(sprintf('%s("%s", *%s*)', __METHOD__, $offset, gettype($object)));
 		}
 
 		// Set the offset.

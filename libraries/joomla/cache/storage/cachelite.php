@@ -13,6 +13,8 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Cache\Storage;
 use Joomla\Filesystem\Folder;
+use Cache_Lite;
+use DirectoryIterator;
 
 /**
  * Cache lite storage handler
@@ -79,7 +81,7 @@ class Cachelite extends Storage
 	{
 		require_once 'Cache/Lite.php';
 
-		self::$CacheLiteInstance = new \Cache_Lite($cloptions);
+		self::$CacheLiteInstance = new Cache_Lite($cloptions);
 
 		return self::$CacheLiteInstance;
 	}
@@ -116,7 +118,7 @@ class Cachelite extends Storage
 		parent::getAll();
 
 		$path = $this->_root;
-		$folders = new \DirectoryIterator($path);
+		$folders = new DirectoryIterator($path);
 		$data = array();
 
 		foreach ($folders as $folder)
@@ -128,7 +130,7 @@ class Cachelite extends Storage
 
 			$foldername = $folder->getFilename();
 
-			$files = new \DirectoryIterator($path . '/' . $foldername);
+			$files = new DirectoryIterator($path . '/' . $foldername);
 			$item  = new Helper($foldername);
 
 			foreach ($files as $file)

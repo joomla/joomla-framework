@@ -12,6 +12,7 @@ namespace Joomla\Crypt\Password;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Crypt\Password;
+use InvalidArgumentException;
 
 /**
  * Joomla Platform Password Crypter
@@ -82,7 +83,7 @@ class Simple implements Password
 			return md5($password . $salt) . ':' . $salt;
 
 			default:
-				throw new \InvalidArgumentException(sprintf('Hash type %s is not supported', $type));
+				throw new InvalidArgumentException(sprintf('Hash type %s is not supported', $type));
 				break;
 		}
 	}

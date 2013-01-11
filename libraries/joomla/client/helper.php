@@ -12,6 +12,8 @@ namespace Joomla\Client;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
+use JError;
+use InvalidArgumentException;
 
 /**
  * Client helper class
@@ -229,7 +231,7 @@ class Helper
 				}
 				else
 				{
-					throw new \InvalidArgumentException('Invalid user credentials');
+					throw new InvalidArgumentException('Invalid user credentials');
 				}
 			}
 		}

@@ -14,6 +14,7 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Factory;
 use Joomla\Input\Input;
 use Joomla\Application\Base as ApplicationBase;
+use UnexpectedValueException;
 
 /**
  * Joomla Platform Base Controller Class
@@ -111,7 +112,7 @@ abstract class Base implements Controller
 
 		if (!($this->input instanceof Input))
 		{
-			throw new \UnexpectedValueException(sprintf('%s::unserialize would not accept a `%s`.', get_class($this), gettype($this->input)));
+			throw new UnexpectedValueException(sprintf('%s::unserialize would not accept a `%s`.', get_class($this), gettype($this->input)));
 		}
 
 		return $this;

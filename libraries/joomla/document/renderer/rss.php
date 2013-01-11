@@ -16,6 +16,7 @@ use Joomla\Uri\Uri;
 use Joomla\Language\Text;
 use Joomla\Application\Route;
 use Joomla\Document\Renderer;
+use DateTimeZone;
 
 /**
  * JDocumentRenderer_RSS is a feed that implements RSS 2.0 Specification
@@ -52,7 +53,7 @@ class RSS extends Renderer
 		$app = Factory::getApplication();
 
 		// Gets and sets timezone offset from site configuration
-		$tz = new \DateTimeZone($app->getCfg('offset'));
+		$tz = new DateTimeZone($app->getCfg('offset'));
 		$now = Factory::getDate();
 		$now->setTimeZone($tz);
 

@@ -12,6 +12,7 @@ namespace Joomla\Application\Web\Router;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Application\Web\Router;
+use InvalidArgumentException;
 
 /**
  * Basic Web application router class for the Joomla Platform.
@@ -173,7 +174,7 @@ class Base extends Router
 		// We were unable to find a route match for the request.  Panic.
 		if (!$controller)
 		{
-			throw new \InvalidArgumentException(sprintf('Unable to handle request for route `%s`.', $route), 404);
+			throw new InvalidArgumentException(sprintf('Unable to handle request for route `%s`.', $route), 404);
 		}
 
 		return $controller;

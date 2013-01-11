@@ -13,6 +13,8 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Cache\Storage;
+use stdClass;
+use RuntimeException;
 
 /**
  * Memcache cache storage handler
@@ -69,7 +71,7 @@ class Memcache extends Storage
 	 */
 	protected function getConnection()
 	{
-		if ((extension_loaded('memcache') && class_exists('Memcache')) != true)
+		if ((extension_loaded('memcache') && class_exists('\\Memcache')) != true)
 		{
 			return false;
 		}
@@ -95,7 +97,7 @@ class Memcache extends Storage
 
 		if ($memcachetest == false)
 		{
-			throw new \RuntimeException('Could not connect to memcache server', 404);
+			throw new RuntimeException('Could not connect to memcache server', 404);
 		}
 
 		// Memcahed has no list keys, we do our own accounting, initialise key index
@@ -204,7 +206,7 @@ class Memcache extends Storage
 			$index = array();
 		}
 
-		$tmparr = new \stdClass;
+		$tmparr = new stdClass;
 		$tmparr->name = $cache_id;
 		$tmparr->size = strlen($data);
 		$index[] = $tmparr;
@@ -312,7 +314,7 @@ class Memcache extends Storage
 	 */
 	public static function isSupported()
 	{
-		if ((extension_loaded('memcache') && class_exists('Memcache')) != true)
+		if ((extension_loaded('memcache') && class_exists('\\Memcache')) != true)
 		{
 			return false;
 		}
@@ -347,7 +349,7 @@ class Memcache extends Storage
 	 */
 	public function lock($id, $group, $locktime)
 	{
-		$returning = new \stdClass;
+		$returning = new stdClass;
 		$returning->locklooped = false;
 
 		$looptime = $locktime * 10;
@@ -366,7 +368,7 @@ class Memcache extends Storage
 			$index = array();
 		}
 
-		$tmparr = new \stdClass;
+		$tmparr = new stdClass;
 		$tmparr->name = $cache_id;
 		$tmparr->size = 1;
 		$index[] = $tmparr;

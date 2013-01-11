@@ -12,6 +12,7 @@ namespace Joomla\Base;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Object\Object;
+use DirectoryIterator;
 
 /**
  * Adapter Class
@@ -167,7 +168,7 @@ class Adapter extends Object
 	 */
 	public function loadAllAdapters($options = array())
 	{
-		$files = new \DirectoryIterator($this->_basepath . '/' . $this->_adapterfolder);
+		$files = new DirectoryIterator($this->_basepath . '/' . $this->_adapterfolder);
 
 		foreach ($files as $file)
 		{

@@ -15,6 +15,7 @@ use Joomla\Log\Log;
 use Joomla\Event\Dispatcher;
 use Joomla\Filesystem\Folder;
 use Joomla\Registry\Registry;
+use RuntimeException;
 
 use Joomla\Input\Cli as InputCli;
 
@@ -121,14 +122,14 @@ class Daemon extends Cli
 		if (!defined('SIGHUP'))
 		{
 			Log::add('The PCNTL extension for PHP is not available.', Log::ERROR);
-			throw new \RuntimeException('The PCNTL extension for PHP is not available.');
+			throw new RuntimeException('The PCNTL extension for PHP is not available.');
 		}
 
 		// Verify that POSIX support for PHP is available.
 		if (!function_exists('posix_getpid'))
 		{
 			Log::add('The POSIX extension for PHP is not available.', Log::ERROR);
-			throw new \RuntimeException('The POSIX extension for PHP is not available.');
+			throw new RuntimeException('The POSIX extension for PHP is not available.');
 		}
 		// @codeCoverageIgnoreEnd
 
@@ -167,7 +168,7 @@ class Daemon extends Cli
 		if (!is_subclass_of(static::$instance, __CLASS__))
 		{
 			Log::add('Cannot find the application instance.', Log::EMERGENCY);
-			throw new \RuntimeException('Cannot find the application instance.');
+			throw new RuntimeException('Cannot find the application instance.');
 		}
 
 		// Fire the onReceiveSignal event.
@@ -648,7 +649,7 @@ class Daemon extends Cli
 		// If the fork failed, throw an exception.
 		if ($pid === -1)
 		{
-			throw new \RuntimeException('The process could not be forked.');
+			throw new RuntimeException('The process could not be forked.');
 		}
 		// Update the process id for the child.
 		elseif ($pid === 0)

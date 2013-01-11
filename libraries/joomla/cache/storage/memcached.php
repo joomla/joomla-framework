@@ -13,6 +13,8 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Cache\Storage;
+use stdClass;
+use RuntimeException;
 
 /**
  * Memcached cache storage handler
@@ -101,7 +103,7 @@ class Memcached extends Storage
 
 		if ($memcachedtest == false)
 		{
-			throw new \RuntimeException('Could not connect to memcached server', 404);
+			throw new RuntimeException('Could not connect to memcached server', 404);
 		}
 
 		self::$_db->setOption(Memcached::OPT_COMPRESSION, $this->_compress);
@@ -212,7 +214,7 @@ class Memcached extends Storage
 			$index = array();
 		}
 
-		$tmparr = new \stdClass;
+		$tmparr = new stdClass;
 		$tmparr->name = $cache_id;
 		$tmparr->size = strlen($data);
 		$index[] = $tmparr;
@@ -355,7 +357,7 @@ class Memcached extends Storage
 	 */
 	public function lock($id, $group, $locktime)
 	{
-		$returning = new \stdClass;
+		$returning = new stdClass;
 		$returning->locklooped = false;
 
 		$looptime = $locktime * 10;
@@ -374,7 +376,7 @@ class Memcached extends Storage
 			$index = array();
 		}
 
-		$tmparr = new \stdClass;
+		$tmparr = new stdClass;
 		$tmparr->name = $cache_id;
 		$tmparr->size = 1;
 

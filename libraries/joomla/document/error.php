@@ -14,6 +14,7 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Uri\Uri;
 use Joomla\Environment\Response;
 use Joomla\Filter\Input as FilterInput;
+use Exception;
 
 /**
  * DocumentError class, provides an easy interface to parse and display an error page
@@ -61,7 +62,7 @@ class Error extends Document
 	 */
 	public function setError($error)
 	{
-		if ($error instanceof \Exception)
+		if ($error instanceof Exception)
 		{
 			$this->_error = & $error;
 

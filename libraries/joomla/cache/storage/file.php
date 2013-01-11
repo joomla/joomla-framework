@@ -15,6 +15,7 @@ use Joomla\Factory;
 use Joomla\Log\Log;
 use Joomla\Cache\Storage;
 use Joomla\Language\Text;
+use stdClass;
 
 /**
  * File cache storage handler
@@ -275,7 +276,7 @@ class File extends Storage
 	 */
 	public function lock($id, $group, $locktime)
 	{
-		$returning = new \stdClass;
+		$returning = new stdClass;
 		$returning->locklooped = false;
 
 		$looptime = $locktime * 10;

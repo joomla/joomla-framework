@@ -15,6 +15,9 @@ use Joomla\Factory;
 use Joomla\Filesystem\Path;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
+use Exception;
+use InvalidArgumentException;
+use UnexpectedValueException;
 
 /**
  * An Archive handling class
@@ -132,7 +135,7 @@ class Archive
 					$tmpfname = $config->get('tmp_path') . '/' . uniqid('bzip2');
 					$bzresult = $adapter->extract($archivename, $tmpfname);
 
-					if ($bzresult instanceof \Exception)
+					if ($bzresult instanceof Exception)
 					{
 						@unlink($tmpfname);
 
@@ -161,10 +164,10 @@ class Archive
 				break;
 
 			default:
-				throw new \InvalidArgumentException('Unknown Archive Type');
+				throw new InvalidArgumentException('Unknown Archive Type');
 		}
 
-		if (!$result || $result instanceof \Exception)
+		if (!$result || $result instanceof Exception)
 		{
 			return false;
 		}
@@ -191,7 +194,7 @@ class Archive
 
 			if (!class_exists($class))
 			{
-				throw new \UnexpectedValueException('Unable to load archive', 500);
+				throw new UnexpectedValueException('Unable to load archive', 500);
 			}
 
 			self::$adapters[$type] = new $class;

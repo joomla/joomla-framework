@@ -12,6 +12,7 @@ namespace Joomla\Document;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Environment\Response;
+use RuntimeException;
 
 /**
  * Document class, provides an easy interface to parse and display a document
@@ -260,39 +261,22 @@ class Document
 	 * @since   11.1
 	 * @throws  RuntimeException
 	 */
-	public static function getInstance($type = 'html', $attributes = array())
+	public static function getInstance($type = 'Html', $attributes = array())
 	{
 		$signature = serialize(array($type, $attributes));
 
 		if (empty(self::$instances[$signature]))
 		{
 			$type = preg_replace('/[^A-Z0-9_\.-]/i', '', $type);
-			$path = __DIR__ . '/' . $type . '/' . $type . '.php';
-			$ntype = null;
+
+			// Since we are already in the Joomla\Document namespace, we can use the type for the classname.
+			$class = ucfirst($type);
 
 			// Check if the document type exists
-			if (!file_exists($path))
-			{
-				// Default to the raw format
-				$ntype = $type;
-				$type = 'raw';
-			}
-
-			// Determine the path and class
-			$class = 'JDocument' . $type;
-
 			if (!class_exists($class))
 			{
-				$path = __DIR__ . '/' . $type . '/' . $type . '.php';
-
-				if (file_exists($path))
-				{
-					require_once $path;
-				}
-				else
-				{
-					throw new \RuntimeException('Invalid JDocument Class', 500);
-				}
+				// Default to raw if it not found
+				$class = 'Raw';
 			}
 
 			$instance = new $class($attributes);
@@ -900,7 +884,7 @@ class Document
 	 *
 	 * @param   string  $type  The renderer type
 	 *
-	 * @return  JDocumentRenderer  Object or null if class does not exist
+	 * @return  Joomla\Document\Renderer  Object if class is found
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
@@ -911,21 +895,8 @@ class Document
 
 		if (!class_exists($class))
 		{
-			$path = __DIR__ . '/' . $this->_type . '/renderer/' . $type . '.php';
-
-			if (file_exists($path))
-			{
-				require_once $path;
-			}
-			else
-			{
-				throw new \RuntimeException('Unable to load renderer class', 500);
-			}
-		}
-
-		if (!class_exists($class))
-		{
-			return null;
+			// We only support autoloadable renderer classes
+			throw new RuntimeException('Unable to load renderer class', 500);
 		}
 
 		$instance = new $class($this);
@@ -938,7 +909,7 @@ class Document
 	 *
 	 * @param   array  $params  The array of parameters
 	 *
-	 * @return  JDocument instance of $this to allow chaining
+	 * @return  Joomla\Document instance of $this to allow chaining
 	 *
 	 * @since   11.1
 	 */

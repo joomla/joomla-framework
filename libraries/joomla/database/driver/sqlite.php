@@ -11,6 +11,8 @@ namespace Joomla\Database\Driver;
 
 defined('JPATH_PLATFORM') or die;
 
+use Sqlite3;
+
 /**
  * SQLite database driver
  *
@@ -107,7 +109,7 @@ class Sqlite extends Pdo
 			return $text;
 		}
 
-		return \SQLite3::escapeString($text);
+		return SQLite3::escapeString($text);
 	}
 
 	/**

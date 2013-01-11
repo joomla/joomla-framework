@@ -14,6 +14,7 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Factory;
 use Joomla\Cache\Cache;
 use Joomla\Cache\Controller;
+use stdClass;
 
 /**
  * Joomla! Cache view type object
@@ -46,7 +47,7 @@ class View extends Controller
 
 		$data = $this->cache->get($id);
 
-		$locktest = new \stdClass;
+		$locktest = new stdClass;
 		$locktest->locked = null;
 		$locktest->locklooped = null;
 

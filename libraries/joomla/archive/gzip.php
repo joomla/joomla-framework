@@ -13,6 +13,8 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Filesystem\File;
+use JError;
+use RuntimeException;
 
 /**
  * Gzip format adapter for the JArchive class
@@ -65,11 +67,11 @@ class Gzip implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'The zlib extension is not available.');
+				return JError::raiseWarning(100, 'The zlib extension is not available.');
 			}
 			else
 			{
-				throw new \RuntimeException('The zlib extension is not available.');
+				throw new RuntimeException('The zlib extension is not available.');
 			}
 		}
 
@@ -81,11 +83,11 @@ class Gzip implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to read archive');
+					return JError::raiseWarning(100, 'Unable to read archive');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to read archive');
+					throw new RuntimeException('Unable to read archive');
 				}
 			}
 
@@ -96,11 +98,11 @@ class Gzip implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to decompress data');
+					return JError::raiseWarning(100, 'Unable to decompress data');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to decompress data');
+					throw new RuntimeException('Unable to decompress data');
 				}
 			}
 
@@ -108,11 +110,11 @@ class Gzip implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to write archive');
+					return JError::raiseWarning(100, 'Unable to write archive');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to write archive');
+					throw new RuntimeException('Unable to write archive');
 				}
 			}
 		}
@@ -128,11 +130,11 @@ class Gzip implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to read archive (gz)');
+					return JError::raiseWarning(100, 'Unable to read archive (gz)');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to read archive (gz)');
+					throw new RuntimeException('Unable to read archive (gz)');
 				}
 			}
 
@@ -144,11 +146,11 @@ class Gzip implements Extractable
 
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to write archive (gz)');
+					return JError::raiseWarning(100, 'Unable to write archive (gz)');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to write archive (gz)');
+					throw new RuntimeException('Unable to write archive (gz)');
 				}
 			}
 
@@ -164,11 +166,11 @@ class Gzip implements Extractable
 
 						if (class_exists('\\JError'))
 						{
-							return \JError::raiseWarning(100, 'Unable to write file (gz)');
+							return JError::raiseWarning(100, 'Unable to write file (gz)');
 						}
 						else
 						{
-							throw new \RuntimeException('Unable to write file (gz)');
+							throw new RuntimeException('Unable to write file (gz)');
 						}
 					}
 				}
@@ -211,11 +213,11 @@ class Gzip implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'Unable to decompress data.');
+				return JError::raiseWarning(100, 'Unable to decompress data.');
 			}
 			else
 			{
-				throw new \RuntimeException('Unable to decompress data.');
+				throw new RuntimeException('Unable to decompress data.');
 			}
 		}
 

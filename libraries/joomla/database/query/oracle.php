@@ -11,6 +11,8 @@ namespace Joomla\Database\Query;
 
 defined('JPATH_PLATFORM') or die;
 
+use stdClass;
+
 /**
  * Oracle Query Building Class.
  *
@@ -75,7 +77,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 			return $this;
 		}
 
-		$obj = new \stdClass;
+		$obj = new stdClass;
 
 		$obj->value = &$value;
 		$obj->dataType = $dataType;

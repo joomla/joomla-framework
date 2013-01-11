@@ -14,6 +14,8 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Path;
 use Joomla\Filesystem\Folder;
+use JError;
+use RuntimeException;
 
 /**
  * ZIP format adapter for the JArchive class
@@ -133,11 +135,11 @@ class Zip implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'Archive does not exist');
+				return JError::raiseWarning(100, 'Archive does not exist');
 			}
 			else
 			{
-				throw new \RuntimeException('Archive does not exist');
+				throw new RuntimeException('Archive does not exist');
 			}
 		}
 
@@ -216,11 +218,11 @@ class Zip implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'Zlib not supported');
+				return JError::raiseWarning(100, 'Zlib not supported');
 			}
 			else
 			{
-				throw new \RuntimeException('Zlib not supported');
+				throw new RuntimeException('Zlib not supported');
 			}
 		}
 
@@ -230,11 +232,11 @@ class Zip implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'Unable to read archive (zip)');
+				return JError::raiseWarning(100, 'Unable to read archive (zip)');
 			}
 			else
 			{
-				throw new \RuntimeException('Unable to read archive (zip)');
+				throw new RuntimeException('Unable to read archive (zip)');
 			}
 		}
 
@@ -242,11 +244,11 @@ class Zip implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'Get ZIP Information failed');
+				return JError::raiseWarning(100, 'Get ZIP Information failed');
 			}
 			else
 			{
-				throw new \RuntimeException('Get ZIP Information failed');
+				throw new RuntimeException('Get ZIP Information failed');
 			}
 		}
 
@@ -264,11 +266,11 @@ class Zip implements Extractable
 				{
 					if (class_exists('\\JError'))
 					{
-						return \JError::raiseWarning(100, 'Unable to create destination');
+						return JError::raiseWarning(100, 'Unable to create destination');
 					}
 					else
 					{
-						throw new \RuntimeException('Unable to create destination');
+						throw new RuntimeException('Unable to create destination');
 					}
 				}
 
@@ -276,11 +278,11 @@ class Zip implements Extractable
 				{
 					if (class_exists('\\JError'))
 					{
-						return \JError::raiseWarning(100, 'Unable to write entry');
+						return JError::raiseWarning(100, 'Unable to write entry');
 					}
 					else
 					{
-						throw new \RuntimeException('Unable to write entry');
+						throw new RuntimeException('Unable to write entry');
 					}
 				}
 			}
@@ -311,11 +313,11 @@ class Zip implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to create destination');
+					return JError::raiseWarning(100, 'Unable to create destination');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to create destination');
+					throw new RuntimeException('Unable to create destination');
 				}
 			}
 
@@ -332,11 +334,11 @@ class Zip implements Extractable
 						{
 							if (class_exists('\\JError'))
 							{
-								return \JError::raiseWarning(100, 'Unable to write entry');
+								return JError::raiseWarning(100, 'Unable to write entry');
 							}
 							else
 							{
-								throw new \RuntimeException('Unable to write entry');
+								throw new RuntimeException('Unable to write entry');
 							}
 						}
 
@@ -347,11 +349,11 @@ class Zip implements Extractable
 				{
 					if (class_exists('\\JError'))
 					{
-						return \JError::raiseWarning(100, 'Unable to read entry');
+						return JError::raiseWarning(100, 'Unable to read entry');
 					}
 					else
 					{
-						throw new \RuntimeException('Unable to read entry');
+						throw new RuntimeException('Unable to read entry');
 					}
 				}
 			}
@@ -362,11 +364,11 @@ class Zip implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'Unable to open archive');
+				return JError::raiseWarning(100, 'Unable to open archive');
 			}
 			else
 			{
-				throw new \RuntimeException('Unable to open archive');
+				throw new RuntimeException('Unable to open archive');
 			}
 		}
 
@@ -431,11 +433,11 @@ class Zip implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Invalid Zip Data');
+					return JError::raiseWarning(100, 'Invalid Zip Data');
 				}
 				else
 				{
-					throw new \RuntimeException('Invalid Zip Data');
+					throw new RuntimeException('Invalid Zip Data');
 				}
 			}
 
@@ -468,11 +470,11 @@ class Zip implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Invalid ZIP data');
+					return JError::raiseWarning(100, 'Invalid ZIP data');
 				}
 				else
 				{
-					throw new \RuntimeException('Invalid ZIP data');
+					throw new RuntimeException('Invalid ZIP data');
 				}
 			}
 
@@ -490,11 +492,11 @@ class Zip implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Invalid Zip Data');
+					return JError::raiseWarning(100, 'Invalid Zip Data');
 				}
 				else
 				{
-					throw new \RuntimeException('Invalid Zip Data');
+					throw new RuntimeException('Invalid Zip Data');
 				}
 			}
 

@@ -12,6 +12,7 @@ namespace Joomla\Document\Renderer;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Document\Renderer;
+use JModuleHelper;
 
 /**
  * JDocument Modules renderer
@@ -38,7 +39,7 @@ class Modules extends Renderer
 		$renderer = $this->_doc->loadRenderer('module');
 		$buffer = '';
 
-		foreach (\JModuleHelper::getModules($position) as $mod)
+		foreach (JModuleHelper::getModules($position) as $mod)
 		{
 			$buffer .= $renderer->render($mod, $params, $content);
 		}

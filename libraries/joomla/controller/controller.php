@@ -11,6 +11,8 @@ namespace Joomla\Controller;
 
 defined('JPATH_PLATFORM') or die;
 
+use Serializable;
+
 /**
  * Joomla Platform Controller Interface
  *
@@ -18,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Controller
  * @since       12.1
  */
-interface Controller extends \Serializable
+interface Controller extends Serializable
 {
 	/**
 	 * Execute the controller.

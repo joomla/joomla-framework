@@ -15,6 +15,7 @@ use Joomla\Log\Log;
 use Joomla\Language\Text;
 use Joomla\Database\Driver;
 use Joolmla\Database\Query\Postgresql as QueryPostgresql;
+use RuntimeException;
 
 /**
  * PostgreSQL database driver
@@ -115,7 +116,7 @@ class Postgresql extends Driver
 		// Make sure the postgresql extension for PHP is installed and enabled.
 		if (!function_exists('pg_connect'))
 		{
-			throw new \RuntimeException('PHP extension pg_connect is not available.');
+			throw new RuntimeException('PHP extension pg_connect is not available.');
 		}
 
 		// Build the DSN for the connection.
@@ -124,7 +125,7 @@ class Postgresql extends Driver
 		// Attempt to connect to the server.
 		if (!($this->connection = @pg_connect($dsn)))
 		{
-			throw new \RuntimeException('Error connecting to PGSQL database.');
+			throw new RuntimeException('Error connecting to PGSQL database.');
 		}
 
 		pg_set_error_verbosity($this->connection, PGSQL_ERRORS_DEFAULT);
@@ -289,7 +290,7 @@ class Postgresql extends Driver
 			// Make sure we have a query class for this driver.
 			if (!class_exists('\\Joomla\\Database\\Query\\Postgresql'))
 			{
-				throw new \RuntimeException('\\Joomla\\Database\\Query\\Postgresql Class not found.');
+				throw new RuntimeException('\\Joomla\\Database\\Query\\Postgresql Class not found.');
 			}
 
 			$this->queryObject = new QueryPostgresql($this);
@@ -621,7 +622,7 @@ class Postgresql extends Driver
 		if (!is_resource($this->connection))
 		{
 			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
-			throw new \RuntimeException($this->errorMsg, $this->errorNum);
+			throw new RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -672,7 +673,7 @@ class Postgresql extends Driver
 
 					// Throw the normal query exception.
 					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-					throw new \RuntimeException($this->errorMsg);
+					throw new RuntimeException($this->errorMsg);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -687,7 +688,7 @@ class Postgresql extends Driver
 
 				// Throw the normal query exception.
 				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-				throw new \RuntimeException($this->errorMsg);
+				throw new RuntimeException($this->errorMsg);
 			}
 		}
 
@@ -718,7 +719,7 @@ class Postgresql extends Driver
 		if ( !in_array($oldTable, $tableList) )
 		{
 			// Origin Table not found
-			throw new \RuntimeException('Table not found in Postgresql database.');
+			throw new RuntimeException('Table not found in Postgresql database.');
 		}
 		else
 		{

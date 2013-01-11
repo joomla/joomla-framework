@@ -14,6 +14,7 @@ defined('JPATH_PLATFORM') or die;
 use Joola\Factory;
 use Joomla\Cache\Cache;
 use Joomla\Cache\Controller;
+use stdClass;
 
 /**
  * Joomla! Cache callback type object
@@ -102,7 +103,7 @@ class Callback extends Controller
 
 		$data = $this->cache->get($id);
 
-		$locktest = new \stdClass;
+		$locktest = new stdClass;
 		$locktest->locked = null;
 		$locktest->locklooped = null;
 

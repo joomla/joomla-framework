@@ -15,6 +15,7 @@ use Joomla\Loader;
 use Joomla\Input\Input;
 use Joomla\Event\Dispatcher;
 use Joomla\Registry\Registry;
+use RuntimeException;
 
 use Joomla\Input\Cli as InputCli;
 
@@ -280,7 +281,7 @@ class Cli extends Base
 			}
 			else
 			{
-				throw new \RuntimeException('Configuration class does not exist.');
+				throw new RuntimeException('Configuration class does not exist.');
 			}
 		}
 

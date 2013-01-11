@@ -13,6 +13,10 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Database\Importer;
 use Joomla\Database\Driver\Postgresql as DriverPostgresql;
+use stdClass;
+use Exception;
+use RuntimeException;
+use SimpleXMLElement;
 
 /**
  * PostgreSQL import driver.
@@ -70,7 +74,7 @@ class Postgresql extends Importer
 	 */
 	public function __construct()
 	{
-		$this->options = new \stdClass;
+		$this->options = new stdClass;
 
 		$this->cache = array('columns' => array(), 'keys' => array());
 
@@ -112,13 +116,13 @@ class Postgresql extends Importer
 		// Check if the db connector has been set.
 		if (!($this->db instanceof DriverPostgresql))
 		{
-			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;
@@ -150,7 +154,7 @@ class Postgresql extends Importer
 	 *
 	 * @since   12.1
 	 */
-	protected function getAddColumnSQL($table, \SimpleXMLElement $field)
+	protected function getAddColumnSQL($table, SimpleXMLElement $field)
 	{
 		$sql = 'ALTER TABLE ' . $this->db->quoteName($table) . ' ADD COLUMN ' . $this->getColumnSQL($field);
 
@@ -437,7 +441,7 @@ class Postgresql extends Importer
 	 *
 	 * @since   12.1
 	 */
-	protected function getChangeColumnSQL($table, \SimpleXMLElement $field)
+	protected function getChangeColumnSQL($table, SimpleXMLElement $field)
 	{
 		$sql = 'ALTER TABLE ' . $this->db->quoteName($table) . ' ALTER COLUMN ' . $this->db->quoteName((string) $field['Field']) . ' '
 			. $this->getAlterColumnSQL($table, $field);
@@ -620,7 +624,7 @@ class Postgresql extends Importer
 
 		foreach ($keys as $key)
 		{
-			if ($key instanceof \SimpleXMLElement)
+			if ($key instanceof SimpleXMLElement)
 			{
 				$kName = (string) $key['Index'];
 			}
@@ -655,7 +659,7 @@ class Postgresql extends Importer
 
 		foreach ($sequences as $seq)
 		{
-			if ($seq instanceof \SimpleXMLElement)
+			if ($seq instanceof SimpleXMLElement)
 			{
 				$sName = (string) $seq['Name'];
 			}
@@ -708,13 +712,13 @@ class Postgresql extends Importer
 		$prefix = $this->db->getPrefix();
 		$tables = $this->db->getTableList();
 
-		if ($this->from instanceof \SimpleXMLElement)
+		if ($this->from instanceof SimpleXMLElement)
 		{
 			$xml = $this->from;
 		}
 		else
 		{
-			$xml = new \SimpleXMLElement($this->from);
+			$xml = new SimpleXMLElement($this->from);
 		}
 
 		// Get all the table definitions.
@@ -740,7 +744,7 @@ class Postgresql extends Importer
 						{
 							$this->db->execute();
 						}
-						catch (\RuntimeException $e)
+						catch (RuntimeException $e)
 						{
 							$this->addLog('Fail: ' . $this->db->getQuery());
 							throw $e;
@@ -761,7 +765,7 @@ class Postgresql extends Importer
 				{
 					$this->db->execute();
 				}
-				catch (\RuntimeException $e)
+				catch (RuntimeException $e)
 				{
 					$this->addLog('Fail: ' . $this->db->getQuery());
 					throw $e;

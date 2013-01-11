@@ -11,6 +11,8 @@ namespace Joomla\Crypt;
 
 defined('JPATH_PLATFORM') or die;
 
+use InvalidArgumentException;
+
 /**
  * JCrypt cipher for Simple encryption, decryption and key generation.
  *
@@ -36,7 +38,7 @@ class Cipher_Simple implements Cipher
 		// Validate key.
 		if ($key->type != 'simple')
 		{
-			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected simple.');
+			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected simple.');
 		}
 
 		$decrypted = '';

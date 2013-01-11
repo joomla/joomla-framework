@@ -13,6 +13,8 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Filesystem\File;
+use JError;
+use RuntimeException;
 
 /**
  * Bzip2 format adapter for the JArchive class
@@ -51,11 +53,11 @@ class Bzip2 implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'The bz2 extension is not available.');
+				return JError::raiseWarning(100, 'The bz2 extension is not available.');
 			}
 			else
 			{
-				throw new \RuntimeException('The bz2 extension is not available.');
+				throw new RuntimeException('The bz2 extension is not available.');
 			}
 		}
 
@@ -68,11 +70,11 @@ class Bzip2 implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to read archive');
+					return JError::raiseWarning(100, 'Unable to read archive');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to read archive');
+					throw new RuntimeException('Unable to read archive');
 				}
 			}
 
@@ -83,11 +85,11 @@ class Bzip2 implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to decompress data');
+					return JError::raiseWarning(100, 'Unable to decompress data');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to decompress data');
+					throw new RuntimeException('Unable to decompress data');
 				}
 			}
 
@@ -95,11 +97,11 @@ class Bzip2 implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to write archive');
+					return JError::raiseWarning(100, 'Unable to write archive');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to write archive');
+					throw new RuntimeException('Unable to write archive');
 				}
 			}
 
@@ -116,11 +118,11 @@ class Bzip2 implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to read archive (bz2)');
+					return JError::raiseWarning(100, 'Unable to read archive (bz2)');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to read archive (bz2)');
+					throw new RuntimeException('Unable to read archive (bz2)');
 				}
 			}
 
@@ -132,11 +134,11 @@ class Bzip2 implements Extractable
 
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to write archive (bz2)');
+					return JError::raiseWarning(100, 'Unable to write archive (bz2)');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to write archive (bz2)');
+					throw new RuntimeException('Unable to write archive (bz2)');
 				}
 			}
 
@@ -152,11 +154,11 @@ class Bzip2 implements Extractable
 
 						if (class_exists('\\JError'))
 						{
-							return \JError::raiseWarning(100, 'Unable to write archive (bz2)');
+							return JError::raiseWarning(100, 'Unable to write archive (bz2)');
 						}
 						else
 						{
-							throw new \RuntimeException('Unable to write archive (bz2)');
+							throw new RuntimeException('Unable to write archive (bz2)');
 						}
 					}
 				}

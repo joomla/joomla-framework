@@ -12,6 +12,7 @@ namespace Joomla\Database\Iterator;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Database\Iterator;
+use PDOStatement;
 
 /**
  * PDO database iterator.
@@ -32,7 +33,7 @@ class Pdo extends Iterator
 	 */
 	public function count()
 	{
-		if (!empty($this->cursor) && $this->cursor instanceof \PDOStatement)
+		if (!empty($this->cursor) && $this->cursor instanceof PDOStatement)
 		{
 			return $this->cursor->rowCount();
 		}
@@ -51,7 +52,7 @@ class Pdo extends Iterator
 	 */
 	protected function fetchObject()
 	{
-		if (!empty($this->cursor) && $this->cursor instanceof \PDOStatement)
+		if (!empty($this->cursor) && $this->cursor instanceof PDOStatement)
 		{
 			return $this->cursor->fetchObject($this->class);
 		}
@@ -70,7 +71,7 @@ class Pdo extends Iterator
 	 */
 	protected function freeResult()
 	{
-		if (!empty($this->cursor) && $this->cursor instanceof \PDOStatement)
+		if (!empty($this->cursor) && $this->cursor instanceof PDOStatement)
 		{
 			$this->cursor->closeCursor();
 		}

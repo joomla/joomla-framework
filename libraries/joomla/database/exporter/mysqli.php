@@ -13,6 +13,8 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Database\Exporter;
 use Joomla\Database\Driver\Mysqli as DriverMysqli;
+use stdClass;
+use Exception;
 
 /**
  * MySQLi export driver.
@@ -72,7 +74,7 @@ class Mysqli extends Exporter
 	 */
 	public function __construct()
 	{
-		$this->options = new \stdClass;
+		$this->options = new stdClass;
 
 		$this->cache = array('columns' => array(), 'keys' => array());
 
@@ -209,13 +211,13 @@ class Mysqli extends Exporter
 		// Check if the db connector has been set.
 		if (!($this->db instanceof DriverMysqli))
 		{
-			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;
@@ -263,7 +265,7 @@ class Mysqli extends Exporter
 		}
 		else
 		{
-			throw new \Exception('JPLATFORM_ERROR_INPUT_REQUIRES_STRING_OR_ARRAY');
+			throw new Exception('JPLATFORM_ERROR_INPUT_REQUIRES_STRING_OR_ARRAY');
 		}
 
 		return $this;

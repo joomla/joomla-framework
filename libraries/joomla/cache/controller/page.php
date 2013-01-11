@@ -15,6 +15,7 @@ use Joomla\Factory;
 use Joomla\Cache\Cache;
 use Joomla\Cache\Controller;
 use Joomla\Environment\Response;
+use stdClass;
 
 /**
  * Joomla! Cache page type object
@@ -81,7 +82,7 @@ class Page extends Controller
 		// We got a cache hit... set the etag header and echo the page data
 		$data = $this->cache->get($id, $group);
 
-		$this->_locktest = new \stdClass;
+		$this->_locktest = new stdClass;
 		$this->_locktest->locked = null;
 		$this->_locktest->locklooped = null;
 

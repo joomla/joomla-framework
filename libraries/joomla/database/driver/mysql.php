@@ -13,6 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Log\Log;
 use Joomla\Language\Text;
+use RuntimeException;
 
 /**
  * MySQL database driver
@@ -83,13 +84,13 @@ class Mysql extends Mysqli
 		// Make sure the MySQL extension for PHP is installed and enabled.
 		if (!function_exists('mysql_connect'))
 		{
-			throw new \RuntimeException('Could not connect to MySQL.');
+			throw new RuntimeException('Could not connect to MySQL.');
 		}
 
 		// Attempt to connect to the server.
 		if (!($this->connection = @ mysql_connect($this->options['host'], $this->options['user'], $this->options['password'], true)))
 		{
-			throw new \RuntimeException('Could not connect to MySQL.');
+			throw new RuntimeException('Could not connect to MySQL.');
 		}
 
 		// Set sql_mode to non_strict mode
@@ -246,7 +247,7 @@ class Mysql extends Mysqli
 		if (!is_resource($this->connection))
 		{
 			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
-			throw new \RuntimeException($this->errorMsg, $this->errorNum);
+			throw new RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -297,7 +298,7 @@ class Mysql extends Mysqli
 
 					// Throw the normal query exception.
 					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-					throw new \RuntimeException($this->errorMsg, $this->errorNum);
+					throw new RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -312,7 +313,7 @@ class Mysql extends Mysqli
 
 				// Throw the normal query exception.
 				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-				throw new \RuntimeException($this->errorMsg, $this->errorNum);
+				throw new RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
 
@@ -340,7 +341,7 @@ class Mysql extends Mysqli
 
 		if (!mysql_select_db($database, $this->connection))
 		{
-			throw new \RuntimeException('Could not connect to database');
+			throw new RuntimeException('Could not connect to database');
 		}
 
 		return true;

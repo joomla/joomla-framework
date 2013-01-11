@@ -17,6 +17,9 @@ use Joomla\Table;
 // Import classes
 use Joomla\Utilities\ArrayHelper;
 use Joomla\Factory;
+use Exception;
+use SimplXMLElement;
+use JComponentHelper;
 
 /**
  * Class that handles all access authorisation routines.
@@ -296,9 +299,9 @@ class Access
 		if (!isset(self::$groupsByUser[$storeId]))
 		{
 			// TODO: Uncouple this from JComponentHelper and allow for a configuration setting or value injection.
-			if (class_exists('\\JComponentHelper'))
+			if (class_exists('JComponentHelper'))
 			{
-				$guestUsergroup = \JComponentHelper::getParams('com_users')->get('guest_usergroup', 1);
+				$guestUsergroup = JComponentHelper::getParams('com_users')->get('guest_usergroup', 1);
 			}
 			else
 			{
@@ -495,7 +498,7 @@ class Access
 	public static function getActionsFromData($data, $xpath = "/access/section[@name='component']/")
 	{
 		// If the data to load isn't already an XML element or string return false.
-		if ((!($data instanceof \SimpleXMLElement)) && (!is_string($data)))
+		if ((!($data instanceof SimpleXMLElement)) && (!is_string($data)))
 		{
 			return false;
 		}
@@ -505,9 +508,9 @@ class Access
 		{
 			try
 			{
-				$data = new \SimpleXMLElement($data);
+				$data = new SimpleXMLElement($data);
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
 				return false;
 			}

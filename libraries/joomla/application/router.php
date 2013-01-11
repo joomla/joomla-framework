@@ -13,6 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Log\Log;
 use Joomla\Uri\Uri;
+use RuntimeException;
 
 /**
  * Set the available masks for the routing mode
@@ -154,7 +155,7 @@ class Router
 			}
 			else
 			{
-				throw new \RuntimeException('Unable to load router: ' . $client, 500);
+				throw new RuntimeException('Unable to load router: ' . $client, 500);
 			}
 		}
 
@@ -476,7 +477,7 @@ class Router
 				}
 			}
 
-			$url = 'index.php?' . \JUri::buildQuery($vars);
+			$url = 'index.php?' . Uri::buildQuery($vars);
 		}
 
 		// Decompose link into url component parts

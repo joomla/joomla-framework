@@ -13,8 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Object\Object;
-
-use Joomla\Database\Driver as DatabaseDriver;
+use Joomla\Database\Driver;
 
 /**
  * Adapter Instance Class
@@ -50,7 +49,7 @@ class AdapterInstance extends Object
 	 *
 	 * @since   11.1
 	 */
-	public function __construct(Adapter $parent, DatabaseDriver $db, array $options = array())
+	public function __construct(Adapter $parent, Driver $db, array $options = array())
 	{
 		// Set the properties from the options array that is passed in
 		$this->setProperties($options);

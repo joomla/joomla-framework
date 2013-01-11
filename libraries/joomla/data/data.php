@@ -13,6 +13,13 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
+use InvalidArgumentException;
+use IteratorAggregate;
+use JsonSerializable;
+use SplObjectStorage;
+use Traversable;
+use Countable;
+use stdClass;
 
 /**
  * JData is a class that is used to store data but allowing you to access the data
@@ -22,7 +29,7 @@ use Joomla\Registry\Registry;
  * @subpackage  Data
  * @since       12.3
  */
-class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countable
+class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 {
 	/**
 	 * The data properties.
@@ -135,11 +142,11 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 		// Check the properties data type.
 		if (!is_array($properties) && !is_object($properties))
 		{
-			throw new \InvalidArgumentException(sprintf('%s(%s)', __METHOD__, gettype($properties)));
+			throw new InvalidArgumentException(sprintf('%s(%s)', __METHOD__, gettype($properties)));
 		}
 
 		// Check if the object is traversable.
-		if ($properties instanceof \Traversable)
+		if ($properties instanceof Traversable)
 		{
 			// Convert iterator to array.
 			$properties = iterator_to_array($properties);
@@ -179,19 +186,19 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 *
 	 * @since   12.3
 	 */
-	public function dump($depth = 3, \SplObjectStorage $dumped = null)
+	public function dump($depth = 3, SplObjectStorage $dumped = null)
 	{
 		// Check if we should initialise the recursion tracker.
 		if ($dumped === null)
 		{
-			$dumped = new \SplObjectStorage;
+			$dumped = new SplObjectStorage;
 		}
 
 		// Add this object to the dumped stack.
 		$dumped->attach($this);
 
 		// Setup a container.
-		$dump = new \stdClass;
+		$dump = new stdClass;
 
 		// Dump all object properties.
 		foreach (array_keys($this->_properties) as $property)
@@ -244,7 +251,7 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 *
 	 * @since   12.3
 	 */
-	protected function dumpProperty($property, $depth, \SplObjectStorage $dumped)
+	protected function dumpProperty($property, $depth, SplObjectStorage $dumped)
 	{
 		$value = $this->getProperty($property);
 

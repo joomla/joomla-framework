@@ -21,6 +21,8 @@ use Joomla\Session\Session;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 use Joomla\Document\Document;
+use stdClass;
+use RuntimeException;
 
 /**
  * Base class for a Joomla! Web application.
@@ -149,7 +151,7 @@ class Web extends Base
 		$this->set('execution.timestamp', time());
 
 		// Setup the response object.
-		$this->response = new \stdClass;
+		$this->response = new stdClass;
 		$this->response->cachable = false;
 		$this->response->headers = array();
 		$this->response->body = array();
@@ -933,7 +935,7 @@ class Web extends Base
 			}
 			else
 			{
-				throw new \RuntimeException('Configuration class does not exist.');
+				throw new RuntimeException('Configuration class does not exist.');
 			}
 		}
 

@@ -13,6 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Cache\Cache;
 use Joomla\Cache\Controller;
+use stdClass;
 
 /**
  * Joomla Cache output type object
@@ -53,7 +54,7 @@ class Output extends Controller
 		// If we have data in cache use that.
 		$data = $this->cache->get($id, $group);
 
-		$this->_locktest = new \stdClass;
+		$this->_locktest = new stdClass;
 		$this->_locktest->locked = null;
 		$this->_locktest->locklooped = null;
 

@@ -14,6 +14,8 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Factory;
 use Joomla\Language\Text;
 use Joomla\Database\Driver;
+use DateTime;
+use DateTimeZone;
 
 /**
  * JDate is a class that stores a date and provides logic to manipulate
@@ -36,7 +38,7 @@ use Joomla\Database\Driver;
  * @subpackage  Date
  * @since       11.1
  */
-class Date extends \DateTime
+class Date extends DateTime
 {
 	const DAY_ABBR = "\x021\x03";
 	const DAY_NAME = "\x022\x03";
@@ -89,12 +91,12 @@ class Date extends \DateTime
 		// Create the base GMT and server time zone objects.
 		if (empty(self::$gmt) || empty(self::$stz))
 		{
-			self::$gmt = new \DateTimeZone('GMT');
-			self::$stz = new \DateTimeZone(@date_default_timezone_get());
+			self::$gmt = new DateTimeZone('GMT');
+			self::$stz = new DateTimeZone(@date_default_timezone_get());
 		}
 
 		// If the time zone object is not set, attempt to build it.
-		if (!($tz instanceof \DateTimeZone))
+		if (!($tz instanceof DateTimeZone))
 		{
 			if ($tz === null)
 			{
@@ -102,7 +104,7 @@ class Date extends \DateTime
 			}
 			elseif (is_string($tz))
 			{
-				$tz = new \DateTimeZone($tz);
+				$tz = new DateTimeZone($tz);
 			}
 		}
 
@@ -219,7 +221,7 @@ class Date extends \DateTime
 	 */
 	public static function getInstance($date = 'now', $tz = null)
 	{
-		return new JDate($date, $tz);
+		return new self($date, $tz);
 	}
 
 	/**
@@ -417,7 +419,7 @@ class Date extends \DateTime
 	 */
 	public function toISO8601($local = false)
 	{
-		return $this->format(\DateTime::RFC3339, $local, false);
+		return $this->format(DateTime::RFC3339, $local, false);
 	}
 
 	/**
@@ -453,7 +455,7 @@ class Date extends \DateTime
 	 */
 	public function toRFC822($local = false)
 	{
-		return $this->format(\DateTime::RFC2822, $local, false);
+		return $this->format(DateTime::RFC2822, $local, false);
 	}
 
 	/**

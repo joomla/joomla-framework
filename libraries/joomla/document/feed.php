@@ -13,6 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Language\Text;
+use Exception;
 
 /**
  * DocumentFeed class, provides an easy interface to parse and display any feed document
@@ -206,7 +207,7 @@ class Feed extends Document
 
 		if (!is_a($renderer, '\\Joomla\\Document\\Renderer'))
 		{
-			throw new \Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
+			throw new Exception(Text::_('JGLOBAL_RESOURCE_NOT_FOUND'), 404);
 		}
 		$this->setMimeEncoding($renderer->getContentType());
 

@@ -13,6 +13,8 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Filesystem\Path;
+use UnexpectedValueException;
+use RuntimeException;
 
 /**
  * Abstract cache storage handler
@@ -122,7 +124,7 @@ class Storage
 
 			if (empty($handler))
 			{
-				throw new \UnexpectedValueException('Cache Storage Handler not set.');
+				throw new UnexpectedValueException('Cache Storage Handler not set.');
 			}
 		}
 
@@ -147,7 +149,7 @@ class Storage
 			}
 			else
 			{
-				throw new \RuntimeException(sprintf('Unable to load Cache Storage: %s', $handler));
+				throw new RuntimeException(sprintf('Unable to load Cache Storage: %s', $handler));
 			}
 		}
 

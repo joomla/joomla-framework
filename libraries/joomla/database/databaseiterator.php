@@ -11,6 +11,9 @@ namespace Joomla\Database;
 
 defined('JPATH_PLATFORM') or die;
 
+use Countable;
+use Iterator;
+
 /**
  * Joomla Platform Database Driver Class
  *
@@ -18,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Database
  * @since       12.1
  */
-abstract class Iterator implements \Countable, \Iterator
+abstract class DatabaseIterator implements Countable, Iterator
 {
 	/**
 	 * The database cursor.

@@ -14,6 +14,8 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Factory;
 use Joomla\Registry\Registry;
 use Joomla\Document\Renderer;
+use stdClass;
+use JModuleHelper;
 
 /**
  * JDocument Module renderer
@@ -41,7 +43,7 @@ class Module extends Renderer
 		{
 			$title = isset($attribs['title']) ? $attribs['title'] : null;
 
-			$module = \JModuleHelper::getModule($module, $title);
+			$module = JModuleHelper::getModule($module, $title);
 
 			if (!is_object($module))
 			{
@@ -56,7 +58,7 @@ class Module extends Renderer
 					 * we want to render it
 					 */
 					$tmp = $module;
-					$module = new \stdClass;
+					$module = new stdClass;
 					$module->params = null;
 					$module->module = $tmp;
 					$module->id = 0;
@@ -99,18 +101,18 @@ class Module extends Renderer
 		{
 
 			// Default to itemid creating method and workarounds on
-			$cacheparams = new \stdClass;
+			$cacheparams = new stdClass;
 			$cacheparams->cachemode = $cachemode;
 			$cacheparams->class = 'JModuleHelper';
 			$cacheparams->method = 'renderModule';
 			$cacheparams->methodparams = array($module, $attribs);
 
-			$contents = \JModuleHelper::ModuleCache($module, $params, $cacheparams);
+			$contents = JModuleHelper::ModuleCache($module, $params, $cacheparams);
 
 		}
 		else
 		{
-			$contents = \JModuleHelper::renderModule($module, $attribs);
+			$contents = JModuleHelper::renderModule($module, $attribs);
 		}
 
 		return $contents;

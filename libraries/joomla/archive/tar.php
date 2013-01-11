@@ -14,6 +14,8 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Filesystem\Path;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
+use JError;
+use RuntimeException;
 
 /**
  * Tar format adapter for the JArchive class
@@ -86,11 +88,11 @@ class Tar implements Extractable
 		{
 			if (class_exists('\\JError'))
 			{
-				return \JError::raiseWarning(100, 'Unable to read archive');
+				return JError::raiseWarning(100, 'Unable to read archive');
 			}
 			else
 			{
-				throw new \RuntimeException('Unable to read archive');
+				throw new RuntimeException('Unable to read archive');
 			}
 		}
 
@@ -110,22 +112,22 @@ class Tar implements Extractable
 				{
 					if (class_exists('\\JError'))
 					{
-						return \JError::raiseWarning(100, 'Unable to create destination');
+						return JError::raiseWarning(100, 'Unable to create destination');
 					}
 					else
 					{
-						throw new \RuntimeException('Unable to create destination');
+						throw new RuntimeException('Unable to create destination');
 					}
 				}
 				if (File::write($path, $buffer) === false)
 				{
 					if (class_exists('\\JError'))
 					{
-						return \JError::raiseWarning(100, 'Unable to write entry');
+						return JError::raiseWarning(100, 'Unable to write entry');
 					}
 					else
 					{
-						throw new \RuntimeException('Unable to write entry');
+						throw new RuntimeException('Unable to write entry');
 					}
 				}
 			}
@@ -179,11 +181,11 @@ class Tar implements Extractable
 			{
 				if (class_exists('\\JError'))
 				{
-					return \JError::raiseWarning(100, 'Unable to decompress data');
+					return JError::raiseWarning(100, 'Unable to decompress data');
 				}
 				else
 				{
-					throw new \RuntimeException('Unable to decompress data');
+					throw new RuntimeException('Unable to decompress data');
 				}
 			}
 

@@ -12,6 +12,8 @@ namespace Joomla\Cache;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Filesystem\Path;
+use RuntimeException;
+use stdClass;
 
 /**
  * Public cache handler
@@ -57,7 +59,7 @@ class Controller
 	}
 
 	/**
-	 * Magic method to proxy JCacheControllerMethods
+	 * Magic method to proxy Controller methods
 	 *
 	 * @param   string  $name       Name of the function
 	 * @param   array   $arguments  Array of arguments for the function
@@ -79,7 +81,7 @@ class Controller
 	 * @param   string  $type     The cache object type to instantiate; default is output.
 	 * @param   array   $options  Array of options
 	 *
-	 * @return  JCache  A JCache object
+	 * @return  Cache   A Cache object
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
@@ -101,7 +103,7 @@ class Controller
 			}
 			else
 			{
-				throw new \RuntimeException('Unable to load Cache Controller: ' . $type, 500);
+				throw new RuntimeException('Unable to load Cache Controller: ' . $type, 500);
 			}
 		}
 
@@ -178,7 +180,7 @@ class Controller
 
 		if ($data === false)
 		{
-			$locktest = new \stdClass;
+			$locktest = new stdClass;
 			$locktest->locked = null;
 			$locktest->locklooped = null;
 			$locktest = $this->cache->lock($id, $group);
@@ -215,7 +217,7 @@ class Controller
 	 */
 	public function store($data, $id, $group = null)
 	{
-		$locktest = new \stdClass;
+		$locktest = new stdClass;
 		$locktest->locked = null;
 		$locktest->locklooped = null;
 

@@ -14,6 +14,7 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Log\Log;
 use Joomla\Language\Text;
 use Joomla\Database\Driver;
+use RuntimeException;
 
 /**
  * SQL Server database driver
@@ -130,13 +131,13 @@ class Sqlsrv extends Driver
 		// Make sure the SQLSRV extension for PHP is installed and enabled.
 		if (!function_exists('sqlsrv_connect'))
 		{
-			throw new \RuntimeException('PHP extension sqlsrv_connect is not available.');
+			throw new RuntimeException('PHP extension sqlsrv_connect is not available.');
 		}
 
 		// Attempt to connect to the server.
 		if (!($this->connection = @ sqlsrv_connect($this->options['host'], $config)))
 		{
-			throw new \RuntimeException('Database sqlsrv_connect failed');
+			throw new RuntimeException('Database sqlsrv_connect failed');
 		}
 
 		// Make sure that DB warnings are not returned as errors.
@@ -566,7 +567,7 @@ class Sqlsrv extends Driver
 		if (!is_resource($this->connection))
 		{
 			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
-			throw new \RuntimeException($this->errorMsg, $this->errorNum);
+			throw new RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -628,7 +629,7 @@ class Sqlsrv extends Driver
 
 					// Throw the normal query exception.
 					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-					throw new \RuntimeException($this->errorMsg, $this->errorNum);
+					throw new RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -644,7 +645,7 @@ class Sqlsrv extends Driver
 
 				// Throw the normal query exception.
 				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-				throw new \RuntimeException($this->errorMsg, $this->errorNum);
+				throw new RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
 
@@ -770,7 +771,7 @@ class Sqlsrv extends Driver
 
 		if (!sqlsrv_query($this->connection, 'USE ' . $database, null, array('scrollable' => SQLSRV_CURSOR_STATIC)))
 		{
-			throw new \RuntimeException('Could not connect to database');
+			throw new RuntimeException('Could not connect to database');
 		}
 
 		return true;
