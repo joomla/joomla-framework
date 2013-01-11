@@ -7,10 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Environment;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
- * JResponse Class.
+ * Response Class.
  *
  * This class serves to provide the Joomla Platform with a common interface to access
  * response variables.  This includes header and body.
@@ -19,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Environment
  * @since       11.1
  */
-class JResponse
+class Response
 {
 	/**
 	 * @var    array  Body

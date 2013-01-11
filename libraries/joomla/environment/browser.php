@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Environment;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Log\Log;
 
 /**
  * Browser class, provides capability information about the current web client.
@@ -22,7 +26,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Environment
  * @since       11.1
  */
-class JBrowser
+class Browser
 {
 	/**
 	 * @var    integer  Major version number
@@ -176,7 +180,7 @@ class JBrowser
 
 		if (empty(self::$instances[$signature]))
 		{
-			self::$instances[$signature] = new JBrowser($userAgent, $accept);
+			self::$instances[$signature] = new Browser($userAgent, $accept);
 		}
 
 		return self::$instances[$signature];
@@ -659,8 +663,8 @@ class JBrowser
 	 */
 	public function isSSLConnection()
 	{
-		JLog::add('JBrowser::isSSLConnection() is deprecated. Use the isSSLConnection method on the application object instead.',
-			JLog::WARNING, 'deprecated');
+		Log::add('JBrowser::isSSLConnection() is deprecated. Use the isSSLConnection method on the application object instead.',
+			Log::WARNING, 'deprecated');
 
 		return ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) || getenv('SSL_PROTOCOL_VERSION'));
 	}
