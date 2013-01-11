@@ -20,7 +20,7 @@ use Joomla\Model\Model;
  * @subpackage  View
  * @since       12.1
  */
-abstract class ViewBase implements View
+abstract class Base implements View
 {
 	/**
 	 * The model object.

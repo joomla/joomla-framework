@@ -23,7 +23,7 @@ use RuntimeException;
  * @subpackage  View
  * @since       12.1
  */
-abstract class ViewHtml extends ViewBase
+abstract class Html extends Base
 {
 	/**
 	 * The view layout.
@@ -166,7 +166,7 @@ abstract class ViewHtml extends ViewBase
 	 *
 	 * @param   string  $layout  The layout name.
 	 *
-	 * @return  ViewHtml  Method supports chaining.
+	 * @return  Html  Method supports chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -182,7 +182,7 @@ abstract class ViewHtml extends ViewBase
 	 *
 	 * @param   SplPriorityQueue  $paths  The paths queue.
 	 *
-	 * @return  ViewHtml  Method supports chaining.
+	 * @return  Html  Method supports chaining.
 	 *
 	 * @since   12.1
 	 */

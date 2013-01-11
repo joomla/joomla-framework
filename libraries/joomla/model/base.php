@@ -20,7 +20,7 @@ use Joomla\Registry\Registry;
  * @subpackage  Model
  * @since       12.1
  */
-abstract class ModelBase implements Model
+abstract class Base implements Model
 {
 	/**
 	 * The model state.

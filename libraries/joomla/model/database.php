@@ -22,7 +22,7 @@ use Joomla\Factory;
  * @subpackage  Model
  * @since       12.1
  */
-abstract class ModelDatabase extends ModelBase
+abstract class Database extends Base
 {
 	/**
 	 * The database driver.
