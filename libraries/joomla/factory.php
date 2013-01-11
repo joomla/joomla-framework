@@ -10,10 +10,7 @@ namespace Joomla;
 
 defined('JPATH_PLATFORM') or die;
 
-// @todo dependency on JConfig
-// @todo dependency on JApplication
-// @todo dependency on JVersion
-// @todo dependency on JSimplepieFactory
+// @todo JSimplepieFactory is removed
 use Joomla\Mail\Helper as MailHelper;
 use Joomla\Document\Document;
 use Joomla\Registry\Registry;
@@ -33,6 +30,11 @@ use Joomla\Uri\Uri;
 use BadMethodCallException;
 use RuntimeException;
 use Exception;
+
+// Legacy classes.
+use JApplication;
+use JConfig;
+use JVersion;
 
 /**
  * Joomla Platform Factory class
