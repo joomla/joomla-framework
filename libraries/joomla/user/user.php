@@ -7,16 +7,30 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\User;
+
 defined('JPATH_PLATFORM') or die;
 
+// Conflicting with Joomla\User\Helper.
+use Joomla\Plugin\Helper as PluginHelper;
+use Joomla\Utilities\ArrayHelper;
+use Joomla\Registry\Registry;
+use Joomla\Event\Dispatcher;
+use Joomla\Table\Table;
+use Joomla\Access\Access;
+use Joomla\Object\Object;
+use Joomla\Factory;
+use Exception;
+use RuntimeException;
+
 /**
- * User class.  Handles all application interaction with a user
+ * User class. Handles all application interaction with a user
  *
  * @package     Joomla.Platform
  * @subpackage  User
  * @since       11.1
  */
-class JUser extends JObject
+class User extends Object
 {
 	/**
 	 * A cached switch for if this user has root access rights.
@@ -116,7 +130,7 @@ class JUser extends JObject
 	/**
 	 * User parameters
 	 *
-	 * @var    JRegistry
+	 * @var    Registry
 	 * @since  11.1
 	 */
 	public $params = null;
@@ -155,7 +169,7 @@ class JUser extends JObject
 
 	/**
 	 * User parameters
-	 * @var    JRegistry
+	 * @var    Registry
 	 * @since  11.1
 	 */
 	protected $_params = null;
@@ -193,7 +207,7 @@ class JUser extends JObject
 	protected $_errorMsg = null;
 
 	/**
-	 * @var    array  JUser instances container.
+	 * @var    array  User instances container.
 	 * @since  11.3
 	 */
 	protected static $instances = array();
@@ -208,7 +222,7 @@ class JUser extends JObject
 	public function __construct($identifier = 0)
 	{
 		// Create the user parameters object
-		$this->_params = new JRegistry;
+		$this->_params = new Registry;
 
 		// Load the user if it exists
 		if (!empty($identifier))
@@ -231,7 +245,7 @@ class JUser extends JObject
 	 *
 	 * @param   integer  $identifier  The user to load - Can be an integer or string - If string, it is converted to ID automatically.
 	 *
-	 * @return  JUser  The User object.
+	 * @return  User  The User object.
 	 *
 	 * @since   11.1
 	 */
@@ -240,9 +254,9 @@ class JUser extends JObject
 		// Find the user id
 		if (!is_numeric($identifier))
 		{
-			if (!$id = JUserHelper::getUserId($identifier))
+			if (!$id = Helper::getUserId($identifier))
 			{
-				JLog::add(JText::sprintf('JLIB_USER_ERROR_ID_NOT_EXISTS', $identifier), JLog::WARNING, 'jerror');
+				Log::add(Text::sprintf('JLIB_USER_ERROR_ID_NOT_EXISTS', $identifier), Log::WARNING, 'jerror');
 				$retval = false;
 
 				return $retval;
@@ -257,13 +271,13 @@ class JUser extends JObject
 		// Note: don't cache this user because it'll have a new ID on save!
 		if ($id === 0)
 		{
-			return new JUser;
+			return new User;
 		}
 
 		// Check if the user ID is already cached.
 		if (empty(self::$instances[$id]))
 		{
-			$user = new JUser($id);
+			$user = new User($id);
 			self::$instances[$id] = $user;
 		}
 
@@ -334,7 +348,7 @@ class JUser extends JObject
 			$this->isRoot = false;
 
 			// Check for the configuration file failsafe.
-			$config = JFactory::getConfig();
+			$config = Factory::getConfig();
 			$rootUser = $config->get('root_user');
 
 			// The root_user variable can be a numeric user ID or a username.
@@ -352,7 +366,7 @@ class JUser extends JObject
 				$identities = $this->getAuthorisedGroups();
 				array_unshift($identities, $this->id * -1);
 
-				if (JAccess::getAssetRules(1)->allow('core.admin', $identities))
+				if (Access::getAssetRules(1)->allow('core.admin', $identities))
 				{
 					$this->isRoot = true;
 
@@ -361,7 +375,7 @@ class JUser extends JObject
 			}
 		}
 
-		return $this->isRoot ? true : JAccess::check($this->id, $action, $assetname);
+		return $this->isRoot ? true : Access::check($this->id, $action, $assetname);
 	}
 
 	/**
@@ -378,7 +392,7 @@ class JUser extends JObject
 	{
 		// Brute force method: get all published category rows for the component and check each one
 		// TODO: Modify the way permissions are stored in the db to allow for faster implementation and better scaling
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true)->select('c.id AS id, a.name AS asset_name')->from('#__categories AS c')
 			->innerJoin('#__assets AS a ON c.asset_id = a.id')->where('c.extension = ' . $db->quote($component))->where('c.published = 1');
 		$db->setQuery($query);
@@ -411,7 +425,7 @@ class JUser extends JObject
 
 		if (empty($this->_authLevels))
 		{
-			$this->_authLevels = JAccess::getAuthorisedViewLevels($this->id);
+			$this->_authLevels = Access::getAuthorisedViewLevels($this->id);
 		}
 
 		return $this->_authLevels;
@@ -433,7 +447,7 @@ class JUser extends JObject
 
 		if (empty($this->_authGroups))
 		{
-			$this->_authGroups = JAccess::getGroupsByUser($this->id);
+			$this->_authGroups = Access::getGroupsByUser($this->id);
 		}
 
 		return $this->_authGroups;
@@ -504,7 +518,7 @@ class JUser extends JObject
 		}
 
 		// Create the user table object
-		return JTable::getInstance($tabletype['name'], $tabletype['prefix']);
+		return Table::getInstance($tabletype['name'], $tabletype['prefix']);
 	}
 
 	/**
@@ -524,7 +538,7 @@ class JUser extends JObject
 			// Check the password and create the crypted password
 			if (empty($array['password']))
 			{
-				$array['password'] = JUserHelper::genRandomPassword();
+				$array['password'] = Helper::genRandomPassword();
 				$array['password2'] = $array['password'];
 			}
 
@@ -532,20 +546,20 @@ class JUser extends JObject
 			// Hence this code is required:
 			if (isset($array['password2']) && $array['password'] != $array['password2'])
 			{
-				$this->setError(JText::_('JLIB_USER_ERROR_PASSWORD_NOT_MATCH'));
+				$this->setError(Text::_('JLIB_USER_ERROR_PASSWORD_NOT_MATCH'));
 
 				return false;
 			}
 
-			$this->password_clear = JArrayHelper::getValue($array, 'password', '', 'string');
+			$this->password_clear = ArrayHelper::getValue($array, 'password', '', 'string');
 
-			$salt = JUserHelper::genRandomPassword(32);
-			$crypt = JUserHelper::getCryptedPassword($array['password'], $salt);
+			$salt = Helper::genRandomPassword(32);
+			$crypt = Helper::getCryptedPassword($array['password'], $salt);
 			$array['password'] = $crypt . ':' . $salt;
 
 			// Set the registration timestamp
 
-			$this->set('registerDate', JFactory::getDate()->toSql());
+			$this->set('registerDate', Factory::getDate()->toSql());
 		}
 		else
 		{
@@ -554,15 +568,15 @@ class JUser extends JObject
 			{
 				if ($array['password'] != $array['password2'])
 				{
-					$this->setError(JText::_('JLIB_USER_ERROR_PASSWORD_NOT_MATCH'));
+					$this->setError(Text::_('JLIB_USER_ERROR_PASSWORD_NOT_MATCH'));
 
 					return false;
 				}
 
-				$this->password_clear = JArrayHelper::getValue($array, 'password', '', 'string');
+				$this->password_clear = ArrayHelper::getValue($array, 'password', '', 'string');
 
-				$salt = JUserHelper::genRandomPassword(32);
-				$crypt = JUserHelper::getCryptedPassword($array['password'], $salt);
+				$salt = Helper::genRandomPassword(32);
+				$crypt = Helper::getCryptedPassword($array['password'], $salt);
 				$array['password'] = $crypt . ':' . $salt;
 			}
 			else
@@ -592,7 +606,7 @@ class JUser extends JObject
 		// Bind the array
 		if (!$this->setProperties($array))
 		{
-			$this->setError(JText::_('JLIB_USER_ERROR_BIND_ARRAY'));
+			$this->setError(Text::_('JLIB_USER_ERROR_BIND_ARRAY'));
 
 			return false;
 		}
@@ -654,7 +668,7 @@ class JUser extends JObject
 
 			// @todo ACL - this needs to be acl checked
 
-			$my = JFactory::getUser();
+			$my = Factory::getUser();
 
 			// Are we creating a new user
 			$isNew = empty($this->id);
@@ -666,7 +680,7 @@ class JUser extends JObject
 			}
 
 			// Get the old user
-			$oldUser = new JUser($this->id);
+			$oldUser = new User($this->id);
 
 			// Access Checks
 
@@ -684,7 +698,7 @@ class JUser extends JObject
 					// Check if the new user is being put into a Super Admin group.
 					foreach ($this->groups as $groupId)
 					{
-						if (JAccess::checkGroup($groupId, 'core.admin'))
+						if (Access::checkGroup($groupId, 'core.admin'))
 						{
 							throw new RuntimeException('User not Super Administrator');
 						}
@@ -693,7 +707,7 @@ class JUser extends JObject
 				else
 				{
 					// I am not a Super Admin, and this one is, so fail.
-					if (JAccess::check($this->id, 'core.admin'))
+					if (Access::check($this->id, 'core.admin'))
 					{
 						throw new RuntimeException('User not Super Administrator');
 					}
@@ -703,7 +717,7 @@ class JUser extends JObject
 						// I am not a Super Admin and I'm trying to make one.
 						foreach ($this->groups as $groupId)
 						{
-							if (JAccess::checkGroup($groupId, 'core.admin'))
+							if (Access::checkGroup($groupId, 'core.admin'))
 							{
 								throw new RuntimeException('User not Super Administrator');
 							}
@@ -713,8 +727,8 @@ class JUser extends JObject
 			}
 
 			// Fire the onUserBeforeSave event.
-			JPluginHelper::importPlugin('user');
-			$dispatcher = JEventDispatcher::getInstance();
+			PluginHelper::importPlugin('user');
+			$dispatcher = Dispatcher::getInstance();
 
 			$result = $dispatcher->trigger('onUserBeforeSave', array($oldUser->getProperties(), $isNew, $this->getProperties()));
 
@@ -735,7 +749,7 @@ class JUser extends JObject
 
 			if ($my->id == $table->id)
 			{
-				$registry = new JRegistry;
+				$registry = new Registry;
 				$registry->loadString($table->params);
 				$my->setParameters($registry);
 			}
@@ -762,10 +776,10 @@ class JUser extends JObject
 	 */
 	public function delete()
 	{
-		JPluginHelper::importPlugin('user');
+		PluginHelper::importPlugin('user');
 
 		// Trigger the onUserBeforeDelete event
-		$dispatcher = JEventDispatcher::getInstance();
+		$dispatcher = Dispatcher::getInstance();
 		$dispatcher->trigger('onUserBeforeDelete', array($this->getProperties()));
 
 		// Create the user table object
@@ -804,7 +818,7 @@ class JUser extends JObject
 			// Reset to guest user
 			$this->guest = 1;
 
-			JLog::add(JText::sprintf('JLIB_USER_ERROR_UNABLE_TO_LOAD_USER', $id), JLog::WARNING, 'jerror');
+			Log::add(Text::sprintf('JLIB_USER_ERROR_UNABLE_TO_LOAD_USER', $id), Log::WARNING, 'jerror');
 
 			return false;
 		}

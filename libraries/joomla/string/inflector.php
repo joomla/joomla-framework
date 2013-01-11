@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\String;
+
 defined('JPATH_PLATFORM') or die;
+
+use InvalidArgumentException;
 
 /**
  * Joomla Platform String Inflector Class
@@ -18,12 +22,12 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  String
  * @since       12.1
  */
-class JStringInflector
+class Inflector
 {
 	/**
 	 * The singleton instance.
 	 *
-	 * @var    JStringInflector
+	 * @var    Inflector
 	 * @since  12.1
 	 */
 	private static $_instance;
@@ -158,7 +162,7 @@ class JStringInflector
 	 */
 	private function _getCachedPlural($singular)
 	{
-		$singular = JString::strtolower($singular);
+		$singular = String::strtolower($singular);
 
 		// Check if the word is in cache.
 		if (isset($this->_cache[$singular]))
@@ -180,7 +184,7 @@ class JStringInflector
 	 */
 	private function _getCachedSingular($plural)
 	{
-		$plural = JString::strtolower($plural);
+		$plural = String::strtolower($plural);
 
 		return array_search($plural, $this->_cache);
 	}
@@ -227,7 +231,7 @@ class JStringInflector
 	 */
 	private function _setCache($singular, $plural = null)
 	{
-		$singular = JString::strtolower($singular);
+		$singular = String::strtolower($singular);
 
 		if ($plural === null)
 		{
@@ -235,7 +239,7 @@ class JStringInflector
 		}
 		else
 		{
-			$plural = JString::strtolower($plural);
+			$plural = String::strtolower($plural);
 		}
 
 		$this->_cache[$singular] = $plural;
@@ -246,7 +250,7 @@ class JStringInflector
 	 *
 	 * @param   mixed  $data  A string or an array of strings to add.
 	 *
-	 * @return  JStringInflector  Returns this object to support chaining.
+	 * @return  Inflector  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -263,7 +267,7 @@ class JStringInflector
 	 * @param   string  $singular  The singular form of the word.
 	 * @param   string  $plural    The plural form of the word. If omitted, it is assumed the singular and plural are identical.
 	 *
-	 * @return  JStringInflector  Returns this object to support chaining.
+	 * @return  Inflector  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -279,7 +283,7 @@ class JStringInflector
 	 *
 	 * @param   mixed  $data  A string or an array of regex rules to add.
 	 *
-	 * @return  JStringInflector  Returns this object to support chaining.
+	 * @return  Inflector  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -295,7 +299,7 @@ class JStringInflector
 	 *
 	 * @param   mixed  $data  A string or an array of regex rules to add.
 	 *
-	 * @return  JStringInflector  Returns this object to support chaining.
+	 * @return  Inflector  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -312,7 +316,7 @@ class JStringInflector
 	 * @param   boolean  $new  If true (default is false), returns a new instance regardless if one exists.
 	 *                         This argument is mainly used for testing.
 	 *
-	 * @return  JStringInflector
+	 * @return  Inflector
 	 *
 	 * @since   12.1
 	 */

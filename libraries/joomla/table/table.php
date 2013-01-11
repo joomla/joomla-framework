@@ -7,9 +7,21 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Table;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.path');
+use Joomla\Filesystem\Path;
+use Joomla\Database\Driver;
+use Joomla\Database\Query;
+use Joomla\Language\Text;
+use Joomla\Object\Object;
+use Joomla\Access\Rules;
+use Joomla\Factory;
+use Joomla\Log\Log;
+use UnexpectedValueException;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Abstract Table class
@@ -22,7 +34,7 @@ jimport('joomla.filesystem.path');
  * @since       11.1
  * @tutorial    Joomla.Platform/jtable.cls
  */
-abstract class JTable extends JObject
+abstract class Table extends Object
 {
 	/**
 	 * Include paths for searching for JTable classes.
@@ -57,9 +69,9 @@ abstract class JTable extends JObject
 	protected $_tbl_keys = array();
 
 	/**
-	 * JDatabaseDriver object.
+	 * Driver object.
 	 *
-	 * @var    JDatabaseDriver
+	 * @var    Driver
 	 * @since  11.1
 	 */
 	protected $_db;
@@ -75,7 +87,7 @@ abstract class JTable extends JObject
 	/**
 	 * The rules associated with this record.
 	 *
-	 * @var    JAccessRules  A JAccessRules object.
+	 * @var    Rules  A Rules object.
 	 * @since  11.1
 	 */
 	protected $_rules;
@@ -101,13 +113,13 @@ abstract class JTable extends JObject
 	 * be overridden by child classes to explicitly set the table and key fields
 	 * for a particular database table.
 	 *
-	 * @param   string           $table  Name of the table to model.
-	 * @param   mixed            $key    Name of the primary key field in the table or array of field names that compose the primary key.
-	 * @param   JDatabaseDriver  $db     JDatabaseDriver object.
+	 * @param   string  $table  Name of the table to model.
+	 * @param   mixed   $key    Name of the primary key field in the table or array of field names that compose the primary key.
+	 * @param   Driver  $db     Driver object.
 	 *
 	 * @since   11.1
 	 */
-	public function __construct($table, $key, JDatabaseDriver $db)
+	public function __construct($table, $key, Driver $db)
 	{
 		// Set internal variables.
 		$this->_tbl = $table;
@@ -162,7 +174,7 @@ abstract class JTable extends JObject
 		// If the access property exists, set the default.
 		if (property_exists($this, 'access'))
 		{
-			$this->access = (int) JFactory::getConfig()->get('access');
+			$this->access = (int) Factory::getConfig()->get('access');
 		}
 	}
 
@@ -218,7 +230,7 @@ abstract class JTable extends JObject
 		if (!class_exists($tableClass))
 		{
 			// Search for the class file in the JTable include paths.
-			$path = JPath::find(self::addIncludePath(), strtolower($type) . '.php');
+			$path = Path::find(self::addIncludePath(), strtolower($type) . '.php');
 
 			if ($path)
 			{
@@ -228,7 +240,7 @@ abstract class JTable extends JObject
 				// If we were unable to load the proper class, raise a warning and return false.
 				if (!class_exists($tableClass))
 				{
-					JLog::add(JText::sprintf('JLIB_DATABASE_ERROR_CLASS_NOT_FOUND_IN_FILE', $tableClass), JLog::WARNING, 'jerror');
+					Log::add(Text::sprintf('JLIB_DATABASE_ERROR_CLASS_NOT_FOUND_IN_FILE', $tableClass), Log::WARNING, 'jerror');
 
 					return false;
 				}
@@ -236,14 +248,14 @@ abstract class JTable extends JObject
 			else
 			{
 				// If we were unable to find the class file in the JTable include paths, raise a warning and return false.
-				JLog::add(JText::sprintf('JLIB_DATABASE_ERROR_NOT_SUPPORTED_FILE_NOT_FOUND', $type), JLog::WARNING, 'jerror');
+				Log::add(Text::sprintf('JLIB_DATABASE_ERROR_NOT_SUPPORTED_FILE_NOT_FOUND', $type), Log::WARNING, 'jerror');
 
 				return false;
 			}
 		}
 
 		// If a database object was passed in the configuration array use it, otherwise get the global one from JFactory.
-		$db = isset($config['dbo']) ? $config['dbo'] : JFactory::getDbo();
+		$db = isset($config['dbo']) ? $config['dbo'] : Factory::getDbo();
 
 		// Instantiate a new table class and return it.
 		return new $tableClass($db);
@@ -336,14 +348,14 @@ abstract class JTable extends JObject
 	 * The extended class can define a table and id to lookup.  If the
 	 * asset does not exist it will be created.
 	 *
-	 * @param   JTable   $table  A JTable object for the asset parent.
+	 * @param   Table    $table  A JTable object for the asset parent.
 	 * @param   integer  $id     Id to look up
 	 *
 	 * @return  integer
 	 *
 	 * @since   11.1
 	 */
-	protected function _getAssetParentId(JTable $table = null, $id = null)
+	protected function _getAssetParentId(Table $table = null, $id = null)
 	{
 		// For simple cases, parent to the asset root.
 		$assets = self::getInstance('Asset', 'JTable', array('dbo' => $this->getDbo()));
@@ -360,8 +372,8 @@ abstract class JTable extends JObject
 	/**
 	 * Method to append the primary keys for this table to a query.
 	 *
-	 * @param   JDatabaseQuery  $query  A query object to append.
-	 * @param   mixed           $pk     Optional primary key parameter.
+	 * @param   Query  $query  A query object to append.
+	 * @param   mixed  $pk     Optional primary key parameter.
 	 *
 	 * @return  void
 	 *
@@ -437,9 +449,9 @@ abstract class JTable extends JObject
 	}
 
 	/**
-	 * Method to get the JDatabaseDriver object.
+	 * Method to get the Driver object.
 	 *
-	 * @return  JDatabaseDriver  The internal database driver object.
+	 * @return  Driver  The internal database driver object.
 	 *
 	 * @link    http://docs.joomla.org/JTable/getDBO
 	 * @since   11.1
@@ -450,16 +462,16 @@ abstract class JTable extends JObject
 	}
 
 	/**
-	 * Method to set the JDatabaseDriver object.
+	 * Method to set the Driver object.
 	 *
-	 * @param   JDatabaseDriver  $db  A JDatabaseDriver object to be used by the table object.
+	 * @param   Driver  $db  A Driver object to be used by the table object.
 	 *
 	 * @return  boolean  True on success.
 	 *
 	 * @link    http://docs.joomla.org/JTable/setDBO
 	 * @since   11.1
 	 */
-	public function setDBO(JDatabaseDriver $db)
+	public function setDBO(Driver $db)
 	{
 		$this->_db = $db;
 
@@ -469,7 +481,7 @@ abstract class JTable extends JObject
 	/**
 	 * Method to set rules for the record.
 	 *
-	 * @param   mixed  $input  A JAccessRules object, JSON string, or array.
+	 * @param   mixed  $input  A Rules object, JSON string, or array.
 	 *
 	 * @return  void
 	 *
@@ -477,20 +489,20 @@ abstract class JTable extends JObject
 	 */
 	public function setRules($input)
 	{
-		if ($input instanceof JAccessRules)
+		if ($input instanceof Rules)
 		{
 			$this->_rules = $input;
 		}
 		else
 		{
-			$this->_rules = new JAccessRules($input);
+			$this->_rules = new Rules($input);
 		}
 	}
 
 	/**
 	 * Method to get the rules for the record.
 	 *
-	 * @return  JAccessRules object
+	 * @return  Rules object
 	 *
 	 * @since   11.1
 	 */
@@ -765,7 +777,7 @@ abstract class JTable extends JObject
 		$asset->name      = $name;
 		$asset->title     = $title;
 
-		if ($this->_rules instanceof JAccessRules)
+		if ($this->_rules instanceof Rules)
 		{
 			$asset->rules = (string) $this->_rules;
 		}
@@ -978,7 +990,7 @@ abstract class JTable extends JObject
 		}
 
 		// Get the current time in MySQL format.
-		$time = JFactory::getDate()->toSql();
+		$time = Factory::getDate()->toSql();
 
 		// Check the row out by primary key.
 		$query = $this->_db->getQuery(true);
@@ -1172,7 +1184,7 @@ abstract class JTable extends JObject
 	public function isCheckedOut($with = 0, $against = null)
 	{
 		// Handle the non-static case.
-		if (isset($this) && ($this instanceof JTable) && is_null($against))
+		if (isset($this) && ($this instanceof Table) && is_null($against))
 		{
 			$against = $this->get('checked_out');
 		}
@@ -1183,7 +1195,7 @@ abstract class JTable extends JObject
 			return false;
 		}
 
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 		$db->setQuery('SELECT COUNT(userid)' . ' FROM ' . $db->quoteName('#__session') . ' WHERE ' . $db->quoteName('userid') . ' = ' . (int) $against);
 		$checkedOut = (boolean) $db->loadResult();
 

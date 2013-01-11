@@ -7,10 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Uri;
+
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\String\String;
+use Joomla\Factory;
+
 /**
- * JURI Class
+ * Uri Class
  *
  * This class serves two purposes. First it parses a URI and provides a common interface
  * for the Joomla Platform to access and manipulate a URI.  Second it obtains the URI of
@@ -20,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Uri
  * @since       11.1
  */
-class JUri
+class Uri
 {
 	/**
 	 * @var    string Original URI
@@ -83,7 +88,7 @@ class JUri
 	protected $vars = array();
 
 	/**
-	 * @var    array  An array of JURI instances.
+	 * @var    array  An array of Uri instances.
 	 * @since  11.1
 	 */
 	protected static $instances = array();
@@ -140,7 +145,7 @@ class JUri
 	 *
 	 * @param   string  $uri  The URI to parse.  [optional: if null uses script URI]
 	 *
-	 * @return  JURI  The URI object.
+	 * @return  Uri  The URI object.
 	 *
 	 * @since   11.1
 	 */
@@ -197,7 +202,7 @@ class JUri
 				$theURI = $uri;
 			}
 
-			self::$instances[$uri] = new JURI($theURI);
+			self::$instances[$uri] = new Uri($theURI);
 		}
 		return self::$instances[$uri];
 	}
@@ -216,7 +221,7 @@ class JUri
 		// Get the base request path.
 		if (empty(self::$base))
 		{
-			$config = JFactory::getConfig();
+			$config = Factory::getConfig();
 			$live_site = $config->get('live_site');
 
 			if (trim($live_site) != '')
@@ -339,7 +344,7 @@ class JUri
 		// Parse the URI and populate the object fields. If URI is parsed properly,
 		// set method return value to true.
 
-		$parts = JString::parse_url($uri);
+		$parts = String::parse_url($uri);
 
 		$retval = ($parts) ? true : false;
 

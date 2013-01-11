@@ -7,7 +7,18 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\User;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Utilities\ArrayHelper;
+use Joomla\Event\Dispatcher;
+use Joomla\Object\Object;
+use Joomla\Language\Text;
+use Joomla\Crypt\Crypt;
+use Joomla\Factory;
+use Joomla\Log\Log;
+use RuntimeException;
 
 /**
  * Authorisation helper class, provides static methods to perform various tasks relevant
@@ -19,7 +30,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  User
  * @since       11.1
  */
-abstract class JUserHelper
+abstract class Helper
 {
 	/**
 	 * Method to add a user to a group.
@@ -35,13 +46,13 @@ abstract class JUserHelper
 	public static function addUserToGroup($userId, $groupId)
 	{
 		// Get the user object.
-		$user = new JUser((int) $userId);
+		$user = new User((int) $userId);
 
 		// Add the user to the group if necessary.
 		if (!in_array($groupId, $user->groups))
 		{
 			// Get the title of the group.
-			$db = JFactory::getDbo();
+			$db = Factory::getDbo();
 			$query = $db->getQuery(true);
 			$query->select($db->quoteName('title'));
 			$query->from($db->quoteName('#__usergroups'));
@@ -63,11 +74,11 @@ abstract class JUserHelper
 		}
 
 		// Set the group data for any preloaded user objects.
-		$temp = JFactory::getUser((int) $userId);
+		$temp = Factory::getUser((int) $userId);
 		$temp->groups = $user->groups;
 
 		// Set the group data for the user object in the session.
-		$temp = JFactory::getUser();
+		$temp = Factory::getUser();
 
 		if ($temp->id == $userId)
 		{
@@ -89,7 +100,7 @@ abstract class JUserHelper
 	public static function getUserGroups($userId)
 	{
 		// Get the user object.
-		$user = JUser::getInstance((int) $userId);
+		$user = User::getInstance((int) $userId);
 
 		return isset($user->groups) ? $user->groups : array();
 	}
@@ -107,7 +118,7 @@ abstract class JUserHelper
 	public static function removeUserFromGroup($userId, $groupId)
 	{
 		// Get the user object.
-		$user = JUser::getInstance((int) $userId);
+		$user = User::getInstance((int) $userId);
 
 		// Remove the user from the group if necessary.
 		$key = array_search($groupId, $user->groups);
@@ -122,11 +133,11 @@ abstract class JUserHelper
 		}
 
 		// Set the group data for any preloaded user objects.
-		$temp = JFactory::getUser((int) $userId);
+		$temp = Factory::getUser((int) $userId);
 		$temp->groups = $user->groups;
 
 		// Set the group data for the user object in the session.
-		$temp = JFactory::getUser();
+		$temp = Factory::getUser();
 
 		if ($temp->id == $userId)
 		{
@@ -149,14 +160,14 @@ abstract class JUserHelper
 	public static function setUserGroups($userId, $groups)
 	{
 		// Get the user object.
-		$user = JUser::getInstance((int) $userId);
+		$user = User::getInstance((int) $userId);
 
 		// Set the group ids.
-		JArrayHelper::toInteger($groups);
+		ArrayHelper::toInteger($groups);
 		$user->groups = $groups;
 
 		// Get the titles for the user groups.
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select($db->quoteName('id') . ', ' . $db->quoteName('title'));
 		$query->from($db->quoteName('#__usergroups'));
@@ -174,11 +185,11 @@ abstract class JUserHelper
 		$user->save();
 
 		// Set the group data for any preloaded user objects.
-		$temp = JFactory::getUser((int) $userId);
+		$temp = Factory::getUser((int) $userId);
 		$temp->groups = $user->groups;
 
 		// Set the group data for the user object in the session.
-		$temp = JFactory::getUser();
+		$temp = Factory::getUser();
 
 		if ($temp->id == $userId)
 		{
@@ -201,15 +212,15 @@ abstract class JUserHelper
 	{
 		if ($userId == 0)
 		{
-			$user	= JFactory::getUser();
+			$user	= Factory::getUser();
 			$userId	= $user->id;
 		}
 
 		// Get the dispatcher and load the user's plugins.
-		$dispatcher	= JEventDispatcher::getInstance();
-		JPluginHelper::importPlugin('user');
+		$dispatcher	= Dispatcher::getInstance();
+		Helper::importPlugin('user');
 
-		$data = new JObject;
+		$data = new Object;
 		$data->id = $userId;
 
 		// Trigger the data preparation event.
@@ -230,7 +241,7 @@ abstract class JUserHelper
 	public static function activateUser($activation)
 	{
 		// Initialize some variables.
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 
 		// Let's get the id of the user we want to activate
@@ -245,7 +256,7 @@ abstract class JUserHelper
 		// Is it a valid user to activate?
 		if ($id)
 		{
-			$user = JUser::getInstance((int) $id);
+			$user = User::getInstance((int) $id);
 
 			$user->set('block', '0');
 			$user->set('activation', '');
@@ -253,14 +264,14 @@ abstract class JUserHelper
 			// Time to take care of business.... store the user.
 			if (!$user->save())
 			{
-				JLog::add($user->getError(), JLog::WARNING, 'jerror');
+				Log::add($user->getError(), Log::WARNING, 'jerror');
 
 				return false;
 			}
 		}
 		else
 		{
-			JLog::add(JText::_('JLIB_USER_ERROR_UNABLE_TO_FIND_USER'), JLog::WARNING, 'jerror');
+			Log::add(Text::_('JLIB_USER_ERROR_UNABLE_TO_FIND_USER'), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -280,7 +291,7 @@ abstract class JUserHelper
 	public static function getUserId($username)
 	{
 		// Initialise some variables
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select($db->quoteName('id'));
 		$query->from($db->quoteName('#__users'));
@@ -532,7 +543,7 @@ abstract class JUserHelper
 		 * distribution is even, and randomize the start shift so it's not
 		 * predictable.
 		 */
-		$random = JCrypt::genRandomBytes($length + 1);
+		$random = Crypt::genRandomBytes($length + 1);
 		$shift = ord($random[0]);
 
 		for ($i = 1; $i <= $length; ++$i)

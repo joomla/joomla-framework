@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -14,7 +16,7 @@ defined('JPATH_PLATFORM') or die;
  * @package  Joomla.Platform
  * @since    11.1
  */
-abstract class JFactory
+abstract class Factory
 {
 	/**
 	 * @var    JApplication

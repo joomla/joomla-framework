@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Model;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Driver;
+use Joomla\Registry\Registry;
+use Joomla\Factory;
 
 /**
  * Joomla Platform Database Model Class
@@ -16,12 +22,12 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Model
  * @since       12.1
  */
-abstract class JModelDatabase extends JModelBase
+abstract class Database extends Base
 {
 	/**
 	 * The database driver.
 	 *
-	 * @var    JDatabaseDriver
+	 * @var    Driver
 	 * @since  12.1
 	 */
 	protected $db;
@@ -29,12 +35,12 @@ abstract class JModelDatabase extends JModelBase
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   JRegistry        $state  The model state.
-	 * @param   JDatabaseDriver  $db     The database adpater.
+	 * @param   Registry  $state  The model state.
+	 * @param   Driver    $db     The database adpater.
 	 *
 	 * @since   12.1
 	 */
-	public function __construct(JRegistry $state = null, JDatabaseDriver $db = null)
+	public function __construct(Registry $state = null, Driver $db = null)
 	{
 		parent::__construct($state);
 
@@ -45,7 +51,7 @@ abstract class JModelDatabase extends JModelBase
 	/**
 	 * Get the database driver.
 	 *
-	 * @return  JDatabaseDriver  The database driver.
+	 * @return  Driver  The database driver.
 	 *
 	 * @since   12.1
 	 */
@@ -57,13 +63,13 @@ abstract class JModelDatabase extends JModelBase
 	/**
 	 * Set the database driver.
 	 *
-	 * @param   JDatabaseDriver  $db  The database driver.
+	 * @param   Driver  $db  The database driver.
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
 	 */
-	public function setDb(JDatabaseDriver $db)
+	public function setDb(Driver $db)
 	{
 		$this->db = $db;
 	}
@@ -71,12 +77,12 @@ abstract class JModelDatabase extends JModelBase
 	/**
 	 * Load the database driver.
 	 *
-	 * @return  JDatabaseDriver  The database driver.
+	 * @return  Driver  The database driver.
 	 *
 	 * @since   12.1
 	 */
 	protected function loadDb()
 	{
-		return JFactory::getDbo();
+		return Factory::getDbo();
 	}
 }

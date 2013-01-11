@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\View;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  View
  * @since       12.1
  */
-interface JView
+interface View
 {
 	/**
 	 * Method to escape output.
@@ -35,7 +37,7 @@ interface JView
 	 * @return  string  The rendered view.
 	 *
 	 * @since   12.1
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function render();
 }

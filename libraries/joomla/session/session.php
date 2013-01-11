@@ -7,7 +7,18 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Session;
+
 defined('JPATH_PLATFORM') or die;
+
+//@todo dependency on legacy JApplication here
+use Joomla\Application\Route;
+use Joomla\Event\Dispatcher;
+use Joomla\Language\Text;
+use Joomla\Input\Input;
+use Joomla\Factory;
+use IteratorAggregate;
+use ArrayIterator;
 
 /**
  * Class for managing HTTP sessions
@@ -44,7 +55,7 @@ class JSession implements IteratorAggregate
 	/**
 	 * The session store object.
 	 *
-	 * @var    JSessionStorage
+	 * @var    Storage
 	 * @since  11.1
 	 */
 	protected $_store = null;
@@ -86,7 +97,7 @@ class JSession implements IteratorAggregate
 	/**
 	 * Holds the JInput object
 	 *
-	 * @var    JInput
+	 * @var    Input
 	 * @since  12.2
 	 */
 	private $_input = null;
@@ -94,7 +105,7 @@ class JSession implements IteratorAggregate
 	/**
 	 * Holds the event dispatcher object
 	 *
-	 * @var    JEventDispatcher
+	 * @var    Dispatcher
 	 * @since  12.2
 	 */
 	private $_dispatcher = null;
@@ -123,7 +134,7 @@ class JSession implements IteratorAggregate
 		ini_set('session.use_only_cookies', '1');
 
 		// Create handler
-		$this->_store = JSessionStorage::getInstance($store, $options);
+		$this->_store = Storage::getInstance($store, $options);
 
 		$this->storeName = $store;
 
@@ -271,8 +282,8 @@ class JSession implements IteratorAggregate
 	 */
 	public static function getFormToken($forceNew = false)
 	{
-		$user    = JFactory::getUser();
-		$session = JFactory::getSession();
+		$user    = Factory::getUser();
+		$session = Factory::getSession();
 
 		// TODO: Decouple from legacy JApplication class.
 		if (is_callable(array('JApplication', 'getHash')))
@@ -281,7 +292,7 @@ class JSession implements IteratorAggregate
 		}
 		else
 		{
-			$hash = md5(JFactory::getApplication()->get('secret') . $user->get('id', 0) . $session->getToken($forceNew));
+			$hash = md5(Factory::getApplication()->get('secret') . $user->get('id', 0) . $session->getToken($forceNew));
 		}
 
 		return $hash;
@@ -313,16 +324,16 @@ class JSession implements IteratorAggregate
 	public static function checkToken($method = 'post')
 	{
 		$token = self::getFormToken();
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		if (!$app->input->$method->get($token, '', 'alnum'))
 		{
-			$session = JFactory::getSession();
+			$session = Factory::getSession();
 
 			if ($session->isNew())
 			{
 				// Redirect to login screen.
-				$app->redirect(JRoute::_('index.php'), JText::_('JLIB_ENVIRONMENT_SESSION_EXPIRED'));
+				$app->redirect(Route::_('index.php'), Text::_('JLIB_ENVIRONMENT_SESSION_EXPIRED'));
 				$app->close();
 			}
 			else
@@ -382,7 +393,7 @@ class JSession implements IteratorAggregate
 		$connectors = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new DirectoryIterator(__DIR__ . '/storage');
+		$iterator = new \DirectoryIterator(__DIR__ . '/storage');
 
 		foreach ($iterator as $file)
 		{
@@ -444,14 +455,14 @@ class JSession implements IteratorAggregate
 	/**
 	 * Check whether this session is currently created
 	 *
-	 * @param   JInput            $input       JInput object for the session to use.
-	 * @param   JEventDispatcher  $dispatcher  Dispatcher object for the session to use.
+	 * @param   Input       $input       Input object for the session to use.
+	 * @param   Dispatcher  $dispatcher  Dispatcher object for the session to use.
 	 *
 	 * @return  void.
 	 *
 	 * @since   12.2
 	 */
-	public function initialise(JInput $input, JEventDispatcher $dispatcher = null)
+	public function initialise(Input $input, Dispatcher $dispatcher = null)
 	{
 		$this->_input      = $input;
 		$this->_dispatcher = $dispatcher;
@@ -605,7 +616,7 @@ class JSession implements IteratorAggregate
 		// Perform security checks
 		$this->_validate();
 
-		if ($this->_dispatcher instanceof JEventDispatcher)
+		if ($this->_dispatcher instanceof Dispatcher)
 		{
 			$this->_dispatcher->trigger('onAfterSessionStart');
 		}
@@ -689,7 +700,7 @@ class JSession implements IteratorAggregate
 		 */
 		if (isset($_COOKIE[session_name()]))
 		{
-			$config = JFactory::getConfig();
+			$config = Factory::getConfig();
 			$cookie_domain = $config->get('cookie_domain', '');
 			$cookie_path = $config->get('cookie_path', '/');
 			setcookie(session_name(), '', time() - 42000, $cookie_path, $cookie_domain);
@@ -811,7 +822,7 @@ class JSession implements IteratorAggregate
 			$cookie['secure'] = true;
 		}
 
-		$config = JFactory::getConfig();
+		$config = Factory::getConfig();
 
 		if ($config->get('cookie_domain', '') != '')
 		{

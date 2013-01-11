@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Session\Storage;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Session\Storage;
+use RuntimeException;
 
 /**
  * XCache session storage handler
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Session
  * @since       11.1
  */
-class JSessionStorageXcache extends JSessionStorage
+class Xcache extends Storage
 {
 	/**
 	 * Constructor

@@ -7,16 +7,18 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Utilities;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
- * JUtility is a utility functions class
+ * Utility is a utility functions class
  *
  * @package     Joomla.Platform
  * @subpackage  Utilities
  * @since       11.1
  */
-class JUtility
+class Utility
 {
 	/**
 	 * Method to extract key/value pairs out of a string with XML style attributes

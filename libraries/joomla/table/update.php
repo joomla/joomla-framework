@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Table;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
+use Joomla\Database\Driver;
+use Joomla\Language\Text;
 
 /**
  * Update table
@@ -17,16 +23,16 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Table
  * @since       11.1
  */
-class JTableUpdate extends JTable
+class Update extends Table
 {
 	/**
 	 * Constructor
 	 *
-	 * @param   JDatabaseDriver  $db  Database driver object.
+	 * @param   Driver  $db  Database driver object.
 	 *
 	 * @since   11.1
 	 */
-	public function __construct(JDatabaseDriver $db)
+	public function __construct(Driver $db)
 	{
 		parent::__construct('#__updates', 'update_id', $db);
 	}
@@ -44,7 +50,7 @@ class JTableUpdate extends JTable
 		// Check for valid name
 		if (trim($this->name) == '' || trim($this->element) == '')
 		{
-			$this->setError(JText::_('JLIB_DATABASE_ERROR_MUSTCONTAIN_A_TITLE_EXTENSION'));
+			$this->setError(Text::_('JLIB_DATABASE_ERROR_MUSTCONTAIN_A_TITLE_EXTENSION'));
 
 			return false;
 		}
@@ -67,14 +73,14 @@ class JTableUpdate extends JTable
 	{
 		if (isset($array['params']) && is_array($array['params']))
 		{
-			$registry = new JRegistry;
+			$registry = new Registry;
 			$registry->loadArray($array['params']);
 			$array['params'] = (string) $registry;
 		}
 
 		if (isset($array['control']) && is_array($array['control']))
 		{
-			$registry = new JRegistry;
+			$registry = new Registry;
 			$registry->loadArray($array['control']);
 			$array['control'] = (string) $registry;
 		}

@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Table;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Database\Driver;
+use Joomla\Language\Text;
+use UnexpectedValueException;
 
 /**
  * Usergroup table class.
@@ -16,16 +22,16 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Table
  * @since       11.1
  */
-class JTableUsergroup extends JTable
+class Usergroup extends Table
 {
 	/**
 	 * Constructor
 	 *
-	 * @param   JDatabaseDriver  $db  Database driver object.
+	 * @param   Driver  $db  Database driver object.
 	 *
 	 * @since   11.1
 	 */
-	public function __construct(JDatabaseDriver $db)
+	public function __construct(Driver $db)
 	{
 		parent::__construct('#__usergroups', 'id', $db);
 	}
@@ -42,7 +48,7 @@ class JTableUsergroup extends JTable
 		// Validate the title.
 		if ((trim($this->title)) == '')
 		{
-			$this->setError(JText::_('JLIB_DATABASE_ERROR_USERGROUP_TITLE'));
+			$this->setError(Text::_('JLIB_DATABASE_ERROR_USERGROUP_TITLE'));
 
 			return false;
 		}
@@ -60,7 +66,7 @@ class JTableUsergroup extends JTable
 
 		if ($db->loadResult() > 0)
 		{
-			$this->setError(JText::_('JLIB_DATABASE_ERROR_USERGROUP_TITLE_EXISTS'));
+			$this->setError(Text::_('JLIB_DATABASE_ERROR_USERGROUP_TITLE_EXISTS'));
 
 			return false;
 		}

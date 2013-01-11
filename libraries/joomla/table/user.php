@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Table;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Utilities\ArrayHelper;
+use Joomla\Registry\Registry;
+use Joomla\Database\Driver;
+use Joomla\Language\Text;
+use Joomla\Mail\Helper;
+use Joomla\Factory;
 
 /**
  * Users table
@@ -16,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Table
  * @since       11.1
  */
-class JTableUser extends JTable
+class User extends Table
 {
 	/**
 	 * Associative array of group ids => group ids for the user
@@ -29,11 +38,11 @@ class JTableUser extends JTable
 	/**
 	 * Constructor
 	 *
-	 * @param   JDatabaseDriver  $db  Database driver object.
+	 * @param   Driver  $db  Database driver object.
 	 *
 	 * @since  11.1
 	 */
-	public function __construct(JDatabaseDriver $db)
+	public function __construct(Driver $db)
 	{
 		parent::__construct('#__users', 'id', $db);
 
@@ -123,7 +132,7 @@ class JTableUser extends JTable
 	{
 		if (array_key_exists('params', $array) && is_array($array['params']))
 		{
-			$registry = new JRegistry;
+			$registry = new Registry;
 			$registry->loadArray($array['params']);
 			$array['params'] = (string) $registry;
 		}
@@ -135,7 +144,7 @@ class JTableUser extends JTable
 		if ($return && !empty($this->groups))
 		{
 			// Set the group ids.
-			JArrayHelper::toInteger($this->groups);
+			ArrayHelper::toInteger($this->groups);
 
 			// Get the titles for the user groups.
 			$query = $this->_db->getQuery(true);
@@ -171,28 +180,28 @@ class JTableUser extends JTable
 		// Validate user information
 		if (trim($this->name) == '')
 		{
-			$this->setError(JText::_('JLIB_DATABASE_ERROR_PLEASE_ENTER_YOUR_NAME'));
+			$this->setError(Text::_('JLIB_DATABASE_ERROR_PLEASE_ENTER_YOUR_NAME'));
 
 			return false;
 		}
 
 		if (trim($this->username) == '')
 		{
-			$this->setError(JText::_('JLIB_DATABASE_ERROR_PLEASE_ENTER_A_USER_NAME'));
+			$this->setError(Text::_('JLIB_DATABASE_ERROR_PLEASE_ENTER_A_USER_NAME'));
 
 			return false;
 		}
 
 		if (preg_match("#[<>\"'%;()&]#i", $this->username) || strlen(utf8_decode($this->username)) < 2)
 		{
-			$this->setError(JText::sprintf('JLIB_DATABASE_ERROR_VALID_AZ09', 2));
+			$this->setError(Text::sprintf('JLIB_DATABASE_ERROR_VALID_AZ09', 2));
 
 			return false;
 		}
 
-		if ((trim($this->email) == "") || !JMailHelper::isEmailAddress($this->email))
+		if ((trim($this->email) == "") || !Helper::isEmailAddress($this->email))
 		{
-			$this->setError(JText::_('JLIB_DATABASE_ERROR_VALID_MAIL'));
+			$this->setError(Text::_('JLIB_DATABASE_ERROR_VALID_MAIL'));
 
 			return false;
 		}
@@ -200,7 +209,7 @@ class JTableUser extends JTable
 		// Set the registration timestamp
 		if (empty($this->registerDate) || $this->registerDate == $this->_db->getNullDate())
 		{
-			$this->registerDate = JFactory::getDate()->toSql();
+			$this->registerDate = Factory::getDate()->toSql();
 		}
 
 		// Set the lastvisitDate timestamp
@@ -221,7 +230,7 @@ class JTableUser extends JTable
 
 		if ($xid && $xid != (int) $this->id)
 		{
-			$this->setError(JText::_('JLIB_DATABASE_ERROR_USERNAME_INUSE'));
+			$this->setError(Text::_('JLIB_DATABASE_ERROR_USERNAME_INUSE'));
 
 			return false;
 		}
@@ -237,13 +246,13 @@ class JTableUser extends JTable
 
 		if ($xid && $xid != (int) $this->id)
 		{
-			$this->setError(JText::_('JLIB_DATABASE_ERROR_EMAIL_INUSE'));
+			$this->setError(Text::_('JLIB_DATABASE_ERROR_EMAIL_INUSE'));
 
 			return false;
 		}
 
 		// Check for root_user != username
-		$config = JFactory::getConfig();
+		$config = Factory::getConfig();
 		$rootUser = $config->get('root_user');
 
 		if (!is_numeric($rootUser))
@@ -258,7 +267,7 @@ class JTableUser extends JTable
 			if ($rootUser == $this->username && (!$xid || $xid && $xid != (int) $this->id)
 				|| $xid && $xid == (int) $this->id && $rootUser != $this->username)
 			{
-				$this->setError(JText::_('JLIB_DATABASE_ERROR_USERNAME_CANNOT_CHANGE'));
+				$this->setError(Text::_('JLIB_DATABASE_ERROR_USERNAME_CANNOT_CHANGE'));
 
 				return false;
 			}
@@ -419,7 +428,7 @@ class JTableUser extends JTable
 		}
 
 		// If no timestamp value is passed to function, than current time is used.
-		$date = JFactory::getDate($timeStamp);
+		$date = Factory::getDate($timeStamp);
 
 		// Update the database row for the user.
 		$db = $this->_db;
