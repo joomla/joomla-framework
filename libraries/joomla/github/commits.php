@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       12.1
  */
-class JGithubCommits extends JGithubObject
+class Commits extends Object
 {
 	/**
 	 * Method to create a commit.

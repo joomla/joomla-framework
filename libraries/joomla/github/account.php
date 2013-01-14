@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use DomainException;
+use RuntimeException;
 
 /**
  * GitHub API Account class for the Joomla Platform.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       12.3
  */
-class JGithubAccount extends JGithubObject
+class Account extends Object
 {
 	/**
 	 * Method to create an authorisation.

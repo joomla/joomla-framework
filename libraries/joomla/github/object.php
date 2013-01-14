@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Environment\Uri;
+use Joomla\Registry\Registry;
 
 /**
  * GitHub API object class for the Joomla Platform.
@@ -16,16 +21,16 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       11.3
  */
-abstract class JGithubObject
+abstract class Object
 {
 	/**
-	 * @var    JRegistry  Options for the GitHub object.
+	 * @var    Registry  Options for the GitHub object.
 	 * @since  11.3
 	 */
 	protected $options;
 
 	/**
-	 * @var    JGithubHttp  The HTTP client object to use in sending HTTP requests.
+	 * @var    Http  The HTTP client object to use in sending HTTP requests.
 	 * @since  11.3
 	 */
 	protected $client;
@@ -33,15 +38,15 @@ abstract class JGithubObject
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry    $options  GitHub options object.
-	 * @param   JGithubHttp  $client   The HTTP client object.
+	 * @param   Registry    $options  GitHub options object.
+	 * @param   Http  $client   The HTTP client object.
 	 *
 	 * @since   11.3
 	 */
-	public function __construct(JRegistry $options = null, JGithubHttp $client = null)
+	public function __construct(Registry $options = null, Http $client = null)
 	{
-		$this->options = isset($options) ? $options : new JRegistry;
-		$this->client = isset($client) ? $client : new JGithubHttp($this->options);
+		$this->options = isset($options) ? $options : new Registry;
+		$this->client = isset($client) ? $client : new Http($this->options);
 	}
 
 	/**
@@ -60,7 +65,7 @@ abstract class JGithubObject
 	protected function fetchUrl($path, $page = 0, $limit = 0)
 	{
 		// Get a new JUri object fousing the api url and given path.
-		$uri = new JUri($this->options->get('api.url') . $path);
+		$uri = new Uri($this->options->get('api.url') . $path);
 
 		if ($this->options->get('api.username', false))
 		{

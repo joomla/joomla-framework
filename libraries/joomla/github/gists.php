@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use DomainException;
+use InvalidArgumentException;
 
 /**
  * GitHub API Gists class for the Joomla Platform.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       11.3
  */
-class JGithubGists extends JGithubObject
+class Gists extends Object
 {
 	/**
 	 * Method to create a gist.

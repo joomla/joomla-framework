@@ -7,27 +7,31 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
 
 /**
  * Joomla Platform class for interacting with a GitHub server instance.
  *
- * @property-read  JGithubGists       $gists       GitHub API object for gists.
- * @property-read  JGithubIssues      $issues      GitHub API object for issues.
- * @property-read  JGithubPulls       $pulls       GitHub API object for pulls.
- * @property-read  JGithubRefs        $refs        GitHub API object for referencess.
- * @property-read  JGithubForks       $forks       GitHub API object for forks.
- * @property-read  JGithubCommits     $commits     GitHub API object for commits.
- * @property-read  JGithubMilestones  $milestones  GitHub API object for commits.
- * @property-read  JGithubStatuses    $statuses    GitHub API object for commits.
- * @property-read  JGithubAccount     $account     GitHub API object for account references.
- * @property-read  JGithubHooks       $hooks       GitHub API object for hooks.
+ * @property-read  Gists       $gists       GitHub API object for gists.
+ * @property-read  Issues      $issues      GitHub API object for issues.
+ * @property-read  Pulls       $pulls       GitHub API object for pulls.
+ * @property-read  Refs        $refs        GitHub API object for referencess.
+ * @property-read  Forks       $forks       GitHub API object for forks.
+ * @property-read  Commits     $commits     GitHub API object for commits.
+ * @property-read  Milestones  $milestones  GitHub API object for commits.
+ * @property-read  Statuses    $statuses    GitHub API object for commits.
+ * @property-read  Account     $account     GitHub API object for account references.
+ * @property-read  Hooks       $hooks       GitHub API object for hooks.
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub
  * @since       11.3
  */
-class JGithub
+class Github
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.
@@ -109,10 +113,10 @@ class JGithub
 	 *
 	 * @since   11.3
 	 */
-	public function __construct(JRegistry $options = null, JGithubHttp $client = null)
+	public function __construct(Registry $options = null, Http $client = null)
 	{
-		$this->options = isset($options) ? $options : new JRegistry;
-		$this->client  = isset($client) ? $client : new JGithubHttp($this->options);
+		$this->options = isset($options) ? $options : new Registry;
+		$this->client  = isset($client) ? $client : new Http($this->options);
 
 		// Setup the default API url if not already set.
 		$this->options->def('api.url', 'https://api.github.com');
@@ -133,7 +137,7 @@ class JGithub
 		{
 			if ($this->gists == null)
 			{
-				$this->gists = new JGithubGists($this->options, $this->client);
+				$this->gists = new Gists($this->options, $this->client);
 			}
 			return $this->gists;
 		}
@@ -142,7 +146,7 @@ class JGithub
 		{
 			if ($this->issues == null)
 			{
-				$this->issues = new JGithubIssues($this->options, $this->client);
+				$this->issues = new Issues($this->options, $this->client);
 			}
 			return $this->issues;
 		}
@@ -151,7 +155,7 @@ class JGithub
 		{
 			if ($this->pulls == null)
 			{
-				$this->pulls = new JGithubPulls($this->options, $this->client);
+				$this->pulls = new Pulls($this->options, $this->client);
 			}
 			return $this->pulls;
 		}
@@ -160,7 +164,7 @@ class JGithub
 		{
 			if ($this->refs == null)
 			{
-				$this->refs = new JGithubRefs($this->options, $this->client);
+				$this->refs = new Refs($this->options, $this->client);
 			}
 			return $this->refs;
 		}
@@ -169,7 +173,7 @@ class JGithub
 		{
 			if ($this->forks == null)
 			{
-				$this->forks = new JGithubForks($this->options, $this->client);
+				$this->forks = new Forks($this->options, $this->client);
 			}
 			return $this->forks;
 		}
@@ -178,7 +182,7 @@ class JGithub
 		{
 			if ($this->commits == null)
 			{
-				$this->commits = new JGithubCommits($this->options, $this->client);
+				$this->commits = new Commits($this->options, $this->client);
 			}
 			return $this->commits;
 		}
@@ -187,7 +191,7 @@ class JGithub
 		{
 			if ($this->milestones == null)
 			{
-				$this->milestones = new JGithubMilestones($this->options, $this->client);
+				$this->milestones = new Milestones($this->options, $this->client);
 			}
 			return $this->milestones;
 		}
@@ -196,7 +200,7 @@ class JGithub
 		{
 			if ($this->statuses == null)
 			{
-				$this->statuses = new JGithubStatuses($this->options, $this->client);
+				$this->statuses = new Statuses($this->options, $this->client);
 			}
 			return $this->statuses;
 		}
@@ -205,7 +209,7 @@ class JGithub
 		{
 			if ($this->account == null)
 			{
-				$this->account = new JGithubAccount($this->options, $this->client);
+				$this->account = new Account($this->options, $this->client);
 			}
 			return $this->account;
 		}
@@ -214,7 +218,7 @@ class JGithub
 		{
 			if ($this->hooks == null)
 			{
-				$this->hooks = new JGithubHooks($this->options, $this->client);
+				$this->hooks = new Hooks($this->options, $this->client);
 			}
 			return $this->hooks;
 		}

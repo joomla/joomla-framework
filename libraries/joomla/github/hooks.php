@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use DomainException;
+use RuntimeException;
 
 /**
  * GitHub API Hooks class for the Joomla Platform.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       12.3
  */
-class JGithubHooks extends JGithubObject
+class Hooks extends Object
 {
 	/**
 	 * Array containing the allowed hook events

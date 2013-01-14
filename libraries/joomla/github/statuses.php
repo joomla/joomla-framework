@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use InvalidArgumentException;
+use DomainException;
 
 /**
  * GitHub API References class for the Joomla Platform.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       12.3
  */
-class JGithubStatuses extends JGithubObject
+class Statuses extends Object
 {
 	/**
 	 * Method to create a status.

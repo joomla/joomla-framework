@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use DomainException;
 
 /**
  * GitHub API Milestones class for the Joomla Platform.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       12.3
  */
-class JGithubMilestones extends JGithubObject
+class Milestones extends Object
 {
 	/**
 	 * Method to get the list of milestones for a repo.

@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use DomainException;
 
 /**
  * GitHub API Issues class for the Joomla Platform.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       11.3
  */
-class JGithubIssues extends JGithubObject
+class Issues extends Object
 {
 	/**
 	 * Method to create an issue.

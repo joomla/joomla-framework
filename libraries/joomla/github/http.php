@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Http\Http as HttpHttp;
+use Joomla\Http\Transport;
+use Joomla\Registry\Registry;
 
 /**
  * HTTP client class for connecting to a GitHub instance.
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  GitHub
  * @since       11.3
  */
-class JGithubHttp extends JHttp
+class Http extends HttpHttp
 {
 	/**
 	 * @const  integer  Use no authentication for HTTP connections.
@@ -39,12 +45,12 @@ class JGithubHttp extends JHttp
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry       $options    Client options object.
-	 * @param   JHttpTransport  $transport  The HTTP transport object.
+	 * @param   Registry   $options    Client options object.
+	 * @param   Transport  $transport  The HTTP transport object.
 	 *
 	 * @since   11.3
 	 */
-	public function __construct(JRegistry $options = null, JHttpTransport $transport = null)
+	public function __construct(Registry $options = null, Transport $transport = null)
 	{
 		// Call the JHttp constructor to setup the object.
 		parent::__construct($options, $transport);
