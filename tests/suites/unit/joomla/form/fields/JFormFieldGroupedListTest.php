@@ -25,7 +25,6 @@ class JFormFieldGroupedListTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		require_once JPATH_PLATFORM . '/joomla/form/fields/groupedlist.php';
 		include_once dirname(__DIR__) . '/inspectors.php';
 	}
 

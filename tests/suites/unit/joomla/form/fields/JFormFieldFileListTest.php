@@ -27,7 +27,6 @@ class JFormFieldFileListTest extends TestCase
 	{
 		parent::setUp();
 
-		require_once JPATH_PLATFORM . '/joomla/form/fields/filelist.php';
 		include_once dirname(__DIR__) . '/inspectors.php';
 	}
 

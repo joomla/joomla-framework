@@ -27,7 +27,6 @@ class JFormFieldLanguageTest extends TestCaseDatabase
 	{
 		parent::setUp();
 
-		require_once JPATH_PLATFORM . '/joomla/form/fields/language.php';
 		include_once dirname(__DIR__) . '/inspectors.php';
 	}
 

@@ -40,9 +40,6 @@ class JCacheStorageApcTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		include_once JPATH_PLATFORM . '/joomla/cache/storage.php';
-		include_once JPATH_PLATFORM . '/joomla/cache/storage/apc.php';
-
 		$this->object = JCacheStorage::getInstance('apc');
 		$this->apcAvailable = extension_loaded('apc');
 	}

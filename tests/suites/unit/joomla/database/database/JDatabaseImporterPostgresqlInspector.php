@@ -7,8 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-require_once JPATH_PLATFORM . '/joomla/database/importer/postgresql.php';
-
 /**
  * Class to expose protected properties and methods in JDatabasePostgresqlImporter for testing purposes
  *

@@ -7,9 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/image/filter.php';
-require_once JPATH_PLATFORM . '/joomla/image/filter/contrast.php';
-
 /**
  * Test class for JImage.
  *

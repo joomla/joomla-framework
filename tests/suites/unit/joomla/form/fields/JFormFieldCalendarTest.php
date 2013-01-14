@@ -7,6 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+// Include our inspector which will allow us to manipulate and call protected methods and attributes
+require_once __DIR__ . '/inspectors/JFormFieldCalendar.php';
+
 /**
  * Test class for JForm.
  *
@@ -26,7 +29,6 @@ class JFormFieldCalendarTest extends TestCase
 	{
 		parent::setUp();
 
-		require_once JPATH_PLATFORM . '/joomla/form/fields/calendar.php';
 		include_once dirname(__DIR__) . '/inspectors.php';
 		$this->saveFactoryState();
 	}
@@ -291,8 +293,6 @@ class JFormFieldCalendarTest extends TestCase
 		// Put the stub in place
 		JFactory::$config = $config;
 		$sessionMock = $this->getMock('sessionMock', array('get'));
-
-		require_once JPATH_PLATFORM . '/joomla/user/user.php';
 		$userObject = new JUser;
 
 		$sessionMock->expects($this->any())
@@ -303,8 +303,6 @@ class JFormFieldCalendarTest extends TestCase
 		// Put the stub in place
 		JFactory::$session = $sessionMock;
 
-		// Include our inspector which will allow us to manipulate and call protected methods and attributes
-		require_once __DIR__ . '/inspectors/JFormFieldCalendar.php';
 		$calendar = new JFormFieldCalendarInspector;
 
 		if ($expectedParameters[0] == 'strftime(\'%Y-%m-%d\')')
@@ -350,8 +348,6 @@ class JFormFieldCalendarTest extends TestCase
 		// Put the stub in place
 		JFactory::$config = $config;
 		$sessionMock = $this->getMock('sessionMock', array('get'));
-
-		require_once JPATH_PLATFORM . '/joomla/user/user.php';
 		$userObject = new JUser;
 
 		$sessionMock->expects($this->any())
@@ -370,8 +366,6 @@ class JFormFieldCalendarTest extends TestCase
 		// Put the stub in place
 		JFactory::$language = $languageMock;
 
-		// Include our inspector which will allow us to manipulate and call protected methods and attributes
-		require_once __DIR__ . '/inspectors/JFormFieldCalendar.php';
 		$calendar = new JFormFieldCalendarInspector;
 
 		// Setup our values from our data set
@@ -437,8 +431,6 @@ class JFormFieldCalendarTest extends TestCase
 		// Put the stub in place
 		JFactory::$config = $config;
 		$sessionMock = $this->getMock('sessionMock', array('get'));
-
-		require_once JPATH_PLATFORM . '/joomla/user/user.php';
 		$userObject = new JUser;
 
 		$sessionMock->expects($this->any())
@@ -457,8 +449,6 @@ class JFormFieldCalendarTest extends TestCase
 		// Put the stub in place
 		JFactory::$language = $languageMock;
 
-		// Include our inspector which will allow us to manipulate and call protected methods and attributes
-		require_once __DIR__ . '/inspectors/JFormFieldCalendar.php';
 		$calendar = new JFormFieldCalendarInspector;
 
 		// Setup our values from our data set

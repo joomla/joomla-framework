@@ -7,8 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/utilities/arrayhelper.php';
-
 /**
  * JArrayHelperTest
  *
@@ -1362,8 +1360,6 @@ class JArrayHelperTest extends PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		parent::setUp();
-
-		require_once JPATH_PLATFORM . '/joomla/string/string.php';
 	}
 
 	/**

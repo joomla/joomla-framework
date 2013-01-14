@@ -6,8 +6,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/plugin/helper.php';
-
 /**
  * Inspector for the JPluginHelper class.
  *

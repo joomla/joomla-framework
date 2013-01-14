@@ -24,7 +24,6 @@ class JFormFieldComboTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		require_once JPATH_PLATFORM . '/joomla/form/fields/combo.php';
 		include_once dirname(__DIR__) . '/inspectors.php';
 	}
 

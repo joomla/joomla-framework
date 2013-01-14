@@ -25,7 +25,6 @@ class JFormFieldCheckboxesTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		require_once JPATH_PLATFORM . '/joomla/form/fields/checkboxes.php';
 	}
 
 	/**

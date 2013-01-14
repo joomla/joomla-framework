@@ -6,8 +6,6 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-jimport('joomla.filesystem.folder');
-
 require_once __DIR__ . '/JLanguageInspector.php';
 require_once __DIR__ . '/data/language/en-GB/en-GB.localise.php';
 

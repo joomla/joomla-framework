@@ -39,9 +39,6 @@ class JCacheStorageMemcacheTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		include_once JPATH_PLATFORM . '/joomla/cache/storage.php';
-		include_once JPATH_PLATFORM . '/joomla/cache/storage/memcache.php';
-
 		$memcachetest = false;
 
 		if (!extension_loaded('memcache') || !class_exists('Memcache'))

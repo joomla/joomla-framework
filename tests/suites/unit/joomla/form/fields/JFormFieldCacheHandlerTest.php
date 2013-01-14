@@ -27,7 +27,6 @@ class JFormFieldCacheHandlerTest extends TestCase
 	{
 		parent::setUp();
 
-		require_once JPATH_PLATFORM . '/joomla/form/fields/cachehandler.php';
 		include_once dirname(__DIR__) . '/inspectors.php';
 	}
 

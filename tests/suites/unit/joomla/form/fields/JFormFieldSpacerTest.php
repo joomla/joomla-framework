@@ -26,7 +26,6 @@ class JFormFieldSpacerTest extends TestCase
 	{
 		parent::setUp();
 
-		require_once JPATH_PLATFORM . '/joomla/form/fields/spacer.php';
 		include_once dirname(__DIR__) . '/inspectors.php';
 	}
 

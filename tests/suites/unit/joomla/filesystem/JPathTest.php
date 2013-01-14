@@ -7,8 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-JLoader::register('JPath', JPATH_PLATFORM . '/joomla/filesystem/path.php');
-
 /**
  * Tests for the JPath class.
  *

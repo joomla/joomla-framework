@@ -33,9 +33,6 @@ class JCacheStorageFileTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		include_once JPATH_PLATFORM . '/joomla/cache/storage.php';
-		include_once JPATH_PLATFORM . '/joomla/cache/storage/file.php';
-
 		$this->object = JCacheStorage::getInstance('file', array('cachebase' => JPATH_BASE . '/cache'));
 	}
 

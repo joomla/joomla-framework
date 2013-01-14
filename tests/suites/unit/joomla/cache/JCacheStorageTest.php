@@ -79,9 +79,6 @@ class JCacheStorageTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		include_once JPATH_PLATFORM . '/joomla/cache/cache.php';
-		include_once JPATH_PLATFORM . '/joomla/cache/storage.php';
-
 		$this->saveErrorHandlers();
 		$this->setErrorCallback('JCacheStorageTest');
 		self::$actualError = array();

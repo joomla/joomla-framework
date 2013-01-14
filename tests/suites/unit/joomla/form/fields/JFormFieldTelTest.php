@@ -27,7 +27,6 @@ class JFormFieldTelTest extends TestCase
 	{
 		parent::setUp();
 
-		require_once JPATH_PLATFORM . '/joomla/form/fields/tel.php';
 		include_once dirname(__DIR__) . '/inspectors.php';
 	}
 

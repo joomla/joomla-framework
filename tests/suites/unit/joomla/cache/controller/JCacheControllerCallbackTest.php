@@ -34,10 +34,6 @@ class JCacheControllerCallbackTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		include_once JPATH_PLATFORM . '/joomla/cache/cache.php';
-		include_once JPATH_PLATFORM . '/joomla/cache/controller.php';
-		include_once JPATH_PLATFORM . '/joomla/cache/controller/callback.php';
-
 		$this->object = JCache::getInstance('callback', array());
 	}
 
