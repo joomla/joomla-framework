@@ -9,7 +9,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Grid;
+
 defined('JPATH_PLATFORM') or die;
+
+use stdClass;
 
 /**
  * JGrid class to dynamically generate HTML tables
@@ -18,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Grid
  * @since       11.3
  */
-class JGrid
+class Grid
 {
 	/**
 	 * Array of columns
