@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Html\Html;
+use DateTimeZone;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -19,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldCalendar extends JFormField
+class Field_Calendar extends Field
 {
 
 	/**
@@ -77,8 +83,8 @@ class JFormFieldCalendar extends JFormField
 		}
 
 		// Get some system objects.
-		$config = JFactory::getConfig();
-		$user = JFactory::getUser();
+		$config = Factory::getConfig();
+		$user = Factory::getUser();
 
 		// If a known filter is given use it.
 		switch (strtoupper((string) $this->element['filter']))
@@ -88,7 +94,7 @@ class JFormFieldCalendar extends JFormField
 				if ((int) $this->value)
 				{
 					// Get a date object based on the correct timezone.
-					$date = JFactory::getDate($this->value, 'UTC');
+					$date = Factory::getDate($this->value, 'UTC');
 					$date->setTimezone(new DateTimeZone($config->get('offset')));
 
 					// Transform the date string.
@@ -101,7 +107,7 @@ class JFormFieldCalendar extends JFormField
 				if ((int) $this->value)
 				{
 					// Get a date object based on the correct timezone.
-					$date = JFactory::getDate($this->value, 'UTC');
+					$date = Factory::getDate($this->value, 'UTC');
 					$date->setTimezone(new DateTimeZone($user->getParam('timezone', $config->get('offset'))));
 
 					// Transform the date string.
@@ -110,6 +116,6 @@ class JFormFieldCalendar extends JFormField
 				break;
 		}
 
-		return JHtml::_('calendar', $this->value, $this->name, $this->id, $format, $attributes);
+		return Html::_('calendar', $this->value, $this->name, $this->id, $format, $attributes);
 	}
 }

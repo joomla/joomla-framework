@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Html\Html;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -18,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldUsergroup extends JFormField
+class Field_Usergroup extends Field
 {
 	/**
 	 * The form field type.
@@ -60,7 +64,7 @@ class JFormFieldUsergroup extends JFormField
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = JHtml::_(
+			$tmp = Html::_(
 				'select.option', (string) $option['value'], trim((string) $option), 'value', 'text',
 				((string) $option['disabled'] == 'true')
 			);
@@ -75,6 +79,6 @@ class JFormFieldUsergroup extends JFormField
 			$options[] = $tmp;
 		}
 
-		return JHtml::_('access.usergroup', $this->name, $this->value, $attr, $options, $this->id);
+		return Html::_('access.usergroup', $this->name, $this->value, $attr, $options, $this->id);
 	}
 }

@@ -7,9 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('list');
+use Joomla\Html\Html;
+use Joomla\Language\Text;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -19,7 +22,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldCombo extends JFormFieldList
+class Field_Combo extends Field_List
 {
 	/**
 	 * The form field type.
@@ -54,7 +57,7 @@ class JFormFieldCombo extends JFormFieldList
 		$options = $this->getOptions();
 
 		// Load the combobox behavior.
-		JHtml::_('behavior.combobox');
+		Html::_('behavior.combobox');
 
 		// Build the input for the combo box.
 		$html[] = '<input type="text" name="' . $this->name . '" id="' . $this->id . '"' . ' value="'

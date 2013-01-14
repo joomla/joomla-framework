@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
+use UnexpectedValueException;
 
 // Detect if we have full UTF-8 and unicode PCRE support.
 if (!defined('JCOMPAT_UNICODE_PROPERTIES'))
@@ -22,7 +28,7 @@ if (!defined('JCOMPAT_UNICODE_PROPERTIES'))
  * @subpackage  Form
  * @since       11.1
  */
-class JFormRule
+class Rule
 {
 	/**
 	 * The regular expression to use in testing a form field value.
@@ -56,7 +62,7 @@ class JFormRule
 	 * @since   11.1
 	 * @throws  UnexpectedValueException if rule is invalid.
 	 */
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		// Check for a valid regex.
 		if (empty($this->regex))

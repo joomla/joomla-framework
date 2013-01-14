@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form\Rule;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Form\Rule;
+use Joomla\Form\Form;
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
 
 /**
  * Form Rule class for the Joomla Platform.
@@ -16,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormRuleEmail extends JFormRule
+class Email extends Rule
 {
 	/**
 	 * The regular expression to use in testing a form field value.
@@ -42,7 +50,7 @@ class JFormRuleEmail extends JFormRule
 	 *
 	 * @since   11.1
 	 */
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		// If the field is empty and not required, the field is valid.
 		$required = ((string) $element['required'] == 'true' || (string) $element['required'] == 'required');
@@ -95,7 +103,7 @@ class JFormRuleEmail extends JFormRule
 		{
 
 			// Get the database object and a new query object.
-			$db = JFactory::getDBO();
+			$db = Factory::getDBO();
 			$query = $db->getQuery(true);
 
 			// Build the query.
@@ -104,7 +112,7 @@ class JFormRuleEmail extends JFormRule
 			$query->where('email = ' . $db->quote($value));
 
 			// Get the extra field check attribute.
-			$userId = ($form instanceof JForm) ? $form->getValue('id') : '';
+			$userId = ($form instanceof Form) ? $form->getValue('id') : '';
 			$query->where($db->quoteName('id') . ' <> ' . (int) $userId);
 
 			// Set and query the database.

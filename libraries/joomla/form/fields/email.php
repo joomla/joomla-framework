@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -19,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         JFormRuleEmail
  * @since       11.1
  */
-class JFormFieldEMail extends JFormField
+class Field_Email extends Field
 {
 	/**
 	 * The form field type.

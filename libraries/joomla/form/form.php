@@ -7,10 +7,22 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.path');
-jimport('joomla.utilities.arrayhelper');
+use Joomla\Factory;
+use Joomla\Filter\Input;
+use Joomla\Object\Object;
+use Joomla\Language\Text;
+use Joomla\Filesystem\Path;
+use Joomla\Registry\Registry;
+use Joomla\Utilities\ArrayHelper;
+
+use SimpleXMLElement;
+use Exception;
+use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * Form Class for the Joomla Platform.
@@ -25,7 +37,7 @@ jimport('joomla.utilities.arrayhelper');
  * @link        http://www.w3.org/TR/html5/forms.html
  * @since       11.1
  */
-class JForm
+class Form
 {
 	/**
 	 * The JRegistry data store for form fields during display.
@@ -83,7 +95,7 @@ class JForm
 		$this->name = $name;
 
 		// Initialise the JRegistry data.
-		$this->data = new JRegistry;
+		$this->data = new Registry;
 
 		// Set the options if specified.
 		$this->options['control'] = isset($options['control']) ? $options['control'] : false;
@@ -115,12 +127,12 @@ class JForm
 		// Convert the input to an array.
 		if (is_object($data))
 		{
-			if ($data instanceof JRegistry)
+			if ($data instanceof Registry)
 			{
 				// Handle a JRegistry.
 				$data = $data->toArray();
 			}
-			elseif ($data instanceof JObject)
+			elseif ($data instanceof Object)
 			{
 				// Handle a JObject.
 				$data = $data->getProperties();
@@ -141,7 +153,7 @@ class JForm
 				// If the field exists set the value.
 				$this->data->set($k, $v);
 			}
-			elseif (is_object($v) || JArrayHelper::isAssociative($v))
+			elseif (is_object($v) || ArrayHelper::isAssociative($v))
 			{
 				// If the value is an object or an associative array hand it off to the recursive bind level method.
 				$this->bindLevel($k, $v);
@@ -175,7 +187,7 @@ class JForm
 				// If the field exists set the value.
 				$this->data->set($group . '.' . $k, $v);
 			}
-			elseif (is_object($v) || JArrayHelper::isAssociative($v))
+			elseif (is_object($v) || ArrayHelper::isAssociative($v))
 			{
 				// If the value is an object or an associative array, hand it off to the recursive bind level method
 				$this->bindLevel($group . '.' . $k, $v);
@@ -201,8 +213,8 @@ class JForm
 			return false;
 		}
 
-		$input = new JRegistry($data);
-		$output = new JRegistry;
+		$input = new Registry($data);
+		$output = new Registry;
 
 		// Get the fields for which to filter the data.
 		$fields = $this->findFieldsByGroup($group);
@@ -768,7 +780,7 @@ class JForm
 		{
 
 			// Not an absolute path so let's attempt to find one using JPath.
-			$file = JPath::find(self::addFormPath(), strtolower($file) . '.xml');
+			$file = Path::find(self::addFormPath(), strtolower($file) . '.xml');
 
 			// If unable to find the file return false.
 			if (!$file)
@@ -856,7 +868,7 @@ class JForm
 	public function reset($xml = false)
 	{
 		unset($this->data);
-		$this->data = new JRegistry;
+		$this->data = new Registry;
 
 		if ($xml)
 		{
@@ -1186,13 +1198,13 @@ class JForm
 				}
 				$value = is_array($value) ? $value : array($value);
 
-				JArrayHelper::toInteger($value);
+				ArrayHelper::toInteger($value);
 				$return = $value;
 				break;
 
 			// Filter safe HTML.
 			case 'SAFEHTML':
-				$return = JFilterInput::getInstance(null, null, 1, 1)->clean($value, 'string');
+				$return = Input::getInstance(null, null, 1, 1)->clean($value, 'string');
 				break;
 
 			// Convert a date to UTC based on the server timezone offset.
@@ -1200,10 +1212,10 @@ class JForm
 				if ((int) $value > 0)
 				{
 					// Get the server timezone setting.
-					$offset = JFactory::getConfig()->get('offset');
+					$offset = Factory::getConfig()->get('offset');
 
 					// Return an SQL formatted datetime string in UTC.
-					$return = JFactory::getDate($value, $offset)->toSql();
+					$return = Factory::getDate($value, $offset)->toSql();
 				}
 				else
 				{
@@ -1216,10 +1228,10 @@ class JForm
 				if ((int) $value > 0)
 				{
 					// Get the user timezone setting defaulting to the server timezone setting.
-					$offset = JFactory::getUser()->getParam('timezone', JFactory::getConfig()->get('offset'));
+					$offset = Factory::getUser()->getParam('timezone', Factory::getConfig()->get('offset'));
 
 					// Return a MySQL formatted datetime string in UTC.
-					$return = JFactory::getDate($value, $offset)->toSql();
+					$return = Factory::getDate($value, $offset)->toSql();
 				}
 				else
 				{
@@ -1235,7 +1247,7 @@ class JForm
 				{
 					return;
 				}
-				$value = JFilterInput::getInstance()->clean($value, 'html');
+				$value = Input::getInstance()->clean($value, 'html');
 				$value = trim($value);
 
 				// Check for a protocol
@@ -1251,7 +1263,7 @@ class JForm
 					// If it looks like an internal link, then add the root.
 					if (substr($value, 0) == 'index.php')
 					{
-						$value = JURI::root() . $value;
+						$value = Uri::root() . $value;
 					}
 
 					// Otherwise we treat it is an external link.
@@ -1262,7 +1274,7 @@ class JForm
 				// If relative URLS are allowed we assume that URLs without protocols are internal.
 				elseif (!$protocol && $element['relative'])
 				{
-					$host = JURI::getInstance('SERVER')->gethost();
+					$host = Uri::getInstance('SERVER')->gethost();
 
 					// If it starts with the host string, just prepend the protocol.
 					if (substr($value, 0) == $host)
@@ -1272,7 +1284,7 @@ class JForm
 					// Otherwise prepend the root.
 					else
 					{
-						$value = JURI::root() . $value;
+						$value = Uri::root() . $value;
 					}
 				}
 
@@ -1364,10 +1376,10 @@ class JForm
 				{
 					$return = call_user_func($filter, $value);
 				}
-				// Filter using JFilterInput. All HTML code is filtered by default.
+				// Filter using Input. All HTML code is filtered by default.
 				else
 				{
-					$return = JFilterInput::getInstance()->clean($value, $filter);
+					$return = Input::getInstance()->clean($value, $filter);
 				}
 				break;
 		}
@@ -1703,17 +1715,17 @@ class JForm
 
 			if (($translate = $element['translate_default']) && ((string) $translate == 'true' || (string) $translate == '1'))
 			{
-				$lang = JFactory::getLanguage();
+				$lang = Factory::getLanguage();
 
 				if ($lang->hasKey($default))
 				{
 					$debug = $lang->setDebug(false);
-					$default = JText::_($default);
+					$default = Text::_($default);
 					$lang->setDebug($debug);
 				}
 				else
 				{
-					$default = JText::_($default);
+					$default = Text::_($default);
 				}
 			}
 			$value = $this->getValue((string) $element['name'], $group, $default);
@@ -1733,7 +1745,7 @@ class JForm
 	}
 
 	/**
-	 * Proxy for {@link JFormHelper::loadFieldType()}.
+	 * Proxy for {@link Helper::loadFieldType()}.
 	 *
 	 * @param   string   $type  The field type.
 	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
@@ -1744,23 +1756,23 @@ class JForm
 	 */
 	protected function loadFieldType($type, $new = true)
 	{
-		return JFormHelper::loadFieldType($type, $new);
+		return Helper::loadFieldType($type, $new);
 	}
 
 	/**
-	 * Proxy for JFormHelper::loadRuleType().
+	 * Proxy for Helper::loadRuleType().
 	 *
 	 * @param   string   $type  The rule type.
 	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
 	 *
 	 * @return  mixed  JFormRule object on success, false otherwise.
 	 *
-	 * @see     JFormHelper::loadRuleType()
+	 * @see     Helper::loadRuleType()
 	 * @since   11.1
 	 */
 	protected function loadRuleType($type, $new = true)
 	{
-		return JFormHelper::loadRuleType($type, $new);
+		return Helper::loadRuleType($type, $new);
 	}
 
 	/**
@@ -1821,7 +1833,7 @@ class JForm
 	 * @param   SimpleXMLElement  $element  The XML element object representation of the form field.
 	 * @param   string            $group    The optional dot-separated form group path on which to find the field.
 	 * @param   mixed             $value    The optional value to use as the default for the field.
-	 * @param   JRegistry         $input    An optional JRegistry object with the entire data set to validate
+	 * @param   Registry          $input    An optional JRegistry object with the entire data set to validate
 	 *                                      against the entire form.
 	 *
 	 * @return  mixed  Boolean true if field value is valid, Exception on failure.
@@ -1830,7 +1842,7 @@ class JForm
 	 * @throws  InvalidArgumentException
 	 * @throws  UnexpectedValueException
 	 */
-	protected function validateField(SimpleXMLElement $element, $group = null, $value = null, JRegistry $input = null)
+	protected function validateField(SimpleXMLElement $element, $group = null, $value = null, Registry $input = null)
 	{
 		$valid = true;
 
@@ -1844,13 +1856,13 @@ class JForm
 			{
 				if ($element['label'])
 				{
-					$message = JText::_($element['label']);
+					$message = Text::_($element['label']);
 				}
 				else
 				{
-					$message = JText::_($element['name']);
+					$message = Text::_($element['name']);
 				}
-				$message = JText::sprintf('JLIB_FORM_VALIDATE_FIELD_REQUIRED', $message);
+				$message = Text::sprintf('JLIB_FORM_VALIDATE_FIELD_REQUIRED', $message);
 
 				return new RuntimeException($message);
 			}
@@ -1886,14 +1898,14 @@ class JForm
 
 			if ($message)
 			{
-				$message = JText::_($element['message']);
+				$message = Text::_($element['message']);
 
 				return new UnexpectedValueException($message);
 			}
 			else
 			{
-				$message = JText::_($element['label']);
-				$message = JText::sprintf('JLIB_FORM_VALIDATE_FIELD_INVALID', $message);
+				$message = Text::_($element['label']);
+				$message = Text::sprintf('JLIB_FORM_VALIDATE_FIELD_INVALID', $message);
 
 				return new UnexpectedValueException($message);
 			}
@@ -1903,7 +1915,7 @@ class JForm
 	}
 
 	/**
-	 * Proxy for {@link JFormHelper::addFieldPath()}.
+	 * Proxy for {@link Helper::addFieldPath()}.
 	 *
 	 * @param   mixed  $new  A path or array of paths to add.
 	 *
@@ -1913,37 +1925,37 @@ class JForm
 	 */
 	public static function addFieldPath($new = null)
 	{
-		return JFormHelper::addFieldPath($new);
+		return Helper::addFieldPath($new);
 	}
 
 	/**
-	 * Proxy for JFormHelper::addFormPath().
+	 * Proxy for Helper::addFormPath().
 	 *
 	 * @param   mixed  $new  A path or array of paths to add.
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
-	 * @see     JFormHelper::addFormPath()
+	 * @see     Helper::addFormPath()
 	 * @since   11.1
 	 */
 	public static function addFormPath($new = null)
 	{
-		return JFormHelper::addFormPath($new);
+		return Helper::addFormPath($new);
 	}
 
 	/**
-	 * Proxy for JFormHelper::addRulePath().
+	 * Proxy for Helper::addRulePath().
 	 *
 	 * @param   mixed  $new  A path or array of paths to add.
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
-	 * @see JFormHelper::addRulePath()
+	 * @see Helper::addRulePath()
 	 * @since   11.1
 	 */
 	public static function addRulePath($new = null)
 	{
-		return JFormHelper::addRulePath($new);
+		return Helper::addRulePath($new);
 	}
 
 	/**
@@ -1978,7 +1990,7 @@ class JForm
 			}
 
 			// Instantiate the form.
-			$forms[$name] = new JForm($name, $options);
+			$forms[$name] = new self($name, $options);
 
 			// Load the data.
 			if (substr(trim($data), 0, 1) == '<')

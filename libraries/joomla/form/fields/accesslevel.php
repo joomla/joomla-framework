@@ -7,9 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('list');
+use Joomla\Html\Html;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -21,7 +23,7 @@ JFormHelper::loadFieldClass('list');
  * @see         JAccess
  * @since       11.1
  */
-class JFormFieldAccessLevel extends JFormFieldList
+class Field_AccessLevel extends Field_List
 {
 	/**
 	 * The form field type.
@@ -54,6 +56,6 @@ class JFormFieldAccessLevel extends JFormFieldList
 		// Get the field options.
 		$options = $this->getOptions();
 
-		return JHtml::_('access.level', $this->name, $this->value, $attr, $options, $this->id);
+		return Html::_('access.level', $this->name, $this->value, $attr, $options, $this->id);
 	}
 }

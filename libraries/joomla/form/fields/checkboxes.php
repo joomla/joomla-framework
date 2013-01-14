@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Html\Html;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -19,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         JFormFieldCheckbox
  * @since       11.1
  */
-class JFormFieldCheckboxes extends JFormField
+class Field_Checkboxes extends Field
 {
 	/**
 	 * The form field type.
@@ -115,7 +119,7 @@ class JFormFieldCheckboxes extends JFormField
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = JHtml::_(
+			$tmp = Html::_(
 				'select.option', (string) $option['value'], trim((string) $option), 'value', 'text',
 				((string) $option['disabled'] == 'true')
 			);

@@ -7,9 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('list');
+use Joomla\Language\Text;
+use Joomla\Database\Driver;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -21,7 +24,7 @@ JFormHelper::loadFieldClass('list');
  * @see         JDatabaseDriver
  * @since       11.3
  */
-class JFormFieldDatabaseConnection extends JFormFieldList
+class Field_DatabaseConnection extends Field_List
 {
 	/**
 	 * The form field type.
@@ -45,7 +48,7 @@ class JFormFieldDatabaseConnection extends JFormFieldList
 	protected function getOptions()
 	{
 		// This gets the connectors available in the platform and supported by the server.
-		$available = JDatabaseDriver::getConnectors();
+		$available = Driver::getConnectors();
 
 		/**
 		 * This gets the list of database types supported by the application.
@@ -63,7 +66,7 @@ class JFormFieldDatabaseConnection extends JFormFieldList
 			{
 				if (in_array($support, $available))
 				{
-					$options[$support] = JText::_(ucfirst($support));
+					$options[$support] = Text::_(ucfirst($support));
 				}
 			}
 		}
@@ -71,7 +74,7 @@ class JFormFieldDatabaseConnection extends JFormFieldList
 		{
 			foreach ($available as $support)
 			{
-				$options[$support] = JText::_(ucfirst($support));
+				$options[$support] = Text::_(ucfirst($support));
 			}
 		}
 
@@ -79,7 +82,7 @@ class JFormFieldDatabaseConnection extends JFormFieldList
 		// a database that is not available on the server.
 		if (empty($options))
 		{
-			$options[''] = JText::_('JNONE');
+			$options[''] = Text::_('JNONE');
 		}
 		return $options;
 	}

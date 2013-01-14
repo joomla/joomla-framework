@@ -7,9 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('list');
+use Joomla\Factory;
+use Joomla\Html\Html;
 
 /**
  * Supports an custom SQL select list
@@ -18,7 +21,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldSQL extends JFormFieldList
+class Field_SQL extends Field_List
 {
 	/**
 	 * The form field type.
@@ -47,7 +50,7 @@ class JFormFieldSQL extends JFormFieldList
 		$query = (string) $this->element['query'];
 
 		// Get the database object.
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 		// Set the query and get the result list.
 		$db->setQuery($query);
@@ -60,11 +63,11 @@ class JFormFieldSQL extends JFormFieldList
 			{
 				if ($translate == true)
 				{
-					$options[] = JHtml::_('select.option', $item->$key, JText::_($item->$value));
+					$options[] = Html::_('select.option', $item->$key, JText::_($item->$value));
 				}
 				else
 				{
-					$options[] = JHtml::_('select.option', $item->$key, $item->$value);
+					$options[] = Html::_('select.option', $item->$key, $item->$value);
 				}
 			}
 		}

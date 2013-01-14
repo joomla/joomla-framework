@@ -7,9 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('list');
+use Joomla\Html\Html;
+use Joomla\Language\Helper as LanguageHelper;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -20,7 +23,7 @@ JFormHelper::loadFieldClass('list');
  * @see         JFormFieldContentLanguage for a select list of content languages.
  * @since       11.1
  */
-class JFormFieldLanguage extends JFormFieldList
+class Field_Language extends Field_List
 {
 	/**
 	 * The form field type.
@@ -50,7 +53,7 @@ class JFormFieldLanguage extends JFormFieldList
 		// Merge any additional options in the XML definition.
 		$options = array_merge(
 			parent::getOptions(),
-			JLanguageHelper::createLanguageList($this->value, constant('JPATH_' . strtoupper($client)), true, true)
+			LanguageHelper::createLanguageList($this->value, constant('JPATH_' . strtoupper($client)), true, true)
 		);
 
 		return $options;

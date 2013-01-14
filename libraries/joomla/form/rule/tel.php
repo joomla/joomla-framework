@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form\Rule;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Form\Rule;
+use Joomla\Form\Form;
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
 
 /**
  * Form Rule class for the Joomla Platform
@@ -16,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormRuleTel extends JFormRule
+class Tel extends Rule
 {
 	/**
 	 * Method to test the url for a valid parts.
@@ -33,7 +40,7 @@ class JFormRuleTel extends JFormRule
 	 *
 	 * @since   11.1
 	 */
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		// If the field is empty and not required, the field is valid.
 		$required = ((string) $element['required'] == 'true' || (string) $element['required'] == 'required');

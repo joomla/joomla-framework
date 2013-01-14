@@ -7,9 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die;
+namespace Joomla\Form;
 
-JFormHelper::loadFieldClass('filelist');
+defined('JPATH_PLATFORM') or die;
 
 /**
  * Supports an HTML select list of image
@@ -18,7 +18,7 @@ JFormHelper::loadFieldClass('filelist');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldImageList extends JFormFieldFileList
+class Field_ImageList extends Field_FileList
 {
 
 	/**

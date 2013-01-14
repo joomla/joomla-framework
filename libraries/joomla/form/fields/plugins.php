@@ -7,9 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('list');
+use Joomla\Factory;
+use Joomla\Html\Html;
+use Joomla\Log\Log;
+use Joomla\Language\Text;
 
 /**
  * Form Field class for the Joomla Framework.
@@ -18,7 +23,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage  Form
  * @since       11.4
  */
-class JFormFieldPlugins extends JFormFieldList
+class Field_Plugins extends Field_List
 {
 	/**
 	 * The field type.
@@ -42,7 +47,7 @@ class JFormFieldPlugins extends JFormFieldList
 		if (!empty($folder))
 		{
 			// Get list of plugins
-			$db     = JFactory::getDbo();
+			$db     = Factory::getDbo();
 			$query  = $db->getQuery(true);
 			$query->select('element AS value, name AS text');
 			$query->from('#__extensions');
@@ -53,7 +58,7 @@ class JFormFieldPlugins extends JFormFieldList
 
 			$options = $db->loadObjectList();
 
-			$lang = JFactory::getLanguage();
+			$lang = Factory::getLanguage();
 
 			foreach ($options as $i => $item)
 			{
@@ -63,12 +68,12 @@ class JFormFieldPlugins extends JFormFieldList
 				||	$lang->load($extension . '.sys', $source, null, false, false)
 				||	$lang->load($extension . '.sys', JPATH_ADMINISTRATOR, $lang->getDefault(), false, false)
 				||	$lang->load($extension . '.sys', $source, $lang->getDefault(), false, false);
-				$options[$i]->text = JText::_($item->text);
+				$options[$i]->text = Text::_($item->text);
 			}
 		}
 		else
 		{
-			JLog::add(JText::_('JFRAMEWORK_FORM_FIELDS_PLUGINS_ERROR_FOLDER_EMPTY'), JLog::WARNING, 'jerror');
+			Log::add(Text::_('JFRAMEWORK_FORM_FIELDS_PLUGINS_ERROR_FOLDER_EMPTY'), Log::WARNING, 'jerror');
 		}
 
 		// Merge any additional options in the XML definition.

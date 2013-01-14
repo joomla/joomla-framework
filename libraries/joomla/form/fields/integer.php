@@ -7,9 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('list');
+use Joomla\Html\Html;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -19,7 +21,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldInteger extends JFormFieldList
+class Field_Integer extends Field_List
 {
 
 	/**
@@ -67,7 +69,7 @@ class JFormFieldInteger extends JFormFieldList
 			// Build the options array backwards.
 			for ($i = $first; $i >= $last; $i += $step)
 			{
-				$options[] = JHtml::_('select.option', $i);
+				$options[] = Html::_('select.option', $i);
 			}
 		}
 		else
@@ -75,7 +77,7 @@ class JFormFieldInteger extends JFormFieldList
 			// Build the options array.
 			for ($i = $first; $i <= $last; $i += $step)
 			{
-				$options[] = JHtml::_('select.option', $i);
+				$options[] = Html::_('select.option', $i);
 			}
 		}
 

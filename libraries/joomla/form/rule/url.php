@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form\Rule;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Form\Rule;
+use Joomla\String\String;
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
 
 /**
  * Form Rule class for the Joomla Platform.
@@ -16,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormRuleUrl extends JFormRule
+class Url extends Rule
 {
 	/**
 	 * Method to test an external url for a valid parts.
@@ -35,7 +42,7 @@ class JFormRuleUrl extends JFormRule
 	 * @link    http://www.w3.org/Addressing/URL/url-spec.txt
 	 * @see	    Jstring
 	 */
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		// If the field is empty and not required, the field is valid.
 		$required = ((string) $element['required'] == 'true' || (string) $element['required'] == 'required');
@@ -44,7 +51,7 @@ class JFormRuleUrl extends JFormRule
 		{
 			return true;
 		}
-		$urlParts = JString::parse_url($value);
+		$urlParts = String::parse_url($value);
 
 		// See http://www.w3.org/Addressing/URL/url-spec.txt
 		// Use the full list or optionally specify a list of permitted schemes.
@@ -83,7 +90,7 @@ class JFormRuleUrl extends JFormRule
 		}
 		// The best we can do for the rest is make sure that the strings are valid UTF-8
 		// and the port is an integer.
-		if (array_key_exists('host', $urlParts) && !JString::valid((string) $urlParts['host']))
+		if (array_key_exists('host', $urlParts) && !String::valid((string) $urlParts['host']))
 		{
 			return false;
 		}
@@ -91,7 +98,7 @@ class JFormRuleUrl extends JFormRule
 		{
 			return false;
 		}
-		if (array_key_exists('path', $urlParts) && !JString::valid((string) $urlParts['path']))
+		if (array_key_exists('path', $urlParts) && !String::valid((string) $urlParts['path']))
 		{
 			return false;
 		}

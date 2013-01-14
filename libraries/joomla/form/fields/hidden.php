@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -18,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @link        http://www.w3.org/TR/html-markup/input.hidden.html#input.hidden
  * @since       11.1
  */
-class JFormFieldHidden extends JFormField
+class Field_Hidden extends Field
 {
 	/**
 	 * The form field type.

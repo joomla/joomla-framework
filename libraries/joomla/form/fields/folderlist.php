@@ -7,10 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.folder');
-JFormHelper::loadFieldClass('list');
+use Joomla\Html\Html;
+use Joomla\Filesystem\Folder;
 
 /**
  * Supports an HTML select list of folder
@@ -19,7 +21,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldFolderList extends JFormFieldList
+class Field_FolderList extends Field_List
 {
 
 	/**
@@ -58,15 +60,15 @@ class JFormFieldFolderList extends JFormFieldList
 		// Prepend some default options based on field attributes.
 		if (!$hideNone)
 		{
-			$options[] = JHtml::_('select.option', '-1', JText::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
+			$options[] = Html::_('select.option', '-1', Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
 		if (!$hideDefault)
 		{
-			$options[] = JHtml::_('select.option', '', JText::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
+			$options[] = Html::_('select.option', '', Text::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
 
 		// Get a list of folders in the search path with the given filter.
-		$folders = JFolder::folders($path, $filter);
+		$folders = Folder::folders($path, $filter);
 
 		// Build the options list from the list of folders.
 		if (is_array($folders))
@@ -83,7 +85,7 @@ class JFormFieldFolderList extends JFormFieldList
 					}
 				}
 
-				$options[] = JHtml::_('select.option', $folder, $folder);
+				$options[] = Html::_('select.option', $folder, $folder);
 			}
 		}
 

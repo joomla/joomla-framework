@@ -7,9 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die;
+namespace Joomla\Form;
 
-JFormHelper::loadFieldClass('text');
+defined('JPATH_PLATFORM') or die;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -22,7 +22,7 @@ JFormHelper::loadFieldClass('text');
  * @see         JHtmlTel for rendering of telephone numbers
  * @since       11.1
  */
-class JFormFieldTel extends JFormFieldText
+class Field_Tel extends Field_Text
 {
 	/**
 	 * The form field type.

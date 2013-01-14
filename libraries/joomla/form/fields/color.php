@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Html\Html;
 
 /**
  * Color Form Field class for the Joomla Platform.
@@ -18,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @link        http://www.w3.org/TR/html-markup/input.color.html
  * @since       11.3
  */
-class JFormFieldColor extends JFormField
+class Field_Color extends Field
 {
 	/**
 	 * The form field type.
@@ -44,7 +48,7 @@ class JFormFieldColor extends JFormField
 
 		if (!$disabled)
 		{
-			JHtml::_('behavior.colorpicker');
+			Html::_('behavior.colorpicker');
 			$classes .= ' input-colorpicker';
 		}
 

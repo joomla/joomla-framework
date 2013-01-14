@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -20,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @see         JFormFieldCheckboxes
  * @since       11.1
  */
-class JFormFieldCheckbox extends JFormField
+class Field_Checkbox extends Field
 {
 	/**
 	 * The form field type.

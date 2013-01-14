@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form\Rule;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Factory;
+use Joomla\Form\Rule;
+use Joomla\Form\Form;
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
 
 /**
  * Form Rule class for the Joomla Platform.
@@ -16,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormRuleUsername extends JFormRule
+class Username extends Rule
 {
 	/**
 	 * Method to test the username for uniqueness.
@@ -33,10 +41,10 @@ class JFormRuleUsername extends JFormRule
 	 *
 	 * @since   11.1
 	 */
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		// Get the database object and a new query object.
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 		$query = $db->getQuery(true);
 
 		// Build the query.
@@ -45,7 +53,7 @@ class JFormRuleUsername extends JFormRule
 		$query->where('username = ' . $db->quote($value));
 
 		// Get the extra field check attribute.
-		$userId = ($form instanceof JForm) ? $form->getValue('id') : '';
+		$userId = ($form instanceof Form) ? $form->getValue('id') : '';
 		$query->where($db->quoteName('id') . ' <> ' . (int) $userId);
 
 		// Set and query the database.

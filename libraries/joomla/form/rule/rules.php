@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form\Rule;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Form\Rule;
+use Joomla\Form\Form;
+use Joomla\Access\Access;
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
 
 /**
  * Form Rule class for the Joomla Platform.
@@ -16,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormRuleRules extends JFormRule
+class Rules extends Rule
 {
 	/**
 	 * Method to test the value.
@@ -33,7 +41,7 @@ class JFormRuleRules extends JFormRule
 	 *
 	 * @since   11.1
 	 */
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		// Get the possible field actions and the ones posted to validate them.
 		$fieldActions = self::getFieldActions($element);
@@ -92,7 +100,7 @@ class JFormRuleRules extends JFormRule
 		$component = $element['component'] ? (string) $element['component'] : '';
 
 		// Get the asset actions for the element.
-		$elActions = JAccess::getActionsFromFile(
+		$elActions = Access::getActionsFromFile(
 			JPATH_ADMINISTRATOR . '/components/' . $component . '/access.xml',
 			"/access/section[@name='" . $section . "']/"
 		);

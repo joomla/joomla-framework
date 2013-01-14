@@ -7,9 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('list');
+use Joomla\Html\Html;
+use Joomla\Language\Text;
+use Joomla\Session\Session;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -19,7 +23,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldSessionHandler extends JFormFieldList
+class Field_SessionHandler extends Field_List
 {
 
 	/**
@@ -42,9 +46,9 @@ class JFormFieldSessionHandler extends JFormFieldList
 		$options = array();
 
 		// Get the options from JSession.
-		foreach (JSession::getStores() as $store)
+		foreach (Session::getStores() as $store)
 		{
-			$options[] = JHtml::_('select.option', $store, JText::_('JLIB_FORM_VALUE_SESSION_' . $store), 'value', 'text');
+			$options[] = Html::_('select.option', $store, JText::_('JLIB_FORM_VALUE_SESSION_' . $store), 'value', 'text');
 		}
 
 		// Merge any additional options in the XML definition.

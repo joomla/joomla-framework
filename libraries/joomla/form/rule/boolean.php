@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form\Rule;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Form\Rule;
 
 /**
  * Form Rule class for the Joomla Platform.
@@ -16,7 +20,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormRuleBoolean extends JFormRule
+class Boolean extends Rule
 {
 	/**
 	 * The regular expression to use in testing a form field value.

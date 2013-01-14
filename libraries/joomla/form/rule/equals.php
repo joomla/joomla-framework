@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form\Rule;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Form\Rule;
+use Joomla\Form\Form;
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
+use UnexpectedValueException;
+use InvalidArgumentException;
 
 /**
  * Form Rule class for the Joomla Platform.
@@ -16,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Form
  * @since       11.1
  */
-class JFormRuleEquals extends JFormRule
+class Equals extends Rule
 {
 	/**
 	 * Method to test if two values are equal. To use this rule, the form
@@ -37,7 +46,7 @@ class JFormRuleEquals extends JFormRule
 	 * @throws  InvalidArgumentException
 	 * @throws  UnexpectedValueException
 	 */
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		$field = (string) $element['field'];
 

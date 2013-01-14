@@ -7,11 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.folder');
-jimport('joomla.filesystem.file');
-JFormHelper::loadFieldClass('list');
+use Joomla\Html\Html;
+use Joomla\Filesystem\File;
+use Joomla\Filesystem\Folder;
 
 /**
  * Supports an HTML select list of files
@@ -20,7 +22,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldFileList extends JFormFieldList
+class Field_FileList extends Field_List
 {
 
 	/**
@@ -63,15 +65,15 @@ class JFormFieldFileList extends JFormFieldList
 		// Prepend some default options based on field attributes.
 		if (!$hideNone)
 		{
-			$options[] = JHtml::_('select.option', '-1', JText::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
+			$options[] = Html::_('select.option', '-1', Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
 		if (!$hideDefault)
 		{
-			$options[] = JHtml::_('select.option', '', JText::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
+			$options[] = Html::_('select.option', '', Text::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
 
 		// Get a list of files in the search path with the given filter.
-		$files = JFolder::files($path, $filter);
+		$files = Folder::files($path, $filter);
 
 		// Build the options list from the list of files.
 		if (is_array($files))
@@ -91,10 +93,10 @@ class JFormFieldFileList extends JFormFieldList
 				// If the extension is to be stripped, do it.
 				if ($stripExt)
 				{
-					$file = JFile::stripExt($file);
+					$file = File::stripExt($file);
 				}
 
-				$options[] = JHtml::_('select.option', $file, $file);
+				$options[] = Html::_('select.option', $file, $file);
 			}
 		}
 

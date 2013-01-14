@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Html\Html;
+use Joomla\Language\Text;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -18,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @link        http://www.w3.org/TR/html-markup/command.radio.html#command.radio
  * @since       11.1
  */
-class JFormFieldRadio extends JFormField
+class Field_Radio extends Field
 {
 	/**
 	 * The form field type.
@@ -64,7 +69,7 @@ class JFormFieldRadio extends JFormField
 				. htmlspecialchars($option->value, ENT_COMPAT, 'UTF-8') . '"' . $checked . $class . $onclick . $disabled . '/>';
 
 			$html[] = '<label for="' . $this->id . $i . '"' . $class . '>'
-				. JText::alt($option->text, preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)) . '</label>';
+				. Text::alt($option->text, preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)) . '</label>';
 		}
 
 		// End the radio field output.
@@ -94,7 +99,7 @@ class JFormFieldRadio extends JFormField
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = JHtml::_(
+			$tmp = Html::_(
 				'select.option', (string) $option['value'], trim((string) $option), 'value', 'text',
 				((string) $option['disabled'] == 'true')
 			);

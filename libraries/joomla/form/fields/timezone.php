@@ -7,9 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-JFormHelper::loadFieldClass('groupedlist');
+use Joomla\Factory;
+use Joomla\Html\Html;
+use DateTimeZone;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -18,7 +22,7 @@ JFormHelper::loadFieldClass('groupedlist');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldTimezone extends JFormFieldGroupedList
+class Field_Timezone extends Field_GroupedList
 {
 
 	/**
@@ -55,7 +59,7 @@ class JFormFieldTimezone extends JFormFieldGroupedList
 		// If the timezone is not set use the server setting.
 		if (strlen($this->value) == 0 && empty($keyValue))
 		{
-			$this->value = JFactory::getConfig()->get('offset');
+			$this->value = Factory::getConfig()->get('offset');
 		}
 
 		// Get the list of time zones from the server.
@@ -87,7 +91,7 @@ class JFormFieldTimezone extends JFormFieldGroupedList
 				// Only add options where a locale exists.
 				if (!empty($locale))
 				{
-					$groups[$group][$zone] = JHtml::_('select.option', $zone, str_replace('_', ' ', $locale), 'value', 'text', false);
+					$groups[$group][$zone] = Html::_('select.option', $zone, str_replace('_', ' ', $locale), 'value', 'text', false);
 				}
 			}
 		}

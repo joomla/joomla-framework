@@ -7,9 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Form;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.filesystem.path');
+use Joomla\String\String;
+use Joomla\Filesystem\Path;
 
 /**
  * JForm's helper class.
@@ -20,7 +23,7 @@ jimport('joomla.filesystem.path');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormHelper
+class Helper
 {
 	/**
 	 * Array with paths where entities(field, rule, form) can be found.
@@ -179,7 +182,7 @@ class JFormHelper
 			$prefix = 'J';
 		}
 
-		$class = JString::ucfirst($prefix, '_') . 'Form' . JString::ucfirst($entity, '_') . JString::ucfirst($type, '_');
+		$class = String::ucfirst($prefix, '_') . 'Form' . String::ucfirst($entity, '_') . String::ucfirst($type, '_');
 
 		if (class_exists($class))
 		{
@@ -214,7 +217,7 @@ class JFormHelper
 
 		foreach ($paths as $path)
 		{
-			if ($file = JPath::find($path, $type))
+			if ($file = Path::find($path, $type))
 			{
 				require_once $file;
 
