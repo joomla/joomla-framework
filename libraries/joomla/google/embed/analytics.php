@@ -7,7 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Embed;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Google\Embed;
+use UnexpectedValueException;
 
 /**
  * Google Analytics embed class for the Joomla Platform.
@@ -16,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleEmbedAnalytics extends JGoogleEmbed
+class Analytics extends Embed
 {
 	/**
 	 * Method to get the tracking code

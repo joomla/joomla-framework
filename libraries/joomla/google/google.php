@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
 
 /**
  * Joomla Platform class for interacting with the Google APIs.
@@ -19,7 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogle
+class Google
 {
 	/**
 	 * @var    JRegistry  Options for the Google object.
@@ -53,10 +57,10 @@ class JGoogle
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(Registry $options = null, Auth $auth = null)
 	{
-		$this->options = isset($options) ? $options : new JRegistry;
-		$this->auth  = isset($auth) ? $auth : new JGoogleAuthOauth2($this->options);
+		$this->options = isset($options) ? $options : new Registry;
+		$this->auth  = isset($auth) ? $auth : new Auth\Oauth2($this->options);
 	}
 
 	/**
@@ -76,24 +80,22 @@ class JGoogle
 		{
 			$options = $this->options;
 		}
+
 		if ($this->auth && !$auth)
 		{
 			$auth = $this->auth;
 		}
-		switch ($name)
+
+		switch (strtolower($name))
 		{
 			case 'plus':
-			case 'Plus':
-				return new JGoogleDataPlus($options, $auth);
+				return new Data\Plus($options, $auth);
 			case 'picasa':
-			case 'Picasa':
-				return new JGoogleDataPicasa($options, $auth);
+				return new Data\Picasa($options, $auth);
 			case 'adsense':
-			case 'Adsense':
-				return new JGoogleDataAdsense($options, $auth);
+				return new Data\Adsense($options, $auth);
 			case 'calendar':
-			case 'Calendar':
-				return new JGoogleDataCalendar($options, $auth);
+				return new Data\Calendar($options, $auth);
 			default:
 				return null;
 		}
@@ -115,14 +117,13 @@ class JGoogle
 		{
 			$options = $this->options;
 		}
-		switch ($name)
+
+		switch (strtolower($name))
 		{
 			case 'maps':
-			case 'Maps':
-				return new JGoogleEmbedMaps($options);
+				return new Embed\Maps($options);
 			case 'analytics':
-			case 'Analytics':
-				return new JGoogleEmbedAnalytics($options);
+				return new Embed\Analytics($options);
 			default:
 				return null;
 		}

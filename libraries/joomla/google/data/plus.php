@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Data;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Google\Auth;
+use Joomla\Google\Data;
+use Joomla\Registry\Registry;
 
 /**
  * Google+ data class for the Joomla Platform.
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       1234
  */
-class JGoogleDataPlus extends JGoogleData
+class Plus extends Data
 {
 	/**
 	* @var    JGoogleDataPlusPeople  Google+ API object for people.
@@ -44,7 +50,7 @@ class JGoogleDataPlus extends JGoogleData
 	 *
 	 * @since   1234
 	 */
-	public function __construct(JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(Registry $options = null, Auth $auth = null)
 	{
 		// Setup the default API url if not already set.
 		$options->def('api.url', 'https://www.googleapis.com/plus/v1/');
@@ -68,26 +74,26 @@ class JGoogleDataPlus extends JGoogleData
 	 */
 	public function __get($name)
 	{
-		switch ($name)
+		switch (strtolower($name))
 		{
 			case 'people':
 				if ($this->people == null)
 				{
-					$this->people = new JGoogleDataPlusPeople($this->options, $this->auth);
+					$this->people = new Plus\People($this->options, $this->auth);
 				}
 				return $this->people;
 
 			case 'activities':
 				if ($this->activities == null)
 				{
-					$this->activities = new JGoogleDataPlusActivities($this->options, $this->auth);
+					$this->activities = new Plus\Activities($this->options, $this->auth);
 				}
 				return $this->activities;
 
 			case 'comments':
 				if ($this->comments == null)
 				{
-					$this->comments = new JGoogleDataPlusComments($this->options, $this->auth);
+					$this->comments = new Plus\Comments($this->options, $this->auth);
 				}
 				return $this->comments;
 		}

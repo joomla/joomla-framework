@@ -7,7 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Registry\Registry;
+use UnexpectedValueException;
+use SimpleXMLElement;
+use Exception;
 
 /**
  * Google API data class for the Joomla Platform.
@@ -16,16 +23,16 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-abstract class JGoogleData
+abstract class Data
 {
 	/**
-	 * @var    JRegistry  Options for the Google data object.
+	 * @var    Registry  Options for the Google data object.
 	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
-	 * @var    JGoogleAuth  Authentication client for the Google data object.
+	 * @var    Auth  Authentication client for the Google data object.
 	 * @since  12.3
 	 */
 	protected $auth;
@@ -33,15 +40,15 @@ abstract class JGoogleData
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry    $options  Google options object.
-	 * @param   JGoogleAuth  $auth     Google data http client object.
+	 * @param   Registry  $options  Google options object.
+	 * @param   Auth      $auth     Google data http client object.
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(Registry $options = null, Auth $auth = null)
 	{
-		$this->options = isset($options) ? $options : new JRegistry;
-		$this->auth = isset($auth) ? $auth : new JGoogleAuthOauth2($this->options);
+		$this->options = isset($options) ? $options : new Registry;
+		$this->auth = isset($auth) ? $auth : new Auth\Oauth2($this->options);
 	}
 
 	/**
@@ -172,7 +179,7 @@ abstract class JGoogleData
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JGoogleData  This object for method chaining.
+	 * @return  Data  This object for method chaining.
 	 *
 	 * @since   12.3
 	 */

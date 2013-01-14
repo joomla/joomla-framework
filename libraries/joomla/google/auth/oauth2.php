@@ -7,8 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Auth;
+
 defined('JPATH_PLATFORM') or die;
-jimport('joomla.oauth.v2client');
+
+use Joomla\Google\Auth;
+use Joomla\OAuth2\Client;
+use Joomla\Registry\Registry;
 
 /**
  * Google OAuth authentication class
@@ -17,7 +22,7 @@ jimport('joomla.oauth.v2client');
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleAuthOauth2 extends JGoogleAuth
+class Oauth2 extends Auth
 {
 	/**
 	 * @var    JOAuth2Client  OAuth client for the Google authentication object.
@@ -33,10 +38,10 @@ class JGoogleAuthOauth2 extends JGoogleAuth
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JOAuth2Client $client = null)
+	public function __construct(Registry $options = null, Client $client = null)
 	{
-		$this->options = isset($options) ? $options : new JRegistry;
-		$this->client = isset($client) ? $client : new JOAuth2Client($this->options);
+		$this->options = isset($options) ? $options : new Registry;
+		$this->client = isset($client) ? $client : new Client($this->options);
 	}
 
 	/**

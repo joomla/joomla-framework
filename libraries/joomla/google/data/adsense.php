@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Data;
+
 defined('JPATH_PLATFORM') or die;
+
+use DateTime;
+use Joomla\Google\Data;
+use Joomla\Google\Auth;
+use Joomla\Registry\Registry;
+use UnexpectedValueException;
+use InvalidArgumentException;
 
 /**
  * Google Adsense data class for the Joomla Platform.
@@ -16,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleDataAdsense extends JGoogleData
+class Adsense extends Data
 {
 	/**
 	 * Constructor.
@@ -26,7 +35,7 @@ class JGoogleDataAdsense extends JGoogleData
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(Registry $options = null, Auth $auth = null)
 	{
 		parent::__construct($options, $auth);
 

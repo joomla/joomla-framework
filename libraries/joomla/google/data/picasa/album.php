@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Data\Picasa;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Google\Data;
+use Joomla\Google\Auth;
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
+use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * Google Picasa data class for the Joomla Platform.
@@ -33,7 +42,7 @@ class JGoogleDataPicasaAlbum extends JGoogleData
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(SimpleXMLElement $xml, JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(SimpleXMLElement $xml, Registry $options = null, Auth $auth = null)
 	{
 		$this->xml = $xml;
 
@@ -408,7 +417,7 @@ class JGoogleDataPicasaAlbum extends JGoogleData
 
 			$jdata = $this->query($this->getLink(), $post, array('GData-Version' => 2, 'Content-Type: multipart/related'), 'post');
 
-			return new JGoogleDataPicasaPhoto($this->safeXML($jdata->body), $this->options, $this->auth);
+			return new Photo($this->safeXML($jdata->body), $this->options, $this->auth);
 		}
 		else
 		{
@@ -432,33 +441,33 @@ class JGoogleDataPicasaAlbum extends JGoogleData
 		{
 			case 'bmp':
 			case 'bm':
-			return 'image/bmp';
+				return 'image/bmp';
 			case 'gif':
-			return 'image/gif';
+				return 'image/gif';
 			case 'jpg':
 			case 'jpeg':
 			case 'jpe':
 			case 'jif':
 			case 'jfif':
 			case 'jfi':
-			return 'image/jpeg';
+				return 'image/jpeg';
 			case 'png':
-			return 'image/png';
+				return 'image/png';
 			case '3gp':
-			return 'video/3gpp';
+				return 'video/3gpp';
 			case 'avi':
-			return 'video/avi';
+				return 'video/avi';
 			case 'mov':
 			case 'moov':
 			case 'qt':
-			return 'video/quicktime';
+				return 'video/quicktime';
 			case 'mp4':
 			case 'm4a':
 			case 'm4p':
 			case 'm4b':
 			case 'm4r':
 			case 'm4v':
-			return 'video/mp4';
+				return 'video/mp4';
 			case 'mpg':
 			case 'mpeg':
 			case 'mp1':
@@ -469,13 +478,13 @@ class JGoogleDataPicasaAlbum extends JGoogleData
 			case 'm2a':
 			case 'mpa':
 			case 'mpv':
-			return 'video/mpeg';
+				return 'video/mpeg';
 			case 'asf':
-			return 'video/x-ms-asf';
+				return 'video/x-ms-asf';
 			case 'wmv':
-			return 'video/x-ms-wmv';
+				return 'video/x-ms-wmv';
 			default:
-			return false;
+				return false;
 		}
 	}
 }

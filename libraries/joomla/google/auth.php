@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -16,7 +18,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-abstract class JGoogleAuth
+abstract class Auth
 {
 	/**
 	 * @var    JRegistry  Options for the Google authentication object.

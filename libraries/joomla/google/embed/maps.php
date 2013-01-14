@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Embed;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Http\Http;
+use Joomla\Google\Embed;
+use Joomla\Environment\Uri;
+use Joomla\Registry\Registry;
+use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * Google Maps embed class for the Joomla Platform.
@@ -16,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleEmbedMaps extends JGoogleEmbed
+class Maps extends Embed
 {
 
 	/**
@@ -34,10 +43,10 @@ class JGoogleEmbedMaps extends JGoogleEmbed
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JURI $uri = null, JHttp $http = null)
+	public function __construct(Registry $options = null, Uri $uri = null, Http $http = null)
 	{
 		parent::__construct($options = null, $uri = null);
-		$this->http = $http ? $http : new JHttp($this->options);
+		$this->http = $http ? $http : new Http($this->options);
 	}
 
 	/**

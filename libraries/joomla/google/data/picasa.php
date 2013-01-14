@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Data;
+
 defined('JPATH_PLATFORM') or die;
+
+use SimpleXMLElement;
+use Joomla\Google\Data;
+use Joomla\Google\Auth;
+use Joomla\Registry\Registry;
+use UnexpectedValueException;
 
 /**
  * Google Picasa data class for the Joomla Platform.
@@ -16,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleDataPicasa extends JGoogleData
+class Picasa extends Data
 {
 	/**
 	 * Constructor.
@@ -26,7 +34,7 @@ class JGoogleDataPicasa extends JGoogleData
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(Registry $options = null, Auth $auth = null)
 	{
 		parent::__construct($options, $auth);
 
@@ -60,7 +68,7 @@ class JGoogleDataPicasa extends JGoogleData
 
 				foreach ($xml->children()->entry as $item)
 				{
-					$items[] = new JGoogleDataPicasaAlbum($item, $this->options, $this->auth);
+					$items[] = new Picasa\Album($item, $this->options, $this->auth);
 				}
 				return $items;
 			}
@@ -114,7 +122,7 @@ class JGoogleDataPicasa extends JGoogleData
 
 			$xml = $this->safeXML($jdata->body);
 
-			return new JGoogleDataPicasaAlbum($xml, $this->options, $this->auth);
+			return new Picasa\Album($xml, $this->options, $this->auth);
 		}
 		else
 		{
@@ -139,7 +147,7 @@ class JGoogleDataPicasa extends JGoogleData
 			$jdata = $this->query($url, null, array('GData-Version' => 2));
 			$xml = $this->safeXML($jdata->body);
 
-			return new JGoogleDataPicasaAlbum($xml, $this->options, $this->auth);
+			return new Picasa\Album($xml, $this->options, $this->auth);
 		}
 		else
 		{

@@ -7,7 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Data;
+
 defined('JPATH_PLATFORM') or die;
+
+use DateTime;
+use Joomla\Google\Data;
+use Joomla\Registry\Registry;
+use UnexpectedValueException;
+use InvalidArgumentException;
 
 /**
  * Google Calendar data class for the Joomla Platform.
@@ -16,7 +24,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleDataCalendar extends JGoogleData
+class Calendar extends Data
 {
 	/**
 	 * Constructor.
@@ -26,7 +34,7 @@ class JGoogleDataCalendar extends JGoogleData
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(Registry $options = null, Auth $auth = null)
 	{
 		parent::__construct($options, $auth);
 
@@ -412,7 +420,7 @@ class JGoogleDataCalendar extends JGoogleData
 			{
 				$startobj = new DateTime($start);
 			}
-			elseif (is_a($start, 'DateTime'))
+			elseif (is_a($start, '\\DateTime'))
 			{
 				$startobj = $start;
 			}

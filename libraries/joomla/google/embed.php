@@ -7,8 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google;
+
 defined('JPATH_PLATFORM') or die;
-jimport('joomla.environment.uri');
+
+use Joomla\Registry\Registry;
+use Joomla\Environment\Uri;
 
 /**
  * Google API object class for the Joomla Platform.
@@ -17,16 +21,16 @@ jimport('joomla.environment.uri');
  * @subpackage  Google
  * @since       12.3
  */
-abstract class JGoogleEmbed
+abstract class Embed
 {
 	/**
-	 * @var    JRegistry  Options for the Google data object.
+	 * @var    Registry  Options for the Google data object.
 	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
-	 * @var    JURI  URI of the page being rendered.
+	 * @var    Uri  URI of the page being rendered.
 	 * @since  12.3
 	 */
 	protected $uri;
@@ -34,15 +38,15 @@ abstract class JGoogleEmbed
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Google options object
-	 * @param   JURI       $uri      URL of the page being rendered
+	 * @param   Registry  $options  Google options object
+	 * @param   Uri       $uri      URL of the page being rendered
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(JRegistry $options = null, JURI $uri = null)
+	public function __construct(Registry $options = null, Uri $uri = null)
 	{
-		$this->options = $options ? $options : new JRegistry;
-		$this->uri = $uri ? $uri : new JURI;
+		$this->options = $options ? $options : new Registry;
+		$this->uri = $uri ? $uri : new Uri;
 	}
 
 	/**
@@ -119,7 +123,7 @@ abstract class JGoogleEmbed
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JGoogleEmbed  This object for method chaining.
+	 * @return  Embed  This object for method chaining.
 	 *
 	 * @since   12.3
 	 */

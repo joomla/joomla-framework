@@ -7,7 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Data\Plus;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Google\Data;
+use Joomla\Google\Auth;
+use Joomla\Registry\Registry;
 
 /**
  * Google+ data class for the Joomla Platform.
@@ -16,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       1234
  */
-class JGoogleDataPlusPeople extends JGoogleData
+class People extends Data
 {
 	/**
 	 * Constructor.
@@ -26,7 +32,7 @@ class JGoogleDataPlusPeople extends JGoogleData
 	 *
 	 * @since   1234
 	 */
-	public function __construct(JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(Registry $options = null, Auth $auth = null)
 	{
 		parent::__construct($options, $auth);
 

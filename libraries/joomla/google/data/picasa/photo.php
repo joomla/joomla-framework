@@ -7,7 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Data\Picasa;
+
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\Google\Data;
+use Joomla\Google\Auth;
+use Joomla\Registry\Registry;
+use SimpleXMLElement;
+use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * Google Picasa data class for the Joomla Platform.
@@ -16,7 +25,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleDataPicasaPhoto extends JGoogleData
+class Photo extends Data
 {
 	/**
 	 * @var    SimpleXMLElement  The photo's XML
@@ -33,7 +42,7 @@ class JGoogleDataPicasaPhoto extends JGoogleData
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(SimpleXMLElement $xml, JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(SimpleXMLElement $xml, Registry $options = null, Auth $auth = null)
 	{
 		$this->xml = $xml;
 
