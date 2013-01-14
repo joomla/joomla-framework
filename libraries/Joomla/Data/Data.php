@@ -17,6 +17,7 @@ use InvalidArgumentException;
 use IteratorAggregate;
 use JsonSerializable;
 use SplObjectStorage;
+use ArrayIterator;
 use Traversable;
 use Countable;
 use stdClass;
