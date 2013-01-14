@@ -11,6 +11,7 @@ namespace Joomla\Base;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Factory;
 use Joomla\Object\Object;
 use DirectoryIterator;
 
@@ -77,7 +78,7 @@ class Adapter extends Object
 		$this->_classprefix = $classprefix ? $classprefix : 'J';
 		$this->_adapterfolder = $adapterfolder ? $adapterfolder : 'adapters';
 
-		$this->_db = JFactory::getDBO();
+		$this->_db = Factory::getDBO();
 	}
 
 	/**
