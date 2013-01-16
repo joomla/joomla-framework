@@ -14,11 +14,31 @@ defined('JPATH_PLATFORM') or die;
  * @package  Joomla.Platform
  * @since    11.1
  */
+
+if (!class_exists('JLoader')) :
+
 abstract class JLoader
 {
 	const LOWER_CASE = 1;
 	const NATURAL_CASE = 2;
 	const MIXED_CASE = 3;
+
+	/**
+	 * Holds the map of old class to their namespaced
+	 * counterparts if self::$compat = true.
+	 *
+	 * @var    array
+	 * @since  13.1
+	 */
+	protected static $nsMap = array();
+
+	/**
+	 * If true, the compatibility layer will be loaded.
+	 *
+	 * @var    boolean
+	 * @since  13.1
+	 */
+	public static $compatLayer = true;
 
 	/**
 	 * Container for already imported library paths.
@@ -502,6 +522,16 @@ abstract class JLoader
 	 */
 	public static function setup($caseStrategy = self::LOWER_CASE, $enableNamespaces = false, $enablePrefixes = true, $enableClasses = true)
 	{
+
+		if (self::$compatLayer === true)
+		{
+			self::$nsMap = include JPATH_PLATFORM . '/compat/namespacemap.php';
+
+			spl_autoload_register(array('JLoader', 'compat'));
+		}
+
+		spl_autoload_register(array('JLoader', 'loadByPsr'));
+
 		if ($enableClasses)
 		{
 			// Register the class map based autoloader.
@@ -511,7 +541,7 @@ abstract class JLoader
 		if ($enablePrefixes)
 		{
 			// Register the J prefix and base path for Joomla platform libraries.
-			self::registerPrefix('J', JPATH_PLATFORM . '/joomla');
+			// self::registerPrefix('J', JPATH_PLATFORM . '/joomla');
 
 			// Register the prefix autoloader.
 			spl_autoload_register(array('JLoader', '_autoload'));
@@ -541,6 +571,43 @@ abstract class JLoader
 					spl_autoload_register(array('JLoader', 'loadByNamespaceLowerCase'));
 					break;
 			}
+		}
+	}
+
+	public static function compat($classname)
+	{
+		if (isset(self::$nsMap[$classname]) && !class_exists($classname))
+		{
+			class_alias(self::$nsMap[$classname], $classname);
+
+			return true;
+		}
+	}
+
+	public static function loadByPsr($className)
+	{
+		if (class_exists($className)) return true;
+
+		$className = ltrim($className, '\\');
+		$fileName  = '';
+		$namespace = '';
+
+		if ($lastNsPos = strrpos($className, '\\'))
+		{
+			$namespace = substr($className, 0, $lastNsPos);
+			$className = substr($className, $lastNsPos + 1);
+			$fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+		}
+
+		$fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+		$file = __DIR__ . DIRECTORY_SEPARATOR . $fileName;
+
+		if (file_exists($file) && !class_exists($namespace . $className, false))
+		{
+			require $file;
+
+			return true;
 		}
 	}
 
@@ -632,3 +699,5 @@ function jimport($path)
 {
 	return JLoader::import($path);
 }
+
+ endif;
