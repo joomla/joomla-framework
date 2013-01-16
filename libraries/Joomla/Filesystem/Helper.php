@@ -268,7 +268,7 @@ class Helper
 
 		if (!$streams)
 		{
-			$files = new DirectoryIterator(__DIR__ . '/streams');
+			$files = new DirectoryIterator(__DIR__ . '/stream');
 
 			foreach ($files as $file)
 			{

@@ -92,7 +92,12 @@ class Controller
 
 		$type = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $type));
 
-		$class = '\\Joomla\\Cache\\Controller\\' . ucfirst($type);
+		$class = '\\Joomla\\Cache\\Controller';
+
+		if (!empty($type))
+		{
+			$class .= '\\' . ucfirst($type);
+		}
 
 		if (!class_exists($class))
 		{

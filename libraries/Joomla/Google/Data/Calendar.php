@@ -13,6 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use DateTime;
 use Joomla\Google\Data;
+use Joomla\Google\Auth;
 use Joomla\Registry\Registry;
 use UnexpectedValueException;
 use InvalidArgumentException;

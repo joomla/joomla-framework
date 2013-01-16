@@ -13,6 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Google\Data;
 use Joomla\Google\Auth;
+use Joomla\Filesystem\File;
 use Joomla\Registry\Registry;
 use SimpleXMLElement;
 use RuntimeException;
@@ -25,7 +26,7 @@ use UnexpectedValueException;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleDataPicasaAlbum extends JGoogleData
+class Album extends Data
 {
 	/**
 	 * @var    SimpleXMLElement  The album's XML
@@ -357,7 +358,7 @@ class JGoogleDataPicasaAlbum extends JGoogleData
 
 				foreach ($xml->children()->entry as $item)
 				{
-					$items[] = new JGoogleDataPicasaPhoto($item, $this->options, $this->auth);
+					$items[] = new Photo($item, $this->options, $this->auth);
 				}
 				return $items;
 			}
@@ -388,13 +389,13 @@ class JGoogleDataPicasaAlbum extends JGoogleData
 	{
 		if ($this->isAuthenticated())
 		{
-			$title = $title != '' ? $title : JFile::getName($file);
+			$title = $title != '' ? $title : File::getName($file);
 
 			if (!($type = $this->getMIME($file)))
 			{
 				throw new RuntimeException("Inappropriate file type.");
 			}
-			if (!($data = JFile::read($file)))
+			if (!($data = File::read($file)))
 			{
 				throw new RuntimeException("Cannot access file: `$file`");
 			}
@@ -437,7 +438,7 @@ class JGoogleDataPicasaAlbum extends JGoogleData
 	 */
 	protected function getMIME($file)
 	{
-		switch (strtolower(JFile::getExt($file)))
+		switch (strtolower(File::getExt($file)))
 		{
 			case 'bmp':
 			case 'bm':

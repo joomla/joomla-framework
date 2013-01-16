@@ -11,9 +11,9 @@ namespace Joomla\Registry;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Compat\JsonSerializable;
 use Joomla\Utilities\ArrayHelper;
 use stdClass;
+use JsonSerializable;
 
 /**
  * Registry class

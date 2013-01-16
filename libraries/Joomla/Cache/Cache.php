@@ -24,6 +24,8 @@ use stdClass;
  * @subpackage  Cache
  * @since       11.1
  */
+if (!class_exists('Joomla\\Cache\\Cache')) :
+
 class Cache
 {
 	/**
@@ -112,7 +114,7 @@ class Cache
 			// Note: DirectoryIterator::getExtension only available PHP >= 5.3.6
 			if (!$file->isFile()
 				|| substr($fileName, strrpos($fileName, '.') + 1) != 'php'
-				|| $fileName == 'helper.php')
+				|| $fileName == 'Helper.php')
 			{
 				continue;
 			}
@@ -722,3 +724,4 @@ class Cache
 		return $paths;
 	}
 }
+endif;

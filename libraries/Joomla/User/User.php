@@ -17,6 +17,8 @@ use Joomla\Utilities\ArrayHelper;
 use Joomla\Registry\Registry;
 use Joomla\Event\Dispatcher;
 use Joomla\Table\Table;
+use Joomla\Language\Text;
+use Joomla\Log\Log;
 use Joomla\Access\Access;
 use Joomla\Object\Object;
 use Joomla\Factory;

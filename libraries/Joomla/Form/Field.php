@@ -13,6 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\String\String;
 use Joomla\String\Normalise;
+use Joomla\Language\Text;
 use SimpleXMLElement;
 
 /**
@@ -491,7 +492,7 @@ abstract class Field
 
 		// Get the label text from the XML element, defaulting to the element name.
 		$title = $this->element['label'] ? (string) $this->element['label'] : (string) $this->element['name'];
-		$title = $this->translateLabel ? JText::_($title) : $title;
+		$title = $this->translateLabel ? Text::_($title) : $title;
 
 		return $title;
 	}
@@ -514,7 +515,7 @@ abstract class Field
 
 		// Get the label text from the XML element, defaulting to the element name.
 		$text = $this->element['label'] ? (string) $this->element['label'] : (string) $this->element['name'];
-		$text = $this->translateLabel ? JText::_($text) : $text;
+		$text = $this->translateLabel ? Text::_($text) : $text;
 
 		// Build the class for the label.
 		$class = !empty($this->description) ? 'hasTip' : '';
@@ -529,7 +530,7 @@ abstract class Field
 		{
 			$label .= ' title="'
 				. htmlspecialchars(
-				trim($text, ':') . '::' . ($this->translateDescription ? JText::_($this->description) : $this->description),
+				trim($text, ':') . '::' . ($this->translateDescription ? Text::_($this->description) : $this->description),
 				ENT_COMPAT, 'UTF-8'
 			) . '"';
 		}

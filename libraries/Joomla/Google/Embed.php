@@ -11,8 +11,8 @@ namespace Joomla\Google;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Uri\Uri;
 use Joomla\Registry\Registry;
-use Joomla\Environment\Uri;
 
 /**
  * Google API object class for the Joomla Platform.

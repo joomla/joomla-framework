@@ -267,16 +267,17 @@ class Document
 
 		if (empty(self::$instances[$signature]))
 		{
-			$type = preg_replace('/[^A-Z0-9_\.-]/i', '', $type);
+			$type = preg_replace('/[^A-Z0-9_\.-]/i', '', ucfirst($type));
 
-			// Since we are already in the Joomla\Document namespace, we can use the type for the classname.
-			$class = ucfirst($type);
+			$class = '\\Joomla\\Document\\' . $type;
+			$ntype = null;
 
 			// Check if the document type exists
 			if (!class_exists($class))
 			{
 				// Default to raw if it not found
-				$class = 'Raw';
+				$ntype = $type;
+				$class = '\\Joomla\\Document\\Raw';
 			}
 
 			$instance = new $class($attributes);

@@ -11,7 +11,7 @@ namespace Joomla\Github;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Environment\Uri;
+use Joomla\Uri\Uri;
 use Joomla\Registry\Registry;
 
 /**

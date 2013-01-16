@@ -12,6 +12,7 @@ namespace Joomla\Form;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Html\Html;
+use Joomla\Language\Text;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -87,7 +88,7 @@ class Field_Checkboxes extends Field
 			$html[] = '<input type="checkbox" id="' . $this->id . $i . '" name="' . $this->name . '"' . ' value="'
 				. htmlspecialchars($option->value, ENT_COMPAT, 'UTF-8') . '"' . $checked . $class . $onclick . $disabled . '/>';
 
-			$html[] = '<label for="' . $this->id . $i . '"' . $class . '>' . JText::_($option->text) . '</label>';
+			$html[] = '<label for="' . $this->id . $i . '"' . $class . '>' . Text::_($option->text) . '</label>';
 			$html[] = '</li>';
 		}
 		$html[] = '</ul>';

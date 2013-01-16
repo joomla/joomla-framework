@@ -17,6 +17,7 @@ use Joomla\Event\Dispatcher;
 use Joomla\Language\Text;
 use Joomla\Input\Input;
 use Joomla\Factory;
+use DirectoryIterator;
 use IteratorAggregate;
 use ArrayIterator;
 
@@ -393,7 +394,7 @@ class Session implements IteratorAggregate
 		$connectors = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new \DirectoryIterator(__DIR__ . '/storage');
+		$iterator = new DirectoryIterator(__DIR__ . '/Storage');
 
 		foreach ($iterator as $file)
 		{

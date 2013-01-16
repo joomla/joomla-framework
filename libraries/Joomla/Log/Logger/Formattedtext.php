@@ -11,7 +11,7 @@ namespace Joomla\Log\Logger;
 
 defined('JPATH_PLATFORM') or die;
 
-// @†odo dependency on JPlatform here
+use JPlatform;
 use Joomla\Filesystem\Folder;
 use Joomla\Log\Logger;
 use Joomla\Log\Entry;

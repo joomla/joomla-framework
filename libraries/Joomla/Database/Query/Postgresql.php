@@ -20,7 +20,7 @@ use Joomla\Database\Query;
  * @subpackage  Database
  * @since       11.3
  */
-class Postgresql extends JDatabaseQuery implements Limitable
+class Postgresql extends Query implements Limitable
 {
 	/**
 	 * @var    object  The FOR UPDATE element used in "FOR UPDATE"  lock

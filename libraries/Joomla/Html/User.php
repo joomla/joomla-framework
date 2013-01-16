@@ -11,7 +11,7 @@ namespace Joomla\Html;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Access\Access;
+use Joomla\Access\Access as AccessAccess;
 use Joomla\Factory;
 
 /**
@@ -57,7 +57,7 @@ abstract class User
 
 			foreach ($groups as $group)
 			{
-				if (!Access::checkGroup($group->value, 'core.admin'))
+				if (!AccessAccess::checkGroup($group->value, 'core.admin'))
 				{
 					$filteredGroups[] = $group;
 				}

@@ -11,6 +11,7 @@ namespace Joomla\Filesystem;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Language\Text;
 use RuntimeException;
 
 /**
@@ -418,7 +419,7 @@ class Patcher
 			{
 				if ($src_left == 0)
 				{
-					throw new RuntimeException(JText::sprintf('JLIB_FILESYSTEM_PATCHER_REMOVE_LINE', key($lines)));
+					throw new RuntimeException(Text::sprintf('JLIB_FILESYSTEM_PATCHER_REMOVE_LINE', key($lines)));
 				}
 				$source[] = substr($line, 1);
 				$src_left--;
@@ -427,7 +428,7 @@ class Patcher
 			{
 				if ($dst_left == 0)
 				{
-					throw new RuntimeException(JText::sprintf('JLIB_FILESYSTEM_PATCHER_ADD_LINE', key($lines)));
+					throw new RuntimeException(Text::sprintf('JLIB_FILESYSTEM_PATCHER_ADD_LINE', key($lines)));
 				}
 				$destin[] = substr($line, 1);
 				$dst_left--;
@@ -450,7 +451,7 @@ class Patcher
 
 					if (!isset($src_lines))
 					{
-						throw new RuntimeException(JText::sprintf('JLIB_FILESYSTEM_PATCHER_UNEXISING_SOURCE', $src));
+						throw new RuntimeException(Text::sprintf('JLIB_FILESYSTEM_PATCHER_UNEXISING_SOURCE', $src));
 					}
 				}
 				if ($dst_size > 0)
@@ -464,7 +465,7 @@ class Patcher
 						{
 							if ($src_lines[$l] != $source[$l - $src_line])
 							{
-								throw new RuntimeException(JText::sprintf('JLIB_FILESYSTEM_PATCHER_FAILED_VERIFY', $src, $l));
+								throw new RuntimeException(Text::sprintf('JLIB_FILESYSTEM_PATCHER_FAILED_VERIFY', $src, $l));
 							}
 						}
 						array_splice($dst_lines, $dst_line, count($source), $destin);

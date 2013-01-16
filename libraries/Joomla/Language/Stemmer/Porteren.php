@@ -8,7 +8,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Language;
+namespace Joomla\Language\Stemmer;
 
 defined('JPATH_PLATFORM') or die;
 

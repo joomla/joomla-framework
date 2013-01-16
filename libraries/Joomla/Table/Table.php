@@ -34,6 +34,7 @@ use RuntimeException;
  * @since       11.1
  * @tutorial    Joomla.Platform/jtable.cls
  */
+
 abstract class Table extends Object
 {
 	/**

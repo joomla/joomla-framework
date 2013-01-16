@@ -138,7 +138,12 @@ class Storage
 		// We can't cache this since options may change...
 		$handler = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $handler));
 
-		$class = '\\Joomla\\Cache\\Storage\\' . ucfirst($handler);
+		$class = '\\Joomla\\Cache\\Storage';
+		
+		if (!empty($handler))
+		{
+			$class .= '\\' . ucfirst($handler);
+		}
 
 		if (!class_exists($class))
 		{

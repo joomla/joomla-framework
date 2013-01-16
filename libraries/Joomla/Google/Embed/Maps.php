@@ -13,9 +13,10 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Http\Http;
 use Joomla\Google\Embed;
-use Joomla\Environment\Uri;
+use Joomla\Uri\Uri;
 use Joomla\Registry\Registry;
 use RuntimeException;
+use OutOfBoundsException;
 use UnexpectedValueException;
 
 /**

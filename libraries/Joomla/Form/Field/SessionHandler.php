@@ -48,7 +48,7 @@ class Field_SessionHandler extends Field_List
 		// Get the options from JSession.
 		foreach (Session::getStores() as $store)
 		{
-			$options[] = Html::_('select.option', $store, JText::_('JLIB_FORM_VALUE_SESSION_' . $store), 'value', 'text');
+			$options[] = Html::_('select.option', $store, Text::_('JLIB_FORM_VALUE_SESSION_' . $store), 'value', 'text');
 		}
 
 		// Merge any additional options in the XML definition.

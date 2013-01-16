@@ -12,6 +12,7 @@ namespace Joomla\Form;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Html\Html;
+use Joomla\Language\Text;
 use Joomla\Filesystem\Folder;
 
 /**

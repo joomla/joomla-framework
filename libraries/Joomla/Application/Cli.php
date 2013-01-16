@@ -75,7 +75,7 @@ class Cli extends Base
 		// Create the input based on the application logic.
 		else
 		{
-			if (class_exists('\\Joomla\\Input'))
+			if (class_exists('\\Joomla\\Input\\Cli'))
 			{
 				$this->input = new InputCLI;
 			}

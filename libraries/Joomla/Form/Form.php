@@ -40,7 +40,7 @@ use UnexpectedValueException;
 class Form
 {
 	/**
-	 * The JRegistry data store for form fields during display.
+	 * The Registry data store for form fields during display.
 	 * @var    object
 	 * @since  11.1
 	 */
@@ -94,7 +94,7 @@ class Form
 		// Set the name for the form.
 		$this->name = $name;
 
-		// Initialise the JRegistry data.
+		// Initialise the Registry data.
 		$this->data = new Registry;
 
 		// Set the options if specified.
@@ -129,7 +129,7 @@ class Form
 		{
 			if ($data instanceof Registry)
 			{
-				// Handle a JRegistry.
+				// Handle a Registry.
 				$data = $data->toArray();
 			}
 			elseif ($data instanceof Object)
@@ -1089,7 +1089,7 @@ class Form
 		$return = true;
 
 		// Create an input registry object from the data to validate.
-		$input = new JRegistry($data);
+		$input = new Registry($data);
 
 		// Get the fields for which to validate the data.
 		$fields = $this->findFieldsByGroup($group);
@@ -1833,7 +1833,7 @@ class Form
 	 * @param   SimpleXMLElement  $element  The XML element object representation of the form field.
 	 * @param   string            $group    The optional dot-separated form group path on which to find the field.
 	 * @param   mixed             $value    The optional value to use as the default for the field.
-	 * @param   Registry          $input    An optional JRegistry object with the entire data set to validate
+	 * @param   Registry          $input    An optional Registry object with the entire data set to validate
 	 *                                      against the entire form.
 	 *
 	 * @return  mixed  Boolean true if field value is valid, Exception on failure.

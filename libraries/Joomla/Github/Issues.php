@@ -11,6 +11,9 @@ namespace Joomla\Github;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\Uri\Uri;
+use Joomla\Date\Date;
+use stdClass;
 use DomainException;
 
 /**
@@ -577,12 +580,12 @@ class Issues extends Object
 	 * @since   11.3
 	 */
 	public function getListByRepository($user, $repo, $milestone = null, $state = null, $assignee = null, $mentioned = null, $labels = null,
-		$sort = null, $direction = null, JDate $since = null, $page = 0, $limit = 0)
+		$sort = null, $direction = null, Date $since = null, $page = 0, $limit = 0)
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues';
 
-		$uri = new JUri($this->fetchUrl($path, $page, $limit));
+		$uri = new Uri($this->fetchUrl($path, $page, $limit));
 
 		if ($milestone)
 		{

@@ -32,7 +32,7 @@ class Comments extends Data
 	 *
 	 * @since   1234
 	 */
-	public function __construct(JRegistry $options = null, JGoogleAuth $auth = null)
+	public function __construct(Registry $options = null, Auth $auth = null)
 	{
 		parent::__construct($options, $auth);
 

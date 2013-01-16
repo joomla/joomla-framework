@@ -11,6 +11,8 @@ namespace Joomla\Github;
 
 defined('JPATH_PLATFORM') or die;
 
+use DomainException;
+
 /**
  * GitHub API Commits class for the Joomla Platform.
  *

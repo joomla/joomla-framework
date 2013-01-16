@@ -11,6 +11,7 @@ namespace Joomla\Github;
 
 defined('JPATH_PLATFORM') or die;
 
+use stdClass;
 use DomainException;
 use InvalidArgumentException;
 

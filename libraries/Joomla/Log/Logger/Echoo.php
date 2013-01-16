@@ -21,7 +21,7 @@ use Joomla\Log\Entry;
  * @subpackage  Log
  * @since       11.1
  */
-class Echo_ extends Logger
+class Echoo extends Logger
 {
 	/**
 	 * @var    string  Value to use at the end of an echoed log entry to separate lines.

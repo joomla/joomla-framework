@@ -23,7 +23,7 @@ use Joomla\String\String;
  * @subpackage  HTML
  * @since       11.1
  */
-abstract class List_
+abstract class Listt
 {
 	/**
 	 * Build the select list to choose an image
