@@ -7,6 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache\Storage;
+
+use Joomla\Factory;
+use Joomla\Cache\Storage;
+
 /**
  * Mock of JCacheStorage Backend Class.  Used for testing of cache handlers.
  *
@@ -15,7 +20,7 @@
  *
  * @since       11.1
  */
-class JCacheStorageMock extends JCacheStorage
+class Mock extends Storage
 {
 	private $_storage = array();
 
@@ -28,7 +33,7 @@ class JCacheStorageMock extends JCacheStorage
 	{
 		parent::__construct($options);
 
-		$config =& JFactory::getConfig();
+		$config =& Factory::getConfig();
 		$this->_hash = $config->get('secret');
 	}
 

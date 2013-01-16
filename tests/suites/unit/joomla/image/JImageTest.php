@@ -496,7 +496,7 @@ class JImageTest extends TestCase
 		// Get the filter instance.
 		$filter = $image->getFilterInstance('inspector');
 
-		$this->assertInstanceOf('JImageFilterInspector', $filter);
+		$this->assertInstanceOf('\\Joomla\\Image\\Filter\\Inspector', $filter);
 	}
 
 	/**

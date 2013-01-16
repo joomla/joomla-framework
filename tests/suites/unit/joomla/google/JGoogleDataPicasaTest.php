@@ -117,7 +117,7 @@ class JGoogleDataPicasaTest extends TestCase
 
 		foreach ($results as $result)
 		{
-			$this->assertEquals(get_class($result), 'JGoogleDataPicasaAlbum');
+			$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Album');
 			$this->assertEquals($result->getTitle(), 'Album ' . $i);
 			$i++;
 		}
@@ -146,7 +146,7 @@ class JGoogleDataPicasaTest extends TestCase
 	{
 		$this->http->expects($this->once())->method('post')->will($this->returnCallback('dataPicasaAlbumCallback'));
 		$result = $this->object->createAlbum('userID', 'New Title', 'private');
-		$this->assertEquals(get_class($result), 'JGoogleDataPicasaAlbum');
+		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Album');
 		$this->assertEquals($result->getTitle(), 'New Title');
 	}
 
@@ -160,7 +160,7 @@ class JGoogleDataPicasaTest extends TestCase
 	{
 		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaAlbumCallback'));
 		$result = $this->object->getAlbum('https://picasaweb.google.com/data/entry/api/user/12345678901234567890/albumid/0123456789012345678');
-		$this->assertEquals(get_class($result), 'JGoogleDataPicasaAlbum');
+		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Album');
 		$this->assertEquals($result->getTitle(), 'Album 2');
 	}
 

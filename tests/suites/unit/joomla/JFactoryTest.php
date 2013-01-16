@@ -123,16 +123,6 @@ class JFactoryTest extends TestCase
 	 */
 	public function testGetDocument()
 	{
-		JFactory::$application = TestMockApplication::create($this);
-
-		$this->assertInstanceOf(
-			'JDocument',
-			JFactory::getDocument(),
-			'Line: ' . __LINE__
-		);
-
-		JFactory::$application = null;
-
 		$this->markTestIncomplete(
 			'This test has not been implemented completely yet.'
 		);

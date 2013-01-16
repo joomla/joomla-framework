@@ -47,7 +47,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 			'simple' => array(
 				'output',
 				array('storage' => 'file'),
-				'JCacheControllerOutput',
+				'Joomla\\Cache\\Controller\\Output',
 			),
 			'complexOutput' => array(
 				'output',
@@ -57,7 +57,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime' => 15 * 60, // Minutes to seconds
 					'storage' => 'file',
 				),
-				'JCacheControllerOutput',
+				'Joomla\\Cache\\Controller\\Output',
 			),
 			'complexPage' => array(
 				'page',
@@ -67,7 +67,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime' => 15 * 60, // Minutes to seconds
 					'storage' => 'file',
 				),
-				'JCacheControllerPage',
+				'Joomla\\Cache\\Controller\\Page',
 			),
 			'complexView' => array(
 				'view',
@@ -77,7 +77,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime' => 15 * 60, // Minutes to seconds
 					'storage' => 'file',
 				),
-				'JCacheControllerView',
+				'Joomla\\Cache\\Controller\\View',
 			),
 			'complexCallback' => array(
 				'callback',
@@ -87,7 +87,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime' => 15 * 60, // Minutes to seconds
 					'storage' => 'file',
 				),
-				'JCacheControllerCallback',
+				'Joomla\\Cache\\Controller\\Callback',
 			),
 		);
 	}
@@ -557,7 +557,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime' => 15 * 60, // Minutes to seconds
 					'storage' => 'file',
 				),
-				'JCacheStorageFile',
+				'Joomla\\Cache\\Storage\\File',
 			),
 			'apc' => array(
 				'output',
@@ -567,7 +567,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime' => 15 * 60, // Minutes to seconds
 					'storage' => 'apc',
 				),
-				'JCacheStorageApc',
+				'Joomla\\Cache\\Storage\\Apc',
 			),
 			'xcache' => array(
 				'output',
@@ -577,7 +577,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime' => 15 * 60, // Minutes to seconds
 					'storage' => 'xcache',
 				),
-				'JCacheStorageXcache',
+				'Joomla\\Cache\\Storage\\Xcache',
 			),
 			'memcache' => array(
 				'output',
@@ -587,7 +587,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime' => 15 * 60, // Minutes to seconds
 					'storage' => 'memcache',
 				),
-				'JCacheStorageMemcache',
+				'Joomla\\Cache\\Storage\\Memcache',
 			)
 			/*,
 			'eaccelerator' => array(
@@ -598,7 +598,7 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 					'lifetime'		=> 15 * 60,	// Minutes to seconds
 					'storage'		=> 'eaccelerator',
 				),
-				'JCacheStorageEaccelerator',
+				'Joomla\\Cache\\Storage\\Eaccelerator',
 				)*/
 		);
 	}
@@ -619,9 +619,6 @@ class JCacheTest extends PHPUnit_Framework_TestCase
 	{
 		$this->object = JCache::getInstance($handler, $options);
 
-		$this->assertThat(
-			$this->object->cache->_getStorage(),
-			$this->isInstanceOf($expected)
-		);
+		$this->assertTrue($this->object->cache->_getStorage() instanceof $expected);
 	}
 }

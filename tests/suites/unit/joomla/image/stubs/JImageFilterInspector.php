@@ -7,9 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Image\Filter;
+
 defined('JPATH_PLATFORM') or die;
 
-jimport('joomla.media.imagefilter');
+use Joomla\Image\Filter;
 
 /**
  * Image Filter class inspector for testing purposes.
@@ -18,7 +20,7 @@ jimport('joomla.media.imagefilter');
  * @subpackage  Media
  * @since       11.3
  */
-class JImageFilterInspector extends JImageFilter
+class Inspector extends Filter
 {
 	/**
 	 * Method to apply a filter to an image resource.

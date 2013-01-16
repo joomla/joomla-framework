@@ -320,7 +320,7 @@ class JGoogleDataPicasaPhotoTest extends TestCase
 	{
 		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaPhotoCallback'));
 		$result = $this->object->refresh();
-		$this->assertEquals(get_class($result), 'JGoogleDataPicasaPhoto');
+		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 	}
 
 	/**

@@ -50,7 +50,7 @@ class JLogTest extends PHPUnit_Framework_TestCase
 		JLog::setInstance($log);
 
 		// Add a loggers to the JLog object.
-		JLog::addLogger(array('logger' => 'echo'), JLog::ALL);
+		JLog::addLogger(array('logger' => 'echoo'), JLog::ALL);
 
 		$this->expectOutputString("DEBUG: TESTING [deprecated]\n");
 		$log->addLogEntry(new JLogEntry('TESTING', JLog::DEBUG, 'DePrEcAtEd'));
@@ -69,7 +69,7 @@ class JLogTest extends PHPUnit_Framework_TestCase
 	{
 		JLog::setInstance(null);
 
-		JLog::addLogger(array('logger' => 'echo'), JLog::ALL);
+		JLog::addLogger(array('logger' => 'echoo'), JLog::ALL);
 
 		$this->expectOutputString("WARNING: TESTING [deprecated]\n");
 		JLog::add(new JLogEntry('TESTING', JLog::WARNING, 'DePrEcAtEd'));

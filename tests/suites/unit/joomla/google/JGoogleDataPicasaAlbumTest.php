@@ -289,7 +289,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	{
 		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaAlbumCallback'));
 		$result = $this->object->refresh();
-		$this->assertEquals(get_class($result), 'JGoogleDataPicasaAlbum');
+		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Album');
 	}
 
 	/**
@@ -308,7 +308,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 
 		foreach ($results as $result)
 		{
-			$this->assertEquals(get_class($result), 'JGoogleDataPicasaPhoto');
+			$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 			$this->assertEquals($result->getTitle(), 'Photo' . $i . '.jpg');
 			$i++;
 		}
@@ -337,16 +337,16 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	{
 		$this->http->expects($this->exactly(4))->method('post')->will($this->returnCallback('dataPicasaUploadCallback'));
 		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.png');
-		$this->assertEquals(get_class($result), 'JGoogleDataPicasaPhoto');
+		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 
 		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.gif');
-		$this->assertEquals(get_class($result), 'JGoogleDataPicasaPhoto');
+		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 
 		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.jpg');
-		$this->assertEquals(get_class($result), 'JGoogleDataPicasaPhoto');
+		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 
 		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.bmp');
-		$this->assertEquals(get_class($result), 'JGoogleDataPicasaPhoto');
+		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 	}
 
 	/**

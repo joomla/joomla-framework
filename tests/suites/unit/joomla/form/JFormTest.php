@@ -71,7 +71,7 @@ class JFormTest extends TestCase
 
 		// The default path is the class file folder/forms
 		// use of realpath to ensure test works for on all platforms
-		$valid = realpath(JPATH_PLATFORM . '/joomla/form') . '/fields';
+		$valid = realpath(JPATH_PLATFORM . '/Joomla/Form') . '/field';
 
 		$this->assertThat(
 			in_array($valid, $paths),
@@ -104,7 +104,7 @@ class JFormTest extends TestCase
 
 		// The default path is the class file folder/forms
 		// use of realpath to ensure test works for on all platforms
-		$valid = realpath(JPATH_PLATFORM . '/joomla/form') . '/forms';
+		$valid = realpath(JPATH_PLATFORM . '/Joomla/Form') . '/form';
 
 		$this->assertThat(
 			in_array($valid, $paths),
@@ -137,7 +137,7 @@ class JFormTest extends TestCase
 
 		// The default path is the class file folder/rules
 		// use of realpath to ensure test works for on all platforms
-		$valid = realpath(JPATH_PLATFORM . '/joomla/form') . '/rules';
+		$valid = realpath(JPATH_PLATFORM . '/Joomla/Form') . '/rule';
 
 		$this->assertThat(
 			in_array($valid, $paths),

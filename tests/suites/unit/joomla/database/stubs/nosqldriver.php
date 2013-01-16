@@ -7,6 +7,10 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+namespace Joomla\Database\Driver;
+
+use Joomla\Database\Driver;
+
 /**
  * Test class JDatabase.
  *
@@ -14,7 +18,7 @@
  * @subpackage  Database
  * @since       11.4
  */
-class JDatabaseDriverNosql extends JDatabaseDriver
+class Nosql extends Driver
 {
 	/**
 	 * The name of the database driver.

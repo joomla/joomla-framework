@@ -65,7 +65,7 @@ class JAdapterTest extends TestCase
 
 		$this->assertThat(
 			$this->object->getDbo(),
-			$this->isInstanceOf('JDatabase')
+			$this->isInstanceOf('Joomla\\Database\\Database')
 		);
 	}
 

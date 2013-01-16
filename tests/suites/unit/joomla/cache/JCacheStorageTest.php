@@ -80,7 +80,7 @@ class JCacheStorageTest extends TestCase
 	protected function setUp()
 	{
 		$this->saveErrorHandlers();
-		$this->setErrorCallback('JCacheStorageTest');
+		$this->setErrorCallback('Joomla\\Cache\\Storage\\Test');
 		self::$actualError = array();
 
 		$this->object = new JCacheStorage;
@@ -134,7 +134,7 @@ class JCacheStorageTest extends TestCase
 					'cachebase' => JPATH_BASE . '/cache',
 					'now' => time(),
 				),
-				'JCacheStorageFile',
+				'Joomla\\Cache\\Storage\\File',
 			),
 			'defaultapc' => array(
 				'apc',
@@ -145,7 +145,7 @@ class JCacheStorageTest extends TestCase
 					'lifetime' => null,
 					'now' => time(),
 				),
-				($this->apcAvailable ? 'JCacheStorageApc' : false),
+				($this->apcAvailable ? 'Joomla\\Cache\\Storage\\Apc' : false),
 			),
 			'defaulteaccelerator' => array(
 				'eaccelerator',
@@ -156,7 +156,7 @@ class JCacheStorageTest extends TestCase
 					'lifetime' => null,
 					'now' => time(),
 				),
-				$this->eacceleratorAvailable ? 'JCacheStorageEaccelerator' : false,
+				$this->eacceleratorAvailable ? 'Joomla\\Cache\\Storage\\Eaccelerator' : false,
 			),
 			'defaultmemcache' => array(
 				'memcache',
@@ -167,7 +167,7 @@ class JCacheStorageTest extends TestCase
 					'lifetime' => null,
 					'now' => time(),
 				),
-				$this->memcacheAvailable ? 'JCacheStorageMemcache' : false,
+				$this->memcacheAvailable ? 'Joomla\\Cache\\Storage\\Memcache' : false,
 			),
 			'defaultxcache' => array(
 				'xcache',
@@ -178,7 +178,7 @@ class JCacheStorageTest extends TestCase
 					'lifetime' => null,
 					'now' => time(),
 				),
-				$this->xcacheAvailable ? 'JCacheStorageXcache' : false,
+				$this->xcacheAvailable ? 'Joomla\\Cache\\Storage\\Xcache' : false,
 			),
 		);
 	}

@@ -613,10 +613,6 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 		// Assert the class map loader is found.
 		$this->assertTrue($foundLoad);
 
-		// Assert the J prefix has been registered.
-		$prefixes = TestReflection::getValue('JLoader', 'prefixes');
-		$this->assertArrayHasKey('J', $prefixes);
-
 		// Assert the prefix loader is found.
 		$this->assertTrue($foundAutoload);
 

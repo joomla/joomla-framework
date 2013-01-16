@@ -27,28 +27,28 @@ class JRegistryFormatTest extends PHPUnit_Framework_TestCase
 		// Test INI format.
 		$object = JRegistryFormat::getInstance('INI');
 		$this->assertThat(
-			$object instanceof JRegistryFormatIni,
+			$object instanceof Joomla\Registry\Format\Ini,
 			$this->isTrue()
 		);
 
 		// Test JSON format.
 		$object = JRegistryFormat::getInstance('JSON');
 		$this->assertThat(
-			$object instanceof JRegistryFormatJson,
+			$object instanceof Joomla\Registry\Format\Json,
 			$this->isTrue()
 		);
 
 		// Test PHP format.
 		$object = JRegistryFormat::getInstance('PHP');
 		$this->assertThat(
-			$object instanceof JRegistryFormatPHP,
+			$object instanceof Joomla\Registry\Format\PHP,
 			$this->isTrue()
 		);
 
 		// Test XML format.
 		$object = JRegistryFormat::getInstance('XML');
 		$this->assertThat(
-			$object instanceof JRegistryFormatXml,
+			$object instanceof Joomla\Registry\Format\Xml,
 			$this->isTrue()
 		);
 
