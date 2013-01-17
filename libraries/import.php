@@ -33,30 +33,17 @@ if (!class_exists('JPlatform'))
 	require_once JPATH_PLATFORM . '/platform.php';
 }
 
-// Import the library loader if necessary.
-if (!class_exists('JLoader'))
+// Import the library loader if necessary. Don't try to autoload it yet.
+if (!class_exists('\\Joomla\\Loader', false))
 {
-	require_once JPATH_PLATFORM . '/loader.php';
-}
-
-// Make sure that the Joomla Platform has been successfully loaded.
-if (!class_exists('JLoader'))
-{
-	throw new RuntimeException('Joomla Platform not loaded.');
+	require_once JPATH_PLATFORM . '/Joomla/Loader.php';
 }
 
 // Setup the autoloaders.
-JLoader::setup();
-
-// Import the base Joomla Platform libraries.
-JLoader::import('joomla.factory');
+Joomla\Loader::setup();
 
 // Register classes for compatability with PHP 5.3
 if (version_compare(PHP_VERSION, '5.4.0', '<'))
 {
 	JLoader::register('JsonSerializable', JPATH_PLATFORM . '/compat/jsonserializable.php');
 }
-
-// Register classes that don't follow one file per class naming conventions.
-JLoader::register('JText', JPATH_PLATFORM . '/joomla/language/text.php');
-JLoader::register('JRoute', JPATH_PLATFORM . '/joomla/application/route.php');
