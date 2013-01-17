@@ -574,6 +574,8 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 
 		$foundLoad = false;
 		$foundAutoload = false;
+		$foundLoadByPsr0 = false;
+		$foundCompatLayer = false;
 		$foundLoadByNamespaceLowerCase = false;
 		$loadByNamespaceNaturalCase = false;
 		$loadByNamespaceMixedCase = false;
@@ -591,6 +593,16 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 				if ($loader[1] === '_autoload')
 				{
 					$foundAutoload = true;
+				}
+
+				if ($loader[1] === 'compatLayer')
+				{
+					$foundCompatLayer = true;
+				}
+
+				if ($loader[1] === 'loadByPsr0')
+				{
+					$foundLoadByPsr0 = true;
 				}
 
 				if ($loader[1] === 'loadByNamespaceLowerCase')
@@ -616,8 +628,16 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 		// Assert the prefix loader is found.
 		$this->assertTrue($foundAutoload);
 
-		// Assert the namespace loaders are not found.
-		$this->assertFalse($foundLoadByNamespaceLowerCase);
+		// Assert the PSR-0 loader is found.
+		$this->assertTrue($foundLoadByPsr0);
+
+		// Assert the compatLayer loader is found.
+		$this->assertTrue($foundCompatLayer);
+
+		// Assert the lowecase namespace loader is found
+		$this->assertTrue($foundLoadByNamespaceLowerCase);
+
+		// Assert the other namespace loaders are not found.
 		$this->assertFalse($loadByNamespaceNaturalCase);
 		$this->assertFalse($loadByNamespaceMixedCase);
 	}
