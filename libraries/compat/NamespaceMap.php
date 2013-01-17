@@ -248,6 +248,7 @@ return array(
 	'JLanguageStemmerPorteren' => 'Joomla\\Language\\Stemmer\\Porteren',
 	'JText' => 'Joomla\\Language\\Text',
 	'JLanguageTransliterate' => 'Joomla\\Language\\Transliterate',
+	'JLoader' => 'Joomla\\Loader',
 	'JLogEntry' => 'Joomla\\Log\\Entry',
 	'JLog' => 'Joomla\\Log\\Log',
 	'JLogLogger' => 'Joomla\\Log\\Logger',

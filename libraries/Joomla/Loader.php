@@ -10,6 +10,12 @@ namespace Joomla;
 
 defined('JPATH_PLATFORM') or die;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use DirectoryIterator;
+use RuntimeException;
+use UnexpectedValueException;
+
 /**
  * Static class to handle loading of libraries.
  *
@@ -519,7 +525,7 @@ abstract class Loader
 		{
 			self::$nsMap = include JPATH_PLATFORM . '/compat/NamespaceMap.php';
 
-			spl_autoload_register(array(__CLASS__, 'compat'));
+			spl_autoload_register(array(__CLASS__, 'compatLayer'));
 		}
 
 		spl_autoload_register(array(__CLASS__, 'loadByPsr0'));
@@ -541,24 +547,20 @@ abstract class Loader
 		{
 			switch ($caseStrategy)
 			{
-				// Register the lower case namespace loader.
-				case self::LOWER_CASE:
-					spl_autoload_register(array('JLoader', 'loadByNamespaceLowerCase'));
-					break;
-
 				// Register the natural case namespace loader.
 				case self::NATURAL_CASE:
-					spl_autoload_register(array('JLoader', 'loadByNamespaceNaturalCase'));
+					spl_autoload_register(array(__CLASS__, 'loadByNamespaceNaturalCase'));
 					break;
 
 				// Register the mixed case namespace loader.
 				case self::MIXED_CASE:
-					spl_autoload_register(array('JLoader', 'loadByNamespaceMixedCase'));
+					spl_autoload_register(array(__CLASS__, 'loadByNamespaceMixedCase'));
 					break;
 
 				// Default to the lower case namespace loader.
+				case self::LOWER_CASE:
 				default:
-					spl_autoload_register(array('JLoader', 'loadByNamespaceLowerCase'));
+					spl_autoload_register(array(__CLASS__, 'loadByNamespaceLowerCase'));
 					break;
 			}
 		}
@@ -574,11 +576,11 @@ abstract class Loader
 	 *
 	 * @since   13.1
 	 */
-	public static function compatibilityLayer($classname)
+	public static function compatLayer($class)
 	{
-		if (isset(self::$nsMap[$classname]))
+		if (isset(self::$nsMap[$class]))
 		{
-			class_alias(self::$nsMap[$classname], $classname);
+			class_alias(self::$nsMap[$class], $class);
 
 			return true;
 		}
@@ -698,35 +700,4 @@ abstract class Loader
 
 		return false;
 	}
-}
-
-/**
- * Global application exit.
- *
- * This function provides a single exit point for the platform.
- *
- * @param   mixed  $message  Exit code or string. Defaults to zero.
- *
- * @return  void
- *
- * @codeCoverageIgnore
- * @since   11.1
- */
-function jexit($message = 0)
-{
-	exit($message);
-}
-
-/**
- * Intelligent file importer.
- *
- * @param   string  $path  A dot syntax path.
- *
- * @return  boolean  True on success.
- *
- * @since   11.1
- */
-function jimport($path)
-{
-	return JLoader::import($path);
 }
