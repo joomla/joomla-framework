@@ -34,19 +34,16 @@ if (!class_exists('JPlatform'))
 }
 
 // Import the library loader if necessary. Don't try to autoload it yet.
-if (!class_exists('\\Joomla\\Loader', false))
+if (!class_exists('JLoader', false))
 {
-	require_once JPATH_PLATFORM . '/Joomla/Loader.php';
+	require_once JPATH_PLATFORM . '/loader.php';
 }
 
 // Setup the autoloaders.
-Joomla\Loader::setup();
+JLoader::setup();
 
 // Register classes for compatability with PHP 5.3
 if (version_compare(PHP_VERSION, '5.4.0', '<'))
 {
-	Joomla\Loader::register('JsonSerializable', JPATH_PLATFORM . '/compat/jsonserializable.php');
+	JLoader::register('JsonSerializable', JPATH_PLATFORM . '/compat/jsonserializable.php');
 }
-
-// Include the jexit and jimport methods
-require_once JPATH_PLATFORM . '/compat/functions.php';
