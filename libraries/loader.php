@@ -572,7 +572,11 @@ abstract class JLoader
 	{
 		if (isset(self::$nsMap[$class]))
 		{
-			class_alias(self::$nsMap[$class], $class);
+			// Try to autoload the class, checking for existing old style overrides first.
+			if (!self::_autoload($class))
+			{
+				class_alias(self::$nsMap[$class], $class);
+			}
 
 			return true;
 		}
