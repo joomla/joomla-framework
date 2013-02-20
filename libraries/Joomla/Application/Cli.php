@@ -13,7 +13,6 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Loader;
 use Joomla\Input\Input;
-use Joomla\Event\Dispatcher;
 use Joomla\Registry\Registry;
 use RuntimeException;
 
@@ -49,15 +48,10 @@ class Cli extends Base
 	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
 	 *                              config object.  If the argument is a JRegistry object that object will become
 	 *                              the application's config object, otherwise a default config object is created.
-	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
-	 *                              event dispatcher.  If the argument is a JEventDispatcher object that object will become
-	 *                              the application's event dispatcher, if it is null then the default event dispatcher
-	 *                              will be created based on the application's loadDispatcher() method.
 	 *
-	 * @see     loadDispatcher()
 	 * @since   11.1
 	 */
-	public function __construct(InputCli $input = null, Registry $config = null, Dispatcher $dispatcher = null)
+	public function __construct(InputCli $input = null, Registry $config = null)
 	{
 		// Close the application if we are not executed from the command line.
 		// @codeCoverageIgnoreStart
@@ -91,8 +85,6 @@ class Cli extends Base
 		{
 			$this->config = new Registry;
 		}
-
-		$this->loadDispatcher($dispatcher);
 
 		// Load the configuration object.
 		$this->loadConfiguration($this->fetchConfigurationData());
@@ -158,14 +150,12 @@ class Cli extends Base
 	 */
 	public function execute()
 	{
-		// Trigger the onBeforeExecute event.
-		$this->triggerEvent('onBeforeExecute');
+		// @event onBeforeExecute
 
 		// Perform application routines.
 		$this->doExecute();
 
-		// Trigger the onAfterExecute event.
-		$this->triggerEvent('onAfterExecute');
+		// @event onAfterExecute
 	}
 
 	/**

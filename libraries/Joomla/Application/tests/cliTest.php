@@ -51,9 +51,6 @@ class JApplicationCliTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		// Reset the dispatcher instance.
-		TestReflection::setValue('JEventDispatcher', 'instance', null);
-
 		parent::tearDown();
 	}
 
@@ -69,8 +66,6 @@ class JApplicationCliTest extends TestCase
 		$this->assertInstanceOf('JInput', $this->class->input, 'Input property wrong type');
 
 		$this->assertAttributeInstanceOf('JRegistry', 'config', $this->class, 'Checks config property');
-
-		$this->assertAttributeInstanceOf('JEventDispatcher', 'dispatcher', $this->class, 'Checks dispatcher property');
 
 		// TODO Test that configuration data loaded.
 
@@ -103,21 +98,11 @@ class JApplicationCliTest extends TestCase
 			$this->returnValue('ok')
 		);
 
-		$mockDispatcher = $this->getMockDispatcher();
-		$mockDispatcher
-			->expects($this->any())
-			->method('test')
-			->will(
-			$this->returnValue('ok')
-		);
-
-		$class = new JApplicationCliInspector($mockInput, $mockConfig, $mockDispatcher);
+		$class = new JApplicationCliInspector($mockInput, $mockConfig);
 
 		$this->assertEquals('ok', $class->input->test(), 'Tests input injection.');
 
 		$this->assertEquals('ok', TestReflection::getValue($class, 'config')->test(), 'Tests config injection.');
-
-		$this->assertEquals('ok', TestReflection::getValue($class, 'dispatcher')->test(), 'Tests dispatcher injection.');
 	}
 
 	/**
@@ -143,36 +128,6 @@ class JApplicationCliTest extends TestCase
 			$this->class->closed,
 			3,
 			'Checks the application was closed with exit code 3.'
-		);
-	}
-
-	/**
-	 * Tests the JApplicationCli::Execute method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function testExecute()
-	{
-		// Manually inject the dispatcher.
-		TestReflection::setValue($this->class, 'dispatcher', $this->getMockDispatcher());
-
-		// Register all the methods so that we can track if they have been fired.
-		$this->class->registerEvent('onBeforeExecute', 'JWebTestExecute-onBeforeExecute')
-			->registerEvent('JWebDoExecute', 'JWebTestExecute-JWebDoExecute')
-			->registerEvent('onAfterExecute', 'JWebTestExecute-onAfterExecute');
-
-		$this->class->execute();
-
-		$this->assertEquals(
-			array(
-				'onBeforeExecute',
-				'JWebDoExecute',
-				'onAfterExecute',
-			),
-			TestMockDispatcher::$triggered,
-			'Check that events fire in the right order.'
 		);
 	}
 
