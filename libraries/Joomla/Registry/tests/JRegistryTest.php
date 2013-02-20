@@ -433,10 +433,10 @@ class JRegistryTest extends PHPUnit_Framework_TestCase
 
 		// Test case from Tracker Issue 22444
 		$registry = new JRegistry;
-		$object = new JObject;
-		$object2 = new JObject;
-		$object2->set('test', 'testcase');
-		$object->set('test', $object2);
+		$object = new stdClass;
+		$object2 = new stdClass;
+		$object2->test = 'testcase';
+		$object->test = $object2;
 		$this->assertTrue($registry->loadObject($object), 'Line: ' . __LINE__ . '. Should load object successfully');
 	}
 
