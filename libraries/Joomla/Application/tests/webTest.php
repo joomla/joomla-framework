@@ -106,7 +106,6 @@ class JApplicationWebTest extends TestCase
 		// We are only coupled to Document and Language in JFactory.
 		$this->saveFactoryState();
 
-		JFactory::$document = $this->getMockDocument();
 		JFactory::$language = $this->getMockLanguage();
 	}
 
@@ -120,9 +119,6 @@ class JApplicationWebTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		// Reset the dispatcher instance.
-		TestReflection::setValue('JEventDispatcher', 'instance', null);
-
 		// Reset some web inspector static settings.
 		JApplicationWebInspector::$headersSent = false;
 		JApplicationWebInspector::$connectionAlive = true;
@@ -666,104 +662,6 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::Execute method without a document.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function testExecuteWithoutDocument()
-	{
-		// Manually inject the dispatcher.
-		TestReflection::setValue($this->class, 'dispatcher', $this->getMockDispatcher());
-
-		// Register all the methods so that we can track if they have been fired.
-		$this->class->registerEvent('onBeforeExecute', 'JWebTestExecute-onBeforeExecute')
-			->registerEvent('JWebDoExecute', 'JWebTestExecute-JWebDoExecute')
-			->registerEvent('onAfterExecute', 'JWebTestExecute-onAfterExecute')
-			->registerEvent('onBeforeRespond', 'JWebTestExecute-onBeforeRespond')
-			->registerEvent('onAfterRespond', 'JWebTestExecute-onAfterRespond');
-
-		$this->class->execute();
-
-		$this->assertThat(
-			TestMockDispatcher::$triggered,
-			$this->equalTo(
-				array(
-					'onBeforeExecute',
-					'JWebDoExecute',
-					'onAfterExecute',
-					'onBeforeRespond',
-					'onAfterRespond',
-				)
-			),
-			'Check that events fire in the right order.'
-		);
-	}
-
-	/**
-	 * Tests the JApplicationWeb::Execute method with a document.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function testExecuteWithDocument()
-	{
-		$dispatcher = $this->getMockDispatcher();
-		$document = $this->getMockDocument();
-
-		$this->assignMockReturns($document, array('render' => 'JWeb Body'));
-
-		// Manually inject the dispatcher.
-		TestReflection::setValue($this->class, 'dispatcher', $dispatcher);
-		TestReflection::setValue($this->class, 'document', $document);
-
-		// Register all the methods so that we can track if they have been fired.
-		$this->class->registerEvent('onBeforeExecute', 'JWebTestExecute-onBeforeExecute')
-			->registerEvent('JWebDoExecute', 'JWebTestExecute-JWebDoExecute')
-			->registerEvent('onAfterExecute', 'JWebTestExecute-onAfterExecute')
-			->registerEvent('onBeforeRender', 'JWebTestExecute-onBeforeRender')
-			->registerEvent('onAfterRender', 'JWebTestExecute-onAfterRender')
-			->registerEvent('onBeforeRespond', 'JWebTestExecute-onBeforeRespond')
-			->registerEvent('onAfterRespond', 'JWebTestExecute-onAfterRespond');
-
-		// Buffer the execution.
-		ob_start();
-		$this->class->execute();
-		$buffer = ob_get_contents();
-		ob_end_clean();
-
-		$this->assertThat(
-			TestMockDispatcher::$triggered,
-			$this->equalTo(
-				array(
-					'onBeforeExecute',
-					'JWebDoExecute',
-					'onAfterExecute',
-					'onBeforeRender',
-					'onAfterRender',
-					'onBeforeRespond',
-					'onAfterRespond',
-				)
-			),
-			'Check that events fire in the right order (with document).'
-		);
-
-		$this->assertThat(
-			$this->class->getBody(),
-			$this->equalTo('JWeb Body'),
-			'Check that the body was set with the return value of document render method.'
-		);
-
-		$this->assertThat(
-			$buffer,
-			$this->equalTo('JWeb Body'),
-			'Check that the body is output correctly.'
-		);
-	}
-
-	/**
 	 * Data for fetchConfigurationData method.
 	 *
 	 * @return  array
@@ -973,21 +871,9 @@ class JApplicationWebTest extends TestCase
 		$this->class->initialise(false);
 
 		$this->assertInstanceOf(
-			'JDocument',
-			TestReflection::getValue($this->class, 'document'),
-			'Test that deafult document was initialised.'
-		);
-
-		$this->assertInstanceOf(
 			'JLanguage',
 			TestReflection::getValue($this->class, 'language'),
 			'Test that deafult language was initialised.'
-		);
-
-		$this->assertInstanceOf(
-			'JEventDispatcher',
-			TestReflection::getValue($this->class, 'dispatcher'),
-			'Test that deafult dispatcher was initialised.'
 		);
 	}
 
@@ -1006,12 +892,6 @@ class JApplicationWebTest extends TestCase
 			TestReflection::getValue($this->class, 'session'),
 			$this->equalTo(null),
 			'Test that no session is defined.'
-		);
-
-		$this->assertThat(
-			TestReflection::getValue($this->class, 'document'),
-			$this->equalTo(null),
-			'Test that no document is defined.'
 		);
 
 		$this->assertThat(
@@ -1038,14 +918,6 @@ class JApplicationWebTest extends TestCase
 			$this->returnValue('JSession')
 		);
 
-		$mockDocument = $this->getMock('JDocument', array('test'), array(), '', false);
-		$mockDocument
-			->expects($this->any())
-			->method('test')
-			->will(
-			$this->returnValue('JDocument')
-		);
-
 		$mockLanguage = $this->getMock('JLanguage', array('test'), array(), '', false);
 		$mockLanguage
 			->expects($this->any())
@@ -1054,15 +926,7 @@ class JApplicationWebTest extends TestCase
 			$this->returnValue('JLanguage')
 		);
 
-		$mockDispatcher = $this->getMock('JEventDispatcher', array('test'), array(), '', false);
-		$mockDispatcher
-			->expects($this->any())
-			->method('test')
-			->will(
-			$this->returnValue('JEventDispatcher')
-		);
-
-		$this->class->initialise($mockSession, $mockDocument, $mockLanguage, $mockDispatcher);
+		$this->class->initialise($mockSession, $mockLanguage);
 
 		$this->assertThat(
 			TestReflection::getValue($this->class, 'session')->test(),
@@ -1071,21 +935,9 @@ class JApplicationWebTest extends TestCase
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'document')->test(),
-			$this->equalTo('JDocument'),
-			'Tests document injection.'
-		);
-
-		$this->assertThat(
 			TestReflection::getValue($this->class, 'language')->test(),
 			$this->equalTo('JLanguage'),
 			'Tests language injection.'
-		);
-
-		$this->assertThat(
-			TestReflection::getValue($this->class, 'dispatcher')->test(),
-			$this->equalTo('JEventDispatcher'),
-			'Tests dispatcher injection.'
 		);
 	}
 
@@ -1124,33 +976,6 @@ class JApplicationWebTest extends TestCase
 			TestReflection::getValue($this->class, 'config')->get('goo'),
 			$this->equalTo('car'),
 			'Check the configuration object was loaded.'
-		);
-	}
-
-	/**
-	 * Tests the JApplicationWeb::loadDocument method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function testLoadDocument()
-	{
-		// Inject the mock dispatcher into the JEventDispatcher singleton.
-		TestReflection::setValue('JEventDispatcher', 'instance', $this->getMockDispatcher());
-
-		$this->class->loadDocument();
-
-		$this->assertInstanceOf(
-			'JDocument',
-			TestReflection::getValue($this->class, 'document'),
-			'Tests that the document object is the correct class.'
-		);
-
-		$this->assertThat(
-			TestReflection::getValue($this->class, 'document')->test(),
-			$this->equalTo('ok'),
-			'Tests that we got the document from the factory.'
 		);
 	}
 
@@ -1586,56 +1411,6 @@ class JApplicationWebTest extends TestCase
 		$this->assertThat(
 			$this->class->headers[1][0],
 			$this->equalTo('Location: ' . $expected)
-		);
-	}
-
-	/**
-	 * Tests the JApplicationWeb::registerEvent method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function testRegisterEvent()
-	{
-		TestReflection::setValue($this->class, 'dispatcher', $this->getMockDispatcher());
-
-		$this->assertThat(
-			$this->class->registerEvent('onJWebRegisterEvent', 'function'),
-			$this->identicalTo($this->class),
-			'Check chaining.'
-		);
-
-		$this->assertArrayHasKey(
-			'onJWebRegisterEvent',
-			TestMockDispatcher::$handlers,
-			'Checks the events were passed to the mock dispatcher.'
-		);
-	}
-
-	/**
-	 * Tests the JApplicationWeb::render method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function testRender()
-	{
-		$document = $this->getMockDocument();
-
-		$this->assignMockReturns($document, array('render' => 'JWeb Body'));
-
-		// Manually inject the document.
-		TestReflection::setValue($this->class, 'document', $document);
-
-		TestReflection::invoke($this->class, 'render');
-
-		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->body,
-			$this->equalTo(
-				array('JWeb Body')
-			)
 		);
 	}
 

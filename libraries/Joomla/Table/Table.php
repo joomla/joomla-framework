@@ -15,7 +15,6 @@ use Joomla\Filesystem\Path;
 use Joomla\Database\Driver;
 use Joomla\Database\Query;
 use Joomla\Language\Text;
-use Joomla\Object\Object;
 use Joomla\Access\Rules;
 use Joomla\Factory;
 use Joomla\Log\Log;
@@ -35,7 +34,7 @@ use RuntimeException;
  * @tutorial    Joomla.Platform/jtable.cls
  */
 
-abstract class Table extends Object
+abstract class Table
 {
 	/**
 	 * Include paths for searching for JTable classes.
@@ -108,6 +107,14 @@ abstract class Table extends Object
 	 * @since  12.3
 	 */
 	protected $_autoincrement = true;
+
+	/**
+	 * An array of error messages or Exception objects.
+	 *
+	 * @var              array
+	 * @since            11.1
+	 */
+	protected $_errors = array();
 
 	/**
 	 * Object constructor to set table and key fields.  In most cases this will
@@ -1554,5 +1561,110 @@ abstract class Table extends Object
 		$this->_locked = false;
 
 		return true;
+	}
+
+	// Method's copied from JObject
+
+	/**
+	 * Returns a property of the object or the default value if the property is not set.
+	 *
+	 * @param   string  $property  The name of the property.
+	 * @param   mixed   $default   The default value.
+	 *
+	 * @return  mixed    The value of the property.
+	 *
+	 * @since   11.1
+	 *
+	 * @see     getProperties()
+	 */
+	public function get($property, $default = null)
+	{
+		if (isset($this->$property))
+		{
+			return $this->$property;
+		}
+		return $default;
+	}
+
+	/**
+	 * Returns an associative array of object properties.
+	 *
+	 * @param   boolean  $public  If true, returns only the public properties.
+	 *
+	 * @return  array
+	 *
+	 * @since   11.1
+	 *
+	 * @see     get()
+	 */
+	public function getProperties($public = true)
+	{
+		$vars = get_object_vars($this);
+
+		if ($public)
+		{
+			foreach ($vars as $key => $value)
+			{
+				if ('_' == substr($key, 0, 1))
+				{
+					unset($vars[$key]);
+				}
+			}
+		}
+
+		return $vars;
+	}
+
+	/**
+	 * Get the most recent error message.
+	 *
+	 * @param   integer  $i         Option error index.
+	 * @param   boolean  $toString  Indicates if JError objects should return their error message.
+	 *
+	 * @return  string   Error message
+	 *
+	 * @since       11.1
+	 * @see         JError
+	 * @deprecated  13.3
+	 */
+	public function getError($i = null, $toString = true)
+	{
+		// Find the error
+		if ($i === null)
+		{
+			// Default, return the last message
+			$error = end($this->_errors);
+		}
+		elseif (!array_key_exists($i, $this->_errors))
+		{
+			// If $i has been specified but does not exist, return false
+			return false;
+		}
+		else
+		{
+			$error = $this->_errors[$i];
+		}
+
+		// Check if only the string is requested
+		if ($error instanceof Exception && $toString)
+		{
+			return (string) $error;
+		}
+
+		return $error;
+	}
+
+	/**
+	 * Add an error message.
+	 *
+	 * @param   string  $error  Error message.
+	 *
+	 * @return  void
+	 *
+	 * @since       11.1
+	 */
+	public function setError($error)
+	{
+		array_push($this->_errors, $error);
 	}
 }

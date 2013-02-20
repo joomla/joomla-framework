@@ -14,9 +14,7 @@
 			<directory>tests/suites/database</directory>
 		</testsuite> -->
 		<testsuite name="Unit">
-			<directory>libraries/Joomla/Application/tests</directory>
-			<directory>libraries/Joomla/Archive/tests</directory>
-			<directory>libraries/Joomla/Data/tests</directory>
+			<directory>libraries/Joomla/*/tests</directory>
 		</testsuite>
 	</testsuites>
 

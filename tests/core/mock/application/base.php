@@ -35,7 +35,6 @@ class TestMockApplicationWeb
 		// Collect all the relevant methods in JApplicationBase (work in progress).
 		$methods = array(
 			'close',
-			'getIdentity',
 			'loadDispatcher',
 			'loadDocument',
 			'loadIdentity',

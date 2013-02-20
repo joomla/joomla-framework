@@ -12,7 +12,6 @@ namespace Joomla\Filesystem;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Language\Text;
-use Joomla\Object\Object;
 
 /**
  * Joomla! Stream Interface
@@ -33,8 +32,18 @@ use Joomla\Object\Object;
  * @see         http://php.net/manual/en/transports.php Socket Transports (used by some options, particularly HTTP proxy)
  * @since       11.1
  */
-class Stream extends Object
+class Stream
 {
+	/**
+	 * An array of error messages or Exception objects.
+	 *
+	 * @var              array
+	 * @since            11.1
+	 * @see              JError
+	 * @deprecated       13.3
+	 */
+	protected $_errors = array();
+
 	// Publicly settable vars (protected to let our parent read them)
 	/**
 	 * File Mode
@@ -1426,5 +1435,57 @@ class Stream extends Object
 	public function getFileHandle()
 	{
 		return $this->fh;
+	}
+
+	/**
+	 * Modifies a property of the object, creating it if it does not already exist.
+	 *
+	 * @param   string  $property  The name of the property.
+	 * @param   mixed   $value     The value of the property to set.
+	 *
+	 * @return  mixed  Previous value of the property.
+	 *
+	 * @since   11.1
+	 */
+	public function set($property, $value = null)
+	{
+		$previous = isset($this->$property) ? $this->$property : null;
+		$this->$property = $value;
+
+		return $previous;
+	}
+
+	/**
+	 * Returns a property of the object or the default value if the property is not set.
+	 *
+	 * @param   string  $property  The name of the property.
+	 * @param   mixed   $default   The default value.
+	 *
+	 * @return  mixed    The value of the property.
+	 *
+	 * @since   11.1
+	 */
+	public function get($property, $default = null)
+	{
+		if (isset($this->$property))
+		{
+			return $this->$property;
+		}
+		return $default;
+	}
+
+	/**
+	 * Add an error message.
+	 *
+	 * @param   string  $error  Error message.
+	 *
+	 * @return  void
+	 *
+	 * @since       11.1
+	 * @see         JError
+	 */
+	public function setError($error)
+	{
+		array_push($this->_errors, $error);
 	}
 }

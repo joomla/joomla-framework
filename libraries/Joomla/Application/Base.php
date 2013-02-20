@@ -11,10 +11,6 @@ namespace Joomla\Application;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Factory;
-use Joomla\User\User;
-use Joomla\Event\Dispatcher;
-
 /**
  * Joomla Platform Base Application Class
  *
@@ -24,22 +20,6 @@ use Joomla\Event\Dispatcher;
  */
 abstract class Base
 {
-	/**
-	 * The application dispatcher object.
-	 *
-	 * @var    JEventDispatcher
-	 * @since  12.1
-	 */
-	protected $dispatcher;
-
-	/**
-	 * The application identity object.
-	 *
-	 * @var    JUser
-	 * @since  12.1
-	 */
-	protected $identity;
-
 	/**
 	 * The application input object.
 	 *
@@ -61,97 +41,5 @@ abstract class Base
 	public function close($code = 0)
 	{
 		exit($code);
-	}
-
-	/**
-	 * Get the application identity.
-	 *
-	 * @return  mixed  A JUser object or null.
-	 *
-	 * @since   12.1
-	 */
-	public function getIdentity()
-	{
-		return $this->identity;
-	}
-
-	/**
-	 * Registers a handler to a particular event group.
-	 *
-	 * @param   string    $event    The event name.
-	 * @param   callable  $handler  The handler, a function or an instance of a event object.
-	 *
-	 * @return  JApplicationBase  The application to allow chaining.
-	 *
-	 * @since   12.1
-	 */
-	public function registerEvent($event, $handler)
-	{
-		if ($this->dispatcher instanceof Dispatcher)
-		{
-			$this->dispatcher->register($event, $handler);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Calls all handlers associated with an event group.
-	 *
-	 * @param   string  $event  The event name.
-	 * @param   array   $args   An array of arguments (optional).
-	 *
-	 * @return  array   An array of results from each function call, or null if no dispatcher is defined.
-	 *
-	 * @since   12.1
-	 */
-	public function triggerEvent($event, array $args = null)
-	{
-		if ($this->dispatcher instanceof Dispatcher)
-		{
-			return $this->dispatcher->trigger($event, $args);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Allows the application to load a custom or default dispatcher.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create event
-	 * dispatchers, if required, based on more specific needs.
-	 *
-	 * @param   JEventDispatcher  $dispatcher  An optional dispatcher object. If omitted, the factory dispatcher is created.
-	 *
-	 * @return  JApplicationBase This method is chainable.
-	 *
-	 * @since   12.1
-	 */
-	public function loadDispatcher(Dispatcher $dispatcher = null)
-	{
-		$this->dispatcher = ($dispatcher === null) ? Dispatcher::getInstance() : $dispatcher;
-
-		return $this;
-	}
-
-	/**
-	 * Allows the application to load a custom or default identity.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create an identity,
-	 * if required, based on more specific needs.
-	 *
-	 * @param   JUser  $identity  An optional identity object. If omitted, the factory user is created.
-	 *
-	 * @return  JApplicationBase This method is chainable.
-	 *
-	 * @since   12.1
-	 */
-	public function loadIdentity(User $identity = null)
-	{
-		$this->identity = ($identity === null) ? Factory::getUser() : $identity;
-
-		return $this;
 	}
 }

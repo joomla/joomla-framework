@@ -29,7 +29,6 @@ class TestMockApplication
 		$methods = array(
 			'get',
 			'getCfg',
-			'getIdentity',
 			'getRouter',
 			'getTemplate',
 		);

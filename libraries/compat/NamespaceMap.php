@@ -305,8 +305,7 @@ return array(
 	'JUserHelper' => 'Joomla\\User\\Helper',
 	'JUser' => 'Joomla\\User\\User',
 	'JArrayHelper' => 'Joomla\\Utilities\\ArrayHelper',
-	'JBuffer' => 'Joomla\\Utilities\\Buffer',
-	'JUtility' => 'Joomla\\Utilities\\Utility',
+	'JBuffer' => 'Joomla\\Client\\Buffer',
 	'JViewBase' => 'Joomla\\View\\Base',
 	'JViewHtml' => 'Joomla\\View\\Html',
 	'JView' => 'Joomla\\View\\View'

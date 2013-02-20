@@ -194,8 +194,6 @@ class JSessionTest extends TestCase
 	 */
 	public function testGetFormToken()
 	{
-		$user = JFactory::getUser();
-
 		JFactory::$application = $this->getMock('JInputCookie', array('set', 'get'));
 		JFactory::$application->expects($this->once())
 			->method('get')
@@ -203,7 +201,7 @@ class JSessionTest extends TestCase
 			->will($this->returnValue('abc'));
 
 		$this->object->set('secret', 'abc');
-		$expected = md5('abc' . $user->get('id', 0) . $this->object->getToken(false));
+		$expected = md5('abc' . 0 . $this->object->getToken(false));
 		$this->assertEquals($expected, $this->object->getFormToken(), 'Form token should be calculated as above.');
 	}
 

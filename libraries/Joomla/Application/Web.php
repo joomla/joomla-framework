@@ -20,7 +20,6 @@ use Joomla\Input\Input;
 use Joomla\Session\Session;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
-use Joomla\Document\Document;
 use stdClass;
 use RuntimeException;
 
@@ -62,12 +61,6 @@ class Web extends Base
 	 * @since  11.3
 	 */
 	protected $config;
-
-	/**
-	 * @var    JDocument  The application document object.
-	 * @since  11.3
-	 */
-	protected $document;
 
 	/**
 	 * @var    JLanguage  The application language object.
@@ -197,31 +190,21 @@ class Web extends Base
 	 *                              the application's session object, if it is false then there will be no session
 	 *                              object, and if it is null then the default session object will be created based
 	 *                              on the application's loadSession() method.
-	 * @param   mixed  $document    An optional argument to provide dependency injection for the application's
-	 *                              document object.  If the argument is a JDocument object that object will become
-	 *                              the application's document object, if it is false then there will be no document
-	 *                              object, and if it is null then the default document object will be created based
-	 *                              on the application's loadDocument() method.
 	 * @param   mixed  $language    An optional argument to provide dependency injection for the application's
 	 *                              language object.  If the argument is a JLanguage object that object will become
 	 *                              the application's language object, if it is false then there will be no language
 	 *                              object, and if it is null then the default language object will be created based
 	 *                              on the application's loadLanguage() method.
-	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
-	 *                              event dispatcher.  If the argument is a JEventDispatcher object that object will become
-	 *                              the application's event dispatcher, if it is null then the default event dispatcher
-	 *                              will be created based on the application's loadDispatcher() method.
 	 *
 	 * @return  JApplicationWeb  Instance of $this to allow chaining.
 	 *
 	 * @deprecated  13.1
 	 * @see     loadSession()
-	 * @see     loadDocument()
 	 * @see     loadLanguage()
 	 * @see     loadDispatcher()
 	 * @since   11.3
 	 */
-	public function initialise($session = null, $document = null, $language = null, $dispatcher = null)
+	public function initialise($session = null, $language = null)
 	{
 		// Create the session based on the application logic.
 		if ($session !== false)
@@ -229,19 +212,11 @@ class Web extends Base
 			$this->loadSession($session);
 		}
 
-		// Create the document based on the application logic.
-		if ($document !== false)
-		{
-			$this->loadDocument($document);
-		}
-
 		// Create the language based on the application logic.
 		if ($language !== false)
 		{
 			$this->loadLanguage($language);
 		}
-
-		$this->loadDispatcher($dispatcher);
 
 		return $this;
 	}
@@ -255,27 +230,12 @@ class Web extends Base
 	 */
 	public function execute()
 	{
-		// Trigger the onBeforeExecute event.
-		$this->triggerEvent('onBeforeExecute');
+		// @event onBeforeExecute
 
 		// Perform application routines.
 		$this->doExecute();
 
-		// Trigger the onAfterExecute event.
-		$this->triggerEvent('onAfterExecute');
-
-		// If we have an application document object, render it.
-		if ($this->document instanceof Document)
-		{
-			// Trigger the onBeforeRender event.
-			$this->triggerEvent('onBeforeRender');
-
-			// Render the application output.
-			$this->render();
-
-			// Trigger the onAfterRender event.
-			$this->triggerEvent('onAfterRender');
-		}
+		// @event onAfterExecute
 
 		// If gzip compression is enabled in configuration and the server is compliant, compress the output.
 		if ($this->get('gzip') && !ini_get('zlib.output_compression') && (ini_get('output_handler') != 'ob_gzhandler'))
@@ -283,14 +243,12 @@ class Web extends Base
 			$this->compress();
 		}
 
-		// Trigger the onBeforeRespond event.
-		$this->triggerEvent('onBeforeRespond');
+		// @event onBeforeRespond
 
 		// Send the application response.
 		$this->respond();
 
-		// Trigger the onAfterRespond event.
-		$this->triggerEvent('onAfterRespond');
+		// @event onAfterRespond
 	}
 
 	/**
@@ -306,44 +264,6 @@ class Web extends Base
 	protected function doExecute()
 	{
 		// Your application routines go here.
-	}
-
-	/**
-	 * Rendering is the process of pushing the document buffers into the template
-	 * placeholders, retrieving data from the document and pushing it into
-	 * the application response buffer.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	protected function render()
-	{
-		// Setup the document options.
-		$options = array(
-			'template' => $this->get('theme'),
-			'file' => $this->get('themeFile', 'index.php'),
-			'params' => $this->get('themeParams')
-		);
-
-		if ($this->get('themes.base'))
-		{
-			$options['directory'] = $this->get('themes.base');
-		}
-		// Fall back to constants.
-		else
-		{
-			$options['directory'] = defined('JPATH_THEMES') ? JPATH_THEMES : (defined('JPATH_BASE') ? JPATH_BASE : __DIR__) . '/themes';
-		}
-
-		// Parse the document.
-		$this->document->parse($options);
-
-		// Render the document.
-		$data = $this->document->render($this->get('cache_enabled'), $options);
-
-		// Set the application output data.
-		$this->setBody($data);
 	}
 
 	/**
@@ -781,18 +701,6 @@ class Web extends Base
 	}
 
 	/**
-	 * Method to get the application document object.
-	 *
-	 * @return  JDocument  The document object
-	 *
-	 * @since   11.3
-	 */
-	public function getDocument()
-	{
-		return $this->document;
-	}
-
-	/**
 	 * Method to get the application language object.
 	 *
 	 * @return  JLanguage  The language object
@@ -973,26 +881,6 @@ class Web extends Base
 	public function isSSLConnection()
 	{
 		return ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) || getenv('SSL_PROTOCOL_VERSION'));
-	}
-
-	/**
-	 * Allows the application to load a custom or default document.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create a document,
-	 * if required, based on more specific needs.
-	 *
-	 * @param   JDocument  $document  An optional document object. If omitted, the factory document is created.
-	 *
-	 * @return  JApplicationWeb This method is chainable.
-	 *
-	 * @since   11.3
-	 */
-	public function loadDocument(Document $document = null)
-	{
-		$this->document = ($document === null) ? Factory::getDocument() : $document;
-
-		return $this;
 	}
 
 	/**
