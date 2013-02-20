@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Utilities;
+namespace Joomla\Client;
 
 defined('JPATH_PLATFORM') or die;
 
@@ -198,4 +198,4 @@ class Buffer
 	}
 }
 // Register the stream
-stream_wrapper_register('buffer', '\\Joomla\\Utilities\\Buffer');
+stream_wrapper_register('buffer', '\\Joomla\\Client\\Buffer');

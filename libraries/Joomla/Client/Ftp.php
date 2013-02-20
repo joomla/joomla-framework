@@ -11,9 +11,9 @@ namespace Joomla\Client;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Loader;
 use Joomla\Log\Log;
 use Joomla\Language\Text;
+use Joomla\Client\Buffer;
 
 /** Error Codes:
  * - 30 : Unable to connect to host
@@ -153,11 +153,8 @@ class Ftp
 
 		if (FTP_NATIVE)
 		{
-			// Import the generic buffer stream handler
-			jimport('joomla.utilities.buffer');
-
-			// Autoloading fails for JBuffer as the class is used as a stream handler
-			Loader::load('JBuffer');
+			// Autoloading fails for Buffer as the class is used as a stream handler
+			class_exists('Buffer');
 		}
 	}
 
