@@ -29,13 +29,6 @@ class JCacheStorageTest extends TestCase
 	 */
 	protected static $errors;
 
-	protected $savedErrorState;
-
-	/**
-	 * @var actualError
-	 */
-	protected static $actualError;
-
 	/**
 	 * @var  boolean
 	 */
@@ -57,32 +50,12 @@ class JCacheStorageTest extends TestCase
 	protected $xcacheAvailable;
 
 	/**
-	 * Receives the callback from JError and logs the required error information for the test.
-	 *
-	 * @param   JException  &$error  The JException object from JError
-	 *
-	 * @return    boolean   To not continue with JError processing
-	 */
-	public static function errorCallback(&$error)
-	{
-		self::$actualError['code'] = $error->get('code');
-		self::$actualError['msg'] = $error->get('message');
-		self::$actualError['info'] = $error->get('info');
-
-		return false;
-	}
-
-	/**
 	 * Setup.
 	 *
 	 * @return void
 	 */
 	protected function setUp()
 	{
-		$this->saveErrorHandlers();
-		$this->setErrorCallback('Joomla\\Cache\\Storage\\Test');
-		self::$actualError = array();
-
 		$this->object = new JCacheStorage;
 
 		$this->checkStores();
@@ -111,7 +84,6 @@ class JCacheStorageTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->restoreErrorHandlers();
 	}
 
 	/**
