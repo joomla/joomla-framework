@@ -1,0 +1,8 @@
+language: php
+
+php:
+  - 5.3
+
+before_script:
+  - pyrus channel-discover pear.phpunit.de
+  - pyrus install --force phpunit/DbUnit
