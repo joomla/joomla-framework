@@ -1,5 +1,7 @@
 # Joomla Framework
 
+[![Build Status](https://travis-ci.org/joomla/joomla-framework.png?branch=master)](https://travis-ci.org/joomla/joomla-framework)
+
 The *Joomla Framework* is a platform for writing Web and command line applications in PHP.  It is free and open source software,
 distributed under the GNU General Public License version 2 or later.  The Joomla Content Management System (CMS) is built on
 top of the *Joomla Framework*.  For more information about the Joomla CMS visit: http://www.joomla.org/about-joomla.html
