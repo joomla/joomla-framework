@@ -102,7 +102,7 @@ class JLogLoggerFormattedTextTest extends TestCase
 	{
 		// Temporarily override the config cache in JFactory.
 		$temp = JFactory::$config;
-		JFactory::$config = new JObject(array('log_path' => '/var/logs'));
+		JFactory::$config = (object) array('log_path' => '/var/logs');
 
 		// Setup the basic configuration.
 		$config = array(
