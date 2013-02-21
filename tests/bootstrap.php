@@ -83,4 +83,4 @@ require_once __DIR__ . '/version.php';
 gc_disable();
 
 // We need this to test JSession for now.  We should really fix this.
-ob_start();
+// ob_start();
