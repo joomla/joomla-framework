@@ -17,5 +17,25 @@
  */
 class JApplicationBaseInspector extends JApplicationBase
 {
-	// Required because JApplicationBase is abstract.
+	/**
+	 * The exit code if the application was closed otherwise null.
+	 *
+	 * @var     integer
+	 * @since   11.3
+	 */
+	public $closed;
+
+	/**
+	 * Mimic exiting the application.
+	 *
+	 * @param   integer  $code  The exit code (optional; default is 0).
+	 *
+	 * @return  void
+	 *
+	 * @since   11.3
+	 */
+	public function close($code = 0)
+	{
+		$this->closed = $code;
+	}
 }

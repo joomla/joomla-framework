@@ -42,6 +42,30 @@ class JApplicationBaseTest extends TestCase
 	}
 
 	/**
+	 * Test the close function
+	 *
+	 * @return  void
+	 */
+	public function testClose()
+	{
+		// Make sure the application is not already closed.
+		$this->assertSame(
+			$this->class->closed,
+			null,
+			'Checks the application doesn\'t start closed.'
+		);
+
+		$this->class->close(3);
+
+		// Make sure the application is closed with code 3.
+		$this->assertSame(
+			$this->class->closed,
+			3,
+			'Checks the application was closed with exit code 3.'
+		);
+	}
+
+	/**
 	 * Overrides the parent tearDown method.
 	 *
 	 * @return  void
