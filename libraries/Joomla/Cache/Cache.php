@@ -24,7 +24,6 @@ use stdClass;
  * @subpackage  Cache
  * @since       11.1
  */
-if (!class_exists('Joomla\\Cache\\Cache')) :
 
 class Cache
 {
@@ -104,7 +103,7 @@ class Cache
 		$handlers = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new DirectoryIterator(__DIR__ . '/storage');
+		$iterator = new DirectoryIterator(__DIR__ . '/Storage');
 
 		foreach ($iterator as $file)
 		{
@@ -724,4 +723,3 @@ class Cache
 		return $paths;
 	}
 }
-endif;

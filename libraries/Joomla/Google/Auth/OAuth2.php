@@ -22,7 +22,7 @@ use Joomla\Registry\Registry;
  * @subpackage  Google
  * @since       12.3
  */
-class Oauth2 extends Auth
+class OAuth2 extends Auth
 {
 	/**
 	 * @var    JOAuth2Client  OAuth client for the Google authentication object.

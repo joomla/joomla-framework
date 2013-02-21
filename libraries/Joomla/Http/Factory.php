@@ -90,7 +90,7 @@ class Factory
 	public static function getHttpTransports()
 	{
 		$names = array();
-		$iterator = new DirectoryIterator(__DIR__ . '/transport');
+		$iterator = new DirectoryIterator(__DIR__ . '/Transport');
 
 		foreach ($iterator as $file)
 		{

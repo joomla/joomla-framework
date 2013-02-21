@@ -139,7 +139,7 @@ class Storage
 		$handler = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $handler));
 
 		$class = '\\Joomla\\Cache\\Storage';
-		
+
 		if (!empty($handler))
 		{
 			$class .= '\\' . ucfirst($handler);
@@ -187,10 +187,6 @@ class Storage
 	 */
 	public function getAll()
 	{
-		if (!class_exists('\\Joomla\\Cache\\Storage\\Helper', false))
-		{
-			include_once JPATH_PLATFORM . '/joomla/cache/storage/helper.php';
-		}
 		return;
 	}
 
