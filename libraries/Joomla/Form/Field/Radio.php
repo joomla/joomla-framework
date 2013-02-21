@@ -56,7 +56,6 @@ class Field_Radio extends Field
 		// Build the radio field output.
 		foreach ($options as $i => $option)
 		{
-
 			// Initialize some option attributes.
 			$checked = ((string) $option->value == (string) $this->value) ? ' checked="checked"' : '';
 			$class = !empty($option->class) ? ' class="' . $option->class . '"' : '';
@@ -98,16 +97,12 @@ class Field_Radio extends Field
 				continue;
 			}
 
-			// Create a new option object based on the <option /> element.
-			$tmp = Html::_(
-				'select.option', (string) $option['value'], trim((string) $option), 'value', 'text',
-				((string) $option['disabled'] == 'true')
-			);
-
-			// Set some option attributes.
+			// Set up option elements.
+			$tmp = new stdClass;
+			$tmp->value = (string) $option['value'];
+			$tmp->txt = trim((string) $option);
+			$tmp->disable = ((string) $option['disabled'] == 'true');
 			$tmp->class = (string) $option['class'];
-
-			// Set some JavaScript option attributes.
 			$tmp->onclick = (string) $option['onclick'];
 
 			// Add the option object to the result set.
