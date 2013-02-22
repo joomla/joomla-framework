@@ -9,7 +9,6 @@
 
 namespace Joomla\Log;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Joomla! Logger Base Class

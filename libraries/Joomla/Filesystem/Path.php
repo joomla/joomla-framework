@@ -9,7 +9,6 @@
 
 namespace Joomla\Filesystem;
 
-defined('JPATH_PLATFORM') or die;
 
 use Exception;
 use Iterator;

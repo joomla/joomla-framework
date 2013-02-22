@@ -9,7 +9,6 @@
 
 namespace Joomla\Language;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\String\String;
 use RecursiveDirectoryIterator;

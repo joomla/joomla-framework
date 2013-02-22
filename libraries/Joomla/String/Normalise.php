@@ -9,7 +9,6 @@
 
 namespace Joomla\String;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Joomla Platform String Normalise Class

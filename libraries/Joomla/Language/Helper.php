@@ -9,7 +9,6 @@
 
 namespace Joomla\Language;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use stdClass;

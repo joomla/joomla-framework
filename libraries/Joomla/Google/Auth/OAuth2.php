@@ -9,7 +9,6 @@
 
 namespace Joomla\Google\Auth;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Google\Auth;
 use Joomla\OAuth2\Client;

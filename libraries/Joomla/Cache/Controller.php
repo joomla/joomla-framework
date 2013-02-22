@@ -9,7 +9,6 @@
 
 namespace Joomla\Cache;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Filesystem\Path;
 use RuntimeException;

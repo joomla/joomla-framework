@@ -9,7 +9,6 @@
 
 namespace Joomla\Application\Web;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Input\Input;
 use Joomla\Application\Web;

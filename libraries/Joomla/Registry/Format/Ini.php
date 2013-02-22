@@ -9,7 +9,6 @@
 
 namespace Joomla\Registry\Format;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Registry\Format;
 use stdClass;

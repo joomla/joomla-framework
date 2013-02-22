@@ -9,7 +9,6 @@
 
 namespace Joomla\Table;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Filesystem\Path;
 use Joomla\Database\Driver;

@@ -9,7 +9,6 @@
 
 namespace Joomla\Log\Logger;
 
-defined('JPATH_PLATFORM') or die;
 
 use JPlatform;
 use Joomla\Filesystem\Folder;

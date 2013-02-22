@@ -9,7 +9,6 @@
 
 namespace Joomla\Input;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Filter\Input as FilterInput;
 use Serializable;

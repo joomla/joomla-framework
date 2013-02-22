@@ -9,7 +9,6 @@
 
 namespace Joomla\Filter;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * JFilterInput is a class for filtering input from any data source

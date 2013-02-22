@@ -9,7 +9,6 @@
 
 namespace Joomla\Registry;
 
-defined('JPATH_PLATFORM') or die;
 
 use InvalidArgumentException;
 

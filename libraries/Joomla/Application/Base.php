@@ -9,7 +9,6 @@
 
 namespace Joomla\Application;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Joomla Platform Base Application Class
