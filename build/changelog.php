@@ -16,7 +16,7 @@
  */
 
 // Setup the path related constants.
-define('JPATH_BASE', dirname(__FILE__));
+define('JPATH_BASE', __DIR__);
 
 // Bootstrap the application.
 require realpath('../libraries/import.php');

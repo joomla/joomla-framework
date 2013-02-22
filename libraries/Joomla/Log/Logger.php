@@ -69,27 +69,3 @@ abstract class Logger
 	abstract public function addEntry(Entry $entry);
 }
 
-/**
- * Deprecated class placeholder.  You should use JLogLogger instead.
- *
- * @package     Joomla.Platform
- * @subpackage  Log
- * @since       11.1
- * @deprecated  13.3
- */
-abstract class JLogger extends Logger
-{
-	/**
-	 * Constructor.
-	 *
-	 * @param   array  &$options  Log object options.
-	 *
-	 * @since   11.1
-	 * @deprecated  13.3
-	 */
-	public function __construct(array &$options)
-	{
-		Log::add('JLogger is deprecated. Use JLogLogger instead.', Log::WARNING, 'deprecated');
-		parent::__construct($options);
-	}
-}

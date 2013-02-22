@@ -395,7 +395,7 @@ class Album extends Data
 			{
 				throw new RuntimeException("Inappropriate file type.");
 			}
-			if (!($data = File::read($file)))
+			if (!($data = file_get_contents($file)))
 			{
 				throw new RuntimeException("Cannot access file: `$file`");
 			}

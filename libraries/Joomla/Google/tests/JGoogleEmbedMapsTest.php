@@ -748,11 +748,11 @@ function mapsGeocodeCallback($url, array $headers = null, $timeout = null)
 	switch ($address)
 	{
 		case 'san francisco':
-		$data = JFile::read(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sanfrancisco.txt');
+		$data = file_get_contents(__DIR__ . '/sanfrancisco.txt');
 		break;
 
 		case 'palo alto':
-		$data = JFile::read(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'paloalto.txt');
+		$data = file_get_contents(__DIR__ . '/paloalto.txt');
 		break;
 
 		default:

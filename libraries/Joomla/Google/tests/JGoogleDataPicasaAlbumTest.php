@@ -69,7 +69,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 		$this->input = new JInput;
 		$this->oauth = new JOAuth2Client($this->options, $this->http, $this->input);
 		$this->auth = new JGoogleAuthOauth2($this->options, $this->oauth);
-		$this->xml = new SimpleXMLElement(JFile::read(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'album.txt'));
+		$this->xml = new SimpleXMLElement(file_get_contents(__DIR__ . '/album.txt'));
 		$this->object = new JGoogleDataPicasaAlbum($this->xml, $this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
@@ -336,16 +336,16 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	public function testUpload()
 	{
 		$this->http->expects($this->exactly(4))->method('post')->will($this->returnCallback('dataPicasaUploadCallback'));
-		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.png');
+		$result = $this->object->upload(__DIR__ . '/logo.png');
 		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 
-		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.gif');
+		$result = $this->object->upload(__DIR__ . '/logo.gif');
 		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 
-		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.jpg');
+		$result = $this->object->upload(__DIR__ . '/logo.jpg');
 		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 
-		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.bmp');
+		$result = $this->object->upload(__DIR__ . '/logo.bmp');
 		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 	}
 
@@ -358,7 +358,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	 */
 	public function testUploadUnknown()
 	{
-		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'photo.txt');
+		$result = $this->object->upload(__DIR__ . '/photo.txt');
 	}
 
 	/**
@@ -370,7 +370,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 	 */
 	public function testUploadFake()
 	{
-		$result = $this->object->upload(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'fakephoto.png');
+		$result = $this->object->upload(__DIR__ . '/fakephoto.png');
 	}
 
 	/**
@@ -419,7 +419,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 		$functions['save'] = array();
 		$functions['refresh'] = array();
 		$functions['listPhotos'] = array();
-		$functions['upload'] = array(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.png');
+		$functions['upload'] = array(__DIR__ . '/logo.png');
 
 		foreach ($functions as $function => $params)
 		{
@@ -444,7 +444,7 @@ class JGoogleDataPicasaAlbumTest extends TestCase
 		$functions['save'] = array();
 		$functions['refresh'] = array();
 		$functions['listPhotos'] = array();
-		$functions['upload'] = array(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'logo.png');
+		$functions['upload'] = array(__DIR__ . '/logo.png');
 
 		foreach ($functions as $function => $params)
 		{
@@ -503,7 +503,7 @@ function picasaPhotolistCallback($url, array $headers = null, $timeout = null)
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');
-	$response->body = JFile::read(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'photolist.txt');
+	$response->body = file_get_contents(__DIR__ . '/photolist.txt');
 
 	return $response;
 }
@@ -526,7 +526,7 @@ function dataPicasaUploadCallback($url, $data, array $headers = null, $timeout =
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');
-	$response->body = JFile::read(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'photo.txt');
+	$response->body = file_get_contents(__DIR__ . '/photo.txt');
 
 	return $response;
 }

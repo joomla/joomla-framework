@@ -22,7 +22,6 @@ use Joomla\Client\Helper;
 use Joomla\Cache\Cache;
 use Joomla\Date\Date;
 use Joomla\Log\Log;
-use Joomla\Uri\Uri;
 use RuntimeException;
 use Exception;
 
@@ -220,28 +219,6 @@ abstract class Factory
 	}
 
 	/**
-	 * Get an authorization object
-	 *
-	 * Returns the global {@link JAccess} object, only creating it
-	 * if it doesn't already exist.
-	 *
-	 * @return  Access object
-	 *
-	 * @deprecated  13.3  Use JAccess directly.
-	 */
-	public static function getACL()
-	{
-		Log::add(__METHOD__ . ' is deprecated. Use JAccess directly.', Log::WARNING, 'deprecated');
-
-		if (!self::$acl)
-		{
-			self::$acl = new Access;
-		}
-
-		return self::$acl;
-	}
-
-	/**
 	 * Get a database object.
 	 *
 	 * Returns the global {@link JDatabaseDriver} object, only creating it if it doesn't already exist.
@@ -264,80 +241,6 @@ abstract class Factory
 		}
 
 		return self::$database;
-	}
-
-	/**
-	 * Reads a XML file.
-	 *
-	 * @param   string   $data    Full path and file name.
-	 * @param   boolean  $isFile  true to load a file or false to load a string.
-	 *
-	 * @return  mixed    JXMLElement or SimpleXMLElement on success or false on error.
-	 *
-	 * @see     JXMLElement
-	 * @since   11.1
-	 * @note    When JXMLElement is not present a SimpleXMLElement will be returned.
-	 * @deprecated  13.3 Use SimpleXML directly.
-	 */
-	public static function getXML($data, $isFile = true)
-	{
-		Log::add(__METHOD__ . ' is deprecated. Use SimpleXML directly.', Log::WARNING, 'deprecated');
-
-		$class = 'SimpleXMLElement';
-
-		if (class_exists('JXMLElement'))
-		{
-			$class = 'JXMLElement';
-		}
-
-		// Disable libxml errors and allow to fetch error information as needed
-		libxml_use_internal_errors(true);
-
-		if ($isFile)
-		{
-			// Try to load the XML file
-			$xml = simplexml_load_file($data, $class);
-		}
-		else
-		{
-			// Try to load the XML string
-			$xml = simplexml_load_string($data, $class);
-		}
-
-		if ($xml === false)
-		{
-			Log::add(Text::_('JLIB_UTIL_ERROR_XML_LOAD'), Log::WARNING, 'jerror');
-
-			if ($isFile)
-			{
-				Log::add($data, Log::WARNING, 'jerror');
-			}
-
-			foreach (libxml_get_errors() as $error)
-			{
-				Log::add($error->message, Log::WARNING, 'jerror');
-			}
-		}
-
-		return $xml;
-	}
-
-	/**
-	 * Return a reference to the {@link JURI} object
-	 *
-	 * @param   string  $uri  Uri name.
-	 *
-	 * @return  Uri object
-	 *
-	 * @see     JURI
-	 * @since   11.1
-	 * @deprecated  13.3 Use JURI directly.
-	 */
-	public static function getURI($uri = 'SERVER')
-	{
-		Log::add(__METHOD__ . ' is deprecated. Use JURI directly.', Log::WARNING, 'deprecated');
-
-		return Uri::getInstance($uri);
 	}
 
 	/**

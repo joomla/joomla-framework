@@ -77,7 +77,7 @@ class JLoaderNamespaceTest extends \PHPUnit_Framework_TestCase
 		JLoader::setup(JLoader::LOWER_CASE, true, false, false);
 
 		// Register the animal namespace where we can find the Cat class.
-		$path = dirname(__FILE__) . '/stubs/animal1';
+		$path = __DIR__ . '/stubs/animal1';
 		JLoader::registerNamespace('animal', $path);
 
 		// Test with full namespace.
@@ -85,7 +85,7 @@ class JLoaderNamespaceTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($cat->say(), 'hello');
 
 		// Register the second namespace where we can find the Dog class.
-		$path = dirname(__FILE__) . '/stubs/animal2';
+		$path = __DIR__ . '/stubs/animal2';
 		JLoader::registerNamespace('animal', $path);
 
 		// Test with use.
@@ -110,7 +110,7 @@ class JLoaderNamespaceTest extends \PHPUnit_Framework_TestCase
 		JLoader::setup(JLoader::NATURAL_CASE, true, false, false);
 
 		// Register the Color namespace where we can find the Red class.
-		$path = dirname(__FILE__) . '/stubs/Color';
+		$path = __DIR__ . '/stubs/Color';
 		JLoader::registerNamespace('Color', $path);
 
 		// Test with full namespace.
@@ -119,7 +119,7 @@ class JLoaderNamespaceTest extends \PHPUnit_Framework_TestCase
 
 		// Register a second path for that namespace where we can find
 		// the Blue class.
-		$path = dirname(__FILE__) . '/stubs/Color2';
+		$path = __DIR__ . '/stubs/Color2';
 		JLoader::registerNamespace('Color', $path);
 
 		// Test with use.
@@ -144,7 +144,7 @@ class JLoaderNamespaceTest extends \PHPUnit_Framework_TestCase
 		JLoader::setup(JLoader::MIXED_CASE, true, false, false);
 
 		// Register the animal namespace where we can find the Cat class.
-		$path = dirname(__FILE__) . '/stubs/animal1';
+		$path = __DIR__ . '/stubs/animal1';
 		JLoader::registerNamespace('animal', $path);
 
 		// Test with full namespace.
@@ -153,7 +153,7 @@ class JLoaderNamespaceTest extends \PHPUnit_Framework_TestCase
 
 		// Register a second path for that namespace where we can find
 		// the Blue class.
-		$path = dirname(__FILE__) . '/stubs/Color2';
+		$path = __DIR__ . '/stubs/Color2';
 		JLoader::registerNamespace('Color', $path);
 
 		// Test with use.

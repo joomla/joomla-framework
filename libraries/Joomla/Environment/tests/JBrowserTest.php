@@ -244,28 +244,4 @@ class JBrowserTest extends PHPUnit_Framework_TestCase
 			'This test has not been implemented yet.'
 		);
 	}
-
-	/**
-	 * Test...
-	 *
-	 * @covers JBrowser::isSSLConnection
-	 *
-	 * @return void
-	 */
-	public function testIsSSLConnection()
-	{
-		unset($_SERVER['HTTPS']);
-
-		$this->assertThat(
-			$this->object->isSSLConnection(),
-			$this->equalTo(false)
-		);
-
-		$_SERVER['HTTPS'] = 'on';
-
-		$this->assertThat(
-			$this->object->isSSLConnection(),
-			$this->equalTo(true)
-		);
-	}
 }
