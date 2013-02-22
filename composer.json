@@ -4,7 +4,7 @@
     "description": "The Joomla Framework is a platform for writing Web and command line applications in PHP.",
     "keywords": ["joomla","framework"],
     "homepage": "https://github.com/joomla/joomla-framework",
-    "license": "GPL2+",
+    "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10"
     }
