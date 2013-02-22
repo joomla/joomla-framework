@@ -10,7 +10,6 @@
 
 namespace Joomla\Language\Stemmer;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Language\Stemmer;
 

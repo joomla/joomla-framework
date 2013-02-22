@@ -9,7 +9,6 @@
 
 namespace Joomla\Filesystem\Support;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * String Controller

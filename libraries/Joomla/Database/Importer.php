@@ -9,7 +9,6 @@
 
 namespace Joomla\Database;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Joomla Platform Database Importer Class

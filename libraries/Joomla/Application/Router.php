@@ -9,7 +9,6 @@
 
 namespace Joomla\Application;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Log\Log;
 use Joomla\Uri\Uri;

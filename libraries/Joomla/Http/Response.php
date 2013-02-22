@@ -9,7 +9,6 @@
 
 namespace Joomla\Http;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * HTTP response data object class.

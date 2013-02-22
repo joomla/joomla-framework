@@ -9,7 +9,6 @@
 
 namespace Joomla\Google\Data;
 
-defined('JPATH_PLATFORM') or die;
 
 use DateTime;
 use Joomla\Google\Data;

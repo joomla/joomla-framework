@@ -8,7 +8,6 @@
 
 namespace Joomla;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Static class to handle loading of libraries.

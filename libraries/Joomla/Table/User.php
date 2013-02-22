@@ -9,7 +9,6 @@
 
 namespace Joomla\Table;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Utilities\ArrayHelper;
 use Joomla\Registry\Registry;

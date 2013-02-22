@@ -9,7 +9,6 @@
 
 namespace Joomla\Cache\Controller;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Cache\Cache;

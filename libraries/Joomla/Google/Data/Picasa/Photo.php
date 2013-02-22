@@ -9,7 +9,6 @@
 
 namespace Joomla\Google\Data\Picasa;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Google\Data;
 use Joomla\Google\Auth;

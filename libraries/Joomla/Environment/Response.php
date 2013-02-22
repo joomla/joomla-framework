@@ -9,7 +9,6 @@
 
 namespace Joomla\Environment;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Response Class.

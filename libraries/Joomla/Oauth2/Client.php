@@ -9,7 +9,6 @@
 
 namespace Joomla\Oauth2;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Registry\Registry;
 use Joomla\Application\Web;

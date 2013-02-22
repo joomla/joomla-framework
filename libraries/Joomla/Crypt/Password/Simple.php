@@ -9,7 +9,6 @@
 
 namespace Joomla\Crypt\Password;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Crypt\Password;
 use InvalidArgumentException;

@@ -8,7 +8,6 @@
 
 namespace Joomla;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Mail\Helper as MailHelper;
 use Joomla\Document\Document;

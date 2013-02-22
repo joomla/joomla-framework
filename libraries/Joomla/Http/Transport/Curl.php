@@ -9,7 +9,6 @@
 
 namespace Joomla\Http\Transport;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Registry\Registry;
 use Joomla\Http\Transport;

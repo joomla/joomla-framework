@@ -9,7 +9,6 @@
 
 namespace Joomla\Form\Rule;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Form\Rule;
 use Joomla\String\String;

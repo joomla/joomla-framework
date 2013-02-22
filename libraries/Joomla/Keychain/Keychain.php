@@ -9,7 +9,6 @@
 
 namespace Joomla\Keychain;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Registry\Registry;
 use RuntimeException;
