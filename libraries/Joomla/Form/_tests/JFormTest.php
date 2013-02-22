@@ -1653,12 +1653,6 @@ class JFormTest extends TestCase
 		);
 
 		$this->assertThat(
-			($form->loadRuleType('rules') instanceof JFormRule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading the [access control] rules rule should return a rule object.'
-		);
-
-		$this->assertThat(
 			($form->loadRuleType('username') instanceof JFormRule),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Loading the username rule should return a rule object.'

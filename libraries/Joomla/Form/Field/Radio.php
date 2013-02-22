@@ -100,7 +100,7 @@ class Field_Radio extends Field
 			// Set up option elements.
 			$tmp = new stdClass;
 			$tmp->value = (string) $option['value'];
-			$tmp->txt = trim((string) $option);
+			$tmp->text = trim((string) $option);
 			$tmp->disable = ((string) $option['disabled'] == 'true');
 			$tmp->class = (string) $option['class'];
 			$tmp->onclick = (string) $option['onclick'];
