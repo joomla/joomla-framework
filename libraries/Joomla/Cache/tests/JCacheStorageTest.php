@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JCacheStorageTest extends TestCase
+class JCacheStorageTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JCacheStorage

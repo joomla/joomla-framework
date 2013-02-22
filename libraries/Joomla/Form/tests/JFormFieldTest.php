@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormFieldTest extends TestCase
+class JFormFieldTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * set up for testing
@@ -26,7 +26,6 @@ class JFormFieldTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->saveFactoryState();
 		include_once 'inspectors.php';
 		include_once 'JFormDataHelper.php';
 	}
@@ -38,7 +37,6 @@ class JFormFieldTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->restoreFactoryState();
 	}
 
 	/**

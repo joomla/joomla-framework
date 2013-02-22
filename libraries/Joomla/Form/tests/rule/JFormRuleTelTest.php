@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormRuleTelTest extends TestCase
+class JFormRuleTelTest extends PHPUnit_Framework_TestCase
 {
 
 	/**

@@ -14,7 +14,7 @@
  * @subpackage  Filesystem
  * @since       12.2
  */
-class JPathTest extends TestCase
+class JPathTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Data provider for testClean() method.

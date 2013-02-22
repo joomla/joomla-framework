@@ -14,7 +14,7 @@
  * @subpackage  Crypt
  * @since       12.1
  */
-class JCryptCipherRijndael256Test extends TestCase
+class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JCryptCipherRijndael256

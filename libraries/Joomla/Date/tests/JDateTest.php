@@ -15,7 +15,7 @@ use Joomla\Date\Date;
  * @subpackage  Date
  * @since       11.3
  */
-class DateTest extends TestCaseDatabase
+class DateTest extends PHPUnit_Framework_TestCase
 {
 	protected $object;
 

@@ -16,7 +16,7 @@
  *
  * @since       11.1
  */
-class JArchiveTest extends TestCase
+class JArchiveTest extends PHPUnit_Framework_TestCase
 {
 	protected static $outputPath;
 

@@ -17,7 +17,7 @@ JLoader::register('JModelMock', __DIR__ . '/mocks/JModelMock.php');
  * @subpackage  View
  * @since       12.1
  */
-class JViewBaseTest extends TestCase
+class JViewBaseTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JViewBase

@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JGithubStatusesTest extends TestCase
+class JGithubStatusesTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the GitHub object.

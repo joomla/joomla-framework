@@ -16,7 +16,7 @@ use Joomla\Image\Filter\Contrast as FilterContrast;
  * @subpackage  Image
  * @since       11.4
  */
-class JImageFilterContrastTest extends TestCase
+class JImageFilterContrastTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Setup for testing.

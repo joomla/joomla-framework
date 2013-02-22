@@ -17,7 +17,7 @@
  *
  * @return void
  */
-class JFormRuleTest extends TestCase
+class JFormRuleTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var JFormRule

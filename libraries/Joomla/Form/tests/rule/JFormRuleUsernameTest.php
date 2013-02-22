@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormRuleUsernameTest extends TestCase
+class JFormRuleUsernameTest extends PHPUnit_Framework_TestCase
 {
 
 	/**

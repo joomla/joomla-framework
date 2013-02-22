@@ -16,7 +16,7 @@ use Joomla\Image\Filter\Edgedetect as FilterEdgedetect;
  * @subpackage  Image
  * @since       11.4
  */
-class JImageFilterEdgedetectTest extends TestCase
+class JImageFilterEdgedetectTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Setup for testing.

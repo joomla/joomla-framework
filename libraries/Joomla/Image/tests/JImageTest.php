@@ -19,7 +19,7 @@ use Joomla\Image\Image;
  * @subpackage  Media
  * @since       11.3
  */
-class ImageTest extends TestCase
+class ImageTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Setup for testing.

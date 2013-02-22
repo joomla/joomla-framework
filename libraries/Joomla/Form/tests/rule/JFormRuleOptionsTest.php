@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormRuleOptionsTest extends TestCase
+class JFormRuleOptionsTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Set up for testing
@@ -27,8 +27,6 @@ class JFormRuleOptionsTest extends TestCase
 	public function setUp()
 	{
 		parent::setUp();
-
-		$this->saveFactoryState();
 	}
 
 	/**
@@ -40,7 +38,6 @@ class JFormRuleOptionsTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->restoreFactoryState();
 	}
 
 	/**

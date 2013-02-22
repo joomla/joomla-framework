@@ -19,7 +19,7 @@ use Joomla\Date\Date;
  * @subpackage  Data
  * @since       12.3
  */
-class JDataTest extends TestCase
+class JDataTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JData

@@ -14,7 +14,7 @@
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldCheckboxTest extends TestCase
+class JFormFieldCheckboxTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Sets up dependencies for the test.

@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormRuleUrlTest extends TestCase
+class JFormRuleUrlTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test the JFormRuleUrl::test method.

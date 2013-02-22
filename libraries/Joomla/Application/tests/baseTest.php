@@ -16,7 +16,7 @@ include_once __DIR__ . '/stubs/JApplicationBaseInspector.php';
  * @subpackage  Application
  * @since       12.1
  */
-class JApplicationBaseTest extends TestCase
+class JApplicationBaseTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.

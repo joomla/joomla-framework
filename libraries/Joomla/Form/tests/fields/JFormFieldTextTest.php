@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormFieldTextTest extends TestCase
+class JFormFieldTextTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Sets up dependancies for the test.

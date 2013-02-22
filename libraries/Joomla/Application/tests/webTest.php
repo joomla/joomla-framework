@@ -103,7 +103,7 @@ class JApplicationWebTest extends TestCase
 		// Get a new JApplicationWebInspector instance.
 		$this->class = new JApplicationWebInspector;
 
-		// We are only coupled to Document and Language in JFactory.
+		// We are only coupled to Language in JFactory.
 		$this->saveFactoryState();
 
 		JFactory::$language = $this->getMockLanguage();

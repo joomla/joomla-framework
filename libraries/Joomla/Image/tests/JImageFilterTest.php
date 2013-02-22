@@ -16,7 +16,7 @@ use Joomla\Image\Filter\Brightness as FilterBrightness;
  * @subpackage  Image
  * @since       11.4
  */
-class JImageFilterTest extends TestCase
+class JImageFilterTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Setup for testing.

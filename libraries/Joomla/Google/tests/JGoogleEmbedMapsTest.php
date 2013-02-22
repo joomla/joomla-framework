@@ -16,7 +16,7 @@ use Joomla\Registry\Registry;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleEmbedMapsTest extends TestCase
+class JGoogleEmbedMapsTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the JOAuth2Client object.

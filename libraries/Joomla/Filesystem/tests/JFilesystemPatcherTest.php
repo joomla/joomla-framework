@@ -18,7 +18,7 @@ use Joomla\Filesystem\Patcher;
  *
  * @since       12.1
  */
-class PatcherTest extends TestCase
+class PatcherTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Sets up the fixture.

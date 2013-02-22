@@ -14,7 +14,7 @@
  * @subpackage  Crypt
  * @since       12.1
  */
-class JCryptCipherBlowfishTest extends TestCase
+class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JCryptCipherBlowfish

@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormRuleBooleanTest extends TestCase
+class JFormRuleBooleanTest extends PHPUnit_Framework_TestCase
 {
 
 	/**

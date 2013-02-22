@@ -16,7 +16,7 @@ JLoader::register('BaseModel', __DIR__ . '/stubs/tbase.php');
  * @subpackage  Mapper
  * @since       12.1
  */
-class JModelBaseTest extends TestCase
+class JModelBaseTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    BaseModel

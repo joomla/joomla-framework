@@ -15,7 +15,7 @@ use Joomla\Uri\Uri;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleEmbedAnalyticsTest extends TestCase
+class JGoogleEmbedAnalyticsTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the JOAuth2Client object.

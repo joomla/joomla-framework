@@ -14,7 +14,7 @@
  * @subpackage  Form
  * @since       12.1
  */
-class JFormFieldTelTest extends TestCase
+class JFormFieldTelTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Sets up dependencies for the test.

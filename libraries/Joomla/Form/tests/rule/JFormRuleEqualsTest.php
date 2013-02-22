@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormRuleEqualsTest extends TestCase
+class JFormRuleEqualsTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test the JFormRuleEquals::test method.

@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormRuleColorTest extends TestCase
+class JFormRuleColorTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * set up for testing
@@ -25,8 +25,6 @@ class JFormRuleColorTest extends TestCase
 	public function setUp()
 	{
 		parent::setUp();
-
-		$this->saveFactoryState();
 	}
 
 	/**
@@ -36,7 +34,6 @@ class JFormRuleColorTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->restoreFactoryState();
 	}
 
 	/**

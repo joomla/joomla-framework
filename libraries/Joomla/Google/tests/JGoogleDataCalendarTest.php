@@ -15,7 +15,7 @@ use Joomla\Oauth2\Client;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleDataCalendarTest extends TestCase
+class JGoogleDataCalendarTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Client object.

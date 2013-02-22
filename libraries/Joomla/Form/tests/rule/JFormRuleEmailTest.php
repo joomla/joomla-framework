@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JFormRuleEmailTest extends TestCase
+class JFormRuleEmailTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * set up for testing
@@ -25,8 +25,6 @@ class JFormRuleEmailTest extends TestCase
 	public function setUp()
 	{
 		parent::setUp();
-
-		$this->saveFactoryState();
 	}
 
 	/**
@@ -36,7 +34,6 @@ class JFormRuleEmailTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->restoreFactoryState();
 	}
 
 	/**
@@ -109,7 +106,7 @@ class JFormRuleEmailTest extends TestCase
 	 * @dataProvider emailData1
 	 *
 	 * @return void
-	 * 
+	 *
 	 * @since 11.1
 	 */
 	public function testEmailData($emailAddress, $expectedResult)

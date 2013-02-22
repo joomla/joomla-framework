@@ -14,7 +14,7 @@
  * @subpackage  Event
  * @since       11.1
  */
-class JFolderTest extends TestCase
+class JFolderTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var JFolder

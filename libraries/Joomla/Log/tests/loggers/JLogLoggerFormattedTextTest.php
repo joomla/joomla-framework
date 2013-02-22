@@ -16,7 +16,7 @@ require_once __DIR__ . '/stubs/formattedtext/inspector.php';
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerFormattedTextTest extends TestCase
+class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test the JLogLoggerFormattedText::__construct method.

@@ -16,7 +16,7 @@ use Joomla\Oauth2\Client;
  * @subpackage  Oauth
  * @since       12.3
  */
-class ClientTest extends TestCase
+class ClientTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Client object.

@@ -14,7 +14,7 @@
  * @subpackage  Crypt
  * @since       12.1
  */
-class JCryptCipher3DESTest extends TestCase
+class JCryptCipher3DESTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JCryptCipher3DES

@@ -16,7 +16,7 @@ include_once __DIR__ . '/stubs/JApplicationCliInspector.php';
  * @subpackage  Application
  * @since       11.3
  */
-class JApplicationCliTest extends TestCase
+class JApplicationCliTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.

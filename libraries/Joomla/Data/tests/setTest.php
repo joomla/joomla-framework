@@ -17,7 +17,7 @@ JLoader::register('JDataVostok', __DIR__ . '/stubs/vostok.php');
  * @subpackage  Data
  * @since       12.3
  */
-class JDataSetTest extends TestCase
+class JDataSetTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.
