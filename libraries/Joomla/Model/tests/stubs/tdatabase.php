@@ -14,6 +14,6 @@
  * @subpackage  Model
  * @since       12.1
  */
-class DatabaseModel extends JModelDatabase
+class DatabaseModel extends Joomla\Model\Database
 {
 }

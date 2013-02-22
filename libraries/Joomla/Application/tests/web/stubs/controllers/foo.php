@@ -14,7 +14,7 @@
  * @subpackage  Application
  * @since       12.3
  */
-class MyTestControllerFoo extends JControllerBase
+class MyTestControllerFoo extends Joomla\Controller\Base
 {
 	/**
 	 * Execute the controller.

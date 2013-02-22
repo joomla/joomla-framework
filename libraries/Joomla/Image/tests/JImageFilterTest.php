@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Image\Filter\Brightness as FilterBrightness;
+
 /**
  * Test class for JImage.
  *
@@ -58,7 +60,7 @@ class JImageFilterTest extends TestCase
 	 */
 	public function testConstructorInvalidArgument()
 	{
-		$filter = new JImageFilterBrightness('test');
+		$filter = new FilterBrightness('test');
 	}
 
 	/**
@@ -73,7 +75,7 @@ class JImageFilterTest extends TestCase
 		// Create an image handle of the correct size.
 		$imageHandle = imagecreatetruecolor(100, 100);
 
-		$filter = new JImageFilterBrightness($imageHandle);
+		$filter = new FilterBrightness($imageHandle);
 
 		$this->assertEquals(TestReflection::getValue($filter, 'handle'), $imageHandle);
 	}

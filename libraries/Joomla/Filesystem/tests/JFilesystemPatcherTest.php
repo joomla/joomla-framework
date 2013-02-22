@@ -8,15 +8,17 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Filesystem\Patcher;
+
 /**
- * A unit test class for JFilesystemPatcher
+ * A unit test class for Patcher
  *
  * @package     Joomla.UnitTest
  * @subpackage  FileSystem
  *
  * @since       12.1
  */
-class JFilesystemPatcherTest extends TestCase
+class PatcherTest extends TestCase
 {
 	/**
 	 * Sets up the fixture.
@@ -174,7 +176,7 @@ class JFilesystemPatcherTest extends TestCase
 	}
 
 	/**
-	 * Test JFilesystemPatcher::add add a unified diff string to the patcher
+	 * Test Patcher::add add a unified diff string to the patcher
 	 *
 	 * @param   string  $udiff     Unified diff input string
 	 * @param   string  $root      The files root path
@@ -185,11 +187,11 @@ class JFilesystemPatcherTest extends TestCase
 	 *
 	 * @since       12.1
 	 *
-	 * @dataProvider JFilesystemPatcherTest::addData
+	 * @dataProvider PatcherTest::addData
 	 */
 	public function testAdd($udiff, $root, $strip, $expected)
 	{
-		$patcher = JFilesystemPatcher::getInstance()->reset();
+		$patcher = Patcher::getInstance()->reset();
 		$patcher->add($udiff, $root, $strip);
 		$this->assertAttributeEquals(
 			$expected,
@@ -200,7 +202,7 @@ class JFilesystemPatcherTest extends TestCase
 	}
 
 	/**
-	 * Test JFilesystemPatcher::addFile add a unified diff file to the patcher
+	 * Test Patcher::addFile add a unified diff file to the patcher
 	 *
 	 * @return  void
 	 *
@@ -233,7 +235,7 @@ class JFilesystemPatcherTest extends TestCase
 
 		// Use of realpath to ensure test works for on all platforms
 		file_put_contents(JPATH_TESTS . '/tmp/patcher/lao2tzu.diff', $udiff);
-		$patcher = JFilesystemPatcher::getInstance()->reset();
+		$patcher = Patcher::getInstance()->reset();
 		$patcher->addFile(JPATH_TESTS . '/tmp/patcher/lao2tzu.diff', realpath(JPATH_TESTS . '/tmp/patcher'));
 
 		$this->assertAttributeEquals(
@@ -251,7 +253,7 @@ class JFilesystemPatcherTest extends TestCase
 	}
 
 	/**
-	 * JFilesystemPatcher::reset reset the patcher to its initial state
+	 * Patcher::reset reset the patcher to its initial state
 	 *
 	 * @return  void
 	 */
@@ -279,7 +281,7 @@ class JFilesystemPatcherTest extends TestCase
 +Deeper and more profound,
 +The door of all subtleties!
 ';
-		$patcher = JFilesystemPatcher::getInstance()->reset();
+		$patcher = Patcher::getInstance()->reset();
 		$patcher->add($udiff, __DIR__ . '/patcher/');
 		$this->assertEquals(
 			$patcher->reset(),
@@ -902,7 +904,7 @@ But after they are produced,
 	}
 
 	/**
-	 * JFilesystemPatcher::apply apply the patches
+	 * Patcher::apply apply the patches
 	 *
 	 * @param   string   $udiff         Unified diff input string
 	 * @param   string   $root          The files root path
@@ -916,7 +918,7 @@ But after they are produced,
 	 *
 	 * @since       12.1
 	 *
-	 * @dataProvider JFilesystemPatcherTest::applyData
+	 * @dataProvider PatcherTest::applyData
 	 */
 	public function testApply($udiff, $root, $strip, $sources, $destinations, $result, $throw)
 	{
@@ -929,7 +931,7 @@ But after they are produced,
 		{
 			file_put_contents($path, $content);
 		}
-		$patcher = JFilesystemPatcher::getInstance()->reset();
+		$patcher = Patcher::getInstance()->reset();
 		$patcher->add($udiff, $root, $strip);
 		$this->assertEquals(
 			$result,

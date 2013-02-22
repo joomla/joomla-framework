@@ -7,18 +7,20 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\String\Inflector;
+
 /**
- * Test for the JStringInflector class.
+ * Test for the Inflector class.
  *
  * @package     Joomla.UnitTest
  * @subpackage  String
  * @link        http://en.wikipedia.org/wiki/English_plural
  * @since       12.1
  */
-class JStringInflectorTest extends PHPUnit_Framework_TestCase
+class InflectorTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JStringInflector
+	 * @var    Inflector
 	 * @since  12.1
 	 */
 	protected $inflector;
@@ -93,16 +95,16 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->inflector = JStringInflector::getInstance(true);
+		$this->inflector = Inflector::getInstance(true);
 	}
 
 	/**
-	 * Method to test JStringInflector::_addRule().
+	 * Method to test Inflector::_addRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::_addRule
+	 * @covers  Inflector::_addRule
 	 */
 	public function test_addRule()
 	{
@@ -147,13 +149,13 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::_addRule().
+	 * Method to test Inflector::_addRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
 	 * @expectedException  InvalidArgumentException
-	 * @covers  JStringInflector::_addRule
+	 * @covers  Inflector::_addRule
 	 */
 	public function test_addRuleException()
 	{
@@ -161,12 +163,12 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::_getCachedPlural().
+	 * Method to test Inflector::_getCachedPlural().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::_getCachedPlural
+	 * @covers  Inflector::_getCachedPlural
 	 */
 	public function test_getCachedPlural()
 	{
@@ -187,12 +189,12 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::_getCachedSingular().
+	 * Method to test Inflector::_getCachedSingular().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::_getCachedSingular
+	 * @covers  Inflector::_getCachedSingular
 	 */
 	public function test_getCachedSingular()
 	{
@@ -213,12 +215,12 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::_matchRegexRule().
+	 * Method to test Inflector::_matchRegexRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::_matchRegexRule
+	 * @covers  Inflector::_matchRegexRule
 	 */
 	public function test_matchRegexRule()
 	{
@@ -242,12 +244,12 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::_setCache().
+	 * Method to test Inflector::_setCache().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::_setCache
+	 * @covers  Inflector::_setCache
 	 */
 	public function test_setCache()
 	{
@@ -273,12 +275,12 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::addCountableRule().
+	 * Method to test Inflector::addCountableRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::addCountableRule
+	 * @covers  Inflector::addCountableRule
 	 */
 	public function testAddCountableRule()
 	{
@@ -306,12 +308,12 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::addPluraliseRule().
+	 * Method to test Inflector::addPluraliseRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::addPluraliseRule
+	 * @covers  Inflector::addPluraliseRule
 	 */
 	public function testAddPluraliseRule()
 	{
@@ -333,12 +335,12 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::addSingulariseRule().
+	 * Method to test Inflector::addSingulariseRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::addSingulariseRule
+	 * @covers  Inflector::addSingulariseRule
 	 */
 	public function testAddSingulariseRule()
 	{
@@ -360,18 +362,18 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::getInstance().
+	 * Method to test Inflector::getInstance().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  JStringInflector::getInstance
+	 * @covers  Inflector::getInstance
 	 */
 	public function testGetInstance()
 	{
 		$this->assertInstanceOf(
-			'JStringInflector',
-			JStringInflector::getInstance(),
+			'Joomla\\String\\Inflector',
+			Inflector::getInstance(),
 			'Check getInstance returns the right class.'
 		);
 
@@ -379,20 +381,20 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 		TestReflection::setValue($this->inflector, '_instance', new stdClass);
 
 		$this->assertThat(
-			JStringInflector::getInstance(),
+			Inflector::getInstance(),
 			$this->equalTo(new stdClass),
 			'Checks singleton instance is returned.'
 		);
 
 		$this->assertInstanceOf(
-			'JStringInflector',
-			JStringInflector::getInstance(true),
+			'Joomla\\String\\Inflector',
+			Inflector::getInstance(true),
 			'Check getInstance a fresh object with true argument even though the instance is set to something else.'
 		);
 	}
 
 	/**
-	 * Method to test JStringInflector::isCountable().
+	 * Method to test Inflector::isCountable().
 	 *
 	 * @param   string   $input     A string.
 	 * @param   boolean  $expected  The expected result of the function call.
@@ -401,7 +403,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedIsCountable
 	 * @since   12.1
-	 * @covers  JStringInflector::isCountable
+	 * @covers  Inflector::isCountable
 	 */
 	public function testIsCountable($input, $expected)
 	{
@@ -412,7 +414,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::isPlural().
+	 * Method to test Inflector::isPlural().
 	 *
 	 * @param   string  $singular  The singular form of a word.
 	 * @param   string  $plural    The plural form of a word.
@@ -421,7 +423,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedSinglePlural
 	 * @since   12.1
-	 * @covers  JStringInflector::isPlural
+	 * @covers  Inflector::isPlural
 	 */
 	public function testIsPlural($singular, $plural)
 	{
@@ -442,7 +444,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::isSingular().
+	 * Method to test Inflector::isSingular().
 	 *
 	 * @param   string  $singular  The singular form of a word.
 	 * @param   string  $plural    The plural form of a word.
@@ -451,7 +453,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedSinglePlural
 	 * @since   12.1
-	 * @covers  JStringInflector::isSingular
+	 * @covers  Inflector::isSingular
 	 */
 	public function testIsSingular($singular, $plural)
 	{
@@ -472,7 +474,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::toPlural().
+	 * Method to test Inflector::toPlural().
 	 *
 	 * @param   string  $singular  The singular form of a word.
 	 * @param   string  $plural    The plural form of a word.
@@ -481,7 +483,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedSinglePlural
 	 * @since   12.1
-	 * @covers  JStringInflector::toPlural
+	 * @covers  Inflector::toPlural
 	 */
 	public function testToPlural($singular, $plural)
 	{
@@ -492,7 +494,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringInflector::toPlural().
+	 * Method to test Inflector::toPlural().
 	 *
 	 * @param   string  $singular  The singular form of a word.
 	 * @param   string  $plural    The plural form of a word.
@@ -501,7 +503,7 @@ class JStringInflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedSinglePlural
 	 * @since   12.1
-	 * @covers  JStringInflector::toSingular
+	 * @covers  Inflector::toSingular
 	 */
 	public function testToSingular($singular, $plural)
 	{

@@ -10,14 +10,16 @@
 require_once __DIR__ . '/stubs/JImageInspector.php';
 require_once __DIR__ . '/stubs/JImageFilterInspector.php';
 
+use Joomla\Image\Image;
+
 /**
- * Test class for JImage.
+ * Test class for Image.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Media
  * @since       11.3
  */
-class JImageTest extends TestCase
+class ImageTest extends TestCase
 {
 	/**
 	 * Setup for testing.
@@ -33,7 +35,7 @@ class JImageTest extends TestCase
 		// Verify that GD support for PHP is available.
 		if (!extension_loaded('gd'))
 		{
-			$this->markTestSkipped('No GD support so skipping JImage tests.');
+			$this->markTestSkipped('No GD support so skipping Image tests.');
 		}
 
 		$this->testFile = __DIR__ . '/stubs/koala.jpg';
@@ -71,13 +73,13 @@ class JImageTest extends TestCase
 	{
 		return array(
 			// Note: inputHeight, inputWidth, inputScale, imageHeight, imageWidth, expectedHeight, expectedWidth
-			array(43, 56, JImage::SCALE_FILL, 100, 100, 43, 56),
-			array(33, 56, JImage::SCALE_FILL, 10, 10, 33, 56),
-			array(24, 76, JImage::SCALE_INSIDE, 100, 100, 24, 24),
-			array(44, 80, JImage::SCALE_OUTSIDE, 100, 50, 160, 80),
-			array(24, 80, JImage::SCALE_OUTSIDE, 100, 50, 160, 80),
-			array(33, 50, JImage::SCALE_INSIDE, 20, 100, 10, 50),
-			array(12, 50, JImage::SCALE_INSIDE, 20, 100, 10, 50)
+			array(43, 56, Image::SCALE_FILL, 100, 100, 43, 56),
+			array(33, 56, Image::SCALE_FILL, 10, 10, 33, 56),
+			array(24, 76, Image::SCALE_INSIDE, 100, 100, 24, 24),
+			array(44, 80, Image::SCALE_OUTSIDE, 100, 50, 160, 80),
+			array(24, 80, Image::SCALE_OUTSIDE, 100, 50, 160, 80),
+			array(33, 50, Image::SCALE_INSIDE, 20, 100, 10, 50),
+			array(12, 50, Image::SCALE_INSIDE, 20, 100, 10, 50)
 		);
 	}
 
@@ -137,7 +139,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Tests the JImage::__construct method.
+	 * Tests the Image::__construct method.
 	 *
 	 * @return  void
 	 *
@@ -151,7 +153,7 @@ class JImageTest extends TestCase
 		// Create a new JImageInspector object from the handle.
 		$testImage = new JImageInspector($testImageHandle);
 
-		// Verify that the handle created is the same one in the JImageInspector.
+		// Verify that the handle created is the same one in the ImageInspector.
 		$this->assertSame($testImageHandle, $testImage->getClassProperty('handle'));
 
 		// Create a new JImageInspector with no handle.
@@ -162,7 +164,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::loadFile to makes sure images are loaded properly.  In this case we
+	 * Test the Image::loadFile to makes sure images are loaded properly.  In this case we
 	 * are taking the simple approach of loading an image file and asserting that the dimensions
 	 * are correct.
 	 *
@@ -172,7 +174,6 @@ class JImageTest extends TestCase
 	 */
 	public function testloadFile()
 	{
-		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFile);
 
@@ -184,7 +185,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::loadFile to makes sure GIF images are loaded properly.  In this case we
+	 * Test the Image::loadFile to makes sure GIF images are loaded properly.  In this case we
 	 * are taking the simple approach of loading an image file and asserting that the dimensions
 	 * are correct.
 	 *
@@ -194,7 +195,6 @@ class JImageTest extends TestCase
 	 */
 	public function testloadFileGif()
 	{
-		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFileGif);
 
@@ -206,7 +206,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::loadFile to makes sure PNG images are loaded properly.  In this case we
+	 * Test the Image::loadFile to makes sure PNG images are loaded properly.  In this case we
 	 * are taking the simple approach of loading an image file and asserting that the dimensions
 	 * are correct.
 	 *
@@ -216,7 +216,6 @@ class JImageTest extends TestCase
 	 */
 	public function testloadFilePng()
 	{
-		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFilePng);
 
@@ -228,7 +227,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::loadFile to makes sure XCF images are not loaded properly.  In this case we
+	 * Test the Image::loadFile to makes sure XCF images are not loaded properly.  In this case we
 	 * are taking the simple approach of loading an image file and asserting that the dimensions
 	 * are correct.
 	 *
@@ -240,13 +239,12 @@ class JImageTest extends TestCase
 	 */
 	public function testloadFileBmp()
 	{
-		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFileBmp);
 	}
 
 	/**
-	 * Test the JImage::loadFile to makes sure if a bogus image is given it throws an exception.
+	 * Test the Image::loadFile to makes sure if a bogus image is given it throws an exception.
 	 *
 	 * @return  void
 	 *
@@ -255,13 +253,12 @@ class JImageTest extends TestCase
 	 */
 	public function testloadFileWithInvalidFile()
 	{
-		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile('bogus_file');
 	}
 
 	/**
-	 * Test the JImage::resize to make sure images are resized properly.
+	 * Test the Image::resize to make sure images are resized properly.
 	 *
 	 * @return  void
 	 *
@@ -269,7 +266,6 @@ class JImageTest extends TestCase
 	 */
 	public function testResize()
 	{
-		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFile);
 
@@ -281,7 +277,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::resize to make sure images are resized properly and
+	 * Test the Image::resize to make sure images are resized properly and
 	 * transparency is properly set.
 	 *
 	 * @return  void
@@ -308,7 +304,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::resize to make sure images are resized properly - no file loaded.
+	 * Test the Image::resize to make sure images are resized properly - no file loaded.
 	 *
 	 * @return  void
 	 *
@@ -318,14 +314,13 @@ class JImageTest extends TestCase
 	 */
 	public function testResizeNoFile()
 	{
-		// Get a new JImage inspector.
 		$image = new JImageInspector;
 
 		$image->resize(1000, 682, false);
 	}
 
 	/**
-	 * Test the JImage::toFile when there is no image loaded.  This should throw a LogicException
+	 * Test the Image::toFile when there is no image loaded.  This should throw a LogicException
 	 * since we cannot write an image out to file that we don't even have yet.
 	 *
 	 * @return  void
@@ -342,7 +337,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::toFile to make sure that a new image is properly written
+	 * Test the Image::toFile to make sure that a new image is properly written
 	 * to file, when performing this test using a lossy compression we are not able
 	 * to open and save the same image and then compare the checksums as the checksums
 	 * may have changed. Therefore we are limited to comparing the image properties.
@@ -358,8 +353,8 @@ class JImageTest extends TestCase
 		$image = new JImageInspector($this->testFile);
 		$image->toFile($outFileGif, IMAGETYPE_GIF);
 
-		$a = JImage::getImageFileProperties($this->testFile);
-		$b = JImage::getImageFileProperties($outFileGif);
+		$a = Image::getImageFileProperties($this->testFile);
+		$b = Image::getImageFileProperties($outFileGif);
 
 		// Assert that properties that should be equal are equal.
 		$this->assertTrue($a->width == $b->width);
@@ -377,7 +372,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::toFile to make sure that a new image is properly written
+	 * Test the Image::toFile to make sure that a new image is properly written
 	 * to file, when performing this test using a lossy compression we are not able
 	 * to open and save the same image and then compare the checksums as the checksums
 	 * may have changed. Therefore we are limited to comparing the image properties.
@@ -393,8 +388,8 @@ class JImageTest extends TestCase
 		$image = new JImageInspector($this->testFile);
 		$image->toFile($outFilePng, IMAGETYPE_PNG);
 
-		$a = JImage::getImageFileProperties($this->testFile);
-		$b = JImage::getImageFileProperties($outFilePng);
+		$a = Image::getImageFileProperties($this->testFile);
+		$b = Image::getImageFileProperties($outFilePng);
 
 		// Assert that properties that should be equal are equal.
 		$this->assertTrue($a->width == $b->width);
@@ -412,7 +407,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::toFile to make sure that a new image is properly written
+	 * Test the Image::toFile to make sure that a new image is properly written
 	 * to file, when performing this test using a lossy compression we are not able
 	 * to open and save the same image and then compare the checksums as the checksums
 	 * may have changed. Therefore we are limited to comparing the image properties.
@@ -430,8 +425,8 @@ class JImageTest extends TestCase
 		$image->toFile($outFileJpg, IMAGETYPE_JPEG);
 
 		// Get the file properties for both input and output.
-		$a = JImage::getImageFileProperties($this->testFile);
-		$b = JImage::getImageFileProperties($outFileJpg);
+		$a = Image::getImageFileProperties($this->testFile);
+		$b = Image::getImageFileProperties($outFileJpg);
 
 		// Assert that properties that should be equal are equal.
 		$this->assertTrue($a->width == $b->width);
@@ -447,7 +442,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::toFile to make sure that a new image is properly written
+	 * Test the Image::toFile to make sure that a new image is properly written
 	 * to file, when performing this test using a lossy compression we are not able
 	 * to open and save the same image and then compare the checksums as the checksums
 	 * may have changed. Therefore we are limited to comparing the image properties.
@@ -465,8 +460,8 @@ class JImageTest extends TestCase
 		$image->toFile($outFileDefault);
 
 		// Get the file properties for both input and output.
-		$a = JImage::getImageFileProperties($this->testFile);
-		$b = JImage::getImageFileProperties($outFileDefault);
+		$a = Image::getImageFileProperties($this->testFile);
+		$b = Image::getImageFileProperties($outFileDefault);
 
 		// Assert that properties that should be equal are equal.
 		$this->assertTrue($a->width == $b->width);
@@ -482,7 +477,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::getFilterInstance method to make sure it behaves correctly
+	 * Test the Image::getFilterInstance method to make sure it behaves correctly
 	 *
 	 * @return  void
 	 *
@@ -500,7 +495,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::getHeight method to make sure it gives the correct
+	 * Test the Image::getHeight method to make sure it gives the correct
 	 * property from the source image.
 	 *
 	 * @return  void
@@ -519,7 +514,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::getHeight method without a loaded image.
+	 * Test the Image::getHeight method without a loaded image.
 	 *
 	 * @return  void
 	 *
@@ -528,14 +523,14 @@ class JImageTest extends TestCase
 	 */
 	public function testGetHeightWithoutLoadedImage()
 	{
-		// Create a new JImage object without loading an image.
-		$image = new JImage;
+		// Create a new Image object without loading an image.
+		$image = new Image;
 
 		$image->getHeight();
 	}
 
 	/**
-	 * Test the JImage::getWidth method to make sure it gives the correct
+	 * Test the Image::getWidth method to make sure it gives the correct
 	 * property from the source image
 	 *
 	 * @return  void
@@ -554,7 +549,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::getWidth method without a loaded image.
+	 * Test the Image::getWidth method without a loaded image.
 	 *
 	 * @return  void
 	 *
@@ -563,14 +558,14 @@ class JImageTest extends TestCase
 	 */
 	public function testGetWidthWithoutLoadedImage()
 	{
-		// Create a new JImage object without loading an image.
-		$image = new JImage;
+		// Create a new Image object without loading an image.
+		$image = new Image;
 
 		$image->getWidth();
 	}
 
 	/**
-	 * Test the JImage::getImageFileProperties method without a valid image file.
+	 * Test the Image::getImageFileProperties method without a valid image file.
 	 *
 	 * @return  void
 	 *
@@ -579,11 +574,11 @@ class JImageTest extends TestCase
 	 */
 	public function testGetImageFilePropertiesWithInvalidFile()
 	{
-		JImage::getImageFileProperties(JPATH_TESTS . '/suite/joomla/image/stubs/bogus.image');
+		Image::getImageFileProperties(JPATH_TESTS . '/suite/joomla/image/stubs/bogus.image');
 	}
 
 	/**
-	 * Test the JImage::isTransparent method without a loaded image.
+	 * Test the Image::isTransparent method without a loaded image.
 	 *
 	 * @return  void
 	 *
@@ -592,14 +587,14 @@ class JImageTest extends TestCase
 	 */
 	public function testIsTransparentWithoutLoadedImage()
 	{
-		// Create a new JImage object without loading an image.
-		$image = new JImage;
+		// Create a new Image object without loading an image.
+		$image = new Image;
 
 		$image->isTransparent();
 	}
 
 	/**
-	 * Test the JImage::isTransparent method to make sure it gives the correct
+	 * Test the Image::isTransparent method to make sure it gives the correct
 	 * result if the image has an alpha channel.
 	 *
 	 * @return  void
@@ -622,7 +617,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::isTransparent method to make sure it gives the correct
+	 * Test the Image::isTransparent method to make sure it gives the correct
 	 * result if the image does not haave an alpha channel.
 	 *
 	 * @return  void
@@ -642,7 +637,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::crop method without a loaded image.
+	 * Test the Image::crop method without a loaded image.
 	 *
 	 * @return  void
 	 *
@@ -651,14 +646,14 @@ class JImageTest extends TestCase
 	 */
 	public function testCropWithoutLoadedImage()
 	{
-		// Create a new JImage object without loading an image.
-		$image = new JImage;
+		// Create a new Image object without loading an image.
+		$image = new Image;
 
 		$image->crop(10, 10, 5, 5);
 	}
 
 	/**
-	 * Tests the JImage::crop() method.  To test this we create an image that contains a red rectangle
+	 * Tests the Image::crop() method.  To test this we create an image that contains a red rectangle
 	 * of a certain size [Rectangle1].  Inside of that rectangle [Rectangle1] we draw a white
 	 * rectangle [Rectangle2] that is exactly two pixels smaller in width and height than its parent
 	 * rectangle [Rectangle1].  Then we crop the image to the exact coordinates of Rectangle1 and
@@ -727,7 +722,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::rotate method without a loaded image.
+	 * Test the Image::rotate method without a loaded image.
 	 *
 	 * @return  void
 	 *
@@ -736,14 +731,14 @@ class JImageTest extends TestCase
 	 */
 	public function testRotateWithoutLoadedImage()
 	{
-		// Create a new JImage object without loading an image.
-		$image = new JImage;
+		// Create a new Image object without loading an image.
+		$image = new Image;
 
 		$image->rotate(90);
 	}
 
 	/**
-	 * Tests the JImage::rotate() method.  To test this we create an image that contains a red
+	 * Tests the Image::rotate() method.  To test this we create an image that contains a red
 	 * horizontal line in the middle of the image, and a white vertical line in the middle of the
 	 * image.  Once the image is rotated 90 degrees we test the end points of the lines to ensure that
 	 * the colors have swapped.
@@ -784,7 +779,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::filter method to make sure it behaves correctly
+	 * Test the Image::filter method to make sure it behaves correctly
 	 *
 	 * @return  void
 	 *
@@ -795,7 +790,7 @@ class JImageTest extends TestCase
 		$handle = imagecreatetruecolor(1, 1);
 
 		// Create the mock filter.
-		$mockFilter = $this->getMockForAbstractClass('JImageFilter', array($handle), 'JImageFilterMock', true, false, true);
+		$mockFilter = $this->getMockForAbstractClass('\\Joomla\\Image\\Filter', array($handle), 'ImageFilterMock', true, false, true);
 
 		// Setup the mock method call expectation.
 		$mockFilter->expects($this->once())
@@ -810,7 +805,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Test the JImage::filter method without a loaded image.
+	 * Test the Image::filter method without a loaded image.
 	 *
 	 * @return  void
 	 *
@@ -819,14 +814,14 @@ class JImageTest extends TestCase
 	 */
 	public function testFilterWithoutLoadedImage()
 	{
-		// Create a new JImage object without loading an image.
-		$image = new JImage;
+		// Create a new Image object without loading an image.
+		$image = new Image;
 
 		$image->filter('negate');
 	}
 
 	/**
-	 * Test the JImage::filter method with a bogus filer type so that we expect an exception.
+	 * Test the Image::filter method with a bogus filer type so that we expect an exception.
 	 *
 	 * @return  void
 	 *
@@ -842,7 +837,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Tests the JImage::prepareDimensions method.
+	 * Tests the Image::prepareDimensions method.
 	 *
 	 * @param   mixed    $inputHeight     The height input.
 	 * @param   mixed    $inputWidth      The width input.
@@ -873,7 +868,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Tests the JImage::prepareDimensions method with a bogus scale so that an exception is thrown.
+	 * Tests the Image::prepareDimensions method with a bogus scale so that an exception is thrown.
 	 *
 	 * @return  void
 	 *
@@ -892,7 +887,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Tests the JImage::sanitizeHeight method.
+	 * Tests the Image::sanitizeHeight method.
 	 *
 	 * @param   mixed    $inputHeight     The height input.
 	 * @param   mixed    $inputWidth      The width input.
@@ -919,7 +914,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Tests the JImage::sanitizeWidth method.
+	 * Tests the Image::sanitizeWidth method.
 	 *
 	 * @param   mixed    $inputHeight     The height input.
 	 * @param   mixed    $inputWidth      The width input.
@@ -946,7 +941,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Tests the JImage::sanitizeOffset method.
+	 * Tests the Image::sanitizeOffset method.
 	 *
 	 * @param   mixed    $input     The input offset.
 	 * @param   integer  $expected  The expected result offest.
@@ -966,7 +961,7 @@ class JImageTest extends TestCase
 	}
 
 	/**
-	 * Tests the JImage::destory method
+	 * Tests the Image::destory method
 	 *
 	 * @return  void
 	 *
@@ -977,8 +972,8 @@ class JImageTest extends TestCase
 		// Create an image handle
 		$imageHandle = imagecreatetruecolor(100, 100);
 
-		// Pass created handle to JImage
-		$image = new JImage($imageHandle);
+		// Pass created handle to Image
+		$image = new Image($imageHandle);
 
 		// Destroying the image should return boolean true
 		$this->assertTrue($image->destroy());

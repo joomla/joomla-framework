@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Keychain\Keychain;
+
 /**
  * Tests for the Joomla Platform Keychain Class
  *
@@ -14,7 +16,7 @@
  * @subpackage  Keychain
  * @since       12.3
  */
-class JKeychainTest extends PHPUnit_Framework_TestCase
+class KeychainTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Set up the system by ensuring some files aren't there.
@@ -56,7 +58,7 @@ class JKeychainTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testLoadCLIKeychain()
 	{
-		$keychain = new JKeychain;
+		$keychain = new Keychain;
 
 		$keychainFile = __DIR__ . '/data/cli-keychain.dat';
 		$passphraseFile = __DIR__ . '/data/cli-passphrase.dat';
@@ -81,7 +83,7 @@ class JKeychainTest extends PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new JKeychain;
+		$keychain = new Keychain;
 		$keychain->createPassphraseFile('testpassphrase', $passphraseFile, $privateKeyFile, 'password');
 
 		$this->assertTrue(file_exists($passphraseFile), 'Test passphrase file exists');
@@ -103,7 +105,7 @@ class JKeychainTest extends PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new JKeychain;
+		$keychain = new Keychain;
 
 		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 	}
@@ -124,7 +126,7 @@ class JKeychainTest extends PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new JKeychain;
+		$keychain = new Keychain;
 
 		$keychain->loadKeychain($passphraseFile, $passphraseFile, $publicKeyFile);
 	}
@@ -144,7 +146,7 @@ class JKeychainTest extends PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new JKeychain;
+		$keychain = new Keychain;
 		$keychain->set('dennis', 'liao');
 		$this->assertTrue((bool) $keychain->saveKeychain($keychainFile, $passphraseFile, $publicKeyFile), 'Assert that saveKeychain returns true.');
 
@@ -166,7 +168,7 @@ class JKeychainTest extends PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new JKeychain;
+		$keychain = new Keychain;
 
 		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 
@@ -188,7 +190,7 @@ class JKeychainTest extends PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new JKeychain;
+		$keychain = new Keychain;
 
 		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 
@@ -200,7 +202,7 @@ class JKeychainTest extends PHPUnit_Framework_TestCase
 
 		$keychain->saveKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 
-		$keychain = new JKeychain;
+		$keychain = new Keychain;
 
 		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 

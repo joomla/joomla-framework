@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package     Joomla.UnitTest
  * @subpackage  Media
@@ -8,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Image\Image;
+
 /**
  * Inspector for the JImage class.
  *
@@ -15,7 +16,7 @@
  * @subpackage  Media
  * @since       11.3
  */
-class JImageInspector extends JImage
+class JImageInspector extends Image
 {
 	/**
 	 * @var    JImageFilter  A mock image filter to be returned from getFilterInstance().

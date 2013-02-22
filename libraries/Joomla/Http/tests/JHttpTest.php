@@ -7,8 +7,10 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Uri\Uri;
+
 /**
- * Test class for JGithub.
+ * Test class for JHttp.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Http
@@ -110,7 +112,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$this->transport->expects($this->once())
 			->method('request')
-			->with('OPTIONS', new JUri('http://example.com'), null, array('testHeader'))
+			->with('OPTIONS', new Uri('http://example.com'), null, array('testHeader'))
 			->will($this->returnValue('ReturnString'));
 
 		$this->assertThat(
@@ -128,7 +130,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$this->transport->expects($this->once())
 			->method('request')
-			->with('HEAD', new JUri('http://example.com'), null, array('testHeader'))
+			->with('HEAD', new Uri('http://example.com'), null, array('testHeader'))
 			->will($this->returnValue('ReturnString'));
 
 		$this->assertThat(
@@ -146,7 +148,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$this->transport->expects($this->once())
 			->method('request')
-			->with('GET', new JUri('http://example.com'), null, array('testHeader'))
+			->with('GET', new Uri('http://example.com'), null, array('testHeader'))
 			->will($this->returnValue('ReturnString'));
 
 		$this->assertThat(
@@ -164,7 +166,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$this->transport->expects($this->once())
 			->method('request')
-			->with('POST', new JUri('http://example.com'), array('key' => 'value'), array('testHeader'))
+			->with('POST', new Uri('http://example.com'), array('key' => 'value'), array('testHeader'))
 			->will($this->returnValue('ReturnString'));
 
 		$this->assertThat(
@@ -182,7 +184,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$this->transport->expects($this->once())
 			->method('request')
-			->with('PUT', new JUri('http://example.com'), array('key' => 'value'), array('testHeader'))
+			->with('PUT', new Uri('http://example.com'), array('key' => 'value'), array('testHeader'))
 			->will($this->returnValue('ReturnString'));
 
 		$this->assertThat(
@@ -200,7 +202,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$this->transport->expects($this->once())
 			->method('request')
-			->with('DELETE', new JUri('http://example.com'), null, array('testHeader'))
+			->with('DELETE', new Uri('http://example.com'), null, array('testHeader'))
 			->will($this->returnValue('ReturnString'));
 
 		$this->assertThat(
@@ -218,7 +220,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$this->transport->expects($this->once())
 			->method('request')
-			->with('TRACE', new JUri('http://example.com'), null, array('testHeader'))
+			->with('TRACE', new Uri('http://example.com'), null, array('testHeader'))
 			->will($this->returnValue('ReturnString'));
 
 		$this->assertThat(
@@ -236,7 +238,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	{
 		$this->transport->expects($this->once())
 			->method('request')
-			->with('PATCH', new JUri('http://example.com'), array('key' => 'value'), array('testHeader'))
+			->with('PATCH', new Uri('http://example.com'), array('key' => 'value'), array('testHeader'))
 			->will($this->returnValue('ReturnString'));
 
 		$this->assertThat(

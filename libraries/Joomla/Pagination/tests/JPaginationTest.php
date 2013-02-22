@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Pagination\Pagination;
+
 /**
  * Test class for JPagination.
  *
@@ -80,11 +82,11 @@ class JPaginationTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @since   11.1
 	 * @dataProvider dataTestConstructor
-	 * @covers  JPagination::__construct
+	 * @covers  Pagination::__construct
 	 */
 	public function testConstructor($total, $limitstart, $limit, $expected)
 	{
-		$pagination = new JPagination($total, $limitstart, $limit);
+		$pagination = new Pagination($total, $limitstart, $limit);
 
 		$this->assertEquals($expected['total'], $pagination->total, 'Wrong Total');
 

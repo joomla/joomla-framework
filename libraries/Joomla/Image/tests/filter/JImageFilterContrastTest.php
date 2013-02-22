@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Image\Filter\Contrast as FilterContrast;
+
 /**
  * Test class for JImage.
  *
@@ -68,7 +70,7 @@ class JImageFilterContrastTest extends TestCase
 		imagefilledrectangle($imageHandle, 0, 0, 50, 99, $dark);
 		imagefilledrectangle($imageHandle, 51, 0, 99, 99, $light);
 
-		$filter = new JImageFilterContrast($imageHandle);
+		$filter = new FilterContrast($imageHandle);
 
 		$filter->execute(array(IMG_FILTER_CONTRAST => -10));
 
@@ -100,7 +102,7 @@ class JImageFilterContrastTest extends TestCase
 		// Draw a red rectangle to fill the image.
 		imagefilledrectangle($imageHandle, 0, 0, 100, 100, $red);
 
-		$filter = new JImageFilterContrast($imageHandle);
+		$filter = new FilterContrast($imageHandle);
 
 		$filter->execute(array());
 	}

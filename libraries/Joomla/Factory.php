@@ -274,13 +274,13 @@ abstract class Factory
 				if (!class_exists($classname))
 				{
 					// The class does not exist, default to JDate
-					$classname = 'JDate';
+					$classname = 'Joomla\\Date\\Date';
 				}
 			}
 			else
 			{
-				// No tag, so default to JDate
-				$classname = 'JDate';
+				// No tag, so default to Joomla\\Date\\Date
+				$classname = 'Joomla\\Date\\Date';
 			}
 		}
 

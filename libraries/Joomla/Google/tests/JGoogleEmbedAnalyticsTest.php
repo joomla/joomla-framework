@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Uri\Uri;
+
 /**
  * Test class for JGoogle.
  *
@@ -21,7 +23,7 @@ class JGoogleEmbedAnalyticsTest extends TestCase
 	protected $options;
 
 	/**
-	 * @var    JURI  URI of the page being rendered.
+	 * @var    Uri  URI of the page being rendered.
 	 */
 	protected $uri;
 
@@ -43,7 +45,7 @@ class JGoogleEmbedAnalyticsTest extends TestCase
 
 		$this->options = new JRegistry;
 
-		$this->uri = new JURI;
+		$this->uri = new Uri;
 		$this->object = new JGoogleEmbedAnalytics($this->options, $this->uri);
 	}
 

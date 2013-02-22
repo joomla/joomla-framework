@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Date\Date;
+
 /**
  * Test class for JGithubIssues.
  *
@@ -747,7 +749,7 @@ class JGithubIssuesTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetListByRepositoryAll()
 	{
-		$date = new JDate('January 1, 2012 12:12:12');
+		$date = new Date('January 1, 2012 12:12:12');
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;

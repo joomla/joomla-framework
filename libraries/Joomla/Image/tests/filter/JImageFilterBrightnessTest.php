@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Image\Filter\Brightness as FilterBrightness;
+
 /**
  * Test class for JImage.
  *
@@ -67,7 +69,7 @@ class JImageFilterBrightnessTest extends TestCase
 		// Draw a red rectangle to fill the image.
 		imagefilledrectangle($imageHandle, 0, 0, 100, 100, $red);
 
-		$filter = new JImageFilterBrightness($imageHandle);
+		$filter = new FilterBrightness($imageHandle);
 
 		$filter->execute(array(IMG_FILTER_BRIGHTNESS => 10));
 
@@ -99,7 +101,7 @@ class JImageFilterBrightnessTest extends TestCase
 		// Draw a red rectangle to fill the image.
 		imagefilledrectangle($imageHandle, 0, 0, 100, 100, $red);
 
-		$filter = new JImageFilterBrightness($imageHandle);
+		$filter = new FilterBrightness($imageHandle);
 
 		$filter->execute(array());
 	}

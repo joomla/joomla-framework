@@ -14,7 +14,7 @@
  * @subpackage  Controller
  * @since       12.1
  */
-class BaseController extends JControllerBase
+class BaseController extends Joomla\Controller\Base
 {
 	/**
 	 * Method to execute the controller.

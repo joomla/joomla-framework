@@ -7,17 +7,19 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Oauth2\Client;
+
 /**
- * Test class for JOAuth2Client.
+ * Test class for Client.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Oauth
  * @since       12.3
  */
-class JOAuth2ClientTest extends TestCase
+class ClientTest extends TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the JOAuth2Client object.
+	 * @var    JRegistry  Options for the Client object.
 	 */
 	protected $options;
 
@@ -37,7 +39,7 @@ class JOAuth2ClientTest extends TestCase
 	protected $application;
 
 	/**
-	 * @var    JOAuth2Client  Object under test.
+	 * @var    Client  Object under test.
 	 */
 	protected $object;
 
@@ -62,7 +64,7 @@ class JOAuth2ClientTest extends TestCase
 		$array = array();
 		$this->input = new JInput($array);
 		$this->application = new JApplicationWebInspector;
-		$this->object = new JOAuth2Client($this->options, $this->http, $this->input, $this->application);
+		$this->object = new Client($this->options, $this->http, $this->input, $this->application);
 	}
 
 	/**

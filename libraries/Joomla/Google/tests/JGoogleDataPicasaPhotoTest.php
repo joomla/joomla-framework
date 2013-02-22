@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Oauth2\Client;
+
 /**
  * Test class for JGoogleDataPicasa.
  *
@@ -16,7 +18,7 @@
 class JGoogleDataPicasaPhotoTest extends TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the JOAuth2Client object.
+	 * @var    JRegistry  Options for the Client object.
 	 */
 	protected $options;
 
@@ -31,7 +33,7 @@ class JGoogleDataPicasaPhotoTest extends TestCase
 	protected $input;
 
 	/**
-	 * @var    JOAuth2Client  The OAuth client for sending requests to Google.
+	 * @var    Client  The OAuth client for sending requests to Google.
 	 */
 	protected $oauth;
 
@@ -69,7 +71,7 @@ class JGoogleDataPicasaPhotoTest extends TestCase
 		$this->options = new JRegistry;
 		$this->http = $this->getMock('JHttp', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
 		$this->input = new JInput;
-		$this->oauth = new JOAuth2Client($this->options, $this->http, $this->input);
+		$this->oauth = new Client($this->options, $this->http, $this->input);
 		$this->auth = new JGoogleAuthOauth2($this->options, $this->oauth);
 		$this->xml = new SimpleXMLElement(file_get_contents(__DIR__ . '/photo.txt'));
 		$this->object = new JGoogleDataPicasaPhoto($this->xml, $this->options, $this->auth);

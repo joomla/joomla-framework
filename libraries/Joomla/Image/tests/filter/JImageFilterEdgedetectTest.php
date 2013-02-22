@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Image\Filter\Edgedetect as FilterEdgedetect;
+
 /**
  * Test class for JImage.
  *
@@ -68,7 +70,7 @@ class JImageFilterEdgedetectTest extends TestCase
 		imagefilledrectangle($imageHandle, 0, 0, 50, 99, $dark);
 		imagefilledrectangle($imageHandle, 51, 0, 99, 99, $light);
 
-		$filter = new JImageFilterEdgedetect($imageHandle);
+		$filter = new FilterEdgedetect($imageHandle);
 
 		$filter->execute(array());
 

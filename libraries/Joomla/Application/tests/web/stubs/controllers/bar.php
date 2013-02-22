@@ -14,7 +14,7 @@
  * @subpackage  Application
  * @since       12.3
  */
-class TControllerBar extends JControllerBase
+class TControllerBar extends Joomla\Controller\Base
 {
 	/**
 	 * Execute the controller.

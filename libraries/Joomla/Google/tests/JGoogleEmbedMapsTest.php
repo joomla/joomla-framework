@@ -6,6 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Uri\Uri;
+use Joomla\Registry\Registry;
+
 /**
  * Test class for JGoogle.
  *
@@ -16,12 +19,12 @@
 class JGoogleEmbedMapsTest extends TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the JOAuth2Client object.
+	 * @var    Registry  Options for the JOAuth2Client object.
 	 */
 	protected $options;
 
 	/**
-	 * @var    JURI  URI of the page being rendered.
+	 * @var    Uri  URI of the page being rendered.
 	 */
 	protected $uri;
 
@@ -46,10 +49,10 @@ class JGoogleEmbedMapsTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->options = new JRegistry;
+		$this->options = new Registry;
 
 		$this->http = $this->getMock('JHttp', array('get'), array($this->options));
-		$this->uri = new JURI;
+		$this->uri = new Uri;
 		$this->object = new JGoogleEmbedMaps($this->options, $this->uri, $this->http);
 	}
 

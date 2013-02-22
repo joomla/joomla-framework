@@ -7,15 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\String\Normalise;
 
 /**
- * JStringNormaliseTest
+ * NormaliseTest
  *
  * @package     Joomla.UnitTest
  * @subpackage  String
  * @since       11.3
  */
-class JStringNormaliseTest extends PHPUnit_Framework_TestCase
+class NormaliseTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test...
@@ -39,7 +40,7 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test JStringNormalise::fromCamelCase(string, false).
+	 * Method to test Normalise::fromCamelCase(string, false).
 	 *
 	 * @param   string  $expected  The expected value from the method.
 	 * @param   string  $input     The input value for the method.
@@ -48,15 +49,15 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedFromCamelCase
 	 * @since   11.3
-	 * @covers  JStringNormalise::fromCamelcase
+	 * @covers  Normalise::fromCamelcase
 	 */
 	public function testFromCamelCase_nongrouped($expected, $input)
 	{
-		$this->assertEquals($expected, JStringNormalise::fromCamelcase($input));
+		$this->assertEquals($expected, Normalise::fromCamelcase($input));
 	}
 
 	/**
-	 * Method to test JStringNormalise::fromCamelCase(string, true).
+	 * Method to test Normalise::fromCamelCase(string, true).
 	 *
 	 * @param   string  $input     The input value for the method.
 	 * @param   string  $expected  The expected value from the method.
@@ -65,15 +66,15 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  getFromCamelCaseData
 	 * @since   11.3
-	 * @covers  JStringNormalise::fromCamelcase
+	 * @covers  Normalise::fromCamelcase
 	 */
 	public function testFromCamelCase_grouped($input, $expected)
 	{
-		$this->assertEquals($expected, JStringNormalise::fromCamelcase($input, true));
+		$this->assertEquals($expected, Normalise::fromCamelcase($input, true));
 	}
 
 	/**
-	 * Method to test JStringNormalise::toCamelCase().
+	 * Method to test Normalise::toCamelCase().
 	 *
 	 * @param   string  $expected  The expected value from the method.
 	 * @param   string  $input     The input value for the method.
@@ -82,15 +83,15 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToCamelCase
 	 * @since   11.3
-	 * @covers  JStringNormalise::toCamelcase
+	 * @covers  Normalise::toCamelcase
 	 */
 	public function testToCamelCase($expected, $input)
 	{
-		$this->assertEquals($expected, JStringNormalise::toCamelcase($input));
+		$this->assertEquals($expected, Normalise::toCamelcase($input));
 	}
 
 	/**
-	 * Method to test JStringNormalise::toDashSeparated().
+	 * Method to test Normalise::toDashSeparated().
 	 *
 	 * @param   string  $expected  The expected value from the method.
 	 * @param   string  $input     The input value for the method.
@@ -99,15 +100,15 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToDashSeparated
 	 * @since   11.3
-	 * @covers  JStringNormalise::toDashSeparated
+	 * @covers  Normalise::toDashSeparated
 	 */
 	public function testToDashSeparated($expected, $input)
 	{
-		$this->assertEquals($expected, JStringNormalise::toDashSeparated($input));
+		$this->assertEquals($expected, Normalise::toDashSeparated($input));
 	}
 
 	/**
-	 * Method to test JStringNormalise::toSpaceSeparated().
+	 * Method to test Normalise::toSpaceSeparated().
 	 *
 	 * @param   string  $expected  The expected value from the method.
 	 * @param   string  $input     The input value for the method.
@@ -116,15 +117,15 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToSpaceSeparated
 	 * @since   11.3
-	 * @covers  JStringNormalise::toSpaceSeparated
+	 * @covers  Normalise::toSpaceSeparated
 	 */
 	public function testToSpaceSeparated($expected, $input)
 	{
-		$this->assertEquals($expected, JStringNormalise::toSpaceSeparated($input));
+		$this->assertEquals($expected, Normalise::toSpaceSeparated($input));
 	}
 
 	/**
-	 * Method to test JStringNormalise::toUnderscoreSeparated().
+	 * Method to test Normalise::toUnderscoreSeparated().
 	 *
 	 * @param   string  $expected  The expected value from the method.
 	 * @param   string  $input     The input value for the method.
@@ -133,15 +134,15 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToUnderscoreSeparated
 	 * @since   11.3
-	 * @covers  JStringNormalise::toUnderscoreSeparated
+	 * @covers  Normalise::toUnderscoreSeparated
 	 */
 	public function testToUnderscoreSeparated($expected, $input)
 	{
-		$this->assertEquals($expected, JStringNormalise::toUnderscoreSeparated($input));
+		$this->assertEquals($expected, Normalise::toUnderscoreSeparated($input));
 	}
 
 	/**
-	 * Method to test JStringNormalise::toVariable().
+	 * Method to test Normalise::toVariable().
 	 *
 	 * @param   string  $expected  The expected value from the method.
 	 * @param   string  $input     The input value for the method.
@@ -150,15 +151,15 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToVariable
 	 * @since   11.3
-	 * @covers  JStringNormalise::toVariable
+	 * @covers  Normalise::toVariable
 	 */
 	public function testToVariable($expected, $input)
 	{
-		$this->assertEquals($expected, JStringNormalise::toVariable($input));
+		$this->assertEquals($expected, Normalise::toVariable($input));
 	}
 
 	/**
-	 * Method to test JStringNormalise::toKey().
+	 * Method to test Normalise::toKey().
 	 *
 	 * @param   string  $expected  The expected value from the method.
 	 * @param   string  $input     The input value for the method.
@@ -167,11 +168,11 @@ class JStringNormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToKey
 	 * @since   11.3
-	 * @covers  JStringNormalise::toKey
+	 * @covers  Normalise::toKey
 	 */
 	public function testToKey($expected, $input)
 	{
-		$this->assertEquals($expected, JStringNormalise::toKey($input));
+		$this->assertEquals($expected, Normalise::toKey($input));
 	}
 
 	/**

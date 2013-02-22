@@ -6,14 +6,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Joomla\Date\Date;
+
 /**
- * Tests for JDate class.
+ * Tests for Date class.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Date
  * @since       11.3
  */
-class JDateTest extends TestCaseDatabase
+class DateTest extends TestCaseDatabase
 {
 	protected $object;
 
@@ -476,7 +478,7 @@ class JDateTest extends TestCaseDatabase
 	{
 		// Note: do not extend parent setUp method
 
-		$this->object = new JDate('12/20/2007 11:44:56', 'America/New_York');
+		$this->object = new Date('12/20/2007 11:44:56', 'America/New_York');
 	}
 
 	/**
@@ -503,21 +505,21 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider  cases__construct
 	 * @since   11.3
-	 * @covers  JDate::__construct
+	 * @covers  Date::__construct
 	 */
 	public function test__construct($date, $tz, $expectedTime)
 	{
-		$jdate = new JDate($date, $tz);
+		$Date = new Date($date, $tz);
 
 		$this->assertThat(
-			date_format($jdate, 'D m/d/Y H:i'),
+			date_format($Date, 'D m/d/Y H:i'),
 			$this->equalTo($expectedTime)
 		);
 
 		/*
 		@TODO - Decouple the language system better.
  		$this->assertThat(
- 			$jdate->format('D m/d/Y H:i', true),
+ 			$Date->format('D m/d/Y H:i', true),
  			$this->equalTo($expectedTime)
  		);
 		*/
@@ -534,14 +536,14 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider  cases__get
 	 * @since   11.3
-	 * @covers  JDate::__get
+	 * @covers  Date::__get
 	 */
 	public function test__get($date, $property, $expected)
 	{
-		$jdate = new JDate($date);
+		$Date = new Date($date);
 
 		$this->assertThat(
-			$jdate->$property,
+			$Date->$property,
 			$this->equalTo($expected)
 		);
 	}
@@ -552,16 +554,16 @@ class JDateTest extends TestCaseDatabase
 	 * @return  void
 	 *
 	 * @since   11.3
-	 * @covers  JDate::__toString
+	 * @covers  Date::__toString
 	 */
 	public function test__toString()
 	{
-		JDate::$format = 'Y-m-d H:i:s';
+		Date::$format = 'Y-m-d H:i:s';
 
-		$jdate = new JDate('2000-01-01 00:00:00');
+		$Date = new Date('2000-01-01 00:00:00');
 
 		$this->assertThat(
-			(string) $jdate,
+			(string) $Date,
 			$this->equalTo('2000-01-01 00:00:00')
 		);
 	}
@@ -576,13 +578,13 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider casesToString
 	 * @since   11.3
-	 * @covers  JDate::__toString
+	 * @covers  Date::__toString
 	 */
 	public function testToString($format, $expectedTime)
 	{
 		if (!is_null($format))
 		{
-			JDate::$format = $format;
+			Date::$format = $format;
 		}
 
 		$this->assertThat(
@@ -597,19 +599,19 @@ class JDateTest extends TestCaseDatabase
 	 * @return  void
 	 *
 	 * @since   11.3
-	 * @covers  JDate::getInstance
+	 * @covers  Date::getInstance
 	 */
 	public function testGetInstance()
 	{
 		$this->assertThat(
-			JDate::getInstance(),
-			$this->isInstanceOf('JDate')
+			Date::getInstance(),
+			$this->isInstanceOf('Joomla\\Date\\Date')
 		);
 
-		JDate::$format = 'Y-m-d H:i:s';
+		Date::$format = 'Y-m-d H:i:s';
 
 		$this->assertThat(
-			(string) JDate::getInstance('2000-01-01 00:00:00'),
+			(string) Date::getInstance('2000-01-01 00:00:00'),
 			$this->equalTo('2000-01-01 00:00:00')
 		);
 	}
@@ -626,26 +628,26 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider casesGetOffsetFromGMT
 	 * @since   11.3
-	 * @covers  JDate::getOffsetFromGMT
+	 * @covers  Date::getOffsetFromGMT
 	 */
 	public function testGetOffsetFromGMT($tz, $setTime, $hours, $expected)
 	{
 		if (is_null($tz))
 		{
-			$testJDate = new JDate($setTime);
+			$testDate = new Date($setTime);
 		}
 		else
 		{
-			$testJDate = new JDate($setTime, $tz);
+			$testDate = new Date($setTime, $tz);
 		}
 
 		if (is_null($hours))
 		{
-			$offset = $testJDate->getOffsetFromGMT();
+			$offset = $testDate->getOffsetFromGMT();
 		}
 		else
 		{
-			$offset = $testJDate->getOffsetFromGMT($hours);
+			$offset = $testDate->getOffsetFromGMT($hours);
 		}
 
 		$this->assertThat($offset, $this->equalTo($expected));
@@ -662,7 +664,7 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider casesFormat
 	 * @since   11.3
-	 * @covers  JDate::format
+	 * @covers  Date::format
 	 */
 	public function testFormat($format, $local, $expected)
 	{
@@ -684,7 +686,7 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider casesToRFC822
 	 * @since   11.3
-	 * @covers  JDate::toRFC822
+	 * @covers  Date::toRFC822
 	 */
 	public function testToRFC822($tz, $setTime, $local, $expected)
 	{
@@ -693,15 +695,15 @@ class JDateTest extends TestCaseDatabase
 
 		if (is_null($tz))
 		{
-			$testJDate = new JDate($setTime);
+			$testDate = new Date($setTime);
 		}
 		else
 		{
-			$testJDate = new JDate($setTime, $tz);
+			$testDate = new Date($setTime, $tz);
 		}
 
 		$this->assertThat(
-			$testJDate->toRFC822($local),
+			$testDate->toRFC822($local),
 			$this->equalTo($expected)
 		);
 		$language->setDebug($debug);
@@ -719,21 +721,21 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider casesToISO8601
 	 * @since   11.3
-	 * @covers  JDate::toISO8601
+	 * @covers  Date::toISO8601
 	 */
 	public function testToISO8601($tz, $setTime, $local, $expected)
 	{
 		if (is_null($tz))
 		{
-			$testJDate = new JDate($setTime);
+			$testDate = new Date($setTime);
 		}
 		else
 		{
-			$testJDate = new JDate($setTime, $tz);
+			$testDate = new Date($setTime, $tz);
 		}
 
 		$this->assertThat(
-			$testJDate->toISO8601($local),
+			$testDate->toISO8601($local),
 			$this->equalTo($expected)
 		);
 	}
@@ -750,21 +752,21 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider casesToSQL
 	 * @since   11.3
-	 * @covers  JDate::toSql
+	 * @covers  Date::toSql
 	 */
 	public function testToSql($tz, $setTime, $local, $expected)
 	{
 		if (is_null($tz))
 		{
-			$testJDate = new JDate($setTime);
+			$testDate = new Date($setTime);
 		}
 		else
 		{
-			$testJDate = new JDate($setTime, $tz);
+			$testDate = new Date($setTime, $tz);
 		}
 
 		$this->assertThat(
-			$testJDate->toSql($local),
+			$testDate->toSql($local),
 			$this->equalTo($expected)
 		);
 	}
@@ -780,21 +782,21 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider casesToUnix
 	 * @since   11.3
-	 * @covers  JDate::toUnix
+	 * @covers  Date::toUnix
 	 */
 	public function testToUnix($tz, $setTime, $expected)
 	{
 		if (is_null($tz))
 		{
-			$testJDate = new JDate($setTime);
+			$testDate = new Date($setTime);
 		}
 		else
 		{
-			$testJDate = new JDate($setTime, $tz);
+			$testDate = new Date($setTime, $tz);
 		}
 
 		$this->assertThat(
-			$testJDate->toUnix(),
+			$testDate->toUnix(),
 			$this->equalTo($expected)
 		);
 	}
@@ -809,7 +811,7 @@ class JDateTest extends TestCaseDatabase
 	 *
 	 * @dataProvider casesSetTimezone
 	 * @since   11.3
-	 * @covers  JDate::setTimezone
+	 * @covers  Date::setTimezone
 	 */
 	public function testSetTimezone($tz, $expected)
 	{
