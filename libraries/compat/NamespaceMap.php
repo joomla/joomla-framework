@@ -85,7 +85,6 @@ return array(
 	'JDatabaseQuerySqlAzure' => 'Joomla\\Database\\Query\\Sqlazure',
 	'JDatabaseQuerySqlite' => 'Joomla\\Database\\Query\\Sqlite',
 	'JDatabaseQuerySqlsrv' => 'Joomla\\Database\\Query\\Sqlsrv',
-	'JResponse' => 'Joomla\\Environment\\Response',
 	'JFactory' => 'Joomla\\Factory',
 	'JFile' => 'Joomla\\Filesystem\\File',
 	'JFolder' => 'Joomla\\Filesystem\\Folder',
@@ -203,7 +202,4 @@ return array(
 	'JSessionStorageNone' => 'Joomla\\Session\\Storage\\None',
 	'JSessionStorageWincache' => 'Joomla\\Session\\Storage\\Wincache',
 	'JSessionStorageXcache' => 'Joomla\\Session\\Storage\\Xcache',
-	'JTableLanguage' => 'Joomla\\Table\\Language',
-	'JTableNested' => 'Joomla\\Table\\Nested',
-	'JTable' => 'Joomla\\Table\\Table',
 );
