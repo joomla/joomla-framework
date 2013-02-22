@@ -92,13 +92,13 @@ class JPaginationTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals($expected['limit'], $pagination->limit, 'Wrong Limit');
 
-		$this->assertEquals($expected['pages.total'], $pagination->get('pages.total'), 'Wrong Total Pages');
+		$this->assertEquals($expected['pages.total'], $pagination->pagesTotal, 'Wrong Total Pages');
 
-		$this->assertEquals($expected['pages.current'], $pagination->get('pages.current'), 'Wrong Current Page');
+		$this->assertEquals($expected['pages.current'], $pagination->pagesCurrent, 'Wrong Current Page');
 
-		$this->assertEquals($expected['pages.start'], $pagination->get('pages.start'), 'Wrong Start Page');
+		$this->assertEquals($expected['pages.start'], $pagination->pagesStart, 'Wrong Start Page');
 
-		$this->assertEquals($expected['pages.stop'], $pagination->get('pages.stop'), 'Wrong Stop Page');
+		$this->assertEquals($expected['pages.stop'], $pagination->pagesStop, 'Wrong Stop Page');
 
 		unset($pagination);
 	}
