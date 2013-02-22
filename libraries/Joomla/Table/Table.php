@@ -15,7 +15,6 @@ use Joomla\Filesystem\Path;
 use Joomla\Database\Driver;
 use Joomla\Database\Query;
 use Joomla\Language\Text;
-use Joomla\Access\Rules;
 use Joomla\Factory;
 use Joomla\Log\Log;
 use UnexpectedValueException;
@@ -75,14 +74,6 @@ abstract class Table
 	 * @since  11.1
 	 */
 	protected $_db;
-
-	/**
-	 * Should rows be tracked as ACL assets?
-	 *
-	 * @var    boolean
-	 * @since  11.1
-	 */
-	protected $_trackAssets = false;
 
 	/**
 	 * The rules associated with this record.
@@ -171,12 +162,6 @@ abstract class Table
 					$this->$name = null;
 				}
 			}
-		}
-
-		// If we are tracking assets, make sure an access field exists and initially set the default.
-		if (property_exists($this, 'asset_id'))
-		{
-			$this->_trackAssets = true;
 		}
 
 		// If the access property exists, set the default.
@@ -309,72 +294,6 @@ abstract class Table
 		}
 
 		return self::$_includePaths;
-	}
-
-	/**
-	 * Method to compute the default name of the asset.
-	 * The default name is in the form table_name.id
-	 * where id is the value of the primary key of the table.
-	 *
-	 * @return  string
-	 *
-	 * @since   11.1
-	 */
-	protected function _getAssetName()
-	{
-		$keys = array();
-
-		foreach ($this->_tbl_keys as $k)
-		{
-			$keys[] = (int) $this->$k;
-		}
-
-		return $this->_tbl . '.' . implode('.', $keys);
-	}
-
-	/**
-	 * Method to return the title to use for the asset table.  In
-	 * tracking the assets a title is kept for each asset so that there is some
-	 * context available in a unified access manager.  Usually this would just
-	 * return $this->title or $this->name or whatever is being used for the
-	 * primary name of the row. If this method is not overridden, the asset name is used.
-	 *
-	 * @return  string  The string to use as the title in the asset table.
-	 *
-	 * @link    http://docs.joomla.org/JTable/getAssetTitle
-	 * @since   11.1
-	 */
-	protected function _getAssetTitle()
-	{
-		return $this->_getAssetName();
-	}
-
-	/**
-	 * Method to get the parent asset under which to register this one.
-	 * By default, all assets are registered to the ROOT node with ID,
-	 * which will default to 1 if none exists.
-	 * The extended class can define a table and id to lookup.  If the
-	 * asset does not exist it will be created.
-	 *
-	 * @param   Table    $table  A JTable object for the asset parent.
-	 * @param   integer  $id     Id to look up
-	 *
-	 * @return  integer
-	 *
-	 * @since   11.1
-	 */
-	protected function _getAssetParentId(Table $table = null, $id = null)
-	{
-		// For simple cases, parent to the asset root.
-		$assets = self::getInstance('Asset', 'JTable', array('dbo' => $this->getDbo()));
-		$rootId = $assets->getRootId();
-
-		if (!empty($rootId))
-		{
-			return $rootId;
-		}
-
-		return 1;
 	}
 
 	/**
@@ -716,19 +635,6 @@ abstract class Table
 	{
 		$k = $this->_tbl_keys;
 
-		$currentAssetId = 0;
-
-		if (!empty($this->asset_id))
-		{
-			$currentAssetId = $this->asset_id;
-		}
-
-		// The asset id field is managed privately by this class.
-		if ($this->_trackAssets)
-		{
-			unset($this->asset_id);
-		}
-
 		// If a primary key exists update the object, otherwise insert it.
 		if ($this->hasPrimaryKey())
 		{
@@ -739,77 +645,9 @@ abstract class Table
 			$this->_db->insertObject($this->_tbl, $this, $this->_tbl_keys);
 		}
 
-		// If the table is not set to track assets return true.
-		if (!$this->_trackAssets)
-		{
-			return true;
-		}
-
 		if ($this->_locked)
 		{
 			$this->_unlock();
-		}
-
-		/*
-		 * Asset Tracking
-		 */
-
-		$parentId = $this->_getAssetParentId();
-		$name     = $this->_getAssetName();
-		$title    = $this->_getAssetTitle();
-
-		$asset = self::getInstance('Asset', 'JTable', array('dbo' => $this->getDbo()));
-		$asset->loadByName($name);
-
-		// Re-inject the asset id.
-		$this->asset_id = $asset->id;
-
-		// Check for an error.
-		$error = $asset->getError();
-
-		if ($error)
-		{
-			$this->setError($error);
-
-			return false;
-		}
-
-		// Specify how a new or moved node asset is inserted into the tree.
-		if (empty($this->asset_id) || $asset->parent_id != $parentId)
-		{
-			$asset->setLocation($parentId, 'last-child');
-		}
-
-		// Prepare the asset to be stored.
-		$asset->parent_id = $parentId;
-		$asset->name      = $name;
-		$asset->title     = $title;
-
-		if ($this->_rules instanceof Rules)
-		{
-			$asset->rules = (string) $this->_rules;
-		}
-
-		if (!$asset->check() || !$asset->store($updateNulls))
-		{
-			$this->setError($asset->getError());
-
-			return false;
-		}
-
-		// Create an asset_id or heal one that is corrupted.
-		if (empty($this->asset_id) || ($currentAssetId != $this->asset_id && !empty($this->asset_id)))
-		{
-			// Update the asset_id field in this table.
-			$this->asset_id = (int) $asset->id;
-
-			$query = $this->_db->getQuery(true);
-			$query->update($this->_db->quoteName($this->_tbl));
-			$query->set('asset_id = ' . (int) $this->asset_id);
-			$this->appendPrimaryKeys($query);
-			$this->_db->setQuery($query);
-
-			$this->_db->execute();
 		}
 
 		return true;
@@ -908,30 +746,6 @@ abstract class Table
 				throw new UnexpectedValueException('Null primary key not allowed.');
 			}
 			$this->$key = $pk[$key];
-		}
-
-		// If tracking assets, remove the asset first.
-		if ($this->_trackAssets)
-		{
-			// Get the asset name
-			$name  = $this->_getAssetName();
-			$asset = self::getInstance('Asset');
-
-			if ($asset->loadByName($name))
-			{
-				if (!$asset->delete())
-				{
-					$this->setError($asset->getError());
-
-					return false;
-				}
-			}
-			else
-			{
-				$this->setError($asset->getError());
-
-				return false;
-			}
 		}
 
 		// Delete the row by primary key.
