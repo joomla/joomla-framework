@@ -30,6 +30,9 @@
 			<file>libraries/import.php</file>
 			<file>libraries/loader.php</file>
 			<file>libraries/platform.php</file>
+			<exclude>
+				<directory suffix=".php">libraries/Joomla/*/tests</directory>
+			</exclude>
 		</whitelist> -->
 	</filter>
 </phpunit>
