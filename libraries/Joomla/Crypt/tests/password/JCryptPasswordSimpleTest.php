@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Crypt\Password;
+use Joomla\Crypt\Password\Simple;
 
 /**
  * Test class for JCryptPasswordSimple.
@@ -26,15 +28,15 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	{
 		// Password, type, salt, expected cost
 		return array(
-			'Blowfish' => array('password', JCryptPassword::BLOWFISH, 'ABCDEFGHIJKLMNOPQRSTUV',
+			'Blowfish' => array('password', Password::BLOWFISH, 'ABCDEFGHIJKLMNOPQRSTUV',
 				'$2y$10$ABCDEFGHIJKLMNOPQRSTUOiAi7OcdE4zRCh6NcGWusEcNPtq6/w8.'),
 			'Blowfish2' => array('password', '$2a$', 'ABCDEFGHIJKLMNOPQRSTUV',
 				'$2y$10$ABCDEFGHIJKLMNOPQRSTUOiAi7OcdE4zRCh6NcGWusEcNPtq6/w8.'),
-			'MD5' => array('password', JCryptPassword::MD5, 'ABCDEFGHIJKL',
+			'MD5' => array('password', Password::MD5, 'ABCDEFGHIJKL',
 				'$1$ABCDEFGH$hGGndps75hhROKqu/zh9q1'),
-			'Joomla' => array('password', JCryptPassword::JOOMLA, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
+			'Joomla' => array('password', Password::JOOMLA, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456',
 				'883a96d8da5440781fe7b60f1d4ae2b3:ABCDEFGHIJKLMNOPQRSTUVWXYZ123456'),
-			'Blowfish_5' => array('password', JCryptPassword::BLOWFISH, 'ABCDEFGHIJKLMNOPQRSTUV',
+			'Blowfish_5' => array('password', Password::BLOWFISH, 'ABCDEFGHIJKLMNOPQRSTUV',
 				'$2y$05$ABCDEFGHIJKLMNOPQRSTUOvv7EU5o68GAoLxyfugvULZR70IIMZqW', 5),
 			'default' => array('password', null, 'ABCDEFGHIJKLMNOPQRSTUV',
 				'$2y$05$ABCDEFGHIJKLMNOPQRSTUOvv7EU5o68GAoLxyfugvULZR70IIMZqW', 5)
@@ -76,7 +78,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCreateException($password, $type, $salt, $expected, $cost)
 	{
-		$hasher = $this->getMock('JCryptPasswordSimple', array('getSalt'));
+		$hasher = $this->getMock('\\Joomla\\Crypt\\Password\\Simple', array('getSalt'));
 		$hasher->setCost($cost);
 
 		$hasher->expects($this->any())
@@ -107,7 +109,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCreate($password, $type, $salt, $expected, $cost = 10)
 	{
-		$hasher = $this->getMock('JCryptPasswordSimple', array('getSalt'));
+		$hasher = $this->getMock('\\Joomla\\Crypt\\Password\\Simple', array('getSalt'));
 
 		$hasher->setCost($cost);
 
@@ -154,14 +156,14 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testVerify($password, $hash, $expectation)
 	{
-		$hasher = new JCryptPasswordSimple;
+		$hasher = new Simple;
 
 		$this->assertEquals($hasher->verify($password, $hash), $expectation);
 	}
 
 	/**
 	 * Data Provider for testDefaultType
-	 * 
+	 *
 	 * @return array
 	 *
 	 * @since   12.3
@@ -190,7 +192,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSetDefaultType($type, $expectation)
 	{
-		$test = new JCryptPasswordSimple;
+		$test = new Simple;
 		$test->setDefaultType($type);
 		$this->assertThat(
 			TestReflection::getValue($test, 'defaultType'),
@@ -213,7 +215,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetDefaultType($type, $expectation)
 	{
-		$test = new JCryptPasswordSimple;
+		$test = new Simple;
 		$test->setDefaultType($type);
 
 		$this->assertThat(

@@ -7,6 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Crypt\Key;
+use Joomla\Crypt\Cipher_Rijndael256;
+
 /**
  * Test class for JCryptCipherRijndael256.
  *
@@ -39,10 +42,10 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 			$this->markTestSkipped('The mcrypt extension must be available for this test to run.');
 		}
 
-		$this->_cipher = new JCryptCipherRijndael256;
+		$this->_cipher = new Cipher_Rijndael256;
 
 		// Build the key for testing.
-		$this->key = new JCryptKey('rijndael256');
+		$this->key = new Key('rijndael256');
 		$this->key->private = file_get_contents(__DIR__ . '/stubs/encrypted/rijndael256/key.priv');
 		$this->key->public = file_get_contents(__DIR__ . '/stubs/encrypted/rijndael256/key.pub');
 	}
@@ -140,7 +143,7 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 		$key = $this->_cipher->generateKey();
 
 		// Assert that the key is the correct type.
-		$this->assertInstanceOf('JCryptKey', $key);
+		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
 
 		// Assert that the private key is 32 bytes long.
 		$this->assertEquals(32, strlen($key->private));

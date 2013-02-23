@@ -7,6 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Crypt\Key;
+use Joomla\Crypt\Cipher_Simple;
+
 /**
  * Test class for JCryptCipherSimple.
  *
@@ -33,9 +36,9 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->_cipher = new JCryptCipherSimple;
+		$this->_cipher = new Cipher_Simple;
 
-		$this->key = new JCryptKey('simple');
+		$this->key = new Key('simple');
 		$this->key->private = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUgkVF4mLxAUf80ZJPAJHXHoac';
 		$this->key->public = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUgkVF4mLxAUf80ZJPAJHXHoac';
 	}
@@ -134,7 +137,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 		$key = $this->_cipher->generateKey();
 
 		// Assert that the key is the correct type.
-		$this->assertInstanceOf('JCryptKey', $key);
+		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
 
 		// Assert the public and private keys are the same.
 		$this->assertEquals($key->public, $key->private);

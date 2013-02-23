@@ -7,6 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Crypt\Key;
+use Joomla\Crypt\Cipher_Blowfish;
+
 /**
  * Test class for JCryptCipherBlowfish.
  *
@@ -39,10 +42,10 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 			$this->markTestSkipped('The mcrypt extension must be available for this test to run.');
 		}
 
-		$this->_cipher = new JCryptCipherBlowfish;
+		$this->_cipher = new Cipher_Blowfish;
 
 		// Build the key for testing.
-		$this->key = new JCryptKey('blowfish');
+		$this->key = new Key('blowfish');
 		$this->key->private = file_get_contents(__DIR__ . '/stubs/encrypted/blowfish/key.priv');
 		$this->key->public = file_get_contents(__DIR__ . '/stubs/encrypted/blowfish/key.pub');
 	}
@@ -140,7 +143,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 		$key = $this->_cipher->generateKey();
 
 		// Assert that the key is the correct type.
-		$this->assertInstanceOf('JCryptKey', $key);
+		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
 
 		// Assert that the private key is 56 bytes long.
 		$this->assertEquals(56, strlen($key->private));
