@@ -12,7 +12,6 @@ namespace Joomla\Client;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
-use JError;
 use InvalidArgumentException;
 
 /**
@@ -204,7 +203,7 @@ class Helper
 	 *
 	 * @param   string  $client  The name of the client.
 	 *
-	 * @return  mixed  True, if FTP settings; JError if using legacy tree.
+	 * @return  boolean  True on success, false on failure.
 	 *
 	 * @since   11.1
 	 * @throws  InvalidArgumentException if credentials invalid
@@ -225,14 +224,7 @@ class Helper
 			}
 			else
 			{
-				if (class_exists('\\JError'))
-				{
-					$return = JError::raiseWarning('SOME_ERROR_CODE', JText::_('JLIB_CLIENT_ERROR_HELPER_SETCREDENTIALSFROMREQUEST_FAILED'));
-				}
-				else
-				{
-					throw new InvalidArgumentException('Invalid user credentials');
-				}
+				throw new InvalidArgumentException('Invalid user credentials');
 			}
 		}
 		else

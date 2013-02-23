@@ -35,11 +35,10 @@ use Joomla\Language\Text;
 class Stream
 {
 	/**
-	 * An array of error messages or Exception objects.
+	 * An array of Exception objects.
 	 *
 	 * @var              array
 	 * @since            11.1
-	 * @see              JError
 	 * @deprecated       13.3
 	 */
 	protected $_errors = array();
@@ -1481,8 +1480,7 @@ class Stream
 	 *
 	 * @return  void
 	 *
-	 * @since       11.1
-	 * @see         JError
+	 * @since   11.1
 	 */
 	public function setError($error)
 	{

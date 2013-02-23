@@ -14,7 +14,6 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Path;
 use Joomla\Filesystem\Folder;
-use JError;
 use RuntimeException;
 
 /**

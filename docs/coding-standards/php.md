@@ -377,7 +377,7 @@ class JFooHelper
 
 ### Constants
 
-Constants should always be all-uppercase, with underscores to separate words. Prefix constant names with the uppercase name of the class/package they are used in. For example, the constants used by the `JError` class all begin with `JERROR_`.
+Constants should always be all-uppercase, with underscores to separate words. Always prefix constants with `J` and use common sense when completing the name to keep it from getting unnecessarily long. You *should* use the name of the class/package they are used in. For example, the constants used by the `Joomla\Application\Web\Router` class could begin with `JROUTE_`.
 
 ### Global Variables
 
