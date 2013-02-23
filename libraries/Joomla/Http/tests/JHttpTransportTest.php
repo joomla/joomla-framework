@@ -7,18 +7,19 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Uri\Uri;
+
 /**
  * Test class for JHttpTransport classes.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Http
- *
  * @since       11.1
  */
 class JHttpTransportTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the JHttpTransport object.
+	 * @var    Registry  Options for the Transport object.
 	 */
 	protected $options;
 
@@ -86,7 +87,7 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	{
 		$transport = new $transportClass($this->options);
 
-		$response = $transport->request('get', new JUri($this->stubUrl));
+		$response = $transport->request('get', new Uri($this->stubUrl));
 
 		$body = json_decode($response->body);
 
@@ -105,7 +106,7 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	 * Tests the request method with a get request with a bad domain
 	 *
 	 * @param   string  $transportClass  The transport class to test
-	 * 
+	 *
 	 * @dataProvider      transportProvider
 	 * @expectedException RuntimeException
 	 *
@@ -114,14 +115,14 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	public function testBadDomainRequestGet($transportClass)
 	{
 		$transport = new $transportClass($this->options);
-		$response = $transport->request('get', new JUri('http://xommunity.joomla.org'));
+		$response = $transport->request('get', new Uri('http://xommunity.joomla.org'));
 	}
 
 	/**
 	 * Tests the request method with a get request for non existant url
 	 *
 	 * @param   string  $transportClass  The transport class to test
-	 * 
+	 *
 	 * @dataProvider  transportProvider
 	 *
 	 * @return void
@@ -129,7 +130,7 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	public function testRequestGet404($transportClass)
 	{
 		$transport = new $transportClass($this->options);
-		$response = $transport->request('get', new JUri($this->stubUrl . ':80'));
+		$response = $transport->request('get', new Uri($this->stubUrl . ':80'));
 	}
 
 	/**
@@ -145,7 +146,7 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	{
 		$transport = new $transportClass($this->options);
 
-		$response = $transport->request('put', new JUri($this->stubUrl));
+		$response = $transport->request('put', new Uri($this->stubUrl));
 
 		$body = json_decode($response->body);
 
@@ -173,7 +174,7 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	{
 		$transport = new $transportClass($this->options);
 
-		$response = $transport->request('post', new JUri($this->stubUrl . '?test=okay'), array('key' => 'value'));
+		$response = $transport->request('post', new Uri($this->stubUrl . '?test=okay'), array('key' => 'value'));
 
 		$body = json_decode($response->body);
 
@@ -206,7 +207,7 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	{
 		$transport = new $transportClass($this->options);
 
-		$response = $transport->request('post', new JUri($this->stubUrl . '?test=okay'), 'key=value');
+		$response = $transport->request('post', new Uri($this->stubUrl . '?test=okay'), 'key=value');
 
 		$body = json_decode($response->body);
 
