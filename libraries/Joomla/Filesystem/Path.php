@@ -13,6 +13,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Exception;
 use Iterator;
+use UnexpectedValueException;
 
 if (!defined('JPATH_ROOT'))
 {
@@ -171,7 +172,6 @@ class Path
 	{
 		if (strpos($path, '..') !== false)
 		{
-			// Don't translate
 			throw new Exception('JPath::check Use of relative paths not permitted', 20);
 		}
 
@@ -179,7 +179,6 @@ class Path
 
 		if ((JPATH_ROOT != '') && strpos($path, self::clean(JPATH_ROOT)) !== 0)
 		{
-			// Don't translate
 			throw new Exception('JPath::check Snooping out of bounds @ ' . $path, 20);
 		}
 
@@ -195,9 +194,15 @@ class Path
 	 * @return  string  The cleaned path.
 	 *
 	 * @since   11.1
+	 * @throws  UnexpectedValueException If $path is not a string.
 	 */
 	public static function clean($path, $ds = DIRECTORY_SEPARATOR)
 	{
+		if (!is_string($path))
+		{
+			throw new UnexpectedValueException('JPath::clean $path is not a string.');
+		}
+
 		$path = trim($path);
 
 		if (empty($path))

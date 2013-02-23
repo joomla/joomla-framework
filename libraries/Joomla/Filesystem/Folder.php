@@ -17,6 +17,7 @@ use Joomla\Client\Ftp;
 use Joomla\Language\Text;
 use Joomla\Client\Helper as ClientHelper;
 use RuntimeException;
+use UnexpectedValueException;
 
 /**
  * A Folder handling class
@@ -312,8 +313,15 @@ abstract class Folder
 
 		$FTPOptions = ClientHelper::getCredentials('ftp');
 
-		// Check to make sure the path valid and clean
-		$path = Path::clean($path);
+		try
+		{
+			// Check to make sure the path valid and clean
+			$path = Path::clean($path);
+		}
+		catch (UnexpectedValueException $e)
+		{
+			throw new UnexpectedValueException($e);
+		}
 
 		// Is this really a folder?
 		if (!is_dir($path))

@@ -67,6 +67,18 @@ class JFolderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the JFolder::delete method with an array as an input
+	 *
+	 * @return  void
+	 *
+	 * @expectedException  UnexpectedValueException
+	 */
+	public function testDeleteArrayPath()
+	{
+		JFolder::delete(array('/path/to/folder'));
+	}
+
+	/**
 	 * Test...
 	 *
 	 * @todo Implement testMove().

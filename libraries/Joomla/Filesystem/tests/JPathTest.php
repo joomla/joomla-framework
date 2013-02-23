@@ -111,6 +111,17 @@ class JPathTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the JPath::clean method with an array as an input.
+	 *
+	 * @return  void
+	 *
+	 * @expectedException  UnexpectedValueException
+	 */
+	public function testCleanArrayPath()
+	{
+		JPath::clean(array('/path/to/folder'));
+	}
+	/**
 	 * Test...
 	 *
 	 * @todo Implement testIsOwner().

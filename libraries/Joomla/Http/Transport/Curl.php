@@ -131,7 +131,7 @@ class Curl implements Transport
 		// If an explicit user agent is given use it.
 		if (isset($userAgent))
 		{
-			$headers[CURLOPT_USERAGENT] = $userAgent;
+			$options[CURLOPT_USERAGENT] = $userAgent;
 		}
 
 		// Set the request URL.
