@@ -45,31 +45,25 @@ class Web extends Base
 	public $mimeType = 'text/html';
 
 	/**
-	 * @var    JDate  The body modified date for response headers.
+	 * @var    Date  The body modified date for response headers.
 	 * @since  11.3
 	 */
 	public $modifiedDate;
 
 	/**
-	 * @var    JApplicationWebClient  The application client object.
+	 * @var    Web\Client  The application client object.
 	 * @since  11.3
 	 */
 	public $client;
 
 	/**
-	 * @var    JRegistry  The application configuration object.
-	 * @since  11.3
-	 */
-	protected $config;
-
-	/**
-	 * @var    JLanguage  The application language object.
+	 * @var    Language  The application language object.
 	 * @since  11.3
 	 */
 	protected $language;
 
 	/**
-	 * @var    JSession  The application session object.
+	 * @var    Session  The application session object.
 	 * @since  11.3
 	 */
 	protected $session;
@@ -81,7 +75,7 @@ class Web extends Base
 	protected $response;
 
 	/**
-	 * @var    JApplicationWeb  The application instance.
+	 * @var    Web  The application instance.
 	 * @since  11.3
 	 */
 	protected static $instance;
@@ -160,7 +154,7 @@ class Web extends Base
 	 *
 	 * @param   string  $name  The name (optional) of the JApplicationWeb class to instantiate.
 	 *
-	 * @return  JApplicationWeb
+	 * @return  Web
 	 *
 	 * @since   11.3
 	 */
@@ -180,45 +174,6 @@ class Web extends Base
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Initialise the application.
-	 *
-	 * @param   mixed  $session     An optional argument to provide dependency injection for the application's
-	 *                              session object.  If the argument is a JSession object that object will become
-	 *                              the application's session object, if it is false then there will be no session
-	 *                              object, and if it is null then the default session object will be created based
-	 *                              on the application's loadSession() method.
-	 * @param   mixed  $language    An optional argument to provide dependency injection for the application's
-	 *                              language object.  If the argument is a JLanguage object that object will become
-	 *                              the application's language object, if it is false then there will be no language
-	 *                              object, and if it is null then the default language object will be created based
-	 *                              on the application's loadLanguage() method.
-	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
-	 *
-	 * @deprecated  13.1
-	 * @see     loadSession()
-	 * @see     loadLanguage()
-	 * @see     loadDispatcher()
-	 * @since   11.3
-	 */
-	public function initialise($session = null, $language = null)
-	{
-		// Create the session based on the application logic.
-		if ($session !== false)
-		{
-			$this->loadSession($session);
-		}
-
-		// Create the language based on the application logic.
-		if ($language !== false)
-		{
-			$this->loadLanguage($language);
-		}
-
-		return $this;
 	}
 
 	/**
@@ -467,63 +422,6 @@ class Web extends Base
 	}
 
 	/**
-	 * Load an object or array into the application configuration object.
-	 *
-	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.
-	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
-	 *
-	 * @since   11.3
-	 */
-	public function loadConfiguration($data)
-	{
-		// Load the data into the configuration object.
-		if (is_array($data))
-		{
-			$this->config->loadArray($data);
-		}
-		elseif (is_object($data))
-		{
-			$this->config->loadObject($data);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Returns a property of the object or the default value if the property is not set.
-	 *
-	 * @param   string  $key      The name of the property.
-	 * @param   mixed   $default  The default value (optional) if none is set.
-	 *
-	 * @return  mixed   The value of the configuration.
-	 *
-	 * @since   11.3
-	 */
-	public function get($key, $default = null)
-	{
-		return $this->config->get($key, $default);
-	}
-
-	/**
-	 * Modifies a property of the object, creating it if it does not already exist.
-	 *
-	 * @param   string  $key    The name of the property.
-	 * @param   mixed   $value  The value of the property to set (optional).
-	 *
-	 * @return  mixed   Previous value of the property
-	 *
-	 * @since   11.3
-	 */
-	public function set($key, $value = null)
-	{
-		$previous = $this->config->get($key);
-		$this->config->set($key, $value);
-
-		return $previous;
-	}
-
-	/**
 	 * Set/get cachable state for the response.  If $allow is set, sets the cachable state of the
 	 * response.  Always returns the current state.
 	 *
@@ -552,7 +450,7 @@ class Web extends Base
 	 * @param   string   $value    The value of the header to set.
 	 * @param   boolean  $replace  True to replace any headers with the same name.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -599,7 +497,7 @@ class Web extends Base
 	/**
 	 * Method to clear any set response headers.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -613,7 +511,7 @@ class Web extends Base
 	/**
 	 * Send the response headers.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -643,7 +541,7 @@ class Web extends Base
 	 *
 	 * @param   string  $content  The content to set as the response body.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -659,7 +557,7 @@ class Web extends Base
 	 *
 	 * @param   string  $content  The content to prepend to the response body.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -675,7 +573,7 @@ class Web extends Base
 	 *
 	 * @param   string  $content  The content to append to the response body.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -703,7 +601,7 @@ class Web extends Base
 	/**
 	 * Method to get the application language object.
 	 *
-	 * @return  JLanguage  The language object
+	 * @return  Language  The language object
 	 *
 	 * @since   11.3
 	 */
@@ -715,7 +613,7 @@ class Web extends Base
 	/**
 	 * Method to get the application session object.
 	 *
-	 * @return  JSession  The session object
+	 * @return  Session  The session object
 	 *
 	 * @since   11.3
 	 */
@@ -815,6 +713,7 @@ class Web extends Base
 	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
 	 * @since   11.3
+	 * @throws  RuntimeException
 	 */
 	protected function fetchConfigurationData($file = '', $class = 'JConfig')
 	{
@@ -890,9 +789,9 @@ class Web extends Base
 	 * but for many applications it will make sense to override this method and create a language,
 	 * if required, based on more specific needs.
 	 *
-	 * @param   JLanguage  $language  An optional language object. If omitted, the factory language is created.
+	 * @param   Language  $language  An optional language object. If omitted, the factory language is created.
 	 *
-	 * @return  JApplicationWeb This method is chainable.
+	 * @return  Web This method is chainable.
 	 *
 	 * @since   11.3
 	 */
@@ -910,9 +809,9 @@ class Web extends Base
 	 * but for many applications it will make sense to override this method and create a session,
 	 * if required, based on more specific needs.
 	 *
-	 * @param   JSession  $session  An optional session object. If omitted, the session is created.
+	 * @param   Session  $session  An optional session object. If omitted, the session is created.
 	 *
-	 * @return  JApplicationWeb This method is chainable.
+	 * @return  Web This method is chainable.
 	 *
 	 * @since   11.3
 	 */
