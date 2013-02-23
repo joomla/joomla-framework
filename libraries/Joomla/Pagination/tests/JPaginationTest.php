@@ -82,7 +82,7 @@ class JPaginationTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @since   11.1
 	 * @dataProvider dataTestConstructor
-	 * @covers  Pagination::__construct
+	 * @covers  Joomla\Pagination\Pagination::__construct
 	 */
 	public function testConstructor($total, $limitstart, $limit, $expected)
 	{

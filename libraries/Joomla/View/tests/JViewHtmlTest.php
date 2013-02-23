@@ -30,7 +30,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::__construct
+	 * @covers  Joomla\View\Html::__construct
 	 * @since   12.1
 	 */
 	public function test__construct()
@@ -50,7 +50,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::__toString
+	 * @covers  Joomla\View\Html::__toString
 	 * @since   12.1
 	 */
 	public function test__toString()
@@ -68,7 +68,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::escape
+	 * @covers  Joomla\View\Html::escape
 	 * @since   12.1
 	 */
 	public function testEscape()
@@ -81,7 +81,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::getLayout
+	 * @covers  Joomla\View\Html::getLayout
 	 * @since   12.1
 	 */
 	public function testGetLayout()
@@ -96,7 +96,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::getPath
+	 * @covers  Joomla\View\Html::getPath
 	 * @since   12.1
 	 */
 	public function testGetPath()
@@ -123,7 +123,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::getPaths
+	 * @covers  Joomla\View\Html::getPaths
 	 * @since   12.1
 	 */
 	public function testGetPaths()
@@ -140,7 +140,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::render
+	 * @covers  Joomla\View\Html::render
 	 * @since   12.1
 	 */
 	public function testRender()
@@ -159,7 +159,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::render
+	 * @covers  Joomla\View\Html::render
 	 * @since   12.1
 	 *
 	 * @expectedException  RuntimeException
@@ -174,7 +174,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::setLayout
+	 * @covers  Joomla\View\Html::setLayout
 	 * @since   12.1
 	 */
 	public function testSetLayout()
@@ -189,7 +189,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::setPaths
+	 * @covers  Joomla\View\Html::setPaths
 	 * @since   12.1
 	 */
 	public function testSetPaths()
@@ -207,7 +207,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewHtml::loadPaths
+	 * @covers  Joomla\View\Html::loadPaths
 	 * @since   12.1
 	 */
 	public function testLoadPaths()

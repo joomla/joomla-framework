@@ -505,7 +505,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  cases__construct
 	 * @since   11.3
-	 * @covers  Date::__construct
+	 * @covers  Joomla\Date\Date::__construct
 	 */
 	public function test__construct($date, $tz, $expectedTime)
 	{
@@ -536,7 +536,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  cases__get
 	 * @since   11.3
-	 * @covers  Date::__get
+	 * @covers  Joomla\Date\Date::__get
 	 */
 	public function test__get($date, $property, $expected)
 	{
@@ -554,7 +554,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.3
-	 * @covers  Date::__toString
+	 * @covers  Joomla\Date\Date::__toString
 	 */
 	public function test__toString()
 	{
@@ -578,7 +578,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider casesToString
 	 * @since   11.3
-	 * @covers  Date::__toString
+	 * @covers  Joomla\Date\Date::__toString
 	 */
 	public function testToString($format, $expectedTime)
 	{
@@ -599,7 +599,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.3
-	 * @covers  Date::getInstance
+	 * @covers  Joomla\Date\Date::getInstance
 	 */
 	public function testGetInstance()
 	{
@@ -628,7 +628,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider casesGetOffsetFromGMT
 	 * @since   11.3
-	 * @covers  Date::getOffsetFromGMT
+	 * @covers  Joomla\Date\Date::getOffsetFromGMT
 	 */
 	public function testGetOffsetFromGMT($tz, $setTime, $hours, $expected)
 	{
@@ -664,7 +664,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider casesFormat
 	 * @since   11.3
-	 * @covers  Date::format
+	 * @covers  Joomla\Date\Date::format
 	 */
 	public function testFormat($format, $local, $expected)
 	{
@@ -686,7 +686,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider casesToRFC822
 	 * @since   11.3
-	 * @covers  Date::toRFC822
+	 * @covers  Joomla\Date\Date::toRFC822
 	 */
 	public function testToRFC822($tz, $setTime, $local, $expected)
 	{
@@ -721,7 +721,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider casesToISO8601
 	 * @since   11.3
-	 * @covers  Date::toISO8601
+	 * @covers  Joomla\Date\Date::toISO8601
 	 */
 	public function testToISO8601($tz, $setTime, $local, $expected)
 	{
@@ -752,7 +752,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider casesToSQL
 	 * @since   11.3
-	 * @covers  Date::toSql
+	 * @covers  Joomla\Date\Date::toSql
 	 */
 	public function testToSql($tz, $setTime, $local, $expected)
 	{
@@ -782,7 +782,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider casesToUnix
 	 * @since   11.3
-	 * @covers  Date::toUnix
+	 * @covers  Joomla\Date\Date::toUnix
 	 */
 	public function testToUnix($tz, $setTime, $expected)
 	{
@@ -811,7 +811,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider casesSetTimezone
 	 * @since   11.3
-	 * @covers  Date::setTimezone
+	 * @covers  Joomla\Date\Date::setTimezone
 	 */
 	public function testSetTimezone($tz, $expected)
 	{

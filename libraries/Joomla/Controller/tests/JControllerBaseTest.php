@@ -29,7 +29,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JControllerBase::__construct
+	 * @covers  Joomla\Controller\Base::__construct
 	 * @since   12.1
 	 */
 	public function test__construct()
@@ -52,7 +52,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JControllerBase::getApplication
+	 * @covers  Joomla\Controller\Base::getApplication
 	 * @since   12.1
 	 */
 	public function testGetApplication()
@@ -66,7 +66,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JControllerBase::getInput
+	 * @covers  Joomla\Controller\Base::getInput
 	 * @since   12.1
 	 */
 	public function testGetInput()
@@ -80,7 +80,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JControllerBase::serialize
+	 * @covers  Joomla\Controller\Base::serialize
 	 * @since   12.1
 	 */
 	public function testSerialise()
@@ -93,7 +93,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JControllerBase::unserialize
+	 * @covers  Joomla\Controller\Base::unserialize
 	 * @since   12.1
 	 */
 	public function testUnserialise()
@@ -109,7 +109,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JControllerBase::unserialize
+	 * @covers  Joomla\Controller\Base::unserialize
 	 * @since   12.1
 	 *
 	 * @expectedException  UnexpectedValueException
@@ -124,7 +124,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JControllerBase::loadApplication
+	 * @covers  Joomla\Controller\Base::loadApplication
 	 * @since   12.1
 	 */
 	public function testLoadApplication()
@@ -138,7 +138,7 @@ class JControllerBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JControllerBase::loadInput
+	 * @covers  Joomla\Controller\Base::loadInput
 	 * @since   12.1
 	 */
 	public function testLoadInput()

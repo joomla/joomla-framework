@@ -130,7 +130,7 @@ class FilesystemHelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers  Helper::getJStreams
+	 * @covers  Joomla\Filesystem\Helper::getJStreams
 	 *
 	 * @return void
 	 */
@@ -147,7 +147,7 @@ class FilesystemHelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers  Helper::isJoomlaStream
+	 * @covers  Joomla\Filesystem\Helper::isJoomlaStream
 	 *
 	 * @return void
 	 */

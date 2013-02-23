@@ -29,7 +29,7 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JModelBase::__construct
+	 * @covers  Joomla\Model\Base::__construct
 	 * @since   12.1
 	 */
 	public function test__construct()
@@ -49,7 +49,7 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JModelBase::getState
+	 * @covers  Joomla\Model\Base::getState
 	 * @since   12.1
 	 */
 	public function testGetState()
@@ -65,7 +65,7 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JModelBase::setState
+	 * @covers  Joomla\Model\Base::setState
 	 * @since   12.1
 	 */
 	public function testSetState()
@@ -80,7 +80,7 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JModelBase::loadState
+	 * @covers  Joomla\Model\Base::loadState
 	 * @since   12.1
 	 */
 	public function testLoadState()

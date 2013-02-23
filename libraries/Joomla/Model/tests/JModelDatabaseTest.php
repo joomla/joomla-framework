@@ -29,7 +29,7 @@ class JModelDatabaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JModelDatabase::__construct
+	 * @covers  Joomla\Model\Database::__construct
 	 * @since   12.1
 	 */
 	public function test__construct()
@@ -47,7 +47,7 @@ class JModelDatabaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JModelDatabase::getDb
+	 * @covers  Joomla\Model\Database::getDb
 	 * @since   12.1
 	 */
 	public function testGetDb()
@@ -63,7 +63,7 @@ class JModelDatabaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JModelDatabase::setDb
+	 * @covers  Joomla\Model\Database::setDb
 	 * @since   12.1
 	 */
 	public function testSetDb()
@@ -79,7 +79,7 @@ class JModelDatabaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JModelDatabase::loadDb
+	 * @covers  Joomla\Model\Database::loadDb
 	 * @since   12.1
 	 */
 	public function testLoadDb()

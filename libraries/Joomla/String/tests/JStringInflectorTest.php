@@ -104,7 +104,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::_addRule
+	 * @covers  Joomla\String\Inflector::_addRule
 	 */
 	public function test_addRule()
 	{
@@ -155,7 +155,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @since   12.1
 	 * @expectedException  InvalidArgumentException
-	 * @covers  Inflector::_addRule
+	 * @covers  Joomla\String\Inflector::_addRule
 	 */
 	public function test_addRuleException()
 	{
@@ -168,7 +168,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::_getCachedPlural
+	 * @covers  Joomla\String\Inflector::_getCachedPlural
 	 */
 	public function test_getCachedPlural()
 	{
@@ -194,7 +194,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::_getCachedSingular
+	 * @covers  Joomla\String\Inflector::_getCachedSingular
 	 */
 	public function test_getCachedSingular()
 	{
@@ -220,7 +220,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::_matchRegexRule
+	 * @covers  Joomla\String\Inflector::_matchRegexRule
 	 */
 	public function test_matchRegexRule()
 	{
@@ -249,7 +249,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::_setCache
+	 * @covers  Joomla\String\Inflector::_setCache
 	 */
 	public function test_setCache()
 	{
@@ -280,7 +280,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::addCountableRule
+	 * @covers  Joomla\String\Inflector::addCountableRule
 	 */
 	public function testAddCountableRule()
 	{
@@ -313,7 +313,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::addPluraliseRule
+	 * @covers  Joomla\String\Inflector::addPluraliseRule
 	 */
 	public function testAddPluraliseRule()
 	{
@@ -340,7 +340,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::addSingulariseRule
+	 * @covers  Joomla\String\Inflector::addSingulariseRule
 	 */
 	public function testAddSingulariseRule()
 	{
@@ -367,7 +367,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Inflector::getInstance
+	 * @covers  Joomla\String\Inflector::getInstance
 	 */
 	public function testGetInstance()
 	{
@@ -403,7 +403,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedIsCountable
 	 * @since   12.1
-	 * @covers  Inflector::isCountable
+	 * @covers  Joomla\String\Inflector::isCountable
 	 */
 	public function testIsCountable($input, $expected)
 	{
@@ -423,7 +423,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedSinglePlural
 	 * @since   12.1
-	 * @covers  Inflector::isPlural
+	 * @covers  Joomla\String\Inflector::isPlural
 	 */
 	public function testIsPlural($singular, $plural)
 	{
@@ -453,7 +453,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedSinglePlural
 	 * @since   12.1
-	 * @covers  Inflector::isSingular
+	 * @covers  Joomla\String\Inflector::isSingular
 	 */
 	public function testIsSingular($singular, $plural)
 	{
@@ -483,7 +483,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedSinglePlural
 	 * @since   12.1
-	 * @covers  Inflector::toPlural
+	 * @covers  Joomla\String\Inflector::toPlural
 	 */
 	public function testToPlural($singular, $plural)
 	{
@@ -503,7 +503,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedSinglePlural
 	 * @since   12.1
-	 * @covers  Inflector::toSingular
+	 * @covers  Joomla\String\Inflector::toSingular
 	 */
 	public function testToSingular($singular, $plural)
 	{

@@ -69,7 +69,7 @@ class TransliterateTest extends PHPUnit_Framework_TestCase
 	 * @param   string  $result  @todo
 	 * @param   string  $case    @todo
 	 *
-	 * @covers Transliterate::utf8_latin_to_ascii
+	 * @covers Joomla\Language\Transliterate::utf8_latin_to_ascii
 	 * @dataProvider testData
 	 *
 	 * @return void

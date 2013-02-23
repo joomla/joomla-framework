@@ -30,7 +30,7 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewBase::__construct
+	 * @covers  Joomla\View\Base::__construct
 	 * @since   12.1
 	 */
 	public function test__construct()
@@ -43,7 +43,7 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewBase::escape
+	 * @covers  Joomla\View\Base::escape
 	 * @since   12.1
 	 */
 	public function testEscape()

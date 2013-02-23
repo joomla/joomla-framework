@@ -49,7 +49,7 @@ class NormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedFromCamelCase
 	 * @since   11.3
-	 * @covers  Normalise::fromCamelcase
+	 * @covers  Joomla\String\Normalise::fromCamelcase
 	 */
 	public function testFromCamelCase_nongrouped($expected, $input)
 	{
@@ -66,7 +66,7 @@ class NormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  getFromCamelCaseData
 	 * @since   11.3
-	 * @covers  Normalise::fromCamelcase
+	 * @covers  Joomla\String\Normalise::fromCamelcase
 	 */
 	public function testFromCamelCase_grouped($input, $expected)
 	{
@@ -83,7 +83,7 @@ class NormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToCamelCase
 	 * @since   11.3
-	 * @covers  Normalise::toCamelcase
+	 * @covers  Joomla\String\Normalise::toCamelcase
 	 */
 	public function testToCamelCase($expected, $input)
 	{
@@ -100,7 +100,7 @@ class NormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToDashSeparated
 	 * @since   11.3
-	 * @covers  Normalise::toDashSeparated
+	 * @covers  Joomla\String\Normalise::toDashSeparated
 	 */
 	public function testToDashSeparated($expected, $input)
 	{
@@ -117,7 +117,7 @@ class NormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToSpaceSeparated
 	 * @since   11.3
-	 * @covers  Normalise::toSpaceSeparated
+	 * @covers  Joomla\String\Normalise::toSpaceSeparated
 	 */
 	public function testToSpaceSeparated($expected, $input)
 	{
@@ -134,7 +134,7 @@ class NormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToUnderscoreSeparated
 	 * @since   11.3
-	 * @covers  Normalise::toUnderscoreSeparated
+	 * @covers  Joomla\String\Normalise::toUnderscoreSeparated
 	 */
 	public function testToUnderscoreSeparated($expected, $input)
 	{
@@ -151,7 +151,7 @@ class NormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToVariable
 	 * @since   11.3
-	 * @covers  Normalise::toVariable
+	 * @covers  Joomla\String\Normalise::toVariable
 	 */
 	public function testToVariable($expected, $input)
 	{
@@ -168,7 +168,7 @@ class NormaliseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedToKey
 	 * @since   11.3
-	 * @covers  Normalise::toKey
+	 * @covers  Joomla\String\Normalise::toKey
 	 */
 	public function testToKey($expected, $input)
 	{

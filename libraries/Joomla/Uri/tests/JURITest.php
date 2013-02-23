@@ -64,7 +64,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::__toString
+	 * @covers  Joomla\Uri\Uri::__toString
 	 */
 	public function test__toString()
 	{
@@ -82,7 +82,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getInstance
+	 * @covers  Joomla\Uri\Uri::getInstance
 	 */
 	public function testGetInstance()
 	{
@@ -113,7 +113,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::base
+	 * @covers  Joomla\Uri\Uri::base
 	 */
 	public function testBase()
 	{
@@ -127,7 +127,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::root
+	 * @covers  Joomla\Uri\Uri::root
 	 */
 	public function testRoot()
 	{
@@ -143,7 +143,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::current
+	 * @covers  Joomla\Uri\Uri::current
 	 */
 	public function testCurrent()
 	{
@@ -159,7 +159,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::parse
+	 * @covers  Joomla\Uri\Uri::parse
 	 */
 	public function testParse()
 	{
@@ -187,7 +187,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::toString
+	 * @covers  Joomla\Uri\Uri::toString
 	 */
 	public function testToString()
 	{
@@ -220,7 +220,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setVar
+	 * @covers  Joomla\Uri\Uri::setVar
 	 */
 	public function testSetVar()
 	{
@@ -238,7 +238,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::hasVar
+	 * @covers  Joomla\Uri\Uri::hasVar
 	 */
 	public function testHasVar()
 	{
@@ -261,7 +261,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getVar
+	 * @covers  Joomla\Uri\Uri::getVar
 	 */
 	public function testGetVar()
 	{
@@ -289,7 +289,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::delVar
+	 * @covers  Joomla\Uri\Uri::delVar
 	 */
 	public function testDelVar()
 	{
@@ -314,7 +314,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setQuery
+	 * @covers  Joomla\Uri\Uri::setQuery
 	 */
 	public function testSetQuery()
 	{
@@ -346,7 +346,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getQuery
+	 * @covers  Joomla\Uri\Uri::getQuery
 	 */
 	public function testGetQuery()
 	{
@@ -369,7 +369,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::buildQuery
+	 * @covers  Joomla\Uri\Uri::buildQuery
 	 */
 	public function testBuildQuery()
 	{
@@ -393,7 +393,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getScheme
+	 * @covers  Joomla\Uri\Uri::getScheme
 	 */
 	public function testGetScheme()
 	{
@@ -411,7 +411,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setScheme
+	 * @covers  Joomla\Uri\Uri::setScheme
 	 */
 	public function testSetScheme()
 	{
@@ -429,7 +429,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getUser
+	 * @covers  Joomla\Uri\Uri::getUser
 	 */
 	public function testGetUser()
 	{
@@ -447,7 +447,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setUser
+	 * @covers  Joomla\Uri\Uri::setUser
 	 */
 	public function testSetUser()
 	{
@@ -465,7 +465,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getPass
+	 * @covers  Joomla\Uri\Uri::getPass
 	 */
 	public function testGetPass()
 	{
@@ -483,7 +483,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setPass
+	 * @covers  Joomla\Uri\Uri::setPass
 	 */
 	public function testSetPass()
 	{
@@ -501,7 +501,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getHost
+	 * @covers  Joomla\Uri\Uri::getHost
 	 */
 	public function testGetHost()
 	{
@@ -519,7 +519,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setHost
+	 * @covers  Joomla\Uri\Uri::setHost
 	 */
 	public function testSetHost()
 	{
@@ -537,7 +537,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getPort
+	 * @covers  Joomla\Uri\Uri::getPort
 	 */
 	public function testGetPort()
 	{
@@ -555,7 +555,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setPort
+	 * @covers  Joomla\Uri\Uri::setPort
 	 */
 	public function testSetPort()
 	{
@@ -573,7 +573,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getPath
+	 * @covers  Joomla\Uri\Uri::getPath
 	 */
 	public function testGetPath()
 	{
@@ -591,7 +591,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setPath
+	 * @covers  Joomla\Uri\Uri::setPath
 	 */
 	public function testSetPath()
 	{
@@ -609,7 +609,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::getFragment
+	 * @covers  Joomla\Uri\Uri::getFragment
 	 */
 	public function testGetFragment()
 	{
@@ -627,7 +627,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::setFragment
+	 * @covers  Joomla\Uri\Uri::setFragment
 	 */
 	public function testSetFragment()
 	{
@@ -645,7 +645,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   11.1
-	 * @covers  Uri::isSSL
+	 * @covers  Joomla\Uri\Uri::isSSL
 	 */
 	public function testIsSSL()
 	{
@@ -668,7 +668,7 @@ class UriTest extends PHPUnit_Framework_TestCase
 	 * Test...
 	 *
 	 * @todo Implement testIsInternal().
-	 * @covers  Uri::isInternal
+	 * @covers  Joomla\Uri\Uri::isInternal
 	 *
 	 * @return void
 	 */
