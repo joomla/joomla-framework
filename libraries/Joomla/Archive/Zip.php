@@ -133,14 +133,7 @@ class Zip implements Extractable
 	{
 		if (!is_file($archive))
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'Archive does not exist');
-			}
-			else
-			{
-				throw new RuntimeException('Archive does not exist');
-			}
+			throw new RuntimeException('Archive does not exist');
 		}
 
 		if ($this->hasNativeSupport())
@@ -216,40 +209,19 @@ class Zip implements Extractable
 
 		if (!extension_loaded('zlib'))
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'Zlib not supported');
-			}
-			else
-			{
-				throw new RuntimeException('Zlib not supported');
-			}
+			throw new RuntimeException('Zlib not supported');
 		}
 
 		$this->_data = file_get_contents($archive);
 
 		if (!$this->_data)
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'Unable to read archive (zip)');
-			}
-			else
-			{
-				throw new RuntimeException('Unable to read archive (zip)');
-			}
+			throw new RuntimeException('Unable to read archive (zip)');
 		}
 
 		if (!$this->_readZipInfo($this->_data))
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'Get ZIP Information failed');
-			}
-			else
-			{
-				throw new RuntimeException('Get ZIP Information failed');
-			}
+			throw new RuntimeException('Get ZIP Information failed');
 		}
 
 		for ($i = 0, $n = count($this->_metadata); $i < $n; $i++)
@@ -264,26 +236,12 @@ class Zip implements Extractable
 				// Make sure the destination folder exists
 				if (!Folder::create(dirname($path)))
 				{
-					if (class_exists('\\JError'))
-					{
-						return JError::raiseWarning(100, 'Unable to create destination');
-					}
-					else
-					{
-						throw new RuntimeException('Unable to create destination');
-					}
+					throw new RuntimeException('Unable to create destination');
 				}
 
 				if (File::write($path, $buffer) === false)
 				{
-					if (class_exists('\\JError'))
-					{
-						return JError::raiseWarning(100, 'Unable to write entry');
-					}
-					else
-					{
-						throw new RuntimeException('Unable to write entry');
-					}
+					throw new RuntimeException('Unable to write entry');
 				}
 			}
 		}
@@ -311,14 +269,7 @@ class Zip implements Extractable
 			// Make sure the destination folder exists
 			if (!Folder::create($destination))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to create destination');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to create destination');
-				}
+				throw new RuntimeException('Unable to create destination');
 			}
 
 			// Read files in the archive
@@ -332,14 +283,7 @@ class Zip implements Extractable
 
 						if (File::write($destination . '/' . zip_entry_name($file), $buffer) === false)
 						{
-							if (class_exists('\\JError'))
-							{
-								return JError::raiseWarning(100, 'Unable to write entry');
-							}
-							else
-							{
-								throw new RuntimeException('Unable to write entry');
-							}
+							throw new RuntimeException('Unable to write entry');
 						}
 
 						zip_entry_close($file);
@@ -347,14 +291,7 @@ class Zip implements Extractable
 				}
 				else
 				{
-					if (class_exists('\\JError'))
-					{
-						return JError::raiseWarning(100, 'Unable to read entry');
-					}
-					else
-					{
-						throw new RuntimeException('Unable to read entry');
-					}
+					throw new RuntimeException('Unable to read entry');
 				}
 			}
 
@@ -362,14 +299,7 @@ class Zip implements Extractable
 		}
 		else
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'Unable to open archive');
-			}
-			else
-			{
-				throw new RuntimeException('Unable to open archive');
-			}
+			throw new RuntimeException('Unable to open archive');
 		}
 
 		return true;
@@ -431,14 +361,7 @@ class Zip implements Extractable
 		{
 			if ($dataLength < $fhStart + 31)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Invalid Zip Data');
-				}
-				else
-				{
-					throw new RuntimeException('Invalid Zip Data');
-				}
+				throw new RuntimeException('Invalid Zip Data');
 			}
 
 			$info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength', substr($data, $fhStart + 10, 20));
@@ -468,14 +391,7 @@ class Zip implements Extractable
 
 			if ($dataLength < $fhStart + 43)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Invalid ZIP data');
-				}
-				else
-				{
-					throw new RuntimeException('Invalid ZIP data');
-				}
+				throw new RuntimeException('Invalid ZIP data');
 			}
 
 			$info = unpack('vInternal/VExternal/VOffset', substr($data, $fhStart + 36, 10));
@@ -490,14 +406,7 @@ class Zip implements Extractable
 
 			if ($dataLength < $lfhStart + 34)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Invalid Zip Data');
-				}
-				else
-				{
-					throw new RuntimeException('Invalid Zip Data');
-				}
+				throw new RuntimeException('Invalid Zip Data');
 			}
 
 			$info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength/vExtraLength', substr($data, $lfhStart + 8, 25));

@@ -51,14 +51,7 @@ class Bzip2 implements Extractable
 
 		if (!extension_loaded('bz2'))
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'The bz2 extension is not available.');
-			}
-			else
-			{
-				throw new RuntimeException('The bz2 extension is not available.');
-			}
+			throw new RuntimeException('The bz2 extension is not available.');
 		}
 
 		if (!isset($options['use_streams']) || $options['use_streams'] == false)
@@ -68,14 +61,7 @@ class Bzip2 implements Extractable
 
 			if (!$this->_data)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to read archive');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to read archive');
-				}
+				throw new RuntimeException('Unable to read archive');
 			}
 
 			$buffer = bzdecompress($this->_data);
@@ -83,26 +69,12 @@ class Bzip2 implements Extractable
 
 			if (empty($buffer))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to decompress data');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to decompress data');
-				}
+				throw new RuntimeException('Unable to decompress data');
 			}
 
 			if (File::write($destination, $buffer) === false)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to write archive');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to write archive');
-				}
+				throw new RuntimeException('Unable to write archive');
 			}
 
 		}
@@ -116,14 +88,7 @@ class Bzip2 implements Extractable
 
 			if (!$input->open($archive))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to read archive (bz2)');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to read archive (bz2)');
-				}
+				throw new RuntimeException('Unable to read archive (bz2)');
 			}
 
 			$output = Factory::getStream();
@@ -132,14 +97,7 @@ class Bzip2 implements Extractable
 			{
 				$input->close();
 
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to write archive (bz2)');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to write archive (bz2)');
-				}
+				throw new RuntimeException('Unable to write archive (bz2)');
 			}
 
 			do
@@ -152,14 +110,7 @@ class Bzip2 implements Extractable
 					{
 						$input->close();
 
-						if (class_exists('\\JError'))
-						{
-							return JError::raiseWarning(100, 'Unable to write archive (bz2)');
-						}
-						else
-						{
-							throw new RuntimeException('Unable to write archive (bz2)');
-						}
+						throw new RuntimeException('Unable to write archive (bz2)');
 					}
 				}
 			}

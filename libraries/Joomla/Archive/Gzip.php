@@ -65,14 +65,7 @@ class Gzip implements Extractable
 
 		if (!extension_loaded('zlib'))
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'The zlib extension is not available.');
-			}
-			else
-			{
-				throw new RuntimeException('The zlib extension is not available.');
-			}
+			throw new RuntimeException('The zlib extension is not available.');
 		}
 
 		if (!isset($options['use_streams']) || $options['use_streams'] == false)
@@ -81,14 +74,7 @@ class Gzip implements Extractable
 
 			if (!$this->_data)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to read archive');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to read archive');
-				}
+				throw new RuntimeException('Unable to read archive');
 			}
 
 			$position = $this->_getFilePosition();
@@ -96,26 +82,12 @@ class Gzip implements Extractable
 
 			if (empty($buffer))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to decompress data');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to decompress data');
-				}
+				throw new RuntimeException('Unable to decompress data');
 			}
 
 			if (File::write($destination, $buffer) === false)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to write archive');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to write archive');
-				}
+				throw new RuntimeException('Unable to write archive');
 			}
 		}
 		else
@@ -128,14 +100,7 @@ class Gzip implements Extractable
 
 			if (!$input->open($archive))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to read archive (gz)');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to read archive (gz)');
-				}
+				throw new RuntimeException('Unable to read archive (gz)');
 			}
 
 			$output = Factory::getStream();
@@ -144,14 +109,7 @@ class Gzip implements Extractable
 			{
 				$input->close();
 
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to write archive (gz)');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to write archive (gz)');
-				}
+				throw new RuntimeException('Unable to write archive (gz)');
 			}
 
 			do
@@ -164,14 +122,7 @@ class Gzip implements Extractable
 					{
 						$input->close();
 
-						if (class_exists('\\JError'))
-						{
-							return JError::raiseWarning(100, 'Unable to write file (gz)');
-						}
-						else
-						{
-							throw new RuntimeException('Unable to write file (gz)');
-						}
+						throw new RuntimeException('Unable to write file (gz)');
 					}
 				}
 			}
@@ -211,14 +162,7 @@ class Gzip implements Extractable
 
 		if (!$info)
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'Unable to decompress data.');
-			}
-			else
-			{
-				throw new RuntimeException('Unable to decompress data.');
-			}
+			throw new RuntimeException('Unable to decompress data.');
 		}
 
 		$position += 10;
