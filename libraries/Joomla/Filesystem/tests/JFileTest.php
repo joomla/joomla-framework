@@ -183,29 +183,4 @@ class JFileTest extends PHPUnit_Framework_TestCase
 			JFile::exists(__FILE__)
 		);
 	}
-
-	/**
-	 * Test...
-	 *
-	 * @covers JFile::getName
-	 *
-	 * @return void
-	 */
-	public function testGetName()
-	{
-		$this->assertEquals(
-			'file.php',
-			JFile::getName('C:\path\on\windows\file.php')
-		);
-
-		$this->assertEquals(
-			'image.png',
-			JFile::getName('/full/path/image.png')
-		);
-
-		$this->assertEquals(
-			'nopath.csv',
-			JFile::getName('nopath.csv')
-		);
-	}
 }
