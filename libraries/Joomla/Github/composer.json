@@ -1,0 +1,17 @@
+{
+    "name": "joomla/github",
+    "type": "joomla-package",
+    "description": "Joomla Github Package",
+    "keywords": ["joomla", "framework", "github"],
+    "homepage": "https://github.com/joomla/joomla-framework-github",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Github",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Github": ""
+    	}
+    }
+}

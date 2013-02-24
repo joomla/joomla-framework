@@ -1,0 +1,17 @@
+{
+    "name": "joomla/session",
+    "type": "joomla-package",
+    "description": "Joomla Session Package",
+    "keywords": ["joomla", "framework", "session"],
+    "homepage": "https://github.com/joomla/joomla-framework-session",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Session",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Session": ""
+    	}
+    }
+}

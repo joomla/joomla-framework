@@ -1,0 +1,17 @@
+{
+    "name": "joomla/controller",
+    "type": "joomla-package",
+    "description": "Joomla Controller Package",
+    "keywords": ["joomla", "framework", "controller"],
+    "homepage": "https://github.com/joomla/joomla-framework-controller",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Controller",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Controller": ""
+    	}
+    }
+}

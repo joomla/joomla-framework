@@ -1,0 +1,17 @@
+{
+    "name": "joomla/view",
+    "type": "joomla-package",
+    "description": "Joomla View Package",
+    "keywords": ["joomla", "framework", "view"],
+    "homepage": "https://github.com/joomla/joomla-framework-view",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/View",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\View": ""
+    	}
+    }
+}

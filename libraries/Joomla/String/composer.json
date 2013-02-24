@@ -1,0 +1,17 @@
+{
+    "name": "joomla/string",
+    "type": "joomla-package",
+    "description": "Joomla String Package",
+    "keywords": ["joomla", "framework", "string"],
+    "homepage": "https://github.com/joomla/joomla-framework-string",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/String",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\String": ""
+    	}
+    }
+}

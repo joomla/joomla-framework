@@ -1,0 +1,17 @@
+{
+    "name": "joomla/http",
+    "type": "joomla-package",
+    "description": "Joomla HTTP Package",
+    "keywords": ["joomla", "framework", "http"],
+    "homepage": "https://github.com/joomla/joomla-framework-http",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Http",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Http": ""
+    	}
+    }
+}

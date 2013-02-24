@@ -1,0 +1,17 @@
+{
+    "name": "joomla/application",
+    "type": "joomla-package",
+    "description": "Joomla Application Package",
+    "keywords": ["joomla", "framework", "application"],
+    "homepage": "https://github.com/joomla/joomla-framework-application",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Application",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Application": ""
+    	}
+    }
+}

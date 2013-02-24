@@ -1,0 +1,17 @@
+{
+    "name": "joomla/data",
+    "type": "joomla-package",
+    "description": "Joomla Data Package",
+    "keywords": ["joomla", "framework", "data"],
+    "homepage": "https://github.com/joomla/joomla-framework-data",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Data",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Data": ""
+    	}
+    }
+}

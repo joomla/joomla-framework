@@ -1,0 +1,17 @@
+{
+    "name": "joomla/image",
+    "type": "joomla-package",
+    "description": "Joomla Image Package",
+    "keywords": ["joomla", "framework", "image"],
+    "homepage": "https://github.com/joomla/joomla-framework-image",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Image",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Image": ""
+    	}
+    }
+}
