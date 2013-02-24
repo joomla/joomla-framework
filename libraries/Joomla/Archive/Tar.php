@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Archive
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -14,7 +14,6 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Filesystem\Path;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
-use JError;
 use RuntimeException;
 
 /**
@@ -38,7 +37,7 @@ class Tar implements Extractable
 	 * @var    array
 	 * @since  11.1
 	 */
-	private $_types = array(
+	private $types = array(
 		0x0 => 'Unix file',
 		0x30 => 'File',
 		0x31 => 'Link',
@@ -55,7 +54,7 @@ class Tar implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_data = null;
+	private $data = null;
 
 	/**
 	 * Tar file metadata array
@@ -63,7 +62,7 @@ class Tar implements Extractable
 	 * @var    array
 	 * @since  11.1
 	 */
-	private $_metadata = null;
+	private $metadata = null;
 
 	/**
 	 * Extract a ZIP compressed file to a given path
@@ -79,59 +78,40 @@ class Tar implements Extractable
 	 */
 	public function extract($archive, $destination, array $options = array())
 	{
-		$this->_data = null;
-		$this->_metadata = null;
+		$this->data = null;
+		$this->metadata = null;
 
-		$this->_data = file_get_contents($archive);
+		$this->data = file_get_contents($archive);
 
-		if (!$this->_data)
+		if (!$this->data)
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'Unable to read archive');
-			}
-			else
-			{
-				throw new RuntimeException('Unable to read archive');
-			}
+			throw new RuntimeException('Unable to read archive');
 		}
 
-		$this->_getTarInfo($this->_data);
+		$this->_getTarInfo($this->data);
 
-		for ($i = 0, $n = count($this->_metadata); $i < $n; $i++)
+		for ($i = 0, $n = count($this->metadata); $i < $n; $i++)
 		{
-			$type = strtolower($this->_metadata[$i]['type']);
+			$type = strtolower($this->metadata[$i]['type']);
 
 			if ($type == 'file' || $type == 'unix file')
 			{
-				$buffer = $this->_metadata[$i]['data'];
-				$path = Path::clean($destination . '/' . $this->_metadata[$i]['name']);
+				$buffer = $this->metadata[$i]['data'];
+				$path = Path::clean($destination . '/' . $this->metadata[$i]['name']);
 
 				// Make sure the destination folder exists
 				if (!Folder::create(dirname($path)))
 				{
-					if (class_exists('\\JError'))
-					{
-						return JError::raiseWarning(100, 'Unable to create destination');
-					}
-					else
-					{
-						throw new RuntimeException('Unable to create destination');
-					}
+					throw new RuntimeException('Unable to create destination');
 				}
+
 				if (File::write($path, $buffer) === false)
 				{
-					if (class_exists('\\JError'))
-					{
-						return JError::raiseWarning(100, 'Unable to write entry');
-					}
-					else
-					{
-						throw new RuntimeException('Unable to write entry');
-					}
+					throw new RuntimeException('Unable to write entry');
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -179,14 +159,7 @@ class Tar implements Extractable
 
 			if (!$info)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to decompress data');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to decompress data');
-				}
+				throw new RuntimeException('Unable to decompress data');
 			}
 
 			$position += 512;
@@ -201,7 +174,7 @@ class Tar implements Extractable
 					'date' => octdec($info['mtime']),
 					'name' => trim($info['filename']),
 					'size' => octdec($info['size']),
-					'type' => isset($this->_types[$info['typeflag']]) ? $this->_types[$info['typeflag']] : null);
+					'type' => isset($this->types[$info['typeflag']]) ? $this->types[$info['typeflag']] : null);
 
 				if (($info['typeflag'] == 0) || ($info['typeflag'] == 0x30) || ($info['typeflag'] == 0x35))
 				{
@@ -217,10 +190,12 @@ class Tar implements Extractable
 				{
 					/* Some other type. */
 				}
+
 				$return_array[] = $file;
 			}
 		}
-		$this->_metadata = $return_array;
+
+		$this->metadata = $return_array;
 
 		return true;
 	}

@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Log
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -76,7 +76,7 @@ class Formattedtext extends Logger
 		// The name of the text file path defaults to that which is set in configuration if not explicitly given.
 		if (empty($this->options['text_file_path']))
 		{
-			$this->options['text_file_path'] = Factory::getConfig()->get('log_path');
+			$this->options['text_file_path'] = Factory::getConfig()->log_path;
 		}
 
 		// False to treat the log file as a php file.

@@ -1,0 +1,19 @@
+{
+    "name": "joomla/client",
+    "type": "joomla-package",
+    "description": "Joomla Client Package",
+    "keywords": ["joomla", "framework", "client"],
+    "homepage": "https://github.com/joomla/joomla-framework-client",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/log": "dev-master",
+        "joomla/language": "dev-master"
+    },
+    "target-dir": "Joomla/Client",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Client": ""
+    	}
+    }
+}

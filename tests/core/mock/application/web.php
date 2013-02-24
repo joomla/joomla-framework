@@ -2,7 +2,7 @@
 /**
  * @package    Joomla.Test
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -57,14 +57,12 @@ class TestMockApplicationWeb
 			'execute',
 			'get',
 			'getBody',
-			'getDocument',
 			'getHeaders',
 			'getIdentity',
 			'getLanguage',
 			'getSession',
 			'loadConfiguration',
 			'loadDispatcher',
-			'loadDocument',
 			'loadIdentity',
 			'loadLanguage',
 			'loadSession',
@@ -89,9 +87,6 @@ class TestMockApplicationWeb
 			// Call original constructor.
 			true
 		);
-
-		// Mock calls to JApplicationWeb::getDocument().
-		$mockObject->expects($test->any())->method('getDocument')->will($test->returnValue(TestMockDocument::create($test)));
 
 		// Mock calls to JApplicationWeb::getLanguage().
 		$mockObject->expects($test->any())->method('getLanguage')->will($test->returnValue(TestMockLanguage::create($test)));

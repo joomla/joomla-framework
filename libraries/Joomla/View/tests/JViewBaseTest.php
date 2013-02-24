@@ -17,7 +17,7 @@ JLoader::register('JModelMock', __DIR__ . '/mocks/JModelMock.php');
  * @subpackage  View
  * @since       12.1
  */
-class JViewBaseTest extends TestCase
+class JViewBaseTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JViewBase
@@ -30,12 +30,12 @@ class JViewBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewBase::__construct
+	 * @covers  Joomla\View\Base::__construct
 	 * @since   12.1
 	 */
 	public function test__construct()
 	{
-		$this->assertAttributeInstanceOf('JModel', 'model', $this->_instance);
+		$this->assertAttributeInstanceOf('Joomla\\Model\\Model', 'model', $this->_instance);
 	}
 
 	/**
@@ -43,7 +43,7 @@ class JViewBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JViewBase::escape
+	 * @covers  Joomla\View\Base::escape
 	 * @since   12.1
 	 */
 	public function testEscape()

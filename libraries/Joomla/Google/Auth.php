@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Google
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -21,7 +21,7 @@ defined('JPATH_PLATFORM') or die;
 abstract class Auth
 {
 	/**
-	 * @var    JRegistry  Options for the Google authentication object.
+	 * @var    \Joomla\Registry\Registry  Options for the Google authentication object.
 	 * @since  12.3
 	 */
 	protected $options;
@@ -59,7 +59,7 @@ abstract class Auth
 	abstract public function query($url, $data = null, $headers = null, $method = 'get');
 
 	/**
-	 * Get an option from the JGoogleAuth object.
+	 * Get an option from the Auth object.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
@@ -73,12 +73,12 @@ abstract class Auth
 	}
 
 	/**
-	 * Set an option for the JGoogleAuth object.
+	 * Set an option for the Auth object.
 	 *
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JGoogleAuth  This object for method chaining.
+	 * @return  Auth  This object for method chaining.
 	 *
 	 * @since   12.3
 	 */

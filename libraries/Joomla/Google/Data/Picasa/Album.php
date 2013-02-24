@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Google
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -38,8 +38,8 @@ class Album extends Data
 	 * Constructor.
 	 *
 	 * @param   SimpleXMLElement  $xml      XML from Google
-	 * @param   JRegistry         $options  Google options object
-	 * @param   JGoogleAuth       $auth     Google data http client object
+	 * @param   Registry          $options  Google options object
+	 * @param   Auth              $auth     Google data http client object
 	 *
 	 * @since   12.3
 	 */
@@ -63,7 +63,9 @@ class Album extends Data
 	 * @return  boolean  Success or failure.
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  Exception
+	 * @throws  RuntimeException
+	 * @throws  UnexpectedValueException
 	 */
 	public function delete($match = '*')
 	{
@@ -87,6 +89,7 @@ class Album extends Data
 				{
 					throw new RuntimeException("Etag match failed: `$match`.");
 				}
+
 				throw $e;
 			}
 
@@ -94,6 +97,7 @@ class Album extends Data
 			{
 				throw new UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
 			}
+
 			$this->xml = null;
 
 			return true;
@@ -124,6 +128,7 @@ class Album extends Data
 				return (string) $link->attributes()->href;
 			}
 		}
+
 		return false;
 	}
 
@@ -192,7 +197,7 @@ class Album extends Data
 	 *
 	 * @param   string  $title  New album title
 	 *
-	 * @return  JGoogleDataPicasaAlbum  The object for method chaining
+	 * @return  Album  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -208,7 +213,7 @@ class Album extends Data
 	 *
 	 * @param   string  $summary  New album summary
 	 *
-	 * @return  JGoogleDataPicasaAlbum  The object for method chaining
+	 * @return  Album  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -224,7 +229,7 @@ class Album extends Data
 	 *
 	 * @param   string  $location  New album location
 	 *
-	 * @return  JGoogleDataPicasaAlbum  The object for method chaining
+	 * @return  Album  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -240,7 +245,7 @@ class Album extends Data
 	 *
 	 * @param   string  $access  New album access
 	 *
-	 * @return  JGoogleDataPicasaAlbum  The object for method chaining
+	 * @return  Album  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -256,7 +261,7 @@ class Album extends Data
 	 *
 	 * @param   int  $time  New album time
 	 *
-	 * @return  JGoogleDataPicasaAlbum  The object for method chaining
+	 * @return  Album  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -275,6 +280,8 @@ class Album extends Data
 	 * @return  mixed  Data from Google.
 	 *
 	 * @since   12.3
+	 * @throws  Exception
+	 * @throws  RuntimeException
 	 */
 	public function save($match = '*')
 	{
@@ -299,6 +306,7 @@ class Album extends Data
 				{
 					throw new RuntimeException("Etag match failed: `$match`.");
 				}
+
 				throw $e;
 			}
 
@@ -318,7 +326,6 @@ class Album extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
 	 */
 	public function refresh()
 	{
@@ -342,7 +349,7 @@ class Album extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function listPhotos()
 	{
@@ -360,6 +367,7 @@ class Album extends Data
 				{
 					$items[] = new Photo($item, $this->options, $this->auth);
 				}
+
 				return $items;
 			}
 			else
@@ -383,7 +391,8 @@ class Album extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  RuntimeException
+	 * @throws  UnexpectedValueException
 	 */
 	public function upload($file, $title = '', $summary = '')
 	{
@@ -395,7 +404,8 @@ class Album extends Data
 			{
 				throw new RuntimeException("Inappropriate file type.");
 			}
-			if (!($data = File::read($file)))
+
+			if (!($data = file_get_contents($file)))
 			{
 				throw new RuntimeException("Cannot access file: `$file`");
 			}
@@ -434,7 +444,7 @@ class Album extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	protected function getMIME($file)
 	{
@@ -443,8 +453,10 @@ class Album extends Data
 			case 'bmp':
 			case 'bm':
 				return 'image/bmp';
+
 			case 'gif':
 				return 'image/gif';
+
 			case 'jpg':
 			case 'jpeg':
 			case 'jpe':
@@ -452,16 +464,21 @@ class Album extends Data
 			case 'jfif':
 			case 'jfi':
 				return 'image/jpeg';
+
 			case 'png':
 				return 'image/png';
+
 			case '3gp':
 				return 'video/3gpp';
+
 			case 'avi':
 				return 'video/avi';
+
 			case 'mov':
 			case 'moov':
 			case 'qt':
 				return 'video/quicktime';
+
 			case 'mp4':
 			case 'm4a':
 			case 'm4p':
@@ -469,6 +486,7 @@ class Album extends Data
 			case 'm4r':
 			case 'm4v':
 				return 'video/mp4';
+
 			case 'mpg':
 			case 'mpeg':
 			case 'mp1':
@@ -480,10 +498,13 @@ class Album extends Data
 			case 'mpa':
 			case 'mpv':
 				return 'video/mpeg';
+
 			case 'asf':
 				return 'video/x-ms-asf';
+
 			case 'wmv':
 				return 'video/x-ms-wmv';
+
 			default:
 				return false;
 		}

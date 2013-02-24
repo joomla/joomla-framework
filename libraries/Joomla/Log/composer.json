@@ -1,0 +1,17 @@
+{
+    "name": "joomla/log",
+    "type": "joomla-package",
+    "description": "Joomla Log Package",
+    "keywords": ["joomla", "framework", "log"],
+    "homepage": "https://github.com/joomla/joomla-framework-log",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Log",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Log": ""
+    	}
+    }
+}

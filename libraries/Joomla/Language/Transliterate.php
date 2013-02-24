@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Language
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -260,6 +260,7 @@ class Transliterate
 					'Ĕ' => 'E',
 					'Œ' => 'Oe');
 			}
+
 			$string = str_replace(array_keys($UTF8_UPPER_ACCENTS), array_values($UTF8_UPPER_ACCENTS), $string);
 		}
 

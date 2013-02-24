@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Google
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -20,24 +20,24 @@ use Joomla\Registry\Registry;
  *
  * @package     Joomla.Platform
  * @subpackage  Google
- * @since       1234
+ * @since       12.3
  */
 class Plus extends Data
 {
 	/**
-	* @var    JGoogleDataPlusPeople  Google+ API object for people.
+	* @var    Plus\People  Google+ API object for people.
 	* @since  12.3
 	*/
 	protected $people;
 
 	/**
-	* @var    JGoogleDataPlusActivities  Google+ API object for people.
+	* @var    Plus\Activities  Google+ API object for people.
 	* @since  12.3
 	*/
 	protected $activities;
 
 	/**
-	* @var    JGoogleDataPlusComments  Google+ API object for people.
+	* @var    Plus\Comments  Google+ API object for people.
 	* @since  12.3
 	*/
 	protected $comments;
@@ -45,10 +45,10 @@ class Plus extends Data
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry    $options  Google options object
-	 * @param   JGoogleAuth  $auth     Google data http client object
+	 * @param   Registry  $options  Google options object
+	 * @param   Auth      $auth     Google data http client object
 	 *
-	 * @since   1234
+	 * @since   12.3
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -68,7 +68,7 @@ class Plus extends Data
 	 *
 	 * @param   string  $name  Name of property to retrieve
 	 *
-	 * @return  JGoogleDataPlus  Google+ API object (people, activities, comments).
+	 * @return  Plus  Google+ API object (people, activities, comments).
 	 *
 	 * @since   12.3
 	 */
@@ -81,6 +81,7 @@ class Plus extends Data
 				{
 					$this->people = new Plus\People($this->options, $this->auth);
 				}
+
 				return $this->people;
 
 			case 'activities':
@@ -88,6 +89,7 @@ class Plus extends Data
 				{
 					$this->activities = new Plus\Activities($this->options, $this->auth);
 				}
+
 				return $this->activities;
 
 			case 'comments':
@@ -95,6 +97,7 @@ class Plus extends Data
 				{
 					$this->comments = new Plus\Comments($this->options, $this->auth);
 				}
+
 				return $this->comments;
 		}
 	}

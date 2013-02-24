@@ -4,7 +4,7 @@
  *
  * @package    Joomla.UnitTest
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  * @link       http://www.phpunit.de/manual/current/en/installation.html
  */
@@ -83,4 +83,4 @@ require_once __DIR__ . '/version.php';
 gc_disable();
 
 // We need this to test JSession for now.  We should really fix this.
-ob_start();
+// ob_start();

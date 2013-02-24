@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Session
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -283,18 +283,11 @@ class Session implements IteratorAggregate
 	 */
 	public static function getFormToken($forceNew = false)
 	{
-		$user    = Factory::getUser();
+		// @todo we need the user id somehow here
+		$userId  = 0;
 		$session = Factory::getSession();
 
-		// TODO: Decouple from legacy JApplication class.
-		if (is_callable(array('JApplication', 'getHash')))
-		{
-			$hash = JApplication::getHash($user->get('id', 0) . $session->getToken($forceNew));
-		}
-		else
-		{
-			$hash = md5(Factory::getApplication()->get('secret') . $user->get('id', 0) . $session->getToken($forceNew));
-		}
+		$hash = md5(Factory::getApplication()->get('secret') . $userId . $session->getToken($forceNew));
 
 		return $hash;
 	}
@@ -401,8 +394,7 @@ class Session implements IteratorAggregate
 			$fileName = $file->getFilename();
 
 			// Only load for php files.
-			// Note: DirectoryIterator::getExtension only available PHP >= 5.3.6
-			if (!$file->isFile() || substr($fileName, strrpos($fileName, '.') + 1) != 'php')
+			if (!$file->isFile() || $file->getExtension() != 'php')
 			{
 				continue;
 			}

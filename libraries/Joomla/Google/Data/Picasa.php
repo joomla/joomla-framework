@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Google
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -29,8 +29,8 @@ class Picasa extends Data
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry    $options  Google options object
-	 * @param   JGoogleAuth  $auth     Google data http client object
+	 * @param   Registry  $options  Google options object
+	 * @param   Auth      $auth     Google data http client object
 	 *
 	 * @since   12.3
 	 */
@@ -52,7 +52,7 @@ class Picasa extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function listAlbums($userID = 'default')
 	{
@@ -70,6 +70,7 @@ class Picasa extends Data
 				{
 					$items[] = new Picasa\Album($item, $this->options, $this->auth);
 				}
+
 				return $items;
 			}
 			else
@@ -86,13 +87,13 @@ class Picasa extends Data
 	/**
 	 * Method to create a Picasa Album
 	 *
-	 * @param   string  $userID    ID of user
-	 * @param   string  $title     New album title
-	 * @param   string  $access    New album access settings
-	 * @param   string  $summary   New album summary
-	 * @param   string  $location  New album location
-	 * @param   int     $time      New album timestamp
-	 * @param   array   $keywords  New album keywords
+	 * @param   string   $userID    ID of user
+	 * @param   string   $title     New album title
+	 * @param   string   $access    New album access settings
+	 * @param   string   $summary   New album summary
+	 * @param   string   $location  New album location
+	 * @param   integer  $time      New album timestamp
+	 * @param   array    $keywords  New album keywords
 	 *
 	 * @return  mixed  Data from Google.
 	 *
@@ -138,7 +139,7 @@ class Picasa extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function getAlbum($url)
 	{

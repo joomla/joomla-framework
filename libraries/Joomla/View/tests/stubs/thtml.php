@@ -14,6 +14,6 @@
  * @subpackage  View
  * @since       12.1
  */
-class HtmlView extends JViewHtml
+class HtmlView extends Joomla\View\Html
 {
 }

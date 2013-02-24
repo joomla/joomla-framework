@@ -1,7 +1,7 @@
 <?php
 /**
  * @package    Joomla.UnitTest
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License
  */
 
@@ -33,7 +33,7 @@ class JModelMock
 
 		// Create the mock.
 		$mockObject = $test->getMock(
-			'JModel',
+			'Joomla\\Model\\Model',
 			$methods,
 			// Constructor arguments.
 			array(),

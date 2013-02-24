@@ -2,7 +2,7 @@
 /**
  * @package    Joomla.Platform
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -10,7 +10,6 @@ namespace Joomla;
 
 defined('JPATH_PLATFORM') or die;
 
-// @todo JSimplepieFactory is removed
 use Joomla\Mail\Helper as MailHelper;
 use Joomla\Document\Document;
 use Joomla\Registry\Registry;
@@ -19,15 +18,10 @@ use Joomla\Filesystem\Stream;
 use Joomla\Session\Session;
 use Joomla\Database\Driver;
 use Joomla\Language\Text;
-use Joomla\Access\Access;
 use Joomla\Client\Helper;
 use Joomla\Cache\Cache;
 use Joomla\Date\Date;
-use Joomla\Mail\Mail;
-use Joomla\User\User;
 use Joomla\Log\Log;
-use Joomla\Uri\Uri;
-use BadMethodCallException;
 use RuntimeException;
 use Exception;
 
@@ -81,29 +75,10 @@ abstract class Factory
 	public static $language = null;
 
 	/**
-	 * @var    Document
-	 * @since  11.1
-	 */
-	public static $document = null;
-
-	/**
-	 * @var    Access
-	 * @since  11.1
-	 * @deprecated  13.3
-	 */
-	public static $acl = null;
-
-	/**
 	 * @var    Driver
 	 * @since  11.1
 	 */
 	public static $database = null;
-
-	/**
-	 * @var    Mail
-	 * @since  11.1
-	 */
-	public static $mailer = null;
 
 	/**
 	 * Get a application object.
@@ -207,57 +182,6 @@ abstract class Factory
 	}
 
 	/**
-	 * Get a document object.
-	 *
-	 * Returns the global {@link JDocument} object, only creating it if it doesn't already exist.
-	 *
-	 * @return  Document object
-	 *
-	 * @see     JDocument
-	 * @since   11.1
-	 */
-	public static function getDocument()
-	{
-		if (!self::$document)
-		{
-			self::$document = self::createDocument();
-		}
-
-		return self::$document;
-	}
-
-	/**
-	 * Get an user object.
-	 *
-	 * Returns the global {@link User} object, only creating it if it doesn't already exist.
-	 *
-	 * @param   integer  $id  The user to load - Can be an integer or string - If string, it is converted to ID automatically.
-	 *
-	 * @return  User object
-	 *
-	 * @see     JUser
-	 * @since   11.1
-	 */
-	public static function getUser($id = null)
-	{
-		$instance = self::getSession()->get('user');
-
-		if (is_null($id))
-		{
-			if (!($instance instanceof User))
-			{
-				$instance = User::getInstance();
-			}
-		}
-		elseif (!($instance instanceof User) || $instance->id != $id)
-		{
-			$instance = User::getInstance($id);
-		}
-
-		return $instance;
-	}
-
-	/**
 	 * Get a cache object
 	 *
 	 * Returns the global {@link Cache} object
@@ -295,28 +219,6 @@ abstract class Factory
 	}
 
 	/**
-	 * Get an authorization object
-	 *
-	 * Returns the global {@link JAccess} object, only creating it
-	 * if it doesn't already exist.
-	 *
-	 * @return  Access object
-	 *
-	 * @deprecated  13.3  Use JAccess directly.
-	 */
-	public static function getACL()
-	{
-		Log::add(__METHOD__ . ' is deprecated. Use JAccess directly.', Log::WARNING, 'deprecated');
-
-		if (!self::$acl)
-		{
-			self::$acl = new Access;
-		}
-
-		return self::$acl;
-	}
-
-	/**
 	 * Get a database object.
 	 *
 	 * Returns the global {@link JDatabaseDriver} object, only creating it if it doesn't already exist.
@@ -339,124 +241,6 @@ abstract class Factory
 		}
 
 		return self::$database;
-	}
-
-	/**
-	 * Get a mailer object.
-	 *
-	 * Returns the global {@link JMail} object, only creating it if it doesn't already exist.
-	 *
-	 * @return  Mail object
-	 *
-	 * @see     Mail
-	 * @since   11.1
-	 */
-	public static function getMailer()
-	{
-		if (!self::$mailer)
-		{
-			self::$mailer = self::createMailer();
-		}
-		$copy = clone self::$mailer;
-
-		return $copy;
-	}
-
-	/**
-	 * Get a parsed XML Feed Source
-	 *
-	 * @param   string   $url         Url for feed source.
-	 * @param   integer  $cache_time  Time to cache feed for (using internal cache mechanism).
-	 *
-	 * @return  mixed  SimplePie parsed object on success, false on failure.
-	 *
-	 * @since   11.1
-	 * @deprecated  13.3  Use JSimplepieFactory::getFeedParser() instead.
-	 */
-	public static function getFeedParser($url, $cache_time = 0)
-	{
-		if (!class_exists('JSimplepieFactory'))
-		{
-			throw new BadMethodCallException('JSimplepieFactory not found');
-		}
-
-		Log::add(__METHOD__ . ' is deprecated.   Use JSimplepieFactory::getFeedParser() instead.', Log::WARNING, 'deprecated');
-
-		return JSimplepieFactory::getFeedParser($url, $cache_time);
-	}
-
-	/**
-	 * Reads a XML file.
-	 *
-	 * @param   string   $data    Full path and file name.
-	 * @param   boolean  $isFile  true to load a file or false to load a string.
-	 *
-	 * @return  mixed    JXMLElement or SimpleXMLElement on success or false on error.
-	 *
-	 * @see     JXMLElement
-	 * @since   11.1
-	 * @note    When JXMLElement is not present a SimpleXMLElement will be returned.
-	 * @deprecated  13.3 Use SimpleXML directly.
-	 */
-	public static function getXML($data, $isFile = true)
-	{
-		Log::add(__METHOD__ . ' is deprecated. Use SimpleXML directly.', Log::WARNING, 'deprecated');
-
-		$class = 'SimpleXMLElement';
-
-		if (class_exists('JXMLElement'))
-		{
-			$class = 'JXMLElement';
-		}
-
-		// Disable libxml errors and allow to fetch error information as needed
-		libxml_use_internal_errors(true);
-
-		if ($isFile)
-		{
-			// Try to load the XML file
-			$xml = simplexml_load_file($data, $class);
-		}
-		else
-		{
-			// Try to load the XML string
-			$xml = simplexml_load_string($data, $class);
-		}
-
-		if ($xml === false)
-		{
-			Log::add(Text::_('JLIB_UTIL_ERROR_XML_LOAD'), Log::WARNING, 'jerror');
-
-			if ($isFile)
-			{
-				Log::add($data, Log::WARNING, 'jerror');
-			}
-
-			foreach (libxml_get_errors() as $error)
-			{
-				Log::add($error->message, Log::WARNING, 'jerror');
-			}
-		}
-
-		return $xml;
-	}
-
-	/**
-	 * Return a reference to the {@link JURI} object
-	 *
-	 * @param   string  $uri  Uri name.
-	 *
-	 * @return  Uri object
-	 *
-	 * @see     JURI
-	 * @since   11.1
-	 * @deprecated  13.3 Use JURI directly.
-	 */
-	public static function getURI($uri = 'SERVER')
-	{
-		Log::add(__METHOD__ . ' is deprecated. Use JURI directly.', Log::WARNING, 'deprecated');
-
-		return Uri::getInstance($uri);
 	}
 
 	/**
@@ -490,13 +274,13 @@ abstract class Factory
 				if (!class_exists($classname))
 				{
 					// The class does not exist, default to JDate
-					$classname = 'JDate';
+					$classname = 'Joomla\\Date\\Date';
 				}
 			}
 			else
 			{
-				// No tag, so default to JDate
-				$classname = 'JDate';
+				// No tag, so default to Joomla\\Date\\Date
+				$classname = 'Joomla\\Date\\Date';
 			}
 		}
 
@@ -622,53 +406,6 @@ abstract class Factory
 	}
 
 	/**
-	 * Create a mailer object
-	 *
-	 * @return  Mail object
-	 *
-	 * @see     Mail
-	 * @since   11.1
-	 */
-	protected static function createMailer()
-	{
-		$conf = self::getConfig();
-
-		$smtpauth = ($conf->get('smtpauth') == 0) ? null : 1;
-		$smtpuser = $conf->get('smtpuser');
-		$smtppass = $conf->get('smtppass');
-		$smtphost = $conf->get('smtphost');
-		$smtpsecure = $conf->get('smtpsecure');
-		$smtpport = $conf->get('smtpport');
-		$mailfrom = $conf->get('mailfrom');
-		$fromname = $conf->get('fromname');
-		$mailer = $conf->get('mailer');
-
-		// Create a JMail object
-		$mail = Mail::getInstance();
-
-		// Set default sender without Reply-to
-		$mail->SetFrom(MailHelper::cleanLine($mailfrom), MailHelper::cleanLine($fromname), 0);
-
-		// Default mailer is to use PHP's mail function
-		switch ($mailer)
-		{
-			case 'smtp':
-				$mail->useSMTP($smtpauth, $smtphost, $smtpuser, $smtppass, $smtpsecure, $smtpport);
-				break;
-
-			case 'sendmail':
-				$mail->IsSendmail();
-				break;
-
-			default:
-				$mail->IsMail();
-				break;
-		}
-
-		return $mail;
-	}
-
-	/**
 	 * Create a language object
 	 *
 	 * @return  Language object
@@ -684,27 +421,6 @@ abstract class Factory
 		$lang = Language::getInstance($locale, $debug);
 
 		return $lang;
-	}
-
-	/**
-	 * Create a document object
-	 *
-	 * @return  Document object
-	 *
-	 * @see     Document
-	 * @since   11.1
-	 */
-	protected static function createDocument()
-	{
-		$lang = self::getLanguage();
-
-		$input = self::getApplication()->input;
-		$type = $input->get('format', 'html', 'word');
-
-		$attributes = array('charset' => 'utf-8', 'lineend' => 'unix', 'tab' => '  ', 'language' => $lang->getTag(),
-			'direction' => $lang->isRTL() ? 'rtl' : 'ltr');
-
-		return Document::getInstance($type, $attributes);
 	}
 
 	/**

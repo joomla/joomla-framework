@@ -14,7 +14,7 @@
  * @subpackage  View
  * @since       12.1
  */
-class BaseView extends JViewBase
+class BaseView extends Joomla\View\Base
 {
 	/**
 	 * Method to render the view.

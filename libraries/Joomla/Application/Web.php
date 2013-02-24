@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Application
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -20,7 +20,6 @@ use Joomla\Input\Input;
 use Joomla\Session\Session;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
-use Joomla\Document\Document;
 use stdClass;
 use RuntimeException;
 
@@ -46,37 +45,25 @@ class Web extends Base
 	public $mimeType = 'text/html';
 
 	/**
-	 * @var    JDate  The body modified date for response headers.
+	 * @var    Date  The body modified date for response headers.
 	 * @since  11.3
 	 */
 	public $modifiedDate;
 
 	/**
-	 * @var    JApplicationWebClient  The application client object.
+	 * @var    Web\Client  The application client object.
 	 * @since  11.3
 	 */
 	public $client;
 
 	/**
-	 * @var    JRegistry  The application configuration object.
-	 * @since  11.3
-	 */
-	protected $config;
-
-	/**
-	 * @var    JDocument  The application document object.
-	 * @since  11.3
-	 */
-	protected $document;
-
-	/**
-	 * @var    JLanguage  The application language object.
+	 * @var    Language  The application language object.
 	 * @since  11.3
 	 */
 	protected $language;
 
 	/**
-	 * @var    JSession  The application session object.
+	 * @var    Session  The application session object.
 	 * @since  11.3
 	 */
 	protected $session;
@@ -88,7 +75,7 @@ class Web extends Base
 	protected $response;
 
 	/**
-	 * @var    JApplicationWeb  The application instance.
+	 * @var    Web  The application instance.
 	 * @since  11.3
 	 */
 	protected static $instance;
@@ -115,8 +102,8 @@ class Web extends Base
 		{
 			$this->input = $input;
 		}
-		// Create the input based on the application logic.
 		else
+		// Create the input based on the application logic.
 		{
 			$this->input = new Input;
 		}
@@ -126,8 +113,8 @@ class Web extends Base
 		{
 			$this->config = $config;
 		}
-		// Instantiate a new configuration object.
 		else
+		// Instantiate a new configuration object.
 		{
 			$this->config = new Registry;
 		}
@@ -137,8 +124,8 @@ class Web extends Base
 		{
 			$this->client = $client;
 		}
-		// Instantiate a new web client object.
 		else
+		// Instantiate a new web client object.
 		{
 			$this->client = new Web\Client;
 		}
@@ -167,7 +154,7 @@ class Web extends Base
 	 *
 	 * @param   string  $name  The name (optional) of the JApplicationWeb class to instantiate.
 	 *
-	 * @return  JApplicationWeb
+	 * @return  Web
 	 *
 	 * @since   11.3
 	 */
@@ -190,63 +177,6 @@ class Web extends Base
 	}
 
 	/**
-	 * Initialise the application.
-	 *
-	 * @param   mixed  $session     An optional argument to provide dependency injection for the application's
-	 *                              session object.  If the argument is a JSession object that object will become
-	 *                              the application's session object, if it is false then there will be no session
-	 *                              object, and if it is null then the default session object will be created based
-	 *                              on the application's loadSession() method.
-	 * @param   mixed  $document    An optional argument to provide dependency injection for the application's
-	 *                              document object.  If the argument is a JDocument object that object will become
-	 *                              the application's document object, if it is false then there will be no document
-	 *                              object, and if it is null then the default document object will be created based
-	 *                              on the application's loadDocument() method.
-	 * @param   mixed  $language    An optional argument to provide dependency injection for the application's
-	 *                              language object.  If the argument is a JLanguage object that object will become
-	 *                              the application's language object, if it is false then there will be no language
-	 *                              object, and if it is null then the default language object will be created based
-	 *                              on the application's loadLanguage() method.
-	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
-	 *                              event dispatcher.  If the argument is a JEventDispatcher object that object will become
-	 *                              the application's event dispatcher, if it is null then the default event dispatcher
-	 *                              will be created based on the application's loadDispatcher() method.
-	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
-	 *
-	 * @deprecated  13.1
-	 * @see     loadSession()
-	 * @see     loadDocument()
-	 * @see     loadLanguage()
-	 * @see     loadDispatcher()
-	 * @since   11.3
-	 */
-	public function initialise($session = null, $document = null, $language = null, $dispatcher = null)
-	{
-		// Create the session based on the application logic.
-		if ($session !== false)
-		{
-			$this->loadSession($session);
-		}
-
-		// Create the document based on the application logic.
-		if ($document !== false)
-		{
-			$this->loadDocument($document);
-		}
-
-		// Create the language based on the application logic.
-		if ($language !== false)
-		{
-			$this->loadLanguage($language);
-		}
-
-		$this->loadDispatcher($dispatcher);
-
-		return $this;
-	}
-
-	/**
 	 * Execute the application.
 	 *
 	 * @return  void
@@ -255,27 +185,12 @@ class Web extends Base
 	 */
 	public function execute()
 	{
-		// Trigger the onBeforeExecute event.
-		$this->triggerEvent('onBeforeExecute');
+		// @event onBeforeExecute
 
 		// Perform application routines.
 		$this->doExecute();
 
-		// Trigger the onAfterExecute event.
-		$this->triggerEvent('onAfterExecute');
-
-		// If we have an application document object, render it.
-		if ($this->document instanceof Document)
-		{
-			// Trigger the onBeforeRender event.
-			$this->triggerEvent('onBeforeRender');
-
-			// Render the application output.
-			$this->render();
-
-			// Trigger the onAfterRender event.
-			$this->triggerEvent('onAfterRender');
-		}
+		// @event onAfterExecute
 
 		// If gzip compression is enabled in configuration and the server is compliant, compress the output.
 		if ($this->get('gzip') && !ini_get('zlib.output_compression') && (ini_get('output_handler') != 'ob_gzhandler'))
@@ -283,14 +198,12 @@ class Web extends Base
 			$this->compress();
 		}
 
-		// Trigger the onBeforeRespond event.
-		$this->triggerEvent('onBeforeRespond');
+		// @event onBeforeRespond
 
 		// Send the application response.
 		$this->respond();
 
-		// Trigger the onAfterRespond event.
-		$this->triggerEvent('onAfterRespond');
+		// @event onAfterRespond
 	}
 
 	/**
@@ -306,44 +219,6 @@ class Web extends Base
 	protected function doExecute()
 	{
 		// Your application routines go here.
-	}
-
-	/**
-	 * Rendering is the process of pushing the document buffers into the template
-	 * placeholders, retrieving data from the document and pushing it into
-	 * the application response buffer.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	protected function render()
-	{
-		// Setup the document options.
-		$options = array(
-			'template' => $this->get('theme'),
-			'file' => $this->get('themeFile', 'index.php'),
-			'params' => $this->get('themeParams')
-		);
-
-		if ($this->get('themes.base'))
-		{
-			$options['directory'] = $this->get('themes.base');
-		}
-		// Fall back to constants.
-		else
-		{
-			$options['directory'] = defined('JPATH_THEMES') ? JPATH_THEMES : (defined('JPATH_BASE') ? JPATH_BASE : __DIR__) . '/themes';
-		}
-
-		// Parse the document.
-		$this->document->parse($options);
-
-		// Render the document.
-		$data = $this->document->render($this->get('cache_enabled'), $options);
-
-		// Set the application output data.
-		$this->setBody($data);
 	}
 
 	/**
@@ -389,6 +264,7 @@ class Web extends Base
 				{
 					continue;
 				}
+
 				// @codeCoverageIgnoreEnd
 
 				// Attempt to gzip encode the data with an optimal level 4.
@@ -401,6 +277,7 @@ class Web extends Base
 				{
 					continue;
 				}
+
 				// @codeCoverageIgnoreEnd
 
 				// Set the encoding headers.
@@ -506,8 +383,8 @@ class Web extends Base
 			{
 				$url = $prefix . $url;
 			}
-			// It's relative to where we are now, so lets add that.
 			else
+			// It's relative to where we are now, so lets add that.
 			{
 				$parts = explode('/', $uri->toString(array('path')));
 				array_pop($parts);
@@ -547,63 +424,6 @@ class Web extends Base
 	}
 
 	/**
-	 * Load an object or array into the application configuration object.
-	 *
-	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.
-	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
-	 *
-	 * @since   11.3
-	 */
-	public function loadConfiguration($data)
-	{
-		// Load the data into the configuration object.
-		if (is_array($data))
-		{
-			$this->config->loadArray($data);
-		}
-		elseif (is_object($data))
-		{
-			$this->config->loadObject($data);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Returns a property of the object or the default value if the property is not set.
-	 *
-	 * @param   string  $key      The name of the property.
-	 * @param   mixed   $default  The default value (optional) if none is set.
-	 *
-	 * @return  mixed   The value of the configuration.
-	 *
-	 * @since   11.3
-	 */
-	public function get($key, $default = null)
-	{
-		return $this->config->get($key, $default);
-	}
-
-	/**
-	 * Modifies a property of the object, creating it if it does not already exist.
-	 *
-	 * @param   string  $key    The name of the property.
-	 * @param   mixed   $value  The value of the property to set (optional).
-	 *
-	 * @return  mixed   Previous value of the property
-	 *
-	 * @since   11.3
-	 */
-	public function set($key, $value = null)
-	{
-		$previous = $this->config->get($key);
-		$this->config->set($key, $value);
-
-		return $previous;
-	}
-
-	/**
 	 * Set/get cachable state for the response.  If $allow is set, sets the cachable state of the
 	 * response.  Always returns the current state.
 	 *
@@ -632,7 +452,7 @@ class Web extends Base
 	 * @param   string   $value    The value of the header to set.
 	 * @param   boolean  $replace  True to replace any headers with the same name.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -679,7 +499,7 @@ class Web extends Base
 	/**
 	 * Method to clear any set response headers.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -693,7 +513,7 @@ class Web extends Base
 	/**
 	 * Send the response headers.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -723,7 +543,7 @@ class Web extends Base
 	 *
 	 * @param   string  $content  The content to set as the response body.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -739,7 +559,7 @@ class Web extends Base
 	 *
 	 * @param   string  $content  The content to prepend to the response body.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -755,7 +575,7 @@ class Web extends Base
 	 *
 	 * @param   string  $content  The content to append to the response body.
 	 *
-	 * @return  JApplicationWeb  Instance of $this to allow chaining.
+	 * @return  Web  Instance of $this to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -781,21 +601,9 @@ class Web extends Base
 	}
 
 	/**
-	 * Method to get the application document object.
-	 *
-	 * @return  JDocument  The document object
-	 *
-	 * @since   11.3
-	 */
-	public function getDocument()
-	{
-		return $this->document;
-	}
-
-	/**
 	 * Method to get the application language object.
 	 *
-	 * @return  JLanguage  The language object
+	 * @return  Language  The language object
 	 *
 	 * @since   11.3
 	 */
@@ -807,7 +615,7 @@ class Web extends Base
 	/**
 	 * Method to get the application session object.
 	 *
-	 * @return  JSession  The session object
+	 * @return  Session  The session object
 	 *
 	 * @since   11.3
 	 */
@@ -879,8 +687,8 @@ class Web extends Base
 			// The URI is built from the HTTP_HOST and REQUEST_URI environment variables in an Apache environment.
 			$uri = $scheme . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		}
-		// If not in "Apache Mode" we will assume that we are in an IIS environment and proceed.
 		else
+		// If not in "Apache Mode" we will assume that we are in an IIS environment and proceed.
 		{
 			// IIS uses the SCRIPT_NAME variable instead of a REQUEST_URI variable... thanks, MS
 			$uri = $scheme . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
@@ -907,6 +715,7 @@ class Web extends Base
 	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
 	 * @since   11.3
+	 * @throws  RuntimeException
 	 */
 	protected function fetchConfigurationData($file = '', $class = 'JConfig')
 	{
@@ -976,35 +785,15 @@ class Web extends Base
 	}
 
 	/**
-	 * Allows the application to load a custom or default document.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create a document,
-	 * if required, based on more specific needs.
-	 *
-	 * @param   JDocument  $document  An optional document object. If omitted, the factory document is created.
-	 *
-	 * @return  JApplicationWeb This method is chainable.
-	 *
-	 * @since   11.3
-	 */
-	public function loadDocument(Document $document = null)
-	{
-		$this->document = ($document === null) ? Factory::getDocument() : $document;
-
-		return $this;
-	}
-
-	/**
 	 * Allows the application to load a custom or default language.
 	 *
 	 * The logic and options for creating this object are adequately generic for default cases
 	 * but for many applications it will make sense to override this method and create a language,
 	 * if required, based on more specific needs.
 	 *
-	 * @param   JLanguage  $language  An optional language object. If omitted, the factory language is created.
+	 * @param   Language  $language  An optional language object. If omitted, the factory language is created.
 	 *
-	 * @return  JApplicationWeb This method is chainable.
+	 * @return  Web This method is chainable.
 	 *
 	 * @since   11.3
 	 */
@@ -1022,9 +811,9 @@ class Web extends Base
 	 * but for many applications it will make sense to override this method and create a session,
 	 * if required, based on more specific needs.
 	 *
-	 * @param   JSession  $session  An optional session object. If omitted, the session is created.
+	 * @param   Session  $session  An optional session object. If omitted, the session is created.
 	 *
-	 * @return  JApplicationWeb This method is chainable.
+	 * @return  Web This method is chainable.
 	 *
 	 * @since   11.3
 	 */
@@ -1114,6 +903,7 @@ class Web extends Base
 		{
 			$this->set('uri.request', $this->detectRequestUri());
 		}
+
 		// @codeCoverageIgnoreEnd
 
 		// Check to see if an explicit base URI has been set.
@@ -1123,8 +913,8 @@ class Web extends Base
 		{
 			$uri = Uri::getInstance($siteUri);
 		}
-		// No explicit base URI was set so we need to detect it.
 		else
+		// No explicit base URI was set so we need to detect it.
 		{
 			// Start with the requested URI.
 			$uri = Uri::getInstance($this->get('uri.request'));
@@ -1135,8 +925,8 @@ class Web extends Base
 				// We aren't expecting PATH_INFO within PHP_SELF so this should work.
 				$uri->setPath(rtrim(dirname($_SERVER['PHP_SELF']), '/\\'));
 			}
-			// Pretty much everything else should be handled with SCRIPT_NAME.
 			else
+			// Pretty much everything else should be handled with SCRIPT_NAME.
 			{
 				$uri->setPath(rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'));
 			}
@@ -1185,8 +975,8 @@ class Web extends Base
 				$this->set('uri.media.path', $mediaURI);
 			}
 		}
-		// No explicit media URI was set, build it dynamically from the base uri.
 		else
+		// No explicit media URI was set, build it dynamically from the base uri.
 		{
 			$this->set('uri.media.full', $this->get('uri.base.full') . 'media/');
 			$this->set('uri.media.path', $this->get('uri.base.path') . 'media/');

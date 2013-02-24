@@ -1,0 +1,19 @@
+{
+    "name": "joomla/database",
+    "type": "joomla-package",
+    "description": "Joomla Database Package",
+    "keywords": ["joomla", "framework", "database"],
+    "homepage": "https://github.com/joomla/joomla-framework-database",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/log": "dev-master",
+        "joomla/language": "dev-master"
+    },
+    "target-dir": "Joomla/Database",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Database": ""
+    	}
+    }
+}

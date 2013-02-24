@@ -1,0 +1,18 @@
+{
+    "name": "joomla/filter",
+    "type": "joomla-package",
+    "description": "Joomla Filter Package",
+    "keywords": ["joomla", "framework", "filter"],
+    "homepage": "https://github.com/joomla/joomla-framework-filter",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/string": "dev-master"
+    },
+    "target-dir": "Joomla/Filter",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Filter": ""
+    	}
+    }
+}

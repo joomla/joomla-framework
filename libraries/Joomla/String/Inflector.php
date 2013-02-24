@@ -30,7 +30,7 @@ class Inflector
 	 * @var    Inflector
 	 * @since  12.1
 	 */
-	private static $_instance;
+	private static $instance;
 
 	/**
 	 * The inflector rules for singularisation, pluralisation and countability.
@@ -38,7 +38,7 @@ class Inflector
 	 * @var    array
 	 * @since  12.1
 	 */
-	private $_rules = array(
+	private $rules = array(
 		'singular' => array(
 			'/(matr)ices$/i' => '\1ix',
 			'/(vert|ind)ices$/i' => '\1ex',
@@ -85,7 +85,7 @@ class Inflector
 	 * @var    array
 	 * @since  12.1
 	 */
-	private $_cache = array();
+	private $cache = array();
 
 	/**
 	 * Protected constructor.
@@ -132,7 +132,7 @@ class Inflector
 	 * @since   12.1
 	 * @throws  InvalidArgumentException
 	 */
-	private function _addRule($data, $ruleType)
+	private function addRule($data, $ruleType)
 	{
 		if (is_string($data))
 		{
@@ -147,7 +147,7 @@ class Inflector
 		foreach ($data as $rule)
 		{
 			// Ensure a string is pushed.
-			array_push($this->_rules[$ruleType], (string) $rule);
+			array_push($this->rules[$ruleType], (string) $rule);
 		}
 	}
 
@@ -160,14 +160,14 @@ class Inflector
 	 *
 	 * @since   12.1
 	 */
-	private function _getCachedPlural($singular)
+	private function getCachedPlural($singular)
 	{
 		$singular = String::strtolower($singular);
 
 		// Check if the word is in cache.
-		if (isset($this->_cache[$singular]))
+		if (isset($this->cache[$singular]))
 		{
-			return $this->_cache[$singular];
+			return $this->cache[$singular];
 		}
 
 		return false;
@@ -182,11 +182,11 @@ class Inflector
 	 *
 	 * @since   12.1
 	 */
-	private function _getCachedSingular($plural)
+	private function getCachedSingular($plural)
 	{
 		$plural = String::strtolower($plural);
 
-		return array_search($plural, $this->_cache);
+		return array_search($plural, $this->cache);
 	}
 
 	/**
@@ -202,10 +202,10 @@ class Inflector
 	 *
 	 * @since   12.1
 	 */
-	private function _matchRegexRule($word, $ruleType)
+	private function matchRegexRule($word, $ruleType)
 	{
 		// Cycle through the regex rules.
-		foreach ($this->_rules[$ruleType] as $regex => $replacement)
+		foreach ($this->rules[$ruleType] as $regex => $replacement)
 		{
 			$matches = 0;
 			$matchedWord = preg_replace($regex, $replacement, $word, -1, $matches);
@@ -229,7 +229,7 @@ class Inflector
 	 *
 	 * @since   12.1
 	 */
-	private function _setCache($singular, $plural = null)
+	private function setCache($singular, $plural = null)
 	{
 		$singular = String::strtolower($singular);
 
@@ -242,7 +242,7 @@ class Inflector
 			$plural = String::strtolower($plural);
 		}
 
-		$this->_cache[$singular] = $plural;
+		$this->cache[$singular] = $plural;
 	}
 
 	/**
@@ -256,7 +256,7 @@ class Inflector
 	 */
 	public function addCountableRule($data)
 	{
-		$this->_addRule($data, 'countable');
+		$this->addRule($data, 'countable');
 
 		return $this;
 	}
@@ -273,7 +273,7 @@ class Inflector
 	 */
 	public function addWord($singular, $plural =null)
 	{
-		$this->_setCache($singular, $plural);
+		$this->setCache($singular, $plural);
 
 		return $this;
 	}
@@ -289,7 +289,7 @@ class Inflector
 	 */
 	public function addPluraliseRule($data)
 	{
-		$this->_addRule($data, 'plural');
+		$this->addRule($data, 'plural');
 
 		return $this;
 	}
@@ -305,7 +305,7 @@ class Inflector
 	 */
 	public function addSingulariseRule($data)
 	{
-		$this->_addRule($data, 'singular');
+		$this->addRule($data, 'singular');
 
 		return $this;
 	}
@@ -326,12 +326,12 @@ class Inflector
 		{
 			return new static;
 		}
-		elseif (!is_object(self::$_instance))
+		elseif (!is_object(self::$instance))
 		{
-			self::$_instance = new static;
+			self::$instance = new static;
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
@@ -345,7 +345,7 @@ class Inflector
 	 */
 	public function isCountable($word)
 	{
-		return (boolean) in_array($word, $this->_rules['countable']);
+		return (boolean) in_array($word, $this->rules['countable']);
 	}
 
 	/**
@@ -360,7 +360,7 @@ class Inflector
 	public function isPlural($word)
 	{
 		// Try the cache for an known inflection.
-		$inflection = $this->_getCachedSingular($word);
+		$inflection = $this->getCachedSingular($word);
 
 		if ($inflection !== false)
 		{
@@ -383,7 +383,7 @@ class Inflector
 	public function isSingular($word)
 	{
 		// Try the cache for an known inflection.
-		$inflection = $this->_getCachedPlural($word);
+		$inflection = $this->getCachedPlural($word);
 
 		if ($inflection !== false)
 		{
@@ -406,7 +406,7 @@ class Inflector
 	public function toPlural($word)
 	{
 		// Try to get the cached plural form from the singular.
-		$cache = $this->_getCachedPlural($word);
+		$cache = $this->getCachedPlural($word);
 
 		if ($cache !== false)
 		{
@@ -414,17 +414,17 @@ class Inflector
 		}
 
 		// Check if the word is a known singular.
-		if ($this->_getCachedSingular($word))
+		if ($this->getCachedSingular($word))
 		{
 			return false;
 		}
 
 		// Compute the inflection.
-		$inflected = $this->_matchRegexRule($word, 'plural');
+		$inflected = $this->matchRegexRule($word, 'plural');
 
 		if ($inflected !== false)
 		{
-			$this->_setCache($word, $inflected);
+			$this->setCache($word, $inflected);
 
 			return $inflected;
 		}
@@ -444,7 +444,7 @@ class Inflector
 	public function toSingular($word)
 	{
 		// Try to get the cached singular form from the plural.
-		$cache = $this->_getCachedSingular($word);
+		$cache = $this->getCachedSingular($word);
 
 		if ($cache !== false)
 		{
@@ -452,17 +452,17 @@ class Inflector
 		}
 
 		// Check if the word is a known plural.
-		if ($this->_getCachedPlural($word))
+		if ($this->getCachedPlural($word))
 		{
 			return false;
 		}
 
 		// Compute the inflection.
-		$inflected = $this->_matchRegexRule($word, 'singular');
+		$inflected = $this->matchRegexRule($word, 'singular');
 
 		if ($inflected !== false)
 		{
-			$this->_setCache($inflected, $word);
+			$this->setCache($inflected, $word);
 
 			return $inflected;
 		}

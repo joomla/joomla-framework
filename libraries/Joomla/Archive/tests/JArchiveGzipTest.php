@@ -2,7 +2,7 @@
 /**
  * @package    Joomla.UnitTest
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -42,17 +42,6 @@ class JArchiveGzipTest extends PHPUnit_Framework_TestCase
 		}
 
 		$this->object = new JArchiveGzip;
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
-
 	}
 
 	/**

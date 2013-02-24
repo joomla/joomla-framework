@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Database
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -11,7 +11,7 @@ namespace Joomla\Database\Iterator;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Database\Iterator;
+use Joomla\Database\DatabaseIterator;
 
 /**
  * MySQLi database iterator.
@@ -20,7 +20,7 @@ use Joomla\Database\Iterator;
  * @subpackage  Database
  * @since       12.1
  */
-class Mysqli extends Iterator
+class Mysqli extends DatabaseIterator
 {
 	/**
 	 * Get the number of rows in the result set for the executed SQL given by the cursor.

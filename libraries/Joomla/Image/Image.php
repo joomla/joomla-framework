@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Image
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -162,7 +162,7 @@ class Image
 	 * @param   mixed    $thumbSizes      string or array of strings. Example: $thumbSizes = array('150x75','250x150');
 	 * @param   integer  $creationMethod  1-3 resize $scaleMethod | 4 create croppping
 	 *
-	 * @return array
+	 * @return  array
 	 *
 	 * @throws  LogicException
 	 * @throws  InvalidArgumentException
@@ -197,8 +197,9 @@ class Image
 				{
 					throw new InvalidArgumentException('Invalid thumb size received: ' . $thumbSize);
 				}
-				$thumbWidth 	= $size[0];
-				$thumbHeight	= $size[1];
+
+				$thumbWidth  = $size[0];
+				$thumbHeight = $size[1];
 
 				// Generate thumb cropping image
 				if ($creationMethod == 4)
@@ -226,7 +227,7 @@ class Image
 	 * @param   integer  $creationMethod  1-3 resize $scaleMethod | 4 create croppping
 	 * @param   string   $thumbsFolder    destination thumbs folder. null generates a thumbs folder in the image folder
 	 *
-	 * @return array
+	 * @return  array
 	 *
 	 * @throws  LogicException
 	 * @throws  InvalidArgumentException
@@ -264,13 +265,13 @@ class Image
 			foreach ($thumbs as $thumb)
 			{
 				// Get thumb properties
-				$thumbWidth 	= $thumb->getWidth();
-				$thumbHeight 	= $thumb->getHeight();
+				$thumbWidth  = $thumb->getWidth();
+				$thumbHeight = $thumb->getHeight();
 
 				// Generate thumb name
-				$filename 		= pathinfo($this->getPath(), PATHINFO_FILENAME);
-				$fileExtension 	= pathinfo($this->getPath(), PATHINFO_EXTENSION);
-				$thumbFileName 	= $filename . '_' . $thumbWidth . 'x' . $thumbHeight . '.' . $fileExtension;
+				$filename       = pathinfo($this->getPath(), PATHINFO_FILENAME);
+				$fileExtension  = pathinfo($this->getPath(), PATHINFO_EXTENSION);
+				$thumbFileName  = $filename . '_' . $thumbWidth . 'x' . $thumbHeight . '.' . $fileExtension;
 
 				// Save thumb file to disk
 				$thumbFileName = $thumbsFolder . '/' . $thumbFileName;
@@ -843,7 +844,6 @@ class Image
 
 			case self::SCALE_INSIDE:
 			case self::SCALE_OUTSIDE:
-
 				// Both $height or $width cannot be zero
 				if ($width == 0 || $height == 0)
 				{
@@ -956,7 +956,7 @@ class Image
 	 *
 	 * @return  boolean  True on success, false on failure or if no image is loaded
 	 *
-	 * @since 12.3
+	 * @since   12.3
 	 */
 	public function destroy()
 	{
@@ -972,7 +972,7 @@ class Image
 	 * Method to call the destroy() method one last time
 	 * to free any memory when the object is unset
 	 *
-	 * @see     JImage::destroy()
+	 * @see  Image::destroy()
 	 */
 	public function __destruct()
 	{

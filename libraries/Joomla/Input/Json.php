@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Input
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -29,7 +29,7 @@ class Json extends Input
 	 * @var    string  The raw JSON string from the request.
 	 * @since  12.2
 	 */
-	private $_raw;
+	private $raw;
 
 	/**
 	 * Constructor.
@@ -52,8 +52,8 @@ class Json extends Input
 
 		if (is_null($source))
 		{
-			$this->_raw = file_get_contents('php://input');
-			$this->data = json_decode($this->_raw, true);
+			$this->raw  = file_get_contents('php://input');
+			$this->data = json_decode($this->raw, true);
 		}
 		else
 		{
@@ -73,6 +73,6 @@ class Json extends Input
 	 */
 	public function getRaw()
 	{
-		return $this->_raw;
+		return $this->raw;
 	}
 }

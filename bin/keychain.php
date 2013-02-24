@@ -3,12 +3,12 @@
 /**
  * @package    Joomla.Platform
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 define('_JEXEC', 1);
-define('JPATH_BASE', dirname(__FILE__));
+define('JPATH_BASE', __DIR__);
 
 // Load the Joomla! Platform
 require_once realpath('../libraries/import.php');

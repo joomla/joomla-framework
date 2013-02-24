@@ -3,7 +3,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Archive
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -16,7 +16,7 @@
  *
  * @since       11.1
  */
-class JArchiveTest extends TestCase
+class JArchiveTest extends PHPUnit_Framework_TestCase
 {
 	protected static $outputPath;
 
@@ -36,17 +36,6 @@ class JArchiveTest extends TestCase
 		{
 			mkdir(self::$outputPath, 0777);
 		}
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return mixed
-	 */
-	protected function tearDown()
-	{
-
 	}
 
 	/**

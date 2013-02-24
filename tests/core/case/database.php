@@ -2,7 +2,7 @@
 /**
  * @package    Joomla.Test
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -32,13 +32,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	private static $_stash;
 
 	/**
-	 * @var         array  JError handler state stashed away to be restored later.
-	 * @deprecated  13.1
-	 * @since       12.1
-	 */
-	private $_stashedErrorState = array();
-
-	/**
 	 * @var    array  Various JFactory static instances stashed away to be restored later.
 	 * @since  12.1
 	 */
@@ -48,24 +41,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 		'dates' => null,
 		'session' => null,
 		'language' => null,
-		'document' => null,
-		'acl' => null,
-		'mailer' => null
 	);
-
-	/**
-	 * Receives the callback from JError and logs the required error information for the test.
-	 *
-	 * @param   JException  $error  The JException object from JError
-	 *
-	 * @return	bool	To not continue with JError processing
-	 *
-	 * @since   12.1
-	 */
-	public static function errorCallback($error)
-	{
-		return false;
-	}
 
 	/**
 	 * This method is called before the first test of this test class is run.
@@ -207,7 +183,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	/**
 	 * Gets a mock database object.
 	 *
-	 * @return  JDatabase
+	 * @return  JDatabaseDriver
 	 *
 	 * @since   12.1
 	 */
@@ -380,30 +356,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 		JFactory::$dates = $this->_stashedFactoryState['dates'];
 		JFactory::$session = $this->_stashedFactoryState['session'];
 		JFactory::$language = $this->_stashedFactoryState['language'];
-		JFactory::$document = $this->_stashedFactoryState['document'];
-		JFactory::$acl = $this->_stashedFactoryState['acl'];
-		JFactory::$mailer = $this->_stashedFactoryState['mailer'];
-	}
-
-	/**
-	 * Saves the current state of the JError error handlers.
-	 *
-	 * @return  void
-	 *
-	 * @deprecated  13.1
-	 * @since       12.1
-	 */
-	protected function saveErrorHandlers()
-	{
-		$this->_stashedErrorState = array();
-
-		// Handle optional usage of JError until removed.
-		if (class_exists('JError'))
-		{
-			$this->_stashedErrorState[E_NOTICE] = JError::getErrorHandling(E_NOTICE);
-			$this->_stashedErrorState[E_WARNING] = JError::getErrorHandling(E_WARNING);
-			$this->_stashedErrorState[E_ERROR] = JError::getErrorHandling(E_ERROR);
-		}
 	}
 
 	/**
@@ -420,62 +372,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 		$this->_stashedFactoryState['dates'] = JFactory::$dates;
 		$this->_stashedFactoryState['session'] = JFactory::$session;
 		$this->_stashedFactoryState['language'] = JFactory::$language;
-		$this->_stashedFactoryState['document'] = JFactory::$document;
-		$this->_stashedFactoryState['acl'] = JFactory::$acl;
-		$this->_stashedFactoryState['mailer'] = JFactory::$mailer;
-	}
-
-	/**
-	 * Sets the JError error handlers.
-	 *
-	 * @param   array  $errorHandlers  araay of values and options to set the handlers
-	 *
-	 * @return  void
-	 *
-	 * @since   12.1
-	 */
-	protected function setErrorHandlers($errorHandlers)
-	{
-		$mode = null;
-		$options = null;
-
-		foreach ($errorHandlers as $type => $params)
-		{
-			$mode = $params['mode'];
-
-			// Handle optional usage of JError until removed.
-			if (class_exists('JError'))
-			{
-				if (isset($params['options']))
-				{
-					JError::setErrorHandling($type, $mode, $params['options']);
-				}
-				else
-				{
-					JError::setErrorHandling($type, $mode);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Sets the JError error handlers to callback mode and points them at the test logging method.
-	 *
-	 * @param   string  $testName  The name of the test class for which to set the error callback method.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.1
-	 */
-	protected function setErrorCallback($testName)
-	{
-		$callbackHandlers = array(
-			E_NOTICE => array('mode' => 'callback', 'options' => array($testName, 'errorCallback')),
-			E_WARNING => array('mode' => 'callback', 'options' => array($testName, 'errorCallback')),
-			E_ERROR => array('mode' => 'callback', 'options' => array($testName, 'errorCallback'))
-		);
-
-		$this->setErrorHandlers($callbackHandlers);
 	}
 
 	/**

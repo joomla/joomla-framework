@@ -33,7 +33,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 * @var    integer
 	 * @since  12.3
 	 */
-	private $_current = false;
+	private $current = false;
 
 	/**
 	 * The iterator objects.
@@ -41,7 +41,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 * @var    array
 	 * @since  12.3
 	 */
-	private $_objects = array();
+	private $objects = array();
 
 	/**
 	 * The class constructor.
@@ -79,7 +79,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		$return = array();
 
 		// Iterate through the objects.
-		foreach ($this->_objects as $key => $object)
+		foreach ($this->objects as $key => $object)
 		{
 			// Create the object callback.
 			$callback = array($object, $method);
@@ -116,7 +116,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		$return = array();
 
 		// Iterate through the objects.
-		foreach ($this->_objects as $key => $object)
+		foreach ($this->objects as $key => $object)
 		{
 			// Get the property.
 			$return[$key] = $object->$property;
@@ -141,7 +141,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		$return = array();
 
 		// Iterate through the objects.
-		foreach ($this->_objects as $object)
+		foreach ($this->objects as $object)
 		{
 			// Check the property.
 			$return[] = isset($object->$property);
@@ -161,14 +161,12 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 * @param   string  $property  The name of the property.
 	 * @param   mixed   $value     The value to give the data property.
 	 *
-	 * @return  void
-	 *
 	 * @since   12.3
 	 */
 	public function __set($property, $value)
 	{
 		// Iterate through the objects.
-		foreach ($this->_objects as $object)
+		foreach ($this->objects as $object)
 		{
 			// Set the property.
 			$object->$property = $value;
@@ -191,7 +189,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	public function __unset($property)
 	{
 		// Iterate through the objects.
-		foreach ($this->_objects as $object)
+		foreach ($this->objects as $object)
 		{
 			unset($object->$property);
 		}
@@ -206,7 +204,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 */
 	public function count()
 	{
-		return count($this->_objects);
+		return count($this->objects);
 	}
 
 	/**
@@ -218,7 +216,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 */
 	public function clear()
 	{
-		$this->_objects = array();
+		$this->objects = array();
 		$this->rewind();
 
 		return $this;
@@ -233,7 +231,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 */
 	public function current()
 	{
-		return is_scalar($this->_current) ? $this->_objects[$this->_current] : false;
+		return is_scalar($this->current) ? $this->objects[$this->current] : false;
 	}
 
 	/**
@@ -266,7 +264,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		if ($depth > 0)
 		{
 			// Handle JSON serialization recursively.
-			foreach ($this->_objects as $key => $object)
+			foreach ($this->objects as $key => $object)
 			{
 				$objects[$key] = $object->dump($depth, $dumped);
 			}
@@ -301,7 +299,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		$return = array();
 
 		// Iterate through the objects.
-		foreach ($this->_objects as $object)
+		foreach ($this->objects as $object)
 		{
 			// Call the method for the object.
 			$return[] = $object->jsonSerialize($serialized);
@@ -319,7 +317,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 */
 	public function key()
 	{
-		return $this->_current;
+		return $this->current;
 	}
 
 	/**
@@ -331,7 +329,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 */
 	public function keys()
 	{
-		return array_keys($this->_objects);
+		return array_keys($this->objects);
 	}
 
 	/**
@@ -347,26 +345,26 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		$keys = $this->keys();
 
 		// Check if _current has been set to false but offsetUnset.
-		if ($this->_current === false && isset($keys[0]))
+		if ($this->current === false && isset($keys[0]))
 		{
 			// This is a special case where offsetUnset was used in a foreach loop and the first element was unset.
-			$this->_current = $keys[0];
+			$this->current = $keys[0];
 		}
 		else
 		{
 			// Get the current key.
-			$position = array_search($this->_current, $keys);
+			$position = array_search($this->current, $keys);
 
 			// Check if there is an object after the current object.
 			if ($position !== false && isset($keys[$position + 1]))
 			{
 				// Get the next id.
-				$this->_current = $keys[$position + 1];
+				$this->current = $keys[$position + 1];
 			}
 			else
 			{
 				// That was the last object or the internal properties have become corrupted.
-				$this->_current = null;
+				$this->current = null;
 			}
 		}
 	}
@@ -382,7 +380,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 */
 	public function offsetExists($offset)
 	{
-		return isset($this->_objects[$offset]);
+		return isset($this->objects[$offset]);
 	}
 
 	/**
@@ -396,7 +394,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 */
 	public function offsetGet($offset)
 	{
-		return isset($this->_objects[$offset]) ? $this->_objects[$offset] : null;
+		return isset($this->objects[$offset]) ? $this->objects[$offset] : null;
 	}
 
 	/**
@@ -419,7 +417,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		}
 
 		// Set the offset.
-		$this->_objects[$offset] = $object;
+		$this->objects[$offset] = $object;
 	}
 
 	/**
@@ -440,26 +438,26 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		}
 
 		// Check for special handling of unsetting the current position.
-		if ($offset == $this->_current)
+		if ($offset == $this->current)
 		{
 			// Get the current position.
 			$keys = $this->keys();
-			$position = array_search($this->_current, $keys);
+			$position = array_search($this->current, $keys);
 
 			// Check if there is an object before the current object.
 			if ($position > 0)
 			{
 				// Move the current position back one.
-				$this->_current = $keys[$position - 1];
+				$this->current = $keys[$position - 1];
 			}
 			else
 			{
 				// We are at the start of the keys AND let's assume we are in a foreach loop and `next` is going to be called.
-				$this->_current = false;
+				$this->current = false;
 			}
 		}
 
-		unset($this->_objects[$offset]);
+		unset($this->objects[$offset]);
 	}
 
 	/**
@@ -472,14 +470,14 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	public function rewind()
 	{
 		// Set the current position to the first object.
-		if (empty($this->_objects))
+		if (empty($this->objects))
 		{
-			$this->_current = false;
+			$this->current = false;
 		}
 		else
 		{
 			$keys = $this->keys();
-			$this->_current = array_shift($keys);
+			$this->current = array_shift($keys);
 		}
 	}
 
@@ -493,7 +491,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	public function valid()
 	{
 		// Check the current position.
-		if (!is_scalar($this->_current) || !isset($this->_objects[$this->_current]))
+		if (!is_scalar($this->current) || !isset($this->objects[$this->current]))
 		{
 			return false;
 		}

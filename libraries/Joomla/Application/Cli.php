@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Application
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -13,7 +13,6 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Loader;
 use Joomla\Input\Input;
-use Joomla\Event\Dispatcher;
 use Joomla\Registry\Registry;
 use RuntimeException;
 
@@ -29,13 +28,13 @@ use Joomla\Input\Cli as InputCli;
 class Cli extends Base
 {
 	/**
-	 * @var    JRegistry  The application configuration object.
+	 * @var    Registry  The application configuration object.
 	 * @since  11.1
 	 */
 	protected $config;
 
 	/**
-	 * @var    JApplicationCli  The application instance.
+	 * @var    Cli  The application instance.
 	 * @since  11.1
 	 */
 	protected static $instance;
@@ -43,21 +42,16 @@ class Cli extends Base
 	/**
 	 * Class constructor.
 	 *
-	 * @param   mixed  $input       An optional argument to provide dependency injection for the application's
-	 *                              input object.  If the argument is a JInputCli object that object will become
-	 *                              the application's input object, otherwise a default input object is created.
-	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
-	 *                              config object.  If the argument is a JRegistry object that object will become
-	 *                              the application's config object, otherwise a default config object is created.
-	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
-	 *                              event dispatcher.  If the argument is a JEventDispatcher object that object will become
-	 *                              the application's event dispatcher, if it is null then the default event dispatcher
-	 *                              will be created based on the application's loadDispatcher() method.
+	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
+	 *                          input object.  If the argument is a JInputCli object that object will become
+	 *                          the application's input object, otherwise a default input object is created.
+	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
+	 *                          config object.  If the argument is a JRegistry object that object will become
+	 *                          the application's config object, otherwise a default config object is created.
 	 *
-	 * @see     loadDispatcher()
 	 * @since   11.1
 	 */
-	public function __construct(InputCli $input = null, Registry $config = null, Dispatcher $dispatcher = null)
+	public function __construct(InputCli $input = null, Registry $config = null)
 	{
 		// Close the application if we are not executed from the command line.
 		// @codeCoverageIgnoreStart
@@ -65,6 +59,7 @@ class Cli extends Base
 		{
 			$this->close();
 		}
+
 		// @codeCoverageIgnoreEnd
 
 		// If a input object is given use it.
@@ -72,8 +67,8 @@ class Cli extends Base
 		{
 			$this->input = $input;
 		}
-		// Create the input based on the application logic.
 		else
+		// Create the input based on the application logic.
 		{
 			if (class_exists('\\Joomla\\Input\\Cli'))
 			{
@@ -86,13 +81,11 @@ class Cli extends Base
 		{
 			$this->config = $config;
 		}
-		// Instantiate a new configuration object.
 		else
+		// Instantiate a new configuration object.
 		{
 			$this->config = new Registry;
 		}
-
-		$this->loadDispatcher($dispatcher);
 
 		// Load the configuration object.
 		$this->loadConfiguration($this->fetchConfigurationData());
@@ -106,28 +99,13 @@ class Cli extends Base
 	}
 
 	/**
-	 * Returns a property of the object or the default value if the property is not set.
-	 *
-	 * @param   string  $key      The name of the property.
-	 * @param   mixed   $default  The default value (optional) if none is set.
-	 *
-	 * @return  mixed   The value of the configuration.
-	 *
-	 * @since   11.3
-	 */
-	public function get($key, $default = null)
-	{
-		return $this->config->get($key, $default);
-	}
-
-	/**
 	 * Returns a reference to the global JApplicationCli object, only creating it if it doesn't already exist.
 	 *
 	 * This method must be invoked as: $cli = JApplicationCli::getInstance();
 	 *
 	 * @param   string  $name  The name (optional) of the JApplicationCli class to instantiate.
 	 *
-	 * @return  JApplicationCli
+	 * @return  Cli
 	 *
 	 * @since   11.1
 	 */
@@ -158,38 +136,12 @@ class Cli extends Base
 	 */
 	public function execute()
 	{
-		// Trigger the onBeforeExecute event.
-		$this->triggerEvent('onBeforeExecute');
+		// @event onBeforeExecute
 
 		// Perform application routines.
 		$this->doExecute();
 
-		// Trigger the onAfterExecute event.
-		$this->triggerEvent('onAfterExecute');
-	}
-
-	/**
-	 * Load an object or array into the application configuration object.
-	 *
-	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.
-	 *
-	 * @return  JApplicationCli  Instance of $this to allow chaining.
-	 *
-	 * @since   11.1
-	 */
-	public function loadConfiguration($data)
-	{
-		// Load the data into the configuration object.
-		if (is_array($data))
-		{
-			$this->config->loadArray($data);
-		}
-		elseif (is_object($data))
-		{
-			$this->config->loadObject($data);
-		}
-
-		return $this;
+		// @event onAfterExecute
 	}
 
 	/**
@@ -198,7 +150,7 @@ class Cli extends Base
 	 * @param   string   $text  The text to display.
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
-	 * @return  JApplicationCli  Instance of $this to allow chaining.
+	 * @return  Cli  Instance of $this to allow chaining.
 	 *
 	 * @codeCoverageIgnore
 	 * @since   11.1
@@ -224,24 +176,6 @@ class Cli extends Base
 	}
 
 	/**
-	 * Modifies a property of the object, creating it if it does not already exist.
-	 *
-	 * @param   string  $key    The name of the property.
-	 * @param   mixed   $value  The value of the property to set (optional).
-	 *
-	 * @return  mixed   Previous value of the property
-	 *
-	 * @since   11.3
-	 */
-	public function set($key, $value = null)
-	{
-		$previous = $this->config->get($key);
-		$this->config->set($key, $value);
-
-		return $previous;
-	}
-
-	/**
 	 * Method to load a PHP configuration class file based on convention and return the instantiated data object.  You
 	 * will extend this method in child classes to provide configuration data from whatever data source is relevant
 	 * for your specific application.
@@ -253,6 +187,7 @@ class Cli extends Base
 	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
 	 * @since   11.1
+	 * @throws  RuntimeException
 	 */
 	protected function fetchConfigurationData($file = '', $class = 'JConfig')
 	{

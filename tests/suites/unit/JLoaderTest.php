@@ -2,7 +2,7 @@
 /**
  * @package    Joomla.UnitTest
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -232,11 +232,11 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testLoadByNamespaceLowerCase()
 	{
 		// Register the 'animal' lower case namespace and lower case path.
-		$path = dirname(__FILE__) . '/stubs/animal1';
+		$path = __DIR__ . '/stubs/animal1';
 		JLoader::registerNamespace('animal', $path);
 
 		// Register a second lower case path for that namespace.
-		$path = dirname(__FILE__) . '/stubs/animal2';
+		$path = __DIR__ . '/stubs/animal2';
 		JLoader::registerNamespace('animal', $path);
 
 		// Check we can load a class from the first path.
@@ -258,7 +258,7 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testLoadByNamespaceLowerCaseCamelCaseNamespace()
 	{
 		// Register a camel cased namespace but lower case path.
-		$path = dirname(__FILE__) . '/stubs/chess';
+		$path = __DIR__ . '/stubs/chess';
 		JLoader::registerNamespace('Chess', $path);
 
 		// Check we can load it by using his camel cased name.
@@ -277,7 +277,7 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testLoadByNamespaceNaturalCaseLowCase()
 	{
 		// Test with a lower case path and lower case namespace.
-		$path = dirname(__FILE__) . '/stubs/animal1';
+		$path = __DIR__ . '/stubs/animal1';
 		JLoader::registerNamespace('animal', $path);
 
 		$this->assertTrue(JLoader::loadByNamespaceLowerCase('animal\\Cat'));
@@ -295,11 +295,11 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testLoadByNamespaceNaturalCaseCamelCase()
 	{
 		// Register the Color namespace and its path (camel case).
-		$path = dirname(__FILE__) . '/stubs/Color';
+		$path = __DIR__ . '/stubs/Color';
 		JLoader::registerNamespace('Color', $path);
 
 		// Register a second path for that namespace (camel case).
-		$path = dirname(__FILE__) . '/stubs/Color2';
+		$path = __DIR__ . '/stubs/Color2';
 		JLoader::registerNamespace('Color', $path);
 
 		// Check we can load a class from the first path.
@@ -321,11 +321,11 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testLoadByNamespaceMixedCaseLow()
 	{
 		// Register the 'animal' lower case namespace and lower case path.
-		$path = dirname(__FILE__) . '/stubs/animal1';
+		$path = __DIR__ . '/stubs/animal1';
 		JLoader::registerNamespace('animal', $path);
 
 		// Register a second lower case path for that namespace.
-		$path = dirname(__FILE__) . '/stubs/animal2';
+		$path = __DIR__ . '/stubs/animal2';
 		JLoader::registerNamespace('animal', $path);
 
 		// Check we can load a class from the first path.
@@ -347,11 +347,11 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testLoadByNamespaceMixedCaseCamelCase()
 	{
 		// Register the Color namespace and its path (camel case).
-		$path = dirname(__FILE__) . '/stubs/Color';
+		$path = __DIR__ . '/stubs/Color';
 		JLoader::registerNamespace('Color', $path);
 
 		// Register a second path for that namespace (camel case).
-		$path = dirname(__FILE__) . '/stubs/Color2';
+		$path = __DIR__ . '/stubs/Color2';
 		JLoader::registerNamespace('Color', $path);
 
 		// Check we can load a class from the first path.
@@ -373,7 +373,7 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testLoadByNamespaceMixedCaseCamelCaseNamespaceLowCasePath()
 	{
 		// Register a camel cased namespace but lower case path.
-		$path = dirname(__FILE__) . '/stubs/chess';
+		$path = __DIR__ . '/stubs/chess';
 		JLoader::registerNamespace('Chess', $path);
 
 		// Check we can load it by using his camel cased name.
@@ -465,7 +465,7 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testRegisterNamespace()
 	{
 		// Try with a valid path.
-		$path = dirname(__FILE__) . '/stubs/discover1';
+		$path = __DIR__ . '/stubs/discover1';
 		JLoader::registerNamespace('discover', $path);
 
 		$namespaces = JLoader::getNamespaces();
@@ -473,7 +473,7 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 		$this->assertContains($path, $namespaces['discover']);
 
 		// Try to add an other path for the namespace.
-		$path = dirname(__FILE__) . '/stubs/discover2';
+		$path = __DIR__ . '/stubs/discover2';
 		JLoader::registerNamespace('discover', $path);
 		$namespaces = JLoader::getNamespaces();
 
@@ -492,11 +492,11 @@ class JLoaderTest extends PHPUnit_Framework_TestCase
 	public function testRegisterNamespaceResetPath()
 	{
 		// Insert a first path.
-		$path = dirname(__FILE__) . '/stubs/discover1';
+		$path = __DIR__ . '/stubs/discover1';
 		JLoader::registerNamespace('discover', $path);
 
 		// Reset the path with a new path.
-		$path = dirname(__FILE__) . '/stubs/discover2';
+		$path = __DIR__ . '/stubs/discover2';
 		JLoader::registerNamespace('discover', $path, true);
 
 		$namespaces = JLoader::getNamespaces();

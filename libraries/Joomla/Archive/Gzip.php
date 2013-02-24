@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Archive
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -13,7 +13,6 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Filesystem\File;
-use JError;
 use RuntimeException;
 
 /**
@@ -37,7 +36,7 @@ class Gzip implements Extractable
 	 * @var    array
 	 * @since  11.1
 	 */
-	private $_flags = array('FTEXT' => 0x01, 'FHCRC' => 0x02, 'FEXTRA' => 0x04, 'FNAME' => 0x08, 'FCOMMENT' => 0x10);
+	private $flags = array('FTEXT' => 0x01, 'FHCRC' => 0x02, 'FEXTRA' => 0x04, 'FNAME' => 0x08, 'FCOMMENT' => 0x10);
 
 	/**
 	 * Gzip file data buffer
@@ -45,7 +44,7 @@ class Gzip implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_data = null;
+	private $data = null;
 
 	/**
 	 * Extract a Gzip compressed file to a given path
@@ -61,61 +60,33 @@ class Gzip implements Extractable
 	 */
 	public function extract($archive, $destination, array $options = array ())
 	{
-		$this->_data = null;
+		$this->data = null;
 
 		if (!extension_loaded('zlib'))
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'The zlib extension is not available.');
-			}
-			else
-			{
-				throw new RuntimeException('The zlib extension is not available.');
-			}
+			throw new RuntimeException('The zlib extension is not available.');
 		}
 
 		if (!isset($options['use_streams']) || $options['use_streams'] == false)
 		{
-			$this->_data = file_get_contents($archive);
+			$this->data = file_get_contents($archive);
 
-			if (!$this->_data)
+			if (!$this->data)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to read archive');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to read archive');
-				}
+				throw new RuntimeException('Unable to read archive');
 			}
 
 			$position = $this->_getFilePosition();
-			$buffer = gzinflate(substr($this->_data, $position, strlen($this->_data) - $position));
+			$buffer = gzinflate(substr($this->data, $position, strlen($this->data) - $position));
 
 			if (empty($buffer))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to decompress data');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to decompress data');
-				}
+				throw new RuntimeException('Unable to decompress data');
 			}
 
 			if (File::write($destination, $buffer) === false)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to write archive');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to write archive');
-				}
+				throw new RuntimeException('Unable to write archive');
 			}
 		}
 		else
@@ -128,14 +99,7 @@ class Gzip implements Extractable
 
 			if (!$input->open($archive))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to read archive (gz)');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to read archive (gz)');
-				}
+				throw new RuntimeException('Unable to read archive (gz)');
 			}
 
 			$output = Factory::getStream();
@@ -144,38 +108,24 @@ class Gzip implements Extractable
 			{
 				$input->close();
 
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to write archive (gz)');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to write archive (gz)');
-				}
+				throw new RuntimeException('Unable to write archive (gz)');
 			}
 
 			do
 			{
-				$this->_data = $input->read($input->get('chunksize', 8196));
+				$this->data = $input->read($input->get('chunksize', 8196));
 
-				if ($this->_data)
+				if ($this->data)
 				{
-					if (!$output->write($this->_data))
+					if (!$output->write($this->data))
 					{
 						$input->close();
 
-						if (class_exists('\\JError'))
-						{
-							return JError::raiseWarning(100, 'Unable to write file (gz)');
-						}
-						else
-						{
-							throw new RuntimeException('Unable to write file (gz)');
-						}
+						throw new RuntimeException('Unable to write file (gz)');
 					}
 				}
 			}
-			while ($this->_data);
+			while ($this->data);
 
 			$output->close();
 			$input->close();
@@ -207,44 +157,37 @@ class Gzip implements Extractable
 	{
 		// Gzipped file... unpack it first
 		$position = 0;
-		$info = @ unpack('CCM/CFLG/VTime/CXFL/COS', substr($this->_data, $position + 2));
+		$info = @ unpack('CCM/CFLG/VTime/CXFL/COS', substr($this->data, $position + 2));
 
 		if (!$info)
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'Unable to decompress data.');
-			}
-			else
-			{
-				throw new RuntimeException('Unable to decompress data.');
-			}
+			throw new RuntimeException('Unable to decompress data.');
 		}
 
 		$position += 10;
 
-		if ($info['FLG'] & $this->_flags['FEXTRA'])
+		if ($info['FLG'] & $this->flags['FEXTRA'])
 		{
-			$XLEN = unpack('vLength', substr($this->_data, $position + 0, 2));
+			$XLEN = unpack('vLength', substr($this->data, $position + 0, 2));
 			$XLEN = $XLEN['Length'];
 			$position += $XLEN + 2;
 		}
 
-		if ($info['FLG'] & $this->_flags['FNAME'])
+		if ($info['FLG'] & $this->flags['FNAME'])
 		{
-			$filenamePos = strpos($this->_data, "\x0", $position);
+			$filenamePos = strpos($this->data, "\x0", $position);
 			$position = $filenamePos + 1;
 		}
 
-		if ($info['FLG'] & $this->_flags['FCOMMENT'])
+		if ($info['FLG'] & $this->flags['FCOMMENT'])
 		{
-			$commentPos = strpos($this->_data, "\x0", $position);
+			$commentPos = strpos($this->data, "\x0", $position);
 			$position = $commentPos + 1;
 		}
 
-		if ($info['FLG'] & $this->_flags['FHCRC'])
+		if ($info['FLG'] & $this->flags['FHCRC'])
 		{
-			$hcrc = unpack('vCRC', substr($this->_data, $position + 0, 2));
+			$hcrc = unpack('vCRC', substr($this->data, $position + 0, 2));
 			$hcrc = $hcrc['CRC'];
 			$position += 2;
 		}

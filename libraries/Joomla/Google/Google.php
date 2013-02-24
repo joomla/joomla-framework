@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Google
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -16,8 +16,8 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Platform class for interacting with the Google APIs.
  *
- * @property-read  JGoogleData    $data    Google API object for data.
- * @property-read  JGoogleEmbed   $embed   Google API object for embed generation.
+ * @property-read  Data   $data    Google API object for data.
+ * @property-read  Embed  $embed   Google API object for embed generation.
  *
  * @package     Joomla.Platform
  * @subpackage  Google
@@ -26,25 +26,25 @@ use Joomla\Registry\Registry;
 class Google
 {
 	/**
-	 * @var    JRegistry  Options for the Google object.
+	 * @var    Registry  Options for the Google object.
 	 * @since  12.3
 	 */
 	protected $options;
 
 	/**
-	 * @var    JAuth  The authentication client object to use in sending authenticated HTTP requests.
+	 * @var    Auth  The authentication client object to use in sending authenticated HTTP requests.
 	 * @since  12.3
 	 */
 	protected $auth;
 
 	/**
-	 * @var    JGoogleData  Google API object for data request.
+	 * @var    Data  Google API object for data request.
 	 * @since  12.3
 	 */
 	protected $data;
 
 	/**
-	 * @var    JGoogleEmbed  Google API object for embed generation.
+	 * @var    Embed  Google API object for embed generation.
 	 * @since  12.3
 	 */
 	protected $embed;
@@ -52,8 +52,8 @@ class Google
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Google options object.
-	 * @param   JAuth      $auth     The authentication client object.
+	 * @param   Registry  $options  Google options object.
+	 * @param   Auth      $auth     The authentication client object.
 	 *
 	 * @since   12.3
 	 */
@@ -64,13 +64,13 @@ class Google
 	}
 
 	/**
-	 * Method to create JGoogleData objects
+	 * Method to create Data objects
 	 *
-	 * @param   string     $name     Name of property to retrieve
-	 * @param   JRegistry  $options  Google options object.
-	 * @param   JAuth      $auth     The authentication client object.
+	 * @param   string    $name     Name of property to retrieve
+	 * @param   Registry  $options  Google options object.
+	 * @param   Auth      $auth     The authentication client object.
 	 *
-	 * @return  JGoogleData  Google data API object.
+	 * @return  Data  Google data API object.
 	 *
 	 * @since   12.3
 	 */
@@ -90,24 +90,28 @@ class Google
 		{
 			case 'plus':
 				return new Data\Plus($options, $auth);
+
 			case 'picasa':
 				return new Data\Picasa($options, $auth);
+
 			case 'adsense':
 				return new Data\Adsense($options, $auth);
+
 			case 'calendar':
 				return new Data\Calendar($options, $auth);
+
 			default:
 				return null;
 		}
 	}
 
 	/**
-	 * Method to create JGoogleEmbed objects
+	 * Method to create Embed objects
 	 *
-	 * @param   string     $name     Name of property to retrieve
-	 * @param   JRegistry  $options  Google options object.
+	 * @param   string    $name     Name of property to retrieve
+	 * @param   Registry  $options  Google options object.
 	 *
-	 * @return  JGoogleEmbed  Google embed API object.
+	 * @return  Embed  Google embed API object.
 	 *
 	 * @since   12.3
 	 */
@@ -122,15 +126,17 @@ class Google
 		{
 			case 'maps':
 				return new Embed\Maps($options);
+
 			case 'analytics':
 				return new Embed\Analytics($options);
+
 			default:
 				return null;
 		}
 	}
 
 	/**
-	 * Get an option from the JGoogle instance.
+	 * Get an option from the Google instance.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
@@ -144,12 +150,12 @@ class Google
 	}
 
 	/**
-	 * Set an option for the JGoogle instance.
+	 * Set an option for the Google instance.
 	 *
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JGoogle  This object for method chaining.
+	 * @return  Google  This object for method chaining.
 	 *
 	 * @since   12.3
 	 */

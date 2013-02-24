@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Cache
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -24,7 +24,6 @@ use stdClass;
  * @subpackage  Cache
  * @since       11.1
  */
-if (!class_exists('Joomla\\Cache\\Cache')) :
 
 class Cache
 {
@@ -104,17 +103,14 @@ class Cache
 		$handlers = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new DirectoryIterator(__DIR__ . '/storage');
+		$iterator = new DirectoryIterator(__DIR__ . '/Storage');
 
 		foreach ($iterator as $file)
 		{
 			$fileName = $file->getFilename();
 
 			// Only load for php files.
-			// Note: DirectoryIterator::getExtension only available PHP >= 5.3.6
-			if (!$file->isFile()
-				|| substr($fileName, strrpos($fileName, '.') + 1) != 'php'
-				|| $fileName == 'Helper.php')
+			if (!$file->isFile() || $file->getExtension() != 'php' || $fileName == 'Helper.php')
 			{
 				continue;
 			}
@@ -724,4 +720,3 @@ class Cache
 		return $paths;
 	}
 }
-endif;

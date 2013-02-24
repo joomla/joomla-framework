@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  HTTP
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -65,6 +65,7 @@ class Curl implements Transport
 	 * @return  Response
 	 *
 	 * @since   11.3
+	 * @throws  RuntimeException
 	 */
 	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
@@ -88,7 +89,6 @@ class Curl implements Transport
 			{
 				$options[CURLOPT_POSTFIELDS] = $data;
 			}
-
 			// Otherwise we need to encode the value first.
 			else
 			{
@@ -131,7 +131,7 @@ class Curl implements Transport
 		// If an explicit user agent is given use it.
 		if (isset($userAgent))
 		{
-			$headers[CURLOPT_USERAGENT] = $userAgent;
+			$options[CURLOPT_USERAGENT] = $userAgent;
 		}
 
 		// Set the request URL.
@@ -245,7 +245,7 @@ class Curl implements Transport
 	 *
 	 * @since   12.1
 	 */
-	static public function isSupported()
+	public static function isSupported()
 	{
 		return function_exists('curl_version') && curl_version();
 	}

@@ -17,7 +17,7 @@ JLoader::register('JDataVostok', __DIR__ . '/stubs/vostok.php');
  * @subpackage  Data
  * @since       12.3
  */
-class JDataSetTest extends TestCase
+class JDataSetTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.
@@ -37,14 +37,14 @@ class JDataSetTest extends TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertEmpty(TestReflection::getValue(new JDataSet, '_objects'), 'New list should have no objects.');
+		$this->assertEmpty(TestReflection::getValue(new JDataSet, 'objects'), 'New list should have no objects.');
 
 		$input = array(
 			'key' => new JData(array('foo' => 'bar'))
 		);
 		$new = new JDataSet($input);
 
-		$this->assertEquals($input, TestReflection::getValue($new, '_objects'), 'Check initialised object list.');
+		$this->assertEquals($input, TestReflection::getValue($new, 'objects'), 'Check initialised object list.');
 	}
 
 	/**
@@ -294,13 +294,13 @@ class JDataSetTest extends TestCase
 	{
 		$this->_instance->next();
 		$this->assertThat(
-			TestReflection::getValue($this->_instance, '_current'),
+			TestReflection::getValue($this->_instance, 'current'),
 			$this->equalTo(1)
 		);
 
 		$this->_instance->next();
 		$this->assertThat(
-			TestReflection::getValue($this->_instance, '_current'),
+			TestReflection::getValue($this->_instance, 'current'),
 			$this->equalTo(false)
 		);
 	}
@@ -346,7 +346,7 @@ class JDataSetTest extends TestCase
 	public function testOffsetSet()
 	{
 		$this->_instance->offsetSet(0, new JData);
-		$objects = TestReflection::getValue($this->_instance, '_objects');
+		$objects = TestReflection::getValue($this->_instance, 'objects');
 
 		$this->assertEquals(new JData, $objects[0], 'Checks explicit use of offsetSet.');
 
@@ -383,7 +383,7 @@ class JDataSetTest extends TestCase
 	public function testOffsetUnset()
 	{
 		$this->_instance->offsetUnset(0);
-		$objects = TestReflection::getValue($this->_instance, '_objects');
+		$objects = TestReflection::getValue($this->_instance, 'objects');
 
 		$this->assertFalse(isset($objects[0]));
 	}
@@ -398,7 +398,7 @@ class JDataSetTest extends TestCase
 	 */
 	public function testOffsetRewind()
 	{
-		TestReflection::setValue($this->_instance, '_current', 'foo');
+		TestReflection::setValue($this->_instance, 'current', 'foo');
 
 		$this->_instance->rewind();
 		$this->assertEquals(0, $this->_instance->key());
@@ -419,7 +419,7 @@ class JDataSetTest extends TestCase
 	{
 		$this->assertTrue($this->_instance->valid());
 
-		TestReflection::setValue($this->_instance, '_current', null);
+		TestReflection::setValue($this->_instance, 'current', null);
 
 		$this->assertFalse($this->_instance->valid());
 	}

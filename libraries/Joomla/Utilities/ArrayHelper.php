@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Utilities
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -121,6 +121,7 @@ abstract class ArrayHelper
 				}
 			}
 		}
+
 		return $obj;
 	}
 
@@ -150,6 +151,7 @@ abstract class ArrayHelper
 					{
 						$output[] = $key;
 					}
+
 					// This is value is an array, go and do it again!
 					$output[] = self::toString($item, $inner_glue, $outer_glue, $keepOuterKey);
 				}
@@ -178,7 +180,7 @@ abstract class ArrayHelper
 	{
 		if (is_object($p_obj))
 		{
-			return self::_fromObject($p_obj, $recurse, $regex);
+			return self::arrayFromObject($p_obj, $recurse, $regex);
 		}
 		else
 		{
@@ -197,7 +199,7 @@ abstract class ArrayHelper
 	 *
 	 * @since   11.1
 	 */
-	protected static function _fromObject($item, $recurse, $regex)
+	protected static function arrayFromObject($item, $recurse, $regex)
 	{
 		if (is_object($item))
 		{
@@ -209,7 +211,7 @@ abstract class ArrayHelper
 				{
 					if ($recurse)
 					{
-						$result[$k] = self::_fromObject($v, $recurse, $regex);
+						$result[$k] = self::arrayFromObject($v, $recurse, $regex);
 					}
 					else
 					{
@@ -224,13 +226,14 @@ abstract class ArrayHelper
 
 			foreach ($item as $k => $v)
 			{
-				$result[$k] = self::_fromObject($v, $recurse, $regex);
+				$result[$k] = self::arrayFromObject($v, $recurse, $regex);
 			}
 		}
 		else
 		{
 			$result = $item;
 		}
+
 		return $result;
 	}
 
@@ -425,7 +428,7 @@ abstract class ArrayHelper
 	 */
 	public static function pivot($source, $key = null)
 	{
-		$result = array();
+		$result  = array();
 		$counter = array();
 
 		foreach ($source as $index => $value)
@@ -439,7 +442,7 @@ abstract class ArrayHelper
 					continue;
 				}
 
-				$resultKey = $value[$key];
+				$resultKey   = $value[$key];
 				$resultValue = &$source[$index];
 			}
 			elseif (is_object($value))
@@ -450,13 +453,13 @@ abstract class ArrayHelper
 					continue;
 				}
 
-				$resultKey = $value->$key;
+				$resultKey   = $value->$key;
 				$resultValue = &$source[$index];
 			}
 			else
 			{
 				// Just a scalar value.
-				$resultKey = $value;
+				$resultKey   = $value;
 				$resultValue = $index;
 			}
 
@@ -508,17 +511,17 @@ abstract class ArrayHelper
 			$locale = array($locale);
 		}
 
-		self::$sortCase = (array) $caseSensitive;
+		self::$sortCase      = (array) $caseSensitive;
 		self::$sortDirection = (array) $direction;
-		self::$sortKey = (array) $k;
-		self::$sortLocale = $locale;
+		self::$sortKey       = (array) $k;
+		self::$sortLocale    = $locale;
 
-		usort($a, array(__CLASS__, '_sortObjects'));
+		usort($a, array(__CLASS__, 'objectSort'));
 
-		self::$sortCase = null;
+		self::$sortCase      = null;
 		self::$sortDirection = null;
-		self::$sortKey = null;
-		self::$sortLocale = null;
+		self::$sortKey       = null;
+		self::$sortLocale    = null;
 
 		return $a;
 	}
@@ -534,7 +537,7 @@ abstract class ArrayHelper
 	 * @see     ArrayHelper::sortObjects()
 	 * @since   11.1
 	 */
-	protected static function _sortObjects(&$a, &$b)
+	protected static function objectSort(&$a, &$b)
 	{
 		$key = self::$sortKey;
 
@@ -573,7 +576,6 @@ abstract class ArrayHelper
 
 			if ($cmp > 0)
 			{
-
 				return $direction;
 			}
 

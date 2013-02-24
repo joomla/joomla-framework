@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  FileSystem
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -268,15 +268,14 @@ class Helper
 
 		if (!$streams)
 		{
-			$files = new DirectoryIterator(__DIR__ . '/stream');
+			$files = new DirectoryIterator(__DIR__ . '/Stream');
 
 			foreach ($files as $file)
 			{
 				$filename = $file->getFilename();
 
 				// Only load for php files.
-				// Note: DirectoryIterator::getExtension only available PHP >= 5.3.6
-				if (!$file->isFile() || substr($filename, strrpos($filename, '.') + 1) != 'php')
+				if (!$file->isFile() || $file->getExtension() != 'php')
 				{
 					continue;
 				}

@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Google
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -104,7 +104,7 @@ abstract class Embed
 	}
 
 	/**
-	 * Get an option from the JGoogleEmbed instance.
+	 * Get an option from the Embed instance.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
@@ -118,7 +118,7 @@ abstract class Embed
 	}
 
 	/**
-	 * Set an option for the JGoogleEmbed instance.
+	 * Set an option for the Embed instance.
 	 *
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.

@@ -3,19 +3,19 @@
  * @package     Joomla.UnitTest
  * @subpackage  Application
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 /**
- * Inspector for the JApplicationWeb class.
+ * Inspector for the Joomla\Application\Web class.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Application
  *
  * @since       11.3
  */
-class JApplicationWebInspector extends JApplicationWeb
+class JApplicationWebInspector extends Joomla\Application\Web
 {
 	/**
 	 * @var     boolean  True to mimic the headers already being sent.

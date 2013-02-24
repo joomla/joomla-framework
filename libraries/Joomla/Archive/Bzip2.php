@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Archive
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -13,7 +13,6 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Filesystem\File;
-use JError;
 use RuntimeException;
 
 /**
@@ -31,7 +30,7 @@ class Bzip2 implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_data = null;
+	private $data = null;
 
 	/**
 	 * Extract a Bzip2 compressed file to a given path
@@ -47,64 +46,35 @@ class Bzip2 implements Extractable
 	 */
 	public function extract($archive, $destination, array $options = array ())
 	{
-		$this->_data = null;
+		$this->data = null;
 
 		if (!extension_loaded('bz2'))
 		{
-			if (class_exists('\\JError'))
-			{
-				return JError::raiseWarning(100, 'The bz2 extension is not available.');
-			}
-			else
-			{
-				throw new RuntimeException('The bz2 extension is not available.');
-			}
+			throw new RuntimeException('The bz2 extension is not available.');
 		}
 
 		if (!isset($options['use_streams']) || $options['use_streams'] == false)
 		{
 			// Old style: read the whole file and then parse it
-			$this->_data = file_get_contents($archive);
+			$this->data = file_get_contents($archive);
 
-			if (!$this->_data)
+			if (!$this->data)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to read archive');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to read archive');
-				}
+				throw new RuntimeException('Unable to read archive');
 			}
 
-			$buffer = bzdecompress($this->_data);
-			unset($this->_data);
+			$buffer = bzdecompress($this->data);
+			unset($this->data);
 
 			if (empty($buffer))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to decompress data');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to decompress data');
-				}
+				throw new RuntimeException('Unable to decompress data');
 			}
 
 			if (File::write($destination, $buffer) === false)
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to write archive');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to write archive');
-				}
+				throw new RuntimeException('Unable to write archive');
 			}
-
 		}
 		else
 		{
@@ -116,14 +86,7 @@ class Bzip2 implements Extractable
 
 			if (!$input->open($archive))
 			{
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to read archive (bz2)');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to read archive (bz2)');
-				}
+				throw new RuntimeException('Unable to read archive (bz2)');
 			}
 
 			$output = Factory::getStream();
@@ -132,38 +95,24 @@ class Bzip2 implements Extractable
 			{
 				$input->close();
 
-				if (class_exists('\\JError'))
-				{
-					return JError::raiseWarning(100, 'Unable to write archive (bz2)');
-				}
-				else
-				{
-					throw new RuntimeException('Unable to write archive (bz2)');
-				}
+				throw new RuntimeException('Unable to write archive (bz2)');
 			}
 
 			do
 			{
-				$this->_data = $input->read($input->get('chunksize', 8196));
+				$this->data = $input->read($input->get('chunksize', 8196));
 
-				if ($this->_data)
+				if ($this->data)
 				{
-					if (!$output->write($this->_data))
+					if (!$output->write($this->data))
 					{
 						$input->close();
 
-						if (class_exists('\\JError'))
-						{
-							return JError::raiseWarning(100, 'Unable to write archive (bz2)');
-						}
-						else
-						{
-							throw new RuntimeException('Unable to write archive (bz2)');
-						}
+						throw new RuntimeException('Unable to write archive (bz2)');
 					}
 				}
 			}
-			while ($this->_data);
+			while ($this->data);
 
 			$output->close();
 			$input->close();

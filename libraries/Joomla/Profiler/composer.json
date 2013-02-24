@@ -1,0 +1,17 @@
+{
+    "name": "joomla/profiler",
+    "type": "joomla-package",
+    "description": "Joomla Profiler Package",
+    "keywords": ["joomla", "framework", "profiler"],
+    "homepage": "https://github.com/joomla/joomla-framework-profiler",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Profiler",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Profiler": ""
+    	}
+    }
+}

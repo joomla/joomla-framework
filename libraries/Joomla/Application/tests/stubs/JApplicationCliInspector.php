@@ -3,7 +3,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Application
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JApplicationCliInspector extends JApplicationCli
+class JApplicationCliInspector extends Joomla\Application\Cli
 {
 	/**
 	 * The exit code if the application was closed otherwise null.

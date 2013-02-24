@@ -3,17 +3,13 @@
  * @package     Joomla.Platform
  * @subpackage  Application
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Application;
 
 defined('JPATH_PLATFORM') or die;
-
-use Joomla\Factory;
-use Joomla\User\User;
-use Joomla\Event\Dispatcher;
 
 /**
  * Joomla Platform Base Application Class
@@ -25,25 +21,17 @@ use Joomla\Event\Dispatcher;
 abstract class Base
 {
 	/**
-	 * The application dispatcher object.
+	 * The application configuration object.
 	 *
-	 * @var    JEventDispatcher
-	 * @since  12.1
+	 * @var    Registry
+	 * @since  11.3
 	 */
-	protected $dispatcher;
-
-	/**
-	 * The application identity object.
-	 *
-	 * @var    JUser
-	 * @since  12.1
-	 */
-	protected $identity;
+	protected $config;
 
 	/**
 	 * The application input object.
 	 *
-	 * @var    JInput
+	 * @var    Joomla\Input\Input
 	 * @since  12.1
 	 */
 	public $input = null;
@@ -64,94 +52,59 @@ abstract class Base
 	}
 
 	/**
-	 * Get the application identity.
+	 * Load an object or array into the application configuration object.
 	 *
-	 * @return  mixed  A JUser object or null.
+	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.
 	 *
-	 * @since   12.1
+	 * @return  Base  Instance of $this to allow chaining.
+	 *
+	 * @since   11.3
 	 */
-	public function getIdentity()
+	public function loadConfiguration($data)
 	{
-		return $this->identity;
-	}
-
-	/**
-	 * Registers a handler to a particular event group.
-	 *
-	 * @param   string    $event    The event name.
-	 * @param   callable  $handler  The handler, a function or an instance of a event object.
-	 *
-	 * @return  JApplicationBase  The application to allow chaining.
-	 *
-	 * @since   12.1
-	 */
-	public function registerEvent($event, $handler)
-	{
-		if ($this->dispatcher instanceof Dispatcher)
+		// Load the data into the configuration object.
+		if (is_array($data))
 		{
-			$this->dispatcher->register($event, $handler);
+			$this->config->loadArray($data);
+		}
+		elseif (is_object($data))
+		{
+			$this->config->loadObject($data);
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Calls all handlers associated with an event group.
+	 * Returns a property of the object or the default value if the property is not set.
 	 *
-	 * @param   string  $event  The event name.
-	 * @param   array   $args   An array of arguments (optional).
+	 * @param   string  $key      The name of the property.
+	 * @param   mixed   $default  The default value (optional) if none is set.
 	 *
-	 * @return  array   An array of results from each function call, or null if no dispatcher is defined.
+	 * @return  mixed   The value of the configuration.
 	 *
-	 * @since   12.1
+	 * @since   11.3
 	 */
-	public function triggerEvent($event, array $args = null)
+	public function get($key, $default = null)
 	{
-		if ($this->dispatcher instanceof Dispatcher)
-		{
-			return $this->dispatcher->trigger($event, $args);
-		}
-
-		return null;
+		return $this->config->get($key, $default);
 	}
 
 	/**
-	 * Allows the application to load a custom or default dispatcher.
+	 * Modifies a property of the object, creating it if it does not already exist.
 	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create event
-	 * dispatchers, if required, based on more specific needs.
+	 * @param   string  $key    The name of the property.
+	 * @param   mixed   $value  The value of the property to set (optional).
 	 *
-	 * @param   JEventDispatcher  $dispatcher  An optional dispatcher object. If omitted, the factory dispatcher is created.
+	 * @return  mixed   Previous value of the property
 	 *
-	 * @return  JApplicationBase This method is chainable.
-	 *
-	 * @since   12.1
+	 * @since   11.3
 	 */
-	public function loadDispatcher(Dispatcher $dispatcher = null)
+	public function set($key, $value = null)
 	{
-		$this->dispatcher = ($dispatcher === null) ? Dispatcher::getInstance() : $dispatcher;
+		$previous = $this->config->get($key);
+		$this->config->set($key, $value);
 
-		return $this;
-	}
-
-	/**
-	 * Allows the application to load a custom or default identity.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create an identity,
-	 * if required, based on more specific needs.
-	 *
-	 * @param   JUser  $identity  An optional identity object. If omitted, the factory user is created.
-	 *
-	 * @return  JApplicationBase This method is chainable.
-	 *
-	 * @since   12.1
-	 */
-	public function loadIdentity(User $identity = null)
-	{
-		$this->identity = ($identity === null) ? Factory::getUser() : $identity;
-
-		return $this;
+		return $previous;
 	}
 }

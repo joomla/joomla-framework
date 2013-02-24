@@ -3,7 +3,7 @@
  * @package     Joomla.UnitTest
  * @subpackage  Application
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -17,16 +17,16 @@
 class JApplicationWebRouterRestTest extends TestCase
 {
 	/**
-	 * @var    JApplicationWebRouterRest  The object to be tested.
+	 * @var    Joomla\Application\Web\Router\Rest  The object to be tested.
 	 * @since  12.3
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
 	 * @var    string  The server REQUEST_METHOD cached to keep it clean.
 	 * @since  12.3
 	 */
-	private $_method;
+	private $requestMethod;
 
 	/**
 	 * Tests the setHttpMethodSuffix method.
@@ -38,8 +38,8 @@ class JApplicationWebRouterRestTest extends TestCase
 	 */
 	public function testSetHttpMethodSuffix()
 	{
-		$this->_instance->setHttpMethodSuffix('FOO', 'Bar');
-		$s = TestReflection::getValue($this->_instance, 'suffixMap');
+		$this->instance->setHttpMethodSuffix('FOO', 'Bar');
+		$s = TestReflection::getValue($this->instance, 'suffixMap');
 		$this->assertEquals('Bar', $s['FOO']);
 	}
 
@@ -56,7 +56,7 @@ class JApplicationWebRouterRestTest extends TestCase
 		$_SERVER['REQUEST_METHOD'] = 'FOOBAR';
 
 		$this->setExpectedException('RuntimeException');
-		$suffix = TestReflection::invoke($this->_instance, 'fetchControllerSuffix');
+		$suffix = TestReflection::invoke($this->instance, 'fetchControllerSuffix');
 	}
 
 	/**
@@ -125,7 +125,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 */
 	public function testFetchControllerSuffix($input, $expected, $method, $exception, $allowMethod=false)
 	{
-		TestReflection::invoke($this->_instance, 'setMethodInPostRequest', $allowMethod);
+		TestReflection::invoke($this->instance, 'setMethodInPostRequest', $allowMethod);
 
 		// Set reuqest method
 		$_SERVER['REQUEST_METHOD'] = $input;
@@ -140,7 +140,7 @@ class JApplicationWebRouterRestTest extends TestCase
 		}
 
 		// Execute the code to test.
-		$actual = TestReflection::invoke($this->_instance, 'fetchControllerSuffix');
+		$actual = TestReflection::invoke($this->instance, 'fetchControllerSuffix');
 
 		// Verify the value.
 		$this->assertEquals($expected, $actual);
@@ -158,15 +158,15 @@ class JApplicationWebRouterRestTest extends TestCase
 	public function testMethodInPostRequest()
 	{
 		// Check the defaults
-		$this->assertEquals(false, TestReflection::invoke($this->_instance, 'isMethodInPostRequest'));
+		$this->assertEquals(false, TestReflection::invoke($this->instance, 'isMethodInPostRequest'));
 
 		// Check setting true
-		TestReflection::invoke($this->_instance, 'setMethodInPostRequest', true);
-		$this->assertEquals(true, TestReflection::invoke($this->_instance, 'isMethodInPostRequest'));
+		TestReflection::invoke($this->instance, 'setMethodInPostRequest', true);
+		$this->assertEquals(true, TestReflection::invoke($this->instance, 'isMethodInPostRequest'));
 
 		// Check setting false
-		TestReflection::invoke($this->_instance, 'setMethodInPostRequest', false);
-		$this->assertEquals(false, TestReflection::invoke($this->_instance, 'isMethodInPostRequest'));
+		TestReflection::invoke($this->instance, 'setMethodInPostRequest', false);
+		$this->assertEquals(false, TestReflection::invoke($this->instance, 'isMethodInPostRequest'));
 	}
 
 	/**
@@ -180,8 +180,8 @@ class JApplicationWebRouterRestTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->_instance = new JApplicationWebRouterRest($this->getMockWeb());
-		$this->_method = @$_SERVER['REQUEST_METHOD'];
+		$this->instance = new Joomla\Application\Web\Router\Rest($this->getMockWeb());
+		$this->requestMethod = @$_SERVER['REQUEST_METHOD'];
 	}
 
 	/**
@@ -193,8 +193,8 @@ class JApplicationWebRouterRestTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->_instance = null;
-		$_SERVER['REQUEST_METHOD'] = $this->_method;
+		$this->instance = null;
+		$_SERVER['REQUEST_METHOD'] = $this->requestMethod;
 
 		parent::tearDown();
 	}

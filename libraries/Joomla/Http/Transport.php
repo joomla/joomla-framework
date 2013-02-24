@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  HTTP
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -49,11 +49,11 @@ interface Transport
 	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null);
 
 	/**
-	 * method to check if http transport layer available for using
+	 * Method to check if http transport layer available for using
 	 *
-	 * @return bool true if available else false
+	 * @return  boolean  True if available else false
 	 *
 	 * @since   12.1
 	 */
-	static public function isSupported();
+	public static function isSupported();
 }

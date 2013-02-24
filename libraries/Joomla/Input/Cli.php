@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Input
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -135,7 +135,6 @@ class Cli extends Input
 			// First let's tackle the long argument case.  eg. --foo
 			if (strlen($arg) > 2 && substr($arg, 0, 2) == '--')
 			{
-
 				// Attempt to split the thing over equals so we can get the key/value pair if an = was used.
 				$arg = substr($arg, 2);
 				$parts = explode('=', $arg);
@@ -159,7 +158,6 @@ class Cli extends Input
 			// Next let's see if we are dealing with a "bunch" of short arguments.  eg. -abc
 			elseif (strlen($arg) > 2 && $arg[0] == '-')
 			{
-
 				// For each of these arguments set the value to TRUE since the flag has been set.
 				for ($j = 1; $j < strlen($arg); $j++)
 				{
@@ -171,7 +169,6 @@ class Cli extends Input
 			// short argument.  eg. -h
 			elseif (strlen($arg) == 2 && $arg[0] == '-')
 			{
-
 				// Go ahead and set the value to TRUE and if we find a value later we'll overwrite it.
 				$this->data[$arg[1]] = true;
 

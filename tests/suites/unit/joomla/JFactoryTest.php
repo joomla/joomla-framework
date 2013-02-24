@@ -2,7 +2,7 @@
 /**
  * @package     Joomla.UnitTest
  * @subpackage  Utilities
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -112,23 +112,6 @@ class JFactoryTest extends TestCase
 	}
 
 	/**
-	 * Tests the JFactory::getDocument method.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.1
-	 * @covers  JFactory::getDocument
-	 * @covers  JFactory::createDocument
-	 * @todo    Implement testGetDocument().
-	 */
-	public function testGetDocument()
-	{
-		$this->markTestIncomplete(
-			'This test has not been implemented completely yet.'
-		);
-	}
-
-	/**
 	 * Tests the JFactory::getCache method.
 	 *
 	 * @return  void
@@ -159,23 +142,6 @@ class JFactoryTest extends TestCase
 
 		$this->markTestIncomplete(
 			'This test has not been implemented completely yet.'
-		);
-	}
-
-	/**
-	 * Tests the JFactory::getACL method.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.1
-	 * @covers  JFactory::getACL
-	 */
-	public function testGetACL()
-	{
-		$this->assertInstanceOf(
-			'JAccess',
-			JFactory::getACL(),
-			'Line: ' . __LINE__
 		);
 	}
 
@@ -300,23 +266,6 @@ class JFactoryTest extends TestCase
 			(string) $date,
 			$this->equalTo('2001-01-01 01:01:01'),
 			'Tests that a date passed in with UTC timezone comes back unchanged.'
-		);
-	}
-
-	/**
-	 * Tests the JFactory::getUser method.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.3
-	 * @covers  JFactory::getUser
-	 */
-	public function testGetUserInstance()
-	{
-		$this->assertInstanceOf(
-			'JUser',
-			JFactory::getUser(),
-			'Line: ' . __LINE__
 		);
 	}
 }

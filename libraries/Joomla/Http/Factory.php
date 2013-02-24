@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  HTTP
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -39,6 +39,7 @@ class Factory
 		{
 			$options = new Registry;
 		}
+
 		return new Http($options, self::getAvailableDriver($options, $adapters));
 	}
 
@@ -63,11 +64,13 @@ class Factory
 			settype($default, 'array');
 			$availableAdapters = $default;
 		}
+
 		// Check if there is at least one available http transport adapter
 		if (!count($availableAdapters))
 		{
 			return false;
 		}
+
 		foreach ($availableAdapters as $adapter)
 		{
 			$class = '\\Joomla\\Http\\Transport\\' . ucfirst($adapter);
@@ -77,6 +80,7 @@ class Factory
 				return new $class($options);
 			}
 		}
+
 		return false;
 	}
 
@@ -90,15 +94,14 @@ class Factory
 	public static function getHttpTransports()
 	{
 		$names = array();
-		$iterator = new DirectoryIterator(__DIR__ . '/transport');
+		$iterator = new DirectoryIterator(__DIR__ . '/Transport');
 
 		foreach ($iterator as $file)
 		{
 			$fileName = $file->getFilename();
 
 			// Only load for php files.
-			// Note: DirectoryIterator::getExtension only available PHP >= 5.3.6
-			if ($file->isFile() && substr($fileName, strrpos($fileName, '.') + 1) == 'php')
+			if ($file->isFile() && $file->getExtension() == 'php')
 			{
 				$names[] = substr($fileName, 0, strrpos($fileName, '.'));
 			}

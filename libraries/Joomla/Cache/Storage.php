@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Cache
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -139,7 +139,7 @@ class Storage
 		$handler = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $handler));
 
 		$class = '\\Joomla\\Cache\\Storage';
-		
+
 		if (!empty($handler))
 		{
 			$class .= '\\' . ucfirst($handler);
@@ -187,10 +187,6 @@ class Storage
 	 */
 	public function getAll()
 	{
-		if (!class_exists('\\Joomla\\Cache\\Storage\\Helper', false))
-		{
-			include_once JPATH_PLATFORM . '/joomla/cache/storage/helper.php';
-		}
 		return;
 	}
 

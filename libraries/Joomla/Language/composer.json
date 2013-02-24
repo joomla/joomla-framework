@@ -1,0 +1,17 @@
+{
+    "name": "joomla/language",
+    "type": "joomla-package",
+    "description": "Joomla Language Package",
+    "keywords": ["joomla", "framework", "language"],
+    "homepage": "https://github.com/joomla/joomla-framework-language",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Language",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Language": ""
+    	}
+    }
+}

@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Application
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -54,41 +54,41 @@ class Base extends Router
 		// Loop on each segment
 		foreach ($pattern as $segment)
 		{
-			// Match a splat with no variable.
 			if ($segment == '*')
 			{
+				// Match a splat with no variable.
 				$regex[] = '.*';
 			}
-			// Match a splat and capture the data to a named variable.
 			elseif ($segment[0] == '*')
 			{
+				// Match a splat and capture the data to a named variable.
 				$vars[] = substr($segment, 1);
 				$regex[] = '(.*)';
 			}
-			// Match an escaped splat segment.
 			elseif ($segment[0] == '\\' && $segment[1] == '*')
 			{
+				// Match an escaped splat segment.
 				$regex[] = '\*' . preg_quote(substr($segment, 2));
 			}
-			// Match an unnamed variable without capture.
 			elseif ($segment == ':')
 			{
+				// Match an unnamed variable without capture.
 				$regex[] = '[^/]*';
 			}
-			// Match a named variable and capture the data.
 			elseif ($segment[0] == ':')
 			{
+				// Match a named variable and capture the data.
 				$vars[] = substr($segment, 1);
 				$regex[] = '([^/]*)';
 			}
-			// Match a segment with an escaped variable character prefix.
 			elseif ($segment[0] == '\\' && $segment[1] == ':')
 			{
+				// Match a segment with an escaped variable character prefix.
 				$regex[] = preg_quote(substr($segment, 1));
 			}
-			// Match the standard segment.
 			else
 			{
+				// Match the standard segment.
 				$regex[] = preg_quote($segment);
 			}
 		}

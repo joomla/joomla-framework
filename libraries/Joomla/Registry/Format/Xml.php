@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Registry
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -93,19 +93,23 @@ class Xml extends Format
 
 				return (int) $value;
 				break;
+
 			case 'string':
 				return (string) $node;
 				break;
+
 			case 'boolean':
 				$value = (string) $node;
 
 				return (bool) $value;
 				break;
+
 			case 'double':
 				$value = (string) $node;
 
 				return (float) $value;
 				break;
+
 			case 'array':
 				$value = array();
 
@@ -113,7 +117,9 @@ class Xml extends Format
 				{
 					$value[(string) $child['name']] = $this->getValueFromNode($child);
 				}
+
 				break;
+
 			default:
 				$value = new stdClass;
 
@@ -121,6 +127,7 @@ class Xml extends Format
 				{
 					$value->$child['name'] = $this->getValueFromNode($child);
 				}
+
 				break;
 		}
 

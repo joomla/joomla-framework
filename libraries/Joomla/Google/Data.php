@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Google
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -83,7 +83,7 @@ abstract class Data
 	 * @return  SimpleXMLElement  XMLElement of parsed data
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	protected static function safeXML($data)
 	{
@@ -100,14 +100,14 @@ abstract class Data
 	/**
 	 * Method to retrieve a list of data
 	 *
-	 * @param   array   $url       URL to GET
-	 * @param   int     $maxpages  Maximum number of pages to return
-	 * @param   string  $token     Next page token
+	 * @param   array    $url       URL to GET
+	 * @param   integer  $maxpages  Maximum number of pages to return
+	 * @param   string   $token     Next page token
 	 *
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	protected function listGetData($url, $maxpages = 1, $token = null)
 	{
@@ -121,6 +121,7 @@ abstract class Data
 		{
 			$qurl .= 'pageToken=' . $token;
 		}
+
 		$jdata = $this->query($qurl);
 		$data = json_decode($jdata->body, true);
 
@@ -130,6 +131,7 @@ abstract class Data
 			{
 				$data['items'] = array_merge($data['items'], $this->listGetData($url, $maxpages - 1, $data['nextPageToken']));
 			}
+
 			return $data['items'];
 		}
 		elseif ($data)
@@ -160,7 +162,7 @@ abstract class Data
 	}
 
 	/**
-	 * Get an option from the JGoogleData instance.
+	 * Get an option from the Data instance.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
@@ -174,7 +176,7 @@ abstract class Data
 	}
 
 	/**
-	 * Set an option for the JGoogleData instance.
+	 * Set an option for the Data instance.
 	 *
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.

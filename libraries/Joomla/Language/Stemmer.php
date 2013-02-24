@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Language
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -31,7 +31,9 @@ abstract class Stemmer
 	protected $cache = array();
 
 	/**
-	 * @var    array  JLanguageStemmer instances.
+	 * JLanguageStemmer instances.
+	 *
+	 * @var    array
 	 * @since  12.1
 	 */
 	protected static $instances = array();

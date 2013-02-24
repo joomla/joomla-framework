@@ -1,0 +1,17 @@
+{
+    "name": "joomla/model",
+    "type": "joomla-package",
+    "description": "Joomla Model Package",
+    "keywords": ["joomla", "framework", "model"],
+    "homepage": "https://github.com/joomla/joomla-framework-model",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Model",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Model": ""
+    	}
+    }
+}
