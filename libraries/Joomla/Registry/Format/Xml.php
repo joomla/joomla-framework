@@ -93,19 +93,23 @@ class Xml extends Format
 
 				return (int) $value;
 				break;
+
 			case 'string':
 				return (string) $node;
 				break;
+
 			case 'boolean':
 				$value = (string) $node;
 
 				return (bool) $value;
 				break;
+
 			case 'double':
 				$value = (string) $node;
 
 				return (float) $value;
 				break;
+
 			case 'array':
 				$value = array();
 
@@ -113,7 +117,9 @@ class Xml extends Format
 				{
 					$value[(string) $child['name']] = $this->getValueFromNode($child);
 				}
+
 				break;
+
 			default:
 				$value = new stdClass;
 
@@ -121,6 +127,7 @@ class Xml extends Format
 				{
 					$value->$child['name'] = $this->getValueFromNode($child);
 				}
+
 				break;
 		}
 

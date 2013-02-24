@@ -99,19 +99,19 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test Inflector::_addRule().
+	 * Method to test Inflector::addRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Joomla\String\Inflector::_addRule
+	 * @covers  Joomla\String\Inflector::addRule
 	 */
-	public function test_addRule()
+	public function testAddRule()
 	{
 		// Case 1
-		TestReflection::invoke($this->inflector, '_addRule', '/foo/', 'singular');
+		TestReflection::invoke($this->inflector, 'addRule', '/foo/', 'singular');
 
-		$rules = TestReflection::getValue($this->inflector, '_rules');
+		$rules = TestReflection::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/foo/', $rules['singular']),
@@ -120,9 +120,9 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Case 2
-		TestReflection::invoke($this->inflector, '_addRule', '/bar/', 'plural');
+		TestReflection::invoke($this->inflector, 'addRule', '/bar/', 'plural');
 
-		$rules = TestReflection::getValue($this->inflector, '_rules');
+		$rules = TestReflection::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['plural']),
@@ -131,9 +131,9 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Case 3
-		TestReflection::invoke($this->inflector, '_addRule', array('/goo/', '/car/'), 'singular');
+		TestReflection::invoke($this->inflector, 'addRule', array('/goo/', '/car/'), 'singular');
 
-		$rules = TestReflection::getValue($this->inflector, '_rules');
+		$rules = TestReflection::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/goo/', $rules['singular']),
@@ -149,113 +149,113 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Method to test Inflector::_addRule().
+	 * Method to test Inflector::addRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
 	 * @expectedException  InvalidArgumentException
-	 * @covers  Joomla\String\Inflector::_addRule
+	 * @covers  Joomla\String\Inflector::addRule
 	 */
-	public function test_addRuleException()
+	public function testAddRuleException()
 	{
-		TestReflection::invoke($this->inflector, '_addRule', new stdClass, 'singular');
+		TestReflection::invoke($this->inflector, 'addRule', new stdClass, 'singular');
 	}
 
 	/**
-	 * Method to test Inflector::_getCachedPlural().
+	 * Method to test Inflector::getCachedPlural().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Joomla\String\Inflector::_getCachedPlural
+	 * @covers  Joomla\String\Inflector::getCachedPlural
 	 */
-	public function test_getCachedPlural()
+	public function testGetCachedPlural()
 	{
 		// Reset the cache.
-		TestReflection::setValue($this->inflector, '_cache', array('foo' => 'bar'));
+		TestReflection::setValue($this->inflector, 'cache', array('foo' => 'bar'));
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, '_getCachedPlural', 'bar'),
+			TestReflection::invoke($this->inflector, 'getCachedPlural', 'bar'),
 			$this->isFalse(),
 			'Checks for an uncached plural.'
 		);
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, '_getCachedPlural', 'foo'),
+			TestReflection::invoke($this->inflector, 'getCachedPlural', 'foo'),
 			$this->equalTo('bar'),
 			'Checks for a cached plural word.'
 		);
 	}
 
 	/**
-	 * Method to test Inflector::_getCachedSingular().
+	 * Method to test Inflector::getCachedSingular().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Joomla\String\Inflector::_getCachedSingular
+	 * @covers  Joomla\String\Inflector::getCachedSingular
 	 */
-	public function test_getCachedSingular()
+	public function testGetCachedSingular()
 	{
 		// Reset the cache.
-		TestReflection::setValue($this->inflector, '_cache', array('foo' => 'bar'));
+		TestReflection::setValue($this->inflector, 'cache', array('foo' => 'bar'));
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, '_getCachedSingular', 'foo'),
+			TestReflection::invoke($this->inflector, 'getCachedSingular', 'foo'),
 			$this->isFalse(),
 			'Checks for an uncached singular.'
 		);
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, '_getCachedSingular', 'bar'),
+			TestReflection::invoke($this->inflector, 'getCachedSingular', 'bar'),
 			$this->equalTo('foo'),
 			'Checks for a cached singular word.'
 		);
 	}
 
 	/**
-	 * Method to test Inflector::_matchRegexRule().
+	 * Method to test Inflector::matchRegexRule().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Joomla\String\Inflector::_matchRegexRule
+	 * @covers  Joomla\String\Inflector::matchRegexRule
 	 */
-	public function test_matchRegexRule()
+	public function testMatchRegexRule()
 	{
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, '_matchRegexRule', 'xyz', 'plural'),
+			TestReflection::invoke($this->inflector, 'matchRegexRule', 'xyz', 'plural'),
 			$this->equalTo('xyzs'),
 			'Checks pluralising against the basic regex.'
 		);
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, '_matchRegexRule', 'xyzs', 'singular'),
+			TestReflection::invoke($this->inflector, 'matchRegexRule', 'xyzs', 'singular'),
 			$this->equalTo('xyz'),
 			'Checks singularising against the basic regex.'
 		);
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, '_matchRegexRule', 'xyz', 'singular'),
+			TestReflection::invoke($this->inflector, 'matchRegexRule', 'xyz', 'singular'),
 			$this->isFalse(),
 			'Checks singularising against an unmatched regex.'
 		);
 	}
 
 	/**
-	 * Method to test Inflector::_setCache().
+	 * Method to test Inflector::setCache().
 	 *
 	 * @return  void
 	 *
 	 * @since   12.1
-	 * @covers  Joomla\String\Inflector::_setCache
+	 * @covers  Joomla\String\Inflector::setCache
 	 */
-	public function test_setCache()
+	public function testSetCache()
 	{
-		TestReflection::invoke($this->inflector, '_setCache', 'foo', 'bar');
+		TestReflection::invoke($this->inflector, 'setCache', 'foo', 'bar');
 
-		$cache = TestReflection::getValue($this->inflector, '_cache');
+		$cache = TestReflection::getValue($this->inflector, 'cache');
 
 		$this->assertThat(
 			$cache['foo'],
@@ -263,9 +263,9 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 			'Checks the cache was set.'
 		);
 
-		TestReflection::invoke($this->inflector, '_setCache', 'foo', 'car');
+		TestReflection::invoke($this->inflector, 'setCache', 'foo', 'car');
 
-		$cache = TestReflection::getValue($this->inflector, '_cache');
+		$cache = TestReflection::getValue($this->inflector, 'cache');
 
 		$this->assertThat(
 			$cache['foo'],
@@ -287,7 +287,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		// Add string.
 		$this->inflector->addCountableRule('foo');
 
-		$rules = TestReflection::getValue($this->inflector, '_rules');
+		$rules = TestReflection::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('foo', $rules['countable']),
@@ -298,7 +298,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		// Add array.
 		$this->inflector->addCountableRule(array('goo', 'car'));
 
-		$rules = TestReflection::getValue($this->inflector, '_rules');
+		$rules = TestReflection::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('car', $rules['countable']),
@@ -325,7 +325,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 			'Checks chaining.'
 		);
 
-		$rules = TestReflection::getValue($this->inflector, '_rules');
+		$rules = TestReflection::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['plural']),
@@ -352,7 +352,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 			'Checks chaining.'
 		);
 
-		$rules = TestReflection::getValue($this->inflector, '_rules');
+		$rules = TestReflection::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['singular']),
@@ -378,7 +378,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Inject an instance an test.
-		TestReflection::setValue($this->inflector, '_instance', new stdClass);
+		TestReflection::setValue($this->inflector, 'instance', new stdClass);
 
 		$this->assertThat(
 			Inflector::getInstance(),

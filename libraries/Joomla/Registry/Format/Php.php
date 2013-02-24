@@ -105,8 +105,10 @@ class Php extends Format
 			{
 				$s .= '"' . addslashes($v) . '"';
 			}
+
 			$i++;
 		}
+
 		$s .= ')';
 
 		return $s;
