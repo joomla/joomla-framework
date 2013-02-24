@@ -164,8 +164,7 @@ abstract class Driver implements DatabaseInterface
 			$fileName = $file->getFilename();
 
 			// Only load for php files.
-			// Note: DirectoryIterator::getExtension only available PHP >= 5.3.6
-			if (!$file->isFile() || substr($fileName, strrpos($fileName, '.') + 1) != 'php')
+			if (!$file->isFile() || $file->getExtension() != 'php')
 			{
 				continue;
 			}
