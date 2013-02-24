@@ -20,7 +20,7 @@ use RuntimeException;
 use Joomla\Input\Cli as InputCli;
 
 /**
- * Class to turn JCli applications into daemons.  It requires CLI and PCNTL support built into PHP.
+ * Class to turn Cli applications into daemons.  It requires CLI and PCNTL support built into PHP.
  *
  * @package     Joomla.Platform
  * @subpackage  Application
@@ -28,7 +28,7 @@ use Joomla\Input\Cli as InputCli;
  * @see         http://php.net/manual/en/features.commandline.php
  * @since       11.1
  */
-class Daemon extends Cli
+abstract class Daemon extends Cli
 {
 	/**
 	 * @var    array  The available POSIX signals to be caught by default.

@@ -52,6 +52,49 @@ abstract class Base
 	}
 
 	/**
+	 * Method to run the application routines.  Most likely you will want to instantiate a controller
+	 * and execute it, or perform some sort of task directly.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.3
+	 */
+	abstract protected function doExecute();
+
+	/**
+	 * Execute the application.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.1
+	 */
+	public function execute()
+	{
+		// @event onBeforeExecute
+
+		// Perform application routines.
+		$this->doExecute();
+
+		// @event onAfterExecute
+	}
+
+	/**
+	 * Method to load a PHP configuration class file based on convention and return the instantiated data object.  You
+	 * will extend this method in child classes to provide configuration data from whatever data source is relevant
+	 * for your specific application.
+	 *
+	 * @param   string  $file   The path and filename of the configuration file. If not provided, configuration.php
+	 *                          in JPATH_BASE will be used.
+	 * @param   string  $class  The class name to instantiate.
+	 *
+	 * @return  mixed   Either an array or object to be loaded into the configuration object.
+	 *
+	 * @since   11.1
+	 * @throws  RuntimeException
+	 */
+	abstract protected function fetchConfigurationData($file = '', $class = 'JConfig');
+
+	/**
 	 * Load an object or array into the application configuration object.
 	 *
 	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.

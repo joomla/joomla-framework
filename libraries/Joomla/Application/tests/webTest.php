@@ -847,14 +847,22 @@ class JApplicationWebTest extends TestCase
 			$this->equalTo('foo'),
 			'Tests that singleton value is returned.'
 		);
+	}
 
+	/**
+	 * Tests the JApplicationWeb::getInstance method for an expected exception
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  RuntimeException
+	 */
+	public function testGetInstanceException()
+	{
 		TestReflection::setValue('JApplicationWeb', 'instance', null);
 
-		$this->assertInstanceOf(
-			'JApplicationWeb',
-			Joomla\Application\Web::getInstance('Foo'),
-			'Tests that getInstance will instantiate a valid child class of JApplicationWeb given a non-existent type.'
-		);
+		Joomla\Application\Web::getInstance('Foo');
 	}
 
 	/**

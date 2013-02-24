@@ -69,7 +69,8 @@ class JGoogleDataPicasaAlbumTest extends PHPUnit_Framework_TestCase
 		$this->options = new JRegistry;
 		$this->http = $this->getMock('JHttp', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
 		$this->input = new JInput;
-		$this->oauth = new Client($this->options, $this->http, $this->input);
+		$this->application = new JApplicationWebInspector;
+		$this->oauth = new Client($this->options, $this->http, $this->input, $this->application);
 		$this->auth = new JGoogleAuthOauth2($this->options, $this->oauth);
 		$this->xml = new SimpleXMLElement(file_get_contents(__DIR__ . '/album.txt'));
 		$this->object = new JGoogleDataPicasaAlbum($this->xml, $this->options, $this->auth);

@@ -239,14 +239,22 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 		TestReflection::setValue('JApplicationCli', 'instance', 'foo');
 
 		$this->assertEquals('foo', JApplicationCli::getInstance('JApplicationCliInspector'), 'Tests that singleton value is returned.');
+	}
 
+	/**
+	 * Tests the JApplicationCli::getInstance method for an expected exception
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  RuntimeException
+	 */
+	public function testGetInstanceException()
+	{
 		TestReflection::setValue('JApplicationCli', 'instance', null);
 
-		$this->assertInstanceOf(
-			'JApplicationCli',
-			JApplicationCli::getInstance('Foo'),
-			'Tests that getInstance will instantiate a valid child class of JApplicationCli given a non-existent type.'
-		);
+		JApplicationCli::getInstance('Foo');
 	}
 
 	/**

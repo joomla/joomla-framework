@@ -30,7 +30,7 @@ use RuntimeException;
  * @subpackage  Application
  * @since       11.4
  */
-class Web extends Base
+abstract class Web extends Base
 {
 	/**
 	 * @var    string  Character encoding string.
@@ -148,15 +148,16 @@ class Web extends Base
 	}
 
 	/**
-	 * Returns a reference to the global JApplicationWeb object, only creating it if it doesn't already exist.
+	 * Returns a reference to the global Web object, only creating it if it doesn't already exist.
 	 *
-	 * This method must be invoked as: $web = JApplicationWeb::getInstance();
+	 * This method must be invoked as: $web = Web::getInstance();
 	 *
-	 * @param   string  $name  The name (optional) of the JApplicationWeb class to instantiate.
+	 * @param   string  $name  The name (optional) of the Web class to instantiate.
 	 *
 	 * @return  Web
 	 *
 	 * @since   11.3
+	 * @throws  RuntimeException
 	 */
 	public static function getInstance($name = null)
 	{
@@ -169,7 +170,7 @@ class Web extends Base
 			}
 			else
 			{
-				self::$instance = new static;
+				throw new RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
 			}
 		}
 
@@ -204,21 +205,6 @@ class Web extends Base
 		$this->respond();
 
 		// @event onAfterRespond
-	}
-
-	/**
-	 * Method to run the Web application routines.  Most likely you will want to instantiate a controller
-	 * and execute it, or perform some sort of action that populates a JDocument object so that output
-	 * can be rendered to the client.
-	 *
-	 * @return  void
-	 *
-	 * @codeCoverageIgnore
-	 * @since   11.3
-	 */
-	protected function doExecute()
-	{
-		// Your application routines go here.
 	}
 
 	/**
@@ -701,54 +687,6 @@ class Web extends Base
 		}
 
 		return trim($uri);
-	}
-
-	/**
-	 * Method to load a PHP configuration class file based on convention and return the instantiated data object.  You
-	 * will extend this method in child classes to provide configuration data from whatever data source is relevant
-	 * for your specific application.
-	 *
-	 * @param   string  $file   The path and filename of the configuration file. If not provided, configuration.php
-	 *                          in JPATH_BASE will be used.
-	 * @param   string  $class  The class name to instantiate.
-	 *
-	 * @return  mixed   Either an array or object to be loaded into the configuration object.
-	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
-	 */
-	protected function fetchConfigurationData($file = '', $class = 'JConfig')
-	{
-		// Instantiate variables.
-		$config = array();
-
-		if (empty($file) && defined('JPATH_BASE'))
-		{
-			$file = JPATH_BASE . '/configuration.php';
-
-			// Applications can choose not to have any configuration data
-			// by not implementing this method and not having a config file.
-			if (!file_exists($file))
-			{
-				$file = '';
-			}
-		}
-
-		if (!empty($file))
-		{
-			Loader::register($class, $file);
-
-			if (class_exists($class))
-			{
-				$config = new $class;
-			}
-			else
-			{
-				throw new RuntimeException('Configuration class does not exist.');
-			}
-		}
-
-		return $config;
 	}
 
 	/**
