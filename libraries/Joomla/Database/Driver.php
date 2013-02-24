@@ -128,14 +128,12 @@ abstract class Driver implements DatabaseInterface
 	/**
 	 * @var         integer  The database error number
 	 * @since       11.1
-	 * @deprecated  12.1
 	 */
 	protected $errorNum = 0;
 
 	/**
 	 * @var         string  The database error message
 	 * @since       11.1
-	 * @deprecated  12.1
 	 */
 	protected $errorMsg;
 
