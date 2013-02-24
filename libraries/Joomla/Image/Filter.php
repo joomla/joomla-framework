@@ -37,6 +37,7 @@ abstract class Filter
 	 *
 	 * @since   11.3
 	 * @throws  InvalidArgumentException
+	 * @throws  RuntimeException
 	 */
 	public function __construct($handle)
 	{

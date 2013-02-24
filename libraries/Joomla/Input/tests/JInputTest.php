@@ -7,8 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Input\Input;
+use Joomla\Input\Cookie;
+
 /**
- * Test class for JInput.
+ * Test class for Input.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Input
@@ -19,12 +22,12 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	/**
 	 * The test class.
 	 *
-	 * @var  JInput
+	 * @var  Input
 	 */
 	protected $class;
 
 	/**
-	 * Test the JInput::__construct method.
+	 * Test the Input::__construct method.
 	 *
 	 * @return  void
 	 *
@@ -36,7 +39,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::__get method.
+	 * Test the Input::__get method.
 	 *
 	 * @return  void
 	 *
@@ -48,7 +51,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::__get method.
+	 * Test the Input::__get method.
 	 *
 	 * @return  void
 	 *
@@ -77,12 +80,12 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::count method.
+	 * Test the Input::count method.
 	 *
 	 * @return  void
 	 *
 	 * @since   12.2
-	 * @covers  JInput::count
+	 * @covers  Input::count
 	 */
 	public function testCount()
 	{
@@ -103,7 +106,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::get method.
+	 * Test the Input::get method.
 	 *
 	 * @return  void
 	 *
@@ -135,11 +138,10 @@ class JInputTest extends PHPUnit_Framework_TestCase
 			$this->equalTo('default'),
 			'Line: ' . __LINE__ . '.'
 		);
-
 	}
 
 	/**
-	 * Test the JInput::def method.
+	 * Test the Input::def method.
 	 *
 	 * @return  void
 	 *
@@ -167,7 +169,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::set method.
+	 * Test the Input::set method.
 	 *
 	 * @return  void
 	 *
@@ -186,7 +188,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::get method.
+	 * Test the Input::get method.
 	 *
 	 * @return  void
 	 *
@@ -201,7 +203,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 			'var2' => 34,
 			'var3' => array('test')
 		);
-		$input = new JInput(
+		$input = new Input(
 			$array,
 			array('filter' => $filterMock)
 		);
@@ -234,7 +236,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::get method using a nested data set.
+	 * Test the Input::get method using a nested data set.
 	 *
 	 * @return  void
 	 *
@@ -249,7 +251,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 			'var3' => array('var2' => 'test'),
 			'var4' => array('var1' => array('var2' => 'test'))
 		);
-		$input = new JInput(
+		$input = new Input(
 			$array,
 			array('filter' => $filterMock)
 		);
@@ -284,7 +286,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::getArray method without specified variables.
+	 * Test the Input::getArray method without specified variables.
 	 *
 	 * @return  void
 	 *
@@ -301,13 +303,13 @@ class JInputTest extends PHPUnit_Framework_TestCase
 			'var7' => null
 		);
 
-		$input = new JInput($array);
+		$input = new Input($array);
 
 		$this->assertEquals($input->getArray(), $array);
 	}
 
 	/**
-	 * Test the JInput::get method.
+	 * Test the Input::get method.
 	 *
 	 * @return  void
 	 *
@@ -317,7 +319,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	{
 		// Check the object type.
 		$this->assertThat(
-			$this->class->cookie instanceof JInputCookie,
+			$this->class->cookie instanceof Cookie,
 			$this->isTrue(),
 			'Line: ' . __LINE__ . '.'
 		);
@@ -333,7 +335,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::getMethod method.
+	 * Test the Input::getMethod method.
 	 *
 	 * @return  void
 	 *
@@ -345,7 +347,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::serialize method.
+	 * Test the Input::serialize method.
 	 *
 	 * @return  void
 	 *
@@ -368,7 +370,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JInput::unserialize method.
+	 * Test the Input::unserialize method.
 	 *
 	 * @return  void
 	 *
@@ -384,7 +386,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 */
 
 	/**
-	 * Test the JInput::loadAllInputs method.
+	 * Test the Input::loadAllInputs method.
 	 *
 	 * @return  void
 	 *

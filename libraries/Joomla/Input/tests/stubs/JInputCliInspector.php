@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Input\Cli;
+
 /**
  * Inspector classes for the JInputCLI library.
  *
@@ -14,7 +16,7 @@
  * @subpackage  Input
  * @since       11.1
  */
-class JInputCliInspector extends JInputCLI
+class JInputCliInspector extends Cli
 {
 	public $options;
 
