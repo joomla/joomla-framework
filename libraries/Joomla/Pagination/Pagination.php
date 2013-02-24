@@ -144,6 +144,7 @@ class Pagination
 		{
 			$this->pagesStart = 1;
 		}
+
 		if ($this->pagesStart + $displayedPages > $this->pagesTotal)
 		{
 			$this->pagesStop = $this->pagesTotal;
@@ -242,8 +243,9 @@ class Pagination
 
 		if (!is_object($data))
 		{
-			$data = $this->_buildDataObject();
+			$data = $this->buildDataObject();
 		}
+
 		return $data;
 	}
 
@@ -262,6 +264,7 @@ class Pagination
 		{
 			$html .= Text::sprintf('JLIB_HTML_PAGE_CURRENT_OF_TOTAL', $this->pagesCurrent, $this->pagesTotal);
 		}
+
 		return $html;
 	}
 
@@ -313,7 +316,7 @@ class Pagination
 		$app = Factory::getApplication();
 
 		// Build the page navigation list.
-		$data = $this->_buildDataObject();
+		$data = $this->buildDataObject();
 
 		$list = array();
 		$list['prefix'] = $this->prefix;
@@ -331,6 +334,7 @@ class Pagination
 			{
 				$itemOverride = true;
 			}
+
 			if (function_exists('pagination_list_render'))
 			{
 				$listOverride = true;
@@ -341,33 +345,34 @@ class Pagination
 		if ($data->all->base !== null)
 		{
 			$list['all']['active'] = true;
-			$list['all']['data'] = ($itemOverride) ? pagination_item_active($data->all) : $this->_item_active($data->all);
+			$list['all']['data'] = ($itemOverride) ? pagination_item_active($data->all) : $this->item_active($data->all);
 		}
 		else
 		{
 			$list['all']['active'] = false;
-			$list['all']['data'] = ($itemOverride) ? pagination_item_inactive($data->all) : $this->_item_inactive($data->all);
+			$list['all']['data'] = ($itemOverride) ? pagination_item_inactive($data->all) : $this->item_inactive($data->all);
 		}
 
 		if ($data->start->base !== null)
 		{
 			$list['start']['active'] = true;
-			$list['start']['data'] = ($itemOverride) ? pagination_item_active($data->start) : $this->_item_active($data->start);
+			$list['start']['data'] = ($itemOverride) ? pagination_item_active($data->start) : $this->item_active($data->start);
 		}
 		else
 		{
 			$list['start']['active'] = false;
-			$list['start']['data'] = ($itemOverride) ? pagination_item_inactive($data->start) : $this->_item_inactive($data->start);
+			$list['start']['data'] = ($itemOverride) ? pagination_item_inactive($data->start) : $this->item_inactive($data->start);
 		}
+
 		if ($data->previous->base !== null)
 		{
 			$list['previous']['active'] = true;
-			$list['previous']['data'] = ($itemOverride) ? pagination_item_active($data->previous) : $this->_item_active($data->previous);
+			$list['previous']['data'] = ($itemOverride) ? pagination_item_active($data->previous) : $this->item_active($data->previous);
 		}
 		else
 		{
 			$list['previous']['active'] = false;
-			$list['previous']['data'] = ($itemOverride) ? pagination_item_inactive($data->previous) : $this->_item_inactive($data->previous);
+			$list['previous']['data'] = ($itemOverride) ? pagination_item_inactive($data->previous) : $this->item_inactive($data->previous);
 		}
 
 		// Make sure it exists
@@ -378,40 +383,40 @@ class Pagination
 			if ($page->base !== null)
 			{
 				$list['pages'][$i]['active'] = true;
-				$list['pages'][$i]['data'] = ($itemOverride) ? pagination_item_active($page) : $this->_item_active($page);
+				$list['pages'][$i]['data'] = ($itemOverride) ? pagination_item_active($page) : $this->item_active($page);
 			}
 			else
 			{
 				$list['pages'][$i]['active'] = false;
-				$list['pages'][$i]['data'] = ($itemOverride) ? pagination_item_inactive($page) : $this->_item_inactive($page);
+				$list['pages'][$i]['data'] = ($itemOverride) ? pagination_item_inactive($page) : $this->item_inactive($page);
 			}
 		}
 
 		if ($data->next->base !== null)
 		{
 			$list['next']['active'] = true;
-			$list['next']['data'] = ($itemOverride) ? pagination_item_active($data->next) : $this->_item_active($data->next);
+			$list['next']['data'] = ($itemOverride) ? pagination_item_active($data->next) : $this->item_active($data->next);
 		}
 		else
 		{
 			$list['next']['active'] = false;
-			$list['next']['data'] = ($itemOverride) ? pagination_item_inactive($data->next) : $this->_item_inactive($data->next);
+			$list['next']['data'] = ($itemOverride) ? pagination_item_inactive($data->next) : $this->item_inactive($data->next);
 		}
 
 		if ($data->end->base !== null)
 		{
 			$list['end']['active'] = true;
-			$list['end']['data'] = ($itemOverride) ? pagination_item_active($data->end) : $this->_item_active($data->end);
+			$list['end']['data'] = ($itemOverride) ? pagination_item_active($data->end) : $this->item_active($data->end);
 		}
 		else
 		{
 			$list['end']['active'] = false;
-			$list['end']['data'] = ($itemOverride) ? pagination_item_inactive($data->end) : $this->_item_inactive($data->end);
+			$list['end']['data'] = ($itemOverride) ? pagination_item_inactive($data->end) : $this->item_inactive($data->end);
 		}
 
 		if ($this->total > $this->limit)
 		{
-			return ($listOverride) ? pagination_list_render($list) : $this->_list_render($list);
+			return ($listOverride) ? pagination_list_render($list) : $this->list_render($list);
 		}
 		else
 		{
@@ -431,13 +436,13 @@ class Pagination
 		$app = Factory::getApplication();
 
 		$list = array();
-		$list['prefix'] = $this->prefix;
-		$list['limit'] = $this->limit;
-		$list['limitstart'] = $this->limitstart;
-		$list['total'] = $this->total;
-		$list['limitfield'] = $this->getLimitBox();
+		$list['prefix']       = $this->prefix;
+		$list['limit']        = $this->limit;
+		$list['limitstart']   = $this->limitstart;
+		$list['total']        = $this->total;
+		$list['limitfield']   = $this->getLimitBox();
 		$list['pagescounter'] = $this->getPagesCounter();
-		$list['pageslinks'] = $this->getPagesLinks();
+		$list['pageslinks']   = $this->getPagesLinks();
 
 		$chromePath = JPATH_THEMES . '/' . $app->getTemplate() . '/html/pagination.php';
 
@@ -450,7 +455,8 @@ class Pagination
 				return pagination_list_footer($list);
 			}
 		}
-		return $this->_list_footer($list);
+
+		return $this->list_footer($list);
 	}
 
 	/**
@@ -470,6 +476,7 @@ class Pagination
 		{
 			$limits[] = Html::_('select.option', "$i");
 		}
+
 		$limits[] = Html::_('select.option', '50', Text::_('J50'));
 		$limits[] = Html::_('select.option', '100', Text::_('J100'));
 		$limits[] = Html::_('select.option', '0', Text::_('JALL'));
@@ -501,6 +508,7 @@ class Pagination
 				$selected
 			);
 		}
+
 		return $html;
 	}
 
@@ -566,7 +574,7 @@ class Pagination
 	 *
 	 * @since   11.1
 	 */
-	protected function _list_footer($list)
+	protected function list_footer($list)
 	{
 		$html = "<div class=\"list-footer\">\n";
 
@@ -589,7 +597,7 @@ class Pagination
 	 *
 	 * @since   11.1
 	 */
-	protected function _list_render($list)
+	protected function list_render($list)
 	{
 		// Reverse output rendering for right-to-left display.
 		$html = '<ul>';
@@ -600,6 +608,7 @@ class Pagination
 		{
 			$html .= '<li>' . $page['data'] . '</li>';
 		}
+
 		$html .= '<li class="pagination-next">' . $list['next']['data'] . '</li>';
 		$html .= '<li class="pagination-end">' . $list['end']['data'] . '</li>';
 		$html .= '</ul>';
@@ -616,7 +625,7 @@ class Pagination
 	 *
 	 * @since    11.1
 	 */
-	protected function _item_active(Object $item)
+	protected function item_active(Object $item)
 	{
 		$app = Factory::getApplication();
 
@@ -648,7 +657,7 @@ class Pagination
 	 *
 	 * @since   11.1
 	 */
-	protected function _item_inactive(Object $item)
+	protected function item_inactive(Object $item)
 	{
 		$app = Factory::getApplication();
 
@@ -669,7 +678,7 @@ class Pagination
 	 *
 	 * @since   11.1
 	 */
-	protected function _buildDataObject()
+	protected function buildDataObject()
 	{
 		$data = new stdClass;
 
@@ -693,15 +702,12 @@ class Pagination
 		}
 
 		// Set the start and previous data objects.
-		$data->start = new Object(Text::_('JLIB_HTML_START'), $this->prefix);
+		$data->start    = new Object(Text::_('JLIB_HTML_START'), $this->prefix);
 		$data->previous = new Object(Text::_('JPREV'), $this->prefix);
 
 		if ($this->pagesCurrent > 1)
 		{
 			$page = ($this->pagesCurrent - 2) * $this->limit;
-
-			// Set the empty for removal from route
-			// @todo remove code: $page = $page == 0 ? '' : $page;
 
 			$data->start->base = '0';
 			$data->start->link = Route::_($params . '&' . $this->prefix . 'limitstart=0');
@@ -711,7 +717,7 @@ class Pagination
 
 		// Set the next and end data objects.
 		$data->next = new Object(Text::_('JNEXT'), $this->prefix);
-		$data->end = new Object(Text::_('JLIB_HTML_END'), $this->prefix);
+		$data->end  = new Object(Text::_('JLIB_HTML_END'), $this->prefix);
 
 		if ($this->pagesCurrent < $this->pagesTotal)
 		{
@@ -743,6 +749,7 @@ class Pagination
 				$data->pages[$i]->active = true;
 			}
 		}
+
 		return $data;
 	}
 }
