@@ -69,7 +69,7 @@ class JDatabaseSQLSrvTest extends TestCaseDatabase
 		{
 			$this->markTestSkipped('There is no SQL Server test config file present.');
 		}
-		$this->object = JDatabase::getInstance(
+		$this->object = JDatabaseDriver::getInstance(
 			array(
 				'driver' => $config->dbtype,
 				'database' => $config->db,

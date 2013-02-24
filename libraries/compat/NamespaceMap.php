@@ -45,7 +45,6 @@ return array(
 	'JData' => 'Joomla\\Data\\Data',
 	'JDataDumpable' => 'Joomla\\Data\\Dumpable',
 	'JDataSet' => 'Joomla\\Data\\Set',
-	'JDatabase' => 'Joomla\\Database\\Database',
 	'JDatabaseInterface' => 'Joomla\\Database\\DatabaseInterface',
 	'JDatabaseDriver' => 'Joomla\\Database\\Driver',
 	'JDatabaseDriverMysql' => 'Joomla\\Database\\Driver\\Mysql',

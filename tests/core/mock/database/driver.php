@@ -51,8 +51,6 @@ class TestMockDatabaseDriver
 			'getCollation',
 			'getConnectors',
 			'getDateFormat',
-			'getErrorMsg',
-			'getErrorNum',
 			'getInstance',
 			'getLog',
 			'getNullDate',

@@ -241,32 +241,6 @@ class JDatabaseDriverTest extends TestCaseDatabase
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @todo Implement testGetErrorNum().
-	 *
-	 * @return void
-	 */
-	public function testGetErrorNum()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testGetErrorMsg().
-	 *
-	 * @return void
-	 */
-	public function testGetErrorMsg()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
 	 * Tests the JDatabaseDriver::getLog method.
 	 *
 	 * @return  void
@@ -391,19 +365,6 @@ class JDatabaseDriverTest extends TestCaseDatabase
 			$this->equalTo('SELECT * FROM &dbtest'),
 			'replacePrefix method should return the query string with the #__ prefix replaced by the actual table prefix.'
 		);
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testStderr().
-	 *
-	 * @return void
-	 */
-	public function testStderr()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('Deprecated method');
 	}
 
 	/**

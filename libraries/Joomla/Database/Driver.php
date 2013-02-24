@@ -25,7 +25,7 @@ use DirectoryIterator;
  * @method      string  q()   q($text, $escape = true)  Alias for quote method
  * @method      string  qn()  qn($name, $as = null)     Alias for quoteName method
  */
-abstract class Driver extends Database implements DatabaseInterface
+abstract class Driver implements DatabaseInterface
 {
 	/**
 	 * The name of the database.
