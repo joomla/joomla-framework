@@ -25,13 +25,17 @@ use stdClass;
 class Keychain extends Registry
 {
 	/**
-	 * @var    string  Method to use for encryption.
+	 * Method to use for encryption.
+	 *
+	 * @var    string
 	 * @since  12.3
 	 */
 	public $method = 'aes-128-cbc';
 
 	/**
-	 * @var    string  Initialisation vector for encryption method.
+	 * Initialisation vector for encryption method.
+	 *
+	 * @var    string
 	 * @since  12.3
 	 */
 	public $iv = "1234567890123456";
@@ -92,11 +96,12 @@ class Keychain extends Registry
 			// Traverse the registry to find the correct node for the result.
 			for ($i = 0, $n = count($nodes) - 1; $i < $n; $i++)
 			{
-			if (!isset($node->$nodes[$i]) && ($i != $n))
-			{
-			$node->$nodes[$i] = new stdClass;
-			}
-			$node = $node->$nodes[$i];
+				if (!isset($node->$nodes[$i]) && ($i != $n))
+				{
+					$node->$nodes[$i] = new stdClass;
+				}
+
+				$node = $node->$nodes[$i];
 			}
 
 			// Get the old value if exists so we can return it
@@ -125,6 +130,7 @@ class Keychain extends Registry
 		{
 			throw new RuntimeException('Attempting to load non-existent keychain file');
 		}
+
 		$passphrase = $this->getPassphraseFromFile($passphraseFile, $publicKeyFile);
 
 		$cleartext = openssl_decrypt(file_get_contents($keychainFile), $this->method, $passphrase, true, $this->iv);
@@ -181,6 +187,7 @@ class Keychain extends Registry
 		{
 			throw new RuntimeException('Missing public key file');
 		}
+
 		$publicKey = openssl_get_publickey(file_get_contents($publicKeyFile));
 
 		if (!$publicKey)
@@ -192,12 +199,14 @@ class Keychain extends Registry
 		{
 			throw new RuntimeException('Missing passphrase file');
 		}
+
 		$passphrase = '';
 
 		if (!openssl_public_decrypt(file_get_contents($passphraseFile), $passphrase, $publicKey))
 		{
 			throw new RuntimeException('Failed to decrypt passphrase file');
 		}
+
 		return $passphrase;
 	}
 }

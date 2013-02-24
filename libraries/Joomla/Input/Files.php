@@ -109,6 +109,7 @@ class Files extends Input
 			{
 				$result[$k] = $this->decodeData(array($data[0][$k], $data[1][$k], $data[2][$k], $data[3][$k], $data[4][$k]));
 			}
+
 			return $result;
 		}
 

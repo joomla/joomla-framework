@@ -39,6 +39,7 @@ class Factory
 		{
 			$options = new Registry;
 		}
+
 		return new Http($options, self::getAvailableDriver($options, $adapters));
 	}
 
@@ -63,11 +64,13 @@ class Factory
 			settype($default, 'array');
 			$availableAdapters = $default;
 		}
+
 		// Check if there is at least one available http transport adapter
 		if (!count($availableAdapters))
 		{
 			return false;
 		}
+
 		foreach ($availableAdapters as $adapter)
 		{
 			$class = '\\Joomla\\Http\\Transport\\' . ucfirst($adapter);
@@ -77,6 +80,7 @@ class Factory
 				return new $class($options);
 			}
 		}
+
 		return false;
 	}
 

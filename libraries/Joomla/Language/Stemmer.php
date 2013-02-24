@@ -31,7 +31,9 @@ abstract class Stemmer
 	protected $cache = array();
 
 	/**
-	 * @var    array  JLanguageStemmer instances.
+	 * JLanguageStemmer instances.
+	 *
+	 * @var    array
 	 * @since  12.1
 	 */
 	protected static $instances = array();

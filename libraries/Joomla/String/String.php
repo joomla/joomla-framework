@@ -675,6 +675,7 @@ abstract class String
 			{
 				$newDelimiter = $delimiter;
 			}
+
 			return implode($newDelimiter, array_map('utf8_ucfirst', explode($delimiter, $str)));
 		}
 	}
@@ -717,10 +718,11 @@ abstract class String
 			switch (ICONV_IMPL)
 			{
 				case 'glibc':
-				return @iconv($from_encoding, $to_encoding . '//TRANSLIT,IGNORE', $source);
+					return @iconv($from_encoding, $to_encoding . '//TRANSLIT,IGNORE', $source);
+
 				case 'libiconv':
 				default:
-				return iconv($from_encoding, $to_encoding . '//IGNORE//TRANSLIT', $source);
+					return iconv($from_encoding, $to_encoding . '//IGNORE//TRANSLIT', $source);
 			}
 		}
 
@@ -818,7 +820,8 @@ abstract class String
 				}
 				else
 				{
-					/* Current octet is neither in the US-ASCII range nor a legal first
+					/*
+					 * Current octet is neither in the US-ASCII range nor a legal first
 					 * octet of a multi-octet sequence.
 					 */
 					return false;
@@ -870,6 +873,7 @@ abstract class String
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -941,6 +945,7 @@ abstract class String
 				$result[$key] = urldecode(str_replace($replacements, $entities, $value));
 			}
 		}
+
 		return $result;
 	}
 }

@@ -184,6 +184,7 @@ class Helper
 				}
 			}
 		}
+
 		return $languages[$key];
 	}
 }

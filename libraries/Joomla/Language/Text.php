@@ -57,10 +57,12 @@ class Text
 			{
 				$interpretBackSlashes = (boolean) $jsSafe['interpretBackSlashes'];
 			}
+
 			if (array_key_exists('script', $jsSafe))
 			{
 				$script = (boolean) $jsSafe['script'];
 			}
+
 			if (array_key_exists('jsSafe', $jsSafe))
 			{
 				$jsSafe = (boolean) $jsSafe['jsSafe'];
@@ -70,6 +72,7 @@ class Text
 				$jsSafe = false;
 			}
 		}
+
 		if ($script)
 		{
 			self::$strings[$string] = $lang->_($string, $jsSafe, $interpretBackSlashes);
@@ -163,11 +166,13 @@ class Text
 					break;
 				}
 			}
+
 			if (!$found)
 			{
 				// Not found so revert to the original.
 				$key = $string;
 			}
+
 			if (is_array($args[$count - 1]))
 			{
 				$args[0] = $lang->_(
@@ -186,11 +191,11 @@ class Text
 			{
 				$args[0] = $lang->_($key);
 			}
+
 			return call_user_func_array('sprintf', $args);
 		}
 		elseif ($count > 0)
 		{
-
 			// Default to the normal sprintf handling.
 			$args[0] = $lang->_($string);
 
@@ -247,8 +252,10 @@ class Text
 			{
 				$args[0] = $lang->_($string);
 			}
+
 			return call_user_func_array('sprintf', $args);
 		}
+
 		return '';
 	}
 
@@ -282,8 +289,10 @@ class Text
 			{
 				$args[0] = $lang->_($string);
 			}
+
 			return call_user_func_array('printf', $args);
 		}
+
 		return '';
 	}
 

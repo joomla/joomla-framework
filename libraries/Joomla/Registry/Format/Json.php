@@ -62,6 +62,7 @@ class Json extends Format
 		{
 			$obj = json_decode($data);
 		}
+
 		return $obj;
 	}
 }

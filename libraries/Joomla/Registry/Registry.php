@@ -33,7 +33,9 @@ class Registry implements JsonSerializable
 	protected $data;
 
 	/**
-	 * @var    array  Registry instances container.
+	 * Registry instances container.
+	 *
+	 * @var    array
 	 * @since  11.3
 	 */
 	protected static $instances = array();
@@ -174,6 +176,7 @@ class Registry implements JsonSerializable
 		{
 			return (isset($this->data->$path) && $this->data->$path !== null && $this->data->$path !== '') ? $this->data->$path : $default;
 		}
+
 		// Explode the registry path into an array
 		$nodes = explode('.', $path);
 
@@ -195,6 +198,7 @@ class Registry implements JsonSerializable
 				break;
 			}
 		}
+
 		if ($found && $node !== null && $node !== '')
 		{
 			$result = $node;
@@ -352,6 +356,7 @@ class Registry implements JsonSerializable
 				{
 					$node->$nodes[$i] = new stdClass;
 				}
+
 				$node = $node->$nodes[$i];
 			}
 

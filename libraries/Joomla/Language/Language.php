@@ -18,24 +18,24 @@ use SplFileObject;
 use RuntimeException;
 
 /**
+ * Allows for quoting in language .ini files.
+ */
+define('_QQ_', '"');
+
+/**
  * Languages/translation handler class
  *
  * @package     Joomla.Platform
  * @subpackage  Language
  * @since       11.1
  */
-
-/**
- * Allows for quoting in language .ini files.
- */
-define('_QQ_', '"');
-
 class Language
 {
 	protected static $languages = array();
 
 	/**
 	 * Debug language, If true, highlights if string isn't found.
+	 *
 	 * @var    boolean
 	 * @since  11.1
 	 */
@@ -43,6 +43,7 @@ class Language
 
 	/**
 	 * The default language, used when a language file in the requested language does not exist.
+	 *
 	 * @var    string
 	 * @since  11.1
 	 */
@@ -50,6 +51,7 @@ class Language
 
 	/**
 	 * An array of orphaned text.
+	 *
 	 * @var    array
 	 * @since  11.1
 	 */
@@ -57,6 +59,7 @@ class Language
 
 	/**
 	 * Array holding the language metadata.
+	 *
 	 * @var    array
 	 * @since  11.1
 	 */
@@ -64,6 +67,7 @@ class Language
 
 	/**
 	 * Array holding the language locale or boolean null if none.
+	 *
 	 * @var    array|boolean
 	 * @since  11.1
 	 */
@@ -71,6 +75,7 @@ class Language
 
 	/**
 	 * The language to load.
+	 *
 	 * @var    string
 	 * @since  11.1
 	 */
@@ -78,6 +83,7 @@ class Language
 
 	/**
 	 * A nested array of language files that have been loaded
+	 *
 	 * @var    array
 	 * @since  11.1
 	 */
@@ -85,6 +91,7 @@ class Language
 
 	/**
 	 * List of language files that are in error state
+	 *
 	 * @var    array
 	 * @since  11.1
 	 */
@@ -92,6 +99,7 @@ class Language
 
 	/**
 	 * Translations
+	 *
 	 * @var    array
 	 * @since  11.1
 	 */
@@ -99,6 +107,7 @@ class Language
 
 	/**
 	 * An array of used text, used during debugging.
+	 *
 	 * @var    array
 	 * @since  11.1
 	 */
@@ -106,6 +115,7 @@ class Language
 
 	/**
 	 * Counter for number of loads.
+	 *
 	 * @var    integer
 	 * @since  11.1
 	 */
@@ -113,6 +123,7 @@ class Language
 
 	/**
 	 * An array used to store overrides.
+	 *
 	 * @var    array
 	 * @since  11.1
 	 */
@@ -120,6 +131,7 @@ class Language
 
 	/**
 	 * Name of the transliterator function for this language.
+	 *
 	 * @var    string
 	 * @since  11.1
 	 */
@@ -127,6 +139,7 @@ class Language
 
 	/**
 	 * Name of the pluralSuffixesCallback function for this language.
+	 *
 	 * @var    callable
 	 * @since  11.1
 	 */
@@ -134,6 +147,7 @@ class Language
 
 	/**
 	 * Name of the ignoredSearchWordsCallback function for this language.
+	 *
 	 * @var    callable
 	 * @since  11.1
 	 */
@@ -141,6 +155,7 @@ class Language
 
 	/**
 	 * Name of the lowerLimitSearchWordCallback function for this language.
+	 *
 	 * @var    callable
 	 * @since  11.1
 	 */
@@ -148,6 +163,7 @@ class Language
 
 	/**
 	 * Name of the uppperLimitSearchWordCallback function for this language
+	 *
 	 * @var    callable
 	 * @since  11.1
 	 */
@@ -155,6 +171,7 @@ class Language
 
 	/**
 	 * Name of the searchDisplayedCharactersNumberCallback function for this language.
+	 *
 	 * @var    callable
 	 * @since  11.1
 	 */
@@ -190,6 +207,7 @@ class Language
 				ksort($contents, SORT_STRING);
 				$this->override = $contents;
 			}
+
 			unset($contents);
 		}
 
@@ -220,6 +238,7 @@ class Language
 			{
 				require_once $path;
 			}
+
 			$path = next($paths);
 		}
 
@@ -1288,6 +1307,7 @@ class Language
 					$lang = str_replace('.xml', '', $fileName);
 					$langs[$lang] = $metadata;
 				}
+
 				$languages = array_merge($languages, $langs);
 			}
 			catch (RuntimeException $e)

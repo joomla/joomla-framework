@@ -46,6 +46,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 		// Clean up files
 		@unlink(__DIR__ . '/data/web-keychain.dat');
 		@unlink(__DIR__ . '/data/web-passphrase.dat');
+
 		parent::tearDownAfterClass();
 	}
 

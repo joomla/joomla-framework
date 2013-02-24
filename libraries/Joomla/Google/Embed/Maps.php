@@ -28,9 +28,8 @@ use UnexpectedValueException;
  */
 class Maps extends Embed
 {
-
 	/**
-	 * @var    JHttp  The HTTP client object to use in sending HTTP requests.
+	 * @var    Http  The HTTP client object to use in sending HTTP requests.
 	 * @since  12.3
 	 */
 	protected $http;
@@ -38,9 +37,9 @@ class Maps extends Embed
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Google options object
-	 * @param   JURI       $uri      URL of the page being rendered
-	 * @param   JHttp      $http     Http client for geocoding requests
+	 * @param   Registry  $options  Google options object
+	 * @param   Uri       $uri      URL of the page being rendered
+	 * @param   Http      $http     Http client for geocoding requests
 	 *
 	 * @since   12.3
 	 */
@@ -67,7 +66,7 @@ class Maps extends Embed
 	 *
 	 * @param   string  $key  The Google Maps API key
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -95,7 +94,7 @@ class Maps extends Embed
 	 *
 	 * @param   string  $id  The ID
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -123,7 +122,7 @@ class Maps extends Embed
 	 *
 	 * @param   string  $class  The class
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -151,7 +150,7 @@ class Maps extends Embed
 	 *
 	 * @param   string  $style  The style
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -179,7 +178,7 @@ class Maps extends Embed
 	 *
 	 * @param   string  $type  Valid types are ROADMAP, SATELLITE, HYBRID, and TERRAIN
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -207,7 +206,7 @@ class Maps extends Embed
 	 *
 	 * @param   array  $options  Additional map options
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -235,7 +234,7 @@ class Maps extends Embed
 	 *
 	 * @param   array  $script  Additional javascript
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -249,7 +248,7 @@ class Maps extends Embed
 	/**
 	 * Method to get the zoom
 	 *
-	 * @return  int  The zoom level
+	 * @return  integer  The zoom level
 	 *
 	 * @since   12.3
 	 */
@@ -261,9 +260,9 @@ class Maps extends Embed
 	/**
 	 * Method to set the map zoom
 	 *
-	 * @param   int  $zoom  Zoom level (0 is whole world)
+	 * @param   integer  $zoom  Zoom level (0 is whole world)
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -293,7 +292,7 @@ class Maps extends Embed
 	 * @param   mixed  $title          Title of marker or false for no marker
 	 * @param   array  $markeroptions  Options for marker
 	 *
-	 * @return  JGoogleEmbedMaps  The latitude/longitude of the center or false on failure
+	 * @return  Maps  The latitude/longitude of the center or false on failure
 	 *
 	 * @since   12.3
 	 */
@@ -307,6 +306,7 @@ class Maps extends Embed
 			{
 				return false;
 			}
+
 			$location = $marker['loc'];
 		}
 		elseif (is_string($location))
@@ -386,11 +386,12 @@ class Maps extends Embed
 	/**
 	 * Delete a marker from the map
 	 *
-	 * @param   int  $index  Index of marker to delete (defaults to last added marker)
+	 * @param   integer  $index  Index of marker to delete (defaults to last added marker)
 	 *
 	 * @return  array The latitude/longitude of the deleted marker
 	 *
 	 * @since   12.3
+	 * @throws  OutOfBoundsException
 	 */
 	public function deleteMarker($index = null)
 	{
@@ -429,7 +430,7 @@ class Maps extends Embed
 	/**
 	 * Load javascript asynchronously
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -443,7 +444,7 @@ class Maps extends Embed
 	/**
 	 * Load javascript synchronously
 	 *
-	 * @return  JGoogleEmbedAMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -471,7 +472,7 @@ class Maps extends Embed
 	 *
 	 * @param   string  $callback  The callback function name
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -497,7 +498,7 @@ class Maps extends Embed
 	/**
 	 * Require access to sensor data
 	 *
-	 * @return  JGoogleEmbedMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -511,7 +512,7 @@ class Maps extends Embed
 	/**
 	 * Don't require access to sensor data
 	 *
-	 * @return  JGoogleEmbedAMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -539,7 +540,7 @@ class Maps extends Embed
 	 *
 	 * @param   string  $type  The method to add the callback (options are onload, jquery, mootools, and false)
 	 *
-	 * @return  JGoogleEmbedAMaps  The object for method chaining
+	 * @return  Maps  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -556,6 +557,7 @@ class Maps extends Embed
 	 * @return  string  Javascript code
 	 *
 	 * @since   12.3
+	 * @throws  UnexpectedValueException
 	 */
 	public function getHeader()
 	{
@@ -626,16 +628,16 @@ class Maps extends Embed
 		switch ($this->getAutoload())
 		{
 			case 'onload':
-			$output .= "window.onload={$onload};";
-			break;
+				$output .= "window.onload={$onload};";
+				break;
 
 			case 'jquery':
-			$output .= "$(document).ready({$onload});";
-			break;
+				$output .= "$(document).ready({$onload});";
+				break;
 
 			case 'mootools':
-			$output .= "window.addEvent('domready',{$onload});";
-			break;
+				$output .= "window.addEvent('domready',{$onload});";
+				break;
 		}
 
 		$output .= '</script>';
@@ -681,6 +683,7 @@ class Maps extends Embed
 	 * @return  array  An array containing Google's geocode data
 	 *
 	 * @since   12.3
+	 * @throws  RuntimeException
 	 */
 	public function geocodeAddress($address)
 	{
@@ -698,6 +701,7 @@ class Maps extends Embed
 		{
 			throw new RuntimeException('Invalid json received geocoding address: ' . $response->body . '.');
 		}
+
 		if ($data['status'] != 'OK')
 		{
 			return null;

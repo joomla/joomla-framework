@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Input\Input;
+
 /**
  * Inspector class for the JInput library.
  *
@@ -14,7 +16,7 @@
  * @subpackage  Input
  * @since       11.1
  */
-class JInputInspector extends JInput
+class JInputInspector extends Input
 {
 	public $options;
 
@@ -25,12 +27,12 @@ class JInputInspector extends JInput
 	public $inputs;
 
 	public static $registered;
+
 	/**
 	 * Test...
 	 *
 	 * @return void
 	 */
-
 	public static function register()
 	{
 		return parent::register();

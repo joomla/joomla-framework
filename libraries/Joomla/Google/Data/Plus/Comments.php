@@ -20,17 +20,17 @@ use Joomla\Registry\Registry;
  *
  * @package     Joomla.Platform
  * @subpackage  Google
- * @since       1234
+ * @since       12.3
  */
 class Comments extends Data
 {
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry    $options  Google options object
-	 * @param   JGoogleAuth  $auth     Google data http client object
+	 * @param   Registry  $options  Google options object
+	 * @param   Auth      $auth     Google data http client object
 	 *
-	 * @since   1234
+	 * @since   12.3
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -55,7 +55,7 @@ class Comments extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   1234
+	 * @since   12.3
 	 */
 	public function listComments($activityId, $fields = null, $max = 20, $order = null, $token = null, $alt = null)
 	{
@@ -115,7 +115,7 @@ class Comments extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   1234
+	 * @since   12.3
 	 */
 	public function getComment($id, $fields = null)
 	{

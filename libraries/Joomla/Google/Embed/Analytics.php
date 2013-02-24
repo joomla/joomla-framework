@@ -40,7 +40,7 @@ class Analytics extends Embed
 	 *
 	 * @param   string  $code  The Google Analytics tracking code
 	 *
-	 * @return  JGoogleEmbedAnalytics  The object for method chaining
+	 * @return  Analytics  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -66,7 +66,7 @@ class Analytics extends Embed
 	/**
 	 * Load javascript asynchronously
 	 *
-	 * @return  JGoogleEmbedAnalytics  The object for method chaining
+	 * @return  Analytics  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -80,7 +80,7 @@ class Analytics extends Embed
 	/**
 	 * Load javascript synchronously
 	 *
-	 * @return  JGoogleEmbedAnalytics  The object for method chaining
+	 * @return  Analytics  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -127,7 +127,7 @@ class Analytics extends Embed
 	/**
 	 * Delete a call from the stack
 	 *
-	 * @param   int  $index  Index of call to delete (defaults to last added call)
+	 * @param   integer  $index  Index of call to delete (defaults to last added call)
 	 *
 	 * @return  array  The deleted call
 	 *
@@ -183,10 +183,10 @@ class Analytics extends Embed
 	/**
 	 * Add a custom variable to the analytics
 	 *
-	 * @param   int     $slot   The slot to store the variable in (1-5)
-	 * @param   string  $name   The variable name
-	 * @param   string  $value  The variable value
-	 * @param   int     $scope  The scope of the variable (1: visitor level, 2: session level, 3: page level)
+	 * @param   integer  $slot   The slot to store the variable in (1-5)
+	 * @param   string   $name   The variable name
+	 * @param   string   $value  The variable value
+	 * @param   integer  $scope  The scope of the variable (1: visitor level, 2: session level, 3: page level)
 	 *
 	 * @return  array  The added call
 	 *
@@ -200,10 +200,10 @@ class Analytics extends Embed
 	/**
 	 * Get the code to create a custom analytics variable
 	 *
-	 * @param   int     $slot   The slot to store the variable in (1-5)
-	 * @param   string  $name   The variable name
-	 * @param   string  $value  The variable value
-	 * @param   int     $scope  The scope of the variable (1: visitor level, 2: session level, 3: page level)
+	 * @param   integer  $slot   The slot to store the variable in (1-5)
+	 * @param   string   $name   The variable name
+	 * @param   string   $value  The variable value
+	 * @param   integer  $scope  The scope of the variable (1: visitor level, 2: session level, 3: page level)
 	 *
 	 * @return  string  The created call
 	 *
@@ -256,6 +256,7 @@ class Analytics extends Embed
 	 * @return  string  Javascript code
 	 *
 	 * @since   12.3
+	 * @throws  UnexpectedValueException
 	 */
 	public function getHeader()
 	{
@@ -293,6 +294,7 @@ class Analytics extends Embed
 	 * @return  null
 	 *
 	 * @since   12.3
+	 * @throws  UnexpectedValueException
 	 */
 	public function getBody()
 	{

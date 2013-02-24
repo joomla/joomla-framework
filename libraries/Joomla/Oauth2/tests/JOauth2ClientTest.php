@@ -8,6 +8,9 @@
  */
 
 use Joomla\Oauth2\Client;
+use Joomla\Registry\Registry;
+use Joomla\Input\Input;
+use Joomla\Http\Http;
 
 /**
  * Test class for Client.
@@ -19,22 +22,22 @@ use Joomla\Oauth2\Client;
 class ClientTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the Client object.
+	 * @var    Registry  Options for the Client object.
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttp  Mock client object.
+	 * @var    Http  Mock client object.
 	 */
 	protected $client;
 
 	/**
-	 * @var    JInput  The input object to use in retrieving GET/POST data.
+	 * @var    Input  The input object to use in retrieving GET/POST data.
 	 */
 	protected $input;
 
 	/**
-	 * @var    JApplicationWeb  The application object to send HTTP headers for redirects.
+	 * @var    \Joomla\Application\Web  The application object to send HTTP headers for redirects.
 	 */
 	protected $application;
 
@@ -47,8 +50,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @access protected
-	 * @return void
+	 * @return  void
 	 */
 	protected function setUp()
 	{
@@ -59,30 +61,19 @@ class ClientTest extends PHPUnit_Framework_TestCase
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
-		$this->options = new JRegistry;
-		$this->http = $this->getMock('JHttp', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
+		$this->options = new Registry;
+		$this->http = $this->getMock('Joomla\Http\Http', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
 		$array = array();
-		$this->input = new JInput($array);
+		$this->input = new Input($array);
 		$this->application = new JApplicationWebInspector;
 		$this->object = new Client($this->options, $this->http, $this->input, $this->application);
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @access protected
-	 * @return void
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
 	 * Tests the auth method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testAuth()
 	{
@@ -111,8 +102,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the auth method with JSON data
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testAuthJson()
 	{
@@ -131,8 +122,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the isauth method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testIsAuth()
 	{
@@ -156,8 +147,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the auth method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testCreateUrl()
 	{
@@ -181,8 +172,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the auth method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testQuery()
 	{
@@ -213,8 +204,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the setOption method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testSetOption()
 	{
@@ -229,8 +220,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the getOption method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testGetOption()
 	{
@@ -245,8 +236,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the setToken method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testSetToken()
 	{
@@ -275,8 +266,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the getToken method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testGetToken()
 	{
@@ -291,8 +282,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the refreshToken method
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testRefreshToken()
 	{
@@ -314,8 +305,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the refreshToken method with JSON
 	 *
-	 * @group	JOAuth2
-	 * @return void
+	 * @group   JOAuth2
+	 * @return  void
 	 */
 	public function testRefreshTokenJson()
 	{
@@ -343,7 +334,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
  * @param   array    $headers  An array of name-value pairs to include in the header of the request
  * @param   integer  $timeout  Read timeout in seconds.
  *
- * @return  JHttpResponse
+ * @return  object
  *
  * @since   12.3
  */
@@ -366,13 +357,12 @@ function encodedGrantOauthCallback($url, $data, array $headers = null, $timeout 
  * @param   array    $headers  An array of name-value pairs to include in the header of the request
  * @param   integer  $timeout  Read timeout in seconds.
  *
- * @return  JHttpResponse
+ * @return  object
  *
  * @since   12.3
  */
 function jsonGrantOauthCallback($url, $data, array $headers = null, $timeout = null)
 {
-
 	$response = new stdClass;
 
 	$response->code = 200;
@@ -390,7 +380,7 @@ function jsonGrantOauthCallback($url, $data, array $headers = null, $timeout = n
  * @param   array    $headers  An array of name-value pairs to include in the header of the request
  * @param   integer  $timeout  Read timeout in seconds.
  *
- * @return  JHttpResponse
+ * @return  object
  *
  * @since   12.3
  */
@@ -412,7 +402,7 @@ function queryOauthCallback($url, $data, array $headers = null, $timeout = null)
  * @param   array    $headers  An array of name-value pairs to include in the header of the request.
  * @param   integer  $timeout  Read timeout in seconds.
  *
- * @return  JHttpResponse
+ * @return  object
  *
  * @since   12.3
  */
