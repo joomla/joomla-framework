@@ -68,7 +68,7 @@ class Client
 		$this->options = isset($options) ? $options : new Registry;
 		$this->http = isset($http) ? $http : new Http($this->options);
 		$this->input = isset($input) ? $input : Factory::getApplication()->input;
-		$this->application = isset($application) ? $application : new Web;
+		$this->application = isset($application) ? $application : Web::getInstance();
 	}
 
 	/**

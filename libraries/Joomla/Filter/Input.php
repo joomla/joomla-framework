@@ -150,7 +150,7 @@ class Input
 	 * @param   integer  $attrMethod  WhiteList method = 0, BlackList method = 1
 	 * @param   integer  $xssAuto     Only auto clean essentials = 0, Allow clean blacklisted tags/attr = 1
 	 *
-	 * @return  JFilterInput  The JFilterInput object.
+	 * @return  Input  The Input object.
 	 *
 	 * @since   11.1
 	 */
@@ -241,11 +241,11 @@ class Input
 				break;
 
 			case 'STRING':
-				$result = (string) $this->_remove($this->_decode((string) $source));
+				$result = (string) $this->remove($this->decode((string) $source));
 				break;
 
 			case 'HTML':
-				$result = (string) $this->_remove((string) $source);
+				$result = (string) $this->remove((string) $source);
 				break;
 
 			case 'ARRAY':
@@ -271,9 +271,10 @@ class Input
 						// Filter element for XSS and other 'bad' code etc.
 						if (is_string($value))
 						{
-							$source[$key] = $this->_remove($this->_decode($value));
+							$source[$key] = $this->remove($this->decode($value));
 						}
 					}
+
 					$result = $source;
 				}
 				else
@@ -282,7 +283,7 @@ class Input
 					if (is_string($source) && !empty($source))
 					{
 						// Filter source for XSS and other 'bad' code etc.
-						$result = $this->_remove($this->_decode($source));
+						$result = $this->remove($this->decode($source));
 					}
 					else
 					{
@@ -290,6 +291,7 @@ class Input
 						$result = $source;
 					}
 				}
+
 				break;
 		}
 
@@ -324,14 +326,14 @@ class Input
 	 *
 	 * @since   11.1
 	 */
-	protected function _remove($source)
+	protected function remove($source)
 	{
 		$loopCounter = 0;
 
 		// Iteration provides nested tag protection
-		while ($source != $this->_cleanTags($source))
+		while ($source != $this->cleanTags($source))
 		{
-			$source = $this->_cleanTags($source);
+			$source = $this->cleanTags($source);
 			$loopCounter++;
 		}
 
@@ -347,10 +349,10 @@ class Input
 	 *
 	 * @since   11.1
 	 */
-	protected function _cleanTags($source)
+	protected function cleanTags($source)
 	{
 		// First, pre-process this for illegal characters inside attribute values
-		$source = $this->_escapeAttributeValues($source);
+		$source = $this->escapeAttributeValues($source);
 
 		// In the beginning we don't really have a tag, so everything is postTag
 		$preTag = null;
@@ -528,7 +530,7 @@ class Input
 				if (!$isCloseTag)
 				{
 					// Open or single tag
-					$attrSet = $this->_cleanAttributes($attrSet);
+					$attrSet = $this->cleanAttributes($attrSet);
 					$preTag .= '<' . $tagName;
 
 					for ($i = 0, $count = count($attrSet); $i < $count; $i++)
@@ -576,7 +578,7 @@ class Input
 	 *
 	 * @since   11.1
 	 */
-	protected function _cleanAttributes($attrSet)
+	protected function cleanAttributes($attrSet)
 	{
 		$newSet = array();
 
@@ -599,7 +601,6 @@ class Input
 
 			// Remove all "non-regular" attribute names
 			// AND blacklisted attributes
-
 			if ((!preg_match('/[a-z]*$/i', $attrSubSet[0]))
 				|| (($this->xssAuto) && ((in_array(strtolower($attrSubSet[0]), $this->attrBlacklist))
 				|| (substr($attrSubSet[0], 0, 2) == 'on'))))
@@ -627,6 +628,7 @@ class Input
 				{
 					$attrSubSet[1] = substr($attrSubSet[1], 1, (strlen($attrSubSet[1]) - 2));
 				}
+
 				// Strip slashes
 				$attrSubSet[1] = stripslashes($attrSubSet[1]);
 			}
@@ -678,7 +680,7 @@ class Input
 	 *
 	 * @since   11.1
 	 */
-	protected function _decode($source)
+	protected function decode($source)
 	{
 		static $ttr;
 
@@ -692,6 +694,7 @@ class Input
 				$ttr[$v] = utf8_encode($k);
 			}
 		}
+
 		$source = strtr($source, $ttr);
 
 		// Convert decimal
@@ -712,7 +715,7 @@ class Input
 	 *
 	 * @since    11.1
 	 */
-	protected function _escapeAttributeValues($source)
+	protected function escapeAttributeValues($source)
 	{
 		$alreadyFiltered = '';
 		$remainder = $source;
@@ -743,12 +746,13 @@ class Input
 				// No closing quote
 				$nextAfter = strlen($remainder);
 			}
+
 			// Get the actual attribute value
 			$attributeValue = substr($remainder, $nextBefore, $nextAfter - $nextBefore);
 
 			// Escape bad chars
 			$attributeValue = str_replace($badChars, $escapedChars, $attributeValue);
-			$attributeValue = $this->_stripCSSExpressions($attributeValue);
+			$attributeValue = $this->stripCssExpressions($attributeValue);
 			$alreadyFiltered .= substr($remainder, 0, $nextBefore) . $attributeValue . $quote;
 			$remainder = substr($remainder, $nextAfter + 1);
 		}
@@ -766,7 +770,7 @@ class Input
 	 *
 	 * @since   11.1
 	 */
-	protected function _stripCSSExpressions($source)
+	protected function stripCssExpressions($source)
 	{
 		// Strip any comments out (in the form of /*...*/)
 		$test = preg_replace('#\/\*.*\*\/#U', '', $source);
@@ -788,6 +792,7 @@ class Input
 				$return = $test;
 			}
 		}
+
 		return $return;
 	}
 }
