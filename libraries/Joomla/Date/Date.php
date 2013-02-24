@@ -11,9 +11,6 @@ namespace Joomla\Date;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Factory;
-use Joomla\Language\Text;
-use Joomla\Database\Driver;
 use DateTime;
 use DateTimeZone;
 
@@ -226,37 +223,6 @@ class Date extends DateTime
 	}
 
 	/**
-	 * Translates day of week number to a string.
-	 *
-	 * @param   integer  $day   The numeric day of the week.
-	 * @param   boolean  $abbr  Return the abbreviated day string?
-	 *
-	 * @return  string  The day of the week.
-	 *
-	 * @since   11.1
-	 */
-	public function dayToString($day, $abbr = false)
-	{
-		switch ($day)
-		{
-			case 0:
-				return $abbr ? Text::_('SUN') : Text::_('SUNDAY');
-			case 1:
-				return $abbr ? Text::_('MON') : Text::_('MONDAY');
-			case 2:
-				return $abbr ? Text::_('TUE') : Text::_('TUESDAY');
-			case 3:
-				return $abbr ? Text::_('WED') : Text::_('WEDNESDAY');
-			case 4:
-				return $abbr ? Text::_('THU') : Text::_('THURSDAY');
-			case 5:
-				return $abbr ? Text::_('FRI') : Text::_('FRIDAY');
-			case 6:
-				return $abbr ? Text::_('SAT') : Text::_('SATURDAY');
-		}
-	}
-
-	/**
 	 * Gets the date as a formatted string in a local calendar.
 	 *
 	 * @param   string   $format     The date format specification string (see {@link PHP_MANUAL#date})
@@ -350,47 +316,6 @@ class Date extends DateTime
 	}
 
 	/**
-	 * Translates month number to a string.
-	 *
-	 * @param   integer  $month  The numeric month of the year.
-	 * @param   boolean  $abbr   If true, return the abbreviated month string
-	 *
-	 * @return  string  The month of the year.
-	 *
-	 * @since   11.1
-	 */
-	public function monthToString($month, $abbr = false)
-	{
-		switch ($month)
-		{
-			case 1:
-				return $abbr ? Text::_('JANUARY_SHORT') : Text::_('JANUARY');
-			case 2:
-				return $abbr ? Text::_('FEBRUARY_SHORT') : Text::_('FEBRUARY');
-			case 3:
-				return $abbr ? Text::_('MARCH_SHORT') : Text::_('MARCH');
-			case 4:
-				return $abbr ? Text::_('APRIL_SHORT') : Text::_('APRIL');
-			case 5:
-				return $abbr ? Text::_('MAY_SHORT') : Text::_('MAY');
-			case 6:
-				return $abbr ? Text::_('JUNE_SHORT') : Text::_('JUNE');
-			case 7:
-				return $abbr ? Text::_('JULY_SHORT') : Text::_('JULY');
-			case 8:
-				return $abbr ? Text::_('AUGUST_SHORT') : Text::_('AUGUST');
-			case 9:
-				return $abbr ? Text::_('SEPTEMBER_SHORT') : Text::_('SEPTEMBER');
-			case 10:
-				return $abbr ? Text::_('OCTOBER_SHORT') : Text::_('OCTOBER');
-			case 11:
-				return $abbr ? Text::_('NOVEMBER_SHORT') : Text::_('NOVEMBER');
-			case 12:
-				return $abbr ? Text::_('DECEMBER_SHORT') : Text::_('DECEMBER');
-		}
-	}
-
-	/**
 	 * Method to wrap the setTimezone() function and set the internal time zone object.
 	 *
 	 * @param   DateTimeZone  $tz  The new DateTimeZone object.
@@ -421,26 +346,6 @@ class Date extends DateTime
 	public function toISO8601($local = false)
 	{
 		return $this->format(DateTime::RFC3339, $local, false);
-	}
-
-	/**
-	 * Gets the date as an SQL datetime string.
-	 *
-	 * @param   boolean          $local  True to return the date string in the local time zone, false to return it in GMT.
-	 * @param   JDatabaseDriver  $dbo    The database driver or null to use JFactory::getDbo()
-	 *
-	 * @return  string     The date string in SQL datetime format.
-	 *
-	 * @link http://dev.mysql.com/doc/refman/5.0/en/datetime.html
-	 * @since   11.4
-	 */
-	public function toSql($local = false, Driver $dbo = null)
-	{
-		if ($dbo === null)
-		{
-			$dbo = Factory::getDbo();
-		}
-		return $this->format($dbo->getDateFormat(), $local, false);
 	}
 
 	/**
