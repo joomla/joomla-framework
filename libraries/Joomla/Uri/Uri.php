@@ -140,12 +140,12 @@ class Uri
 	}
 
 	/**
-	 * Returns the global JURI object, only creating it
+	 * Returns the global Uri object, only creating it
 	 * if it doesn't already exist.
 	 *
 	 * @param   string  $uri  The URI to parse.  [optional: if null uses script URI]
 	 *
-	 * @return  Uri  The URI object.
+	 * @return  Uri  The Uri object.
 	 *
 	 * @since   11.1
 	 */
@@ -204,6 +204,7 @@ class Uri
 
 			self::$instances[$uri] = new Uri($theURI);
 		}
+
 		return self::$instances[$uri];
 	}
 
@@ -221,14 +222,15 @@ class Uri
 		// Get the base request path.
 		if (empty(self::$base))
 		{
-			$config = Factory::getConfig();
+			$config    = Factory::getConfig();
 			$live_site = $config->get('live_site');
 
 			if (trim($live_site) != '')
 			{
 				$uri = self::getInstance($live_site);
+
 				self::$base['prefix'] = $uri->toString(array('scheme', 'host', 'port'));
-				self::$base['path'] = rtrim($uri->toString(array('path')), '/\\');
+				self::$base['path']   = rtrim($uri->toString(array('path')), '/\\');
 
 				if (defined('JPATH_BASE') && defined('JPATH_ADMINISTRATOR'))
 				{
@@ -241,14 +243,16 @@ class Uri
 			else
 			{
 				$uri = self::getInstance();
+
 				self::$base['prefix'] = $uri->toString(array('scheme', 'host', 'port'));
 
 				if (strpos(php_sapi_name(), 'cgi') !== false && !ini_get('cgi.fix_pathinfo') && !empty($_SERVER['REQUEST_URI']))
 				{
-					// PHP-CGI on Apache with "cgi.fix_pathinfo = 0"
-
-					// We shouldn't have user-supplied PATH_INFO in PHP_SELF in this case
-					// because PHP will not work with PATH_INFO at all.
+					/*
+					 * PHP-CGI on Apache with "cgi.fix_pathinfo = 0"
+					 * We shouldn't have user-supplied PATH_INFO in PHP_SELF in this case
+					 * because PHP will not work with PATH_INFO at all.
+					 */
 					$script_name = $_SERVER['PHP_SELF'];
 				}
 				else
@@ -280,8 +284,9 @@ class Uri
 		if (empty(self::$root))
 		{
 			$uri = self::getInstance(self::base());
+
 			self::$root['prefix'] = $uri->toString(array('scheme', 'host', 'port'));
-			self::$root['path'] = rtrim($uri->toString(array('path')), '/\\');
+			self::$root['path']   = rtrim($uri->toString(array('path')), '/\\');
 		}
 
 		// Get the scheme
@@ -306,6 +311,7 @@ class Uri
 		if (empty(self::$current))
 		{
 			$uri = self::getInstance();
+
 			self::$current = $uri->toString(array('scheme', 'host', 'port', 'path'));
 		}
 
@@ -322,9 +328,9 @@ class Uri
 	public static function reset()
 	{
 		self::$instances = array();
-		self::$base = array();
-		self::$root = array();
-		self::$current = '';
+		self::$base      = array();
+		self::$root      = array();
+		self::$current   = '';
 	}
 
 	/**
@@ -341,8 +347,10 @@ class Uri
 		// Set the original URI to fall back on
 		$this->uri = $uri;
 
-		// Parse the URI and populate the object fields. If URI is parsed properly,
-		// set method return value to true.
+		/*
+		 * Parse the URI and populate the object fields. If URI is parsed properly,
+		 * set method return value to true.
+		 */
 
 		$parts = String::parse_url($uri);
 
@@ -354,17 +362,16 @@ class Uri
 			$parts['query'] = str_replace('&amp;', '&', $parts['query']);
 		}
 
-		$this->scheme = isset($parts['scheme']) ? $parts['scheme'] : null;
-		$this->user = isset($parts['user']) ? $parts['user'] : null;
-		$this->pass = isset($parts['pass']) ? $parts['pass'] : null;
-		$this->host = isset($parts['host']) ? $parts['host'] : null;
-		$this->port = isset($parts['port']) ? $parts['port'] : null;
-		$this->path = isset($parts['path']) ? $parts['path'] : null;
-		$this->query = isset($parts['query']) ? $parts['query'] : null;
+		$this->scheme   = isset($parts['scheme']) ? $parts['scheme'] : null;
+		$this->user     = isset($parts['user']) ? $parts['user'] : null;
+		$this->pass     = isset($parts['pass']) ? $parts['pass'] : null;
+		$this->host     = isset($parts['host']) ? $parts['host'] : null;
+		$this->port     = isset($parts['port']) ? $parts['port'] : null;
+		$this->path     = isset($parts['path']) ? $parts['path'] : null;
+		$this->query    = isset($parts['query']) ? $parts['query'] : null;
 		$this->fragment = isset($parts['fragment']) ? $parts['fragment'] : null;
 
 		// Parse the query
-
 		if (isset($parts['query']))
 		{
 			parse_str($parts['query'], $this->vars);
@@ -453,6 +460,7 @@ class Uri
 		{
 			return $this->vars[$name];
 		}
+
 		return $default;
 	}
 
@@ -498,6 +506,7 @@ class Uri
 			{
 				$query = str_replace('&amp;', '&', $query);
 			}
+
 			parse_str($query, $this->vars);
 		}
 
@@ -709,7 +718,7 @@ class Uri
 	 */
 	public function setPath($path)
 	{
-		$this->path = $this->_cleanPath($path);
+		$this->path = $this->cleanPath($path);
 	}
 
 	/**
@@ -763,7 +772,7 @@ class Uri
 	 */
 	public static function isInternal($url)
 	{
-		$uri = self::getInstance($url);
+		$uri  = self::getInstance($url);
 		$base = $uri->toString(array('scheme', 'host', 'port', 'path'));
 		$host = $uri->toString(array('scheme', 'host', 'port'));
 
@@ -771,6 +780,7 @@ class Uri
 		{
 			return false;
 		}
+
 		return true;
 	}
 
@@ -788,7 +798,7 @@ class Uri
 	 *
 	 * @since   11.1
 	 */
-	protected function _cleanPath($path)
+	protected function cleanPath($path)
 	{
 		$path = explode('/', preg_replace('#(/+)#', '/', $path));
 

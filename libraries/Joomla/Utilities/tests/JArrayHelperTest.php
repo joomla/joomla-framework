@@ -1397,7 +1397,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  getTestFromObjectData
 	 * @covers  Joomla\Utilities\ArrayHelper::fromObject
-	 * @covers  Joomla\Utilities\ArrayHelper::_fromObject
+	 * @covers  Joomla\Utilities\ArrayHelper::arrayFromObject
 	 * @since   11.1
 	 */
 	public function testFromObject($input, $recurse, $regex, $expect, $defaults)
@@ -1561,7 +1561,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider getTestSortObjectData
 	 * @covers  Joomla\Utilities\ArrayHelper::sortObjects
-	 * @covers  Joomla\Utilities\ArrayHelper::_sortObjects
+	 * @covers  Joomla\Utilities\ArrayHelper::objectSort
 	 * @since   11.1
 	 */
 	public function testSortObjects($input, $key, $direction, $casesensitive, $locale, $expect, $message, $defaults)
