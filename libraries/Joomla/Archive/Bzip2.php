@@ -30,7 +30,7 @@ class Bzip2 implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_data = null;
+	private $data = null;
 
 	/**
 	 * Extract a Bzip2 compressed file to a given path
@@ -46,7 +46,7 @@ class Bzip2 implements Extractable
 	 */
 	public function extract($archive, $destination, array $options = array ())
 	{
-		$this->_data = null;
+		$this->data = null;
 
 		if (!extension_loaded('bz2'))
 		{
@@ -56,15 +56,15 @@ class Bzip2 implements Extractable
 		if (!isset($options['use_streams']) || $options['use_streams'] == false)
 		{
 			// Old style: read the whole file and then parse it
-			$this->_data = file_get_contents($archive);
+			$this->data = file_get_contents($archive);
 
-			if (!$this->_data)
+			if (!$this->data)
 			{
 				throw new RuntimeException('Unable to read archive');
 			}
 
-			$buffer = bzdecompress($this->_data);
-			unset($this->_data);
+			$buffer = bzdecompress($this->data);
+			unset($this->data);
 
 			if (empty($buffer))
 			{
@@ -75,7 +75,6 @@ class Bzip2 implements Extractable
 			{
 				throw new RuntimeException('Unable to write archive');
 			}
-
 		}
 		else
 		{
@@ -101,11 +100,11 @@ class Bzip2 implements Extractable
 
 			do
 			{
-				$this->_data = $input->read($input->get('chunksize', 8196));
+				$this->data = $input->read($input->get('chunksize', 8196));
 
-				if ($this->_data)
+				if ($this->data)
 				{
-					if (!$output->write($this->_data))
+					if (!$output->write($this->data))
 					{
 						$input->close();
 
@@ -113,7 +112,7 @@ class Bzip2 implements Extractable
 					}
 				}
 			}
-			while ($this->_data);
+			while ($this->data);
 
 			$output->close();
 			$input->close();

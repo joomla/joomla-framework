@@ -39,17 +39,6 @@ class JArchiveTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return mixed
-	 */
-	protected function tearDown()
-	{
-
-	}
-
-	/**
 	 * Tests extracting ZIP.
 	 *
 	 * @group    JArchive

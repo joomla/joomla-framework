@@ -15,7 +15,7 @@
  *
  * @since       12.1
  */
-class JApplicationBaseInspector extends JApplicationBase
+class JApplicationBaseInspector extends Joomla\Application\Base
 {
 	/**
 	 * The exit code if the application was closed otherwise null.

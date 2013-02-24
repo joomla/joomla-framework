@@ -306,8 +306,8 @@ class Client
 						$this->browserVersion = $matches['version'][$key];
 					}
 				}
-				// We only have a Version or a browser so use what we have.
 				else
+				// We only have a Version or a browser so use what we have.
 				{
 					$this->browserVersion = $matches['version'][0];
 				}
@@ -347,34 +347,34 @@ class Client
 	 */
 	protected function detectEngine($userAgent)
 	{
-		// Attempt to detect the client engine -- starting with the most popular ... for now.
 		if (stripos($userAgent, 'MSIE') !== false || stripos($userAgent, 'Trident') !== false)
 		{
+			// Attempt to detect the client engine -- starting with the most popular ... for now.
 			$this->engine = self::TRIDENT;
 		}
-		// Evidently blackberry uses WebKit and doesn't necessarily report it.  Bad RIM.
 		elseif (stripos($userAgent, 'AppleWebKit') !== false || stripos($userAgent, 'blackberry') !== false)
 		{
+			// Evidently blackberry uses WebKit and doesn't necessarily report it.  Bad RIM.
 			$this->engine = self::WEBKIT;
 		}
-		// We have to check for like Gecko because some other browsers spoof Gecko.
 		elseif (stripos($userAgent, 'Gecko') !== false && stripos($userAgent, 'like Gecko') === false)
 		{
+			// We have to check for like Gecko because some other browsers spoof Gecko.
 			$this->engine = self::GECKO;
 		}
-		// Sometimes Opera browsers don't say Presto.
 		elseif (stripos($userAgent, 'Opera') !== false || stripos($userAgent, 'Presto') !== false)
 		{
+			// Sometimes Opera browsers don't say Presto.
 			$this->engine = self::PRESTO;
 		}
-		// *sigh*
 		elseif (stripos($userAgent, 'KHTML') !== false)
 		{
+			// *sigh*
 			$this->engine = self::KHTML;
 		}
-		// Lesser known engine but it finishes off the major list from Wikipedia :-)
 		elseif (stripos($userAgent, 'Amaya') !== false)
 		{
+			// Lesser known engine but it finishes off the major list from Wikipedia :-)
 			$this->engine = self::AMAYA;
 		}
 
@@ -428,9 +428,9 @@ class Client
 				$this->platform = self::WINDOWS_CE;
 			}
 		}
-		// Interestingly 'iPhone' is present in all iOS devices so far including iPad and iPods.
 		elseif (stripos($userAgent, 'iPhone') !== false)
 		{
+			// Interestingly 'iPhone' is present in all iOS devices so far including iPad and iPods.
 			$this->mobile = true;
 			$this->platform = self::IPHONE;
 
@@ -444,21 +444,21 @@ class Client
 				$this->platform = self::IPOD;
 			}
 		}
+		elseif (stripos($userAgent, 'iPad') !== false)
+		{
 			// In case where iPhone is not mentioed in iPad user agent string
-			elseif (stripos($userAgent, 'iPad') !== false)
-			{
-				$this->mobile = true;
-				$this->platform = self::IPAD;
-			}
+			$this->mobile = true;
+			$this->platform = self::IPAD;
+		}
+		elseif (stripos($userAgent, 'iPod') !== false)
+		{
 			// In case where iPhone is not mentioed in iPod user agent string
-			elseif (stripos($userAgent, 'iPod') !== false)
-			{
-				$this->mobile = true;
-				$this->platform = self::IPOD;
-			}
-		// This has to come after the iPhone check because mac strings are also present in iOS devices.
+			$this->mobile = true;
+			$this->platform = self::IPOD;
+		}
 		elseif (preg_match('/macintosh|mac os x/i', $userAgent))
 		{
+			// This has to come after the iPhone check because mac strings are also present in iOS devices.
 			$this->platform = self::MAC;
 		}
 		elseif (stripos($userAgent, 'Blackberry') !== false)

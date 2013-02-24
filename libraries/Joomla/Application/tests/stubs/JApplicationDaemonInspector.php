@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JApplicationDaemonInspector extends JApplicationDaemon
+class JApplicationDaemonInspector extends Joomla\Application\Daemon
 {
 	/**
 	 * @var     integer  Mimic the response of the pcntlChildExitStatus method.

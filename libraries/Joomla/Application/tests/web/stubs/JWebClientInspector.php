@@ -14,7 +14,7 @@
  *
  * @since    11.3
  */
-class JWebClientInspector extends JApplicationWebClient
+class JWebClientInspector extends Joomla\Application\Web\Client
 {
 	/**
 	 * Allows public access to protected method.

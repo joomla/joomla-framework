@@ -6,7 +6,7 @@
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
- 
+
 namespace Joomla\Application;
 
 defined('JPATH_PLATFORM') or die;
@@ -131,6 +131,7 @@ class Daemon extends Cli
 			Log::add('The POSIX extension for PHP is not available.', Log::ERROR);
 			throw new RuntimeException('The POSIX extension for PHP is not available.');
 		}
+
 		// @codeCoverageIgnoreEnd
 
 		// Call the parent constructor.
@@ -398,8 +399,8 @@ class Daemon extends Cli
 				$this->doExecute();
 			}
 		}
-		// We were not able to daemonize the application so log the failure and die gracefully.
 		else
+		// We were not able to daemonize the application so log the failure and die gracefully.
 		{
 			Log::add('Starting ' . $this->name . ' failed', Log::INFO);
 		}
@@ -572,7 +573,6 @@ class Daemon extends Cli
 		// Attempt to change the identity of user running the process.
 		if (!$this->changeIdentity())
 		{
-
 			// If the identity change was required then we need to return false.
 			if ($this->config->get('application_require_identity'))
 			{
@@ -621,8 +621,8 @@ class Daemon extends Cli
 			Log::add('Ending ' . $this->name . ' parent process', Log::DEBUG);
 			$this->close();
 		}
-		// We are in the forked child process.
 		else
+		// We are in the forked child process.
 		{
 			// Setup some protected values.
 			$this->exiting = false;
@@ -651,13 +651,13 @@ class Daemon extends Cli
 		{
 			throw new RuntimeException('The process could not be forked.');
 		}
-		// Update the process id for the child.
 		elseif ($pid === 0)
+		// Update the process id for the child.
 		{
 			$this->processId = (int) posix_getpid();
 		}
-		// Log the fork in the parent.
 		else
+		// Log the fork in the parent.
 		{
 			// Log the fork.
 			Log::add('Process forked ' . $pid, Log::DEBUG);
@@ -741,8 +741,8 @@ class Daemon extends Cli
 		{
 			return;
 		}
-		// If not, now we are.
 		else
+		// If not, now we are.
 		{
 			$this->exiting = true;
 		}
@@ -771,8 +771,8 @@ class Daemon extends Cli
 			{
 				$this->close(exec(implode(' ', $GLOBALS['argv']) . ' > /dev/null &'));
 			}
-			// If we are not supposed to restart the daemon let's just kill -9.
 			else
+			// If we are not supposed to restart the daemon let's just kill -9.
 			{
 				passthru('kill -9 ' . $pid);
 				$this->close();

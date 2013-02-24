@@ -42,12 +42,12 @@ class Cli extends Base
 	/**
 	 * Class constructor.
 	 *
-	 * @param   mixed  $input       An optional argument to provide dependency injection for the application's
-	 *                              input object.  If the argument is a JInputCli object that object will become
-	 *                              the application's input object, otherwise a default input object is created.
-	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
-	 *                              config object.  If the argument is a JRegistry object that object will become
-	 *                              the application's config object, otherwise a default config object is created.
+	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
+	 *                          input object.  If the argument is a JInputCli object that object will become
+	 *                          the application's input object, otherwise a default input object is created.
+	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
+	 *                          config object.  If the argument is a JRegistry object that object will become
+	 *                          the application's config object, otherwise a default config object is created.
 	 *
 	 * @since   11.1
 	 */
@@ -59,6 +59,7 @@ class Cli extends Base
 		{
 			$this->close();
 		}
+
 		// @codeCoverageIgnoreEnd
 
 		// If a input object is given use it.
@@ -66,8 +67,8 @@ class Cli extends Base
 		{
 			$this->input = $input;
 		}
-		// Create the input based on the application logic.
 		else
+		// Create the input based on the application logic.
 		{
 			if (class_exists('\\Joomla\\Input\\Cli'))
 			{
@@ -80,8 +81,8 @@ class Cli extends Base
 		{
 			$this->config = $config;
 		}
-		// Instantiate a new configuration object.
 		else
+		// Instantiate a new configuration object.
 		{
 			$this->config = new Registry;
 		}

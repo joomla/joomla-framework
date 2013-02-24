@@ -15,7 +15,7 @@
  *
  * @since       11.1
  */
-class JApplicationCliInspector extends JApplicationCli
+class JApplicationCliInspector extends Joomla\Application\Cli
 {
 	/**
 	 * The exit code if the application was closed otherwise null.

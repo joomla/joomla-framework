@@ -24,7 +24,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @var    JApplicationWebRouter  The object to be tested.
 	 * @since  12.3
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
 	 * Tests the __construct method.
@@ -36,8 +36,8 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertAttributeInstanceOf('JApplicationWeb', 'app', $this->_instance);
-		$this->assertAttributeInstanceOf('JInput', 'input', $this->_instance);
+		$this->assertAttributeInstanceOf('JApplicationWeb', 'app', $this->instance);
+		$this->assertAttributeInstanceOf('JInput', 'input', $this->instance);
 	}
 
 	/**
@@ -50,8 +50,8 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	public function testSetControllerPrefix()
 	{
-		$this->_instance->setControllerPrefix('MyApplication');
-		$this->assertAttributeEquals('MyApplication', 'controllerPrefix', $this->_instance);
+		$this->instance->setControllerPrefix('MyApplication');
+		$this->assertAttributeEquals('MyApplication', 'controllerPrefix', $this->instance);
 	}
 
 	/**
@@ -64,8 +64,8 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	public function testSetDefaultController()
 	{
-		$this->_instance->setDefaultController('foobar');
-		$this->assertAttributeEquals('foobar', 'default', $this->_instance);
+		$this->instance->setDefaultController('foobar');
+		$this->assertAttributeEquals('foobar', 'default', $this->instance);
 	}
 
 	/**
@@ -79,7 +79,7 @@ class JApplicationWebRouterTest extends TestCase
 	public function testFetchControllerWithMissingClass()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = TestReflection::invoke($this->_instance, 'fetchController', 'goober');
+		$controller = TestReflection::invoke($this->instance, 'fetchController', 'goober');
 	}
 
 	/**
@@ -93,7 +93,7 @@ class JApplicationWebRouterTest extends TestCase
 	public function testFetchControllerWithNonController()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = TestReflection::invoke($this->_instance, 'fetchController', 'MyTestControllerBaz');
+		$controller = TestReflection::invoke($this->instance, 'fetchController', 'MyTestControllerBaz');
 	}
 
 	/**
@@ -106,8 +106,8 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	public function testFetchControllerWithPrefixSet()
 	{
-		TestReflection::setValue($this->_instance, 'controllerPrefix', 'MyTestController');
-		$controller = TestReflection::invoke($this->_instance, 'fetchController', 'foo');
+		TestReflection::setValue($this->instance, 'controllerPrefix', 'MyTestController');
+		$controller = TestReflection::invoke($this->instance, 'fetchController', 'foo');
 	}
 
 	/**
@@ -121,7 +121,7 @@ class JApplicationWebRouterTest extends TestCase
 	public function testFetchControllerWithoutPrefixSetThoughNecessary()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = TestReflection::invoke($this->_instance, 'fetchController', 'foo');
+		$controller = TestReflection::invoke($this->instance, 'fetchController', 'foo');
 	}
 
 	/**
@@ -134,7 +134,7 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	public function testFetchControllerWithoutPrefixSet()
 	{
-		$controller = TestReflection::invoke($this->_instance, 'fetchController', 'TControllerBar');
+		$controller = TestReflection::invoke($this->instance, 'fetchController', 'TControllerBar');
 	}
 
 	/**
@@ -148,7 +148,7 @@ class JApplicationWebRouterTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->_instance = $this->getMockForAbstractClass('JApplicationWebRouter', array($this->getMockWeb()));
+		$this->instance = $this->getMockForAbstractClass('JApplicationWebRouter', array($this->getMockWeb()));
 	}
 
 	/**
@@ -160,7 +160,7 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->_instance = null;
+		$this->instance = null;
 
 		parent::tearDown();
 	}

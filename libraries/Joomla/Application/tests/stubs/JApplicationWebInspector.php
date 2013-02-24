@@ -8,14 +8,14 @@
  */
 
 /**
- * Inspector for the JApplicationWeb class.
+ * Inspector for the Joomla\Application\Web class.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Application
  *
  * @since       11.3
  */
-class JApplicationWebInspector extends JApplicationWeb
+class JApplicationWebInspector extends Joomla\Application\Web
 {
 	/**
 	 * @var     boolean  True to mimic the headers already being sent.

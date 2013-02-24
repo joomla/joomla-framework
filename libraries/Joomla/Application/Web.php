@@ -102,8 +102,8 @@ class Web extends Base
 		{
 			$this->input = $input;
 		}
-		// Create the input based on the application logic.
 		else
+		// Create the input based on the application logic.
 		{
 			$this->input = new Input;
 		}
@@ -113,8 +113,8 @@ class Web extends Base
 		{
 			$this->config = $config;
 		}
-		// Instantiate a new configuration object.
 		else
+		// Instantiate a new configuration object.
 		{
 			$this->config = new Registry;
 		}
@@ -124,8 +124,8 @@ class Web extends Base
 		{
 			$this->client = $client;
 		}
-		// Instantiate a new web client object.
 		else
+		// Instantiate a new web client object.
 		{
 			$this->client = new Web\Client;
 		}
@@ -264,6 +264,7 @@ class Web extends Base
 				{
 					continue;
 				}
+
 				// @codeCoverageIgnoreEnd
 
 				// Attempt to gzip encode the data with an optimal level 4.
@@ -276,6 +277,7 @@ class Web extends Base
 				{
 					continue;
 				}
+
 				// @codeCoverageIgnoreEnd
 
 				// Set the encoding headers.
@@ -381,8 +383,8 @@ class Web extends Base
 			{
 				$url = $prefix . $url;
 			}
-			// It's relative to where we are now, so lets add that.
 			else
+			// It's relative to where we are now, so lets add that.
 			{
 				$parts = explode('/', $uri->toString(array('path')));
 				array_pop($parts);
@@ -685,8 +687,8 @@ class Web extends Base
 			// The URI is built from the HTTP_HOST and REQUEST_URI environment variables in an Apache environment.
 			$uri = $scheme . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		}
-		// If not in "Apache Mode" we will assume that we are in an IIS environment and proceed.
 		else
+		// If not in "Apache Mode" we will assume that we are in an IIS environment and proceed.
 		{
 			// IIS uses the SCRIPT_NAME variable instead of a REQUEST_URI variable... thanks, MS
 			$uri = $scheme . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
@@ -901,6 +903,7 @@ class Web extends Base
 		{
 			$this->set('uri.request', $this->detectRequestUri());
 		}
+
 		// @codeCoverageIgnoreEnd
 
 		// Check to see if an explicit base URI has been set.
@@ -910,8 +913,8 @@ class Web extends Base
 		{
 			$uri = Uri::getInstance($siteUri);
 		}
-		// No explicit base URI was set so we need to detect it.
 		else
+		// No explicit base URI was set so we need to detect it.
 		{
 			// Start with the requested URI.
 			$uri = Uri::getInstance($this->get('uri.request'));
@@ -922,8 +925,8 @@ class Web extends Base
 				// We aren't expecting PATH_INFO within PHP_SELF so this should work.
 				$uri->setPath(rtrim(dirname($_SERVER['PHP_SELF']), '/\\'));
 			}
-			// Pretty much everything else should be handled with SCRIPT_NAME.
 			else
+			// Pretty much everything else should be handled with SCRIPT_NAME.
 			{
 				$uri->setPath(rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'));
 			}
@@ -972,8 +975,8 @@ class Web extends Base
 				$this->set('uri.media.path', $mediaURI);
 			}
 		}
-		// No explicit media URI was set, build it dynamically from the base uri.
 		else
+		// No explicit media URI was set, build it dynamically from the base uri.
 		{
 			$this->set('uri.media.full', $this->get('uri.base.full') . 'media/');
 			$this->set('uri.media.path', $this->get('uri.base.path') . 'media/');

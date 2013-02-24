@@ -48,7 +48,7 @@ class Zip implements Extractable
 	 * @var    array
 	 * @since  11.1
 	 */
-	private $_methods = array(0x0 => 'None', 0x1 => 'Shrunk', 0x2 => 'Super Fast', 0x3 => 'Fast', 0x4 => 'Normal', 0x5 => 'Maximum', 0x6 => 'Imploded',
+	private $methods = array(0x0 => 'None', 0x1 => 'Shrunk', 0x2 => 'Super Fast', 0x3 => 'Fast', 0x4 => 'Normal', 0x5 => 'Maximum', 0x6 => 'Imploded',
 		0x8 => 'Deflated');
 
 	/**
@@ -57,7 +57,7 @@ class Zip implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_ctrlDirHeader = "\x50\x4b\x01\x02";
+	private $ctrlDirHeader = "\x50\x4b\x01\x02";
 
 	/**
 	 * End of central directory record.
@@ -65,7 +65,7 @@ class Zip implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_ctrlDirEnd = "\x50\x4b\x05\x06\x00\x00\x00\x00";
+	private $ctrlDirEnd = "\x50\x4b\x05\x06\x00\x00\x00\x00";
 
 	/**
 	 * Beginning of file contents.
@@ -73,7 +73,7 @@ class Zip implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_fileHeader = "\x50\x4b\x03\x04";
+	private $fileHeader = "\x50\x4b\x03\x04";
 
 	/**
 	 * ZIP file data buffer
@@ -81,7 +81,7 @@ class Zip implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_data = null;
+	private $data = null;
 
 	/**
 	 * ZIP file metadata array
@@ -89,7 +89,7 @@ class Zip implements Extractable
 	 * @var    array
 	 * @since  11.1
 	 */
-	private $_metadata = null;
+	private $metadata = null;
 
 	/**
 	 * Create a ZIP compressed file from an array of file data.
@@ -180,7 +180,7 @@ class Zip implements Extractable
 	 */
 	public function checkZipData(&$data)
 	{
-		if (strpos($data, $this->_fileHeader) === false)
+		if (strpos($data, $this->fileHeader) === false)
 		{
 			return false;
 		}
@@ -203,34 +203,34 @@ class Zip implements Extractable
 	 */
 	protected function extractCustom($archive, $destination)
 	{
-		$this->_data = null;
-		$this->_metadata = null;
+		$this->data = null;
+		$this->metadata = null;
 
 		if (!extension_loaded('zlib'))
 		{
 			throw new RuntimeException('Zlib not supported');
 		}
 
-		$this->_data = file_get_contents($archive);
+		$this->data = file_get_contents($archive);
 
-		if (!$this->_data)
+		if (!$this->data)
 		{
 			throw new RuntimeException('Unable to read archive (zip)');
 		}
 
-		if (!$this->_readZipInfo($this->_data))
+		if (!$this->_readZipInfo($this->data))
 		{
 			throw new RuntimeException('Get ZIP Information failed');
 		}
 
-		for ($i = 0, $n = count($this->_metadata); $i < $n; $i++)
+		for ($i = 0, $n = count($this->metadata); $i < $n; $i++)
 		{
-			$lastPathCharacter = substr($this->_metadata[$i]['name'], -1, 1);
+			$lastPathCharacter = substr($this->metadata[$i]['name'], -1, 1);
 
 			if ($lastPathCharacter !== '/' && $lastPathCharacter !== '\\')
 			{
 				$buffer = $this->_getFileData($i);
-				$path = Path::clean($destination . '/' . $this->_metadata[$i]['name']);
+				$path = Path::clean($destination . '/' . $this->metadata[$i]['name']);
 
 				// Make sure the destination folder exists
 				if (!Folder::create(dirname($path)))
@@ -331,13 +331,13 @@ class Zip implements Extractable
 		$entries = array();
 
 		// Find the last central directory header entry
-		$fhLast = strpos($data, $this->_ctrlDirEnd);
+		$fhLast = strpos($data, $this->ctrlDirEnd);
 
 		do
 		{
 			$last = $fhLast;
 		}
-		while (($fhLast = strpos($data, $this->_ctrlDirEnd, $fhLast + 1)) !== false);
+		while (($fhLast = strpos($data, $this->ctrlDirEnd, $fhLast + 1)) !== false);
 
 		// Find the central directory offset
 		$offset = 0;
@@ -353,7 +353,7 @@ class Zip implements Extractable
 		}
 
 		// Get details from central directory structure.
-		$fhStart = strpos($data, $this->_ctrlDirHeader, $offset);
+		$fhStart = strpos($data, $this->ctrlDirHeader, $offset);
 		$dataLength = strlen($data);
 
 		do
@@ -373,7 +373,7 @@ class Zip implements Extractable
 				'date' => null,
 				'_dataStart' => null,
 				'name' => $name,
-				'method' => $this->_methods[$info['Method']],
+				'method' => $this->methods[$info['Method']],
 				'_method' => $info['Method'],
 				'size' => $info['Uncompressed'],
 				'type' => null
@@ -401,7 +401,7 @@ class Zip implements Extractable
 			$entries[$name]['offset'] = $info['Offset'];
 
 			// Get details from local file header since we have the offset
-			$lfhStart = strpos($data, $this->_fileHeader, $entries[$name]['offset']);
+			$lfhStart = strpos($data, $this->fileHeader, $entries[$name]['offset']);
 
 			if ($dataLength < $lfhStart + 34)
 			{
@@ -415,9 +415,9 @@ class Zip implements Extractable
 			// Bump the max execution time because not using the built in php zip libs makes this process slow.
 			@set_time_limit(ini_get('max_execution_time'));
 		}
-		while ((($fhStart = strpos($data, $this->_ctrlDirHeader, $fhStart + 46)) !== false));
+		while ((($fhStart = strpos($data, $this->ctrlDirHeader, $fhStart + 46)) !== false));
 
-		$this->_metadata = array_values($entries);
+		$this->metadata = array_values($entries);
 
 		return true;
 	}
@@ -433,21 +433,21 @@ class Zip implements Extractable
 	 */
 	private function _getFileData($key)
 	{
-		if ($this->_metadata[$key]['_method'] == 0x8)
+		if ($this->metadata[$key]['_method'] == 0x8)
 		{
-			return gzinflate(substr($this->_data, $this->_metadata[$key]['_dataStart'], $this->_metadata[$key]['csize']));
+			return gzinflate(substr($this->data, $this->metadata[$key]['_dataStart'], $this->metadata[$key]['csize']));
 		}
-		elseif ($this->_metadata[$key]['_method'] == 0x0)
+		elseif ($this->metadata[$key]['_method'] == 0x0)
 		{
 			/* Files that aren't compressed. */
-			return substr($this->_data, $this->_metadata[$key]['_dataStart'], $this->_metadata[$key]['csize']);
+			return substr($this->data, $this->metadata[$key]['_dataStart'], $this->metadata[$key]['csize']);
 		}
-		elseif ($this->_metadata[$key]['_method'] == 0x12)
+		elseif ($this->metadata[$key]['_method'] == 0x12)
 		{
 			// If bz2 extension is loaded use it
 			if (extension_loaded('bz2'))
 			{
-				return bzdecompress(substr($this->_data, $this->_metadata[$key]['_dataStart'], $this->_metadata[$key]['csize']));
+				return bzdecompress(substr($this->data, $this->metadata[$key]['_dataStart'], $this->metadata[$key]['csize']));
 			}
 		}
 
@@ -515,7 +515,7 @@ class Zip implements Extractable
 			. chr(hexdec($dtime[0] . $dtime[1]));
 
 		/* Begin creating the ZIP data. */
-		$fr = $this->_fileHeader;
+		$fr = $this->fileHeader;
 		/* Version needed to extract. */
 		$fr .= "\x14\x00";
 		/* General purpose bit flag. */
@@ -553,7 +553,7 @@ class Zip implements Extractable
 		$contents[] = &$fr;
 
 		/* Add to central directory record. */
-		$cdrec = $this->_ctrlDirHeader;
+		$cdrec = $this->ctrlDirHeader;
 		/* Version made by. */
 		$cdrec .= "\x00\x00";
 		/* Version needed to extract */
@@ -612,7 +612,7 @@ class Zip implements Extractable
 		$data = implode('', $contents);
 		$dir = implode('', $ctrlDir);
 
-		$buffer = $data . $dir . $this->_ctrlDirEnd . /* Total # of entries "on this disk". */
+		$buffer = $data . $dir . $this->ctrlDirEnd . /* Total # of entries "on this disk". */
 		pack('v', count($ctrlDir)) . /* Total # of entries overall. */
 		pack('v', count($ctrlDir)) . /* Size of central directory. */
 		pack('V', strlen($dir)) . /* Offset to start of central dir. */

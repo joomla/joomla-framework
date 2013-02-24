@@ -17,16 +17,16 @@
 class JApplicationWebRouterBaseTest extends TestCase
 {
 	/**
-	 * @var    JApplicationWebRouterBase  The object to be tested.
+	 * @var    Joomla\Application\Web\Router\Base  The object to be tested.
 	 * @since  12.3
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
-	 * @var    JInput  The JInput object to be inspected for route variables.
+	 * @var    Joomla\Input\Input  The JInput object to be inspected for route variables.
 	 * @since  12.3
 	 */
-	private $_input;
+	private $input;
 
 	/**
 	 * Provides test data for route parsing.
@@ -70,8 +70,8 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 */
 	public function testAddMap()
 	{
-		$this->assertAttributeEmpty('maps', $this->_instance);
-		$this->_instance->addMap('foo', 'MyApplicationFoo');
+		$this->assertAttributeEmpty('maps', $this->instance);
+		$this->instance->addMap('foo', 'MyApplicationFoo');
 		$this->assertAttributeEquals(
 			array(
 				array(
@@ -81,7 +81,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 				)
 			),
 			'maps',
-			$this->_instance
+			$this->instance
 		);
 	}
 
@@ -125,9 +125,9 @@ class JApplicationWebRouterBaseTest extends TestCase
 			)
 		);
 
-		$this->assertAttributeEmpty('maps', $this->_instance);
-		$this->_instance->addMaps($maps);
-		$this->assertAttributeEquals($rules, 'maps', $this->_instance);
+		$this->assertAttributeEmpty('maps', $this->instance);
+		$this->instance->addMaps($maps);
+		$this->assertAttributeEquals($rules, 'maps', $this->instance);
 	}
 
 	/**
@@ -158,11 +158,11 @@ class JApplicationWebRouterBaseTest extends TestCase
 		}
 
 		// Execute the route parsing.
-		$actual = TestReflection::invoke($this->_instance, 'parseRoute', $r);
+		$actual = TestReflection::invoke($this->instance, 'parseRoute', $r);
 
 		// Test the assertions.
 		$this->assertEquals($c, $actual, 'Incorrect controller name found.');
-		$this->assertAttributeEquals($i, 'data', $this->_input, 'The input data is incorrect.');
+		$this->assertAttributeEquals($i, 'data', $this->input, 'The input data is incorrect.');
 	}
 
 	/**
@@ -176,8 +176,8 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 */
 	protected function setMaps1()
 	{
-		$this->_instance->addMaps(array());
-		$this->_instance->setDefaultController('home');
+		$this->instance->addMaps(array());
+		$this->instance->setDefaultController('home');
 	}
 
 	/**
@@ -189,7 +189,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 */
 	protected function setMaps2()
 	{
-		$this->_instance->addMaps(
+		$this->instance->addMaps(
 			array(
 				'login' => 'login',
 				'logout' => 'logout',
@@ -200,7 +200,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 				'content/*category/:article' => 'article'
 			)
 		);
-		$this->_instance->setDefaultController('index');
+		$this->instance->setDefaultController('index');
 	}
 
 	/**
@@ -216,9 +216,9 @@ class JApplicationWebRouterBaseTest extends TestCase
 
 		// Construct the clean JInput object.
 		$array = array();
-		$this->_input = new JInput($array);
+		$this->input = new JInput($array);
 
-		$this->_instance = new JApplicationWebRouterBase($this->getMockWeb(), $this->_input);
+		$this->instance = new Joomla\Application\Web\Router\Base($this->getMockWeb(), $this->input);
 	}
 
 	/**
@@ -230,7 +230,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->_instance = null;
+		$this->instance = null;
 
 		parent::tearDown();
 	}

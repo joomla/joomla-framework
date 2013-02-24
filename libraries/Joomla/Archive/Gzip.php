@@ -36,7 +36,7 @@ class Gzip implements Extractable
 	 * @var    array
 	 * @since  11.1
 	 */
-	private $_flags = array('FTEXT' => 0x01, 'FHCRC' => 0x02, 'FEXTRA' => 0x04, 'FNAME' => 0x08, 'FCOMMENT' => 0x10);
+	private $flags = array('FTEXT' => 0x01, 'FHCRC' => 0x02, 'FEXTRA' => 0x04, 'FNAME' => 0x08, 'FCOMMENT' => 0x10);
 
 	/**
 	 * Gzip file data buffer
@@ -44,7 +44,7 @@ class Gzip implements Extractable
 	 * @var    string
 	 * @since  11.1
 	 */
-	private $_data = null;
+	private $data = null;
 
 	/**
 	 * Extract a Gzip compressed file to a given path
@@ -60,7 +60,7 @@ class Gzip implements Extractable
 	 */
 	public function extract($archive, $destination, array $options = array ())
 	{
-		$this->_data = null;
+		$this->data = null;
 
 		if (!extension_loaded('zlib'))
 		{
@@ -69,15 +69,15 @@ class Gzip implements Extractable
 
 		if (!isset($options['use_streams']) || $options['use_streams'] == false)
 		{
-			$this->_data = file_get_contents($archive);
+			$this->data = file_get_contents($archive);
 
-			if (!$this->_data)
+			if (!$this->data)
 			{
 				throw new RuntimeException('Unable to read archive');
 			}
 
 			$position = $this->_getFilePosition();
-			$buffer = gzinflate(substr($this->_data, $position, strlen($this->_data) - $position));
+			$buffer = gzinflate(substr($this->data, $position, strlen($this->data) - $position));
 
 			if (empty($buffer))
 			{
@@ -113,11 +113,11 @@ class Gzip implements Extractable
 
 			do
 			{
-				$this->_data = $input->read($input->get('chunksize', 8196));
+				$this->data = $input->read($input->get('chunksize', 8196));
 
-				if ($this->_data)
+				if ($this->data)
 				{
-					if (!$output->write($this->_data))
+					if (!$output->write($this->data))
 					{
 						$input->close();
 
@@ -125,7 +125,7 @@ class Gzip implements Extractable
 					}
 				}
 			}
-			while ($this->_data);
+			while ($this->data);
 
 			$output->close();
 			$input->close();
@@ -157,7 +157,7 @@ class Gzip implements Extractable
 	{
 		// Gzipped file... unpack it first
 		$position = 0;
-		$info = @ unpack('CCM/CFLG/VTime/CXFL/COS', substr($this->_data, $position + 2));
+		$info = @ unpack('CCM/CFLG/VTime/CXFL/COS', substr($this->data, $position + 2));
 
 		if (!$info)
 		{
@@ -166,28 +166,28 @@ class Gzip implements Extractable
 
 		$position += 10;
 
-		if ($info['FLG'] & $this->_flags['FEXTRA'])
+		if ($info['FLG'] & $this->flags['FEXTRA'])
 		{
-			$XLEN = unpack('vLength', substr($this->_data, $position + 0, 2));
+			$XLEN = unpack('vLength', substr($this->data, $position + 0, 2));
 			$XLEN = $XLEN['Length'];
 			$position += $XLEN + 2;
 		}
 
-		if ($info['FLG'] & $this->_flags['FNAME'])
+		if ($info['FLG'] & $this->flags['FNAME'])
 		{
-			$filenamePos = strpos($this->_data, "\x0", $position);
+			$filenamePos = strpos($this->data, "\x0", $position);
 			$position = $filenamePos + 1;
 		}
 
-		if ($info['FLG'] & $this->_flags['FCOMMENT'])
+		if ($info['FLG'] & $this->flags['FCOMMENT'])
 		{
-			$commentPos = strpos($this->_data, "\x0", $position);
+			$commentPos = strpos($this->data, "\x0", $position);
 			$position = $commentPos + 1;
 		}
 
-		if ($info['FLG'] & $this->_flags['FHCRC'])
+		if ($info['FLG'] & $this->flags['FHCRC'])
 		{
-			$hcrc = unpack('vCRC', substr($this->_data, $position + 0, 2));
+			$hcrc = unpack('vCRC', substr($this->data, $position + 0, 2));
 			$hcrc = $hcrc['CRC'];
 			$position += 2;
 		}

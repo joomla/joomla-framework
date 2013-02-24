@@ -836,14 +836,14 @@ class JApplicationWebTest extends TestCase
 	{
 		$this->assertInstanceOf(
 			'JApplicationWebInspector',
-			JApplicationWeb::getInstance('JApplicationWebInspector'),
+			Joomla\Application\Web::getInstance('JApplicationWebInspector'),
 			'Tests that getInstance will instantiate a valid child class of JApplicationWeb.'
 		);
 
 		TestReflection::setValue('JApplicationWeb', 'instance', 'foo');
 
 		$this->assertThat(
-			JApplicationWeb::getInstance('JApplicationWebInspector'),
+			Joomla\Application\Web::getInstance('JApplicationWebInspector'),
 			$this->equalTo('foo'),
 			'Tests that singleton value is returned.'
 		);
@@ -852,7 +852,7 @@ class JApplicationWebTest extends TestCase
 
 		$this->assertInstanceOf(
 			'JApplicationWeb',
-			JApplicationWeb::getInstance('Foo'),
+			Joomla\Application\Web::getInstance('Foo'),
 			'Tests that getInstance will instantiate a valid child class of JApplicationWeb given a non-existent type.'
 		);
 	}
@@ -1163,7 +1163,7 @@ class JApplicationWebTest extends TestCase
 			$this->class,
 			'client',
 			(object) array(
-				'engine' => JApplicationWebClient::GECKO,
+				'engine' => Joomla\Application\Web\Client::GECKO,
 			)
 		);
 
@@ -1236,7 +1236,7 @@ class JApplicationWebTest extends TestCase
 			$this->class,
 			'client',
 			(object) array(
-				'engine' => JApplicationWebClient::TRIDENT,
+				'engine' => Joomla\Application\Web\Client::TRIDENT,
 			)
 		);
 
@@ -1273,7 +1273,7 @@ class JApplicationWebTest extends TestCase
 			$this->class,
 			'client',
 			(object) array(
-				'engine' => JApplicationWebClient::GECKO,
+				'engine' => Joomla\Application\Web\Client::GECKO,
 			)
 		);
 
@@ -1311,7 +1311,7 @@ class JApplicationWebTest extends TestCase
 			$this->class,
 			'client',
 			(object) array(
-				'engine' => JApplicationWebClient::GECKO,
+				'engine' => Joomla\Application\Web\Client::GECKO,
 			)
 		);
 
