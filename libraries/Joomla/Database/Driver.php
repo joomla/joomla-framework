@@ -126,20 +126,6 @@ abstract class Driver implements DatabaseInterface
 	protected $utf = true;
 
 	/**
-	 * @var         integer  The database error number
-	 * @since       11.1
-	 * @deprecated  12.1
-	 */
-	protected $errorNum = 0;
-
-	/**
-	 * @var         string  The database error message
-	 * @since       11.1
-	 * @deprecated  12.1
-	 */
-	protected $errorMsg;
-
-	/**
 	 * @var    array  JDatabaseDriver instances container.
 	 * @since  11.1
 	 */
@@ -360,7 +346,6 @@ abstract class Driver implements DatabaseInterface
 
 		$this->tablePrefix = (isset($options['prefix'])) ? $options['prefix'] : 'jos_';
 		$this->count = 0;
-		$this->errorNum = 0;
 		$this->log = array();
 
 		// Set class options.
@@ -993,7 +978,7 @@ abstract class Driver implements DatabaseInterface
 		{
 			if (!($cursor = $this->execute()))
 			{
-				return $this->errorNum ? null : false;
+				return false;
 			}
 		}
 
@@ -1030,7 +1015,7 @@ abstract class Driver implements DatabaseInterface
 		{
 			if (!($cursor = $this->execute()))
 			{
-				return $this->errorNum ? null : false;
+				return false;
 			}
 		}
 
