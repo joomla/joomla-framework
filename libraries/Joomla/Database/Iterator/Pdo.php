@@ -11,7 +11,7 @@ namespace Joomla\Database\Iterator;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Database\Iterator;
+use Joomla\Database\DatabaseIterator;
 use PDOStatement;
 
 /**
@@ -21,7 +21,7 @@ use PDOStatement;
  * @subpackage  Database
  * @since       12.1
  */
-class Pdo extends Iterator
+class Pdo extends DatabaseIterator
 {
 	/**
 	 * Get the number of rows in the result set for the executed SQL given by the cursor.

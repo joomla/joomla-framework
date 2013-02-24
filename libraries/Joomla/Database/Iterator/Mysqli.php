@@ -11,7 +11,7 @@ namespace Joomla\Database\Iterator;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Database\Iterator;
+use Joomla\Database\DatabaseIterator;
 
 /**
  * MySQLi database iterator.
@@ -20,7 +20,7 @@ use Joomla\Database\Iterator;
  * @subpackage  Database
  * @since       12.1
  */
-class Mysqli extends Iterator
+class Mysqli extends DatabaseIterator
 {
 	/**
 	 * Get the number of rows in the result set for the executed SQL given by the cursor.
