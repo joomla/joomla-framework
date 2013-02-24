@@ -85,7 +85,6 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   12.2
-	 * @covers  Input::count
 	 */
 	public function testCount()
 	{
