@@ -45,5 +45,5 @@ JLoader::setup();
 // Register classes for compatability with PHP 5.3
 if (version_compare(PHP_VERSION, '5.4.0', '<'))
 {
-	JLoader::register('JsonSerializable', JPATH_PLATFORM . '/compat/jsonserializable.php');
+	JLoader::register('JsonSerializable', JPATH_PLATFORM . '/Joomla/Registry/JsonSerializable.php');
 }
