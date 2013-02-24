@@ -127,7 +127,7 @@ class Database extends Logger
 		}
 
 		// Convert the date.
-		$entry->date = $entry->date->toSql(false, $this->dbo);
+		$entry->date = $entry->date->format($this->dbo->getDateFormat());
 
 		$this->dbo->insertObject($this->table, $entry);
 	}

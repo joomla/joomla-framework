@@ -241,25 +241,15 @@ class Date extends DateTime
 	/**
 	 * Gets the date as a formatted string.
 	 *
-	 * @param   string   $format     The date format specification string (see {@link PHP_MANUAL#date})
-	 * @param   boolean  $local      True to return the date string in the local time zone, false to return it in GMT.
-	 * @param   boolean  $translate  True to translate localised strings
+	 * @param   string   $format  The date format specification string (see {@link PHP_MANUAL#date})
+	 * @param   boolean  $local   True to return the date string in the local time zone, false to return it in GMT.
 	 *
 	 * @return  string   The date string in the specified format format.
 	 *
 	 * @since   11.1
 	 */
-	public function format($format, $local = false, $translate = true)
+	public function format($format, $local = false)
 	{
-		if ($translate)
-		{
-			// Do string replacements for date format options that can be translated.
-			$format = preg_replace('/(^|[^\\\])D/', "\\1" . self::DAY_ABBR, $format);
-			$format = preg_replace('/(^|[^\\\])l/', "\\1" . self::DAY_NAME, $format);
-			$format = preg_replace('/(^|[^\\\])M/', "\\1" . self::MONTH_ABBR, $format);
-			$format = preg_replace('/(^|[^\\\])F/', "\\1" . self::MONTH_NAME, $format);
-		}
-
 		// If the returned time should not be local use GMT.
 		if ($local == false)
 		{
@@ -268,30 +258,6 @@ class Date extends DateTime
 
 		// Format the date.
 		$return = parent::format($format);
-
-		if ($translate)
-		{
-			// Manually modify the month and day strings in the formatted time.
-			if (strpos($return, self::DAY_ABBR) !== false)
-			{
-				$return = str_replace(self::DAY_ABBR, $this->dayToString(parent::format('w'), true), $return);
-			}
-
-			if (strpos($return, self::DAY_NAME) !== false)
-			{
-				$return = str_replace(self::DAY_NAME, $this->dayToString(parent::format('w')), $return);
-			}
-
-			if (strpos($return, self::MONTH_ABBR) !== false)
-			{
-				$return = str_replace(self::MONTH_ABBR, $this->monthToString(parent::format('n'), true), $return);
-			}
-
-			if (strpos($return, self::MONTH_NAME) !== false)
-			{
-				$return = str_replace(self::MONTH_NAME, $this->monthToString(parent::format('n')), $return);
-			}
-		}
 
 		if ($local == false)
 		{
