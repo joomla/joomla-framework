@@ -6,7 +6,9 @@
     "homepage": "https://github.com/joomla/joomla-framework-data",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10"
+        "php": ">=5.3.10",
+        "joomla/date": "dev-master",
+        "joomla/registry": "dev-master"
     },
     "target-dir": "Joomla/Data",
     "autoload": {

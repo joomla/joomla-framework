@@ -6,7 +6,13 @@
     "homepage": "https://github.com/joomla/joomla-framework-form",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10"
+        "php": ">=5.3.10",
+        "joomla/language": "dev-master",
+        "joomla/string": "dev-master",
+        "joomla/filter": "dev-master",
+        "joomla/filesystem": "dev-master",
+        "joomla/registry": "dev-master",
+        "joomla/utilities": "dev-master"
     },
     "target-dir": "Joomla/Form",
     "autoload": {

@@ -6,7 +6,10 @@
     "homepage": "https://github.com/joomla/joomla-framework-filesystem",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10"
+        "php": ">=5.3.10",
+        "joomla/log": "dev-master",
+        "joomla/lanuage": "dev-master",
+        "joomla/client": "dev-master"
     },
     "target-dir": "Joomla/Filesystem",
     "autoload": {
