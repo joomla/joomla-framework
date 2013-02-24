@@ -20,17 +20,17 @@ use Joomla\Registry\Registry;
  *
  * @package     Joomla.Platform
  * @subpackage  Google
- * @since       1234
+ * @since       12.3
  */
 class People extends Data
 {
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry    $options  Google options object
-	 * @param   JGoogleAuth  $auth     Google data http client object
+	 * @param   Registry  $options  Google options object
+	 * @param   Auth      $auth     Google data http client object
 	 *
-	 * @since   1234
+	 * @since   12.3
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -50,7 +50,7 @@ class People extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   1234
+	 * @since   12.3
 	 */
 	public function getPeople($id, $fields = null)
 	{
@@ -86,7 +86,7 @@ class People extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   1234
+	 * @since   12.3
 	 */
 	public function search($query, $fields = null, $language = null, $max = 10, $token = null)
 	{
@@ -140,7 +140,7 @@ class People extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   1234
+	 * @since   12.3
 	 */
 	public function listByActivity($activityId, $collection, $fields = null, $max = 10, $token = null)
 	{

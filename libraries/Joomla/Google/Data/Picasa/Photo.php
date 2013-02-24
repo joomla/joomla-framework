@@ -37,8 +37,8 @@ class Photo extends Data
 	 * Constructor.
 	 *
 	 * @param   SimpleXMLElement  $xml      XML from Google
-	 * @param   JRegistry         $options  Google options object
-	 * @param   JGoogleAuth       $auth     Google data http client object
+	 * @param   Registry          $options  Google options object
+	 * @param   Auth              $auth     Google data http client object
 	 *
 	 * @since   12.3
 	 */
@@ -62,7 +62,9 @@ class Photo extends Data
 	 * @return  boolean  Success or failure.
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  Exception
+	 * @throws  RuntimeException
+	 * @throws  UnexpectedValueException
 	 */
 	public function delete($match = '*')
 	{
@@ -86,6 +88,7 @@ class Photo extends Data
 				{
 					throw new RuntimeException("Etag match failed: `$match`.");
 				}
+
 				throw $e;
 			}
 
@@ -93,6 +96,7 @@ class Photo extends Data
 			{
 				throw new UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
 			}
+
 			$this->xml = null;
 
 			return true;
@@ -123,6 +127,7 @@ class Photo extends Data
 				return (string) $link->attributes()->href;
 			}
 		}
+
 		return false;
 	}
 
@@ -156,6 +161,7 @@ class Photo extends Data
 			$height = (int) $item->attributes()->height;
 			$thumbs[$width] = array('url' => $url, 'w' => $width, 'h' => $height);
 		}
+
 		return $thumbs;
 	}
 
@@ -248,7 +254,7 @@ class Photo extends Data
 	 *
 	 * @param   string  $title  New photo title
 	 *
-	 * @return  JGoogleDataPicasaPhoto  The object for method chaining
+	 * @return  Photo  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -264,7 +270,7 @@ class Photo extends Data
 	 *
 	 * @param   string  $summary  New photo description
 	 *
-	 * @return  JGoogleDataPicasaPhoto  The object for method chaining
+	 * @return  Photo  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -280,7 +286,7 @@ class Photo extends Data
 	 *
 	 * @param   string  $access  New photo access level
 	 *
-	 * @return  JGoogleDataPicasaPhoto  The object for method chaining
+	 * @return  Photo  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -296,7 +302,7 @@ class Photo extends Data
 	 *
 	 * @param   int  $time  New photo time
 	 *
-	 * @return  JGoogleDataPicasaPhoto  The object for method chaining
+	 * @return  Photo  The object for method chaining
 	 *
 	 * @since   12.3
 	 */
@@ -315,6 +321,8 @@ class Photo extends Data
 	 * @return  mixed  Data from Google.
 	 *
 	 * @since   12.3
+	 * @throws  Exception
+	 * @throws  RuntimeException
 	 */
 	public function save($match = '*')
 	{
@@ -339,6 +347,7 @@ class Photo extends Data
 				{
 					throw new RuntimeException("Etag match failed: `$match`.");
 				}
+
 				throw $e;
 			}
 

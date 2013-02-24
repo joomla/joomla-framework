@@ -65,6 +65,7 @@ class Curl implements Transport
 	 * @return  Response
 	 *
 	 * @since   11.3
+	 * @throws  RuntimeException
 	 */
 	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
@@ -88,7 +89,6 @@ class Curl implements Transport
 			{
 				$options[CURLOPT_POSTFIELDS] = $data;
 			}
-
 			// Otherwise we need to encode the value first.
 			else
 			{
@@ -245,7 +245,7 @@ class Curl implements Transport
 	 *
 	 * @since   12.1
 	 */
-	static public function isSupported()
+	public static function isSupported()
 	{
 		return function_exists('curl_version') && curl_version();
 	}

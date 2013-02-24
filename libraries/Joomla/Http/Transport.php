@@ -51,9 +51,9 @@ interface Transport
 	/**
 	 * Method to check if http transport layer available for using
 	 *
-	 * @return bool true if available else false
+	 * @return  boolean  True if available else false
 	 *
 	 * @since   12.1
 	 */
-	static public function isSupported();
+	public static function isSupported();
 }

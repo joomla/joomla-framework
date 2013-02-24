@@ -191,7 +191,6 @@ class Socket implements Transport
 		{
 			$return->code = (int) $code;
 		}
-
 		// No valid response code was detected.
 		else
 		{
@@ -290,6 +289,7 @@ class Socket implements Transport
 
 			throw new RuntimeException($php_errormsg);
 		}
+
 		// Restore error tracking to what it was before.
 		ini_set('track_errors', $track_errors);
 
@@ -312,7 +312,7 @@ class Socket implements Transport
 	 *
 	 * @since   12.1
 	 */
-	static public function isSupported()
+	public static function isSupported()
 	{
 		return function_exists('fsockopen') && is_callable('fsockopen');
 	}

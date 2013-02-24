@@ -25,7 +25,7 @@ use Joomla\Registry\Registry;
 class OAuth2 extends Auth
 {
 	/**
-	 * @var    JOAuth2Client  OAuth client for the Google authentication object.
+	 * @var    Client  OAuth client for the Google authentication object.
 	 * @since  12.3
 	 */
 	protected $client;
@@ -33,8 +33,8 @@ class OAuth2 extends Auth
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry      $options  JGoogleAuth options object.
-	 * @param   JOAuth2Client  $client   OAuth client for Google authentication.
+	 * @param   Registry  $options  Auth options object.
+	 * @param   Client    $client   OAuth client for Google authentication.
 	 *
 	 * @since   12.3
 	 */
@@ -92,7 +92,7 @@ class OAuth2 extends Auth
 	/**
 	 * Method to fill in Google-specific OAuth settings
 	 *
-	 * @return  JOAuth2Client  Google-configured Oauth2 client.
+	 * @return  Client  Google-configured Oauth2 client.
 	 *
 	 * @since   12.3
 	 */
@@ -102,10 +102,12 @@ class OAuth2 extends Auth
 		{
 			$this->client->setOption('authurl', 'https://accounts.google.com/o/oauth2/auth');
 		}
+
 		if (!$this->client->getOption('tokenurl'))
 		{
 			$this->client->setOption('tokenurl', 'https://accounts.google.com/o/oauth2/token');
 		}
+
 		if (!$this->client->getOption('requestparams'))
 		{
 			$this->client->setOption('requestparams', Array());
@@ -117,10 +119,12 @@ class OAuth2 extends Auth
 		{
 			$params['access_type'] = 'offline';
 		}
+
 		if ($params['access_type'] == 'offline' && $this->client->getOption('userefresh') === null)
 		{
 			$this->client->setOption('userefresh', true);
 		}
+
 		if (!array_key_exists('approval_prompt', $params))
 		{
 			$params['approval_prompt'] = 'auto';

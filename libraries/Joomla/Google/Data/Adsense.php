@@ -30,8 +30,8 @@ class Adsense extends Data
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry    $options  Google options object
-	 * @param   JGoogleAuth  $auth     Google data http client object
+	 * @param   Registry  $options  Google options object
+	 * @param   Auth      $auth     Google data http client object
 	 *
 	 * @since   12.3
 	 */
@@ -54,6 +54,7 @@ class Adsense extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
+	 * @throws  UnexpectedValueException
 	 */
 	public function getAccount($accountID, $subaccounts = true)
 	{
@@ -80,13 +81,13 @@ class Adsense extends Data
 	/**
 	 * Method to retrieve a list of AdSense accounts from Google
 	 *
-	 * @param   array  $options   Search settings
-	 * @param   int    $maxpages  Maximum number of pages of accounts to return
+	 * @param   array    $options   Search settings
+	 * @param   integer  $maxpages  Maximum number of pages of accounts to return
 	 *
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function listAccounts($options = array(), $maxpages = 1)
 	{
@@ -107,14 +108,14 @@ class Adsense extends Data
 	/**
 	 * Method to retrieve a list of AdSense clients from Google
 	 *
-	 * @param   string  $accountID  ID of account to list the clients from
-	 * @param   array   $options    Search settings
-	 * @param   int     $maxpages   Maximum number of pages of accounts to return
+	 * @param   string   $accountID  ID of account to list the clients from
+	 * @param   array    $options    Search settings
+	 * @param   integer  $maxpages   Maximum number of pages of accounts to return
 	 *
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function listClients($accountID, $options = array(), $maxpages = 1)
 	{
@@ -142,6 +143,7 @@ class Adsense extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
+	 * @throws  UnexpectedValueException
 	 */
 	public function getUnit($accountID, $adclientID, $adunitID)
 	{
@@ -169,16 +171,16 @@ class Adsense extends Data
 	/**
 	 * Method to retrieve a list of AdSense Custom Channels for a specific Adunit
 	 *
-	 * @param   string  $accountID   ID of account
-	 * @param   string  $adclientID  ID of client
-	 * @param   string  $adunitID    ID of adunit to list channels from
-	 * @param   array   $options     Search settings
-	 * @param   int     $maxpages    Maximum number of pages of accounts to return
+	 * @param   string   $accountID   ID of account
+	 * @param   string   $adclientID  ID of client
+	 * @param   string   $adunitID    ID of adunit to list channels from
+	 * @param   array    $options     Search settings
+	 * @param   integer  $maxpages    Maximum number of pages of accounts to return
 	 *
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function listUnitChannels($accountID, $adclientID, $adunitID, $options = array(), $maxpages = 1)
 	{
@@ -207,6 +209,7 @@ class Adsense extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
+	 * @throws  UnexpectedValueException
 	 */
 	public function getChannel($accountID, $adclientID, $channelID)
 	{
@@ -234,15 +237,15 @@ class Adsense extends Data
 	/**
 	 * Method to retrieve a list of AdSense Custom Channels
 	 *
-	 * @param   string  $accountID   ID of account
-	 * @param   string  $adclientID  ID of client to list channels from
-	 * @param   array   $options     Search settings
-	 * @param   int     $maxpages    Maximum number of pages of accounts to return
+	 * @param   string   $accountID   ID of account
+	 * @param   string   $adclientID  ID of client to list channels from
+	 * @param   array    $options     Search settings
+	 * @param   integer  $maxpages    Maximum number of pages of accounts to return
 	 *
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function listChannels($accountID, $adclientID, $options = array(), $maxpages = 1)
 	{
@@ -264,16 +267,16 @@ class Adsense extends Data
 	/**
 	 * Method to retrieve a list of AdSense Adunits for a specific Custom Channel
 	 *
-	 * @param   string  $accountID   ID of account
-	 * @param   string  $adclientID  ID of client
-	 * @param   string  $channelID   ID of channel to list units from
-	 * @param   array   $options     Search settings
-	 * @param   int     $maxpages    Maximum number of pages of accounts to return
+	 * @param   string   $accountID   ID of account
+	 * @param   string   $adclientID  ID of client
+	 * @param   string   $channelID   ID of channel to list units from
+	 * @param   array    $options     Search settings
+	 * @param   integer  $maxpages    Maximum number of pages of accounts to return
 	 *
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function listChannelUnits($accountID, $adclientID, $channelID, $options = array(), $maxpages = 1)
 	{
@@ -295,15 +298,15 @@ class Adsense extends Data
 	/**
 	 * Method to generate a report from Google AdSense
 	 *
-	 * @param   string  $accountID   ID of account
-	 * @param   string  $adclientID  ID of client
-	 * @param   array   $options     Search settings
-	 * @param   int     $maxpages    Maximum number of pages of accounts to return
+	 * @param   string   $accountID   ID of account
+	 * @param   string   $adclientID  ID of client
+	 * @param   array    $options     Search settings
+	 * @param   integer  $maxpages    Maximum number of pages of accounts to return
 	 *
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  UnexpectedValueException
 	 */
 	public function listUrlChannels($accountID, $adclientID, $options = array(), $maxpages = 1)
 	{
@@ -325,16 +328,17 @@ class Adsense extends Data
 	/**
 	 * Method to retrieve a list of AdSense Channel URLs
 	 *
-	 * @param   string  $accountID  ID of account
-	 * @param   mixed   $start      Start day
-	 * @param   mixed   $end        End day
-	 * @param   array   $options    Search settings
-	 * @param   int     $maxpages   Maximum number of pages of accounts to return
+	 * @param   string   $accountID  ID of account
+	 * @param   mixed    $start      Start day
+	 * @param   mixed    $end        End day
+	 * @param   array    $options    Search settings
+	 * @param   integer  $maxpages   Maximum number of pages of accounts to return
 	 *
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   12.3
-	 * @throws UnexpectedValueException
+	 * @throws  InvalidArgumentException
+	 * @throws  UnexpectedValueException
 	 */
 	public function generateReport($accountID, $start, $end = false, $options = array(), $maxpages = 1)
 	{
