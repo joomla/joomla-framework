@@ -103,7 +103,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::__unset
+	 * @covers  Joomla\Data\Data::__unset
 	 * @since   12.3
 	 */
 	public function test__unset()

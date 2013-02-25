@@ -42,7 +42,7 @@ class CryptTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @covers  Joomla\Crypt\Crypt::__construct()
 	 *
-	 * @return  [type]  [description]
+	 * @return  void
 	 */
 	public function test__construct()
 	{
@@ -53,7 +53,7 @@ class CryptTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers JCrypt::decrypt
+	 * @covers Joomla\Crypt\Crypt::decrypt
 	 * @todo Implement testDecrypt().
 	 *
 	 * @return void
@@ -69,7 +69,7 @@ class CryptTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers JCrypt::encrypt
+	 * @covers Joomla\Crypt\Crypt::encrypt
 	 * @todo Implement testEncrypt().
 	 *
 	 * @return void
@@ -85,8 +85,7 @@ class CryptTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers JCrypt::generateKey
-	 * @todo Implement testGenerateKey().
+	 * @covers Joomla\Crypt\Crypt::generateKey
 	 *
 	 * @return void
 	 */
@@ -100,8 +99,7 @@ class CryptTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers JCrypt::setKey
-	 * @todo Implement testSetKey().
+	 * @covers Joomla\Crypt\Crypt::setKey
 	 *
 	 * @return void
 	 */
@@ -117,7 +115,7 @@ class CryptTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers JCrypt::genRandomBytes
+	 * @covers Joomla\Crypt\Crypt::genRandomBytes
 	 *
 	 * @return void
 	 */

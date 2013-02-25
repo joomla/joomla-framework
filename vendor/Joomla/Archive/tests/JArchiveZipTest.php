@@ -170,7 +170,7 @@ class ArchiveZipTest extends PHPUnit_Framework_TestCase
 	 * @group    JArchive
 	 * @return   void
 	 *
-	 * @covers   JArchiveGzip::isSupported
+	 * @covers   Joomla\Archive\Zip::isSupported
 	 * @depends  testHasNativeSupport
 	 */
 	public function testIsSupported()
