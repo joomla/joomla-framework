@@ -23,7 +23,6 @@ use Joomla\Html\Html;
  */
 class Field_Integer extends Field_List
 {
-
 	/**
 	 * The form field type.
 	 *

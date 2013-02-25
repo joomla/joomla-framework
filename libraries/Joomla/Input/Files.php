@@ -87,7 +87,6 @@ class Files extends Input
 		}
 
 		return $default;
-
 	}
 
 	/**
@@ -128,6 +127,5 @@ class Files extends Input
 	 */
 	public function set($name, $value)
 	{
-
 	}
 }

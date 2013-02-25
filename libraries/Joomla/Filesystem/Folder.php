@@ -61,6 +61,7 @@ abstract class Folder
 		{
 			throw new RuntimeException('Source folder not found', -1);
 		}
+
 		if (self::exists($dest) && !$force)
 		{
 			throw new RuntimeException('Destination folder not found', -1);
@@ -82,6 +83,7 @@ abstract class Folder
 			{
 				throw new RuntimeException('Cannot open source folder', -1);
 			}
+
 			// Walk through the directory copying files and recursing into folders.
 			while (($file = readdir($dh)) !== false)
 			{
@@ -120,6 +122,7 @@ abstract class Folder
 			{
 				throw new RuntimeException('Cannot open source folder', -1);
 			}
+
 			// Walk through the directory copying files and recursing into folders.
 			while (($file = readdir($dh)) !== false)
 			{
@@ -161,6 +164,7 @@ abstract class Folder
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -244,6 +248,7 @@ abstract class Folder
 				{
 					$obdSeparator = ":";
 				}
+
 				// Create the array of open_basedir paths
 				$obdArray = explode($obdSeparator, $obd);
 				$inBaseDir = false;
@@ -259,6 +264,7 @@ abstract class Folder
 						break;
 					}
 				}
+
 				if ($inBaseDir == false)
 				{
 					// Return false for JFolder::create because the path to be created is not in open_basedir
@@ -283,6 +289,7 @@ abstract class Folder
 			// Reset umask
 			@umask($origmask);
 		}
+
 		return $ret;
 	}
 
@@ -390,6 +397,7 @@ abstract class Folder
 			Log::add(sprintf('%1$s: Could not delete folder. Path: %2$s', __METHOD__, $path), Log::WARNING, 'jerror');
 			$ret = false;
 		}
+
 		return $ret;
 	}
 
@@ -419,10 +427,12 @@ abstract class Folder
 		{
 			return 'Cannot find source folder';
 		}
+
 		if (self::exists($dest))
 		{
 			return 'Folder already exists';
 		}
+
 		if ($use_streams)
 		{
 			$stream = Factory::getStream();
@@ -431,6 +441,7 @@ abstract class Folder
 			{
 				return 'Rename failed: ' . $stream->getError();
 			}
+
 			$ret = true;
 		}
 		else
@@ -449,6 +460,7 @@ abstract class Folder
 				{
 					return 'Rename failed';
 				}
+
 				$ret = true;
 			}
 			else
@@ -457,9 +469,11 @@ abstract class Folder
 				{
 					return 'Rename failed';
 				}
+
 				$ret = true;
 			}
 		}
+
 		return $ret;
 	}
 
@@ -623,6 +637,7 @@ abstract class Folder
 						$arr[] = $file;
 					}
 				}
+
 				if ($isDir && $recurse)
 				{
 					// Search recursively
@@ -638,6 +653,7 @@ abstract class Folder
 				}
 			}
 		}
+
 		closedir($handle);
 
 		return $arr;
@@ -664,6 +680,7 @@ abstract class Folder
 		{
 			$GLOBALS['_JFolder_folder_tree_index'] = 0;
 		}
+
 		if ($level < $maxLevel)
 		{
 			$folders = self::folders($path, $filter);
@@ -679,6 +696,7 @@ abstract class Folder
 				$dirs = array_merge($dirs, $dirs2);
 			}
 		}
+
 		return $dirs;
 	}
 

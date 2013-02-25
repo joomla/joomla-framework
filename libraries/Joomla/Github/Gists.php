@@ -582,9 +582,9 @@ class Gists extends Object
 			{
 				$data[$key] = array('content' => $file);
 			}
+			elseif (!file_exists($file))
 			// Otherwise, we have been given a path and we have to load the content
 			// Verify that the each file exists.
-			elseif (!file_exists($file))
 			{
 				throw new InvalidArgumentException('The file ' . $file . ' does not exist.');
 			}

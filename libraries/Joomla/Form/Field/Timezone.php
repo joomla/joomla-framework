@@ -24,7 +24,6 @@ use DateTimeZone;
  */
 class Field_Timezone extends Field_GroupedList
 {
-
 	/**
 	 * The form field type.
 	 *
@@ -68,7 +67,6 @@ class Field_Timezone extends Field_GroupedList
 		// Build the group lists.
 		foreach ($zones as $zone)
 		{
-
 			// Time zones not in a group we will ignore.
 			if (strpos($zone, '/') === false)
 			{
@@ -81,7 +79,6 @@ class Field_Timezone extends Field_GroupedList
 			// Only use known groups.
 			if (in_array($group, self::$zones))
 			{
-
 				// Initialize the group if necessary.
 				if (!isset($groups[$group]))
 				{

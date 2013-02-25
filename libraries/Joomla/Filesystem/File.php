@@ -133,10 +133,10 @@ class File
 
 				if (!$ftp->store($src, $dest))
 				{
-
 					// FTP connector throws an error
 					return false;
 				}
+
 				$ret = true;
 			}
 			else
@@ -147,6 +147,7 @@ class File
 
 					return false;
 				}
+
 				$ret = true;
 			}
 
@@ -473,12 +474,10 @@ class File
 
 		if ($slash !== false)
 		{
-
 			return substr($file, $slash + 1);
 		}
 		else
 		{
-
 			return $file;
 		}
 	}

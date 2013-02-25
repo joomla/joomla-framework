@@ -69,8 +69,8 @@ class Field_List extends Field
 			$html[] = Html::_('select.genericlist', $options, '', trim($attr), 'value', 'text', $this->value, $this->id);
 			$html[] = '<input type="hidden" name="' . $this->name . '" value="' . $this->value . '"/>';
 		}
-		// Create a regular list.
 		else
+		// Create a regular list.
 		{
 			$html[] = Html::_('select.genericlist', $options, $this->name, trim($attr), 'value', 'text', $this->value, $this->id);
 		}
@@ -91,7 +91,6 @@ class Field_List extends Field
 
 		foreach ($this->element->children() as $option)
 		{
-
 			// Only add <option /> elements.
 			if ($option->getName() != 'option')
 			{

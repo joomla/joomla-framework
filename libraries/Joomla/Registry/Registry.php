@@ -326,6 +326,7 @@ class Registry implements JsonSerializable
 				$this->data->$k = $v;
 			}
 		}
+
 		return true;
 	}
 

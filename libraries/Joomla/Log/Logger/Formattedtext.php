@@ -132,7 +132,6 @@ class Formattedtext extends Logger
 		// Set some default field values if not already set.
 		if (!isset($entry->clientIP))
 		{
-
 			// Check for proxies as well.
 			if (isset($_SERVER['REMOTE_ADDR']))
 			{
@@ -151,7 +150,6 @@ class Formattedtext extends Logger
 		// If the time field is missing or the date field isn't only the date we need to rework it.
 		if ((strlen($entry->date) != 10) || !isset($entry->time))
 		{
-
 			// Get the date and time strings in GMT.
 			$entry->datetime = $entry->date->toISO8601();
 			$entry->time = $entry->date->format('H:i:s', false);
@@ -199,6 +197,7 @@ class Formattedtext extends Logger
 			$head[] = '#';
 			$head[] = '#<?php die(\'Forbidden.\'); ?>';
 		}
+
 		$head[] = '#Date: ' . gmdate('Y-m-d H:i:s') . ' UTC';
 		$head[] = '#Software: ' . JPlatform::getLongVersion();
 		$head[] = '';
@@ -224,7 +223,6 @@ class Formattedtext extends Logger
 		// If the file doesn't already exist we need to create it and generate the file header.
 		if (!is_file($this->path))
 		{
-
 			// Make sure the folder exists in which to create the log file.
 			Folder::create(dirname($this->path));
 
@@ -241,6 +239,7 @@ class Formattedtext extends Logger
 		{
 			throw new RuntimeException('Cannot open file for writing log');
 		}
+
 		if ($head)
 		{
 			if (!fwrite($this->file, $head))

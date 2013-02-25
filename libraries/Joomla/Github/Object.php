@@ -38,8 +38,8 @@ abstract class Object
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry    $options  GitHub options object.
-	 * @param   Http  $client   The HTTP client object.
+	 * @param   Registry  $options  GitHub options object.
+	 * @param   Http      $client   The HTTP client object.
 	 *
 	 * @since   11.3
 	 */

@@ -17,7 +17,6 @@
  */
 class JFormRuleUsernameTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * Test the JFormRuleUsername::test method.
 	 *

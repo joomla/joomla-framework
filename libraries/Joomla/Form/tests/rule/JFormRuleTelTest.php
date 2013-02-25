@@ -17,7 +17,6 @@
  */
 class JFormRuleTelTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * Test the JFormRuleTel::test method.
 	 *

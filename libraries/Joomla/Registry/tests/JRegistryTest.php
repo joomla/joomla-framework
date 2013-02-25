@@ -406,7 +406,6 @@ class JRegistryTest extends PHPUnit_Framework_TestCase
 			$this->equalTo('testloadjson'),
 			'Line: ' . __LINE__ . '.'
 		);
-
 	}
 
 	/**

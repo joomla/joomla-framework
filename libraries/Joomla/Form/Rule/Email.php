@@ -101,7 +101,6 @@ class Email extends Rule
 
 		if ($unique && !$multiple)
 		{
-
 			// Get the database object and a new query object.
 			$db = Factory::getDBO();
 			$query = $db->getQuery(true);

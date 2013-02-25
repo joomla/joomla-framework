@@ -195,7 +195,6 @@ class Helper
 		// If the type is complex, add the base type to the paths.
 		if ($pos = strpos($type, '_'))
 		{
-
 			// Add the complex type prefix to the paths.
 			for ($i = 0, $n = count($paths); $i < $n; $i++)
 			{
@@ -208,6 +207,7 @@ class Helper
 					$paths[] = $path;
 				}
 			}
+
 			// Break off the end of the complex type.
 			$type = substr($type, $pos + 1);
 		}

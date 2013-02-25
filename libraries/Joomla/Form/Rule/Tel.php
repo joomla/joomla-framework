@@ -64,7 +64,6 @@ class Tel extends Rule
 
 		if (isset($element['plan']))
 		{
-
 			$plan = (string) $element['plan'];
 
 			if ($plan == 'northamerica' || $plan == 'us')
@@ -85,7 +84,6 @@ class Tel extends Rule
 			// Test the value against the regular expression.
 			if (preg_match($regex, $value) == false)
 			{
-
 				return false;
 			}
 		}
@@ -101,12 +99,10 @@ class Tel extends Rule
 
 			if (preg_match($regex, $cleanvalue) == true)
 			{
-
 				return true;
 			}
 			else
 			{
-
 				return false;
 			}
 		}

@@ -68,4 +68,3 @@ abstract class Logger
 	 */
 	abstract public function addEntry(Entry $entry);
 }
-

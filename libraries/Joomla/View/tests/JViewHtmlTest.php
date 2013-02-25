@@ -7,8 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-JLoader::register('HtmlView', __DIR__ . '/stubs/thtml.php');
-JLoader::register('JModelMock', __DIR__ . '/mocks/JModelMock.php');
+require_once __DIR__ . '/stubs/thtml.php';
+require_once __DIR__ . '/mocks/JModelMock.php';
 
 /**
  * Tests for the JViewHtml class.

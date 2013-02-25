@@ -88,6 +88,7 @@ class Syslog extends Logger
 		{
 			$sysOptions = $sysOptions | LOG_PID;
 		}
+
 		if ($this->options['sys_use_stderr'])
 		{
 			$sysOptions = $sysOptions | LOG_PERROR;

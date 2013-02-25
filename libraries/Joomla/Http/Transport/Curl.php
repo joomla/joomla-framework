@@ -89,8 +89,8 @@ class Curl implements Transport
 			{
 				$options[CURLOPT_POSTFIELDS] = $data;
 			}
-			// Otherwise we need to encode the value first.
 			else
+			// Otherwise we need to encode the value first.
 			{
 				$options[CURLOPT_POSTFIELDS] = http_build_query($data);
 			}

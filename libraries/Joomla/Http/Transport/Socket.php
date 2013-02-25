@@ -61,7 +61,7 @@ class Socket implements Transport
 	 * Send a request to the server and return a JHttpResponse object with the response.
 	 *
 	 * @param   string   $method     The HTTP method for sending the request.
-	 * @param   Uri     $uri        The URI to the resource to request.
+	 * @param   Uri      $uri        The URI to the resource to request.
 	 * @param   mixed    $data       Either an associative array or a string to be sent with the request.
 	 * @param   array    $headers    An array of request headers to send with the request.
 	 * @param   integer  $timeout    Read timeout in seconds.
@@ -191,8 +191,8 @@ class Socket implements Transport
 		{
 			$return->code = (int) $code;
 		}
-		// No valid response code was detected.
 		else
+		// No valid response code was detected.
 		{
 			throw new UnexpectedValueException('No HTTP response code found.');
 		}

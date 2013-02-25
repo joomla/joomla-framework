@@ -32,9 +32,9 @@ class JFilterInputMockTracker
 		{
 			$this->calls[$name] = array();
 		}
+
 		$this->calls[$name][] = $arguments;
 
 		return $arguments[0];
 	}
-
 }

@@ -157,6 +157,7 @@ class JFormRuleEmailTest extends PHPUnit_Framework_TestCase
 			$emailAddress . ' should have returned ' . ($expectedResult ? 'true' : 'false') . ' but did not'
 		);
 	}
+
 	/**
 	 * Data Provider  for email rule test with tld attribute
 	 *

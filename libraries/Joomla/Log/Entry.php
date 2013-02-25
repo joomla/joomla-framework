@@ -89,6 +89,7 @@ class Entry
 		{
 			$priority = Log::INFO;
 		}
+
 		$this->priority = $priority;
 
 		// Sanitize category if it exists.

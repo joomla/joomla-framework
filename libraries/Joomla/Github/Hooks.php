@@ -30,8 +30,8 @@ class Hooks extends Object
 	 * @since  12.3
 	 */
 	protected $events = array(
-						'push', 'issues', 'issue_comment', 'commit_comment', 'pull_request', 'gollum', 'watch', 'download', 'fork', 'fork_apply',
-						'member', 'public', 'status'
+		'push', 'issues', 'issue_comment', 'commit_comment', 'pull_request', 'gollum', 'watch', 'download', 'fork', 'fork_apply',
+		'member', 'public', 'status'
 	);
 
 	/**
@@ -158,6 +158,7 @@ class Hooks extends Object
 				throw new RuntimeException('Your remove_events array contains an unauthorized event.');
 			}
 		}
+
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/hooks/' . $id;
 

@@ -322,7 +322,6 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 			$this->isFalse(),
 			'Line:' . __LINE__ . ' If not a form object, setup should return false.'
 		);
-
 	}
 
 	/**

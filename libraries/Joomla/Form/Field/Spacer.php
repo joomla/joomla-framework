@@ -95,6 +95,7 @@ class Field_Spacer extends Field
 			$label .= '>' . $text . '</label>';
 			$html[] = $label;
 		}
+
 		$html[] = '</span>';
 		$html[] = '<span class="after"></span>';
 		$html[] = '</span>';

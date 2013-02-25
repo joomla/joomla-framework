@@ -106,5 +106,4 @@ class JImageFilterContrastTest extends PHPUnit_Framework_TestCase
 
 		$filter->execute(array());
 	}
-
 }

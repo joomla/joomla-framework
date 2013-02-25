@@ -51,6 +51,7 @@ class Options extends Rule
 				return true;
 			}
 		}
+
 		return false;
 	}
 }

@@ -18,7 +18,6 @@ use Joomla\Filesystem\Support\StringController;
  */
 class StringControllerTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * @var StringController
 	 */
@@ -81,5 +80,4 @@ class StringControllerTest extends PHPUnit_Framework_TestCase
 			'This test has not been implemented yet.'
 		);
 	}
-
 }

@@ -90,7 +90,6 @@ class Field_Radio extends Field
 
 		foreach ($this->element->children() as $option)
 		{
-
 			// Only add <option /> elements.
 			if ($option->getName() != 'option')
 			{

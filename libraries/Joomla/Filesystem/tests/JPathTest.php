@@ -121,6 +121,7 @@ class JPathTest extends PHPUnit_Framework_TestCase
 	{
 		JPath::clean(array('/path/to/folder'));
 	}
+
 	/**
 	 * Test...
 	 *

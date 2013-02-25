@@ -147,7 +147,6 @@ class Form
 		// Process the input data.
 		foreach ($data as $k => $v)
 		{
-
 			if ($this->findField($k))
 			{
 				// If the field exists set the value.
@@ -181,7 +180,6 @@ class Form
 		// Process the input data.
 		foreach ($data as $k => $v)
 		{
-
 			if ($this->findField($k, $group))
 			{
 				// If the field exists set the value.
@@ -330,8 +328,8 @@ class Form
 		{
 			return (string) $element[$attribute];
 		}
-		// Otherwise return the given default value.
 		else
+		// Otherwise return the given default value.
 		{
 			return $default;
 		}
@@ -356,8 +354,8 @@ class Form
 		{
 			$elements = $this->findFieldsByFieldset($set);
 		}
-		// Get all fields.
 		else
+		// Get all fields.
 		{
 			$elements = $this->findFieldsByGroup();
 		}
@@ -429,7 +427,6 @@ class Form
 		// If no fieldsets are found return empty.
 		if (empty($sets))
 		{
-
 			return $fieldsets;
 		}
 
@@ -439,11 +436,9 @@ class Form
 			// Are we dealing with a fieldset element?
 			if ((string) $set['name'])
 			{
-
 				// Only create it if it doesn't already exist.
 				if (empty($fieldsets[(string) $set['name']]))
 				{
-
 					// Build the fieldset object.
 					$fieldset = (object) array('name' => '', 'label' => '', 'description' => '');
 
@@ -456,14 +451,12 @@ class Form
 					$fieldsets[$fieldset->name] = $fieldset;
 				}
 			}
-			// Must be dealing with a fieldset attribute.
 			else
+			// Must be dealing with a fieldset attribute.
 			{
-
 				// Only create it if it doesn't already exist.
 				if (empty($fieldsets[(string) $set]))
 				{
-
 					// Attempt to get the fieldset element for data (throughout the entire form document).
 					$tmp = $this->xml->xpath('//fieldset[@name="' . (string) $set . '"]');
 
@@ -472,8 +465,8 @@ class Form
 					{
 						$fieldset = (object) array('name' => (string) $set, 'label' => '', 'description' => '');
 					}
-					// Build the fieldset object from the element.
 					else
+					// Build the fieldset object from the element.
 					{
 						$fieldset = (object) array('name' => '', 'label' => '', 'description' => '');
 
@@ -689,8 +682,8 @@ class Form
 
 				return true;
 			}
-			// Create a root element for the form.
 			else
+			// Create a root element for the form.
 			{
 				$this->xml = new SimpleXMLElement('<form></form>');
 			}
@@ -729,7 +722,6 @@ class Form
 				// Check to see if the field exists in the current form.
 				if ($current = $this->findField((string) $field['name'], implode('.', $groups)))
 				{
-
 					// If set to replace found fields, replace the data and remove the field so we don't add it twice.
 					if ($replace)
 					{
@@ -778,7 +770,6 @@ class Form
 		// Check to see if the path is an absolute path.
 		if (!is_file($file))
 		{
-
 			// Not an absolute path so let's attempt to find one using JPath.
 			$file = Path::find(self::addFormPath(), strtolower($file) . '.xml');
 
@@ -788,6 +779,7 @@ class Form
 				return false;
 			}
 		}
+
 		// Attempt to load the XML file.
 		$xml = simplexml_load_file($file);
 
@@ -920,7 +912,6 @@ class Form
 		// If no existing field is found find a group element and add the field as a child of it.
 		if ($group)
 		{
-
 			// Get the fields elements for a given group.
 			$fields = &$this->findGroup($group);
 
@@ -971,8 +962,8 @@ class Form
 		{
 			return false;
 		}
-		// Otherwise set the attribute and return true.
 		else
+		// Otherwise set the attribute and return true.
 		{
 			$element[$attribute] = $value;
 
@@ -1196,6 +1187,7 @@ class Form
 				{
 					$value = get_object_vars($value);
 				}
+
 				$value = is_array($value) ? $value : array($value);
 
 				ArrayHelper::toInteger($value);
@@ -1247,6 +1239,7 @@ class Form
 				{
 					return;
 				}
+
 				$value = Input::getInstance()->clean($value, 'html');
 				$value = trim($value);
 
@@ -1281,8 +1274,8 @@ class Form
 					{
 						$value = 'http://' . $value;
 					}
-					// Otherwise prepend the root.
 					else
+					// Otherwise prepend the root.
 					{
 						$value = Uri::root() . $value;
 					}
@@ -1303,14 +1296,16 @@ class Form
 					{
 						$number = substr($number, 1);
 					}
+
 					if (substr($number, 0, 2) == '+1')
 					{
 						$number = substr($number, 2);
 					}
+
 					$result = '1.' . $number;
 				}
-				// If not, does it match ITU-T?
 				elseif (preg_match('/^\+(?:[0-9] ?){6,14}[0-9]$/', $value) == 1)
+				// If not, does it match ITU-T?
 				{
 					$countrycode = substr($value, 0, strpos($value, ' '));
 					$countrycode = (string) preg_replace('/[^\d]/', '', $countrycode);
@@ -1318,24 +1313,24 @@ class Form
 					$number = (string) preg_replace('/[^\d]/', '', $number);
 					$result = $countrycode . '.' . $number;
 				}
-				// If not, does it match EPP?
 				elseif (preg_match('/^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/', $value) == 1)
+				// If not, does it match EPP?
 				{
 					if (strstr($value, 'x'))
 					{
 						$xpos = strpos($value, 'x');
 						$value = substr($value, 0, $xpos);
 					}
-					$result = str_replace('+', '', $value);
 
+					$result = str_replace('+', '', $value);
 				}
-				// Maybe it is already ccc.nnnnnnn?
 				elseif (preg_match('/[0-9]{1,3}\.[0-9]{4,14}$/', $value) == 1)
+				// Maybe it is already ccc.nnnnnnn?
 				{
 					$result = $value;
 				}
-				// If not, can we make it a string of digits?
 				else
+				// If not, can we make it a string of digits?
 				{
 					$value = (string) preg_replace('/[^\d]/', '', $value);
 
@@ -1347,7 +1342,6 @@ class Form
 						if ($length <= 12)
 						{
 							$result = '.' . $value;
-
 						}
 						else
 						{
@@ -1356,28 +1350,30 @@ class Form
 							$result = substr($value, 0, $cclen) . '.' . substr($value, $cclen);
 						}
 					}
-					// If not let's not save anything.
 					else
+					// If not let's not save anything.
 					{
 						$result = '';
 					}
 				}
+
 				$return = $result;
 
 				break;
+
 			default:
 				// Check for a callback filter.
 				if (strpos($filter, '::') !== false && is_callable(explode('::', $filter)))
 				{
 					$return = call_user_func(explode('::', $filter), $value);
 				}
-				// Filter using a callback function if specified.
 				elseif (function_exists($filter))
+				// Filter using a callback function if specified.
 				{
 					$return = call_user_func($filter, $value);
 				}
-				// Filter using Input. All HTML code is filtered by default.
 				else
+				// Filter using Input. All HTML code is filtered by default.
 				{
 					$return = Input::getInstance()->clean($value, $filter);
 				}
@@ -1411,7 +1407,6 @@ class Form
 		// Let's get the appropriate field element based on the method arguments.
 		if ($group)
 		{
-
 			// Get the fields elements for a given group.
 			$elements = &$this->findGroup($group);
 
@@ -1467,8 +1462,8 @@ class Form
 				{
 					continue;
 				}
-				// Found it!
 				else
+				// Found it!
 				{
 					$element = &$field;
 					break;
@@ -1537,25 +1532,22 @@ class Form
 		// Get only fields in a specific group?
 		if ($group)
 		{
-
 			// Get the fields elements for a given group.
 			$elements = &$this->findGroup($group);
 
 			// Get all of the field elements for the fields elements.
 			foreach ($elements as $element)
 			{
-
 				// If there are field elements add them to the return result.
 				if ($tmp = $element->xpath('descendant::field'))
 				{
-
 					// If we also want fields in nested groups then just merge the arrays.
 					if ($nested)
 					{
 						$fields = array_merge($fields, $tmp);
 					}
-					// If we want to exclude nested groups then we need to check each field.
 					else
+					// If we want to exclude nested groups then we need to check each field.
 					{
 						$groupNames = explode('.', $group);
 
@@ -1615,7 +1607,6 @@ class Form
 
 		if (!empty($group))
 		{
-
 			// Get any fields elements with the correct group name.
 			$elements = $this->xml->xpath('//fields[@name="' . (string) $group[0] . '"]');
 
@@ -1728,6 +1719,7 @@ class Form
 					$default = Text::_($default);
 				}
 			}
+
 			$value = $this->getValue((string) $element['name'], $group, $default);
 		}
 
@@ -1862,6 +1854,7 @@ class Form
 				{
 					$message = Text::_($element['name']);
 				}
+
 				$message = Text::sprintf('JLIB_FORM_VALIDATE_FIELD_REQUIRED', $message);
 
 				return new RuntimeException($message);

@@ -18,7 +18,6 @@ use Joomla\Profiler\Profiler;
  */
 class ProfilerTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * @var Profiler
 	 */
@@ -111,5 +110,4 @@ class ProfilerTest extends PHPUnit_Framework_TestCase
 			'This test has not been implemented yet.'
 		);
 	}
-
 }

@@ -84,6 +84,7 @@ class Field_DatabaseConnection extends Field_List
 		{
 			$options[''] = Text::_('JNONE');
 		}
+
 		return $options;
 	}
 }

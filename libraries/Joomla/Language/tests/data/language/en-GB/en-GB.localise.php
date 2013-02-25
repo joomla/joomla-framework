@@ -36,6 +36,7 @@ abstract class En_GBLocalise
 		{
 			$return = array('MORE');
 		}
+
 		return $return;
 	}
 

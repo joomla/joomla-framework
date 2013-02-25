@@ -931,6 +931,7 @@ But after they are produced,
 		{
 			file_put_contents($path, $content);
 		}
+
 		$patcher = Patcher::getInstance()->reset();
 		$patcher->add($udiff, $root, $strip);
 		$this->assertEquals(

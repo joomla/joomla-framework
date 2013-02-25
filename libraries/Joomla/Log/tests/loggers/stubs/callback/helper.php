@@ -32,7 +32,7 @@ class JLogLoggerCallbackTestHelper
 	 *
 	 * @since   12.2
 	 */
-	public static function callback01(JLogEntry $entry)
+	public static function callback01(Joomla\Log\Entry $entry)
 	{
 		self::$lastEntry = $entry;
 	}
@@ -46,9 +46,8 @@ class JLogLoggerCallbackTestHelper
 	 *
 	 * @since   12.2
 	 */
-	public function callback02(JLogEntry $entry)
+	public function callback02(Joomla\Log\Entry $entry)
 	{
-
 	}
 }
 
@@ -61,7 +60,6 @@ class JLogLoggerCallbackTestHelper
  *
  * @since   12.2
  */
-function jLogLoggerCallbackTestHelperFunction(JLogEntry $entry)
+function jLogLoggerCallbackTestHelperFunction(Joomla\Log\Entry $entry)
 {
-
 }

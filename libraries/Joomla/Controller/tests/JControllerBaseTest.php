@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-JLoader::register('BaseController', __DIR__ . '/stubs/tbase.php');
+require_once __DIR__ . '/stubs/tbase.php';
 
 /**
  * Tests for the JController class.
@@ -22,7 +22,7 @@ class JControllerBaseTest extends TestCase
 	 * @var    JControllerBase
 	 * @since  12.1
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
 	 * Tests the __construct method.
@@ -35,8 +35,8 @@ class JControllerBaseTest extends TestCase
 	public function test__construct()
 	{
 		// New controller with no dependancies.
-		$this->assertEquals('default', TestReflection::getValue($this->_instance, 'app')->input, 'Checks the mock application came from the factory.');
-		$this->assertAttributeEquals('default', 'input', $this->_instance, 'Checks the input came from the application.');
+		$this->assertEquals('default', TestReflection::getValue($this->instance, 'app')->input, 'Checks the mock application came from the factory.');
+		$this->assertAttributeEquals('default', 'input', $this->instance, 'Checks the input came from the application.');
 
 		// New controller with dependancies
 		$app = TestMockApplicationWeb::create($this);
@@ -57,8 +57,8 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function testGetApplication()
 	{
-		TestReflection::setValue($this->_instance, 'app', 'application');
-		$this->assertEquals('application', $this->_instance->getApplication());
+		TestReflection::setValue($this->instance, 'app', 'application');
+		$this->assertEquals('application', $this->instance->getApplication());
 	}
 
 	/**
@@ -71,8 +71,8 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function testGetInput()
 	{
-		TestReflection::setValue($this->_instance, 'input', 'input');
-		$this->assertEquals('input', $this->_instance->getInput());
+		TestReflection::setValue($this->instance, 'input', 'input');
+		$this->assertEquals('input', $this->instance->getInput());
 	}
 
 	/**
@@ -85,7 +85,7 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function testSerialise()
 	{
-		$this->assertEquals('s:7:"default";', $this->_instance->serialize());
+		$this->assertEquals('s:7:"default";', $this->instance->serialize());
 	}
 
 	/**
@@ -100,8 +100,8 @@ class JControllerBaseTest extends TestCase
 	{
 		$input = serialize(new JInput);
 
-		$this->assertSame($this->_instance, $this->_instance->unserialize($input), 'Checks chaining and target method.');
-		$this->assertInstanceOf('JInput', $this->_instance->getInput());
+		$this->assertSame($this->instance, $this->instance->unserialize($input), 'Checks chaining and target method.');
+		$this->assertInstanceOf('JInput', $this->instance->getInput());
 	}
 
 	/**
@@ -116,7 +116,7 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function testUnserialise_exception()
 	{
-		$this->_instance->unserialize('s:7:"default";');
+		$this->instance->unserialize('s:7:"default";');
 	}
 
 	/**
@@ -130,7 +130,7 @@ class JControllerBaseTest extends TestCase
 	public function testLoadApplication()
 	{
 		JFactory::$application = 'application';
-		$this->assertEquals('application', TestReflection::invoke($this->_instance, 'loadApplication'));
+		$this->assertEquals('application', TestReflection::invoke($this->instance, 'loadApplication'));
 	}
 
 	/**
@@ -144,9 +144,9 @@ class JControllerBaseTest extends TestCase
 	public function testLoadInput()
 	{
 		// Reset the input property so we know it changes based on the mock application.
-		TestReflection::setValue($this->_instance, 'input', null);
+		TestReflection::setValue($this->instance, 'input', null);
 
-		$this->assertEquals('default', TestReflection::invoke($this->_instance, 'loadInput'));
+		$this->assertEquals('default', TestReflection::invoke($this->instance, 'loadInput'));
 	}
 
 	/**
@@ -167,7 +167,7 @@ class JControllerBaseTest extends TestCase
 
 		JFactory::$application = $app;
 
-		$this->_instance = new BaseController;
+		$this->instance = new BaseController;
 	}
 
 	/**

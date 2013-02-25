@@ -86,8 +86,8 @@ class Stream implements Transport
 			{
 				$options['content'] = $data;
 			}
-			// Otherwise we need to encode the value first.
 			else
+			// Otherwise we need to encode the value first.
 			{
 				$options['content'] = http_build_query($data);
 			}
@@ -152,6 +152,7 @@ class Stream implements Transport
 				// @todo $err and $errno are undefined variables.
 				$php_errormsg = sprintf('Could not connect to resource: %s', $uri, $err, $errno);
 			}
+
 			// Restore error tracking to give control to the exception handler
 			ini_set('track_errors', $track_errors);
 
@@ -184,7 +185,6 @@ class Stream implements Transport
 		}
 
 		return $this->getResponse($headers, $content);
-
 	}
 
 	/**

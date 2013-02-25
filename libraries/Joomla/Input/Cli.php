@@ -148,8 +148,8 @@ class Cli extends Input
 					// Since we used the next argument, increment the counter so we don't use it again.
 					$i++;
 				}
-				// We have an equals sign so take the second "part" of the argument as the value.
 				elseif (count($parts) == 2)
+				// We have an equals sign so take the second "part" of the argument as the value.
 				{
 					$this->data[$parts[0]] = $parts[1];
 				}

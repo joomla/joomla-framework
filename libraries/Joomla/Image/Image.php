@@ -206,8 +206,8 @@ class Image
 				{
 					$thumb = $this->crop($thumbWidth, $thumbHeight, null, null, true);
 				}
-				// Generate thumb resizing image
 				else
+				// Generate thumb resizing image
 				{
 					$thumb = $this->resize($thumbWidth, $thumbHeight, true, $creationMethod);
 				}
@@ -216,6 +216,7 @@ class Image
 				$generated[] = $thumb;
 			}
 		}
+
 		return $generated;
 	}
 
@@ -284,6 +285,7 @@ class Image
 				}
 			}
 		}
+
 		return $thumbsCreated;
 	}
 
@@ -321,6 +323,7 @@ class Image
 		{
 			$left = round(($this->getWidth() - $width) / 2);
 		}
+
 		if (is_null($top))
 		{
 			$top = round(($this->getHeight() - $height) / 2);
@@ -366,8 +369,8 @@ class Image
 
 			// @codeCoverageIgnoreEnd
 		}
-		// Swap out the current handle for the new image handle.
 		else
+		// Swap out the current handle for the new image handle.
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -544,6 +547,7 @@ class Image
 
 					// @codeCoverageIgnoreEnd
 				}
+
 				$this->handle = $handle;
 				break;
 
@@ -568,6 +572,7 @@ class Image
 
 					// @codeCoverageIgnoreEnd
 				}
+
 				$this->handle = $handle;
 				break;
 
@@ -592,6 +597,7 @@ class Image
 
 					// @codeCoverageIgnoreEnd
 				}
+
 				$this->handle = $handle;
 				break;
 
@@ -670,8 +676,8 @@ class Image
 
 			// @codeCoverageIgnoreEnd
 		}
-		// Swap out the current handle for the new image handle.
 		else
+		// Swap out the current handle for the new image handle.
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -729,8 +735,8 @@ class Image
 
 			// @codeCoverageIgnoreEnd
 		}
-		// Swap out the current handle for the new image handle.
 		else
+		// Swap out the current handle for the new image handle.
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -898,8 +904,8 @@ class Image
 		{
 			$height = (int) round($this->getHeight() * (float) str_replace('%', '', $height) / 100);
 		}
-		// Else do some rounding so we come out with a sane integer value.
 		else
+		// Else do some rounding so we come out with a sane integer value.
 		{
 			$height = (int) round((float) $height);
 		}
@@ -941,8 +947,8 @@ class Image
 		{
 			$width = (int) round($this->getWidth() * (float) str_replace('%', '', $width) / 100);
 		}
-		// Else do some rounding so we come out with a sane integer value.
 		else
+		// Else do some rounding so we come out with a sane integer value.
 		{
 			$width = (int) round((float) $width);
 		}

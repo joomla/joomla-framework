@@ -18,7 +18,6 @@ use Joomla\Filesystem\Stream\String as StreamString;
  */
 class StreamStringTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * @var StreamString
 	 */
@@ -35,17 +34,6 @@ class StreamStringTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		$this->object = new StreamString;
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
-
 	}
 
 	/**
@@ -182,5 +170,4 @@ class StreamStringTest extends PHPUnit_Framework_TestCase
 			'This test has not been implemented yet.'
 		);
 	}
-
 }

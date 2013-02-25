@@ -27,7 +27,6 @@ use DateTimeZone;
  */
 class Field_Calendar extends Field
 {
-
 	/**
 	 * The form field type.
 	 *
@@ -55,22 +54,27 @@ class Field_Calendar extends Field
 		{
 			$attributes['size'] = (int) $this->element['size'];
 		}
+
 		if ($this->element['maxlength'])
 		{
 			$attributes['maxlength'] = (int) $this->element['maxlength'];
 		}
+
 		if ($this->element['class'])
 		{
 			$attributes['class'] = (string) $this->element['class'];
 		}
+
 		if ((string) $this->element['readonly'] == 'true')
 		{
 			$attributes['readonly'] = 'readonly';
 		}
+
 		if ((string) $this->element['disabled'] == 'true')
 		{
 			$attributes['disabled'] = 'disabled';
 		}
+
 		if ($this->element['onchange'])
 		{
 			$attributes['onchange'] = (string) $this->element['onchange'];

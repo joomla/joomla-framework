@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-JLoader::register('DatabaseModel', __DIR__ . '/stubs/tdatabase.php');
+require_once __DIR__ . '/stubs/tdatabase.php';
 
 /**
  * Tests for the JViewBase class.
@@ -22,7 +22,7 @@ class JModelDatabaseTest extends TestCase
 	 * @var    DatabaseModel
 	 * @since  12.1
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
 	 * Tests the __construct method.
@@ -34,7 +34,7 @@ class JModelDatabaseTest extends TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertSame(JFactory::getDbo(), $this->_instance->getDb(), 'Checks default database driver.');
+		$this->assertSame(JFactory::getDbo(), $this->instance->getDb(), 'Checks default database driver.');
 
 		// Create a new datbase mock for injection.
 		$db = TestMockDatabaseDriver::create($this);
@@ -53,9 +53,9 @@ class JModelDatabaseTest extends TestCase
 	public function testGetDb()
 	{
 		// Reset the db property to a known value.
-		TestReflection::setValue($this->_instance, 'db', 'foo');
+		TestReflection::setValue($this->instance, 'db', 'foo');
 
-		$this->assertEquals('foo', $this->_instance->getDb());
+		$this->assertEquals('foo', $this->instance->getDb());
 	}
 
 	/**
@@ -69,9 +69,9 @@ class JModelDatabaseTest extends TestCase
 	public function testSetDb()
 	{
 		$db = TestMockDatabaseDriver::create($this);
-		$this->_instance->setDb($db);
+		$this->instance->setDb($db);
 
-		$this->assertAttributeSame($db, 'db', $this->_instance);
+		$this->assertAttributeSame($db, 'db', $this->instance);
 	}
 
 	/**
@@ -85,7 +85,7 @@ class JModelDatabaseTest extends TestCase
 	public function testLoadDb()
 	{
 		JFactory::$database = 'database';
-		$this->assertEquals('database', TestReflection::invoke($this->_instance, 'loadDb'));
+		$this->assertEquals('database', TestReflection::invoke($this->instance, 'loadDb'));
 	}
 
 	/**
@@ -103,7 +103,7 @@ class JModelDatabaseTest extends TestCase
 
 		JFactory::$database = TestMockDatabaseDriver::create($this);
 
-		$this->_instance = new DatabaseModel;
+		$this->instance = new DatabaseModel;
 	}
 
 	/**

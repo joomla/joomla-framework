@@ -18,7 +18,6 @@ use Joomla\Language\Transliterate;
  */
 class TransliterateTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * @var Transliterate
 	 */

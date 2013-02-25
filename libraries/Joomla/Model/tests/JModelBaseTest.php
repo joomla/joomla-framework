@@ -9,7 +9,7 @@
 
 use Joomla\Registry\Registry;
 
-JLoader::register('BaseModel', __DIR__ . '/stubs/tbase.php');
+require_once __DIR__ . '/stubs/tbase.php';
 
 /**
  * Tests for the JViewBase class.
@@ -24,7 +24,7 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 * @var    BaseModel
 	 * @since  12.1
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
 	 * Tests the __construct method.
@@ -38,7 +38,7 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	{
 		// @codingStandardsIgnoreStart
 		// @todo check the instanciating new classes without brackets sniff
-		$this->assertEquals(new Registry, $this->_instance->getState(), 'Checks default state.');
+		$this->assertEquals(new Registry, $this->instance->getState(), 'Checks default state.');
 		// @codingStandardsIgnoreEnd
 
 		$state = new Registry(array('foo' => 'bar'));
@@ -57,9 +57,9 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	public function testGetState()
 	{
 		// Reset the state property to a known value.
-		TestReflection::setValue($this->_instance, 'state', 'foo');
+		TestReflection::setValue($this->instance, 'state', 'foo');
 
-		$this->assertEquals('foo', $this->_instance->getState());
+		$this->assertEquals('foo', $this->instance->getState());
 	}
 
 	/**
@@ -73,8 +73,8 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	public function testSetState()
 	{
 		$state = new Registry(array('foo' => 'bar'));
-		$this->_instance->setState($state);
-		$this->assertSame($state, $this->_instance->getState());
+		$this->instance->setState($state);
+		$this->assertSame($state, $this->instance->getState());
 	}
 
 	/**
@@ -87,7 +87,7 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testLoadState()
 	{
-		$this->assertInstanceOf('Joomla\Registry\Registry', TestReflection::invoke($this->_instance, 'loadState'));
+		$this->assertInstanceOf('Joomla\Registry\Registry', TestReflection::invoke($this->instance, 'loadState'));
 	}
 
 	/**
@@ -101,6 +101,6 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->_instance = new BaseModel;
+		$this->instance = new BaseModel;
 	}
 }

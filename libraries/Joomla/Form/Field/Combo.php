@@ -70,6 +70,7 @@ class Field_Combo extends Field_List
 		{
 			$html[] = '<li>' . $option->text . '</li>';
 		}
+
 		$html[] = '</ul>';
 
 		return implode($html);

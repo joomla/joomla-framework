@@ -264,13 +264,13 @@ class Stream
 				{
 					$this->fh = fopen($filename, $mode, $use_include_path, $context);
 				}
-				// One provided at initialisation
 				elseif ($this->context)
+				// One provided at initialisation
 				{
 					$this->fh = fopen($filename, $mode, $use_include_path, $this->context);
 				}
-				// No context; all defaults
 				else
+				// No context; all defaults
 				{
 					$this->fh = fopen($filename, $mode, $use_include_path);
 				}
@@ -1468,6 +1468,7 @@ class Stream
 		{
 			return $this->$property;
 		}
+
 		return $default;
 	}
 

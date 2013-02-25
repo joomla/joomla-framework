@@ -478,12 +478,14 @@ class Input
 					{
 						$attribEnd = $nextSpace - 1;
 					}
+
 					// If there is an ending, use this, if not, do not worry.
 					if ($attribEnd > 0)
 					{
 						$fromSpace = substr($fromSpace, $attribEnd + 1);
 					}
 				}
+
 				if (strpos($fromSpace, '=') !== false)
 				{
 					// If the attribute value is wrapped in quotes we need to grab the substring from
@@ -497,8 +499,8 @@ class Input
 						$attr = substr($fromSpace, 0, $nextSpace);
 					}
 				}
-				// No more equal signs so add any extra text in the tag into the attribute array [eg. checked]
 				else
+				// No more equal signs so add any extra text in the tag into the attribute array [eg. checked]
 				{
 					if ($fromSpace != '/')
 					{
@@ -548,8 +550,8 @@ class Input
 						$preTag .= ' />';
 					}
 				}
-				// Closing tag
 				else
+				// Closing tag
 				{
 					$preTag .= '</' . $tagName . '>';
 				}

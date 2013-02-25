@@ -48,6 +48,7 @@ class JFormRuleUrlTest extends PHPUnit_Framework_TestCase
 					'Line:' . __LINE__ . ' The rule should return' . $expected . '.'
 				);
 			}
+
 			if ($expected == 'true')
 			{
 				// Test pass conditions.
@@ -58,6 +59,7 @@ class JFormRuleUrlTest extends PHPUnit_Framework_TestCase
 				);
 			}
 		}
+
 		if ($xmlfield == '1')
 		{
 			if ($expected == 'false')
@@ -69,6 +71,7 @@ class JFormRuleUrlTest extends PHPUnit_Framework_TestCase
 					'Line:' . __LINE__ . ' The rule should return' . $expected . '.'
 				);
 			}
+
 			if ($expected == 'true')
 			{
 				// Test pass conditions.

@@ -78,6 +78,7 @@ class Field_Checkboxes extends Field
 				$value = !is_array($this->value) ? explode(',', $this->value) : $this->value;
 				$checked = (in_array((string) $option->value, $value) ? ' checked="checked"' : '');
 			}
+
 			$class = !empty($option->class) ? ' class="' . $option->class . '"' : '';
 			$disabled = !empty($option->disable) ? ' disabled="disabled"' : '';
 
@@ -91,6 +92,7 @@ class Field_Checkboxes extends Field
 			$html[] = '<label for="' . $this->id . $i . '"' . $class . '>' . Text::_($option->text) . '</label>';
 			$html[] = '</li>';
 		}
+
 		$html[] = '</ul>';
 
 		// End the checkbox field output.
@@ -112,7 +114,6 @@ class Field_Checkboxes extends Field
 
 		foreach ($this->element->children() as $option)
 		{
-
 			// Only add <option /> elements.
 			if ($option->getName() != 'option')
 			{

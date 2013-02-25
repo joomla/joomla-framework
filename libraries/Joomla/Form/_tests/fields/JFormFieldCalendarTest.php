@@ -50,7 +50,6 @@ class JFormFieldCalendarTest extends TestCase
 	 */
 	public function attributeData()
 	{
-
 		return array(
 			/*
 			* Test normal parameters

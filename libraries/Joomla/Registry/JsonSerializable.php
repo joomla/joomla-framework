@@ -15,8 +15,8 @@ defined('JPATH_PLATFORM') or die;
  *
  * @package     Joomla.Platform
  * @subpackage  Registry
- * @link     http://www.php.net/manual/en/jsonserializable.jsonserialize.php
- * @since    12.2
+ * @link        http://www.php.net/manual/en/jsonserializable.jsonserialize.php
+ * @since       12.2
  */
 interface JsonSerializable
 {

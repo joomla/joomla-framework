@@ -183,7 +183,6 @@ class JLogTest extends PHPUnit_Framework_TestCase
 			),
 			'Line: ' . __LINE__ . '.'
 		);
-
 	}
 
 	/**
@@ -293,7 +292,6 @@ class JLogTest extends PHPUnit_Framework_TestCase
 			),
 			'Line: ' . __LINE__ . '.'
 		);
-
 	}
 
 	/**
@@ -378,7 +376,6 @@ class JLogTest extends PHPUnit_Framework_TestCase
 			),
 			'Line: ' . __LINE__ . '.'
 		);
-
 	}
 
 	/**

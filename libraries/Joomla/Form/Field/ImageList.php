@@ -20,7 +20,6 @@ defined('JPATH_PLATFORM') or die;
  */
 class Field_ImageList extends Field_FileList
 {
-
 	/**
 	 * The form field type.
 	 *

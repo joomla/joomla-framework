@@ -139,6 +139,7 @@ class Github
 			{
 				$this->gists = new Gists($this->options, $this->client);
 			}
+
 			return $this->gists;
 		}
 
@@ -148,6 +149,7 @@ class Github
 			{
 				$this->issues = new Issues($this->options, $this->client);
 			}
+
 			return $this->issues;
 		}
 
@@ -157,6 +159,7 @@ class Github
 			{
 				$this->pulls = new Pulls($this->options, $this->client);
 			}
+
 			return $this->pulls;
 		}
 
@@ -166,6 +169,7 @@ class Github
 			{
 				$this->refs = new Refs($this->options, $this->client);
 			}
+
 			return $this->refs;
 		}
 
@@ -175,6 +179,7 @@ class Github
 			{
 				$this->forks = new Forks($this->options, $this->client);
 			}
+
 			return $this->forks;
 		}
 
@@ -184,6 +189,7 @@ class Github
 			{
 				$this->commits = new Commits($this->options, $this->client);
 			}
+
 			return $this->commits;
 		}
 
@@ -193,6 +199,7 @@ class Github
 			{
 				$this->milestones = new Milestones($this->options, $this->client);
 			}
+
 			return $this->milestones;
 		}
 
@@ -202,6 +209,7 @@ class Github
 			{
 				$this->statuses = new Statuses($this->options, $this->client);
 			}
+
 			return $this->statuses;
 		}
 
@@ -211,6 +219,7 @@ class Github
 			{
 				$this->account = new Account($this->options, $this->client);
 			}
+
 			return $this->account;
 		}
 
@@ -220,6 +229,7 @@ class Github
 			{
 				$this->hooks = new Hooks($this->options, $this->client);
 			}
+
 			return $this->hooks;
 		}
 	}

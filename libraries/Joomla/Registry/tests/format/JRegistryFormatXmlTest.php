@@ -101,5 +101,4 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 			$this->equalTo($object)
 		);
 	}
-
 }

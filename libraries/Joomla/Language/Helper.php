@@ -69,6 +69,7 @@ class Helper
 				{
 					$option['selected'] = 'selected="selected"';
 				}
+
 				$list[] = $option;
 			}
 		}

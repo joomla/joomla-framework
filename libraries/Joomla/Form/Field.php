@@ -486,7 +486,6 @@ abstract class Field
 
 		if ($this->hidden)
 		{
-
 			return $title;
 		}
 

@@ -182,6 +182,7 @@ class Log
 		{
 			$options['logger'] = 'formattedtext';
 		}
+
 		$options['logger'] = strtolower($options['logger']);
 
 		// Special case - if a Closure object is sent as the callback (in case of JLogLoggerCallback)

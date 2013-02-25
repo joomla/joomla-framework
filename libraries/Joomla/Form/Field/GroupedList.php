@@ -168,8 +168,8 @@ class Field_GroupedList extends Field
 			);
 			$html[] = '<input type="hidden" name="' . $this->name . '" value="' . $this->value . '"/>';
 		}
-		// Create a regular list.
 		else
+		// Create a regular list.
 		{
 			$html[] = Html::_(
 				'select.groupedlist', $groups, $this->name,

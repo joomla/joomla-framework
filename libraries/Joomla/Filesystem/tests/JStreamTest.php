@@ -18,7 +18,6 @@ use Joomla\Filesystem\Stream;
  */
 class StreamTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * @var Stream
 	 */
@@ -441,5 +440,4 @@ class StreamTest extends PHPUnit_Framework_TestCase
 			'This test has not been implemented yet.'
 		);
 	}
-
 }

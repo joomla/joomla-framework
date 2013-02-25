@@ -24,7 +24,6 @@ use Joomla\Filesystem\Folder;
  */
 class Field_FolderList extends Field_List
 {
-
 	/**
 	 * The form field type.
 	 *
@@ -63,6 +62,7 @@ class Field_FolderList extends Field_List
 		{
 			$options[] = Html::_('select.option', '-1', Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
+
 		if (!$hideDefault)
 		{
 			$options[] = Html::_('select.option', '', Text::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
@@ -76,7 +76,6 @@ class Field_FolderList extends Field_List
 		{
 			foreach ($folders as $folder)
 			{
-
 				// Check to see if the file is in the exclude mask.
 				if ($exclude)
 				{

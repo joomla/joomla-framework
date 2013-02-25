@@ -17,7 +17,6 @@
  */
 class JFormRuleBooleanTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * Test the JFormRuleBoolean::test method.
 	 *

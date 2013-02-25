@@ -103,6 +103,7 @@ class Patcher
 		{
 			static::$instance = new static;
 		}
+
 		return static::$instance;
 	}
 
@@ -180,6 +181,7 @@ class Patcher
 				{
 					$this->sources[$file] = $content;
 				}
+
 				$done++;
 			}
 		}
@@ -193,6 +195,7 @@ class Patcher
 				{
 					unset($this->sources[$file]);
 				}
+
 				$done++;
 			}
 		}
@@ -284,6 +287,7 @@ class Patcher
 		{
 			$line = next($lines);
 		}
+
 		if ($line === false)
 		{
 			// No header found, return false
@@ -316,6 +320,7 @@ class Patcher
 			{
 				throw new RuntimeException('Unexpected EOF');
 			}
+
 			return true;
 		}
 	}
@@ -420,6 +425,7 @@ class Patcher
 				{
 					throw new RuntimeException('Unexpected remove line at line ' . key($lines));
 				}
+
 				$source[] = substr($line, 1);
 				$src_left--;
 			}
@@ -429,6 +435,7 @@ class Patcher
 				{
 					throw new RuntimeException('Unexpected add line at line ' . key($lines));
 				}
+
 				$destin[] = substr($line, 1);
 				$dst_left--;
 			}
@@ -440,9 +447,9 @@ class Patcher
 				$src_left--;
 				$dst_left--;
 			}
+
 			if ($src_left == 0 && $dst_left == 0)
 			{
-
 				// Now apply the patch, finally!
 				if ($src_size > 0)
 				{
@@ -453,6 +460,7 @@ class Patcher
 						throw new RuntimeException('Unexisting source file: ' . $src);
 					}
 				}
+
 				if ($dst_size > 0)
 				{
 					if ($src_size > 0)
@@ -467,6 +475,7 @@ class Patcher
 								throw new RuntimeException(sprintf('Failed source verification of file %1$s at line %2$s', $src, $l));
 							}
 						}
+
 						array_splice($dst_lines, $dst_line, count($source), $destin);
 					}
 					else
@@ -478,6 +487,7 @@ class Patcher
 				{
 					$this->removals[] = $src;
 				}
+
 				next($lines);
 
 				return;
@@ -485,6 +495,7 @@ class Patcher
 			$line = next($lines);
 		}
 		while ($line !== false);
+
 		throw new RuntimeException('Unexpected EOF');
 	}
 
@@ -529,6 +540,7 @@ class Patcher
 		{
 			$this->destinations[$dst] = $this->getSource($src);
 		}
+
 		return $this->destinations[$dst];
 	}
 }

@@ -25,7 +25,6 @@ use Joomla\Session\Session;
  */
 class Field_SessionHandler extends Field_List
 {
-
 	/**
 	 * The form field type.
 	 *

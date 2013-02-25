@@ -1286,7 +1286,6 @@ class JFormTest extends TestCase
 			$this->equalTo('params-legacy'),
 			'Line:' . __LINE__ . ' Ensure the fieldset name is correct.'
 		);
-
 	}
 
 	/**
@@ -2155,7 +2154,6 @@ class JFormTest extends TestCase
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' The rule path from the XML file should be present.'
 		);
-
 	}
 
 	/**

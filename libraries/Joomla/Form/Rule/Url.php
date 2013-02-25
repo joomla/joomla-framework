@@ -51,6 +51,7 @@ class Url extends Rule
 		{
 			return true;
 		}
+
 		$urlParts = String::parse_url($value);
 
 		// See http://www.w3.org/Addressing/URL/url-spec.txt
@@ -74,6 +75,7 @@ class Url extends Rule
 		{
 			return false;
 		}
+
 		$urlScheme = (string) $urlParts['scheme'];
 		$urlScheme = strtolower($urlScheme);
 
@@ -81,6 +83,7 @@ class Url extends Rule
 		{
 			return false;
 		}
+
 		// For some schemes here must be two slashes.
 		if (($urlScheme == 'http' || $urlScheme == 'https' || $urlScheme == 'ftp' || $urlScheme == 'sftp' || $urlScheme == 'gopher'
 			|| $urlScheme == 'wais' || $urlScheme == 'gopher' || $urlScheme == 'prospero' || $urlScheme == 'telnet' || $urlScheme == 'git')
@@ -88,20 +91,24 @@ class Url extends Rule
 		{
 			return false;
 		}
+
 		// The best we can do for the rest is make sure that the strings are valid UTF-8
 		// and the port is an integer.
 		if (array_key_exists('host', $urlParts) && !String::valid((string) $urlParts['host']))
 		{
 			return false;
 		}
+
 		if (array_key_exists('port', $urlParts) && !is_int((int) $urlParts['port']))
 		{
 			return false;
 		}
+
 		if (array_key_exists('path', $urlParts) && !String::valid((string) $urlParts['path']))
 		{
 			return false;
 		}
+
 		return true;
 	}
 }

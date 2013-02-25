@@ -178,7 +178,6 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEditAllParameters()
 	{
-
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
