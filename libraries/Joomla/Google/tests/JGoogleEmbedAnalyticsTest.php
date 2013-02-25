@@ -6,6 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
@@ -18,7 +19,7 @@ use Joomla\Uri\Uri;
 class JGoogleEmbedAnalyticsTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the JOAuth2Client object.
+	 * @var    Registry  Options for the JOAuth2Client object.
 	 */
 	protected $options;
 
@@ -43,7 +44,7 @@ class JGoogleEmbedAnalyticsTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->options = new JRegistry;
+		$this->options = new Registry;
 
 		$this->uri = new Uri;
 		$this->object = new JGoogleEmbedAnalytics($this->options, $this->uri);

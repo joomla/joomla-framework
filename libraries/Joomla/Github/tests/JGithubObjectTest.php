@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Registry\Registry;
+
 require_once __DIR__ . '/stubs/JGithubObjectMock.php';
 
 /**
@@ -20,7 +22,7 @@ require_once __DIR__ . '/stubs/JGithubObjectMock.php';
 class JGithubObjectTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the GitHub object.
+	 * @var    Registry  Options for the GitHub object.
 	 * @since  11.3
 	 */
 	protected $options;
@@ -49,7 +51,7 @@ class JGithubObjectTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->options = new JRegistry;
+		$this->options = new Registry;
 		$this->client = $this->getMock('JGithubHttp', array('get', 'post', 'delete', 'patch', 'put'));
 
 		$this->object = new JGithubObjectMock($this->options, $this->client);
