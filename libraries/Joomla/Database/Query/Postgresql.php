@@ -327,7 +327,7 @@ class Postgresql extends Query implements Limitable
 	 * @param   string   $table_name  The table to lock
 	 * @param   boolean  $glue        The glue by which to join the conditions. Defaults to ',' .
 	 *
-	 * @return  JDatabaseQuery  FOR UPDATE query element
+	 * @return  Postgresql  FOR UPDATE query element
 	 *
 	 * @since   11.3
 	 */
@@ -354,7 +354,7 @@ class Postgresql extends Query implements Limitable
 	 * @param   string   $table_name  The table to lock
 	 * @param   boolean  $glue        The glue by which to join the conditions. Defaults to ',' .
 	 *
-	 * @return  JDatabaseQuery  FOR SHARE query element
+	 * @return  Postgresql  FOR SHARE query element
 	 *
 	 * @since   11.3
 	 */
@@ -480,7 +480,7 @@ class Postgresql extends Query implements Limitable
 	/**
 	 * Sets the NOWAIT lock on select's output row
 	 *
-	 * @return  JDatabaseQuery  NO WAIT query element
+	 * @return  Postgresql  NOWAIT query element
 	 *
 	 * @since   11.3
 	 */
@@ -501,7 +501,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @param   int  $limit  An int of how many row will be returned
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Postgresql  Returns this object to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -520,7 +520,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @param   int  $offset  An int for skipping row
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Postgresql  Returns this object to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -539,7 +539,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @param   mixed  $pkCol  The name of the primary key column.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Postgresql  Returns this object to allow chaining.
 	 *
 	 * @since   11.3
 	 */
@@ -563,7 +563,7 @@ class Postgresql extends Query implements Limitable
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Postgresql  Returns this object to allow chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -584,9 +584,9 @@ class Postgresql extends Query implements Limitable
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return string
+	 * @return  string
 	 *
-	 * @since 12.1
+	 * @since   12.1
 	 */
 	public function processLimit($query, $limit, $offset = 0)
 	{

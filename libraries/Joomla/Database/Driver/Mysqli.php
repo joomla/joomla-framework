@@ -243,7 +243,7 @@ class Mysqli extends Driver
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  JDatabaseDriverMysqli  Returns this object to support chaining.
+	 * @return  Mysqli  Returns this object to support chaining.
 	 *
 	 * @since   12.2
 	 * @throws  RuntimeException
@@ -454,7 +454,7 @@ class Mysqli extends Driver
 	 *
 	 * @param   string  $table  The name of the table to unlock.
 	 *
-	 * @return  JDatabaseDriverMysqli  Returns this object to support chaining.
+	 * @return  Mysqli  Returns this object to support chaining.
 	 *
 	 * @since   12.2
 	 * @throws  RuntimeException
@@ -555,7 +555,7 @@ class Mysqli extends Driver
 	 * @param   string  $backup    Not used by MySQL.
 	 * @param   string  $prefix    Not used by MySQL.
 	 *
-	 * @return  JDatabaseDriverMysqli  Returns this object to support chaining.
+	 * @return  Mysqli  Returns this object to support chaining.
 	 *
 	 * @since   12.2
 	 * @throws  RuntimeException
@@ -761,7 +761,7 @@ class Mysqli extends Driver
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  JDatabaseDriverMysqli  Returns this object to support chaining.
+	 * @return  Mysqli  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException

@@ -26,7 +26,7 @@ class Mysql extends Mysqli
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *
-	 * @return  JDatabaseImporterMysql  Method supports chaining.
+	 * @return  Mysql  Method supports chaining.
 	 *
 	 * @since   11.1
 	 * @throws  Exception if an error is encountered.
@@ -44,22 +44,6 @@ class Mysql extends Mysqli
 		{
 			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
-
-		return $this;
-	}
-
-	/**
-	 * Sets the database connector to use for exporting structure and/or data from MySQL.
-	 *
-	 * @param   JDatabaseDriverMysql  $db  The database connector.
-	 *
-	 * @return  JDatabaseImporterMysql  Method supports chaining.
-	 *
-	 * @since   11.1
-	 */
-	public function setDbo(DriverMysql $db)
-	{
-		$this->db = $db;
 
 		return $this;
 	}

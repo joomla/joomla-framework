@@ -28,7 +28,7 @@ interface Limitable
 	 * additions to make the query limited to a particular number of
 	 * results, or start at a particular offset. This method is used
 	 * automatically by the __toString() method if it detects that the
-	 * query implements the JDatabaseQueryLimitable interface.
+	 * query implements the Limitable interface.
 	 *
 	 * @param   string   $query   The query in string format
 	 * @param   integer  $limit   The limit for the result set
@@ -50,7 +50,7 @@ interface Limitable
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Limitable  Returns this object to allow chaining.
 	 *
 	 * @since   12.1
 	 */

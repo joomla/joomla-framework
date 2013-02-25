@@ -169,7 +169,7 @@ abstract class Driver implements DatabaseInterface
 		$connectors = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new DirectoryIterator(__DIR__ . '/driver');
+		$iterator = new DirectoryIterator(__DIR__ . '/Driver');
 
 		foreach ($iterator as $file)
 		{
@@ -202,8 +202,8 @@ abstract class Driver implements DatabaseInterface
 	}
 
 	/**
-	 * Method to return a JDatabaseDriver instance based on the given options.  There are three global options and then
-	 * the rest are specific to the database driver.  The 'driver' option defines which JDatabaseDriver class is
+	 * Method to return a Driver instance based on the given options.  There are three global options and then
+	 * the rest are specific to the database driver.  The 'driver' option defines which Driver class is
 	 * used for the connection -- the default is 'mysqli'.  The 'database' option determines which database is to
 	 * be used for the connection.  The 'select' option determines whether the connector should automatically select
 	 * the chosen database.
@@ -216,6 +216,7 @@ abstract class Driver implements DatabaseInterface
 	 * @return  Driver  A database object.
 	 *
 	 * @since   11.1
+	 * @throws  RuntimeException
 	 */
 	public static function getInstance($options = array())
 	{
@@ -336,6 +337,7 @@ abstract class Driver implements DatabaseInterface
 			case 'q':
 				return $this->quote($args[0], isset($args[1]) ? $args[1] : true);
 				break;
+
 			case 'qn':
 				return $this->quoteName($args[0], isset($args[1]) ? $args[1] : null);
 				break;
@@ -640,11 +642,11 @@ abstract class Driver implements DatabaseInterface
 	}
 
 	/**
-	 * Get the current query object or a new JDatabaseQuery object.
+	 * Get the current query object or a new Query object.
 	 *
-	 * @param   boolean  $new  False to return the current query object, True to return a new JDatabaseQuery object.
+	 * @param   boolean  $new  False to return the current query object, True to return a new Query object.
 	 *
-	 * @return  Query  The current query object or a new object extending the JDatabaseQuery class.
+	 * @return  Query  The current query object or a new object extending the Query class.
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
@@ -976,10 +978,11 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
+	 * @deprecated  To be removed
 	 */
 	public function loadNextObject($class = '\\stdClass')
 	{
-		Log::add(__METHOD__ . '() is deprecated. Use JDatabase::getIterator() instead.', Log::WARNING, 'deprecated');
+		Log::add(__METHOD__ . '() is deprecated. Use ' . __CLASS__ . '::getIterator() instead.', Log::WARNING, 'deprecated');
 		$this->connect();
 
 		static $cursor = null;
@@ -1013,10 +1016,11 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
+	 * @deprecated  To be removed
 	 */
 	public function loadNextRow()
 	{
-		Log::add('JDatabase::loadNextRow() is deprecated. Use JDatabase::getIterator() instead.', Log::WARNING, 'deprecated');
+		Log::add(__METHOD__ . '() is deprecated. Use ' . __CLASS__ . '::getIterator() instead.', Log::WARNING, 'deprecated');
 		$this->connect();
 
 		static $cursor = null;
@@ -1334,7 +1338,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  Dot-imploded string of quoted parts.
 	 *
-	 * @since 11.3
+	 * @since   11.3
 	 */
 	protected function quoteNameStr($strArr)
 	{
@@ -1512,7 +1516,7 @@ abstract class Driver implements DatabaseInterface
 	/**
 	 * Sets the SQL statement string for later execution.
 	 *
-	 * @param   mixed    $query   The SQL statement to set either as a JDatabaseQuery object or a string.
+	 * @param   mixed    $query   The SQL statement to set either as a Query object or a string.
 	 * @param   integer  $offset  The affected row offset to set.
 	 * @param   integer  $limit   The maximum affected rows to set.
 	 *

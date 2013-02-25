@@ -60,9 +60,9 @@ class Postgresql extends Driver
 	protected $concat_operator = '||';
 
 	/**
-	 * JDatabaseDriverPostgresqlQuery object returned by getQuery
+	 * Query object returned by getQuery
 	 *
-	 * @var JDatabaseDriverPostgresqlQuery
+	 * @var \Joomla\Database\Query\Postgresql
 	 */
 	protected $queryObject = null;
 
@@ -274,10 +274,10 @@ class Postgresql extends Driver
 	/**
 	 * Get the current or query, or new JDatabaseQuery object.
 	 *
-	 * @param   boolean  $new    False to return the last query set, True to return a new JDatabaseQuery object.
-	 * @param   boolean  $asObj  False to return last query as string, true to get JDatabaseQueryPostgresql object.
+	 * @param   boolean  $new    False to return the last query set, True to return a new Query object.
+	 * @param   boolean  $asObj  False to return last query as string, true to get Postgresql query object.
 	 *
-	 * @return  JDatabaseQuery  The current query object or a new object extending the JDatabaseQuery class.
+	 * @return  \Joomla\Database\Query\Postgresql  The current query object or a new object extending the Query class.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -595,7 +595,7 @@ class Postgresql extends Driver
 	 *
 	 * @param   string  $tableName  The name of the table to unlock.
 	 *
-	 * @return  JDatabaseDriverPostgresql  Returns this object to support chaining.
+	 * @return  Postgresql  Returns this object to support chaining.
 	 *
 	 * @since   11.4
 	 * @throws  RuntimeException
@@ -704,7 +704,7 @@ class Postgresql extends Driver
 	 * @param   string  $backup    Not used by PostgreSQL.
 	 * @param   string  $prefix    Not used by PostgreSQL.
 	 *
-	 * @return  JDatabaseDriverPostgresql  Returns this object to support chaining.
+	 * @return  Postgresql  Returns this object to support chaining.
 	 *
 	 * @since   11.4
 	 * @throws  RuntimeException
@@ -790,7 +790,7 @@ class Postgresql extends Driver
 	/**
 	 * Custom settings for UTF support
 	 *
-	 * @return  int  Zero on success, -1 on failure
+	 * @return  integer  Zero on success, -1 on failure
 	 *
 	 * @since   12.1
 	 */
@@ -847,6 +847,8 @@ class Postgresql extends Driver
 				{
 					$field_value = $this->getNullDate();
 				}
+
+				break;
 
 			default:
 				$val = $this->quote($field_value);
@@ -1208,14 +1210,14 @@ class Postgresql extends Driver
 		$sql = trim($sql);
 		$replacedQuery = '';
 
-		if ( strpos($sql, '\'') )
+		if (strpos($sql, '\''))
 		{
 			// Sequence name quoted with ' ' but need to be replaced
-			if ( strpos($sql, 'currval') )
+			if (strpos($sql, 'currval'))
 			{
 				$sql = explode('currval', $sql);
 
-				for ( $nIndex = 1; $nIndex < count($sql); $nIndex = $nIndex + 2 )
+				for ($nIndex = 1; $nIndex < count($sql); $nIndex = $nIndex + 2)
 				{
 					$sql[$nIndex] = str_replace($prefix, $this->tablePrefix, $sql[$nIndex]);
 				}
@@ -1224,11 +1226,11 @@ class Postgresql extends Driver
 			}
 
 			// Sequence name quoted with ' ' but need to be replaced
-			if ( strpos($sql, 'nextval') )
+			if (strpos($sql, 'nextval'))
 			{
 				$sql = explode('nextval', $sql);
 
-				for ( $nIndex = 1; $nIndex < count($sql); $nIndex = $nIndex + 2 )
+				for ($nIndex = 1; $nIndex < count($sql); $nIndex = $nIndex + 2)
 				{
 					$sql[$nIndex] = str_replace($prefix, $this->tablePrefix, $sql[$nIndex]);
 				}
@@ -1237,11 +1239,11 @@ class Postgresql extends Driver
 			}
 
 			// Sequence name quoted with ' ' but need to be replaced
-			if ( strpos($sql, 'setval') )
+			if (strpos($sql, 'setval'))
 			{
 				$sql = explode('setval', $sql);
 
-				for ( $nIndex = 1; $nIndex < count($sql); $nIndex = $nIndex + 2 )
+				for ($nIndex = 1; $nIndex < count($sql); $nIndex = $nIndex + 2)
 				{
 					$sql[$nIndex] = str_replace($prefix, $this->tablePrefix, $sql[$nIndex]);
 				}
@@ -1251,9 +1253,9 @@ class Postgresql extends Driver
 
 			$explodedQuery = explode('\'', $sql);
 
-			for ( $nIndex = 0; $nIndex < count($explodedQuery); $nIndex = $nIndex + 2 )
+			for ($nIndex = 0; $nIndex < count($explodedQuery); $nIndex = $nIndex + 2)
 			{
-				if ( strpos($explodedQuery[$nIndex], $prefix) )
+				if (strpos($explodedQuery[$nIndex], $prefix))
 				{
 					$explodedQuery[$nIndex] = str_replace($prefix, $this->tablePrefix, $explodedQuery[$nIndex]);
 				}
@@ -1305,7 +1307,7 @@ class Postgresql extends Driver
 	 * Unlocks tables in the database, this command does not exist in PostgreSQL,
 	 * it is automatically done on commit or rollback.
 	 *
-	 * @return  JDatabaseDriverPostgresql  Returns this object to support chaining.
+	 * @return  Postgresql  Returns this object to support chaining.
 	 *
 	 * @since   11.4
 	 * @throws  RuntimeException

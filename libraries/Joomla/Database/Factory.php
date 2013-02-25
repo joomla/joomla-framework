@@ -23,15 +23,15 @@ use RuntimeException;
 class Factory
 {
 	/**
-	 * Contains the current JDatabaseFactory instance
+	 * Contains the current Factory instance
 	 *
-	 * @var    JDatabaseFactory
+	 * @var    Factroy
 	 * @since  12.1
 	 */
 	private static $instance = null;
 
 	/**
-	 * Method to return a JDatabaseDriver instance based on the given options. There are three global options and then
+	 * Method to return a Driver instance based on the given options. There are three global options and then
 	 * the rest are specific to the database driver. The 'database' option determines which database is to
 	 * be used for the connection. The 'select' option determines whether the connector should automatically select
 	 * the chosen database.
@@ -42,9 +42,10 @@ class Factory
 	 * @param   string  $name     Name of the database driver you'd like to instantiate
 	 * @param   array   $options  Parameters to be passed to the database driver.
 	 *
-	 * @return  JDatabaseDriver  A database driver object.
+	 * @return  Driver  A database driver object.
 	 *
 	 * @since   12.1
+	 * @throws  RuntimeException
 	 */
 	public function getDriver($name = 'mysqli', $options = array())
 	{
@@ -62,7 +63,7 @@ class Factory
 			throw new RuntimeException(sprintf('Unable to load Database Driver: %s', $options['driver']));
 		}
 
-		// Create our new JDatabaseDriver connector based on the options given.
+		// Create our new Driver connector based on the options given.
 		try
 		{
 			$instance = new $class($options);
@@ -78,10 +79,10 @@ class Factory
 	/**
 	 * Gets an exporter class object.
 	 *
-	 * @param   string           $name  Name of the driver you want an exporter for.
-	 * @param   JDatabaseDriver  $db    Optional JDatabaseDriver instance
+	 * @param   string  $name  Name of the driver you want an exporter for.
+	 * @param   Driver  $db    Optional Driver instance
 	 *
-	 * @return  JDatabaseExporter  An exporter object.
+	 * @return  Exporter  An exporter object.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -111,10 +112,10 @@ class Factory
 	/**
 	 * Gets an importer class object.
 	 *
-	 * @param   string           $name  Name of the driver you want an importer for.
-	 * @param   JDatabaseDriver  $db    Optional JDatabaseDriver instance
+	 * @param   string  $name  Name of the driver you want an importer for.
+	 * @param   Driver  $db    Optional Driver instance
 	 *
-	 * @return  JDatabaseImporter  An importer object.
+	 * @return  Importer  An importer object.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -144,7 +145,7 @@ class Factory
 	/**
 	 * Gets an instance of the factory object.
 	 *
-	 * @return  JDatabaseFactory
+	 * @return  Factory
 	 *
 	 * @since   12.1
 	 */
@@ -154,12 +155,12 @@ class Factory
 	}
 
 	/**
-	 * Get the current query object or a new JDatabaseQuery object.
+	 * Get the current query object or a new Query object.
 	 *
-	 * @param   string           $name  Name of the driver you want an query object for.
-	 * @param   JDatabaseDriver  $db    Optional JDatabaseDriver instance
+	 * @param   string  $name  Name of the driver you want an query object for.
+	 * @param   Driver  $db    Optional Driver instance
 	 *
-	 * @return  JDatabaseQuery  The current query object or a new object extending the JDatabaseQuery class.
+	 * @return  Query  The current query object or a new object extending the Query class.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -182,7 +183,7 @@ class Factory
 	/**
 	 * Gets an instance of a factory object to return on subsequent calls of getInstance.
 	 *
-	 * @param   JDatabaseFactory  $instance  A JDatabaseFactory object.
+	 * @param   Factory  $instance  A Factory object.
 	 *
 	 * @return  void
 	 *

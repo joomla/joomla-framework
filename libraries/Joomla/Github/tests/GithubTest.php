@@ -7,10 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Github\Github;
+use Joomla\Github\Http;
 use Joomla\Registry\Registry;
 
 /**
- * Test class for JGithub.
+ * Test class for Github.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Github
@@ -26,13 +28,13 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    JGithubHttp  Mock client object.
+	 * @var    Joomla\Github\Http  Mock client object.
 	 * @since  11.4
 	 */
 	protected $client;
 
 	/**
-	 * @var    JGithubIssues  Object under test.
+	 * @var    Joomla\Github\Issues  Object under test.
 	 * @since  11.4
 	 */
 	protected $object;
@@ -50,9 +52,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->client = $this->getMock('JGithubHttp', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client = $this->getMock('Joomla\Github\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
-		$this->object = new JGithub($this->options, $this->client);
+		$this->object = new Github($this->options, $this->client);
 	}
 
 	/**
@@ -78,7 +80,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->gists,
-			$this->isInstanceOf('JGithubGists')
+			$this->isInstanceOf('Joomla\Github\Gists')
 		);
 	}
 
@@ -93,7 +95,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->issues,
-			$this->isInstanceOf('JGithubIssues')
+			$this->isInstanceOf('Joomla\Github\Issues')
 		);
 	}
 
@@ -108,7 +110,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->pulls,
-			$this->isInstanceOf('JGithubPulls')
+			$this->isInstanceOf('Joomla\Github\Pulls')
 		);
 	}
 
@@ -123,7 +125,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->refs,
-			$this->isInstanceOf('JGithubRefs')
+			$this->isInstanceOf('Joomla\Github\Refs')
 		);
 	}
 
@@ -138,7 +140,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->forks,
-			$this->isInstanceOf('JGithubForks')
+			$this->isInstanceOf('Joomla\Github\Forks')
 		);
 	}
 
@@ -153,7 +155,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->commits,
-			$this->isInstanceOf('JGithubCommits')
+			$this->isInstanceOf('Joomla\Github\Commits')
 		);
 	}
 
@@ -168,7 +170,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->milestones,
-			$this->isInstanceOf('JGithubMilestones')
+			$this->isInstanceOf('Joomla\Github\Milestones')
 		);
 	}
 
@@ -183,7 +185,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->statuses,
-			$this->isInstanceOf('JGithubStatuses')
+			$this->isInstanceOf('Joomla\Github\Statuses')
 		);
 	}
 
@@ -198,7 +200,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->account,
-			$this->isInstanceOf('JGithubAccount')
+			$this->isInstanceOf('Joomla\Github\Account')
 		);
 	}
 
@@ -213,7 +215,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->hooks,
-			$this->isInstanceOf('JGithubHooks')
+			$this->isInstanceOf('Joomla\Github\Hooks')
 		);
 	}
 

@@ -43,9 +43,9 @@ class Mysqli extends Query implements Limitable
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return string
+	 * @return  string
 	 *
-	 * @since 12.1
+	 * @since   12.1
 	 */
 	public function processLimit($query, $limit, $offset = 0)
 	{
@@ -96,7 +96,7 @@ class Mysqli extends Query implements Limitable
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   12.1
 	 */

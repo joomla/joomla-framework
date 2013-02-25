@@ -134,7 +134,7 @@ class Oracle extends Pdo
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  JDatabaseDriverOracle  Returns this object to support chaining.
+	 * @return  Oracle  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -465,7 +465,7 @@ class Oracle extends Pdo
 	 *
 	 * @param   string  $table  The name of the table to unlock.
 	 *
-	 * @return  JDatabaseDriverOracle  Returns this object to support chaining.
+	 * @return  Oracle  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -485,7 +485,7 @@ class Oracle extends Pdo
 	 * @param   string  $backup    Not used by Oracle.
 	 * @param   string  $prefix    Not used by Oracle.
 	 *
-	 * @return  JDatabaseDriverOracle  Returns this object to support chaining.
+	 * @return  Oracle  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -500,7 +500,7 @@ class Oracle extends Pdo
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  JDatabaseDriverOracle  Returns this object to support chaining.
+	 * @return  Oracle  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
