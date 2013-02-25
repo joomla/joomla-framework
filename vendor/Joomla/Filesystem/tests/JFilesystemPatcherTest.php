@@ -9,6 +9,7 @@
  */
 
 use Joomla\Filesystem\Patcher;
+use Joomla\Filesystem\Path;
 
 /**
  * A unit test class for Patcher
@@ -36,7 +37,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 		$this->_cleanupTestFiles();
 
 		// Make some test files and folders
-		mkdir(JPath::clean(JPATH_TESTS . '/tmp/patcher'), 0777, true);
+		mkdir(Path::clean(JPATH_TESTS . '/tmp/patcher'), 0777, true);
 	}
 
 	/**
@@ -60,10 +61,10 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	private function _cleanupTestFiles()
 	{
-		$this->_cleanupFile(JPath::clean(JPATH_TESTS . '/tmp/patcher/lao2tzu.diff'));
-		$this->_cleanupFile(JPath::clean(JPATH_TESTS . '/tmp/patcher/lao'));
-		$this->_cleanupFile(JPath::clean(JPATH_TESTS . '/tmp/patcher/tzu'));
-		$this->_cleanupFile(JPath::clean(JPATH_TESTS . '/tmp/patcher'));
+		$this->_cleanupFile(Path::clean(JPATH_TESTS . '/tmp/patcher/lao2tzu.diff'));
+		$this->_cleanupFile(Path::clean(JPATH_TESTS . '/tmp/patcher/lao'));
+		$this->_cleanupFile(Path::clean(JPATH_TESTS . '/tmp/patcher/tzu'));
+		$this->_cleanupFile(Path::clean(JPATH_TESTS . '/tmp/patcher'));
 	}
 
 	/**

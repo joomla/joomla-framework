@@ -14,7 +14,7 @@
  * @subpackage  Object
  * @since       12.1
  */
-class JDataBuran extends JData
+class JDataBuran extends Joomla\Data\Data
 {
 	public $rocket = false;
 

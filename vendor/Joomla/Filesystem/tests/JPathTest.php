@@ -7,14 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Filesystem\Path;
+
 /**
- * Tests for the JPath class.
+ * Tests for the Path class.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Filesystem
  * @since       12.2
  */
-class JPathTest extends PHPUnit_Framework_TestCase
+class PathTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Data provider for testClean() method.
@@ -98,7 +100,7 @@ class JPathTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers        JPath::clean
+	 * @covers        Joomla\Filesystem\Path::clean
 	 * @dataProvider  getCleanData
 	 * @since         12.2
 	 */
@@ -106,7 +108,7 @@ class JPathTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertEquals(
 			$expected,
-			JPath::clean($input, $ds)
+			Path::clean($input, $ds)
 		);
 	}
 
@@ -119,7 +121,7 @@ class JPathTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCleanArrayPath()
 	{
-		JPath::clean(array('/path/to/folder'));
+		Path::clean(array('/path/to/folder'));
 	}
 
 	/**

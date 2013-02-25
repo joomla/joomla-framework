@@ -16,7 +16,7 @@
  *
  * @method      launch() launch(string $status)
  */
-class JDataVostok extends JData
+class JDataVostok extends Joomla\Data\Data
 {
 	/**
 	 * An array method.

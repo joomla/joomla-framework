@@ -9,7 +9,6 @@
 
 namespace Joomla\Data;
 
-
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 use InvalidArgumentException;

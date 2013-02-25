@@ -9,7 +9,6 @@
 
 namespace Joomla\Data;
 
-
 use InvalidArgumentException;
 use SplObjectStorage;
 use ArrayAccess;

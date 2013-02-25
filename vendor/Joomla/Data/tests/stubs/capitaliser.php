@@ -14,7 +14,7 @@
  * @subpackage  Object
  * @since       12.1
  */
-class JDataCapitaliser extends JData
+class JDataCapitaliser extends Joomla\Data\Data
 {
 	/**
 	 * Set an object property.

@@ -10,6 +10,7 @@
 require_once __DIR__ . '/stubs/buran.php';
 require_once __DIR__ . '/stubs/capitaliser.php';
 
+use Joomla\Data\Data;
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 
@@ -23,7 +24,7 @@ use Joomla\Registry\Registry;
 class JDataTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JData
+	 * @var    Joomla\Data\Data
 	 * @since  12.3
 	 */
 	private $instance;
@@ -33,11 +34,11 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers	JData::__construct
+	 * @covers	Joomla\Data\Data::__construct
 	 */
 	public function test__construct()
 	{
-		$instance = new JData(array('property1' => 'value1', 'property2' => 5));
+		$instance = new Data(array('property1' => 'value1', 'property2' => 5));
 		$this->assertThat(
 			$instance->property1,
 			$this->equalTo('value1')
@@ -49,7 +50,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::__get
+	 * @covers  Joomla\Data\Data::__get
 	 * @since   12.3
 	 */
 	public function test__get()
@@ -65,7 +66,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::__isset
+	 * @covers  Joomla\Data\Data::__isset
 	 * @since   12.3
 	 */
 	public function test__isset()
@@ -82,7 +83,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::__set
+	 * @covers  Joomla\Data\Data::__set
 	 * @since   12.3
 	 */
 	public function test__set_setter()
@@ -121,7 +122,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::bind
+	 * @covers  Joomla\Data\Data::bind
 	 * @since   12.3
 	 */
 	public function testBind()
@@ -141,7 +142,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::bind
+	 * @covers  Joomla\Data\Data::bind
 	 * @since   12.3
 	 */
 	public function testBind_array()
@@ -169,7 +170,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::bind
+	 * @covers  Joomla\Data\Data::bind
 	 * @since   12.3
 	 */
 	public function testBind_arrayObject()
@@ -199,7 +200,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::bind
+	 * @covers  Joomla\Data\Data::bind
 	 * @since   12.3
 	 */
 	public function testBind_object()
@@ -226,7 +227,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             JData::bind
+	 * @covers             Joomla\Data\Data::bind
 	 * @expectedException  InvalidArgumentException
 	 * @since              12.3
 	 */
@@ -240,7 +241,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::count
+	 * @covers  Joomla\Data\Data::count
 	 * @since   12.3
 	 */
 	public function testCount()
@@ -263,7 +264,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::dump
+	 * @covers  Joomla\Data\Data::dump
 	 * @since   12.3
 	 */
 	public function testDump()
@@ -285,13 +286,13 @@ class JDataTest extends PHPUnit_Framework_TestCase
 			'scalar' => 'value_1',
 			'date' => new Date('2012-01-01'),
 			'registry' => new Registry(array('key' => 'value')),
-			'JData' => new JData(
+			'JData' => new Data(
 				array(
-					'level2' => new JData(
+					'level2' => new Data(
 						array(
-							'level3' => new JData(
+							'level3' => new Data(
 								array(
-									'level4' => new JData(
+									'level4' => new Data(
 										array(
 											'level5' => 'deep',
 										)
@@ -315,18 +316,18 @@ class JDataTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($dump->registry, (object) array('key' => 'value'));
 		$this->assertInstanceOf('stdClass', $dump->JData->level2);
 		$this->assertInstanceOf('stdClass', $dump->JData->level2->level3);
-		$this->assertInstanceOf('JData', $dump->JData->level2->level3->level4);
+		$this->assertInstanceOf('Joomla\Data\Data', $dump->JData->level2->level3->level4);
 
 		$dump = $this->instance->dump(0);
 		$this->assertInstanceOf('Joomla\Date\Date', $dump->date);
 		$this->assertInstanceOf('Joomla\Registry\Registry', $dump->registry);
-		$this->assertInstanceOf('JData', $dump->JData);
+		$this->assertInstanceOf('Joomla\Data\Data', $dump->JData);
 
 		$dump = $this->instance->dump(1);
 		$this->assertEquals($dump->date, '2012-01-01 00:00:00');
 		$this->assertEquals($dump->registry, (object) array('key' => 'value'));
 		$this->assertInstanceOf('stdClass', $dump->JData);
-		$this->assertInstanceOf('JData', $dump->JData->level2);
+		$this->assertInstanceOf('Joomla\Data\Data', $dump->JData->level2);
 	}
 
 	/**
@@ -334,7 +335,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::dumpProperty
+	 * @covers  Joomla\Data\Data::dumpProperty
 	 * @since   12.3
 	 */
 	public function testDumpProperty()
@@ -353,7 +354,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers	JData::getIterator
+	 * @covers  Joomla\Data\Data::getIterator
 	 * @since   12.3
 	 */
 	public function testGetIterator()
@@ -366,7 +367,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::getProperty
+	 * @covers  Joomla\Data\Data::getProperty
 	 * @since   12.3
 	 */
 	public function testGetProperty()
@@ -380,7 +381,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             JData::getProperty
+	 * @covers             Joomla\Data\Data::getProperty
 	 * @expectedException  InvalidArgumentException
 	 * @since              12.3
 	 */
@@ -399,7 +400,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::jsonSerialize
+	 * @covers  Joomla\Data\Data::jsonSerialize
 	 * @since   12.3
 	 */
 	public function testJsonSerialize()
@@ -415,7 +416,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::setProperty
+	 * @covers  Joomla\Data\Data::setProperty
 	 * @since   12.3
 	 */
 	public function testSetProperty()
@@ -434,7 +435,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             JData::setProperty
+	 * @covers             Joomla\Data\Data::setProperty
 	 * @expectedException  InvalidArgumentException
 	 * @since              12.3
 	 */
@@ -449,7 +450,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JData::setProperty
+	 * @covers  Joomla\Data\Data::setProperty
 	 * @see     http://us3.php.net/manual/en/language.types.array.php#language.types.array.casting
 	 * @since   12.3
 	 */
@@ -476,6 +477,6 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->instance = new JData;
+		$this->instance = new Data;
 	}
 }

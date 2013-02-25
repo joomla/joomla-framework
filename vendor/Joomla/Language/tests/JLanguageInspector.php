@@ -13,7 +13,7 @@
  * @subpackage  Language
  * @since       12.1
  */
-class JLanguageInspector extends JLanguage
+class JLanguageInspector extends Joomla\Language\Language
 {
 	/**
 	 * Method for inspecting protected variables.

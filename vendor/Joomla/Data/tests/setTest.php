@@ -10,6 +10,9 @@
 require_once __DIR__ . '/stubs/buran.php';
 require_once __DIR__ . '/stubs/vostok.php';
 
+use Joomla\Data\Set as DataSet;
+use Joomla\Data\Data;
+
 /**
  * Tests for the JContentHelperTest class.
  *
@@ -17,12 +20,12 @@ require_once __DIR__ . '/stubs/vostok.php';
  * @subpackage  Data
  * @since       12.3
  */
-class JDataSetTest extends PHPUnit_Framework_TestCase
+class DataSetTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.
 	 *
-	 * @var    JDataSet
+	 * @var    Joomla\Data\Set
 	 * @since  12.3
 	 */
 	private $instance;
@@ -32,17 +35,17 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::__construct
+	 * @covers  Joomla\Data\Set::__construct
 	 * @since   12.3
 	 */
 	public function test__construct()
 	{
-		$this->assertEmpty(TestReflection::getValue(new JDataSet, 'objects'), 'New list should have no objects.');
+		$this->assertEmpty(TestReflection::getValue(new DataSet, 'objects'), 'New list should have no objects.');
 
 		$input = array(
-			'key' => new JData(array('foo' => 'bar'))
+			'key' => new Data(array('foo' => 'bar'))
 		);
-		$new = new JDataSet($input);
+		$new = new DataSet($input);
 
 		$this->assertEquals($input, TestReflection::getValue($new, 'objects'), 'Check initialised object list.');
 	}
@@ -52,13 +55,13 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             JDataSet::__construct
+	 * @covers             Joomla\Data\Set::__construct
 	 * @expectedException  InvalidArgumentException
 	 * @since              12.3
 	 */
 	public function test__construct_array()
 	{
-		new JDataSet(array('foo'));
+		new DataSet(array('foo'));
 	}
 
 	/**
@@ -66,13 +69,13 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             JDataSet::__construct
+	 * @covers             Joomla\Data\Set::__construct
 	 * @expectedException  PHPUnit_Framework_Error
 	 * @since              12.3
 	 */
 	public function test__construct_scalar()
 	{
-		new JDataSet('foo');
+		new DataSet('foo');
 	}
 
 	/**
@@ -80,7 +83,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::__call
+	 * @covers  Joomla\Data\Set::__call
 	 * @since   12.3
 	 */
 	public function test__call()
@@ -96,7 +99,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::__get
+	 * @covers  Joomla\Data\Set::__get
 	 * @since   12.3
 	 */
 	public function test__get()
@@ -112,7 +115,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::__isset
+	 * @covers  Joomla\Data\Set::__isset
 	 * @since   12.3
 	 */
 	public function test__isset()
@@ -127,7 +130,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::__set
+	 * @covers  Joomla\Data\Set::__set
 	 * @since   12.3
 	 */
 	public function test__set()
@@ -145,7 +148,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::__unset
+	 * @covers  Joomla\Data\Set::__unset
 	 * @since   12.3
 	 */
 	public function test__unset()
@@ -160,7 +163,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::count
+	 * @covers  Joomla\Data\Set::count
 	 * @since   12.3
 	 */
 	public function testCount()
@@ -173,7 +176,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::clear
+	 * @covers  Joomla\Data\Set::clear
 	 * @since   12.3
 	 */
 	public function testClear()
@@ -188,7 +191,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::current
+	 * @covers  Joomla\Data\Set::current
 	 * @since   12.3
 	 */
 	public function testCurrent()
@@ -200,11 +203,11 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 			$this->equalTo($object)
 		);
 
-		$new = new JDataSet(array('foo' => new JData));
+		$new = new DataSet(array('foo' => new Data));
 
 		$this->assertThat(
 			$new->current(),
-			$this->equalTo(new JData)
+			$this->equalTo(new Data)
 		);
 	}
 
@@ -213,7 +216,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::dump
+	 * @covers  Joomla\Data\Set::dump
 	 * @since   12.3
 	 */
 	public function testDump()
@@ -235,7 +238,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::jsonSerialize
+	 * @covers  Joomla\Data\Set::jsonSerialize
 	 * @since   12.3
 	 */
 	public function testJsonSerialize()
@@ -257,7 +260,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::key
+	 * @covers  Joomla\Data\Set::key
 	 * @since   12.3
 	 */
 	public function testKey()
@@ -270,14 +273,14 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::keys
+	 * @covers  Joomla\Data\Set::keys
 	 * @since   12.3
 	 */
 	public function testKeys()
 	{
-		$instance = new JDataSet;
-		$instance['key1'] = new JData;
-		$instance['key2'] = new JData;
+		$instance = new DataSet;
+		$instance['key1'] = new Data;
+		$instance['key2'] = new Data;
 
 		$this->assertEquals(array('key1', 'key2'), $instance->keys());
 	}
@@ -287,7 +290,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::next
+	 * @covers  Joomla\Data\Set::next
 	 * @since   12.3
 	 */
 	public function testNext()
@@ -310,7 +313,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::offsetExists
+	 * @covers  Joomla\Data\Set::offsetExists
 	 * @since   12.3
 	 */
 	public function testOffsetExists()
@@ -325,7 +328,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::offsetGet
+	 * @covers  Joomla\Data\Set::offsetGet
 	 * @since   12.3
 	 */
 	public function testOffsetGet()
@@ -340,21 +343,21 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::OffsetSet
+	 * @covers  Joomla\Data\Set::OffsetSet
 	 * @since   12.3
 	 */
 	public function testOffsetSet()
 	{
-		$this->instance->offsetSet(0, new JData);
+		$this->instance->offsetSet(0, new Data);
 		$objects = TestReflection::getValue($this->instance, 'objects');
 
-		$this->assertEquals(new JData, $objects[0], 'Checks explicit use of offsetSet.');
+		$this->assertEquals(new Data, $objects[0], 'Checks explicit use of offsetSet.');
 
-		$this->instance[] = new JData;
-		$this->assertInstanceOf('JData', $this->instance[1], 'Checks the array push equivalent with [].');
+		$this->instance[] = new Data;
+		$this->assertInstanceOf('Joomla\Data\Data', $this->instance[1], 'Checks the array push equivalent with [].');
 
-		$this->instance['foo'] = new JData;
-		$this->assertInstanceOf('JData', $this->instance['foo'], 'Checks implicit usage of offsetSet.');
+		$this->instance['foo'] = new Data;
+		$this->assertInstanceOf('Joomla\Data\Data', $this->instance['foo'], 'Checks implicit usage of offsetSet.');
 	}
 
 	/**
@@ -362,7 +365,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             JDataSet::OffsetSet
+	 * @covers             Joomla\Data\Set::OffsetSet
 	 * @expectedException  InvalidArgumentException
 	 * @since              12.3
 	 */
@@ -377,7 +380,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::OffsetUnset
+	 * @covers  Joomla\Data\Set::OffsetUnset
 	 * @since   12.3
 	 */
 	public function testOffsetUnset()
@@ -393,7 +396,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::rewind
+	 * @covers  Joomla\Data\Set::rewind
 	 * @since   12.3
 	 */
 	public function testOffsetRewind()
@@ -412,7 +415,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::valid
+	 * @covers  Joomla\Data\Set::valid
 	 * @since   12.3
 	 */
 	public function testValid()
@@ -429,7 +432,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JDataSet::_initialise
+	 * @covers  Joomla\Data\Set::_initialise
 	 * @since   12.3
 	 */
 	public function test_initialise()
@@ -464,7 +467,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 
 		// Tests single item list.
 		$this->instance->clear();
-		$this->instance['1'] = new JData;
+		$this->instance['1'] = new Data;
 		$runs = 0;
 
 		foreach ($this->instance as $key => $object)
@@ -475,10 +478,10 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $runs);
 
 		// Exhaustively testing unsetting within a foreach.
-		$this->instance['2'] = new JData;
-		$this->instance['3'] = new JData;
-		$this->instance['4'] = new JData;
-		$this->instance['5'] = new JData;
+		$this->instance['2'] = new Data;
+		$this->instance['3'] = new Data;
+		$this->instance['4'] = new Data;
+		$this->instance['5'] = new Data;
 
 		$runs = 0;
 
@@ -512,7 +515,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->instance = new JDataSet(
+		$this->instance = new DataSet(
 			array(
 				new JDataBuran,
 				new JDataVostok(array('mission' => 'Vostok 1', 'pilot' => 'Yuri Gagarin')),

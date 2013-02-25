@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Archive\Zip as ArchiveZip;
+
 /**
  * Inspector for the JApplicationBase class.
  *
@@ -15,7 +17,7 @@
  *
  * @since       12.2
  */
-class JArchiveZipInspector extends JArchiveZip
+class JArchiveZipInspector extends ArchiveZip
 {
 	/**
 	 * Test...

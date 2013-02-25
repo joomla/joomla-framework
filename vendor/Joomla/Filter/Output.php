@@ -9,7 +9,6 @@
 
 namespace Joomla\Filter;
 
-
 use Joomla\Factory;
 use Joomla\String\String;
 
@@ -75,7 +74,7 @@ class Output
 	{
 		$regex = 'href="([^"]*(&(amp;){0})[^"]*)*?"';
 
-		return preg_replace_callback("#$regex#i", array('JFilterOutput', 'ampReplaceCallback'), $input);
+		return preg_replace_callback("#$regex#i", array('Joomla\\Filter\\Output', 'ampReplaceCallback'), $input);
 	}
 
 	/**
