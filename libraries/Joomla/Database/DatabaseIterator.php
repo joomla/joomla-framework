@@ -45,7 +45,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @var    mixed
 	 * @since  12.1
 	 */
-	private $_column;
+	private $column;
 
 	/**
 	 * The current database record.
@@ -53,7 +53,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @var    mixed
 	 * @since  12.1
 	 */
-	private $_current;
+	private $current;
 
 	/**
 	 * A numeric or string key for the current database record.
@@ -61,7 +61,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @var    scalar
 	 * @since  12.1
 	 */
-	private $_key;
+	private $key;
 
 	/**
 	 * The number of fetched records.
@@ -69,7 +69,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @var    integer
 	 * @since  12.1
 	 */
-	private $_fetched = 0;
+	private $fetched = 0;
 
 	/**
 	 * Database iterator constructor.
@@ -89,8 +89,8 @@ abstract class DatabaseIterator implements Countable, Iterator
 
 		$this->cursor = $cursor;
 		$this->class = $class;
-		$this->_column = $column;
-		$this->_fetched = 0;
+		$this->column = $column;
+		$this->fetched = 0;
 		$this->next();
 	}
 
@@ -108,6 +108,16 @@ abstract class DatabaseIterator implements Countable, Iterator
 	}
 
 	/**
+	 * Get the number of rows in the result set for the executed SQL given by the cursor.
+	 *
+	 * @return  integer  The number of rows in the result set.
+	 *
+	 * @since   12.1
+	 * @see     Countable::count()
+	 */
+	abstract public function count();
+
+	/**
 	 * The current element in the iterator.
 	 *
 	 * @return  object
@@ -117,7 +127,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 */
 	public function current()
 	{
-		return $this->_current;
+		return $this->current;
 	}
 
 	/**
@@ -130,7 +140,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 */
 	public function key()
 	{
-		return $this->_key;
+		return $this->key;
 	}
 
 	/**
@@ -144,22 +154,22 @@ abstract class DatabaseIterator implements Countable, Iterator
 	public function next()
 	{
 		// Set the default key as being the number of fetched object
-		$this->_key = $this->_fetched;
+		$this->key = $this->fetched;
 
 		// Try to get an object
-		$this->_current = $this->fetchObject();
+		$this->current = $this->fetchObject();
 
 		// If an object has been found
-		if ($this->_current)
+		if ($this->current)
 		{
 			// Set the key as being the indexed column (if it exists)
-			if (isset($this->_current->{$this->_column}))
+			if (isset($this->current->{$this->column}))
 			{
-				$this->_key = $this->_current->{$this->_column};
+				$this->key = $this->current->{$this->column};
 			}
 
 			// Update the number of fetched object
-			$this->_fetched++;
+			$this->fetched++;
 		}
 	}
 
@@ -187,7 +197,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 */
 	public function valid()
 	{
-		return (boolean) $this->_current;
+		return (boolean) $this->current;
 	}
 
 	/**

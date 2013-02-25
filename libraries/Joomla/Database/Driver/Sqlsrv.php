@@ -259,7 +259,7 @@ class Sqlsrv extends Driver
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  JDatabaseDriverSqlsrv  Returns this object to support chaining.
+	 * @return  Sqlsrv  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -469,22 +469,27 @@ class Sqlsrv extends Driver
 			{
 				continue;
 			}
+
 			if (!$this->checkFieldExists($table, $k))
 			{
 				continue;
 			}
+
 			if ($k[0] == '_')
 			{
 				// Internal field
 				continue;
 			}
+
 			if ($k == $key && $key == 0)
 			{
 				continue;
 			}
+
 			$fields[] = $this->quoteName($k);
 			$values[] = $this->Quote($v);
 		}
+
 		// Set the query and execute the insert.
 		$this->setQuery(sprintf($statement, implode(',', $fields), implode(',', $values)));
 
@@ -492,12 +497,14 @@ class Sqlsrv extends Driver
 		{
 			return false;
 		}
+
 		$id = $this->insertid();
 
 		if ($key && $id)
 		{
 			$object->$key = $id;
 		}
+
 		return true;
 	}
 
@@ -719,6 +726,7 @@ class Sqlsrv extends Driver
 				{
 					break;
 				}
+
 				$l = $k - 1;
 
 				while ($l >= 0 && $sql{$l} == '\\')
@@ -726,21 +734,26 @@ class Sqlsrv extends Driver
 					$l--;
 					$escaped = !$escaped;
 				}
+
 				if ($escaped)
 				{
 					$j = $k + 1;
 					continue;
 				}
+
 				break;
 			}
+
 			if ($k === false)
 			{
 				// Error in the query - no end quote; ignore it
 				break;
 			}
+
 			$literal .= substr($sql, $startPos, $k - $startPos + 1);
 			$startPos = $k + 1;
 		}
+
 		if ($startPos < $n)
 		{
 			$literal .= substr($sql, $startPos, $n - $startPos);
@@ -986,6 +999,7 @@ class Sqlsrv extends Driver
 		{
 			$orderBy = 'ORDER BY (select 0)';
 		}
+
 		$sql = str_ireplace($orderBy, '', $sql);
 
 		$rowNumberText = ',ROW_NUMBER() OVER (' . $orderBy . ') AS RowNumber FROM ';
@@ -1004,7 +1018,7 @@ class Sqlsrv extends Driver
 	 * @param   string  $backup    Table prefix
 	 * @param   string  $prefix    For the table - used to rename constraints in non-mysql databases
 	 *
-	 * @return  JDatabaseDriverSqlsrv  Returns this object to support chaining.
+	 * @return  Sqlsrv  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -1017,6 +1031,7 @@ class Sqlsrv extends Driver
 		{
 			$constraints = $this->getTableConstraints($oldTable);
 		}
+
 		if (!empty($constraints))
 		{
 			$this->renameConstraints($constraints, $prefix, $backup);
@@ -1032,7 +1047,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @param   string  $tableName  The name of the table to lock.
 	 *
-	 * @return  JDatabaseDriverSqlsrv  Returns this object to support chaining.
+	 * @return  Sqlsrv  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException
@@ -1045,7 +1060,7 @@ class Sqlsrv extends Driver
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  JDatabaseDriverSqlsrv  Returns this object to support chaining.
+	 * @return  Sqlsrv  Returns this object to support chaining.
 	 *
 	 * @since   12.1
 	 * @throws  RuntimeException

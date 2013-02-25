@@ -22,7 +22,7 @@ use RuntimeException;
  *
  * @method      string  q()   q($text, $escape = true)  Alias for quote method
  * @method      string  qn()  qs($name, $as = null)     Alias for quoteName method
- * @method      string  e()   e($text, $extra = false)   Alias for escape method
+ * @method      string  e()   e($text, $extra = false)  Alias for escape method
  */
 abstract class Query
 {
@@ -45,109 +45,109 @@ abstract class Query
 	protected $type = '';
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The query element for a generic query (type = null).
+	 * @var    Query\Element  The query element for a generic query (type = null).
 	 * @since  11.1
 	 */
 	protected $element = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The select element.
+	 * @var    Query\Element  The select element.
 	 * @since  11.1
 	 */
 	protected $select = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The delete element.
+	 * @var    Query\Element  The delete element.
 	 * @since  11.1
 	 */
 	protected $delete = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The update element.
+	 * @var    Query\Element  The update element.
 	 * @since  11.1
 	 */
 	protected $update = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The insert element.
+	 * @var    Query\Element  The insert element.
 	 * @since  11.1
 	 */
 	protected $insert = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The from element.
+	 * @var    Query\Element  The from element.
 	 * @since  11.1
 	 */
 	protected $from = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The join element.
+	 * @var    Query\Element  The join element.
 	 * @since  11.1
 	 */
 	protected $join = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The set element.
+	 * @var    Query\Element  The set element.
 	 * @since  11.1
 	 */
 	protected $set = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The where element.
+	 * @var    Query\Element  The where element.
 	 * @since  11.1
 	 */
 	protected $where = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The group by element.
+	 * @var    Query\Element  The group by element.
 	 * @since  11.1
 	 */
 	protected $group = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The having element.
+	 * @var    Query\Element  The having element.
 	 * @since  11.1
 	 */
 	protected $having = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The column list for an INSERT statement.
+	 * @var    Query\Element  The column list for an INSERT statement.
 	 * @since  11.1
 	 */
 	protected $columns = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The values list for an INSERT statement.
+	 * @var    Query\Element  The values list for an INSERT statement.
 	 * @since  11.1
 	 */
 	protected $values = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The order element.
+	 * @var    Query\Element  The order element.
 	 * @since  11.1
 	 */
 	protected $order = null;
 
 	/**
-	 * @var   object  The auto increment insert field element.
-	 * @since 11.1
+	 * @var    object  The auto increment insert field element.
+	 * @since  11.1
 	 */
 	protected $autoIncrementField = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The call element.
+	 * @var    Query\Element  The call element.
 	 * @since  12.1
 	 */
 	protected $call = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The exec element.
+	 * @var    Query\Element  The exec element.
 	 * @since  12.1
 	 */
 	protected $exec = null;
 
 	/**
-	 * @var    \Joomla\Database\Query\Element  The union element.
+	 * @var    Query\Element  The union element.
 	 * @since  12.1
 	 */
 	protected $union = null;
@@ -423,7 +423,7 @@ abstract class Query
 	 *
 	 * @return  string  The required char length call.
 	 *
-	 * @since 11.1
+	 * @since   11.1
 	 */
 	public function charLength($field, $operator = null, $condition = null)
 	{
@@ -620,6 +620,7 @@ abstract class Query
 	 * @return  string  The format string.
 	 *
 	 * @since   11.1
+	 * @throws  RuntimeException
 	 */
 	public function dateFormat()
 	{
@@ -747,6 +748,7 @@ abstract class Query
 	 * @return  Query  Returns this object to allow chaining.
 	 *
 	 * @since   11.1
+	 * @throws  RuntimeException
 	 */
 	public function from($tables, $subQueryAlias = null)
 	{
@@ -1049,6 +1051,7 @@ abstract class Query
 	 * @return  string  Null or zero representation of a timestamp.
 	 *
 	 * @since   11.1
+	 * @throws  RuntimeException
 	 */
 	public function nullDate($quoted = true)
 	{
@@ -1119,7 +1122,7 @@ abstract class Query
 	 * This method is provided for use where the query object is passed to a function for modification.
 	 * If you have direct access to the database object, it is recommended you use the quote method directly.
 	 *
-	 * Note that 'q' is an alias for this method as it is in JDatabaseDriver.
+	 * Note that 'q' is an alias for this method as it is in Driver.
 	 *
 	 * Usage:
 	 * $query->quote('fulltext');
@@ -1151,7 +1154,7 @@ abstract class Query
 	 * This method is provided for use where the query object is passed to a function for modification.
 	 * If you have direct access to the database object, it is recommended you use the quoteName method directly.
 	 *
-	 * Note that 'qn' is an alias for this method as it is in JDatabaseDriver.
+	 * Note that 'qn' is an alias for this method as it is in Driver.
 	 *
 	 * Usage:
 	 * $query->quoteName('#__a');
@@ -1384,13 +1387,13 @@ abstract class Query
 	 * Usage:
 	 * $query->union('SELECT name FROM  #__foo')
 	 * $query->union('SELECT name FROM  #__foo','distinct')
-	 * $query->union(array('SELECT name FROM  #__foo','SELECT name FROM  #__bar'))
+	 * $query->union(array('SELECT name FROM  #__foo', 'SELECT name FROM  #__bar'))
 	 *
-	 * @param   mixed    $query     The JDatabaseQuery object or string to union.
+	 * @param   mixed    $query     The Query object or string to union.
 	 * @param   boolean  $distinct  True to only return distinct rows from the union.
 	 * @param   string   $glue      The glue by which to join the conditions.
 	 *
-	 * @return  mixed    The JDatabaseQuery object on success or boolean false on failure.
+	 * @return  mixed    The Query object on success or boolean false on failure.
 	 *
 	 * @since   12.1
 	 */
@@ -1416,7 +1419,7 @@ abstract class Query
 
 		}
 
-		// Get the JDatabaseQueryElement if it does not exist
+		// Get the Query\Element if it does not exist
 		if (is_null($this->union))
 		{
 				$this->union = new Query\Element($name, $query, "$glue");
@@ -1437,10 +1440,10 @@ abstract class Query
 	 * Usage:
 	 * $query->unionDistinct('SELECT name FROM  #__foo')
 	 *
-	 * @param   mixed   $query  The JDatabaseQuery object or string to union.
+	 * @param   mixed   $query  The Query object or string to union.
 	 * @param   string  $glue   The glue by which to join the conditions.
 	 *
-	 * @return  mixed   The JDatabaseQuery object on success or boolean false on failure.
+	 * @return  mixed   The Query object on success or boolean false on failure.
 	 *
 	 * @since   12.1
 	 */

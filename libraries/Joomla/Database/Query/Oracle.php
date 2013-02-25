@@ -23,20 +23,20 @@ use stdClass;
 class Oracle extends Pdo implements Preparable, Limitable
 {
 	/**
-	 * @var integer
-	 * @since 12.1
+	 * @var    integer
+	 * @since  12.1
 	 */
 	protected $limit;
 
 	/**
-	 * @var integer
-	 * @since 12.1
+	 * @var    integer
+	 * @since  12.1
 	 */
 	protected $offset;
 
 	/**
-	 * @var mixed
-	 * @since 12.1
+	 * @var    mixed
+	 * @since  12.1
 	 */
 	protected $bounded = array();
 
@@ -52,7 +52,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 * @param   integer         $length         The length of the variable. Usually required for OUTPUT parameters.
 	 * @param   array           $driverOptions  Optional driver options to be used.
 	 *
-	 * @return  JDatabaseQuery
+	 * @return  Oracle
 	 *
 	 * @since   12.1
 	 */
@@ -120,7 +120,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 *
 	 * @param   string  $clause  Optionally, the name of the clause to clear, or nothing to clear the whole query.
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Oracle  Returns this object to allow chaining.
 	 *
 	 * @since   12.1
 	 */
@@ -143,7 +143,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 * additions to make the query limited to a particular number of
 	 * results, or start at a particular offset. This method is used
 	 * automatically by the __toString() method if it detects that the
-	 * query implements the JDatabaseQueryLimitable interface.
+	 * query implements the Limitable interface.
 	 *
 	 * @param   string   $query   The query in string format
 	 * @param   integer  $limit   The limit for the result set
@@ -194,7 +194,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return  JDatabaseQuery  Returns this object to allow chaining.
+	 * @return  Oracle  Returns this object to allow chaining.
 	 *
 	 * @since   12.1
 	 */

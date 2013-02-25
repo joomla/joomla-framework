@@ -267,7 +267,6 @@ abstract class Pdo extends Driver
 				break;
 
 			case 'sqlite':
-
 				if (isset($this->options['version']) && $this->options['version'] == 2)
 				{
 					$format = 'sqlite2:#DBNAME#';
@@ -672,7 +671,7 @@ abstract class Pdo extends Driver
 	 * @param   integer  $limit          The maximum affected rows to set.
 	 * @param   array    $driverOptions  The optional PDO driver options
 	 *
-	 * @return  JDatabaseDriver  This object to support method chaining.
+	 * @return  Pdo  This object to support method chaining.
 	 *
 	 * @since   12.1
 	 */

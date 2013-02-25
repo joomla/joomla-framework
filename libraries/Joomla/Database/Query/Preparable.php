@@ -35,7 +35,7 @@ interface Preparable
 	 * @param   integer         $length         The length of the variable. Usually required for OUTPUT parameters.
 	 * @param   array           $driverOptions  Optional driver options to be used.
 	 *
-	 * @return  JDatabaseQuery
+	 * @return  Preparable
 	 *
 	 * @since   12.1
 	 */
