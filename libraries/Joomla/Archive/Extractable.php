@@ -9,7 +9,6 @@
 
 namespace Joomla\Archive;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Archieve class interface

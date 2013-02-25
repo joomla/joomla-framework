@@ -9,7 +9,6 @@
 
 namespace Joomla\Data;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;

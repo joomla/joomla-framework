@@ -9,7 +9,6 @@
 
 namespace Joomla\Log;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Date\Date;
 

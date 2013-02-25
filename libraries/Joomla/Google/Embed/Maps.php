@@ -9,7 +9,6 @@
 
 namespace Joomla\Google\Embed;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Http\Http;
 use Joomla\Google\Embed;

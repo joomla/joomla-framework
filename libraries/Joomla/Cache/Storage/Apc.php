@@ -9,7 +9,6 @@
 
 namespace Joomla\Cache\Storage;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Cache\Storage;
 use stdClass;

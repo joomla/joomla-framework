@@ -9,7 +9,6 @@
 
 namespace Joomla\Filesystem\Stream;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Filesystem\Support\StringController;
 

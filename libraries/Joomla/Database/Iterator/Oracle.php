@@ -9,7 +9,6 @@
 
 namespace Joomla\Database\Iterator;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Oracle database iterator.

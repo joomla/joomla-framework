@@ -9,7 +9,6 @@
 
 namespace Joomla\Crypt;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * JCrypt cipher for Rijndael 256 encryption, decryption and key generation.

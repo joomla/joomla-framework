@@ -9,7 +9,6 @@
 
 namespace Joomla\Crypt;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * JCrypt is a Joomla Platform class for handling basic encryption/decryption of data.

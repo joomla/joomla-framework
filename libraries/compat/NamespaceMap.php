@@ -1,4 +1,4 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php
 
 return array(
 	'JApplicationBase' => 'Joomla\\Application\\Base',

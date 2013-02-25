@@ -9,7 +9,6 @@
 
 namespace Joomla\Pagination;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Application\Route;
 use Joomla\Language\Text;

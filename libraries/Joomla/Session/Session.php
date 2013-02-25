@@ -9,7 +9,6 @@
 
 namespace Joomla\Session;
 
-defined('JPATH_PLATFORM') or die;
 
 // @todo dependency on legacy JApplication here
 use Joomla\Application\Route;

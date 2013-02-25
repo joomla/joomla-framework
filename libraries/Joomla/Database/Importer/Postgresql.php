@@ -9,7 +9,6 @@
 
 namespace Joomla\Database\Importer;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Database\Importer;
 use Joomla\Database\Driver\Postgresql as DriverPostgresql;

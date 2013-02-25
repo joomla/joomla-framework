@@ -9,7 +9,6 @@
 
 namespace Joomla\Form;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Supports an HTML select list of image

@@ -9,7 +9,6 @@
 
 namespace Joomla\Database\Driver;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * SQL Server database driver

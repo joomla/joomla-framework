@@ -9,7 +9,6 @@
 
 namespace Joomla\Form;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Form Field class for the Joomla Platform.

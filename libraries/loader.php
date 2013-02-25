@@ -6,7 +6,6 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Static class to handle loading of libraries.

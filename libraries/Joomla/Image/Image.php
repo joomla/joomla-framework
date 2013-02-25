@@ -9,7 +9,6 @@
 
 namespace Joomla\Image;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Log\Log;
 use InvalidArgumentException;

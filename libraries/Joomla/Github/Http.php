@@ -9,7 +9,6 @@
 
 namespace Joomla\Github;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Http\Http as HttpHttp;
 use Joomla\Http\Transport;

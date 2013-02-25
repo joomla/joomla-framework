@@ -9,7 +9,6 @@
 
 namespace Joomla\Filter;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\String\String;
