@@ -270,7 +270,7 @@ class Ftp
 
 			if ($this->_conn === false)
 			{
-				Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_NO_CONNECT', $host, $port), Log::WARNING, 'jerror');
+				Log::add(sprintf('%1$s: Could not connect to host " %2$s " on port " %3$s "', __METHOD__, $host, $port), Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -285,7 +285,17 @@ class Ftp
 
 		if (!$this->_conn)
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_NO_CONNECT_SOCKET', $host, $port, $errno, $err), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf(
+					'%1$s: Could not connect to host " %2$s " on port " %3$s ". Socket error number: %4$s and error message: %5$s',
+					__METHOD__,
+					$host,
+					$port,
+					$errno,
+					$err
+				),
+				Log::WARNING,
+				'jerror');
 
 			return false;
 		}
@@ -296,7 +306,7 @@ class Ftp
 		// Check for welcome response code
 		if (!$this->_verifyResponse(220))
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_BAD_RESPONSE', $this->_response), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response. Server response: %2$s [Expected: 220]', __METHOD__, $this->_response), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -343,7 +353,7 @@ class Ftp
 		// Send the username
 		if (!$this->_putCmd('USER ' . $user, array(331, 503)))
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_BAD_USERNAME', $this->_response, $user), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad Username. Server response: %2$s [Expected: 331]. Username sent: %3$s', __METHOD__, $this->_response, $user), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -357,7 +367,7 @@ class Ftp
 		// Send the password
 		if (!$this->_putCmd('PASS ' . $pass, 230))
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_BAD_PASSWORD', $this->_response, str_repeat('*', strlen($pass))), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad Password. Server response: %2$s [Expected: 230].', __METHOD__, $this->_response), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -403,7 +413,7 @@ class Ftp
 		{
 			if (($ret = @ftp_pwd($this->_conn)) === false)
 			{
-				Log::add(Text::_('JLIB_CLIENT_ERROR_JFTP_PWD_BAD_RESPONSE_NATIVE'), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -415,7 +425,7 @@ class Ftp
 		// Send print working directory command and verify success
 		if (!$this->_putCmd('PWD', 257))
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_PWD_BAD_RESPONSE', $this->_response), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 257]', __METHOD__, $this->_response), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -441,7 +451,7 @@ class Ftp
 		{
 			if (($ret = @ftp_systype($this->_conn)) === false)
 			{
-				Log::add(Text::_('JLIB_CLIENT_ERROR_JFTP_SYS_BAD_RESPONSE_NATIVE'), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -451,7 +461,7 @@ class Ftp
 			// Send print working directory command and verify success
 			if (!$this->_putCmd('SYST', 215))
 			{
-				Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_SYST_BAD_RESPONSE', $this->_response), Log::WARNING, 'jerror');
+				Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 215]', __METHOD__, $this->_response), Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -492,7 +502,7 @@ class Ftp
 		{
 			if (@ftp_chdir($this->_conn, $path) === false)
 			{
-				Log::add(Text::_('JLIB_CLIENT_ERROR_JFTP_CHDIR_BAD_RESPONSE_NATIVE'), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -502,7 +512,7 @@ class Ftp
 		// Send change directory command and verify success
 		if (!$this->_putCmd('CWD ' . $path, 250))
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_CHDIR_BAD_RESPONSE', $this->_response, $path), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 250].  Sent path: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -526,7 +536,7 @@ class Ftp
 		{
 			if (@ftp_site($this->_conn, 'REIN') === false)
 			{
-				Log::add(Text::_('JLIB_CLIENT_ERROR_JFTP_REINIT_BAD_RESPONSE_NATIVE'), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -536,7 +546,7 @@ class Ftp
 		// Send reinitialise command to the server
 		if (!$this->_putCmd('REIN', 220))
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_REINIT_BAD_RESPONSE', $this->_response), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 220]', __METHOD__, $this->_response), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -561,17 +571,18 @@ class Ftp
 		{
 			if (@ftp_rename($this->_conn, $from, $to) === false)
 			{
-				Log::add(Text::_('JLIB_CLIENT_ERROR_JFTP_RENAME_BAD_RESPONSE_NATIVE'), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return true;
 		}
 
 		// Send rename from command to the server
 		if (!$this->_putCmd('RNFR ' . $from, 350))
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_RENAME_BAD_RESPONSE_FROM', $this->_response, $from), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 350].  From path sent: %3$s', __METHOD__, $this->_response, $from), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -579,7 +590,7 @@ class Ftp
 		// Send rename to command to the server
 		if (!$this->_putCmd('RNTO ' . $to, 250))
 		{
-			Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_RENAME_BAD_RESPONSE_TO', $this->_response, $to), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 250].  To path sent: %3$s', __METHOD__, $this->_response, $to), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -618,10 +629,12 @@ class Ftp
 			{
 				if (!IS_WIN)
 				{
-					Log::add(Text::_('JLIB_CLIENT_ERROR_JFTP_CHMOD_BAD_RESPONSE_NATIVE'), Log::WARNING, 'jerror');
+					Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 				}
+
 				return false;
 			}
+
 			return true;
 		}
 
@@ -630,7 +643,17 @@ class Ftp
 		{
 			if (!IS_WIN)
 			{
-				Log::add(Text::sprintf('JLIB_CLIENT_ERROR_JFTP_CHMOD_BAD_RESPONSE', $this->_response, $path, $mode), Log::WARNING, 'jerror');
+				Log::add(
+					sprintf(
+						'%1$s: Bad response.  Server response: %2$s [Expected: 250].  Path sent: %3$s.  Mode sent: %4$s',
+						__METHOD__,
+						$this->_response,
+						$path,
+						$mode
+					),
+					Log::WARNING,
+					'jerror'
+				);
 			}
 			return false;
 		}
