@@ -11,7 +11,7 @@
  * Test class for JInput.
  *
  * @package     Joomla.UnitTest
- * @subpackage  Media
+ * @subpackage  Input
  * @since       11.1
  */
 class JInputCLITest extends PHPUnit_Framework_TestCase

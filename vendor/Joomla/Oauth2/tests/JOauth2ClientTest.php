@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.UnitTest
- * @subpackage  Client
+ * @subpackage  Oauth2
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -16,7 +16,7 @@ use Joomla\Http\Http;
  * Test class for Client.
  *
  * @package     Joomla.UnitTest
- * @subpackage  Oauth
+ * @subpackage  Oauth2
  * @since       12.3
  */
 class ClientTest extends PHPUnit_Framework_TestCase

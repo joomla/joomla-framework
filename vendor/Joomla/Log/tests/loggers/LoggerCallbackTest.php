@@ -15,7 +15,7 @@ use Joomla\Log\Entry;
 /**
  * Test class for JLogLoggerCallback.
  *
- * @package     Joomla.Platform
+ * @package     Joomla.UnitTest
  * @subpackage  Log
  * @since       12.2
  */

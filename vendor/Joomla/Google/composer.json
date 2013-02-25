@@ -6,8 +6,15 @@
     "homepage": "https://github.com/joomla/joomla-framework-google",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10"
+        "php": ">=5.3.10",
+        "joomla/registry": "dev-master",
+        "joomla/uri": "dev-master",
+        "joomla/oauth2": "dev-master",
+        "joomla/filesystem": "dev-master"
     },
+    "require-dev": {
+    	"joomla/input": "dev-master"
+    }
     "target-dir": "Joomla/Google",
     "autoload": {
     	"psr-0": {

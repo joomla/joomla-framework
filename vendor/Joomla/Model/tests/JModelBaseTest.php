@@ -15,7 +15,7 @@ require_once __DIR__ . '/stubs/tbase.php';
  * Tests for the JViewBase class.
  *
  * @package     Joomla.UnitTest
- * @subpackage  Mapper
+ * @subpackage  Model
  * @since       12.1
  */
 class JModelBaseTest extends PHPUnit_Framework_TestCase

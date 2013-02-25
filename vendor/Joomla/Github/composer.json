@@ -6,7 +6,11 @@
     "homepage": "https://github.com/joomla/joomla-framework-github",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10"
+        "php": ">=5.3.10",
+        "joomla/date": "dev-master",
+        "joomla/http": "dev-master",
+        "joomla/registry": "dev-master",
+        "joomla/uri": "dev-master"
     },
     "target-dir": "Joomla/Github",
     "autoload": {

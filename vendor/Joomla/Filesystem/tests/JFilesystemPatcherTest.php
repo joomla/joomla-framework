@@ -1,8 +1,7 @@
 <?php
-
 /**
  * @package     Joomla.UnitTest
- * @subpackage  FileSystem
+ * @subpackage  Filesystem
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -15,7 +14,7 @@ use Joomla\Filesystem\Path;
  * A unit test class for Patcher
  *
  * @package     Joomla.UnitTest
- * @subpackage  FileSystem
+ * @subpackage  Filesystem
  *
  * @since       12.1
  */

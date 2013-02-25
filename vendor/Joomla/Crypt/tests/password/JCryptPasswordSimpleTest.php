@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.UnitTest
- * @subpackage  Hash
+ * @subpackage  Crypt
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -13,9 +13,9 @@ use Joomla\Crypt\Password\Simple;
 /**
  * Test class for JCryptPasswordSimple.
  *
- * @package  Joomla.UnitTest
- *
- * @since    11.1
+ * @package     Joomla.UnitTest
+ * @subpackage  Crypt
+ * @since       11.1
  */
 class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 {

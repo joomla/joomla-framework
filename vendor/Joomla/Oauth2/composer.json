@@ -6,7 +6,11 @@
     "homepage": "https://github.com/joomla/joomla-framework-oauth2",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10"
+        "php": ">=5.3.10",
+        "joomla/application": "dev-master",
+        "joomla/http": "dev-master",
+        "joomla/input": "dev-master",
+        "joomla/registry": "dev-master",
     },
     "target-dir": "Joomla/OAuth2",
     "autoload": {

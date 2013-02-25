@@ -12,8 +12,12 @@
         "joomla/session": "dev-master",
         "joomla/registry": "dev-master",
         "joomla/uri": "dev-master",
-        "joomla/log": "dev-master"
+        "joomla/log": "dev-master",
+        "joomla/filesystem": "dev-master"
     },
+    "require-dev": {
+    	"joomla/controller": "dev-master",
+    }
     "target-dir": "Joomla/Application",
     "autoload": {
     	"psr-0": {

@@ -10,9 +10,9 @@
 /**
  * JWebClientInspector
  *
- * @package  Joomla.UnitTest
- *
- * @since    11.3
+ * @package     Joomla.UnitTest
+ * @subpackage  Application
+ * @since       11.3
  */
 class JWebClientInspector extends Joomla\Application\Web\Client
 {

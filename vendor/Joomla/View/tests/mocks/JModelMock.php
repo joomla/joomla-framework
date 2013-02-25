@@ -1,15 +1,18 @@
 <?php
 /**
- * @package    Joomla.UnitTest
- * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license    GNU General Public License
+ * @package     Joomla.UnitTest
+ * @subpackage  View
+ *
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License
  */
 
 /**
  * Mock class for JModel.
  *
- * @package  Joomla.UnitTest
- * @since    12.1
+ * @package     Joomla.UnitTest
+ * @subpackage  View
+ * @since       12.1
  */
 class JModelMock
 {
