@@ -263,9 +263,9 @@ abstract class ArrayHelper
 				{
 					$result[] = $item->$index;
 				}
-				// Else ignore the entry
 			}
 		}
+
 		return $result;
 	}
 
@@ -338,6 +338,7 @@ abstract class ArrayHelper
 				// No casting necessary
 				break;
 		}
+
 		return $result;
 	}
 
@@ -388,6 +389,7 @@ abstract class ArrayHelper
 				}
 			}
 		}
+
 		return $return;
 	}
 

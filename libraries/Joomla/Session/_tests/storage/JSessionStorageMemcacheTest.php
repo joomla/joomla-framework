@@ -41,17 +41,6 @@ class JSessionStorageMemcacheTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
-
-	}
-
-	/**
 	 * Test...
 	 *
 	 * @todo Implement testOpen().
@@ -141,5 +130,4 @@ class JSessionStorageMemcacheTest extends PHPUnit_Framework_TestCase
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
-
 }

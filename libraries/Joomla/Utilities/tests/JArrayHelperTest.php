@@ -382,7 +382,6 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 */
 	public function getTestInvertData()
 	{
-
 		return array(
 			'Case 1' => array(
 				// Input

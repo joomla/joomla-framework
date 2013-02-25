@@ -87,6 +87,7 @@ class Database extends Storage
 			{
 				return false;
 			}
+
 			// Since $db->execute did not throw an exception the query was successful.
 			// Either the data changed, or the data was identical. In either case we are done.
 

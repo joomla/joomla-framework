@@ -387,5 +387,4 @@ class JSessionTest extends TestCase
 			'This test has not been implemented yet.'
 		);
 	}
-
 }

@@ -532,6 +532,7 @@ class StringTest extends PHPUnit_Framework_TestCase
 			{
 				$actual = $actual / abs($actual);
 			}
+
 			$this->assertEquals($expect, $actual);
 		}
 	}
@@ -575,6 +576,7 @@ class StringTest extends PHPUnit_Framework_TestCase
 			{
 				$actual = $actual / abs($actual);
 			}
+
 			$this->assertEquals($expect, $actual);
 		}
 	}
@@ -702,6 +704,7 @@ class StringTest extends PHPUnit_Framework_TestCase
 		{
 			$actual = String::ltrim($string, $charlist);
 		}
+
 		$this->assertEquals($expect, $actual);
 	}
 
@@ -728,6 +731,7 @@ class StringTest extends PHPUnit_Framework_TestCase
 		{
 			$actual = String::rtrim($string, $charlist);
 		}
+
 		$this->assertEquals($expect, $actual);
 	}
 
@@ -754,6 +758,7 @@ class StringTest extends PHPUnit_Framework_TestCase
 		{
 			$actual = String::trim($string, $charlist);
 		}
+
 		$this->assertEquals($expect, $actual);
 	}
 

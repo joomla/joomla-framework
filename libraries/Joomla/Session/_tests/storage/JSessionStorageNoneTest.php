@@ -16,7 +16,6 @@
  */
 class JSessionStorageNoneTest extends PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * @var JSessionStorageNone
 	 */

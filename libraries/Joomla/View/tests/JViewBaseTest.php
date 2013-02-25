@@ -23,7 +23,7 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 	 * @var    JViewBase
 	 * @since  12.1
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
 	 * Tests the __construct method.
@@ -35,7 +35,7 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertAttributeInstanceOf('Joomla\\Model\\Model', 'model', $this->_instance);
+		$this->assertAttributeInstanceOf('Joomla\\Model\\Model', 'model', $this->instance);
 	}
 
 	/**
@@ -48,7 +48,7 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEscape()
 	{
-		$this->assertEquals('foo', $this->_instance->escape('foo'));
+		$this->assertEquals('foo', $this->instance->escape('foo'));
 	}
 
 	/**
@@ -64,6 +64,6 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 
 		$model = JModelMock::create($this);
 
-		$this->_instance = new BaseView($model);
+		$this->instance = new BaseView($model);
 	}
 }

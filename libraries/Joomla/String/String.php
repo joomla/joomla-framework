@@ -816,7 +816,6 @@ abstract class String
 					$mUcs4 = ($mUcs4 & 1) << 30;
 					$mState = 5;
 					$mBytes = 6;
-
 				}
 				else
 				{
