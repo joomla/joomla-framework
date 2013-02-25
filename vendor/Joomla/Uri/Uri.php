@@ -9,9 +9,7 @@
 
 namespace Joomla\Uri;
 
-
 use Joomla\String\String;
-use Joomla\Factory;
 
 /**
  * Uri Class
@@ -91,24 +89,6 @@ class Uri
 	 * @since  11.1
 	 */
 	protected static $instances = array();
-
-	/**
-	 * @var    array  The current calculated base url segments.
-	 * @since  11.1
-	 */
-	protected static $base = array();
-
-	/**
-	 * @var    array  The current calculated root url segments.
-	 * @since  11.1
-	 */
-	protected static $root = array();
-
-	/**
-	 * @var    string  The current url.
-	 * @since  11.1
-	 */
-	protected static $current;
 
 	/**
 	 * Constructor.
@@ -208,116 +188,6 @@ class Uri
 	}
 
 	/**
-	 * Returns the base URI for the request.
-	 *
-	 * @param   boolean  $pathonly  If false, prepend the scheme, host and port information. Default is false.
-	 *
-	 * @return  string  The base URI string
-	 *
-	 * @since   11.1
-	 */
-	public static function base($pathonly = false)
-	{
-		// Get the base request path.
-		if (empty(self::$base))
-		{
-			$config    = Factory::getConfig();
-			$live_site = $config->get('live_site');
-
-			if (trim($live_site) != '')
-			{
-				$uri = self::getInstance($live_site);
-
-				self::$base['prefix'] = $uri->toString(array('scheme', 'host', 'port'));
-				self::$base['path']   = rtrim($uri->toString(array('path')), '/\\');
-
-				if (defined('JPATH_BASE') && defined('JPATH_ADMINISTRATOR'))
-				{
-					if (JPATH_BASE == JPATH_ADMINISTRATOR)
-					{
-						self::$base['path'] .= '/administrator';
-					}
-				}
-			}
-			else
-			{
-				$uri = self::getInstance();
-
-				self::$base['prefix'] = $uri->toString(array('scheme', 'host', 'port'));
-
-				if (strpos(php_sapi_name(), 'cgi') !== false && !ini_get('cgi.fix_pathinfo') && !empty($_SERVER['REQUEST_URI']))
-				{
-					/*
-					 * PHP-CGI on Apache with "cgi.fix_pathinfo = 0"
-					 * We shouldn't have user-supplied PATH_INFO in PHP_SELF in this case
-					 * because PHP will not work with PATH_INFO at all.
-					 */
-					$script_name = $_SERVER['PHP_SELF'];
-				}
-				else
-				{
-					// Others
-					$script_name = $_SERVER['SCRIPT_NAME'];
-				}
-
-				self::$base['path'] = rtrim(dirname($script_name), '/\\');
-			}
-		}
-
-		return $pathonly === false ? self::$base['prefix'] . self::$base['path'] . '/' : self::$base['path'];
-	}
-
-	/**
-	 * Returns the root URI for the request.
-	 *
-	 * @param   boolean  $pathonly  If false, prepend the scheme, host and port information. Default is false.
-	 * @param   string   $path      The path
-	 *
-	 * @return  string  The root URI string.
-	 *
-	 * @since   11.1
-	 */
-	public static function root($pathonly = false, $path = null)
-	{
-		// Get the scheme
-		if (empty(self::$root))
-		{
-			$uri = self::getInstance(self::base());
-
-			self::$root['prefix'] = $uri->toString(array('scheme', 'host', 'port'));
-			self::$root['path']   = rtrim($uri->toString(array('path')), '/\\');
-		}
-
-		// Get the scheme
-		if (isset($path))
-		{
-			self::$root['path'] = $path;
-		}
-
-		return $pathonly === false ? self::$root['prefix'] . self::$root['path'] . '/' : self::$root['path'];
-	}
-
-	/**
-	 * Returns the URL for the request, minus the query.
-	 *
-	 * @return  string
-	 *
-	 * @since   11.1
-	 */
-	public static function current()
-	{
-		// Get the current URL.
-		if (empty(self::$current))
-		{
-			$uri = self::getInstance();
-
-			self::$current = $uri->toString(array('scheme', 'host', 'port', 'path'));
-		}
-
-		return self::$current;
-	}
-
-	/**
 	 * Method to reset class static members for testing and other various issues.
 	 *
 	 * @return  void
@@ -327,9 +197,6 @@ class Uri
 	public static function reset()
 	{
 		self::$instances = array();
-		self::$base      = array();
-		self::$root      = array();
-		self::$current   = '';
 	}
 
 	/**
@@ -758,29 +625,6 @@ class Uri
 	public function isSSL()
 	{
 		return $this->getScheme() == 'https' ? true : false;
-	}
-
-	/**
-	 * Checks if the supplied URL is internal
-	 *
-	 * @param   string  $url  The URL to check.
-	 *
-	 * @return  boolean  True if Internal.
-	 *
-	 * @since   11.1
-	 */
-	public static function isInternal($url)
-	{
-		$uri  = self::getInstance($url);
-		$base = $uri->toString(array('scheme', 'host', 'port', 'path'));
-		$host = $uri->toString(array('scheme', 'host', 'port'));
-
-		if (stripos($base, self::base()) !== 0 && !empty($host))
-		{
-			return false;
-		}
-
-		return true;
 	}
 
 	/**

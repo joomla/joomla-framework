@@ -108,52 +108,6 @@ class UriTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the base method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 * @covers  Joomla\Uri\Uri::base
-	 */
-	public function testBase()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test the root method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 * @covers  Joomla\Uri\Uri::root
-	 */
-	public function testRoot()
-	{
-		$this->assertThat(
-			Uri::root(false, '/administrator'),
-			$this->equalTo('http://www.example.com:80/administrator/')
-		);
-	}
-
-	/**
-	 * Test the current method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 * @covers  Joomla\Uri\Uri::current
-	 */
-	public function testCurrent()
-	{
-		$this->assertThat(
-			Uri::current(),
-			$this->equalTo('http://www.example.com:80/joomla/index.php')
-		);
-	}
-
-	/**
 	 * Test the parse method.
 	 *
 	 * @return  void
@@ -662,19 +616,5 @@ class UriTest extends PHPUnit_Framework_TestCase
 			$this->object->isSSL(),
 			$this->equalTo(false)
 		);
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testIsInternal().
-	 * @covers  Joomla\Uri\Uri::isInternal
-	 *
-	 * @return void
-	 */
-	public function testIsInternal()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 }
