@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Registry\Registry;
+
 /**
  * Test class for JGithub.
  *
@@ -18,7 +20,7 @@
 class JGithubTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the GitHub object.
+	 * @var    Registry  Options for the GitHub object.
 	 * @since  11.4
 	 */
 	protected $options;
@@ -47,7 +49,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->options = new JRegistry;
+		$this->options = new Registry;
 		$this->client = $this->getMock('JGithubHttp', array('get', 'post', 'delete', 'patch', 'put'));
 
 		$this->object = new JGithub($this->options, $this->client);

@@ -11,6 +11,7 @@ JLoader::register('JDataBuran', __DIR__ . '/stubs/buran.php');
 JLoader::register('JDataCapitaliser', __DIR__ . '/stubs/capitaliser.php');
 
 use Joomla\Date\Date;
+use Joomla\Registry\Registry;
 
 /**
  * Tests for the JData class.
@@ -283,7 +284,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 		$properties = array(
 			'scalar' => 'value_1',
 			'date' => new Date('2012-01-01'),
-			'registry' => new JRegistry(array('key' => 'value')),
+			'registry' => new Registry(array('key' => 'value')),
 			'JData' => new JData(
 				array(
 					'level2' => new JData(
@@ -318,7 +319,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 
 		$dump = $this->_instance->dump(0);
 		$this->assertInstanceOf('Joomla\Date\Date', $dump->date);
-		$this->assertInstanceOf('JRegistry', $dump->registry);
+		$this->assertInstanceOf('Joomla\Registry\Registry', $dump->registry);
 		$this->assertInstanceOf('JData', $dump->JData);
 
 		$dump = $this->_instance->dump(1);

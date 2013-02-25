@@ -7,6 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
@@ -20,7 +21,7 @@ use Joomla\Uri\Uri;
 class JHttpTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the GitHub object.
+	 * @var    Registry  Options for the GitHub object.
 	 * @since  11.4
 	 */
 	protected $options;
@@ -50,7 +51,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		static $classNumber = 1;
-		$this->options = $this->getMock('JRegistry', array('get', 'set'));
+		$this->options = $this->getMock('Joomla\Registry\Registry', array('get', 'set'));
 		$this->transport = $this->getMock('JHttpTransportStream', array('request'), array($this->options), 'CustomTransport' . $classNumber ++, false);
 
 		$this->object = new JHttp($this->options, $this->transport);

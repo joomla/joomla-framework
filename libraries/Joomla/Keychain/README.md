@@ -27,7 +27,7 @@ You can store the private key in a code repository but you **MUST NOT** commit t
 
 ##### Construction
 
-The JKeychain class extends JRegistry. There are no changes to the constructor's argument list so optional initialisation with data can be done in the normal way.
+The JKeychain class extends Registry. There are no changes to the constructor's argument list so optional initialisation with data can be done in the normal way.
 
 ```php
 // Create a keychain.
@@ -38,7 +38,7 @@ $keychain2 = new JKeychain(array('username' => 'foo', 'password' => 'bar'));
 
 ##### Usage
 
-A JKeychain object operates in the same way as a JRegistry object. What JKeychain provides is a way to load data from, and store data to an encrypted data source.
+A JKeychain object operates in the same way as a Registry object. What JKeychain provides is a way to load data from, and store data to an encrypted data source.
 
 When using this class, the private and public keys must already exist on the server. The third required element is the passphrase file and the following example shows how to create it.
 
@@ -77,7 +77,7 @@ $securePassword = $keychain->get('secure.password');
 $conn = connect_to_server($secureUsername, $securePassword);
 ```
 
-The keychain object can manipulate data as if it was a normal JRegistry object. However, an additional deleteValue method is provided to strip out registry data if required.
+The keychain object can manipulate data as if it was a normal Registry object. However, an additional deleteValue method is provided to strip out registry data if required.
 
 Finally, the saveKeychain method can be used to save data back to the keychain file.
 
@@ -160,7 +160,7 @@ keychain.php init --passphrase=/path/to/passphrase.file --private-key=/path/to/p
 
 This will prompt for two things:
 
-* the passphrase to store in passphrase.file; 
+* the passphrase to store in passphrase.file;
 * and the passphrase for the private key.
 
 It will create a new file at `/path/to/passphrase.file` replacing any file that might be there already.

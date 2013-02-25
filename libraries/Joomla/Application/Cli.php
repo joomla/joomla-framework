@@ -25,14 +25,8 @@ use Joomla\Input\Cli as InputCli;
  * @subpackage  Application
  * @since       11.4
  */
-class Cli extends Base
+abstract class Cli extends Base
 {
-	/**
-	 * @var    Registry  The application configuration object.
-	 * @since  11.1
-	 */
-	protected $config;
-
 	/**
 	 * @var    Cli  The application instance.
 	 * @since  11.1
@@ -43,10 +37,10 @@ class Cli extends Base
 	 * Class constructor.
 	 *
 	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
-	 *                          input object.  If the argument is a JInputCli object that object will become
+	 *                          input object.  If the argument is a InputCli object that object will become
 	 *                          the application's input object, otherwise a default input object is created.
 	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
-	 *                          config object.  If the argument is a JRegistry object that object will become
+	 *                          config object.  If the argument is a Registry object that object will become
 	 *                          the application's config object, otherwise a default config object is created.
 	 *
 	 * @since   11.1
@@ -99,15 +93,16 @@ class Cli extends Base
 	}
 
 	/**
-	 * Returns a reference to the global JApplicationCli object, only creating it if it doesn't already exist.
+	 * Returns a reference to the global Cli object, only creating it if it doesn't already exist.
 	 *
-	 * This method must be invoked as: $cli = JApplicationCli::getInstance();
+	 * This method must be invoked as: $cli = Cli::getInstance();
 	 *
-	 * @param   string  $name  The name (optional) of the JApplicationCli class to instantiate.
+	 * @param   string  $name  The name (optional) of the Cli class to instantiate.
 	 *
 	 * @return  Cli
 	 *
 	 * @since   11.1
+	 * @throws  RuntimeException
 	 */
 	public static function getInstance($name = null)
 	{
@@ -120,28 +115,11 @@ class Cli extends Base
 			}
 			else
 			{
-				self::$instance = new static;
+				throw new RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
 			}
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Execute the application.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 */
-	public function execute()
-	{
-		// @event onBeforeExecute
-
-		// Perform application routines.
-		$this->doExecute();
-
-		// @event onAfterExecute
 	}
 
 	/**
@@ -173,67 +151,5 @@ class Cli extends Base
 	public function in()
 	{
 		return rtrim(fread(STDIN, 8192), "\n");
-	}
-
-	/**
-	 * Method to load a PHP configuration class file based on convention and return the instantiated data object.  You
-	 * will extend this method in child classes to provide configuration data from whatever data source is relevant
-	 * for your specific application.
-	 *
-	 * @param   string  $file   The path and filename of the configuration file. If not provided, configuration.php
-	 *                          in JPATH_BASE will be used.
-	 * @param   string  $class  The class name to instantiate.
-	 *
-	 * @return  mixed   Either an array or object to be loaded into the configuration object.
-	 *
-	 * @since   11.1
-	 * @throws  RuntimeException
-	 */
-	protected function fetchConfigurationData($file = '', $class = 'JConfig')
-	{
-		// Instantiate variables.
-		$config = array();
-
-		if (empty($file) && defined('JPATH_BASE'))
-		{
-			$file = JPATH_BASE . '/configuration.php';
-
-			// Applications can choose not to have any configuration data
-			// by not implementing this method and not having a config file.
-			if (!file_exists($file))
-			{
-				$file = '';
-			}
-		}
-
-		if (!empty($file))
-		{
-			Loader::register($class, $file);
-
-			if (class_exists($class))
-			{
-				$config = new $class;
-			}
-			else
-			{
-				throw new RuntimeException('Configuration class does not exist.');
-			}
-		}
-
-		return $config;
-	}
-
-	/**
-	 * Method to run the application routines.  Most likely you will want to instantiate a controller
-	 * and execute it, or perform some sort of task directly.
-	 *
-	 * @return  void
-	 *
-	 * @codeCoverageIgnore
-	 * @since   11.3
-	 */
-	protected function doExecute()
-	{
-		// Your application routines go here.
 	}
 }

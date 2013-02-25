@@ -14,10 +14,11 @@ $google = new JGoogle;
 
 This creates a generic JGoogle object that can be used to instantiate objects for specific Google APIs.
 
-Sometimes it is necessary to specify additional options. This can be done by injecting in a JRegistry object with your preferred options:
+Sometimes it is necessary to specify additional options. This can be done by injecting in a Registry object with your preferred options:
 
 ```php
-$options = new JRegistry;
+use Joomla\Registry\Registry;
+$options = new Registry;
 $options->set('clientid', 'google_client_id.apps.googleusercontent.com');
 $options->set('clientsecret', 'google_client_secret');
 
@@ -51,7 +52,8 @@ $analytics = $google->data('analytics');
 See below for an example demonstrating the use of the Calendar API:
 
 ```php
-$options = new JRegistry;
+use Joomla\Registry\Registry;
+$options = new Registry;
 
 // Client ID and Client Secret can be obtained  through the Google API Console (https://code.google.com/apis/console/).
 $options->set('clientid', 'google_client_id.apps.googleusercontent.com');

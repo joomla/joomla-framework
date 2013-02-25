@@ -35,11 +35,12 @@ class TestMockApplicationWeb
 		// Collect all the relevant methods in JApplicationBase (work in progress).
 		$methods = array(
 			'close',
-			'loadDispatcher',
-			'loadDocument',
-			'loadIdentity',
-			'registerEvent',
-			'triggerEvent',
+			'doExecute',
+			'execute',
+			'fetchConfigurationData',
+			'loadConfiguration',
+			'get',
+			'set'
 		);
 
 		// Create the mock.

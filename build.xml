@@ -2,7 +2,7 @@
 
 <project name="joomla-platform" default="build" basedir=".">
 	<property name="source" value="libraries" />
-	<property name="joomlasource" value="libraries/joomla,libraries/legacy,libraries/compat,libraries/platform.php,libraries/loader.php,libraries/import.php" />
+	<property name="joomlasource" value="libraries/Joomla,libraries/compat,libraries/platform.php,libraries/loader.php,libraries/import.php" />
 
 	<condition property="script-suffix" value=".bat" else="">
 		<os family="windows" />
@@ -28,13 +28,6 @@
 
 	<target name="phpunit" description="Run unit tests using PHPUnit and generates junit.xml and clover.xml">
 		<exec executable="phpunit${script-suffix}" />
-	</target>
-
-	<target name="phpunit-legacy" description="Run legacy tests using PHPUnit and generates junit.legacy.xml and clover.legacy.xml">
-		<exec executable="phpunit${script-suffix}">
-			<arg value="-c" />
-			<arg value="legacy.xml.dist" />
-		</exec>
 	</target>
 
 	<target name="parallelTasks" description="Run the pdepend, phpmd, phpcpd, phpcs, phpdoc and phploc tasks in parallel using a maximum of 2 threads.">
@@ -73,7 +66,7 @@
 		<exec executable="phpcpd${script-suffix}">
 			<arg value="--log-pmd" />
 			<arg value="${basedir}/build/logs/pmd-cpd.xml" />
-			<arg path="${source}/joomla" />
+			<arg path="${source}/Joomla" />
 		</exec>
 	</target>
 
@@ -81,7 +74,7 @@
 		<exec executable="phploc${script-suffix}">
 			<arg value="--log-csv" />
 			<arg value="${basedir}/build/logs/phploc.csv" />
-			<arg path="${source}/joomla" />
+			<arg path="${source}/Joomla" />
 		</exec>
 	</target>
 
@@ -130,5 +123,5 @@
 		</apply>
 	</target>
 
-	<target name="build" depends="clean,phpunit,phpunit-legacy,parallelTasks,phpcb" />
+	<target name="build" depends="clean,phpunit,parallelTasks,phpcb" />
 </project>

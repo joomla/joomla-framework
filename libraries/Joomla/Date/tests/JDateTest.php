@@ -157,39 +157,36 @@ class DateTest extends PHPUnit_Framework_TestCase
 				false,
 				'122007 164456',
 			),
-			/*
-			@TODO  Need to fix up language string/file dependancies before we can do these properly.
- 			'Long' => array(
- 				'D F j, Y H:i:s',
+			'Long' => array(
+				'D F j, Y H:i:s',
 				true,
- 				'Thu December 20, 2007 11:44:56',
- 			),
- 			'LongGMT' => array(
- 				'D F j, Y H:i:s',
- 				false,
- 				'Thu December 20, 2007 16:44:56',
- 			),
- 			'Long2' => array(
- 				'H:i:s D F j, Y',
- 				false,
- 				'16:44:56 Thu December 20, 2007',
- 			),
- 			'Long3' => array(
- 				'H:i:s l F j, Y',
- 				false,
- 				'16:44:56 Thursday December 20, 2007',
- 			),
- 			'Long4' => array(
- 				'H:i:s l M j, Y',
- 				false,
- 				'16:44:56 Thursday Dec 20, 2007',
- 			),
- 			'RFC822' => array(
- 				'r',
- 				false,
- 				'Thu, 20 Dec 2007 16:44:56 +0000',
- 			),
- 			*/
+				'Thu December 20, 2007 11:44:56',
+				),
+			'LongGMT' => array(
+				'D F j, Y H:i:s',
+				false,
+				'Thu December 20, 2007 16:44:56',
+				),
+			'Long2' => array(
+				'H:i:s D F j, Y',
+				false,
+				'16:44:56 Thu December 20, 2007',
+				),
+			'Long3' => array(
+				'H:i:s l F j, Y',
+				false,
+				'16:44:56 Thursday December 20, 2007',
+			),
+			'Long4' => array(
+				'H:i:s l M j, Y',
+				false,
+				'16:44:56 Thursday Dec 20, 2007',
+			),
+			'RFC822' => array(
+				'r',
+				false,
+				'Thu, 20 Dec 2007 16:44:56 +0000',
+			),
 		);
 	}
 
@@ -312,49 +309,6 @@ class DateTest extends PHPUnit_Framework_TestCase
 				'2007-5-20 11:44:56',
 				true,
 				'2007-05-20T11:44:56+10:00',
-			),
-		);
-	}
-
-	/**
-	 * Test Cases for toMySQL
-	 *
-	 * @return  array
-	 *
-	 * @since   11.3
-	 */
-	public function casesToSQL()
-	{
-		return array(
-			'basic' => array(
-				null,
-				'2007-11-20 11:44:56',
-				null,
-				'2007-11-20 11:44:56',
-			),
-			'Atlantic/AzoresGMT' => array(
-				'Atlantic/Azores',
-				'2007-11-20 11:44:56',
-				null,
-				'2007-11-20 12:44:56',
-			),
-			'Atlantic/AzoresLocal' => array(
-				'Atlantic/Azores',
-				'2007-11-20 11:44:56',
-				true,
-				'2007-11-20 11:44:56',
-			),
-			'Australia/BrisbaneGMT' => array(
-				'Australia/Brisbane',
-				'2007-5-20 11:44:56',
-				null,
-				'2007-05-20 01:44:56',
-			),
-			'Australia/Brisbane/Local' => array(
-				'Australia/Brisbane',
-				'2007-5-20 11:44:56',
-				true,
-				'2007-05-20 11:44:56',
 			),
 		);
 	}
@@ -516,13 +470,10 @@ class DateTest extends PHPUnit_Framework_TestCase
 			$this->equalTo($expectedTime)
 		);
 
-		/*
-		@TODO - Decouple the language system better.
- 		$this->assertThat(
- 			$Date->format('D m/d/Y H:i', true),
- 			$this->equalTo($expectedTime)
- 		);
-		*/
+		$this->assertThat(
+			$Date->format('D m/d/Y H:i', true),
+			$this->equalTo($expectedTime)
+		);
 	}
 
 	/**
@@ -736,37 +687,6 @@ class DateTest extends PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			$testDate->toISO8601($local),
-			$this->equalTo($expected)
-		);
-	}
-
-	/**
-	 * Testing toSql
-	 *
-	 * @param   mixed    $tz        Which time zone? (can be string or numeric
-	 * @param   string   $setTime   What time should be set?
-	 * @param   boolean  $local     Local (true) or GMT?
-	 * @param   string   $expected  What should the resulting time string look like?
-	 *
-	 * @return  void
-	 *
-	 * @dataProvider casesToSQL
-	 * @since   11.3
-	 * @covers  Joomla\Date\Date::toSql
-	 */
-	public function testToSql($tz, $setTime, $local, $expected)
-	{
-		if (is_null($tz))
-		{
-			$testDate = new Date($setTime);
-		}
-		else
-		{
-			$testDate = new Date($setTime, $tz);
-		}
-
-		$this->assertThat(
-			$testDate->toSql($local),
 			$this->equalTo($expected)
 		);
 	}

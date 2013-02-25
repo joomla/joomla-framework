@@ -8,13 +8,13 @@
  */
 
 /**
- * Inspector classes for the JRegistry package.
+ * Inspector classes for the Registry package.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Registry
  * @since       11.1
  */
-class JRegistryInspector extends JRegistry
+class JRegistryInspector extends Joomla\Registry\Registry
 {
 	/**
 	 * Test...

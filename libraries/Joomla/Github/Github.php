@@ -34,73 +34,73 @@ use Joomla\Registry\Registry;
 class Github
 {
 	/**
-	 * @var    JRegistry  Options for the GitHub object.
+	 * @var    Registry  Options for the GitHub object.
 	 * @since  11.3
 	 */
 	protected $options;
 
 	/**
-	 * @var    JGithubHttp  The HTTP client object to use in sending HTTP requests.
+	 * @var    Http  The HTTP client object to use in sending HTTP requests.
 	 * @since  11.3
 	 */
 	protected $client;
 
 	/**
-	 * @var    JGithubGists  GitHub API object for gists.
+	 * @var    Gists  GitHub API object for gists.
 	 * @since  11.3
 	 */
 	protected $gists;
 
 	/**
-	 * @var    JGithubIssues  GitHub API object for issues.
+	 * @var    Issues  GitHub API object for issues.
 	 * @since  11.3
 	 */
 	protected $issues;
 
 	/**
-	 * @var    JGithubPulls  GitHub API object for pulls.
+	 * @var    Pulls  GitHub API object for pulls.
 	 * @since  11.3
 	 */
 	protected $pulls;
 
 	/**
-	 * @var    JGithubRefs  GitHub API object for referencess.
+	 * @var    Refs  GitHub API object for referencess.
 	 * @since  11.3
 	 */
 	protected $refs;
 
 	/**
-	 * @var    JGithubForks  GitHub API object for forks.
+	 * @var    Forks  GitHub API object for forks.
 	 * @since  11.3
 	 */
 	protected $forks;
 
 	/**
-	 * @var    JGithubCommits  GitHub API object for commits.
+	 * @var    Commits  GitHub API object for commits.
 	 * @since  12.1
 	 */
 	protected $commits;
 
 	/**
-	 * @var    JGithubMilestones  GitHub API object for milestones.
+	 * @var    Milestones  GitHub API object for milestones.
 	 * @since  12.3
 	 */
 	protected $milestones;
 
 	/**
-	 * @var    JGithubStatuses  GitHub API object for statuses.
+	 * @var    Statuses  GitHub API object for statuses.
 	 * @since  12.3
 	 */
 	protected $statuses;
 
 	/**
-	 * @var    JGithubAccount  GitHub API object for account references.
+	 * @var    Account  GitHub API object for account references.
 	 * @since  12.3
 	 */
 	protected $account;
 
 	/**
-	 * @var    JGithubHooks  GitHub API object for hooks.
+	 * @var    Hooks  GitHub API object for hooks.
 	 * @since  12.3
 	 */
 	protected $hooks;
@@ -108,8 +108,8 @@ class Github
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry    $options  GitHub options object.
-	 * @param   JGithubHttp  $client   The HTTP client object.
+	 * @param   Registry  $options  GitHub options object.
+	 * @param   Http      $client   The HTTP client object.
 	 *
 	 * @since   11.3
 	 */
@@ -127,7 +127,7 @@ class Github
 	 *
 	 * @param   string  $name  Name of property to retrieve
 	 *
-	 * @return  JGithubObject  GitHub API object (gists, issues, pulls, etc).
+	 * @return  Object  GitHub API object (gists, issues, pulls, etc).
 	 *
 	 * @since   11.3
 	 */
@@ -225,7 +225,7 @@ class Github
 	}
 
 	/**
-	 * Get an option from the JGitHub instance.
+	 * Get an option from the GitHub instance.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
@@ -239,12 +239,12 @@ class Github
 	}
 
 	/**
-	 * Set an option for the JGitHub instance.
+	 * Set an option for the GitHub instance.
 	 *
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JGitHub  This object for method chaining.
+	 * @return  GitHub  This object for method chaining.
 	 *
 	 * @since   11.3
 	 */

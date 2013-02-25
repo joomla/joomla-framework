@@ -22,17 +22,19 @@ The JHttp class provides methods for making RESTful requests.
 
 Construction of JHttp object is generally done using the JHttpFactory
 class. However, JHttp is not abstract and can be instantiated directly
-passing an optional JRegistry object of options and an optional
+passing an optional Registry object of options and an optional
 JHttpTransport object. If the transport is omitted, the default
 transport will be used. The default is determined by looking up the
 transports folder and selecting the first transport that is supported
 (this will usually be the "curl" transport).
 
 ```php
+use Joomla\Registry\Registry;
+
 // Create an instance of a default JHttp object.
 $http = new JHttp;
 
-$options = new JRegistry;
+$options = new Registry;
 
 $transport = new JHttpTransportStream($options);
 
@@ -136,8 +138,10 @@ starts with "headers.". In the case where a request method passes
 additional headers, those will override the headers set in the options.
 
 ```php
+use Joomla\Registry\Registry;
+
 // Create the options.
-$options = new JRegistry;
+$options = new Registry;
 
 // Configure a custom Accept header for all requests.
 $options->set('headers.Accept', 'application/vnd.github.html+json');

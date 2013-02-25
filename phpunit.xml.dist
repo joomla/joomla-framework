@@ -26,7 +26,7 @@
 	</logging>
 	<filter>
 		<!-- <whitelist addUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">libraries/joomla</directory>
+			<directory suffix=".php">libraries/Joomla</directory>
 			<file>libraries/import.php</file>
 			<file>libraries/loader.php</file>
 			<file>libraries/platform.php</file>

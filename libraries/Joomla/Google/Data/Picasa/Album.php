@@ -398,7 +398,7 @@ class Album extends Data
 	{
 		if ($this->isAuthenticated())
 		{
-			$title = $title != '' ? $title : File::getName($file);
+			$title = $title != '' ? $title : basename($file);
 
 			if (!($type = $this->getMIME($file)))
 			{

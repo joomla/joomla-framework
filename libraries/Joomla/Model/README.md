@@ -13,7 +13,7 @@
 
 ##### Construction
 
-The contructor for `JModelBase` takes an optional `JRegistry` object that
+The contructor for `JModelBase` takes an optional `Registry` object that
 defines the state of the model. If omitted, the contructor defers to the
 protected `loadState` method. This method can be overriden in a derived
 class and takes the place of the `populateState` method used in the legacy
@@ -53,7 +53,7 @@ class MyModel extends JModelBase
 ##### Construction
 
 `JModelDatabase` is extended from `JModelBase` and the contructor takes an
-optional `JDatabaseDriver` object and an optional `JRegistry` object (the
+optional `JDatabaseDriver` object and an optional `Registry` object (the
 same one that `JModelBase` uses). If the database object is omitted, the
 contructor defers to the protected `loadDb` method which loads the
 database object from the platform factory.

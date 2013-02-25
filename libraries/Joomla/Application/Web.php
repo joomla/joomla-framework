@@ -30,7 +30,7 @@ use RuntimeException;
  * @subpackage  Application
  * @since       11.4
  */
-class Web extends Base
+abstract class Web extends Base
 {
 	/**
 	 * @var    string  Character encoding string.
@@ -84,13 +84,13 @@ class Web extends Base
 	 * Class constructor.
 	 *
 	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
-	 *                          input object.  If the argument is a JInput object that object will become
+	 *                          input object.  If the argument is a Input object that object will become
 	 *                          the application's input object, otherwise a default input object is created.
 	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
-	 *                          config object.  If the argument is a JRegistry object that object will become
+	 *                          config object.  If the argument is a Registry object that object will become
 	 *                          the application's config object, otherwise a default config object is created.
 	 * @param   mixed  $client  An optional argument to provide dependency injection for the application's
-	 *                          client object.  If the argument is a JApplicationWebClient object that object will become
+	 *                          client object.  If the argument is a Web\Client object that object will become
 	 *                          the application's client object, otherwise a default client object is created.
 	 *
 	 * @since   11.3
@@ -148,15 +148,16 @@ class Web extends Base
 	}
 
 	/**
-	 * Returns a reference to the global JApplicationWeb object, only creating it if it doesn't already exist.
+	 * Returns a reference to the global Web object, only creating it if it doesn't already exist.
 	 *
-	 * This method must be invoked as: $web = JApplicationWeb::getInstance();
+	 * This method must be invoked as: $web = Web::getInstance();
 	 *
-	 * @param   string  $name  The name (optional) of the JApplicationWeb class to instantiate.
+	 * @param   string  $name  The name (optional) of the Web class to instantiate.
 	 *
 	 * @return  Web
 	 *
 	 * @since   11.3
+	 * @throws  RuntimeException
 	 */
 	public static function getInstance($name = null)
 	{
@@ -169,7 +170,7 @@ class Web extends Base
 			}
 			else
 			{
-				self::$instance = new static;
+				throw new RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
 			}
 		}
 
@@ -204,21 +205,6 @@ class Web extends Base
 		$this->respond();
 
 		// @event onAfterRespond
-	}
-
-	/**
-	 * Method to run the Web application routines.  Most likely you will want to instantiate a controller
-	 * and execute it, or perform some sort of action that populates a JDocument object so that output
-	 * can be rendered to the client.
-	 *
-	 * @return  void
-	 *
-	 * @codeCoverageIgnore
-	 * @since   11.3
-	 */
-	protected function doExecute()
-	{
-		// Your application routines go here.
 	}
 
 	/**
@@ -701,54 +687,6 @@ class Web extends Base
 		}
 
 		return trim($uri);
-	}
-
-	/**
-	 * Method to load a PHP configuration class file based on convention and return the instantiated data object.  You
-	 * will extend this method in child classes to provide configuration data from whatever data source is relevant
-	 * for your specific application.
-	 *
-	 * @param   string  $file   The path and filename of the configuration file. If not provided, configuration.php
-	 *                          in JPATH_BASE will be used.
-	 * @param   string  $class  The class name to instantiate.
-	 *
-	 * @return  mixed   Either an array or object to be loaded into the configuration object.
-	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
-	 */
-	protected function fetchConfigurationData($file = '', $class = 'JConfig')
-	{
-		// Instantiate variables.
-		$config = array();
-
-		if (empty($file) && defined('JPATH_BASE'))
-		{
-			$file = JPATH_BASE . '/configuration.php';
-
-			// Applications can choose not to have any configuration data
-			// by not implementing this method and not having a config file.
-			if (!file_exists($file))
-			{
-				$file = '';
-			}
-		}
-
-		if (!empty($file))
-		{
-			Loader::register($class, $file);
-
-			if (class_exists($class))
-			{
-				$config = new $class;
-			}
-			else
-			{
-				throw new RuntimeException('Configuration class does not exist.');
-			}
-		}
-
-		return $config;
 	}
 
 	/**

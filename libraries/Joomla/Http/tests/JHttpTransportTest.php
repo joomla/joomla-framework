@@ -38,7 +38,7 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->options = $this->getMock('JRegistry', array('get', 'set'));
+		$this->options = $this->getMock('Joomla\Registry\Registry', array('get', 'set'));
 
 		if (!defined('JTEST_HTTP_STUB') && getenv('JTEST_HTTP_STUB') == '')
 		{

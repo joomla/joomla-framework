@@ -20,7 +20,7 @@ use RuntimeException;
 use Joomla\Input\Cli as InputCli;
 
 /**
- * Class to turn JCli applications into daemons.  It requires CLI and PCNTL support built into PHP.
+ * Class to turn Cli applications into daemons.  It requires CLI and PCNTL support built into PHP.
  *
  * @package     Joomla.Platform
  * @subpackage  Application
@@ -28,7 +28,7 @@ use Joomla\Input\Cli as InputCli;
  * @see         http://php.net/manual/en/features.commandline.php
  * @since       11.1
  */
-class Daemon extends Cli
+abstract class Daemon extends Cli
 {
 	/**
 	 * @var    array  The available POSIX signals to be caught by default.
@@ -102,13 +102,13 @@ class Daemon extends Cli
 	 * Class constructor.
 	 *
 	 * @param   mixed  $input       An optional argument to provide dependency injection for the application's
-	 *                              input object.  If the argument is a JInputCli object that object will become
+	 *                              input object.  If the argument is a InputCli object that object will become
 	 *                              the application's input object, otherwise a default input object is created.
 	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
-	 *                              config object.  If the argument is a JRegistry object that object will become
+	 *                              config object.  If the argument is a Registry object that object will become
 	 *                              the application's config object, otherwise a default config object is created.
 	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
-	 *                              event dispatcher.  If the argument is a JEventDispatcher object that object will become
+	 *                              event dispatcher.  If the argument is a Dispatcher object that object will become
 	 *                              the application's event dispatcher, if it is null then the default event dispatcher
 	 *                              will be created based on the application's loadDispatcher() method.
 	 *

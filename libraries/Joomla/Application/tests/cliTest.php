@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Registry\Registry;
+
 include_once __DIR__ . '/stubs/JApplicationCliInspector.php';
 
 /**
@@ -65,7 +67,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertInstanceOf('JInput', $this->class->input, 'Input property wrong type');
 
-		$this->assertAttributeInstanceOf('JRegistry', 'config', $this->class, 'Checks config property');
+		$this->assertAttributeInstanceOf('Joomla\Registry\Registry', 'config', $this->class, 'Checks config property');
 
 		// TODO Test that configuration data loaded.
 
@@ -90,7 +92,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 			$this->returnValue('ok')
 		);
 
-		$mockConfig = $this->getMock('JRegistry', array('test'), array(null), '', true);
+		$mockConfig = $this->getMock('Joomla\Registry\Registry', array('test'), array(null), '', true);
 		$mockConfig
 			->expects($this->any())
 			->method('test')
@@ -212,7 +214,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGet()
 	{
-		$config = new JRegistry(array('foo' => 'bar'));
+		$config = new Registry(array('foo' => 'bar'));
 
 		TestReflection::getValue($this->class, 'config', $config);
 
@@ -239,14 +241,22 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 		TestReflection::setValue('JApplicationCli', 'instance', 'foo');
 
 		$this->assertEquals('foo', JApplicationCli::getInstance('JApplicationCliInspector'), 'Tests that singleton value is returned.');
+	}
 
+	/**
+	 * Tests the JApplicationCli::getInstance method for an expected exception
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  RuntimeException
+	 */
+	public function testGetInstanceException()
+	{
 		TestReflection::setValue('JApplicationCli', 'instance', null);
 
-		$this->assertInstanceOf(
-			'JApplicationCli',
-			JApplicationCli::getInstance('Foo'),
-			'Tests that getInstance will instantiate a valid child class of JApplicationCli given a non-existent type.'
-		);
+		JApplicationCli::getInstance('Foo');
 	}
 
 	/**
@@ -288,7 +298,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSet()
 	{
-		$config = new JRegistry(array('foo' => 'bar'));
+		$config = new Registry(array('foo' => 'bar'));
 
 		TestReflection::setValue($this->class, 'config', $config);
 

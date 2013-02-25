@@ -7,12 +7,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Filter\Output;
+
 /**
  * FilterTestObject
  *
  * @package     Joomla.UnitTest
  * @subpackage  Filter
- *
  * @since       11.1
  */
 class FilterTestObject
@@ -36,22 +37,21 @@ class FilterTestObject
 }
 
 /**
- * JFilterOutputTest
+ * Test class for Filter\Output
  *
  * @package     Joomla.UnitTest
  * @subpackage  Filter
- *
  * @since       11.1
  */
-class JFilterOutputTest extends PHPUnit_Framework_TestCase
+class FilterOutputTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var JFilterOutput
+	 * @var  Output
 	 */
 	protected $object;
 
 	/**
-	 * @var beforeObject
+	 * @var  beforeObject
 	 */
 	protected $safeObject;
 
@@ -59,23 +59,13 @@ class JFilterOutputTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	protected function setUp()
 	{
-		$this->object = new JFilterOutput;
+		$this->object = new Output;
 		$this->safeObject = new FilterTestObject;
 		$this->safeObjectArrayTest = new FilterTestObject;
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
 	}
 
 	/**
@@ -200,7 +190,7 @@ class JFilterOutputTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCleanText($data, $expect)
 	{
-		$this->assertEquals($expect, JFilterOutput::cleanText($data));
+		$this->assertEquals($expect, Output::cleanText($data));
 	}
 
 	/**
