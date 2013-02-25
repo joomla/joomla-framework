@@ -1,20 +1,26 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla.Framework
  * @subpackage  Cache
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache;
+
+use Joomla\Registry\Registry;
+
+use RuntimeException;
+
 /**
- * Memcached cache driver for the Joomla Platform.
+ * Memcached cache driver for the Joomla Framework.
  *
- * @package     Joomla.Platform
+ * @package     Joomla.Framework
  * @subpackage  Cache
  * @since       12.3
  */
-class JCacheMemcached extends JCache
+class Memcached extends Cache
 {
 	/**
 	 * @var    Memcached  The memcached driver.
@@ -30,11 +36,11 @@ class JCacheMemcached extends JCache
 	 * @since   12.3
 	 * @throws  RuntimeException
 	 */
-	public function __construct(JRegistry $options = null)
+	public function __construct(Registry $options = null)
 	{
 		parent::__construct($options);
 
-		if (!extension_loaded('memcached') || !class_exists('Memcached'))
+		if (!extension_loaded('memcached') || !class_exists('\\Memcached'))
 		{
 			throw new RuntimeException('Memcached not supported.');
 		}
@@ -58,7 +64,7 @@ class JCacheMemcached extends JCache
 
 		$this->driver->add($key, $value, $ttl);
 
-		if ($this->driver->getResultCode() != Memcached::RES_SUCCESS)
+		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS)
 		{
 			throw new RuntimeException(sprintf('Unable to add cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 		}
@@ -79,7 +85,7 @@ class JCacheMemcached extends JCache
 
 		$this->driver->get($key);
 
-		return ($this->driver->getResultCode() != Memcached::RES_NOTFOUND);
+		return ($this->driver->getResultCode() != \Memcached::RES_NOTFOUND);
 	}
 
 	/**
@@ -100,11 +106,11 @@ class JCacheMemcached extends JCache
 
 		$code = $this->driver->getResultCode();
 
-		if ($code === Memcached::RES_SUCCESS)
+		if ($code === \Memcached::RES_SUCCESS)
 		{
 			return $data;
 		}
-		elseif ($code === Memcached::RES_NOTFOUND)
+		elseif ($code === \Memcached::RES_NOTFOUND)
 		{
 			return null;
 		}
@@ -130,7 +136,7 @@ class JCacheMemcached extends JCache
 
 		$this->driver->delete($key);
 
-		if ($this->driver->getResultCode() != Memcached::RES_SUCCESS || $this->driver->getResultCode() != Memcached::RES_NOTFOUND)
+		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
 		{
 			throw new RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 		}
@@ -154,7 +160,7 @@ class JCacheMemcached extends JCache
 
 		$this->driver->set($key, $value, $ttl);
 
-		if ($this->driver->getResultCode() != Memcached::RES_SUCCESS)
+		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS)
 		{
 			throw new RuntimeException(sprintf('Unable to set cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 		}
@@ -179,15 +185,15 @@ class JCacheMemcached extends JCache
 
 		if ($pool)
 		{
-			$this->driver = new Memcached($pool);
+			$this->driver = new \Memcached($pool);
 		}
 		else
 		{
-			$this->driver = new Memcached;
+			$this->driver = new \Memcached;
 		}
 
-		$this->driver->setOption(Memcached::OPT_COMPRESSION, $this->options->get('memcache.compress', false));
-		$this->driver->setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
+		$this->driver->setOption(\Memcached::OPT_COMPRESSION, $this->options->get('memcache.compress', false));
+		$this->driver->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
 		$serverList = $this->driver->getServerList();
 
 		// If we are using a persistent pool we don't want to add the servers again.

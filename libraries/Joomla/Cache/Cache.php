@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla.Framework
  * @subpackage  Cache
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -9,14 +9,16 @@
 
 namespace Joomla\Cache;
 
+use Joomla\Registry\Registry;
+
 /**
  * Joomla! Caching Class
  *
- * @package     Joomla.Platform
+ * @package     Joomla.Framework
  * @subpackage  Cache
  * @since       12.3
  */
-abstract class JCache
+abstract class Cache
 {
 	/**
 	 * @var    array  An array of key/value pairs to be used as a runtime cache.
@@ -38,10 +40,10 @@ abstract class JCache
 	 * @since   12.3
 	 * @throws  RuntimeException
 	 */
-	public function __construct(JRegistry $options = null)
+	public function __construct(Registry $options = null)
 	{
 		// Set the options object.
-		$this->options = $options ? $options : new JRegistry;
+		$this->options = $options ? $options : new Registry;
 
 		$this->options->def('ttl', 900);
 		$this->options->def('runtime', true);

@@ -1,20 +1,26 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla.Framework
  * @subpackage  Cache
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache;
+
+use Joomla\Registry\Registry;
+
+use RuntimeException;
+
 /**
- * WinCache cache driver for the Joomla Platform.
+ * WinCache cache driver for the Joomla Framework.
  *
- * @package     Joomla.Platform
+ * @package     Joomla.Framework
  * @subpackage  Cache
  * @since       12.3
  */
-class JCacheWincache extends JCache
+class Wincache extends Cache
 {
 	/**
 	 * Constructor.
@@ -24,7 +30,7 @@ class JCacheWincache extends JCache
 	 * @since   12.3
 	 * @throws  RuntimeException
 	 */
-	public function __construct(JRegistry $options = null)
+	public function __construct(Registry $options = null)
 	{
 		parent::__construct($options);
 

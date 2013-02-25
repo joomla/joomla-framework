@@ -1,20 +1,22 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla.Framework
  * @subpackage  Cache
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Cache;
+
 /**
- * Runtime cache only driver for the Joomla Platform.
+ * Runtime cache only driver for the Joomla Framework.
  *
- * @package     Joomla.Platform
+ * @package     Joomla.Framework
  * @subpackage  Cache
  * @since       12.3
  */
-class JCacheNone extends JCache
+class None extends Cache
 {
 	/**
 	 * Method to add a storage entry.
