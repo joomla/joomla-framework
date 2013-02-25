@@ -154,9 +154,9 @@ class JInputCLITest extends PHPUnit_Framework_TestCase
 		$this->inspector = new JInputCLIInspector(null, array('filter' => new JFilterInputMock));
 
 		// Check the object type.
-		$this->assertThat(
-			$this->inspector->server instanceof JInput,
-			$this->isTrue(),
+		$this->assertInstanceOf(
+			'Joomla\\Input\\Input',
+			$this->inspector->server,
 			'Line: ' . __LINE__ . '.'
 		);
 

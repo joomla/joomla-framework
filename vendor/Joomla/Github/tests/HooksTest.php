@@ -25,7 +25,7 @@ class JGithubHooksTest extends PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    JGithubHttp  Mock client object.
+	 * @var    Joomla\Github\Http  Mock client object.
 	 * @since  12.3
 	 */
 	protected $client;
@@ -61,7 +61,7 @@ class JGithubHooksTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->client = $this->getMock('JGithubHttp', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
 		$this->object = new JGithubHooks($this->options, $this->client);
 	}

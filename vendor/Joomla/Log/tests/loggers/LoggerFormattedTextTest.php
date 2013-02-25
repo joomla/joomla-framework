@@ -9,6 +9,9 @@
 
 require_once __DIR__ . '/stubs/formattedtext/inspector.php';
 
+use Joomla\Log\Log;
+use Joomla\Log\Entry;
+
 /**
  * Test class for JLogLoggerFormattedText.
  *
@@ -19,7 +22,7 @@ require_once __DIR__ . '/stubs/formattedtext/inspector.php';
 class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JLogLoggerFormattedText::__construct method.
+	 * Test the Joomla\Log\Logger\FormattedText::__construct method.
 	 *
 	 * @return void
 	 */
@@ -44,7 +47,7 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JLogLoggerFormattedText::__construct method.
+	 * Test the Joomla\Log\Logger\FormattedText::__construct method.
 	 *
 	 * @return void
 	 */
@@ -69,7 +72,7 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JLogLoggerFormattedText::__construct method.
+	 * Test the Joomla\Log\Logger\FormattedText::__construct method.
 	 *
 	 * @return void
 	 */
@@ -94,7 +97,7 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JLogLoggerFormattedText::__construct method.
+	 * Test the Joomla\Log\Logger\FormattedText::__construct method.
 	 *
 	 * @return void
 	 */
@@ -125,7 +128,7 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JLogLoggerFormattedText::addEntry method.
+	 * Test the Joomla\Log\Logger\FormattedText::addEntry method.
 	 *
 	 * @return void
 	 */
@@ -140,23 +143,23 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 		$logger = new JLogLoggerFormattedTextInspector($config);
 
 		// Remove the log file if it exists.
-		@ unlink($logger->path);
+		@unlink($logger->path);
 
-		$logger->addEntry(new JLogEntry('Testing Entry 01'));
+		$logger->addEntry(new Entry('Testing Entry 01'));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'INFO	-	Testing Entry 01',
 			'Line: ' . __LINE__
 		);
 
-		$logger->addEntry(new JLogEntry('Testing 02', JLog::ERROR));
+		$logger->addEntry(new Entry('Testing 02', Log::ERROR));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'ERROR	-	Testing 02',
 			'Line: ' . __LINE__
 		);
 
-		$logger->addEntry(new JLogEntry('Testing3', JLog::EMERGENCY, 'deprecated'));
+		$logger->addEntry(new Entry('Testing3', Log::EMERGENCY, 'deprecated'));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'EMERGENCY	deprecated	Testing3',
@@ -164,7 +167,7 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Remove the log file if it exists.
-		@ unlink($logger->path);
+		@unlink($logger->path);
 	}
 
 	/**

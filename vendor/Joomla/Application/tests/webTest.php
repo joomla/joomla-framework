@@ -140,7 +140,7 @@ class JApplicationWebTest extends TestCase
 	public function test__construct()
 	{
 		$this->assertInstanceOf(
-			'JInput',
+			'Joomla\\Input\\Input',
 			$this->class->input,
 			'Input property wrong type'
 		);
@@ -152,7 +152,7 @@ class JApplicationWebTest extends TestCase
 		);
 
 		$this->assertInstanceOf(
-			'JApplicationWebClient',
+			'Joomla\\Application\\Web\\Client',
 			$this->class->client,
 			'Client property wrong type'
 		);
@@ -187,7 +187,7 @@ class JApplicationWebTest extends TestCase
 	 */
 	public function test__constructDependancyInjection()
 	{
-		$mockInput = $this->getMock('JInput', array('test'), array(), '', false);
+		$mockInput = $this->getMock('Joomla\\Input\\Input', array('test'), array(), '', false);
 		$mockInput
 			->expects($this->any())
 			->method('test')
@@ -203,7 +203,7 @@ class JApplicationWebTest extends TestCase
 			$this->returnValue('ok')
 		);
 
-		$mockClient = $this->getMock('JApplicationWebClient', array('test'), array(), '', false);
+		$mockClient = $this->getMock('Joomla\\Application\\Web\\Client', array('test'), array(), '', false);
 		$mockClient
 			->expects($this->any())
 			->method('test')

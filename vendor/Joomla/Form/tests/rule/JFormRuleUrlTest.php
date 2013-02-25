@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule\Url as RuleUrl;
+
 /**
  * Test class for JForm.
  *
@@ -18,7 +20,7 @@
 class JFormRuleUrlTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JFormRuleUrl::test method.
+	 * Test the Joomla\Form\Rule\Url::test method.
 	 *
 	 * @param   string  $xmlfield  @todo
 	 * @param   string  $url       @todo
@@ -30,7 +32,7 @@ class JFormRuleUrlTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testUrl($xmlfield, $url, $expected)
 	{
-		$rule = new JFormRuleUrl;
+		$rule = new RuleUrl;
 
 		// The field allows you to optionally limit the accepted schemes to a specific list.
 		// Url1 tests without a list, Url2 tests with a list.

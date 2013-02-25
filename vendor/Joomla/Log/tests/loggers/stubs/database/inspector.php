@@ -18,7 +18,7 @@
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerDatabaseInspector extends JLogLoggerDatabase
+class JLogLoggerDatabaseInspector extends Joomla\Log\Logger\Database
 {
 	public $driver;
 

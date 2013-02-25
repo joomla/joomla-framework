@@ -51,7 +51,7 @@ class JGoogleEmbedMapsTest extends PHPUnit_Framework_TestCase
 
 		$this->options = new Registry;
 
-		$this->http = $this->getMock('JHttp', array('get'), array($this->options));
+		$this->http = $this->getMock('Joomla\\Http\\Http', array('get'), array($this->options));
 		$this->uri = new Uri;
 		$this->object = new JGoogleEmbedMaps($this->options, $this->uri, $this->http);
 	}

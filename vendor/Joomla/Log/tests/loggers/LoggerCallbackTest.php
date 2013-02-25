@@ -10,6 +10,8 @@
 require_once __DIR__ . '/stubs/callback/inspector.php';
 require_once __DIR__ . '/stubs/callback/helper.php';
 
+use Joomla\Log\Entry;
+
 /**
  * Test class for JLogLoggerCallback.
  *
@@ -190,7 +192,7 @@ class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 			'callback' => $callback
 		);
 		$logger = new JLogLoggerCallbackInspector($config);
-		$entry = new JLogEntry('Testing Entry');
+		$entry = new Entry('Testing Entry');
 
 		$logger->addEntry($entry);
 		$this->assertEquals(JLogLoggerCallbackTestHelper::$lastEntry, $entry, 'Line: ' . __LINE__);

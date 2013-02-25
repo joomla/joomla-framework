@@ -18,7 +18,7 @@
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerFormattedTextInspector extends JLogLoggerFormattedtext
+class JLogLoggerFormattedTextInspector extends Joomla\Log\Logger\Formattedtext
 {
 	public $file;
 

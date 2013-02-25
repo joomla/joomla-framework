@@ -65,7 +65,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertInstanceOf('JInput', $this->class->input, 'Input property wrong type');
+		$this->assertInstanceOf('Joomla\\Input\\Input', $this->class->input, 'Input property wrong type');
 
 		$this->assertAttributeInstanceOf('Joomla\Registry\Registry', 'config', $this->class, 'Checks config property');
 
@@ -84,7 +84,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__constructDependancyInjection()
 	{
-		$mockInput = $this->getMock('JInputCli', array('test'), array(), '', false);
+		$mockInput = $this->getMock('Joomla\\Input\\Cli', array('test'), array(), '', false);
 		$mockInput
 			->expects($this->any())
 			->method('test')
@@ -238,7 +238,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 			'Tests that getInstance will instantiate a valid child class of JCli.'
 		);
 
-		TestReflection::setValue('JApplicationCli', 'instance', 'foo');
+		TestReflection::setValue('Joomla\\Application\\Cli', 'instance', 'foo');
 
 		$this->assertEquals('foo', JApplicationCli::getInstance('JApplicationCliInspector'), 'Tests that singleton value is returned.');
 	}
@@ -254,7 +254,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetInstanceException()
 	{
-		TestReflection::setValue('JApplicationCli', 'instance', null);
+		TestReflection::setValue('Joomla\\Application\\Cli', 'instance', null);
 
 		JApplicationCli::getInstance('Foo');
 	}

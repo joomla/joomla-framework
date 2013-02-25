@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule\Email as RuleEmail;
+
 /**
  * Test class for JForm.
  *
@@ -37,13 +39,13 @@ class JFormRuleEmailTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JFormRuleEmail::test method.
+	 * Test the Joomla\Form\Rule\Email::test method.
 	 *
 	 * @return void
 	 */
 	public function testEmail()
 	{
-		$rule = new JFormRuleEmail;
+		$rule = new RuleEmail;
 		$xml = simplexml_load_string('<form><field name="email1" /><field name="email2" unique="true" /></form>');
 
 		// Test fail conditions.
@@ -111,7 +113,7 @@ class JFormRuleEmailTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEmailData($emailAddress, $expectedResult)
 	{
-		$rule = new JFormRuleEmail;
+		$rule = new RuleEmail;
 		$xml = simplexml_load_string('<form><field name="email1" /></form>');
 		$this->assertThat(
 			$rule->test($xml->field[0], $emailAddress),
@@ -149,7 +151,7 @@ class JFormRuleEmailTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEmailData2($emailAddress, $expectedResult)
 	{
-		$rule = new JFormRuleEmail;
+		$rule = new RuleEmail;
 		$xml = simplexml_load_string('<form><field name="email1" multiple="multiple" /></form>');
 		$this->assertThat(
 			$rule->test($xml->field[0], $emailAddress),
@@ -190,7 +192,7 @@ class JFormRuleEmailTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEmailData3($emailAddress, $expectedResult)
 	{
-		$rule = new JFormRuleEmail;
+		$rule = new RuleEmail;
 		$xml = simplexml_load_string('<form><field name="email1" tld="tld" /></form>');
 		$this->assertThat(
 			$rule->test($xml->field[0], $emailAddress),

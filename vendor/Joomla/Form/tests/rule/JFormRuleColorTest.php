@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule\Color as RuleColor;
+
 /**
  * Test class for JForm.
  *
@@ -37,13 +39,13 @@ class JFormRuleColorTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JFormRuleColor::test method.
+	 * Test the Joomla\Form\Rule\Color::test method.
 	 *
 	 * @return void
 	 */
 	public function testColor()
 	{
-		$rule = new JFormRuleColor;
+		$rule = new RuleColor;
 		$xml = simplexml_load_string('<form><field name="color" /></form>');
 
 		// Test fail conditions.
@@ -94,7 +96,7 @@ class JFormRuleColorTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testColorData($color, $expectedResult)
 	{
-		$rule = new JFormRuleColor;
+		$rule = new RuleColor;
 		$xml = simplexml_load_string('<form><field name="color1" /></form>');
 		$this->assertThat(
 			$rule->test($xml->field[0], $color),

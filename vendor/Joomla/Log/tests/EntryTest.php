@@ -7,6 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Log\Entry;
+use Joomla\Log\Log;
+
 /**
  * Test class for JLogEntry.
  *
@@ -19,13 +22,13 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Verify the default values for the log entry object.
 	 *
-	 * @covers  JLogEntry::__construct
+	 * @covers  Joomla\Log\Entry::__construct
 	 *
 	 * @return void
 	 */
 	public function testDefaultValues()
 	{
-		$tmp = new JLogEntry('Lorem ipsum dolor sit amet');
+		$tmp = new Entry('Lorem ipsum dolor sit amet');
 		$date = JFactory::getDate('now');
 
 		// Message.
@@ -38,7 +41,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 		// Priority.
 		$this->assertThat(
 			$tmp->priority,
-			$this->equalTo(JLog::INFO),
+			$this->equalTo(Log::INFO),
 			'Line: ' . __LINE__ . '.'
 		);
 
@@ -60,30 +63,30 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Verify the priority for the entry object cannot be something not in the approved list.
 	 *
-	 * @covers  JLogEntry::__construct
+	 * @covers  Joomla\Log\Entry::__construct
 	 *
 	 * @return void
 	 */
 	public function testBadPriorityValues()
 	{
-		$tmp = new JLogEntry('Lorem ipsum dolor sit amet', JLog::ALL);
+		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::ALL);
 		$this->assertThat(
 			$tmp->priority,
-			$this->equalTo(JLog::INFO),
+			$this->equalTo(Log::INFO),
 			'Line: ' . __LINE__ . '.'
 		);
 
-		$tmp = new JLogEntry('Lorem ipsum dolor sit amet', 23642872);
+		$tmp = new Entry('Lorem ipsum dolor sit amet', 23642872);
 		$this->assertThat(
 			$tmp->priority,
-			$this->equalTo(JLog::INFO),
+			$this->equalTo(Log::INFO),
 			'Line: ' . __LINE__ . '.'
 		);
 
-		$tmp = new JLogEntry('Lorem ipsum dolor sit amet', 'foobar');
+		$tmp = new Entry('Lorem ipsum dolor sit amet', 'foobar');
 		$this->assertThat(
 			$tmp->priority,
-			$this->equalTo(JLog::INFO),
+			$this->equalTo(Log::INFO),
 			'Line: ' . __LINE__ . '.'
 		);
 	}
@@ -91,14 +94,14 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test that non-standard category values are sanitized.
 	 *
-	 * @covers  JLogEntry::__construct
+	 * @covers  Joomla\Log\Entry::__construct
 	 *
 	 * @return void
 	 */
 	public function testCategorySanitization()
 	{
 		// Category should always be lowercase.
-		$tmp = new JLogEntry('Lorem ipsum dolor sit amet', JLog::INFO, 'TestingTheCategory');
+		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::INFO, 'TestingTheCategory');
 		$this->assertThat(
 			$tmp->category,
 			$this->equalTo('testingthecategory'),
@@ -106,7 +109,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Category should not have spaces.
-		$tmp = new JLogEntry('Lorem ipsum dolor sit amet', JLog::INFO, 'testing the category');
+		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::INFO, 'testing the category');
 		$this->assertThat(
 			$tmp->category,
 			$this->equalTo('testingthecategory'),
@@ -114,7 +117,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Category should not have special characters.
-		$tmp = new JLogEntry('Lorem ipsum dolor sit amet', JLog::INFO, 'testing@#$^the*&@^#*&category');
+		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::INFO, 'testing@#$^the*&@^#*&category');
 		$this->assertThat(
 			$tmp->category,
 			$this->equalTo('testingthecategory'),
@@ -122,7 +125,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Category should allow numbers.
-		$tmp = new JLogEntry('Lorem ipsum dolor sit amet', JLog::INFO, 'testing1the2category');
+		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::INFO, 'testing1the2category');
 		$this->assertThat(
 			$tmp->category,
 			$this->equalTo('testing1the2category'),

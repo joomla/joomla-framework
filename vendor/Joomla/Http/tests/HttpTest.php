@@ -7,6 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Http\Http;
 use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
@@ -33,7 +34,7 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	protected $transport;
 
 	/**
-	 * @var    JHttp  Object under test.
+	 * @var    Http  Object under test.
 	 * @since  11.4
 	 */
 	protected $object;
@@ -52,9 +53,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 
 		static $classNumber = 1;
 		$this->options = $this->getMock('Joomla\Registry\Registry', array('get', 'set'));
-		$this->transport = $this->getMock('JHttpTransportStream', array('request'), array($this->options), 'CustomTransport' . $classNumber ++, false);
+		$this->transport = $this->getMock('Joomla\Http\Transport\Stream', array('request'), array($this->options), 'CustomTransport' . $classNumber ++, false);
 
-		$this->object = new JHttp($this->options, $this->transport);
+		$this->object = new Http($this->options, $this->transport);
 	}
 
 	/**

@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule;
+
 /**
  * Test class for JForm.
  *
@@ -17,10 +19,10 @@
  *
  * @return void
  */
-class JFormRuleTest extends PHPUnit_Framework_TestCase
+class FormRuleTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var JFormRule
+	 * @var Rule
 	 */
 	protected $object;
 
@@ -34,7 +36,7 @@ class JFormRuleTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->object = new JFormRule;
+		$this->object = new Rule;
 	}
 
 	/**

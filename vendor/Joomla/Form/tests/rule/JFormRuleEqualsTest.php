@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule\Equals as RuleEquals;
+
 /**
  * Test class for JForm.
  *
@@ -18,13 +20,13 @@
 class JFormRuleEqualsTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JFormRuleEquals::test method.
+	 * Test the Joomla\Form\Rule\Equals::test method.
 	 *
 	 * @return void
 	 */
 	public function testEquals()
 	{
-		$rule = new JFormRuleEquals;
+		$rule = new RuleEquals;
 		$xml = simplexml_load_string('<form><field name="foo" /></form>');
 
 		// Test fail conditions.

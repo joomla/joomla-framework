@@ -45,7 +45,7 @@ class TestMockApplication
 			false
 		);
 
-		$mockObject->input = new JInput;
+		$mockObject->input = new Joomla\Input\Input;
 
 		return $mockObject;
 	}

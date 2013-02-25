@@ -7,6 +7,10 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Log\Log;
+use Joomla\Log\Entry;
+use Joomla\Log\Logger\Echoo as LoggerEcho;
+
 /**
  * Test class for JLogLoggerEcho.
  *
@@ -17,70 +21,68 @@
 class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JLogLoggerEcho::addEntry method.
+	 * @var Joomla\Log\Logger\Echoo
+	 */
+	protected $object;
+
+	/**
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
+	 *
+	 * @return void
+	 */
+	protected function setUp()
+	{
+		parent::setUp();
+
+		// Create bogus config.
+		$config = array();
+
+		// Get an instance of the logger.
+		$this->object = new LoggerEcho($config);
+	}
+
+	/**
+	 * Test the Joomla\Log\Logger\Echoo::addEntry method.
 	 *
 	 * @return void
 	 */
 	public function testAddEntry01()
 	{
-		// Create bogus config.
-		$config = array();
-
-		// Get an instance of the logger.
-		$logger = new JLogLoggerEcho($config);
-
 		$this->expectOutputString("DEBUG: TESTING [deprecated]\n");
-		$logger->addEntry(new JLogEntry('TESTING', JLog::DEBUG, 'DePrEcAtEd'));
+		$this->object->addEntry(new Entry('TESTING', Log::DEBUG, 'DePrEcAtEd'));
 	}
 
 	/**
-	 * Test the JLogLoggerEcho::addEntry method.
+	 * Test the Joomla\Log\Logger\Echoo::addEntry method.
 	 *
 	 * @return void
 	 */
 	public function testAddEntry02()
 	{
-		// Create bogus config.
-		$config = array();
-
-		// Get an instance of the logger.
-		$logger = new JLogLoggerEcho($config);
-
 		$this->expectOutputString("CRITICAL: TESTING2 [bam]\n");
-		$logger->addEntry(new JLogEntry('TESTING2', JLog::CRITICAL, 'BAM'));
+		$this->object->addEntry(new Entry('TESTING2', Log::CRITICAL, 'BAM'));
 	}
 
 	/**
-	 * Test the JLogLoggerEcho::addEntry method.
+	 * Test the Joomla\Log\Logger\Echoo::addEntry method.
 	 *
 	 * @return void
 	 */
 	public function testAddEntry03()
 	{
-		// Create bogus config.
-		$config = array();
-
-		// Get an instance of the logger.
-		$logger = new JLogLoggerEcho($config);
-
 		$this->expectOutputString("ERROR: Testing3\n");
-		$logger->addEntry(new JLogEntry('Testing3', JLog::ERROR));
+		$this->object->addEntry(new Entry('Testing3', Log::ERROR));
 	}
 
 	/**
-	 * Test the JLogLoggerEcho::addEntry method.
+	 * Test the Joomla\Log\Logger\Echoo::addEntry method.
 	 *
 	 * @return void
 	 */
 	public function testAddEntry04()
 	{
-		// Create bogus config.
-		$config = array();
-
-		// Get an instance of the logger.
-		$logger = new JLogLoggerEcho($config);
-
 		$this->expectOutputString("INFO: Testing 4\n");
-		$logger->addEntry(new JLogEntry('Testing 4'));
+		$this->object->addEntry(new Entry('Testing 4'));
 	}
 }

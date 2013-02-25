@@ -9,6 +9,9 @@
 
 require_once __DIR__ . '/stubs/tbase.php';
 
+use Joomla\Input\Input;
+use Joomla\Input\Cookie as InputCookie;
+
 /**
  * Tests for the JController class.
  *
@@ -42,8 +45,8 @@ class JControllerBaseTest extends TestCase
 		$app = TestMockApplicationWeb::create($this);
 		$app->test = 'ok';
 
-		$class = new BaseController(new JInputCookie, $app);
-		$this->assertAttributeInstanceOf('JInputCookie', 'input', $class, 'Checks the type of the injected input.');
+		$class = new BaseController(new InputCookie, $app);
+		$this->assertAttributeInstanceOf('Joomla\Input\Cookie', 'input', $class, 'Checks the type of the injected input.');
 		$this->assertAttributeSame($app, 'app', $class, 'Checks the injected application.');
 	}
 
@@ -98,10 +101,10 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function testUnserialise()
 	{
-		$input = serialize(new JInput);
+		$input = serialize(new Input);
 
 		$this->assertSame($this->instance, $this->instance->unserialize($input), 'Checks chaining and target method.');
-		$this->assertInstanceOf('JInput', $this->instance->getInput());
+		$this->assertInstanceOf('Joomla\Input\Input', $this->instance->getInput());
 	}
 
 	/**

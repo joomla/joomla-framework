@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule\Boolean as RuleBoolean;
+
 /**
  * Test class for JForm.
  *
@@ -18,13 +20,13 @@
 class JFormRuleBooleanTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JFormRuleBoolean::test method.
+	 * Test the Joomla\Form\Rule\Boolean::test method.
 	 *
 	 * @return void
 	 */
 	public function testBoolean()
 	{
-		$rule = new JFormRuleBoolean;
+		$rule = new RuleBoolean;
 		$xml = simplexml_load_string('<form><field name="foo" /></form>');
 
 		// Test fail conditions.

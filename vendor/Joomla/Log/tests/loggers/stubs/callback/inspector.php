@@ -19,7 +19,7 @@
  *
  * @since       12.2
  */
-class JLogLoggerCallbackInspector extends JLogLoggerCallback
+class JLogLoggerCallbackInspector extends Joomla\Log\Logger\Callback
 {
 	public $callback;
 }

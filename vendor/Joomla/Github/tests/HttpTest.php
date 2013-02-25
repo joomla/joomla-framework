@@ -7,6 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Github\Http;
 use Joomla\Registry\Registry;
 
 /**
@@ -26,13 +27,13 @@ class JGithubHttpTest extends PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    JGithubHttp  Mock client object.
+	 * @var    Joomla\Http\Transport  Mock client object.
 	 * @since  11.4
 	 */
 	protected $transport;
 
 	/**
-	 * @var    JGithubHttp  Object under test.
+	 * @var    Http  Object under test.
 	 * @since  11.4
 	 */
 	protected $object;
@@ -50,9 +51,9 @@ class JGithubHttpTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->transport = $this->getMock('JHttpTransportStream', array('request'), array($this->options), 'CustomTransport', false);
+		$this->transport = $this->getMock('Joomla\Http\Transport\Stream', array('request'), array($this->options), 'CustomTransport', false);
 
-		$this->object = new JGithubHttp($this->options, $this->transport);
+		$this->object = new Http($this->options, $this->transport);
 	}
 
 	/**

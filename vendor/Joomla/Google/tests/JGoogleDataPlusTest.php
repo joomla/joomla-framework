@@ -6,8 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Oauth2\Client;
-use Joomla\Registry\Registry;
+require_once __DIR__ . '/case/GoogleTestCase.php';
 
 /**
  * Test class for JGoogleDataPlus.
@@ -16,33 +15,8 @@ use Joomla\Registry\Registry;
  * @subpackage  Google
  * @since       12.3
  */
-class JGoogleDataPlusTest extends PHPUnit_Framework_TestCase
+class JGoogleDataPlusTest extends GoogleTestCase
 {
-	/**
-	 * @var    Registry  Options for the Client object.
-	 */
-	protected $options;
-
-	/**
-	 * @var    JHttp  Mock client object.
-	 */
-	protected $http;
-
-	/**
-	 * @var    JInput  The input object to use in retrieving GET/POST data.
-	 */
-	protected $input;
-
-	/**
-	 * @var    Client  The OAuth client for sending requests to Google.
-	 */
-	protected $oauth;
-
-	/**
-	 * @var    JGoogleAuthOauth2  The Google OAuth client for sending requests.
-	 */
-	protected $auth;
-
 	/**
 	 * @var    JGoogleDataPlus  Object under test.
 	 */
@@ -59,28 +33,11 @@ class JGoogleDataPlusTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$_SERVER['HTTP_HOST'] = 'mydomain.com';
-		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
-		$_SERVER['REQUEST_URI'] = '/index.php';
-		$_SERVER['SCRIPT_NAME'] = '/index.php';
-
-		$this->options = new Registry;
-		$this->http = $this->getMock('JHttp', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
-		$this->input = new JInput;
-		$this->application = new JApplicationWebInspector;
-		$this->oauth = new Client($this->options, $this->http, $this->input, $this->application);
-		$this->auth = new JGoogleAuthOauth2($this->options, $this->oauth);
 		$this->object = new JGoogleDataPlus($this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
 		$this->object->setOption('redirecturi', 'http://localhost/oauth');
-
-		$token['access_token'] = 'accessvalue';
-		$token['refresh_token'] = 'refreshvalue';
-		$token['created'] = time() - 1800;
-		$token['expires_in'] = 3600;
-		$this->oauth->setToken($token);
 	}
 
 	/**

@@ -17,10 +17,10 @@ use Joomla\Crypt\Crypt;
  *
  * @since    11.1
  */
-class JCryptTest extends PHPUnit_Framework_TestCase
+class CryptTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var JCrypt
+	 * @var Joomla\Crypt\Crypt
 	 */
 	protected $object;
 

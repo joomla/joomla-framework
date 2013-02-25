@@ -11,6 +11,9 @@
  * Inspector classes for the JLog package.
  */
 
+use Joomla\Log\Log;
+use Joomla\Log\Entry;
+
 /**
  * JLogInspector class.
  *
@@ -18,7 +21,7 @@
  * @subpackage  Log
  * @since       11.1
  */
-class JLogInspector extends JLog
+class JLogInspector extends Log
 {
 	public $configurations;
 
@@ -49,11 +52,11 @@ class JLogInspector extends JLog
 	/**
 	 * Test...
 	 *
-	 * @param   JLogEntry  $entry  The entry to add.
+	 * @param   Entry  $entry  The entry to add.
 	 *
 	 * @return void
 	 */
-	public function addLogEntry(JLogEntry $entry)
+	public function addLogEntry(Entry $entry)
 	{
 		$this->queue[] = $entry;
 

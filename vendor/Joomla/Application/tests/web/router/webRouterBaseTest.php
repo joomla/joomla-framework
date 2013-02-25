@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Input\Input;
+
 /**
  * Test class for JApplicationWebRouterBase.
  *
@@ -214,9 +216,9 @@ class JApplicationWebRouterBaseTest extends TestCase
 	{
 		parent::setUp();
 
-		// Construct the clean JInput object.
+		// Construct the clean Input object.
 		$array = array();
-		$this->input = new JInput($array);
+		$this->input = new Input($array);
 
 		$this->instance = new Joomla\Application\Web\Router\Base($this->getMockWeb(), $this->input);
 	}

@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule\Username as RuleUsername;
+
 /**
  * Test class for JForm.
  *
@@ -18,13 +20,13 @@
 class JFormRuleUsernameTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JFormRuleUsername::test method.
+	 * Test the Joomla\Form\Rule\Username::test method.
 	 *
 	 * @return void
 	 */
 	public function testUsername()
 	{
-		$rule = new JFormRuleUsername;
+		$rule = new RuleUsername;
 		$xml = simplexml_load_string('<form><field name="foo" /></form>');
 
 		// Test fail conditions.

@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule\Options as RuleOptions;
+
 /**
  * Test class for JForm.
  *
@@ -41,15 +43,15 @@ class JFormRuleOptionsTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the JFormRuleEmail::test method.
+	 * Test the Joomla\Form\Rule\Options::test method.
 	 *
 	 * @return  void
 	 *
 	 * @since   11.1
 	 */
-	public function testEmail()
+	public function testOptions()
 	{
-		$rule = new JFormRuleOptions;
+		$rule = new RuleOptions;
 		$xml = simplexml_load_string(
 			'<form><field name="field1"><option value="value1">Value1</option><option value="value2">Value2</option></field></form>'
 		);

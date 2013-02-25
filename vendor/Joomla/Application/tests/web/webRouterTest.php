@@ -37,7 +37,7 @@ class JApplicationWebRouterTest extends TestCase
 	public function test__construct()
 	{
 		$this->assertAttributeInstanceOf('JApplicationWeb', 'app', $this->instance);
-		$this->assertAttributeInstanceOf('JInput', 'input', $this->instance);
+		$this->assertAttributeInstanceOf('Joomla\\Input\\Input', 'input', $this->instance);
 	}
 
 	/**

@@ -52,7 +52,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->client = $this->getMock('Joomla\Github\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
 		$this->object = new Github($this->options, $this->client);
 	}

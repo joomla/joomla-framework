@@ -9,6 +9,9 @@
 
 require_once __DIR__ . '/stubs/w3c/inspector.php';
 
+use Joomla\Log\Log;
+use Joomla\Log\Entry;
+
 /**
  * Test class for JLogLoggerW3C.
  *
@@ -34,7 +37,7 @@ class JLogLoggerW3CTest extends PHPUnit_Framework_TestCase
 		// Remove the log file if it exists.
 		@ unlink($logger->path);
 
-		$logger->addEntry(new JLogEntry('Testing Entry 01', JLog::INFO, null, '1980-04-18'));
+		$logger->addEntry(new Entry('Testing Entry 01', Log::INFO, null, '1980-04-18'));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'1980-04-18	00:00:00	INFO	-	-	Testing Entry 01',
@@ -43,7 +46,7 @@ class JLogLoggerW3CTest extends PHPUnit_Framework_TestCase
 
 		$_SERVER['REMOTE_ADDR'] = '192.168.0.1';
 
-		$logger->addEntry(new JLogEntry('Testing 02', JLog::ERROR, null, '1982-12-15'));
+		$logger->addEntry(new Entry('Testing 02', Log::ERROR, null, '1982-12-15'));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'1982-12-15	00:00:00	ERROR	192.168.0.1	-	Testing 02',
@@ -52,7 +55,7 @@ class JLogLoggerW3CTest extends PHPUnit_Framework_TestCase
 
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-		$logger->addEntry(new JLogEntry('Testing3', JLog::EMERGENCY, 'deprecated', '1980-04-18'));
+		$logger->addEntry(new Entry('Testing3', Log::EMERGENCY, 'deprecated', '1980-04-18'));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'1980-04-18	00:00:00	EMERGENCY	127.0.0.1	deprecated	Testing3',

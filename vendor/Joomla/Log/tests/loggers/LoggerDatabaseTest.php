@@ -9,14 +9,18 @@
 
 require_once __DIR__ . '/stubs/database/inspector.php';
 
+use Joomla\Log\Log;
+use Joomla\Log\Entry;
+use Joomla\Log\Logger\Database as LoggerDatabase;
+
 /**
- * Test class for JLogLoggerDatabase.
+ * Test class for LoggerDatabase.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Log
  * @since       11.1
  */
-class JLogLoggerDatabaseTest extends TestCaseDatabase
+class LoggerDatabaseTest extends TestCaseDatabase
 {
 	/**
 	 * Gets the data set to be loaded into the database during setup
@@ -29,7 +33,7 @@ class JLogLoggerDatabaseTest extends TestCaseDatabase
 	}
 
 	/**
-	 * Test the JLogLoggerDatabase::__construct method.
+	 * Test the Joomla\Log\Logger\Database::__construct method.
 	 *
 	 * @return void
 	 */
@@ -50,7 +54,7 @@ class JLogLoggerDatabaseTest extends TestCaseDatabase
 	}
 
 	/**
-	 * Test the JLogLoggerDatabase::addEntry method.
+	 * Test the Joomla\Log\Logger\Database::addEntry method.
 	 *
 	 * @return void
 	 */
@@ -64,8 +68,8 @@ class JLogLoggerDatabaseTest extends TestCaseDatabase
 		$expected = $this->createXMLDataSet(__DIR__ . '/stubs/database/S01E01.xml');
 
 		// Add the new entries to the database.
-		$logger->addEntry(new JLogEntry('Testing Entry 02', JLog::INFO, null, '2009-12-01 12:30:00'));
-		$logger->addEntry(new JLogEntry('Testing3', JLog::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
+		$logger->addEntry(new Entry('Testing Entry 02', Log::INFO, null, '2009-12-01 12:30:00'));
+		$logger->addEntry(new Entry('Testing3', Log::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
 
 		// Get the actual dataset from the database.
 		$actual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
@@ -76,7 +80,7 @@ class JLogLoggerDatabaseTest extends TestCaseDatabase
 	}
 
 	/**
-	 * Test the JLogLoggerDatabase::addEntry method.
+	 * Test the Joomla\Log\Logger\Database::addEntry method.
 	 *
 	 * @return void
 	 */
@@ -88,15 +92,15 @@ class JLogLoggerDatabaseTest extends TestCaseDatabase
 			'db_database' => ':memory:',
 			'db_prefix' => 'jos_'
 		);
-		$logger = new JLogLoggerDatabase($config);
+		$logger = new LoggerDatabase($config);
 		TestReflection::setValue($logger, 'dbo', JFactory::$database);
 
 		// Get the expected database from XML.
 		$expected = $this->createXMLDataSet(__DIR__ . '/stubs/database/S01E01.xml');
 
 		// Add the new entries to the database.
-		$logger->addEntry(new JLogEntry('Testing Entry 02', JLog::INFO, null, '2009-12-01 12:30:00'));
-		$logger->addEntry(new JLogEntry('Testing3', JLog::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
+		$logger->addEntry(new Entry('Testing Entry 02', Log::INFO, null, '2009-12-01 12:30:00'));
+		$logger->addEntry(new Entry('Testing3', Log::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
 
 		// Get the actual dataset from the database.
 		$actual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
@@ -107,7 +111,7 @@ class JLogLoggerDatabaseTest extends TestCaseDatabase
 	}
 
 	/**
-	 * Test the JLogLoggerDatabase::connect method.
+	 * Test the Joomla\Log\Logger\Database::connect method.
 	 *
 	 * @return void
 	 */
@@ -123,11 +127,15 @@ class JLogLoggerDatabaseTest extends TestCaseDatabase
 		$logger = new JLogLoggerDatabaseInspector($config);
 		$logger->connect();
 
-		$this->assertTrue($logger->dbo instanceof JDatabaseDriver, 'Line: ' . __LINE__);
+		$this->assertInstanceOf(
+			'Joomla\\Database\\Driver',
+			$logger->dbo,
+			'Line: ' . __LINE__
+		);
 	}
 
 	/**
-	 * Failing test for the JLogLoggerDatabase::connect method.
+	 * Failing test for the Joomla\Log\Logger\Database::connect method.
 	 *
 	 * @return  void
 	 *

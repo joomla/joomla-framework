@@ -62,7 +62,7 @@ class Client
 	 *
 	 * @since   12.3
 	 */
-	public function __construct(Registry $options = null, Http $http = null, Input $input = null, Web $application = null)
+	public function __construct(Registry $options = null, Http $http = null, Input $input, Web $application = null)
 	{
 		$this->options = isset($options) ? $options : new Registry;
 		$this->http = isset($http) ? $http : new Http($this->options);

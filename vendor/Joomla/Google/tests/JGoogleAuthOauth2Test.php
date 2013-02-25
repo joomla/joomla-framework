@@ -6,7 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Google\Auth\OAuth2;
 use Joomla\Oauth2\Client;
+use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 
 /**
@@ -29,7 +31,7 @@ class JGoogleAuthOauth2Test extends PHPUnit_Framework_TestCase
 	protected $http;
 
 	/**
-	 * @var    JInput  The input object to use in retrieving GET/POST data.
+	 * @var    Input  The input object to use in retrieving GET/POST data.
 	 */
 	protected $input;
 
@@ -44,7 +46,7 @@ class JGoogleAuthOauth2Test extends PHPUnit_Framework_TestCase
 	protected $application;
 
 	/**
-	 * @var    JGoogleAuthOauth2  Object under test.
+	 * @var    OAuth2  Object under test.
 	 */
 	protected $object;
 
@@ -65,11 +67,11 @@ class JGoogleAuthOauth2Test extends PHPUnit_Framework_TestCase
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
 		$this->options = new Registry;
-		$this->http = $this->getMock('JHttp', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
-		$this->input = new JInput;
+		$this->http = $this->getMock('Joomla\\Http\\Http', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
+		$this->input = new Input;
 		$this->application = new JApplicationWebInspector;
 		$this->oauth = new Client($this->options, $this->http, $this->input, $this->application);
-		$this->object = new JGoogleAuthOauth2($this->options, $this->oauth);
+		$this->object = new OAuth2($this->options, $this->oauth);
 	}
 
 	/**

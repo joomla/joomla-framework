@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Rule\Tel as RuleTel;
+
 /**
  * Test class for JForm.
  *
@@ -18,13 +20,13 @@
 class JFormRuleTelTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JFormRuleTel::test method.
+	 * Test the Joomla\Form\Rule\Tel::test method.
 	 *
 	 * @return void
 	 */
 	public function testTel()
 	{
-		$rule = new JFormRuleTel;
+		$rule = new RuleTel;
 		$xml = simplexml_load_string('<form><field name="tel1" plan="NANP" />
 			<field name="tel2" plan="ITU-T" /><field name="tel3" plan="EPP" />
 			<field name="tel4" /></form>');

@@ -10,7 +10,7 @@
 namespace Joomla\Github;
 
 
-use Joomla\Http\Http as HttpHttp;
+use Joomla\Http\Http as BaseHttp;
 use Joomla\Http\Transport;
 use Joomla\Registry\Registry;
 
@@ -21,7 +21,7 @@ use Joomla\Registry\Registry;
  * @subpackage  GitHub
  * @since       11.3
  */
-class Http extends HttpHttp
+class Http extends BaseHttp
 {
 	/**
 	 * @const  integer  Use no authentication for HTTP connections.
