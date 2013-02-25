@@ -529,7 +529,7 @@ class Issues extends Object
 	 * @param   string   $labels     The list of comma separated Label names. Example: bug,ui,@high.
 	 * @param   string   $sort       The sort order: created, updated, comments, default: created.
 	 * @param   string   $direction  The list direction: asc or desc, default: desc.
-	 * @param   JDate    $since      The date/time since when issues should be returned.
+	 * @param   Date     $since      The date/time since when issues should be returned.
 	 * @param   integer  $page       The page number from which to get items.
 	 * @param   integer  $limit      The number of items on a page.
 	 *
@@ -537,7 +537,7 @@ class Issues extends Object
 	 *
 	 * @since   11.3
 	 */
-	public function getList($filter = null, $state = null, $labels = null, $sort = null, $direction = null, JDate $since = null, $page = 0, $limit = 0)
+	public function getList($filter = null, $state = null, $labels = null, $sort = null, $direction = null, Date $since = null, $page = 0, $limit = 0)
 	{
 		// Build the request path.
 		$path = '/issues';
@@ -570,7 +570,7 @@ class Issues extends Object
 	 * @param   string   $labels     The list of comma separated Label names. Example: bug,ui,@high.
 	 * @param   string   $sort       The sort order: created, updated, comments, default: created.
 	 * @param   string   $direction  The list direction: asc or desc, default: desc.
-	 * @param   JDate    $since      The date/time since when issues should be returned.
+	 * @param   Date     $since      The date/time since when issues should be returned.
 	 * @param   integer  $page       The page number from which to get items.
 	 * @param   integer  $limit      The number of items on a page.
 	 *

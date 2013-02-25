@@ -9,7 +9,6 @@
 
 namespace Joomla\Google\Data;
 
-
 use DateTime;
 use Joomla\Google\Data;
 use Joomla\Google\Auth;
@@ -424,7 +423,7 @@ class Calendar extends Data
 			{
 				$startobj = new DateTime($start);
 			}
-			elseif (is_a($start, '\\DateTime'))
+			elseif ($start instanceof \DateTime)
 			{
 				$startobj = $start;
 			}

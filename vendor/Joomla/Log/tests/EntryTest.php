@@ -9,6 +9,7 @@
 
 use Joomla\Log\Entry;
 use Joomla\Log\Log;
+use Joomla\Date\Date;
 
 /**
  * Test class for JLogEntry.
@@ -29,7 +30,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	public function testDefaultValues()
 	{
 		$tmp = new Entry('Lorem ipsum dolor sit amet');
-		$date = JFactory::getDate('now');
+		$date = new Date('now');
 
 		// Message.
 		$this->assertThat(
