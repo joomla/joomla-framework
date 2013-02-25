@@ -13,7 +13,6 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Log\Log;
-use Joomla\Language\Text;
 use Joomla\Client\Ftp as ClientFtp;
 use Joomla\Client\Helper as ClientHelper;
 
@@ -96,7 +95,7 @@ class File
 		// Check src path
 		if (!is_readable($src))
 		{
-			Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_JFILE_FIND_COPY', $src), Log::WARNING, 'jerror');
+			Log::add(__METHOD__ . ': Cannot find or read file: ' . $src, Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -107,7 +106,7 @@ class File
 
 			if (!$stream->copy($src, $dest))
 			{
-				Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_JFILE_STREAMS', $src, $dest, $stream->getError()), Log::WARNING, 'jerror');
+				Log::add(sprintf('%1$s(%2$s, %3$s): %4$s', __METHOD__, $src, $dest, $stream->getError()), Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -144,7 +143,7 @@ class File
 			{
 				if (!@ copy($src, $dest))
 				{
-					Log::add(Text::_('JLIB_FILESYSTEM_ERROR_COPY_FAILED'), Log::WARNING, 'jerror');
+					Log::add(__METHOD__ . ': Copy failed.', Log::WARNING, 'jerror');
 
 					return false;
 				}
@@ -212,7 +211,7 @@ class File
 			else
 			{
 				$filename = basename($file);
-				Log::add(Text::sprintf('JLIB_FILESYSTEM_DELETE_FAILED', $filename), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . ': Failed deleting ' . $filename, Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -244,8 +243,7 @@ class File
 		// Check src path
 		if (!is_readable($src))
 		{
-
-			return Text::_('JLIB_FILESYSTEM_CANNOT_FIND_SOURCE_FILE');
+			return 'Cannot find source file.';
 		}
 
 		if ($use_streams)
@@ -254,7 +252,7 @@ class File
 
 			if (!$stream->move($src, $dest))
 			{
-				Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_JFILE_MOVE_STREAMS', $stream->getError()), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . ': ' . $stream->getError(), Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -277,7 +275,7 @@ class File
 				// Use FTP rename to simulate move
 				if (!$ftp->rename($src, $dest))
 				{
-					Log::add(Text::_('JLIB_FILESYSTEM_ERROR_RENAME_FILE'), Log::WARNING, 'jerror');
+					Log::add(__METHOD__ . ': Rename failed.', Log::WARNING, 'jerror');
 
 					return false;
 				}
@@ -286,7 +284,7 @@ class File
 			{
 				if (!@ rename($src, $dest))
 				{
-					Log::add(Text::_('JLIB_FILESYSTEM_ERROR_RENAME_FILE'), Log::WARNING, 'jerror');
+					Log::add(__METHOD__ . ': Rename failed.', Log::WARNING, 'jerror');
 
 					return false;
 				}
@@ -326,7 +324,7 @@ class File
 
 			if (!$stream->writeFile($file, $buffer))
 			{
-				Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_WRITE_STREAMS', $file, $stream->getError()), Log::WARNING, 'jerror');
+				Log::add(sprintf('%1$s(%2$s): %3$s', __METHOD__, $file, $stream->getError()), Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -386,7 +384,7 @@ class File
 
 			if (!$stream->upload($src, $dest))
 			{
-				Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_UPLOAD', $stream->getError()), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . ': ' . $stream->getError(), Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -414,7 +412,7 @@ class File
 				}
 				else
 				{
-					Log::add(Text::_('JLIB_FILESYSTEM_ERROR_WARNFS_ERR02'), Log::WARNING, 'jerror');
+					Log::add(__METHOD__ . ': Failed to move file.', Log::WARNING, 'jerror');
 				}
 			}
 			else
@@ -428,12 +426,12 @@ class File
 					}
 					else
 					{
-						Log::add(Text::_('JLIB_FILESYSTEM_ERROR_WARNFS_ERR01'), Log::WARNING, 'jerror');
+						Log::add(__METHOD__ . ': Failed to change file permissions.', Log::WARNING, 'jerror');
 					}
 				}
 				else
 				{
-					Log::add(Text::_('JLIB_FILESYSTEM_ERROR_WARNFS_ERR02'), Log::WARNING, 'jerror');
+					Log::add(__METHOD__ . ': Failed to move file.', Log::WARNING, 'jerror');
 				}
 			}
 
