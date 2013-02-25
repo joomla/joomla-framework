@@ -423,7 +423,7 @@ class File extends Storage
 		if (!$path || !is_dir($path) || empty($this->_root))
 		{
 			// Bad programmer! Bad Bad programmer!
-			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder ' . Text::_('JLIB_FILESYSTEM_ERROR_DELETE_BASE_DIRECTORY'), Log::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder - You can not delete a base directory.', Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -435,7 +435,7 @@ class File extends Storage
 
 		if ($pos === false || $pos > 0)
 		{
-			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), Log::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . sprintf('JFolder: :delete: Path is not a folder. Path: %s', $path), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -466,7 +466,7 @@ class File extends Storage
 				else
 				{
 					$filename = basename($file);
-					Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . Text::sprintf('JLIB_FILESYSTEM_DELETE_FAILED', $filename), Log::WARNING, 'jerror');
+					Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . sprintf('Failed deleting %s', $filename), Log::WARNING, 'jerror');
 
 					return false;
 				}
@@ -500,7 +500,7 @@ class File extends Storage
 		}
 		else
 		{
-			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . Text::sprintf('JLIB_FILESYSTEM_ERROR_FOLDER_DELETE', $path), Log::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_deleteFolder' . sprintf('JFolder: :delete: Could not delete folder. Path: %s', $path), Log::WARNING, 'jerror');
 			$ret = false;
 		}
 		return $ret;
@@ -560,7 +560,7 @@ class File extends Storage
 		// Is the path a folder?
 		if (!is_dir($path))
 		{
-			Log::add('\\Joomla\\Cache\\Storage\\File::_filesInFolder' . Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), Log::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_filesInFolder' . sprintf('JFolder: :delete: Path is not a folder. Path: %s', $path), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -648,7 +648,7 @@ class File extends Storage
 		// Is the path a folder?
 		if (!is_dir($path))
 		{
-			Log::add('\\Joomla\\Cache\\Storage\\File::_folders' . Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), Log::WARNING, 'jerror');
+			Log::add('\\Joomla\\Cache\\Storage\\File::_folders' . sprintf('JFolder: :delete: Path is not a folder. Path: %s', $path), Log::WARNING, 'jerror');
 
 			return false;
 		}
