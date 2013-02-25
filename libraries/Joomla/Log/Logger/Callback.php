@@ -11,7 +11,6 @@ namespace Joomla\Log\Logger;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Language\Text;
 use Joomla\Log\Entry;
 use Joomla\Log\Logger;
 use Exception;
@@ -40,6 +39,7 @@ class Callback extends Logger
 	 * @param   array  &$options  Log object options.
 	 *
 	 * @since   12.2
+	 * @throws  Exception
 	 */
 	public function __construct(array &$options)
 	{
@@ -53,7 +53,7 @@ class Callback extends Logger
 		}
 		else
 		{
-			throw new Exception(Text::_('JLogLoggerCallback created without valid callback function.'));
+			throw new Exception(__CLASS__ . ' created without valid callback function.');
 		}
 	}
 

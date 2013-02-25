@@ -63,7 +63,7 @@ abstract class Stemmer
 		if (!class_exists($class))
 		{
 			// Throw invalid adapter exception.
-			throw new RuntimeException(Text::sprintf('JLIB_STEMMER_INVALID_STEMMER', $adapter));
+			throw new RuntimeException(sprintf('Invalid stemmer type %s', $adapter));
 		}
 
 		self::$instances[$adapter] = new $class;

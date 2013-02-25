@@ -888,14 +888,7 @@ class Language
 			// Check if we encountered any errors.
 			if (count($errors))
 			{
-				if (basename($filename) != $this->lang . '.ini')
-				{
-					$this->errorfiles[$filename] = $filename . Text::sprintf('JERROR_PARSING_LANGUAGE_FILE', implode(', ', $errors));
-				}
-				else
-				{
-					$this->errorfiles[$filename] = $filename . '&#160;: error(s) in line(s) ' . implode(', ', $errors);
-				}
+				$this->errorfiles[$filename] = $filename . '&#160;: error(s) in line(s) ' . implode(', ', $errors);
 			}
 			elseif ($php_errormsg)
 			{

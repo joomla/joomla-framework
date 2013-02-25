@@ -12,7 +12,6 @@ namespace Joomla\Database\Driver;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Log\Log;
-use Joomla\Language\Text;
 use Joomla\Database\Driver;
 use Joolmla\Database\Query\Postgresql as QueryPostgresql;
 use RuntimeException;
@@ -621,7 +620,7 @@ class Postgresql extends Driver
 
 		if (!is_resource($this->connection))
 		{
-			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
+			Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
 			throw new RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
@@ -669,10 +668,10 @@ class Postgresql extends Driver
 				{
 					// Get the error number and message.
 					$this->errorNum = (int) pg_result_error_field($this->cursor, PGSQL_DIAG_SQLSTATE) . ' ';
-					$this->errorMsg = Text::_('JLIB_DATABASE_QUERY_FAILED') . "\n" . pg_last_error($this->connection) . "\nSQL=$sql";
+					$this->errorMsg = pg_last_error($this->connection) . "\nSQL=$sql";
 
 					// Throw the normal query exception.
-					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+					Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
 					throw new RuntimeException($this->errorMsg);
 				}
 
@@ -684,10 +683,10 @@ class Postgresql extends Driver
 			{
 				// Get the error number and message.
 				$this->errorNum = (int) pg_result_error_field($this->cursor, PGSQL_DIAG_SQLSTATE) . ' ';
-				$this->errorMsg = Text::_('JLIB_DATABASE_QUERY_FAILED') . "\n" . pg_last_error($this->connection) . "\nSQL=$sql";
+				$this->errorMsg = pg_last_error($this->connection) . "\nSQL=$sql";
 
 				// Throw the normal query exception.
-				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+				Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
 				throw new RuntimeException($this->errorMsg);
 			}
 		}
