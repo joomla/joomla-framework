@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="joomla-platform" default="build" basedir=".">
-	<property name="source" value="libraries" />
-	<property name="joomlasource" value="libraries/Joomla,libraries/compat,libraries/platform.php,libraries/loader.php,libraries/import.php" />
+	<property name="source" value="vendor" />
+	<property name="joomlasource" value="vendor/Joomla,vendor/compat,vendor/platform.php,vendor/loader.php,vendor/import.php" />
 
 	<condition property="script-suffix" value=".bat" else="">
 		<os family="windows" />
