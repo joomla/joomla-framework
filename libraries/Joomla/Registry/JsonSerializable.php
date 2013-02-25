@@ -7,7 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * JsonSerializable interface. This file should only be loaded on PHP < 5.4

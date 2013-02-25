@@ -9,7 +9,6 @@
 
 namespace Joomla\String;
 
-defined('JPATH_PLATFORM') or die;
 
 // PHP mbstring and iconv local configuration
 

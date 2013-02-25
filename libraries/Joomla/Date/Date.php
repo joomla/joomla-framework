@@ -9,7 +9,6 @@
 
 namespace Joomla\Date;
 
-defined('JPATH_PLATFORM') or die;
 
 use DateTime;
 use DateTimeZone;

@@ -9,7 +9,6 @@
 
 namespace Joomla\Log\Logger;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Database\Driver;
 use Joomla\Log\Logger;

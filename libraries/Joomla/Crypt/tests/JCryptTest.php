@@ -46,8 +46,8 @@ class JCryptTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertAttributeEquals(null, '_key', $this->object);
-		$this->assertAttributeInstanceOf('\\Joomla\\Crypt\\Cipher', '_cipher', $this->object);
+		$this->assertAttributeEquals(null, 'key', $this->object);
+		$this->assertAttributeInstanceOf('\\Joomla\\Crypt\\Cipher', 'cipher', $this->object);
 	}
 
 	/**
@@ -111,7 +111,7 @@ class JCryptTest extends PHPUnit_Framework_TestCase
 
 		$this->object->setKey($keyMock);
 
-		$this->assertAttributeEquals($keyMock, '_key', $this->object);
+		$this->assertAttributeEquals($keyMock, 'key', $this->object);
 	}
 
 	/**

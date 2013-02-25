@@ -9,7 +9,6 @@
 
 namespace Joomla\Archive;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Factory;
 use Joomla\Filesystem\File;

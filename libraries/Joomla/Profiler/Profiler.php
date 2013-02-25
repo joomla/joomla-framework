@@ -9,7 +9,6 @@
 
 namespace Joomla\Profiler;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Utility class to assist in the process of benchmarking the execution

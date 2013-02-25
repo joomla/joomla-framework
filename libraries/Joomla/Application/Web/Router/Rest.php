@@ -9,7 +9,6 @@
 
 namespace Joomla\Application\Web\Router;
 
-defined('JPATH_PLATFORM') or die;
 
 use RuntimeException;
 

@@ -9,7 +9,6 @@
 
 namespace Joomla\Session\Storage;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Session\Storage;
 use Joomla\Factory;

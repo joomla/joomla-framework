@@ -9,7 +9,6 @@
 
 namespace Joomla\Crypt;
 
-defined('JPATH_PLATFORM') or die;
 
 use InvalidArgumentException;
 

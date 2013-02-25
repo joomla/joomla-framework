@@ -9,7 +9,6 @@
 
 namespace Joomla\Database\Query;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Query Element Class.

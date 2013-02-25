@@ -9,7 +9,6 @@
 
 namespace Joomla\Application\Web;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * Class to model a Web Client.

@@ -9,7 +9,6 @@
 
 namespace Joomla\Model;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Database\Driver;
 use Joomla\Registry\Registry;

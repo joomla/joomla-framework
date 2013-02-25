@@ -9,7 +9,6 @@
 
 namespace Joomla\Session;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Filter\Input;
 

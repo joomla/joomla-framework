@@ -9,7 +9,6 @@
 
 namespace Joomla\Database\Exporter;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Database\Exporter;
 use Joomla\Database\Driver\Postgresql as DriverPostrgresql;

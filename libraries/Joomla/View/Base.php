@@ -9,7 +9,6 @@
 
 namespace Joomla\View;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Model\Model;
 

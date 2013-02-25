@@ -9,7 +9,6 @@
 
 namespace Joomla\Client;
 
-defined('JPATH_PLATFORM') or die;
 
 /**
  * LDAP client class

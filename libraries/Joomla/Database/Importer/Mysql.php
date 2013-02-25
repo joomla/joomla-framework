@@ -9,7 +9,6 @@
 
 namespace Joomla\Database\Importer;
 
-defined('JPATH_PLATFORM') or die;
 
 use Joomla\Database\Driver\Mysql as DriverMysql;
 use Exception;
