@@ -162,7 +162,6 @@ return array(
 	'JLogLoggerDatabase' => 'Joomla\\Log\\Logger\\Database',
 	'JLogLoggerEcho' => 'Joomla\\Log\\Logger\\Echoo',
 	'JLogLoggerFormattedtext' => 'Joomla\\Log\\Logger\\Formattedtext',
-	'JLogLoggerMessagequeue' => 'Joomla\\Log\\Logger\\Messagequeue',
 	'JLogLoggerSyslog' => 'Joomla\\Log\\Logger\\Syslog',
 	'JLogLoggerW3c' => 'Joomla\\Log\\Logger\\W3c',
 	'JRegistry' => 'Joomla\\Registry\\Registry',
