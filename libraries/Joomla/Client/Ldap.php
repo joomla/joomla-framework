@@ -11,8 +11,6 @@ namespace Joomla\Client;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Language\Text;
-
 /**
  * LDAP client class
  *
@@ -620,7 +618,7 @@ class Ldap
 		}
 		else
 		{
-			$addr .= Text::_('JLIB_CLIENT_ERROR_LDAP_ADDRESS_NOT_AVAILABLE');
+			$addr .= 'Address not available.';
 		}
 		return array('protocol' => $addrtypes[$addrtype], 'address' => $addr);
 	}
