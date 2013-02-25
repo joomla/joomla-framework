@@ -118,6 +118,7 @@ class Helper
 						{
 							$return = true;
 						}
+
 						$ftp->quit();
 					}
 				}

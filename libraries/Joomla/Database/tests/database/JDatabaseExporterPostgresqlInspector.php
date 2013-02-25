@@ -124,5 +124,4 @@ class JDatabaseExporterPostgresqlInspector extends JDatabaseExporterPostgresql
 	{
 		return parent::withStructure($setting);
 	}
-
 }

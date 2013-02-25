@@ -51,6 +51,7 @@ class Simple implements Password
 		{
 			$type = $this->defaultType;
 		}
+
 		switch ($type)
 		{
 			case '$2a$':
@@ -143,6 +144,7 @@ class Simple implements Password
 			{
 				$type = '$2a$';
 			}
+
 			$hash = $type . substr($hash, 4);
 
 			return (crypt($password, $hash) === $hash);
@@ -159,6 +161,7 @@ class Simple implements Password
 		{
 			return md5($password . substr($hash, 33)) == substr($hash, 0, 32);
 		}
+
 		return false;
 	}
 
@@ -178,6 +181,7 @@ class Simple implements Password
 			$this->defaultType = $type;
 		}
 	}
+
 	/**
 	 * Gets the default type
 	 *

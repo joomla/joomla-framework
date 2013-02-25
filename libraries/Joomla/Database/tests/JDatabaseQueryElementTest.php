@@ -239,7 +239,6 @@ class JDatabaseQueryElementTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__clone_array()
 	{
-
 		$baseElement = new JDatabaseQueryElement($name = null, $elements = null);
 
 		$baseElement->testArray = array();
@@ -261,7 +260,6 @@ class JDatabaseQueryElementTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__clone_object()
 	{
-
 		$baseElement = new JDatabaseQueryElement($name = null, $elements = null);
 
 		$baseElement->testObject = new stdClass;

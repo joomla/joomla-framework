@@ -475,10 +475,12 @@ class Mysqli extends Importer
 			{
 				$kName = $key->Key_name;
 			}
+
 			if (empty($lookup[$kName]))
 			{
 				$lookup[$kName] = array();
 			}
+
 			$lookup[$kName][] = $key;
 		}
 
@@ -607,7 +609,6 @@ class Mysqli extends Importer
 						}
 						$this->addLog('Pass: ' . $this->db->getQuery());
 					}
-
 				}
 			}
 			else

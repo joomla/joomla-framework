@@ -360,8 +360,8 @@ class Sqlsrv extends Driver
 				$result[$field->Field] = preg_replace("/[(0-9)]/", '', $field->Type);
 			}
 		}
-		// If we want the whole field data object add that to the list.
 		else
+		// If we want the whole field data object add that to the list.
 		{
 			foreach ($fields as $field)
 			{
@@ -469,22 +469,27 @@ class Sqlsrv extends Driver
 			{
 				continue;
 			}
+
 			if (!$this->checkFieldExists($table, $k))
 			{
 				continue;
 			}
+
 			if ($k[0] == '_')
 			{
 				// Internal field
 				continue;
 			}
+
 			if ($k == $key && $key == 0)
 			{
 				continue;
 			}
+
 			$fields[] = $this->quoteName($k);
 			$values[] = $this->Quote($v);
 		}
+
 		// Set the query and execute the insert.
 		$this->setQuery(sprintf($statement, implode(',', $fields), implode(',', $values)));
 
@@ -492,12 +497,14 @@ class Sqlsrv extends Driver
 		{
 			return false;
 		}
+
 		$id = $this->insertid();
 
 		if ($key && $id)
 		{
 			$object->$key = $id;
 		}
+
 		return true;
 	}
 
@@ -541,6 +548,7 @@ class Sqlsrv extends Driver
 		{
 			$ret = $row[0];
 		}
+
 		// Free up system resources and return.
 		$this->freeResult($cursor);
 
@@ -618,8 +626,8 @@ class Sqlsrv extends Driver
 					$this->connection = null;
 					$this->connect();
 				}
-				// If connect fails, ignore that exception and throw the normal exception.
 				catch (RuntimeException $e)
+				// If connect fails, ignore that exception and throw the normal exception.
 				{
 					// Get the error number and message.
 					$errors = sqlsrv_errors();
@@ -634,8 +642,8 @@ class Sqlsrv extends Driver
 				// Since we were able to reconnect, run the query again.
 				return $this->execute();
 			}
-			// The server was not disconnected.
 			else
+			// The server was not disconnected.
 			{
 				// Get the error number and message.
 				$errors = sqlsrv_errors();
@@ -719,6 +727,7 @@ class Sqlsrv extends Driver
 				{
 					break;
 				}
+
 				$l = $k - 1;
 
 				while ($l >= 0 && $sql{$l} == '\\')
@@ -726,21 +735,26 @@ class Sqlsrv extends Driver
 					$l--;
 					$escaped = !$escaped;
 				}
+
 				if ($escaped)
 				{
 					$j = $k + 1;
 					continue;
 				}
+
 				break;
 			}
+
 			if ($k === false)
 			{
 				// Error in the query - no end quote; ignore it
 				break;
 			}
+
 			$literal .= substr($sql, $startPos, $k - $startPos + 1);
 			$startPos = $k + 1;
 		}
+
 		if ($startPos < $n)
 		{
 			$literal .= substr($sql, $startPos, $n - $startPos);
@@ -986,6 +1000,7 @@ class Sqlsrv extends Driver
 		{
 			$orderBy = 'ORDER BY (select 0)';
 		}
+
 		$sql = str_ireplace($orderBy, '', $sql);
 
 		$rowNumberText = ',ROW_NUMBER() OVER (' . $orderBy . ') AS RowNumber FROM ';
@@ -1017,6 +1032,7 @@ class Sqlsrv extends Driver
 		{
 			$constraints = $this->getTableConstraints($oldTable);
 		}
+
 		if (!empty($constraints))
 		{
 			$this->renameConstraints($constraints, $prefix, $backup);

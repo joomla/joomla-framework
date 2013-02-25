@@ -836,7 +836,6 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 				$this->identicalTo($instance),
 				'setDbo must return an object to support chaining.'
 			);
-
 		}
 		catch (PHPUnit_Framework_Error $e)
 		{

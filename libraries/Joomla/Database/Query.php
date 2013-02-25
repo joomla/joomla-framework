@@ -307,8 +307,8 @@ abstract class Query
 				{
 					$query .= (string) $this->set;
 				}
-				// Columns-Values method
 				elseif ($this->values)
+				// Columns-Values method
 				{
 					if ($this->columns)
 					{
@@ -992,6 +992,7 @@ abstract class Query
 		{
 			$this->join = array();
 		}
+
 		$this->join[] = new Query\Element(strtoupper($type) . ' JOIN', $conditions);
 
 		return $this;
@@ -1413,7 +1414,6 @@ abstract class Query
 		{
 			$glue = ')' . PHP_EOL . 'UNION (';
 			$name = 'UNION ()';
-
 		}
 
 		// Get the JDatabaseQueryElement if it does not exist
@@ -1421,8 +1421,8 @@ abstract class Query
 		{
 				$this->union = new Query\Element($name, $query, "$glue");
 		}
-		// Otherwise append the second UNION.
 		else
+		// Otherwise append the second UNION.
 		{
 			$glue = '';
 			$this->union->append($query);

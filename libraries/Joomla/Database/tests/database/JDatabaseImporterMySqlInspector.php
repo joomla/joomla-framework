@@ -231,5 +231,4 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	{
 		return parent::withStructure($setting);
 	}
-
 }

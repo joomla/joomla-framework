@@ -7,8 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-JLoader::register('JDataBuran', __DIR__ . '/stubs/buran.php');
-JLoader::register('JDataCapitaliser', __DIR__ . '/stubs/capitaliser.php');
+require_once __DIR__ . '/stubs/buran.php';
+require_once __DIR__ . '/stubs/capitaliser.php';
 
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
@@ -26,7 +26,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @var    JData
 	 * @since  12.3
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
 	 * Tests the object constructor.
@@ -55,7 +55,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	public function test__get()
 	{
 		$this->assertNull(
-			$this->_instance->foobar,
+			$this->instance->foobar,
 			'Unknown property should return null.'
 		);
 	}
@@ -70,11 +70,11 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__isset()
 	{
-		$this->assertFalse(isset($this->_instance->title), 'Unknown property');
+		$this->assertFalse(isset($this->instance->title), 'Unknown property');
 
-		$this->_instance->bind(array('title' => true));
+		$this->instance->bind(array('title' => true));
 
-		$this->assertTrue(isset($this->_instance->title), 'Property is set.');
+		$this->assertTrue(isset($this->instance->title), 'Property is set.');
 	}
 
 	/**
@@ -107,13 +107,13 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__unset()
 	{
-		$this->_instance->bind(array('title' => true));
+		$this->instance->bind(array('title' => true));
 
-		$this->assertTrue(isset($this->_instance->title));
+		$this->assertTrue(isset($this->instance->title));
 
-		unset($this->_instance->title);
+		unset($this->instance->title);
 
-		$this->assertFalse(isset($this->_instance->title));
+		$this->assertFalse(isset($this->instance->title));
 	}
 
 	/**
@@ -128,12 +128,12 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	{
 		$properties = array('null' => null);
 
-		$this->_instance->null = 'notNull';
-		$this->_instance->bind($properties, false);
-		$this->assertSame('notNull', $this->_instance->null, 'Checking binding without updating nulls works correctly.');
+		$this->instance->null = 'notNull';
+		$this->instance->bind($properties, false);
+		$this->assertSame('notNull', $this->instance->null, 'Checking binding without updating nulls works correctly.');
 
-		$this->_instance->bind($properties);
-		$this->assertSame(null, $this->_instance->null, 'Checking binding with updating nulls works correctly.');
+		$this->instance->bind($properties);
+		$this->assertSame(null, $this->instance->null, 'Checking binding with updating nulls works correctly.');
 	}
 
 	/**
@@ -155,12 +155,12 @@ class JDataTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Bind an array to the object.
-		$this->_instance->bind($properties);
+		$this->instance->bind($properties);
 
 		// Assert that the values match.
 		foreach ($properties as $property => $value)
 		{
-			$this->assertEquals($value, $this->_instance->$property);
+			$this->assertEquals($value, $this->instance->$property);
 		}
 	}
 
@@ -185,12 +185,12 @@ class JDataTest extends PHPUnit_Framework_TestCase
 		$traversable = new ArrayObject($properties);
 
 		// Bind an array to the object.
-		$this->_instance->bind($traversable);
+		$this->instance->bind($traversable);
 
 		// Assert that the values match.
 		foreach ($properties as $property => $value)
 		{
-			$this->assertEquals($value, $this->_instance->$property);
+			$this->assertEquals($value, $this->instance->$property);
 		}
 	}
 
@@ -212,12 +212,12 @@ class JDataTest extends PHPUnit_Framework_TestCase
 		$properties->property_5 = array('foo');
 
 		// Bind an array to the object.
-		$this->_instance->bind($properties);
+		$this->instance->bind($properties);
 
 		// Assert that the values match.
 		foreach ($properties as $property => $value)
 		{
-			$this->assertEquals($value, $this->_instance->$property);
+			$this->assertEquals($value, $this->instance->$property);
 		}
 	}
 
@@ -232,7 +232,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testBind_exception()
 	{
-		$this->_instance->bind('foobar');
+		$this->instance->bind('foobar');
 	}
 
 	/**
@@ -246,16 +246,16 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	public function testCount()
 	{
 		// Tests the current object is empty.
-		$this->assertCount(0, $this->_instance);
+		$this->assertCount(0, $this->instance);
 
 		// Set a complex property.
-		$this->_instance->foo = array(1 => array(2));
-		$this->assertCount(1, $this->_instance);
+		$this->instance->foo = array(1 => array(2));
+		$this->assertCount(1, $this->instance);
 
 		// Set some more properties.
-		$this->_instance->bar = 'bar';
-		$this->_instance->barz = 'barz';
-		$this->assertCount(3, $this->_instance);
+		$this->instance->bar = 'bar';
+		$this->instance->barz = 'barz';
+		$this->assertCount(3, $this->instance);
 	}
 
 	/**
@@ -268,7 +268,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDump()
 	{
-		$dump = $this->_instance->dump();
+		$dump = $this->instance->dump();
 
 		$this->assertEquals(
 			'object',
@@ -305,10 +305,10 @@ class JDataTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Bind an array to the object.
-		$this->_instance->bind($properties);
+		$this->instance->bind($properties);
 
 		// Dump the object (default is 3 levels).
-		$dump = $this->_instance->dump();
+		$dump = $this->instance->dump();
 
 		$this->assertEquals($dump->scalar, 'value_1');
 		$this->assertEquals($dump->date, '2012-01-01 00:00:00');
@@ -317,12 +317,12 @@ class JDataTest extends PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('stdClass', $dump->JData->level2->level3);
 		$this->assertInstanceOf('JData', $dump->JData->level2->level3->level4);
 
-		$dump = $this->_instance->dump(0);
+		$dump = $this->instance->dump(0);
 		$this->assertInstanceOf('Joomla\Date\Date', $dump->date);
 		$this->assertInstanceOf('Joomla\Registry\Registry', $dump->registry);
 		$this->assertInstanceOf('JData', $dump->JData);
 
-		$dump = $this->_instance->dump(1);
+		$dump = $this->instance->dump(1);
 		$this->assertEquals($dump->date, '2012-01-01 00:00:00');
 		$this->assertEquals($dump->registry, (object) array('key' => 'value'));
 		$this->assertInstanceOf('stdClass', $dump->JData);
@@ -341,10 +341,10 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	{
 		$dumped = new SplObjectStorage;
 
-		$this->_instance->bind(array('dump_test' => 'dump_test_value'));
+		$this->instance->bind(array('dump_test' => 'dump_test_value'));
 		$this->assertEquals(
 			'dump_test_value',
-			TestReflection::invoke($this->_instance, 'dumpProperty', 'dump_test', 3, $dumped)
+			TestReflection::invoke($this->instance, 'dumpProperty', 'dump_test', 3, $dumped)
 		);
 	}
 
@@ -358,7 +358,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetIterator()
 	{
-		$this->assertInstanceOf('ArrayIterator', $this->_instance->getIterator());
+		$this->assertInstanceOf('ArrayIterator', $this->instance->getIterator());
 	}
 
 	/**
@@ -371,8 +371,8 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetProperty()
 	{
-		$this->_instance->bind(array('get_test' => 'get_test_value'));
-		$this->assertEquals('get_test_value', $this->_instance->get_test);
+		$this->instance->bind(array('get_test' => 'get_test_value'));
+		$this->assertEquals('get_test_value', $this->instance->get_test);
 	}
 
 	/**
@@ -386,10 +386,10 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetProperty_exception()
 	{
-		$this->_instance->bind(array('get_test' => 'get_test_value'));
+		$this->instance->bind(array('get_test' => 'get_test_value'));
 
 		// Get the reflection property. This should throw an exception.
-		$property = TestReflection::getValue($this->_instance, 'get_test');
+		$property = TestReflection::getValue($this->instance, 'get_test');
 	}
 
 	/**
@@ -404,10 +404,10 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testJsonSerialize()
 	{
-		$this->assertEquals('{}', json_encode($this->_instance->jsonSerialize()), 'Empty object.');
+		$this->assertEquals('{}', json_encode($this->instance->jsonSerialize()), 'Empty object.');
 
-		$this->_instance->bind(array('title' => 'Simple Object'));
-		$this->assertEquals('{"title":"Simple Object"}', json_encode($this->_instance->jsonSerialize()), 'Simple object.');
+		$this->instance->bind(array('title' => 'Simple Object'));
+		$this->assertEquals('{"title":"Simple Object"}', json_encode($this->instance->jsonSerialize()), 'Simple object.');
 	}
 
 	/**
@@ -420,8 +420,8 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSetProperty()
 	{
-		$this->_instance->set_test = 'set_test_value';
-		$this->assertEquals('set_test_value', $this->_instance->set_test);
+		$this->instance->set_test = 'set_test_value';
+		$this->assertEquals('set_test_value', $this->instance->set_test);
 
 		$object = new JDataCapitaliser;
 		$object->test_value = 'upperCase';
@@ -441,7 +441,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	public function testSetProperty_exception()
 	{
 		// Get the reflection property. This should throw an exception.
-		$property = TestReflection::getValue($this->_instance, 'set_test');
+		$property = TestReflection::getValue($this->instance, 'set_test');
 	}
 
 	/**
@@ -459,10 +459,10 @@ class JDataTest extends PHPUnit_Framework_TestCase
 		$property = "\0foo";
 
 		// Attempt to set the property.
-		$this->_instance->$property = 'bar';
+		$this->instance->$property = 'bar';
 
 		// The property should not be set.
-		$this->assertNull($this->_instance->$property);
+		$this->assertNull($this->instance->$property);
 	}
 
 	/**
@@ -476,6 +476,6 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->_instance = new JData;
+		$this->instance = new JData;
 	}
 }

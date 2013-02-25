@@ -30,14 +30,17 @@ if (!defined('CRLF'))
 {
 	define('CRLF', "\r\n");
 }
+
 if (!defined("FTP_AUTOASCII"))
 {
 	define("FTP_AUTOASCII", -1);
 }
+
 if (!defined("FTP_BINARY"))
 {
 	define("FTP_BINARY", 1);
 }
+
 if (!defined("FTP_ASCII"))
 {
 	define("FTP_ASCII", 0);
@@ -61,43 +64,43 @@ class Ftp
 	 * @var    resource  Socket resource
 	 * @since  12.1
 	 */
-	private $_conn = null;
+	private $conn = null;
 
 	/**
 	 * @var    resource  Data port connection resource
 	 * @since  12.1
 	 */
-	private $_dataconn = null;
+	private $dataconn = null;
 
 	/**
 	 * @var    array  Passive connection information
 	 * @since  12.1
 	 */
-	private $_pasv = null;
+	private $pasv = null;
 
 	/**
 	 * @var    string  Response Message
 	 * @since  12.1
 	 */
-	private $_response = null;
+	private $response = null;
 
 	/**
 	 * @var    integer  Timeout limit
 	 * @since  12.1
 	 */
-	private $_timeout = 15;
+	private $timeout = 15;
 
 	/**
 	 * @var    integer  Transfer Type
 	 * @since  12.1
 	 */
-	private $_type = null;
+	private $type = null;
 
 	/**
 	 * @var    array  Array to hold ascii format file extensions
 	 * @since   12.1
 	 */
-	private $_autoAscii = array(
+	private $autoAscii = array(
 		"asp",
 		"bat",
 		"c",
@@ -126,7 +129,7 @@ class Ftp
 	 * @var    array
 	 * @since  12.1
 	 */
-	private $_lineEndings = array('UNIX' => "\n", 'WIN' => "\r\n");
+	private $lineEndings = array('UNIX' => "\n", 'WIN' => "\r\n");
 
 	/**
 	 * @var    array  JClientFtp instances container.
@@ -148,6 +151,7 @@ class Ftp
 		{
 			$options['type'] = FTP_BINARY;
 		}
+
 		$this->setOptions($options);
 
 		if (FTP_NATIVE)
@@ -166,7 +170,7 @@ class Ftp
 	 */
 	public function __destruct()
 	{
-		if (is_resource($this->_conn))
+		if (is_resource($this->conn))
 		{
 			$this->quit();
 		}
@@ -232,12 +236,14 @@ class Ftp
 	{
 		if (isset($options['type']))
 		{
-			$this->_type = $options['type'];
+			$this->type = $options['type'];
 		}
+
 		if (isset($options['timeout']))
 		{
-			$this->_timeout = $options['timeout'];
+			$this->timeout = $options['timeout'];
 		}
+
 		return true;
 	}
 
@@ -257,7 +263,7 @@ class Ftp
 		$err = null;
 
 		// If already connected, return
-		if (is_resource($this->_conn))
+		if (is_resource($this->conn))
 		{
 			return true;
 		}
@@ -265,24 +271,25 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			$this->_conn = @ftp_connect($host, $port, $this->_timeout);
+			$this->conn = @ftp_connect($host, $port, $this->timeout);
 
-			if ($this->_conn === false)
+			if ($this->conn === false)
 			{
 				Log::add(sprintf('%1$s: Could not connect to host " %2$s " on port " %3$s "', __METHOD__, $host, $port), Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			// Set the timeout for this connection
-			ftp_set_option($this->_conn, FTP_TIMEOUT_SEC, $this->_timeout);
+			ftp_set_option($this->conn, FTP_TIMEOUT_SEC, $this->timeout);
 
 			return true;
 		}
 
 		// Connect to the FTP server.
-		$this->_conn = @ fsockopen($host, $port, $errno, $err, $this->_timeout);
+		$this->conn = @ fsockopen($host, $port, $errno, $err, $this->timeout);
 
-		if (!$this->_conn)
+		if (!$this->conn)
 		{
 			Log::add(
 				sprintf(
@@ -300,12 +307,12 @@ class Ftp
 		}
 
 		// Set the timeout for this connection
-		socket_set_timeout($this->_conn, $this->_timeout, 0);
+		socket_set_timeout($this->conn, $this->timeout, 0);
 
 		// Check for welcome response code
 		if (!$this->_verifyResponse(220))
 		{
-			Log::add(sprintf('%1$s: Bad response. Server response: %2$s [Expected: 220]', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response. Server response: %2$s [Expected: 220]', __METHOD__, $this->response), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -322,7 +329,7 @@ class Ftp
 	 */
 	public function isConnected()
 	{
-		return is_resource($this->_conn);
+		return is_resource($this->conn);
 	}
 
 	/**
@@ -340,19 +347,23 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			if (@ftp_login($this->_conn, $user, $pass) === false)
+			if (@ftp_login($this->conn, $user, $pass) === false)
 			{
 				Log::add('JFTP::login: Unable to login', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return true;
 		}
 
 		// Send the username
 		if (!$this->_putCmd('USER ' . $user, array(331, 503)))
 		{
-			Log::add(sprintf('%1$s: Bad Username. Server response: %2$s [Expected: 331]. Username sent: %3$s', __METHOD__, $this->_response, $user), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Bad Username. Server response: %2$s [Expected: 331]. Username sent: %3$s', __METHOD__, $this->response, $user),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -366,7 +377,7 @@ class Ftp
 		// Send the password
 		if (!$this->_putCmd('PASS ' . $pass, 230))
 		{
-			Log::add(sprintf('%1$s: Bad Password. Server response: %2$s [Expected: 230].', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad Password. Server response: %2$s [Expected: 230].', __METHOD__, $this->response), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -386,14 +397,14 @@ class Ftp
 		// If native FTP support is enabled lets use it...
 		if (FTP_NATIVE)
 		{
-			@ftp_close($this->_conn);
+			@ftp_close($this->conn);
 
 			return true;
 		}
 
 		// Logout and close connection
-		@fwrite($this->_conn, "QUIT\r\n");
-		@fclose($this->_conn);
+		@fwrite($this->conn, "QUIT\r\n");
+		@fclose($this->conn);
 
 		return true;
 	}
@@ -410,12 +421,13 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			if (($ret = @ftp_pwd($this->_conn)) === false)
+			if (($ret = @ftp_pwd($this->conn)) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return $ret;
 		}
 
@@ -424,13 +436,13 @@ class Ftp
 		// Send print working directory command and verify success
 		if (!$this->_putCmd('PWD', 257))
 		{
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 257]', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 257]', __METHOD__, $this->response), Log::WARNING, 'jerror');
 
 			return false;
 		}
 
 		// Match just the path
-		preg_match('/"[^"\r\n]*"/', $this->_response, $match);
+		preg_match('/"[^"\r\n]*"/', $this->response, $match);
 
 		// Return the cleaned path
 		return preg_replace("/\"/", "", $match[0]);
@@ -448,7 +460,7 @@ class Ftp
 		// If native FTP support is enabled lets use it...
 		if (FTP_NATIVE)
 		{
-			if (($ret = @ftp_systype($this->_conn)) === false)
+			if (($ret = @ftp_systype($this->conn)) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
@@ -460,11 +472,12 @@ class Ftp
 			// Send print working directory command and verify success
 			if (!$this->_putCmd('SYST', 215))
 			{
-				Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 215]', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+				Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 215]', __METHOD__, $this->response), Log::WARNING, 'jerror');
 
 				return false;
 			}
-			$ret = $this->_response;
+
+			$ret = $this->response;
 		}
 
 		// Match the system string to an OS
@@ -499,19 +512,23 @@ class Ftp
 		// If native FTP support is enabled lets use it...
 		if (FTP_NATIVE)
 		{
-			if (@ftp_chdir($this->_conn, $path) === false)
+			if (@ftp_chdir($this->conn, $path) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return true;
 		}
 
 		// Send change directory command and verify success
 		if (!$this->_putCmd('CWD ' . $path, 250))
 		{
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 250].  Sent path: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 250].  Sent path: %3$s', __METHOD__, $this->response, $path),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -533,19 +550,20 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			if (@ftp_site($this->_conn, 'REIN') === false)
+			if (@ftp_site($this->conn, 'REIN') === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return true;
 		}
 
 		// Send reinitialise command to the server
 		if (!$this->_putCmd('REIN', 220))
 		{
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 220]', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 220]', __METHOD__, $this->response), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -568,7 +586,7 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			if (@ftp_rename($this->_conn, $from, $to) === false)
+			if (@ftp_rename($this->conn, $from, $to) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
@@ -581,7 +599,10 @@ class Ftp
 		// Send rename from command to the server
 		if (!$this->_putCmd('RNFR ' . $from, 350))
 		{
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 350].  From path sent: %3$s', __METHOD__, $this->_response, $from), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 350].  From path sent: %3$s', __METHOD__, $this->response, $from),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -589,7 +610,10 @@ class Ftp
 		// Send rename to command to the server
 		if (!$this->_putCmd('RNTO ' . $to, 250))
 		{
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 250].  To path sent: %3$s', __METHOD__, $this->_response, $to), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 250].  To path sent: %3$s', __METHOD__, $this->response, $to),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -624,7 +648,7 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			if (@ftp_site($this->_conn, 'CHMOD ' . $mode . ' ' . $path) === false)
+			if (@ftp_site($this->conn, 'CHMOD ' . $mode . ' ' . $path) === false)
 			{
 				if (!IS_WIN)
 				{
@@ -646,7 +670,7 @@ class Ftp
 					sprintf(
 						'%1$s: Bad response.  Server response: %2$s [Expected: 250].  Path sent: %3$s.  Mode sent: %4$s',
 						__METHOD__,
-						$this->_response,
+						$this->response,
 						$path,
 						$mode
 					),
@@ -654,8 +678,10 @@ class Ftp
 					'jerror'
 				);
 			}
+
 			return false;
 		}
+
 		return true;
 	}
 
@@ -673,15 +699,16 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			if (@ftp_delete($this->_conn, $path) === false)
+			if (@ftp_delete($this->conn, $path) === false)
 			{
-				if (@ftp_rmdir($this->_conn, $path) === false)
+				if (@ftp_rmdir($this->conn, $path) === false)
 				{
 					Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 					return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -690,11 +717,15 @@ class Ftp
 		{
 			if (!$this->_putCmd('RMD ' . $path, 250))
 			{
-				Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 250].  Path sent: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+				Log::add(
+					sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 250].  Path sent: %3$s', __METHOD__, $this->response, $path),
+					Log::WARNING, 'jerror'
+				);
 
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -712,22 +743,27 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			if (@ftp_mkdir($this->_conn, $path) === false)
+			if (@ftp_mkdir($this->conn, $path) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return true;
 		}
 
 		// Send change directory command and verify success
 		if (!$this->_putCmd('MKD ' . $path, 257))
 		{
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 257].  Path sent: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 257].  Path sent: %3$s', __METHOD__, $this->response, $path),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
+
 		return true;
 	}
 
@@ -745,19 +781,25 @@ class Ftp
 		// If native FTP support is enabled let's use it...
 		if (FTP_NATIVE)
 		{
-			if (@ftp_site($this->_conn, 'REST ' . $point) === false)
+			if (@ftp_site($this->conn, 'REST ' . $point) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return true;
 		}
 
 		// Send restart command and verify success
 		if (!$this->_putCmd('REST ' . $point, 350))
 		{
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 350].  Restart point sent: %3$s', __METHOD__, $this->_response, $point), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf(
+					'%1$s: Bad response.  Server response: %2$s [Expected: 350].  Restart point sent: %3$s', __METHOD__, $this->response, $point
+				),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -780,7 +822,7 @@ class Ftp
 		if (FTP_NATIVE)
 		{
 			// Turn passive mode on
-			if (@ftp_pasv($this->_conn, true) === false)
+			if (@ftp_pasv($this->conn, true) === false)
 			{
 				Log::add(__METHOD__ . ': Unable to use passive mode.', Log::WARNING, 'jerror');
 
@@ -789,13 +831,14 @@ class Ftp
 
 			$buffer = fopen('buffer://tmp', 'r');
 
-			if (@ftp_fput($this->_conn, $path, $buffer, FTP_ASCII) === false)
+			if (@ftp_fput($this->conn, $path, $buffer, FTP_ASCII) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 				fclose($buffer);
 
 				return false;
 			}
+
 			fclose($buffer);
 
 			return true;
@@ -811,18 +854,24 @@ class Ftp
 
 		if (!$this->_putCmd('STOR ' . $path, array(150, 125)))
 		{
-			@ fclose($this->_dataconn);
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+			@ fclose($this->dataconn);
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->response, $path),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
 
 		// To create a zero byte upload close the data port connection
-		fclose($this->_dataconn);
+		fclose($this->dataconn);
 
 		if (!$this->_verifyResponse(226))
 		{
-			Log::add(sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->response, $path),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -849,7 +898,7 @@ class Ftp
 		if (FTP_NATIVE)
 		{
 			// Turn passive mode on
-			if (@ftp_pasv($this->_conn, true) === false)
+			if (@ftp_pasv($this->conn, true) === false)
 			{
 				Log::add(__METHOD__ . ': Unable to use passive mode.', Log::WARNING, 'jerror');
 
@@ -858,13 +907,14 @@ class Ftp
 
 			$tmp = fopen('buffer://tmp', 'br+');
 
-			if (@ftp_fget($this->_conn, $tmp, $remote, $mode) === false)
+			if (@ftp_fget($this->conn, $tmp, $remote, $mode) === false)
 			{
 				fclose($tmp);
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			// Read tmp buffer contents
 			rewind($tmp);
 			$buffer = '';
@@ -873,6 +923,7 @@ class Ftp
 			{
 				$buffer .= fread($tmp, 8192);
 			}
+
 			fclose($tmp);
 
 			return true;
@@ -890,8 +941,11 @@ class Ftp
 
 		if (!$this->_putCmd('RETR ' . $remote, array(150, 125)))
 		{
-			@ fclose($this->_dataconn);
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->_response, $remote), Log::WARNING, 'jerror');
+			@ fclose($this->dataconn);
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->response, $remote),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -899,13 +953,13 @@ class Ftp
 		// Read data from data port connection and add to the buffer
 		$buffer = '';
 
-		while (!feof($this->_dataconn))
+		while (!feof($this->dataconn))
 		{
-			$buffer .= fread($this->_dataconn, 4096);
+			$buffer .= fread($this->dataconn, 4096);
 		}
 
 		// Close the data port connection
-		fclose($this->_dataconn);
+		fclose($this->dataconn);
 
 		// Let's try to cleanup some line endings if it is ascii
 		if ($mode == FTP_ASCII)
@@ -917,12 +971,18 @@ class Ftp
 				$os = 'WIN';
 			}
 
-			$buffer = preg_replace("/" . CRLF . "/", $this->_lineEndings[$os], $buffer);
+			$buffer = preg_replace("/" . CRLF . "/", $this->lineEndings[$os], $buffer);
 		}
 
 		if (!$this->_verifyResponse(226))
 		{
-			Log::add(sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Restart point sent: %3$s', __METHOD__, $this->_response, $remote), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf(
+					'%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Restart point sent: %3$s',
+					__METHOD__, $this->response, $remote
+				),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -949,19 +1009,20 @@ class Ftp
 		if (FTP_NATIVE)
 		{
 			// Turn passive mode on
-			if (@ftp_pasv($this->_conn, true) === false)
+			if (@ftp_pasv($this->conn, true) === false)
 			{
 				Log::add(__METHOD__ . ': Unable to use passive mode.', Log::WARNING, 'jerror');
 
 				return false;
 			}
 
-			if (@ftp_get($this->_conn, $local, $remote, $mode) === false)
+			if (@ftp_get($this->conn, $local, $remote, $mode) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return true;
 		}
 
@@ -987,26 +1048,32 @@ class Ftp
 
 		if (!$this->_putCmd('RETR ' . $remote, array(150, 125)))
 		{
-			@ fclose($this->_dataconn);
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->_response, $remote), Log::WARNING, 'jerror');
+			@ fclose($this->dataconn);
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->response, $remote),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
 
 		// Read data from data port connection and add to the buffer
-		while (!feof($this->_dataconn))
+		while (!feof($this->dataconn))
 		{
-			$buffer = fread($this->_dataconn, 4096);
+			$buffer = fread($this->dataconn, 4096);
 			fwrite($fp, $buffer, 4096);
 		}
 
 		// Close the data port connection and file pointer
-		fclose($this->_dataconn);
+		fclose($this->dataconn);
 		fclose($fp);
 
 		if (!$this->_verifyResponse(226))
 		{
-			Log::add(sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->_response, $remote), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->response, $remote),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -1040,19 +1107,20 @@ class Ftp
 		if (FTP_NATIVE)
 		{
 			// Turn passive mode on
-			if (@ftp_pasv($this->_conn, true) === false)
+			if (@ftp_pasv($this->conn, true) === false)
 			{
 				Log::add(__METHOD__ . ': Unable to use passive mode.', Log::WARNING, 'jerror');
 
 				return false;
 			}
 
-			if (@ftp_put($this->_conn, $remote, $local, $mode) === false)
+			if (@ftp_put($this->conn, $remote, $local, $mode) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			return true;
 		}
 
@@ -1090,8 +1158,11 @@ class Ftp
 		if (!$this->_putCmd('STOR ' . $remote, array(150, 125)))
 		{
 			@ fclose($fp);
-			@ fclose($this->_dataconn);
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->_response, $remote), Log::WARNING, 'jerror');
+			@ fclose($this->dataconn);
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->response, $remote),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -1103,23 +1174,27 @@ class Ftp
 
 			do
 			{
-				if (($result = @ fwrite($this->_dataconn, $line)) === false)
+				if (($result = @ fwrite($this->dataconn, $line)) === false)
 				{
 					Log::add(__METHOD__ . ': Unable to write to data port socket', Log::WARNING, 'jerror');
 
 					return false;
 				}
+
 				$line = substr($line, $result);
 			}
 			while ($line != "");
 		}
 
 		fclose($fp);
-		fclose($this->_dataconn);
+		fclose($this->dataconn);
 
 		if (!$this->_verifyResponse(226))
 		{
-			Log::add(sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->_response, $remote), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->response, $remote),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -1146,7 +1221,7 @@ class Ftp
 		if (FTP_NATIVE)
 		{
 			// Turn passive mode on
-			if (@ftp_pasv($this->_conn, true) === false)
+			if (@ftp_pasv($this->conn, true) === false)
 			{
 				Log::add(__METHOD__ . ': Unable to use passive mode.', Log::WARNING, 'jerror');
 
@@ -1157,13 +1232,14 @@ class Ftp
 			fwrite($tmp, $buffer);
 			rewind($tmp);
 
-			if (@ftp_fput($this->_conn, $remote, $tmp, $mode) === false)
+			if (@ftp_fput($this->conn, $remote, $tmp, $mode) === false)
 			{
 				fclose($tmp);
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			fclose($tmp);
 
 			return true;
@@ -1183,8 +1259,11 @@ class Ftp
 		// Send store command to the FTP server
 		if (!$this->_putCmd('STOR ' . $remote, array(150, 125)))
 		{
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->_response, $remote), Log::WARNING, 'jerror');
-			@ fclose($this->_dataconn);
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->response, $remote),
+				Log::WARNING, 'jerror'
+			);
+			@ fclose($this->dataconn);
 
 			return false;
 		}
@@ -1192,23 +1271,27 @@ class Ftp
 		// Write buffer to the data connection port
 		do
 		{
-			if (($result = @ fwrite($this->_dataconn, $buffer)) === false)
+			if (($result = @ fwrite($this->dataconn, $buffer)) === false)
 			{
 				Log::add(__METHOD__ . ': Unable to write to data port socket.', Log::WARNING, 'jerror');
 
 				return false;
 			}
+
 			$buffer = substr($buffer, $result);
 		}
 		while ($buffer != "");
 
 		// Close the data connection port [Data transfer complete]
-		fclose($this->_dataconn);
+		fclose($this->dataconn);
 
 		// Verify that the server recieved the transfer
 		if (!$this->_verifyResponse(226))
 		{
-			Log::add(sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->_response, $remote), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->response, $remote),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -1236,14 +1319,14 @@ class Ftp
 		if (FTP_NATIVE)
 		{
 			// Turn passive mode on
-			if (@ftp_pasv($this->_conn, true) === false)
+			if (@ftp_pasv($this->conn, true) === false)
 			{
 				Log::add(__METHOD__ . ': Unable to use passive mode.', Log::WARNING, 'jerror');
 
 				return false;
 			}
 
-			if (($list = @ftp_nlist($this->_conn, $path)) === false)
+			if (($list = @ftp_nlist($this->conn, $path)) === false)
 			{
 				// Workaround for empty directories on some servers
 				if ($this->listDetails($path, 'files') === array())
@@ -1255,6 +1338,7 @@ class Ftp
 
 				return false;
 			}
+
 			$list = preg_replace('#^' . preg_quote($path, '#') . '[/\\\\]?#', '', $list);
 
 			if ($keys = array_merge(array_keys($list, '.'), array_keys($list, '..')))
@@ -1264,6 +1348,7 @@ class Ftp
 					unset($list[$key]);
 				}
 			}
+
 			return $list;
 		}
 
@@ -1285,7 +1370,7 @@ class Ftp
 
 		if (!$this->_putCmd('NLST' . $path, array(150, 125)))
 		{
-			@ fclose($this->_dataconn);
+			@ fclose($this->dataconn);
 
 			// Workaround for empty directories on some servers
 			if ($this->listDetails($path, 'files') === array())
@@ -1293,22 +1378,29 @@ class Ftp
 				return array();
 			}
 
-			Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->response, $path),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
 
 		// Read in the file listing.
-		while (!feof($this->_dataconn))
+		while (!feof($this->dataconn))
 		{
-			$data .= fread($this->_dataconn, 4096);
+			$data .= fread($this->dataconn, 4096);
 		}
-		fclose($this->_dataconn);
+
+		fclose($this->dataconn);
 
 		// Everything go okay?
 		if (!$this->_verifyResponse(226))
 		{
-			Log::add(sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->response, $path),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -1323,6 +1415,7 @@ class Ftp
 				unset($data[$key]);
 			}
 		}
+
 		return $data;
 	}
 
@@ -1350,14 +1443,14 @@ class Ftp
 		if (FTP_NATIVE)
 		{
 			// Turn passive mode on
-			if (@ftp_pasv($this->_conn, true) === false)
+			if (@ftp_pasv($this->conn, true) === false)
 			{
 				Log::add(__METHOD__ . ': Unable to use passive mode.', Log::WARNING, 'jerror');
 
 				return false;
 			}
 
-			if (($contents = @ftp_rawlist($this->_conn, $path)) === false)
+			if (($contents = @ftp_rawlist($this->conn, $path)) === false)
 			{
 				Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 
@@ -1385,23 +1478,33 @@ class Ftp
 			// Request the file listing
 			if (!$this->_putCmd(($recurse == true) ? 'LIST -R' : 'LIST' . $path, array(150, 125)))
 			{
-				@ fclose($this->_dataconn);
-				Log::add(sprintf('%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+				@ fclose($this->dataconn);
+				Log::add(
+					sprintf(
+						'%1$s: Bad response.  Server response: %2$s [Expected: 150 or 125].  Path sent: %3$s',
+						__METHOD__, $this->response, $path
+					),
+					Log::WARNING, 'jerror'
+				);
 
 				return false;
 			}
 
 			// Read in the file listing.
-			while (!feof($this->_dataconn))
+			while (!feof($this->dataconn))
 			{
-				$data .= fread($this->_dataconn, 4096);
+				$data .= fread($this->dataconn, 4096);
 			}
-			fclose($this->_dataconn);
+
+			fclose($this->dataconn);
 
 			// Everything go okay?
 			if (!$this->_verifyResponse(226))
 			{
-				Log::add(sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->_response, $path), Log::WARNING, 'jerror');
+				Log::add(
+					sprintf('%1$s: Transfer failed.  Server response: %2$s [Expected: 226].  Path sent: %3$s', __METHOD__, $this->response, $path),
+					Log::WARNING, 'jerror'
+				);
 
 				return false;
 			}
@@ -1453,6 +1556,7 @@ class Ftp
 				break;
 			}
 		}
+
 		if (!$osType)
 		{
 			Log::add(__METHOD__ . ': Unrecognised directory listing format.', Log::WARNING, 'jerror');
@@ -1485,16 +1589,19 @@ class Ftp
 					$tmp_array['time'] = $regs[7];
 					$tmp_array['name'] = $regs[9];
 				}
+
 				// If we just want files, do not add a folder
 				if ($type == 'files' && $tmp_array['type'] == 1)
 				{
 					continue;
 				}
+
 				// If we just want folders, do not add a file
 				if ($type == 'folders' && $tmp_array['type'] == 0)
 				{
 					continue;
 				}
+
 				if (is_array($tmp_array) && $tmp_array['name'] != '.' && $tmp_array['name'] != '..')
 				{
 					$dir_list[] = $tmp_array;
@@ -1524,16 +1631,19 @@ class Ftp
 					$tmp_array['time'] = date('H:i', $timestamp);
 					$tmp_array['name'] = $regs[8];
 				}
+
 				// If we just want files, do not add a folder
 				if ($type == 'files' && $tmp_array['type'] == 1)
 				{
 					continue;
 				}
+
 				// If we just want folders, do not add a file
 				if ($type == 'folders' && $tmp_array['type'] == 0)
 				{
 					continue;
 				}
+
 				if (is_array($tmp_array) && $tmp_array['name'] != '.' && $tmp_array['name'] != '..')
 				{
 					$dir_list[] = $tmp_array;
@@ -1557,7 +1667,7 @@ class Ftp
 	protected function _putCmd($cmd, $expectedResponse)
 	{
 		// Make sure we have a connection to the server
-		if (!is_resource($this->_conn))
+		if (!is_resource($this->conn))
 		{
 			Log::add(__METHOD__ . ': Not connected to the control port.', Log::WARNING, 'jerror');
 
@@ -1565,7 +1675,7 @@ class Ftp
 		}
 
 		// Send the command to the server
-		if (!fwrite($this->_conn, $cmd . "\r\n"))
+		if (!fwrite($this->conn, $cmd . "\r\n"))
 		{
 			Log::add(sprintf('%1$s: Unable to send command: %2$s', __METHOD__, $cmd), Log::WARNING, 'jerror');
 		}
@@ -1587,19 +1697,25 @@ class Ftp
 		$parts = null;
 
 		// Wait for a response from the server, but timeout after the set time limit
-		$endTime = time() + $this->_timeout;
-		$this->_response = '';
+		$endTime = time() + $this->timeout;
+		$this->response = '';
 
 		do
 		{
-			$this->_response .= fgets($this->_conn, 4096);
+			$this->response .= fgets($this->conn, 4096);
 		}
-		while (!preg_match("/^([0-9]{3})(-(.*" . CRLF . ")+\\1)? [^" . CRLF . "]+" . CRLF . "$/", $this->_response, $parts) && time() < $endTime);
+		while (!preg_match("/^([0-9]{3})(-(.*" . CRLF . ")+\\1)? [^" . CRLF . "]+" . CRLF . "$/", $this->response, $parts) && time() < $endTime);
 
 		// Catch a timeout or bad response
 		if (!isset($parts[1]))
 		{
-			Log::add(sprintf('%1$s: Timeout or unrecognised response while waiting for a response from the server. Server response: %2$s', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf(
+					'%1$s: Timeout or unrecognised response while waiting for a response from the server. Server response: %2$s',
+					__METHOD__, $this->response
+				),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -1631,6 +1747,7 @@ class Ftp
 				$retval = false;
 			}
 		}
+
 		return $retval;
 	}
 
@@ -1649,7 +1766,7 @@ class Ftp
 		$err = null;
 
 		// Make sure we have a connection to the server
-		if (!is_resource($this->_conn))
+		if (!is_resource($this->conn))
 		{
 			Log::add(__METHOD__ . ': Not connected to the control port.', Log::WARNING, 'jerror');
 
@@ -1657,22 +1774,27 @@ class Ftp
 		}
 
 		// Request a passive connection - this means, we'll talk to you, you don't talk to us.
-		@ fwrite($this->_conn, "PASV\r\n");
+		@ fwrite($this->conn, "PASV\r\n");
 
 		// Wait for a response from the server, but timeout after the set time limit
-		$endTime = time() + $this->_timeout;
-		$this->_response = '';
+		$endTime = time() + $this->timeout;
+		$this->response = '';
 
 		do
 		{
-			$this->_response .= fgets($this->_conn, 4096);
+			$this->response .= fgets($this->conn, 4096);
 		}
-		while (!preg_match("/^([0-9]{3})(-(.*" . CRLF . ")+\\1)? [^" . CRLF . "]+" . CRLF . "$/", $this->_response, $parts) && time() < $endTime);
+		while (!preg_match("/^([0-9]{3})(-(.*" . CRLF . ")+\\1)? [^" . CRLF . "]+" . CRLF . "$/", $this->response, $parts) && time() < $endTime);
 
 		// Catch a timeout or bad response
 		if (!isset($parts[1]))
 		{
-			Log::add(sprintf('%1$s: Timeout or unrecognised response while waiting for a response from the server. Server response: %2$s', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf(
+					'%1$s: Timeout or unrecognised response while waiting for a response from the server. Server response: %2$s',
+					__METHOD__, $this->response
+				),
+				Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -1684,7 +1806,10 @@ class Ftp
 		// If it's not 227, we weren't given an IP and port, which means it failed.
 		if ($this->_responseCode != '227')
 		{
-			Log::add(sprintf('%1$s: Unable to obtain IP and port for data transfer. Server response: %2$s', __METHOD__, $this->_responseMsg), Log::WARNING, 'jerror');
+			Log::add(
+				sprintf('%1$s: Unable to obtain IP and port for data transfer. Server response: %2$s', __METHOD__, $this->_responseMsg),
+				Log::WARNING, 'jerror'
+			);
 
 			return false;
 		}
@@ -1698,19 +1823,19 @@ class Ftp
 		}
 
 		// This is pretty simple - store it for later use ;).
-		$this->_pasv = array('ip' => $match[1] . '.' . $match[2] . '.' . $match[3] . '.' . $match[4], 'port' => $match[5] * 256 + $match[6]);
+		$this->pasv = array('ip' => $match[1] . '.' . $match[2] . '.' . $match[3] . '.' . $match[4], 'port' => $match[5] * 256 + $match[6]);
 
 		// Connect, assuming we've got a connection.
-		$this->_dataconn = @fsockopen($this->_pasv['ip'], $this->_pasv['port'], $errno, $err, $this->_timeout);
+		$this->dataconn = @fsockopen($this->pasv['ip'], $this->pasv['port'], $errno, $err, $this->timeout);
 
-		if (!$this->_dataconn)
+		if (!$this->dataconn)
 		{
 			Log::add(
 				sprintf(
 					'%1$s: Could not connect to host %2$s on port %3$s. Socket error number: %4$s and error message: %5$s',
 					__METHOD__,
-					$this->_pasv['ip'],
-					$this->_pasv['port'],
+					$this->pasv['ip'],
+					$this->pasv['port'],
 					$errno,
 					$err
 				),
@@ -1722,7 +1847,7 @@ class Ftp
 		}
 
 		// Set the timeout for this connection
-		socket_set_timeout($this->_conn, $this->_timeout, 0);
+		socket_set_timeout($this->conn, $this->timeout, 0);
 
 		return true;
 	}
@@ -1738,12 +1863,12 @@ class Ftp
 	 */
 	protected function _findMode($fileName)
 	{
-		if ($this->_type == FTP_AUTOASCII)
+		if ($this->type == FTP_AUTOASCII)
 		{
 			$dot = strrpos($fileName, '.') + 1;
 			$ext = substr($fileName, $dot);
 
-			if (in_array($ext, $this->_autoAscii))
+			if (in_array($ext, $this->autoAscii))
 			{
 				$mode = FTP_ASCII;
 			}
@@ -1752,7 +1877,7 @@ class Ftp
 				$mode = FTP_BINARY;
 			}
 		}
-		elseif ($this->_type == FTP_ASCII)
+		elseif ($this->type == FTP_ASCII)
 		{
 			$mode = FTP_ASCII;
 		}
@@ -1760,6 +1885,7 @@ class Ftp
 		{
 			$mode = FTP_BINARY;
 		}
+
 		return $mode;
 	}
 
@@ -1779,7 +1905,10 @@ class Ftp
 		{
 			if (!$this->_putCmd("TYPE I", 200))
 			{
-				Log::add(sprintf('%1$s: Bad response. Server response: %2$s [Expected: 200]. Mode sent: Binary', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+				Log::add(
+					sprintf('%1$s: Bad response. Server response: %2$s [Expected: 200]. Mode sent: Binary', __METHOD__, $this->response),
+					Log::WARNING, 'jerror'
+				);
 
 				return false;
 			}
@@ -1788,11 +1917,15 @@ class Ftp
 		{
 			if (!$this->_putCmd("TYPE A", 200))
 			{
-				Log::add(sprintf('%1$s: Bad response. Server response: %2$s [Expected: 200]. Mode sent: ASCII', __METHOD__, $this->_response), Log::WARNING, 'jerror');
+				Log::add(
+					sprintf('%1$s: Bad response. Server response: %2$s [Expected: 200]. Mode sent: ASCII', __METHOD__, $this->response),
+					Log::WARNING, 'jerror'
+				);
 
 				return false;
 			}
 		}
+
 		return true;
 	}
 }

@@ -197,5 +197,6 @@ class Buffer
 		}
 	}
 }
+
 // Register the stream
 stream_wrapper_register('buffer', '\\Joomla\\Client\\Buffer');

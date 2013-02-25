@@ -34,7 +34,6 @@ class JDatabaseDriverTest extends TestCaseDatabase
 	 */
 	protected function setUp()
 	{
-
 		$this->db = JDatabaseDriver::getInstance(
 			array(
 				'driver' => 'nosql',
@@ -95,7 +94,6 @@ class JDatabaseDriverTest extends TestCaseDatabase
 	 */
 	public function test__callUnknown()
 	{
-
 		$this->assertThat(
 			$this->db->foo(),
 			$this->isNull(),
@@ -443,6 +441,7 @@ class JDatabaseDriverTest extends TestCaseDatabase
 			'Tests handling of null with escaping (default).'
 		);
 	}
+
 	/**
 	 * Tests the JDatabaseDriver::quote method.
 	 *

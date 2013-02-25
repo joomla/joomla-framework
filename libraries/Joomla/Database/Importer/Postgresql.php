@@ -632,10 +632,12 @@ class Postgresql extends Importer
 			{
 				$kName = $key->Index;
 			}
+
 			if (empty($lookup[$kName]))
 			{
 				$lookup[$kName] = array();
 			}
+
 			$lookup[$kName][] = $key;
 		}
 
@@ -667,10 +669,12 @@ class Postgresql extends Importer
 			{
 				$sName = $seq->Name;
 			}
+
 			if (empty($lookup[$sName]))
 			{
 				$lookup[$sName] = array();
 			}
+
 			$lookup[$sName][] = $seq;
 		}
 
@@ -751,7 +755,6 @@ class Postgresql extends Importer
 						}
 						$this->addLog('Pass: ' . $this->db->getQuery());
 					}
-
 				}
 			}
 			else

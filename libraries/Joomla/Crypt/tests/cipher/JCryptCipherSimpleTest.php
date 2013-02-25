@@ -23,7 +23,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 * @var    JCryptCipherSimple
 	 * @since  12.1
 	 */
-	private $_cipher;
+	private $cipher;
 
 	/**
 	 * Prepares the environment before running a test.
@@ -36,7 +36,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->_cipher = new Cipher_Simple;
+		$this->cipher = new Cipher_Simple;
 
 		$this->key = new Key('simple');
 		$this->key->private = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUgkVF4mLxAUf80ZJPAJHXHoac';
@@ -52,7 +52,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->_cipher = null;
+		$this->cipher = null;
 		$this->key = null;
 
 		parent::tearDown();
@@ -97,7 +97,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	public function testDecrypt($file, $data)
 	{
 		$encrypted = file_get_contents(__DIR__ . '/stubs/encrypted/simple/' . $file);
-		$decrypted = $this->_cipher->decrypt($encrypted, $this->key);
+		$decrypted = $this->cipher->decrypt($encrypted, $this->key);
 
 		// Assert that the decrypted values are the same as the expected ones.
 		$this->assertEquals($data, $decrypted);
@@ -116,7 +116,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEncrypt($file, $data)
 	{
-		$encrypted = $this->_cipher->encrypt($data, $this->key);
+		$encrypted = $this->cipher->encrypt($data, $this->key);
 
 		// Assert that the encrypted value is not the same as the clear text value.
 		$this->assertNotEquals($data, $encrypted);
@@ -134,7 +134,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGenerateKey()
 	{
-		$key = $this->_cipher->generateKey();
+		$key = $this->cipher->generateKey();
 
 		// Assert that the key is the correct type.
 		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);

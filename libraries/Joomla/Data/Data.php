@@ -38,7 +38,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 * @var    array
 	 * @since  12.3
 	 */
-	private $_properties = array();
+	private $properties = array();
 
 	/**
 	 * The class constructor.
@@ -92,7 +92,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 */
 	public function __isset($property)
 	{
-		return isset($this->_properties[$property]);
+		return isset($this->properties[$property]);
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 */
 	public function __unset($property)
 	{
-		unset($this->_properties[$property]);
+		unset($this->properties[$property]);
 	}
 
 	/**
@@ -152,8 +152,8 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 			// Convert iterator to array.
 			$properties = iterator_to_array($properties);
 		}
-		// Check if the object needs to be converted to an array.
 		elseif (is_object($properties))
+		// Check if the object needs to be converted to an array.
 		{
 			// Convert properties to an array.
 			$properties = (array) $properties;
@@ -202,7 +202,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 		$dump = new stdClass;
 
 		// Dump all object properties.
-		foreach (array_keys($this->_properties) as $property)
+		foreach (array_keys($this->properties) as $property)
 		{
 			// Get the property.
 			$dump->$property = $this->dumpProperty($property, $depth, $dumped);
@@ -267,13 +267,14 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 					$value = $value->dump($depth - 1, $dumped);
 				}
 			}
+
 			// Check if the object is a date.
 			if ($value instanceof Date)
 			{
 				$value = (string) $value;
 			}
-			// Check if the object is a registry.
 			elseif ($value instanceof Registry)
+			// Check if the object is a registry.
 			{
 				$value = $value->toObject();
 			}
@@ -295,7 +296,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	protected function getProperty($property)
 	{
 		// Get the raw value.
-		$value = array_key_exists($property, $this->_properties) ? $this->_properties[$property] : null;
+		$value = array_key_exists($property, $this->properties) ? $this->properties[$property] : null;
 
 		return $value;
 	}
@@ -325,7 +326,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 		}
 
 		// Set the value.
-		$this->_properties[$property] = $value;
+		$this->properties[$property] = $value;
 
 		return $value;
 	}
@@ -339,6 +340,6 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 */
 	public function count()
 	{
-		return count($this->_properties);
+		return count($this->properties);
 	}
 }

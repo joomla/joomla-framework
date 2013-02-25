@@ -368,8 +368,8 @@ class Mysqli extends Driver
 				$result[$field->Field] = preg_replace("/[(0-9)]/", '', $field->Type);
 			}
 		}
-		// If we want the whole field data object add that to the list.
 		else
+		// If we want the whole field data object add that to the list.
 		{
 			foreach ($fields as $field)
 			{
@@ -526,8 +526,8 @@ class Mysqli extends Driver
 					$this->connection = null;
 					$this->connect();
 				}
-				// If connect fails, ignore that exception and throw the normal exception.
 				catch (RuntimeException $e)
+				// If connect fails, ignore that exception and throw the normal exception.
 				{
 					Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
 					throw new RuntimeException($this->errorMsg, $this->errorNum);
@@ -536,8 +536,8 @@ class Mysqli extends Driver
 				// Since we were able to reconnect, run the query again.
 				return $this->execute();
 			}
-			// The server was not disconnected.
 			else
+			// The server was not disconnected.
 			{
 				Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
 				throw new RuntimeException($this->errorMsg, $this->errorNum);

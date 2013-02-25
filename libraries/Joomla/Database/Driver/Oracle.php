@@ -581,6 +581,7 @@ class Oracle extends Pdo
 				{
 					break;
 				}
+
 				$l = $k - 1;
 
 				while ($l >= 0 && $sql{$l} == '\\')
@@ -588,21 +589,26 @@ class Oracle extends Pdo
 					$l--;
 					$escaped = !$escaped;
 				}
+
 				if ($escaped)
 				{
 					$j = $k + 1;
 					continue;
 				}
+
 				break;
 			}
+
 			if ($k === false)
 			{
 				// Error in the query - no end quote; ignore it
 				break;
 			}
+
 			$literal .= substr($sql, $startPos, $k - $startPos + 1);
 			$startPos = $k + 1;
 		}
+
 		if ($startPos < $n)
 		{
 			$literal .= substr($sql, $startPos, $n - $startPos);

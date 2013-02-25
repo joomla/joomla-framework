@@ -286,5 +286,4 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	{
 		return parent::withStructure($setting);
 	}
-
 }

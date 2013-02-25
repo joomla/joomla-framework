@@ -288,8 +288,8 @@ class Mysql extends Mysqli
 					$this->connection = null;
 					$this->connect();
 				}
-				// If connect fails, ignore that exception and throw the normal exception.
 				catch (RuntimeException $e)
+				// If connect fails, ignore that exception and throw the normal exception.
 				{
 					// Get the error number and message.
 					$this->errorNum = (int) mysql_errno($this->connection);
@@ -303,8 +303,8 @@ class Mysql extends Mysqli
 				// Since we were able to reconnect, run the query again.
 				return $this->execute();
 			}
-			// The server was not disconnected.
 			else
+			// The server was not disconnected.
 			{
 				// Get the error number and message.
 				$this->errorNum = (int) mysql_errno($this->connection);

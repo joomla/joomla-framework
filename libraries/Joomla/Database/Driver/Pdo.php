@@ -436,8 +436,8 @@ abstract class Pdo extends Driver
 					$this->connection = null;
 					$this->connect();
 				}
-				// If connect fails, ignore that exception and throw the normal exception.
 				catch (RuntimeException $e)
+				// If connect fails, ignore that exception and throw the normal exception.
 				{
 					// Get the error number and message.
 					$this->errorNum = (int) $this->connection->errorCode();
@@ -451,8 +451,8 @@ abstract class Pdo extends Driver
 				// Since we were able to reconnect, run the query again.
 				return $this->execute();
 			}
-			// The server was not disconnected.
 			else
+			// The server was not disconnected.
 			{
 				// Get the error number and message from before we tried to reconnect.
 				$this->errorNum = $errorNum;
@@ -567,8 +567,8 @@ abstract class Pdo extends Driver
 			$this->setQuery($this->getConnectedQuery());
 			$status = (bool) $this->loadResult();
 		}
-		// If we catch an exception here, we must not be connected.
 		catch (Exception $e)
+		// If we catch an exception here, we must not be connected.
 		{
 			$status = false;
 		}
@@ -796,6 +796,7 @@ abstract class Pdo extends Driver
 		{
 			return $cursor->fetch(\PDO::FETCH_NUM);
 		}
+
 		if ($this->prepared instanceof PDOStatement)
 		{
 			return $this->prepared->fetch(\PDO::FETCH_NUM);
@@ -817,6 +818,7 @@ abstract class Pdo extends Driver
 		{
 			return $cursor->fetch(\PDO::FETCH_ASSOC);
 		}
+
 		if ($this->prepared instanceof PDOStatement)
 		{
 			return $this->prepared->fetch(\PDO::FETCH_ASSOC);
@@ -839,6 +841,7 @@ abstract class Pdo extends Driver
 		{
 			return $cursor->fetchObject($class);
 		}
+
 		if ($this->prepared instanceof PDOStatement)
 		{
 			return $this->prepared->fetchObject($class);
@@ -863,6 +866,7 @@ abstract class Pdo extends Driver
 			$cursor->closeCursor();
 			$cursor = null;
 		}
+
 		if ($this->prepared instanceof PDOStatement)
 		{
 			$this->prepared->closeCursor();

@@ -192,7 +192,6 @@ class Postgresql extends Query implements Limitable
 			default:
 				$query = parent::__toString();
 				break;
-
 		}
 
 		return $query;

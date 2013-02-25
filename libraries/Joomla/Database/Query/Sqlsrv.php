@@ -65,8 +65,8 @@ class Sqlsrv extends Query
 				{
 					$query .= (string) $this->set;
 				}
-				// Columns-Values method
 				elseif ($this->values)
+				// Columns-Values method
 				{
 					if ($this->columns)
 					{

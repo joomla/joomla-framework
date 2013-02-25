@@ -24,13 +24,13 @@ class Crypt
 	 * @var    JCryptCipher  The encryption cipher object.
 	 * @since  12.1
 	 */
-	private $_cipher;
+	private $cipher;
 
 	/**
 	 * @var    JCryptKey  The encryption key[/pair)].
 	 * @since  12.1
 	 */
-	private $_key;
+	private $key;
 
 	/**
 	 * Object Constructor takes an optional key to be used for encryption/decryption. If no key is given then the
@@ -44,10 +44,10 @@ class Crypt
 	public function __construct(Cipher $cipher = null, Key $key = null)
 	{
 		// Set the encryption key[/pair)].
-		$this->_key = $key;
+		$this->key = $key;
 
 		// Set the encryption cipher.
-		$this->_cipher = isset($cipher) ? $cipher : new Cipher_Simple;
+		$this->cipher = isset($cipher) ? $cipher : new Cipher_Simple;
 	}
 
 	/**
@@ -61,7 +61,7 @@ class Crypt
 	 */
 	public function decrypt($data)
 	{
-		return $this->_cipher->decrypt($data, $this->_key);
+		return $this->cipher->decrypt($data, $this->key);
 	}
 
 	/**
@@ -75,7 +75,7 @@ class Crypt
 	 */
 	public function encrypt($data)
 	{
-		return $this->_cipher->encrypt($data, $this->_key);
+		return $this->cipher->encrypt($data, $this->key);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class Crypt
 	 */
 	public function generateKey(array $options = array())
 	{
-		return $this->_cipher->generateKey($options);
+		return $this->cipher->generateKey($options);
 	}
 
 	/**
@@ -103,7 +103,7 @@ class Crypt
 	 */
 	public function setKey(Key $key)
 	{
-		$this->_key = $key;
+		$this->key = $key;
 
 		return $this;
 	}
@@ -199,6 +199,7 @@ class Crypt
 					{
 						$hash = sha1($hash, true);
 					}
+
 					$microEnd = microtime(true) * 1000000;
 					$entropy .= $microStart . $microEnd;
 
@@ -206,8 +207,10 @@ class Crypt
 					{
 						$microEnd += 1000000;
 					}
+
 					$duration += $microEnd - $microStart;
 				}
+
 				$duration = $duration / $samples;
 
 				/*
@@ -231,6 +234,7 @@ class Crypt
 					{
 						$hash = sha1($hash, true);
 					}
+
 					$entropy .= $microStart . microtime(true);
 				}
 			}

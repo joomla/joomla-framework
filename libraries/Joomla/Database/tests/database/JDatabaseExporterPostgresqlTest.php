@@ -35,7 +35,7 @@ class JDatabaseExporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 * @var    bool  Boolean value to know if current database version is newer than 9.1.0
 	 * @since  12.1
 	 */
-	private $_ver9dot1 = true;
+	private $ver9dot1 = true;
 
 	/**
 	 * Sets up the testing conditions
@@ -146,13 +146,13 @@ class JDatabaseExporterPostgresqlTest extends PHPUnit_Framework_TestCase
 
 		if (version_compare($this->dbo->getVersion(), '9.1.0') >= 0)
 		{
-			$this->_ver9dot1 = true;
+			$this->ver9dot1 = true;
 			$start_val = '1';
 		}
 		else
 		{
 			/* Older version */
-			$this->_ver9dot1 = false;
+			$this->ver9dot1 = false;
 			$start_val = null;
 		}
 
@@ -270,7 +270,7 @@ class JDatabaseExporterPostgresqlTest extends PHPUnit_Framework_TestCase
 		/* Depending on which version is running, 9.1.0 or older */
 		$start_val = null;
 
-		if ($this->_ver9dot1)
+		if ($this->ver9dot1)
 		{
 			$start_val = '1';
 		}
@@ -346,7 +346,7 @@ class JDatabaseExporterPostgresqlTest extends PHPUnit_Framework_TestCase
 		/* Depending on which version is running, 9.1.0 or older */
 		$start_val = null;
 
-		if ($this->_ver9dot1)
+		if ($this->ver9dot1)
 		{
 			$start_val = '1';
 		}
@@ -396,7 +396,7 @@ class JDatabaseExporterPostgresqlTest extends PHPUnit_Framework_TestCase
 		/* Depending on which version is running, 9.1.0 or older */
 		$start_val = null;
 
-		if ($this->_ver9dot1)
+		if ($this->ver9dot1)
 		{
 			$start_val = '1';
 		}
@@ -630,7 +630,6 @@ class JDatabaseExporterPostgresqlTest extends PHPUnit_Framework_TestCase
 				$this->identicalTo($instance),
 				'setDbo must return an object to support chaining.'
 			);
-
 		}
 		catch (PHPUnit_Framework_Error $e)
 		{

@@ -91,14 +91,14 @@ class Ldap
 	 * @var    mixed  LDAP Resource Identifier
 	 * @since  12.1
 	 */
-	private $_resource = null;
+	private $resource = null;
 
 	/**
 	 *
 	 * @var    string  Current DN
 	 * @since  12.1
 	 */
-	private $_dn = null;
+	private $dn = null;
 
 	/**
 	 * Constructor
@@ -141,28 +141,32 @@ class Ldap
 		{
 			return false;
 		}
-		$this->_resource = @ ldap_connect($this->host, $this->port);
 
-		if ($this->_resource)
+		$this->resource = @ ldap_connect($this->host, $this->port);
+
+		if ($this->resource)
 		{
 			if ($this->use_ldapV3)
 			{
-				if (!@ldap_set_option($this->_resource, LDAP_OPT_PROTOCOL_VERSION, 3))
+				if (!@ldap_set_option($this->resource, LDAP_OPT_PROTOCOL_VERSION, 3))
 				{
 					return false;
 				}
 			}
-			if (!@ldap_set_option($this->_resource, LDAP_OPT_REFERRALS, (int) $this->no_referrals))
+
+			if (!@ldap_set_option($this->resource, LDAP_OPT_REFERRALS, (int) $this->no_referrals))
 			{
 				return false;
 			}
+
 			if ($this->negotiate_tls)
 			{
-				if (!@ldap_start_tls($this->_resource))
+				if (!@ldap_start_tls($this->resource))
 				{
 					return false;
 				}
 			}
+
 			return true;
 		}
 		else
@@ -180,7 +184,7 @@ class Ldap
 	 */
 	public function close()
 	{
-		@ ldap_close($this->_resource);
+		@ ldap_close($this->resource);
 	}
 
 	/**
@@ -197,15 +201,15 @@ class Ldap
 	{
 		if ($this->users_dn == '' || $nosub)
 		{
-			$this->_dn = $username;
+			$this->dn = $username;
 		}
 		elseif (strlen($username))
 		{
-			$this->_dn = str_replace('[username]', $username, $this->users_dn);
+			$this->dn = str_replace('[username]', $username, $this->users_dn);
 		}
 		else
 		{
-			$this->_dn = '';
+			$this->dn = '';
 		}
 	}
 
@@ -218,7 +222,7 @@ class Ldap
 	 */
 	public function getDN()
 	{
-		return $this->_dn;
+		return $this->dn;
 	}
 
 	/**
@@ -230,7 +234,7 @@ class Ldap
 	 */
 	public function anonymous_bind()
 	{
-		$bindResult = @ldap_bind($this->_resource);
+		$bindResult = @ldap_bind($this->resource);
 
 		return $bindResult;
 	}
@@ -252,12 +256,14 @@ class Ldap
 		{
 			$username = $this->username;
 		}
+
 		if (is_null($password))
 		{
 			$password = $this->password;
 		}
+
 		$this->setDN($username, $nosub);
-		$bindResult = @ldap_bind($this->_resource, $this->getDN(), $password);
+		$bindResult = @ldap_bind($this->resource, $this->getDN(), $password);
 
 		return $bindResult;
 	}
@@ -279,6 +285,7 @@ class Ldap
 		{
 			$results[$key] = '(' . $result . ')';
 		}
+
 		return $this->search($results);
 	}
 
@@ -306,7 +313,7 @@ class Ldap
 			$dn = $this->base_dn;
 		}
 
-		$resource = $this->_resource;
+		$resource = $this->resource;
 
 		foreach ($filters as $search_filter)
 		{
@@ -349,6 +356,7 @@ class Ldap
 				}
 			}
 		}
+
 		return $result;
 	}
 
@@ -364,7 +372,7 @@ class Ldap
 	 */
 	public function replace($dn, $attribute)
 	{
-		return @ldap_mod_replace($this->_resource, $dn, $attribute);
+		return @ldap_mod_replace($this->resource, $dn, $attribute);
 	}
 
 	/**
@@ -379,7 +387,7 @@ class Ldap
 	 */
 	public function modify($dn, $attribute)
 	{
-		return @ldap_modify($this->_resource, $dn, $attribute);
+		return @ldap_modify($this->resource, $dn, $attribute);
 	}
 
 	/**
@@ -394,7 +402,7 @@ class Ldap
 	 */
 	public function remove($dn, $attribute)
 	{
-		$resource = $this->_resource;
+		$resource = $this->resource;
 
 		return @ldap_mod_del($resource, $dn, $attribute);
 	}
@@ -412,7 +420,7 @@ class Ldap
 	 */
 	public function compare($dn, $attribute, $value)
 	{
-		return @ldap_compare($this->_resource, $dn, $attribute, $value);
+		return @ldap_compare($this->resource, $dn, $attribute, $value);
 	}
 
 	/**
@@ -428,11 +436,11 @@ class Ldap
 	{
 		$base = substr($dn, strpos($dn, ',') + 1);
 		$cn = substr($dn, 0, strpos($dn, ','));
-		$result = @ldap_read($this->_resource, $base, $cn);
+		$result = @ldap_read($this->resource, $base, $cn);
 
 		if ($result)
 		{
-			return @ldap_get_entries($this->_resource, $result);
+			return @ldap_get_entries($this->resource, $result);
 		}
 		else
 		{
@@ -451,7 +459,7 @@ class Ldap
 	 */
 	public function delete($dn)
 	{
-		return @ldap_delete($this->_resource, $dn);
+		return @ldap_delete($this->resource, $dn);
 	}
 
 	/**
@@ -466,7 +474,7 @@ class Ldap
 	 */
 	public function create($dn, array $entries)
 	{
-		return @ldap_add($this->_resource, $dn, $entries);
+		return @ldap_add($this->resource, $dn, $entries);
 	}
 
 	/**
@@ -482,7 +490,7 @@ class Ldap
 	 */
 	public function add($dn, array $entry)
 	{
-		return @ldap_mod_add($this->_resource, $dn, $entry);
+		return @ldap_mod_add($this->resource, $dn, $entry);
 	}
 
 	/**
@@ -499,7 +507,7 @@ class Ldap
 	 */
 	public function rename($dn, $newdn, $newparent, $deleteolddn)
 	{
-		return @ldap_rename($this->_resource, $dn, $newdn, $newparent, $deleteolddn);
+		return @ldap_rename($this->resource, $dn, $newdn, $newparent, $deleteolddn);
 	}
 
 	/**
@@ -511,7 +519,7 @@ class Ldap
 	 */
 	public function getErrorMsg()
 	{
-		return @ldap_error($this->_resource);
+		return @ldap_error($this->resource);
 	}
 
 	/**
@@ -536,8 +544,10 @@ class Ldap
 			{
 				$tmp = '0' . $tmp;
 			}
+
 			$address .= '\\' . $tmp;
 		}
+
 		return $address;
 	}
 
@@ -610,6 +620,7 @@ class Ldap
 					$addr .= ".";
 				}
 			}
+
 			if (($addrtype == 1) || ($addrtype == 8) || ($addrtype = 9))
 			{
 				// Strip last period from end of $addr
@@ -620,6 +631,7 @@ class Ldap
 		{
 			$addr .= 'Address not available.';
 		}
+
 		return array('protocol' => $addrtypes[$addrtype], 'address' => $addr);
 	}
 
@@ -642,11 +654,13 @@ class Ldap
 			case 'sha':
 				$userpassword = '{SHA}' . base64_encode(pack('H*', sha1($password)));
 				break;
+
 			case 'md5':
 			default:
 				$userpassword = '{MD5}' . base64_encode(pack('H*', md5($password)));
 				break;
 		}
+
 		return $userpassword;
 	}
 }

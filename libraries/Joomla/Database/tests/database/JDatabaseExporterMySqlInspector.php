@@ -124,5 +124,4 @@ class JDatabaseExporterMySqlInspector extends JDatabaseExporterMysql
 	{
 		return parent::withStructure($setting);
 	}
-
 }

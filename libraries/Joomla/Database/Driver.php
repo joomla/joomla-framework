@@ -33,7 +33,7 @@ abstract class Driver implements DatabaseInterface
 	 * @var    string
 	 * @since  11.4
 	 */
-	private $_database;
+	private $database;
 
 	/**
 	 * The name of the database driver.
@@ -230,7 +230,6 @@ abstract class Driver implements DatabaseInterface
 		// If we already have a database connector instance for these options then just use that.
 		if (empty(self::$instances[$signature]))
 		{
-
 			// Derive the class name from the driver.
 			$class = '\\Joomla\\Database\\Driver\\' . ucfirst(strtolower($options['driver']));
 
@@ -353,7 +352,7 @@ abstract class Driver implements DatabaseInterface
 	public function __construct($options)
 	{
 		// Initialise object variables.
-		$this->_database = (isset($options['database'])) ? $options['database'] : '';
+		$this->database = (isset($options['database'])) ? $options['database'] : '';
 
 		$this->tablePrefix = (isset($options['prefix'])) ? $options['prefix'] : 'jos_';
 		$this->count = 0;
@@ -514,7 +513,7 @@ abstract class Driver implements DatabaseInterface
 	 */
 	protected function getDatabase()
 	{
-		return $this->_database;
+		return $this->database;
 	}
 
 	/**
@@ -1430,6 +1429,7 @@ abstract class Driver implements DatabaseInterface
 				{
 					break;
 				}
+
 				$l = $k - 1;
 
 				while ($l >= 0 && $sql{$l} == '\\')
@@ -1437,21 +1437,26 @@ abstract class Driver implements DatabaseInterface
 					$l--;
 					$escaped = !$escaped;
 				}
+
 				if ($escaped)
 				{
 					$j = $k + 1;
 					continue;
 				}
+
 				break;
 			}
+
 			if ($k === false)
 			{
 				// Error in the query - no end quote; ignore it
 				break;
 			}
+
 			$literal .= substr($sql, $startPos, $k - $startPos + 1);
 			$startPos = $k + 1;
 		}
+
 		if ($startPos < $n)
 		{
 			$literal .= substr($sql, $startPos, $n - $startPos);
@@ -1640,14 +1645,14 @@ abstract class Driver implements DatabaseInterface
 				{
 					$val = 'NULL';
 				}
-				// If the value is null and we do not want to update nulls then ignore this field.
 				else
+				// If the value is null and we do not want to update nulls then ignore this field.
 				{
 					continue;
 				}
 			}
-			// The field is not null so we prep it for update.
 			else
+			// The field is not null so we prep it for update.
 			{
 				$val = $this->quote($v);
 			}

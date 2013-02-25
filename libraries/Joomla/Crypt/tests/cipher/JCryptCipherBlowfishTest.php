@@ -23,7 +23,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 	 * @var    JCryptCipherBlowfish
 	 * @since  12.1
 	 */
-	private $_cipher;
+	private $cipher;
 
 	/**
 	 * Prepares the environment before running a test.
@@ -42,7 +42,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 			$this->markTestSkipped('The mcrypt extension must be available for this test to run.');
 		}
 
-		$this->_cipher = new Cipher_Blowfish;
+		$this->cipher = new Cipher_Blowfish;
 
 		// Build the key for testing.
 		$this->key = new Key('blowfish');
@@ -59,7 +59,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-		$this->_cipher = null;
+		$this->cipher = null;
 
 		parent::tearDown();
 	}
@@ -103,7 +103,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 	public function testDecrypt($file, $data)
 	{
 		$encrypted = file_get_contents(__DIR__ . '/stubs/encrypted/blowfish/' . $file);
-		$decrypted = $this->_cipher->decrypt($encrypted, $this->key);
+		$decrypted = $this->cipher->decrypt($encrypted, $this->key);
 
 		// Assert that the decrypted values are the same as the expected ones.
 		$this->assertEquals($data, $decrypted);
@@ -122,7 +122,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEncrypt($file, $data)
 	{
-		$encrypted = $this->_cipher->encrypt($data, $this->key);
+		$encrypted = $this->cipher->encrypt($data, $this->key);
 
 		// Assert that the encrypted value is not the same as the clear text value.
 		$this->assertNotEquals($data, $encrypted);
@@ -140,7 +140,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGenerateKey()
 	{
-		$key = $this->_cipher->generateKey();
+		$key = $this->cipher->generateKey();
 
 		// Assert that the key is the correct type.
 		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);

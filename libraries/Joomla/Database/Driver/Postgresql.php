@@ -436,6 +436,7 @@ class Postgresql extends Driver
 
 			return $keys;
 		}
+
 		return false;
 	}
 
@@ -511,6 +512,7 @@ class Postgresql extends Driver
 
 			return $seq;
 		}
+
 		return false;
 	}
 
@@ -663,8 +665,8 @@ class Postgresql extends Driver
 					$this->connection = null;
 					$this->connect();
 				}
-				// If connect fails, ignore that exception and throw the normal exception.
 				catch (RuntimeException $e)
+				// If connect fails, ignore that exception and throw the normal exception.
 				{
 					// Get the error number and message.
 					$this->errorNum = (int) pg_result_error_field($this->cursor, PGSQL_DIAG_SQLSTATE) . ' ';
@@ -678,8 +680,8 @@ class Postgresql extends Driver
 				// Since we were able to reconnect, run the query again.
 				return $this->execute();
 			}
-			// The server was not disconnected.
 			else
+			// The server was not disconnected.
 			{
 				// Get the error number and message.
 				$this->errorNum = (int) pg_result_error_field($this->cursor, PGSQL_DIAG_SQLSTATE) . ' ';
@@ -826,6 +828,7 @@ class Postgresql extends Driver
 					$val = 'FALSE';
 				}
 				break;
+
 			case 'bigint':
 			case 'bigserial':
 			case 'integer':
@@ -837,12 +840,14 @@ class Postgresql extends Driver
 			case 'numeric,':
 				$val = strlen($field_value) == 0 ? 'NULL' : $field_value;
 				break;
+
 			case 'date':
 			case 'timestamp without time zone':
 				if (empty($field_value))
 				{
 					$field_value = $this->getNullDate();
 				}
+
 			default:
 				$val = $this->quote($field_value);
 				break;
@@ -1214,6 +1219,7 @@ class Postgresql extends Driver
 				{
 					$sql[$nIndex] = str_replace($prefix, $this->tablePrefix, $sql[$nIndex]);
 				}
+
 				$sql = implode('currval', $sql);
 			}
 
@@ -1226,6 +1232,7 @@ class Postgresql extends Driver
 				{
 					$sql[$nIndex] = str_replace($prefix, $this->tablePrefix, $sql[$nIndex]);
 				}
+
 				$sql = implode('nextval', $sql);
 			}
 
@@ -1238,6 +1245,7 @@ class Postgresql extends Driver
 				{
 					$sql[$nIndex] = str_replace($prefix, $this->tablePrefix, $sql[$nIndex]);
 				}
+
 				$sql = implode('setval', $sql);
 			}
 
@@ -1358,14 +1366,14 @@ class Postgresql extends Driver
 				{
 					$val = 'NULL';
 				}
-				// If the value is null and we do not want to update nulls then ignore this field.
 				else
+				// If the value is null and we do not want to update nulls then ignore this field.
 				{
 					continue;
 				}
 			}
-			// The field is not null so we prep it for update.
 			else
+			// The field is not null so we prep it for update.
 			{
 				$val = $this->sqlValue($columns, $k, $v);
 			}

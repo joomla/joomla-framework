@@ -28,7 +28,7 @@ class Factory
 	 * @var    JDatabaseFactory
 	 * @since  12.1
 	 */
-	private static $_instance = null;
+	private static $instance = null;
 
 	/**
 	 * Method to return a JDatabaseDriver instance based on the given options. There are three global options and then
@@ -150,7 +150,7 @@ class Factory
 	 */
 	public static function getInstance()
 	{
-		return self::$_instance ? self::$_instance : new Factory;
+		return self::$instance ? self::$instance : new Factory;
 	}
 
 	/**
@@ -190,6 +190,6 @@ class Factory
 	 */
 	public static function setInstance(Factory $instance = null)
 	{
-		self::$_instance = $instance;
+		self::$instance = $instance;
 	}
 }

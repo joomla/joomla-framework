@@ -345,7 +345,6 @@ class JDatabasePostgresqlQueryTest extends TestCase
 			$this->equalTo('123::text'),
 			'The default castAsChar behaviour is quote the input.'
 		);
-
 	}
 
 	/**

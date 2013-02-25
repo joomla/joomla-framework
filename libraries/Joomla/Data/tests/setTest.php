@@ -7,8 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-JLoader::register('JDataBuran', __DIR__ . '/stubs/buran.php');
-JLoader::register('JDataVostok', __DIR__ . '/stubs/vostok.php');
+require_once __DIR__ . '/stubs/buran.php';
+require_once __DIR__ . '/stubs/vostok.php';
 
 /**
  * Tests for the JContentHelperTest class.
@@ -25,7 +25,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 * @var    JDataSet
 	 * @since  12.3
 	 */
-	private $_instance;
+	private $instance;
 
 	/**
 	 * Tests the __construct method.
@@ -86,7 +86,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	public function test__call()
 	{
 		$this->assertThat(
-			$this->_instance->launch('go'),
+			$this->instance->launch('go'),
 			$this->equalTo(array(1 => 'go'))
 		);
 	}
@@ -102,7 +102,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	public function test__get()
 	{
 		$this->assertThat(
-			$this->_instance->pilot,
+			$this->instance->pilot,
 			$this->equalTo(array(0 => null, 1 => 'Yuri Gagarin'))
 		);
 	}
@@ -117,9 +117,9 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__isset()
 	{
-		$this->assertTrue(isset($this->_instance->pilot), 'Property exists.');
+		$this->assertTrue(isset($this->instance->pilot), 'Property exists.');
 
-		$this->assertFalse(isset($this->_instance->duration), 'Unknown property');
+		$this->assertFalse(isset($this->instance->duration), 'Unknown property');
 	}
 
 	/**
@@ -132,10 +132,10 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__set()
 	{
-		$this->_instance->successful = 'yes';
+		$this->instance->successful = 'yes';
 
 		$this->assertThat(
-			$this->_instance->successful,
+			$this->instance->successful,
 			$this->equalTo(array(0 => 'yes', 1 => 'YES'))
 		);
 	}
@@ -150,9 +150,9 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__unset()
 	{
-		unset($this->_instance->pilot);
+		unset($this->instance->pilot);
 
-		$this->assertNull($this->_instance[1]->pilot);
+		$this->assertNull($this->instance[1]->pilot);
 	}
 
 	/**
@@ -165,7 +165,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCount()
 	{
-		$this->assertCount(2, $this->_instance);
+		$this->assertCount(2, $this->instance);
 	}
 
 	/**
@@ -178,9 +178,9 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testClear()
 	{
-		$this->assertGreaterThan(0, count($this->_instance), 'Check there are objects set.');
-		$this->_instance->clear();
-		$this->assertCount(0, $this->_instance, 'Check the objects were cleared.');
+		$this->assertGreaterThan(0, count($this->instance), 'Check there are objects set.');
+		$this->instance->clear();
+		$this->assertCount(0, $this->instance, 'Check the objects were cleared.');
 	}
 
 	/**
@@ -193,10 +193,10 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCurrent()
 	{
-		$object = $this->_instance[0];
+		$object = $this->instance[0];
 
 		$this->assertThat(
-			$this->_instance->current(),
+			$this->instance->current(),
 			$this->equalTo($object)
 		);
 
@@ -226,7 +226,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 					'pilot' => 'Yuri Gagarin',
 				),
 			),
-			$this->_instance->dump()
+			$this->instance->dump()
 		);
 	}
 
@@ -248,7 +248,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 					'pilot' => 'Yuri Gagarin',
 				),
 			),
-			$this->_instance->jsonSerialize()
+			$this->instance->jsonSerialize()
 		);
 	}
 
@@ -262,7 +262,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testKey()
 	{
-		$this->assertEquals(0, $this->_instance->key());
+		$this->assertEquals(0, $this->instance->key());
 	}
 
 	/**
@@ -292,15 +292,15 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testNext()
 	{
-		$this->_instance->next();
+		$this->instance->next();
 		$this->assertThat(
-			TestReflection::getValue($this->_instance, 'current'),
+			TestReflection::getValue($this->instance, 'current'),
 			$this->equalTo(1)
 		);
 
-		$this->_instance->next();
+		$this->instance->next();
 		$this->assertThat(
-			TestReflection::getValue($this->_instance, 'current'),
+			TestReflection::getValue($this->instance, 'current'),
 			$this->equalTo(false)
 		);
 	}
@@ -315,9 +315,9 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetExists()
 	{
-		$this->assertTrue($this->_instance->offsetExists(0));
-		$this->assertFalse($this->_instance->offsetExists(2));
-		$this->assertFalse($this->_instance->offsetExists('foo'));
+		$this->assertTrue($this->instance->offsetExists(0));
+		$this->assertFalse($this->instance->offsetExists(2));
+		$this->assertFalse($this->instance->offsetExists('foo'));
 	}
 
 	/**
@@ -330,9 +330,9 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetGet()
 	{
-		$this->assertInstanceOf('JDataBuran', $this->_instance->offsetGet(0));
-		$this->assertInstanceOf('JDataVostok', $this->_instance->offsetGet(1));
-		$this->assertNull($this->_instance->offsetGet('foo'));
+		$this->assertInstanceOf('JDataBuran', $this->instance->offsetGet(0));
+		$this->assertInstanceOf('JDataVostok', $this->instance->offsetGet(1));
+		$this->assertNull($this->instance->offsetGet('foo'));
 	}
 
 	/**
@@ -345,16 +345,16 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetSet()
 	{
-		$this->_instance->offsetSet(0, new JData);
-		$objects = TestReflection::getValue($this->_instance, 'objects');
+		$this->instance->offsetSet(0, new JData);
+		$objects = TestReflection::getValue($this->instance, 'objects');
 
 		$this->assertEquals(new JData, $objects[0], 'Checks explicit use of offsetSet.');
 
-		$this->_instance[] = new JData;
-		$this->assertInstanceOf('JData', $this->_instance[1], 'Checks the array push equivalent with [].');
+		$this->instance[] = new JData;
+		$this->assertInstanceOf('JData', $this->instance[1], 'Checks the array push equivalent with [].');
 
-		$this->_instance['foo'] = new JData;
-		$this->assertInstanceOf('JData', $this->_instance['foo'], 'Checks implicit usage of offsetSet.');
+		$this->instance['foo'] = new JData;
+		$this->assertInstanceOf('JData', $this->instance['foo'], 'Checks implicit usage of offsetSet.');
 	}
 
 	/**
@@ -369,7 +369,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	public function testOffsetSet_exception1()
 	{
 		// By implication, this will call offsetSet.
-		$this->_instance['foo'] = 'bar';
+		$this->instance['foo'] = 'bar';
 	}
 
 	/**
@@ -382,8 +382,8 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetUnset()
 	{
-		$this->_instance->offsetUnset(0);
-		$objects = TestReflection::getValue($this->_instance, 'objects');
+		$this->instance->offsetUnset(0);
+		$objects = TestReflection::getValue($this->instance, 'objects');
 
 		$this->assertFalse(isset($objects[0]));
 	}
@@ -398,13 +398,13 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetRewind()
 	{
-		TestReflection::setValue($this->_instance, 'current', 'foo');
+		TestReflection::setValue($this->instance, 'current', 'foo');
 
-		$this->_instance->rewind();
-		$this->assertEquals(0, $this->_instance->key());
+		$this->instance->rewind();
+		$this->assertEquals(0, $this->instance->key());
 
-		$this->_instance->clear();
-		$this->assertFalse($this->_instance->key());
+		$this->instance->clear();
+		$this->assertFalse($this->instance->key());
 	}
 
 	/**
@@ -417,11 +417,11 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testValid()
 	{
-		$this->assertTrue($this->_instance->valid());
+		$this->assertTrue($this->instance->valid());
 
-		TestReflection::setValue($this->_instance, 'current', null);
+		TestReflection::setValue($this->instance, 'current', null);
 
-		$this->assertFalse($this->_instance->valid());
+		$this->assertFalse($this->instance->valid());
 	}
 
 	/**
@@ -434,8 +434,8 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_initialise()
 	{
-		$this->assertInstanceOf('JDataBuran', $this->_instance[0]);
-		$this->assertInstanceOf('JDataVostok', $this->_instance[1]);
+		$this->assertInstanceOf('JDataBuran', $this->instance[0]);
+		$this->assertInstanceOf('JDataVostok', $this->instance[1]);
 	}
 
 	/*
@@ -455,7 +455,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 		// Test multi-item list.
 		$tests = array();
 
-		foreach ($this->_instance as $key => $object)
+		foreach ($this->instance as $key => $object)
 		{
 			$tests[] = $object->mission;
 		}
@@ -463,11 +463,11 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(array(null, 'Vostok 1'), $tests);
 
 		// Tests single item list.
-		$this->_instance->clear();
-		$this->_instance['1'] = new JData;
+		$this->instance->clear();
+		$this->instance['1'] = new JData;
 		$runs = 0;
 
-		foreach ($this->_instance as $key => $object)
+		foreach ($this->instance as $key => $object)
 		{
 			$runs++;
 		}
@@ -475,29 +475,29 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $runs);
 
 		// Exhaustively testing unsetting within a foreach.
-		$this->_instance['2'] = new JData;
-		$this->_instance['3'] = new JData;
-		$this->_instance['4'] = new JData;
-		$this->_instance['5'] = new JData;
+		$this->instance['2'] = new JData;
+		$this->instance['3'] = new JData;
+		$this->instance['4'] = new JData;
+		$this->instance['5'] = new JData;
 
 		$runs = 0;
 
-		foreach ($this->_instance as $k => $v)
+		foreach ($this->instance as $k => $v)
 		{
 			$runs++;
 
 			if ($k != 3)
 			{
-				unset($this->_instance[$k]);
+				unset($this->instance[$k]);
 			}
 		}
 
-		$this->assertFalse($this->_instance->offsetExists(1), 'Index 1 should have been unset.');
-		$this->assertFalse($this->_instance->offsetExists(2), 'Index 2 should have been unset.');
-		$this->assertTrue($this->_instance->offsetExists(3), 'Index 3 should be set.');
-		$this->assertFalse($this->_instance->offsetExists(4), 'Index 4 should have been unset.');
-		$this->assertFalse($this->_instance->offsetExists(5), 'Index 5 should have been unset.');
-		$this->assertCount(1, $this->_instance);
+		$this->assertFalse($this->instance->offsetExists(1), 'Index 1 should have been unset.');
+		$this->assertFalse($this->instance->offsetExists(2), 'Index 2 should have been unset.');
+		$this->assertTrue($this->instance->offsetExists(3), 'Index 3 should be set.');
+		$this->assertFalse($this->instance->offsetExists(4), 'Index 4 should have been unset.');
+		$this->assertFalse($this->instance->offsetExists(5), 'Index 5 should have been unset.');
+		$this->assertCount(1, $this->instance);
 		$this->assertEquals(5, $runs, 'Oops, the foreach ran too many times.');
 	}
 
@@ -512,7 +512,7 @@ class JDataSetTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->_instance = new JDataSet(
+		$this->instance = new JDataSet(
 			array(
 				new JDataBuran,
 				new JDataVostok(array('mission' => 'Vostok 1', 'pilot' => 'Yuri Gagarin')),
