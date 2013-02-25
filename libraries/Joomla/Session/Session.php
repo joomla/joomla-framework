@@ -14,7 +14,6 @@ defined('JPATH_PLATFORM') or die;
 // @todo dependency on legacy JApplication here
 use Joomla\Application\Route;
 use Joomla\Event\Dispatcher;
-use Joomla\Language\Text;
 use Joomla\Input\Input;
 use Joomla\Factory;
 use DirectoryIterator;
@@ -328,7 +327,7 @@ class Session implements IteratorAggregate
 			if ($session->isNew())
 			{
 				// Redirect to login screen.
-				$app->redirect(Route::_('index.php'), Text::_('JLIB_ENVIRONMENT_SESSION_EXPIRED'));
+				$app->redirect(Route::_('index.php'));
 				$app->close();
 			}
 			else
