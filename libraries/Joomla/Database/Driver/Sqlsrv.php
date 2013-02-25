@@ -12,7 +12,6 @@ namespace Joomla\Database\Driver;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Log\Log;
-use Joomla\Language\Text;
 use Joomla\Database\Driver;
 use RuntimeException;
 
@@ -566,7 +565,7 @@ class Sqlsrv extends Driver
 
 		if (!is_resource($this->connection))
 		{
-			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
+			Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
 			throw new RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
@@ -628,7 +627,7 @@ class Sqlsrv extends Driver
 					$this->errorMsg = $errors[0]['message'] . 'SQL=' . $sql;
 
 					// Throw the normal query exception.
-					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+					Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
 					throw new RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
@@ -644,7 +643,7 @@ class Sqlsrv extends Driver
 				$this->errorMsg = $errors[0]['message'] . 'SQL=' . $sql;
 
 				// Throw the normal query exception.
-				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+				Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
 				throw new RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}

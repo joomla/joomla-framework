@@ -12,7 +12,6 @@ namespace Joomla\Database\Driver;
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\Log\Log;
-use Joomla\Language\Text;
 use Joomla\Database\Driver;
 use RuntimeException;
 
@@ -481,7 +480,7 @@ class Mysqli extends Driver
 
 		if (!is_object($this->connection))
 		{
-			Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
+			Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
 			throw new RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
@@ -530,7 +529,7 @@ class Mysqli extends Driver
 				// If connect fails, ignore that exception and throw the normal exception.
 				catch (RuntimeException $e)
 				{
-					Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+					Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
 					throw new RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
@@ -540,7 +539,7 @@ class Mysqli extends Driver
 			// The server was not disconnected.
 			else
 			{
-				Log::add(Text::sprintf('JLIB_DATABASE_QUERY_FAILED', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
+				Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
 				throw new RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
