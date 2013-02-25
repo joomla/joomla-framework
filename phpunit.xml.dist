@@ -14,7 +14,7 @@
 			<directory>tests/suites/database</directory>
 		</testsuite> -->
 		<testsuite name="Unit">
-			<directory>libraries/Joomla/*/tests</directory>
+			<directory>vendor/Joomla/*/tests</directory>
 		</testsuite>
 	</testsuites>
 
@@ -26,12 +26,12 @@
 	</logging>
 	<filter>
 		<!-- <whitelist addUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">libraries/Joomla</directory>
-			<file>libraries/import.php</file>
-			<file>libraries/loader.php</file>
-			<file>libraries/platform.php</file>
+			<directory suffix=".php">vendor/Joomla</directory>
+			<file>vendor/import.php</file>
+			<file>vendor/loader.php</file>
+			<file>vendor/platform.php</file>
 			<exclude>
-				<directory suffix=".php">libraries/Joomla/*/tests</directory>
+				<directory suffix=".php">vendor/Joomla/*/tests</directory>
 			</exclude>
 		</whitelist> -->
 	</filter>

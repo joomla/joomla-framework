@@ -26,7 +26,7 @@ if (!defined('JPATH_TESTS'))
 }
 if (!defined('JPATH_PLATFORM'))
 {
-	define('JPATH_PLATFORM', realpath(dirname(JPATH_TESTS) . '/libraries'));
+	define('JPATH_PLATFORM', realpath(dirname(JPATH_TESTS) . '/vendor'));
 }
 if (!defined('JPATH_BASE'))
 {
