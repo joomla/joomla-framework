@@ -151,7 +151,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 		$paths->insert(__DIR__ . '/layouts2', 2);
 
 		$this->instance->setLayout('olivia');
-		$this->assertEquals('Peter\'s Olivia', $this->instance->render());
+		$this->assertEquals('Peter\'s Olivia', trim($this->instance->render()));
 	}
 
 	/**
