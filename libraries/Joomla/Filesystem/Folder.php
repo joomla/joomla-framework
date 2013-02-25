@@ -14,7 +14,6 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Factory;
 use Joomla\Log\Log;
 use Joomla\Client\Ftp;
-use Joomla\Language\Text;
 use Joomla\Client\Helper as ClientHelper;
 use RuntimeException;
 use UnexpectedValueException;
@@ -193,7 +192,7 @@ abstract class Folder
 
 			if (($nested > 20) || ($parent == $path))
 			{
-				Log::add(__METHOD__ . ': ' . Text::_('JLIB_FILESYSTEM_ERROR_FOLDER_LOOP'), Log::WARNING, 'jerror');
+				Log::add(__METHOD__ . ': Infinite loop detected', Log::WARNING, 'jerror');
 				$nested--;
 
 				return false;
@@ -263,7 +262,7 @@ abstract class Folder
 				if ($inBaseDir == false)
 				{
 					// Return false for JFolder::create because the path to be created is not in open_basedir
-					Log::add(__METHOD__ . ': ' . Text::_('JLIB_FILESYSTEM_ERROR_FOLDER_PATH'), Log::WARNING, 'jerror');
+					Log::add(__METHOD__ . ': Path not in open_basedir paths', Log::WARNING, 'jerror');
 
 					return false;
 				}
@@ -276,9 +275,7 @@ abstract class Folder
 			if (!$ret = @mkdir($path, $mode))
 			{
 				@umask($origmask);
-				Log::add(
-					__METHOD__ . ': ' . Text::_('JLIB_FILESYSTEM_ERROR_COULD_NOT_CREATE_DIRECTORY'), 'Path: ' . $path, Log::WARNING, 'jerror'
-				);
+				Log::add(__METHOD__ . ': Could not create directory.  Path: ' . $path, Log::WARNING, 'jerror');
 
 				return false;
 			}
@@ -306,7 +303,7 @@ abstract class Folder
 		if (!$path)
 		{
 			// Bad programmer! Bad Bad programmer!
-			Log::add(__METHOD__ . ': ' . Text::_('JLIB_FILESYSTEM_ERROR_DELETE_BASE_DIRECTORY'), Log::WARNING, 'jerror');
+			Log::add(__METHOD__ . ': You can not delete a base directory.', Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -326,7 +323,7 @@ abstract class Folder
 		// Is this really a folder?
 		if (!is_dir($path))
 		{
-			Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER', $path), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Path is not a folder. Path: %2$s', __METHOD__, $path), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -390,7 +387,7 @@ abstract class Folder
 		}
 		else
 		{
-			Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_FOLDER_DELETE', $path), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Could not delete folder. Path: %2$s', __METHOD__, $path), Log::WARNING, 'jerror');
 			$ret = false;
 		}
 		return $ret;
@@ -420,11 +417,11 @@ abstract class Folder
 
 		if (!self::exists($src))
 		{
-			return Text::_('JLIB_FILESYSTEM_ERROR_FIND_SOURCE_FOLDER');
+			return 'Cannot find source folder';
 		}
 		if (self::exists($dest))
 		{
-			return Text::_('JLIB_FILESYSTEM_ERROR_FOLDER_EXISTS');
+			return 'Folder already exists';
 		}
 		if ($use_streams)
 		{
@@ -432,7 +429,7 @@ abstract class Folder
 
 			if (!$stream->move($src, $dest))
 			{
-				return Text::sprintf('JLIB_FILESYSTEM_ERROR_FOLDER_RENAME', $stream->getError());
+				return 'Rename failed: ' . $stream->getError();
 			}
 			$ret = true;
 		}
@@ -450,7 +447,7 @@ abstract class Folder
 				// Use FTP rename to simulate move
 				if (!$ftp->rename($src, $dest))
 				{
-					return Text::_('Rename failed');
+					return 'Rename failed';
 				}
 				$ret = true;
 			}
@@ -458,7 +455,7 @@ abstract class Folder
 			{
 				if (!@rename($src, $dest))
 				{
-					return Text::_('Rename failed');
+					return 'Rename failed';
 				}
 				$ret = true;
 			}
@@ -503,7 +500,7 @@ abstract class Folder
 		// Is the path a folder?
 		if (!is_dir($path))
 		{
-			Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER_FILES', $path), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Path is not a folder. Path: %2$s', __METHOD__, $path), Log::WARNING, 'jerror');
 
 			return false;
 		}
@@ -550,7 +547,7 @@ abstract class Folder
 		// Is the path a folder?
 		if (!is_dir($path))
 		{
-			Log::add(Text::sprintf('JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER_FOLDER', $path), Log::WARNING, 'jerror');
+			Log::add(sprintf('%1$s: Path is not a folder. Path: %2$s', __METHOD__, $path), Log::WARNING, 'jerror');
 
 			return false;
 		}

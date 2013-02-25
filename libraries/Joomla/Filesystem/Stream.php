@@ -11,8 +11,6 @@ namespace Joomla\Filesystem;
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Language\Text;
-
 /**
  * Joomla! Stream Interface
  *
@@ -194,7 +192,7 @@ class Stream
 
 		if (!$filename)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILENAME'));
+			$this->setError('Filename not set');
 
 			return false;
 		}
@@ -309,7 +307,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return true;
 		}
@@ -372,7 +370,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return false;
 		}
@@ -418,7 +416,7 @@ class Stream
 	{
 		if (!$this->filename)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return false;
 		}
@@ -454,7 +452,7 @@ class Stream
 				else
 				{
 					// Error but nothing from php? How strange! Create our own
-					$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_SIZE'));
+					$this->setError('Failed to get file size. This may not work for all streams.');
 				}
 			}
 			else
@@ -489,7 +487,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return false;
 		}
@@ -562,7 +560,7 @@ class Stream
 
 		if (!$this->fh)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return false;
 		}
@@ -649,7 +647,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return false;
 		}
@@ -702,7 +700,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return false;
 		}
@@ -764,7 +762,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return false;
 		}
@@ -808,7 +806,7 @@ class Stream
 			{
 				// Wrote nothing?
 				$remaining = 0;
-				$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_NO_DATA_WRITTEN'));
+				$this->setError('Warning: No data written');
 			}
 			else
 			{
@@ -842,7 +840,7 @@ class Stream
 		{
 			if (!isset($this->filename) || !$this->filename)
 			{
-				$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILENAME'));
+				$this->setError('Filename not set');
 
 				return false;
 			}
@@ -906,7 +904,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_FILE_NOT_OPEN'));
+			$this->setError('File not open');
 
 			return false;
 		}
@@ -1350,7 +1348,7 @@ class Stream
 		}
 		else
 		{
-			$this->setError(Text::_('JLIB_FILESYSTEM_ERROR_STREAMS_NOT_UPLOADED_FILE'));
+			$this->setError('Not an uploaded file.');
 
 			return false;
 		}
