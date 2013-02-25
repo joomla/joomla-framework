@@ -13,5 +13,6 @@
     	"psr-0": {
     		"Joomla\\Keychain": ""
     	}
-    }
+    },
+    "bin": ["bin/keychain"]
 }
