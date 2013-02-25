@@ -6,8 +6,7 @@
     "homepage": "https://github.com/joomla/joomla-framework-date",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10",
-        "joomla/language": "dev-master"
+        "php": ">=5.3.10"
     },
     "target-dir": "Joomla/Date",
     "autoload": {
