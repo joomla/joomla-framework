@@ -9,7 +9,6 @@
 
 namespace Joomla\Client;
 
-
 use Joomla\Factory;
 use InvalidArgumentException;
 

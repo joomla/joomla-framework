@@ -13,7 +13,7 @@
         "joomla/session": "dev-master",
         "joomla/registry": "dev-master",
         "joomla/uri": "dev-master",
-        "joomla/user": "dev-master"
+        "joomla/log": "dev-master"
     },
     "target-dir": "Joomla/Application",
     "autoload": {

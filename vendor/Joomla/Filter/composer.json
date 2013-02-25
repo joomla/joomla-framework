@@ -7,7 +7,8 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/string": "dev-master"
+        "joomla/string": "dev-master",
+        "joomla/language": "dev-master"
     },
     "target-dir": "Joomla/Filter",
     "autoload": {

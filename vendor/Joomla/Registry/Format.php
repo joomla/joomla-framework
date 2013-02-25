@@ -9,7 +9,6 @@
 
 namespace Joomla\Registry;
 
-
 use InvalidArgumentException;
 
 /**
@@ -51,16 +50,7 @@ abstract class Format
 
 			if (!class_exists($class))
 			{
-				$path = __DIR__ . '/Format/' . $type . '.php';
-
-				if (is_file($path))
-				{
-					include_once $path;
-				}
-				else
-				{
-					throw new InvalidArgumentException('Unable to load format class.', 500);
-				}
+				throw new InvalidArgumentException('Unable to load format class.', 500);
 			}
 
 			self::$instances[$type] = new $class;

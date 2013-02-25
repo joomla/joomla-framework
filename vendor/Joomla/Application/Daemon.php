@@ -9,9 +9,7 @@
 
 namespace Joomla\Application;
 
-
 use Joomla\Log\Log;
-use Joomla\Event\Dispatcher;
 use Joomla\Filesystem\Folder;
 use Joomla\Registry\Registry;
 use RuntimeException;
@@ -106,15 +104,11 @@ abstract class Daemon extends Cli
 	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
 	 *                              config object.  If the argument is a Registry object that object will become
 	 *                              the application's config object, otherwise a default config object is created.
-	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
-	 *                              event dispatcher.  If the argument is a Dispatcher object that object will become
-	 *                              the application's event dispatcher, if it is null then the default event dispatcher
-	 *                              will be created based on the application's loadDispatcher() method.
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException
 	 */
-	public function __construct(InputCli $input = null, Registry $config = null, Dispatcher $dispatcher = null)
+	public function __construct(InputCli $input = null, Registry $config = null)
 	{
 		// Verify that the process control extension for PHP is available.
 		// @codeCoverageIgnoreStart
@@ -134,7 +128,7 @@ abstract class Daemon extends Cli
 		// @codeCoverageIgnoreEnd
 
 		// Call the parent constructor.
-		parent::__construct($input, $config, $dispatcher);
+		parent::__construct($input, $config);
 
 		// Set some system limits.
 		@set_time_limit($this->config->get('max_execution_time', 0));

@@ -9,8 +9,6 @@
 
 namespace Joomla\Application;
 
-
-use Joomla\Loader;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use RuntimeException;

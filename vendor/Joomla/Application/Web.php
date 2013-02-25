@@ -9,11 +9,8 @@
 
 namespace Joomla\Application;
 
-
-use Joomla\Loader;
 use Joomla\Factory;
 use Joomla\Uri\Uri;
-use Joomla\User\User;
 use Joomla\Date\Date;
 use Joomla\Input\Input;
 use Joomla\Session\Session;
@@ -814,7 +811,6 @@ abstract class Web extends Base
 		if ($session->isNew())
 		{
 			$session->set('registry', new Registry('session'));
-			$session->set('user', new User);
 		}
 	}
 

@@ -7,8 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Loader;
-
 /**
  * Inspector for the Joomla\Application\Web class.
  *
@@ -144,7 +142,10 @@ class JApplicationWebInspector extends Joomla\Application\Web
 
 		if (!empty($file))
 		{
-			Loader::register($class, $file);
+			if (is_file($file))
+			{
+				require_once $file;
+			}
 
 			if (class_exists($class))
 			{

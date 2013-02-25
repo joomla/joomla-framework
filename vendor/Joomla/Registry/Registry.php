@@ -9,7 +9,6 @@
 
 namespace Joomla\Registry;
 
-
 use Joomla\Utilities\ArrayHelper;
 use stdClass;
 use JsonSerializable;

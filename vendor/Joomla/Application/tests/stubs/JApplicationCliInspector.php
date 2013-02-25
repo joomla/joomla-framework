@@ -7,8 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Loader;
-
 /**
  * Inspector for the JApplicationCli class.
  *
@@ -86,7 +84,10 @@ class JApplicationCliInspector extends Joomla\Application\Cli
 
 		if (!empty($file))
 		{
-			Loader::register($class, $file);
+			if (is_file($file))
+			{
+				require_once $file;
+			}
 
 			if (class_exists($class))
 			{
