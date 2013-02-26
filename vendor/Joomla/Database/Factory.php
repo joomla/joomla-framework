@@ -150,7 +150,12 @@ class Factory
 	 */
 	public static function getInstance()
 	{
-		return self::$instance ? self::$instance : new Factory;
+		if (!self::$instance)
+		{
+			self::setInstance();
+		}
+
+		return self::$instance;
 	}
 
 	/**

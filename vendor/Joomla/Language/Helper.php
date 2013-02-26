@@ -9,9 +9,7 @@
 
 namespace Joomla\Language;
 
-
 use Joomla\Factory;
-use stdClass;
 
 /**
  * Language helper class
@@ -139,49 +137,32 @@ class Helper
 
 		if (empty($languages))
 		{
-			// Installation uses available languages
-			if (Factory::getApplication()->getClientId() == 2)
+			$cache = Factory::getCache('com_languages', '');
+
+			if (!$languages = $cache->get('languages'))
 			{
-				$languages[$key] = array();
-				$knownLangs = Language::getKnownLanguages(JPATH_BASE);
+				$db = Factory::getDBO();
+				$query = $db->getQuery(true);
+				$query->select('*')
+					->from('#__languages')
+					->where('published=1')
+					->order('ordering ASC');
+				$db->setQuery($query);
 
-				foreach ($knownLangs as $metadata)
+				$languages['default'] = $db->loadObjectList();
+				$languages['sef'] = array();
+				$languages['lang_code'] = array();
+
+				if (isset($languages['default'][0]))
 				{
-					// Take off 3 letters iso code languages as they can't match browsers' languages and default them to en
-					$obj = new stdClass;
-					$obj->lang_code = $metadata['tag'];
-					$languages[$key][] = $obj;
-				}
-			}
-			else
-			{
-				$cache = Factory::getCache('com_languages', '');
-
-				if (!$languages = $cache->get('languages'))
-				{
-					$db = Factory::getDBO();
-					$query = $db->getQuery(true);
-					$query->select('*')
-						->from('#__languages')
-						->where('published=1')
-						->order('ordering ASC');
-					$db->setQuery($query);
-
-					$languages['default'] = $db->loadObjectList();
-					$languages['sef'] = array();
-					$languages['lang_code'] = array();
-
-					if (isset($languages['default'][0]))
+					foreach ($languages['default'] as $lang)
 					{
-						foreach ($languages['default'] as $lang)
-						{
-							$languages['sef'][$lang->sef] = $lang;
-							$languages['lang_code'][$lang->lang_code] = $lang;
-						}
+						$languages['sef'][$lang->sef] = $lang;
+						$languages['lang_code'][$lang->lang_code] = $lang;
 					}
-
-					$cache->store($languages, 'languages');
 				}
+
+				$cache->store($languages, 'languages');
 			}
 		}
 
