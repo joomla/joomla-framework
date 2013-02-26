@@ -17,7 +17,7 @@
     },
     "require-dev": {
     	"joomla/controller": "dev-master",
-    }
+    },
     "target-dir": "Joomla/Application",
     "autoload": {
     	"psr-0": {
