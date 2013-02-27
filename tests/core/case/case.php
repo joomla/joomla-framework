@@ -81,21 +81,6 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Gets a mock application object.
-	 *
-	 * @return  JApplication
-	 *
-	 * @since   12.1
-	 */
-	public function getMockApplication()
-	{
-		// Attempt to load the real class first.
-		class_exists('JApplication');
-
-		return TestMockApplication::create($this);
-	}
-
-	/**
 	 * Gets a mock configuration object.
 	 *
 	 * @return  JConfig
@@ -137,21 +122,6 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 		class_exists('JEventDispatcher');
 
 		return TestMockDispatcher::create($this, $defaults);
-	}
-
-	/**
-	 * Gets a mock document object.
-	 *
-	 * @return  JDocument
-	 *
-	 * @since   12.1
-	 */
-	public function getMockDocument()
-	{
-		// Attempt to load the real class first.
-		class_exists('JDocument');
-
-		return TestMockDocument::create($this);
 	}
 
 	/**
