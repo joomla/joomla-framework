@@ -2,41 +2,57 @@
 
 [![Build Status](https://travis-ci.org/joomla/joomla-framework.png?branch=master)](https://travis-ci.org/joomla/joomla-framework)
 
-The *Joomla Framework* is a platform for writing Web and command line applications in PHP.  It is free and open source software,
-distributed under the GNU General Public License version 2 or later.  The Joomla Content Management System (CMS) is built on
-top of the *Joomla Framework*.  For more information about the Joomla CMS visit: http://www.joomla.org/about-joomla.html
+## What is the Joomla Framework ?
 
-You can find out more about Joomla development *(though not framework specific)* at: http://docs.joomla.org/Developers
+The `Joomla Framework` is a platform for writing Web and command line applications in PHP.  It is free and open source software,
+distributed under the GNU General Public License version 2 or later.
 
-You can discuss *Joomla Framework* development at: http://groups.google.com/group/joomla-dev-platform
+The Joomla Content Management System (CMS) is built on top of the `Joomla Framework`.
+For more information about the Joomla CMS visit: http://www.joomla.org/about-joomla.html
 
-A general guide for contributing to the Joomla platform can be found in the CONTRIBUTING.markdown file in this repository. A thorough contributing guide can be found at: https://github.com/joomla/joomla-platform/wiki/Contributing-to-the-joomla-platform
+You can find out more about Joomla development at: http://docs.joomla.org/Developers.
 
-* [Introduction](docs/introduction.md)
-* [History](docs/history.md)
+You can discuss Joomla Framework development at: http://groups.google.com/group/joomla-dev-platform.
 
 ## Requirements
 
 * PHP 5.3.10
 
-
 ## Installation
 
-Get the source code from GIT:
+### Via Composer
 
-    git clone git://github.com/joomla/joomla-framework.git
+- Create a project and add a `composer.json` file to it with the content :
 
-_Please ensure you add the following path to your local .gitignore file: tests/test_application/cache_
+```json
+{
+    "require": {
+        "joomla/joomla-framework": "dev-master"
+    }
+}
+```
 
-## Testing and Analysis
+- Download Composer
 
-* [Testing](docs/testing.md)
-* [Analysis](docs/analysis.md)
+`curl -sS https://getcomposer.org/installer | php`
 
-## Coding Standards
+- Install the Joomla Framework
 
-* [Preface](docs/coding-standards/preface.md)
-* [Basic Guidelines](docs/coding-standards/basic-guidelines.md)
-* [Comments](docs/coding-standards/comments.md)
-* [PHP](docs/coding-standards/php.md)
-* [Source Code Management](docs/coding-standards/source-code-management.md)
+`php composer.phar install`
+
+### Via Git
+
+`git clone git://github.com/joomla/joomla-framework.git`
+
+## Documentation
+
+The documentation can be found [here](docs/).
+
+## Contributing
+
+All kind of contributions are welcome,
+please consult the document about how to contribute [here](CONTRIBUTING.markdown).
+
+## Running Unit Tests
+
+`phpunit`
