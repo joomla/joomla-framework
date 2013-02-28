@@ -10,7 +10,7 @@ distributed under the GNU General Public License version 2 or later.
 The Joomla Content Management System (CMS) is built on top of the `Joomla Framework`.
 For more information about the Joomla CMS visit: http://www.joomla.org/about-joomla.html
 
-You can find out more about Joomla development at: http://docs.joomla.org/Developers.
+You can find out more about Joomla development at: http://developer.joomla.org.
 
 You can discuss Joomla Framework development at: http://groups.google.com/group/joomla-dev-platform.
 
