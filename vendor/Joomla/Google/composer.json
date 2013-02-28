@@ -14,7 +14,7 @@
     },
     "require-dev": {
     	"joomla/input": "dev-master"
-    }
+    },
     "target-dir": "Joomla/Google",
     "autoload": {
     	"psr-0": {

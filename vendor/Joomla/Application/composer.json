@@ -16,7 +16,7 @@
         "joomla/filesystem": "dev-master"
     },
     "require-dev": {
-    	"joomla/controller": "dev-master",
+    	"joomla/controller": "dev-master"
     },
     "target-dir": "Joomla/Application",
     "autoload": {

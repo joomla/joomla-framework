@@ -11,7 +11,7 @@
     },
     "require-dev": {
     	"joomla/filesystem": "dev-master"
-    }
+    },
     "target-dir": "Joomla/Language",
     "autoload": {
     	"psr-0": {
