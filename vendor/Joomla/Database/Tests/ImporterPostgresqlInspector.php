@@ -1,21 +1,19 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Database\Tests;
 
 /**
  * Class to expose protected properties and methods in JDatabasePostgresqlImporter for testing purposes
  *
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @since       12.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
+class ImporterPostgresqlInspector extends \Joomla\Database\Importer\Postgresql
 {
 	/**
 	 * Gets any property from the class.
@@ -24,7 +22,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  mixed   The value of the class property.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __get($property)
 	{
@@ -36,7 +34,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function check()
 	{
@@ -51,9 +49,9 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function getAddColumnSQL($table, SimpleXMLElement $field)
+	public function getAddColumnSQL($table, \SimpleXMLElement $field)
 	{
 		return parent::getAddColumnSQL($table, $field);
 	}
@@ -65,9 +63,9 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function getAddIndexSQL(SimpleXMLElement $field)
+	public function getAddIndexSQL(\SimpleXMLElement $field)
 	{
 		return parent::getAddIndexSQL($field);
 	}
@@ -79,9 +77,9 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function getAddSequenceSQL(SimpleXMLElement $structure)
+	public function getAddSequenceSQL(\SimpleXMLElement $structure)
 	{
 		return parent::getAddSequenceSQL($structure);
 	}
@@ -93,9 +91,9 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function getAlterTableSQL(SimpleXMLElement $structure)
+	public function getAlterTableSQL(\SimpleXMLElement $structure)
 	{
 		return parent::getAlterTableSQL($structure);
 	}
@@ -108,9 +106,9 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function getChangeColumnSQL($table, SimpleXMLElement $field)
+	public function getChangeColumnSQL($table, \SimpleXMLElement $field)
 	{
 		return parent::getChangeColumnSQL($table, $field);
 	}
@@ -122,9 +120,9 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function getColumnSQL(SimpleXMLElement $field)
+	public function getColumnSQL(\SimpleXMLElement $field)
 	{
 		return parent::getColumnSQL($field);
 	}
@@ -136,9 +134,9 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function getChangeSequenceSQL(SimpleXMLElement $structure)
+	public function getChangeSequenceSQL(\SimpleXMLElement $structure)
 	{
 		return parent::getChangeSequenceSQL($structure);
 	}
@@ -151,7 +149,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getDropColumnSQL($table, $name)
 	{
@@ -166,7 +164,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getDropKeySQL($table, $name)
 	{
@@ -181,7 +179,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getDropPrimaryKeySQL($table, $name)
 	{
@@ -195,7 +193,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getDropIndexSQL($name)
 	{
@@ -209,7 +207,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getDropSequenceSQL($name)
 	{
@@ -223,7 +221,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  array	The lookup array. array({key name} => array(object, ...))
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws	Exception
 	 */
 	public function getIdxLookup($keys)
@@ -238,7 +236,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  array	The lookup array. array({key name} => array(object, ...))
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws	Exception
 	 */
 	public function getSeqLookup($sequences)
@@ -253,7 +251,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  string	The real name of the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getRealTableName($table)
 	{
@@ -265,7 +263,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception on error.
 	 */
 	public function mergeStructure()
@@ -280,7 +278,7 @@ class JDatabaseImporterPostgresqlInspector extends JDatabaseImporterPostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since	12.1
+	 * @since	1.0
 	 */
 	public function withStructure($setting = true)
 	{

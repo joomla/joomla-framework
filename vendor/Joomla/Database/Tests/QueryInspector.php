@@ -1,21 +1,19 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Database\Tests;
 
 /**
  * Class to expose protected properties and methods in JDatabaseQueryExporter for testing purposes.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @since       11.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JDatabaseQueryInspector extends JDatabaseQuery
+class QueryInspector extends \Joomla\Database\Query
 {
 	/**
 	 * Sets any property from the class.
@@ -25,7 +23,7 @@ class JDatabaseQueryInspector extends JDatabaseQuery
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __set($property, $value)
 	{
@@ -39,7 +37,7 @@ class JDatabaseQueryInspector extends JDatabaseQuery
 	 *
 	 * @return  mixed   The value of the class property.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function get($property)
 	{

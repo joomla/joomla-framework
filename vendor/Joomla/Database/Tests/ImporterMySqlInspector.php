@@ -1,21 +1,19 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @license     GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Database\Tests;
 
 /**
  * Class to expose protected properties and methods in JDatabaseMySqlExporter for testing purposes.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @since       11.1
+ * @package     Joomla\Framework\Tests
+ * @since       1.0
  */
-class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
+class ImporterMySqlInspector extends \Joomla\Database\Importer\Mysql
 {
 	/**
 	 * Gets any property from the class.
@@ -24,7 +22,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  mixed   The value of the class property.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __get($property)
 	{
@@ -36,7 +34,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function check()
 	{
@@ -51,9 +49,9 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
-	public function getAddColumnSQL($table, SimpleXMLElement $field)
+	public function getAddColumnSQL($table, \SimpleXMLElement $field)
 	{
 		return parent::getAddColumnSQL($table, $field);
 	}
@@ -66,7 +64,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getAddKeySQL($table, $keys)
 	{
@@ -80,9 +78,9 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
-	public function getAlterTableSQL(SimpleXMLElement $structure)
+	public function getAlterTableSQL(\SimpleXMLElement $structure)
 	{
 		return parent::getAlterTableSQL($structure);
 	}
@@ -95,9 +93,9 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
-	public function getChangeColumnSQL($table, SimpleXMLElement $field)
+	public function getChangeColumnSQL($table, \SimpleXMLElement $field)
 	{
 		return parent::getChangeColumnSQL($table, $field);
 	}
@@ -109,9 +107,9 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
-	public function getColumnSQL(SimpleXMLElement $field)
+	public function getColumnSQL(\SimpleXMLElement $field)
 	{
 		return parent::getColumnSQL($field);
 	}
@@ -124,7 +122,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getDropColumnSQL($table, $name)
 	{
@@ -141,7 +139,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string
 	 *
-	 * @since    11.1
+	 * @since    1.0
 	 */
 	public function getDropKeySQL($table, $name)
 	{
@@ -155,7 +153,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getDropPrimaryKeySQL($table)
 	{
@@ -169,7 +167,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  array The lookup array. array({key name} => array(object, ...))
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws	Exception
 	 */
 	public function getKeyLookup($keys)
@@ -184,7 +182,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getKeySQL($columns)
 	{
@@ -198,7 +196,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  string	The real name of the table.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getRealTableName($table)
 	{
@@ -210,7 +208,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception on error.
 	 */
 	public function mergeStructure()
@@ -225,7 +223,7 @@ class JDatabaseImporterMySqlInspector extends JDatabaseImporterMysql
 	 *
 	 * @return  void
 	 *
-	 * @since	11.1
+	 * @since	1.0
 	 */
 	public function withStructure($setting = true)
 	{

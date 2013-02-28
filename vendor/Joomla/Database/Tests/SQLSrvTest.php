@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Database
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -10,11 +10,11 @@
 /**
  * Test class for JDatabaseSQLSrv.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Database
  * @since       12.1
  */
-class JDatabaseSQLSrvTest extends TestCaseDatabase
+class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 {
 	/**
 	 * @var    JDatabaseSQLSrv

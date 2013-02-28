@@ -1,33 +1,31 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once __DIR__ . '/JDatabaseImporterPostgresqlInspector.php';
+namespace Joomla\Database\Tests;
+
+require_once __DIR__ . '/ImporterPostgresqlInspector.php';
 
 /**
  * Test the JDatabaseImporterPostgresql class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @since       12.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
+class ImporterPostgresqlTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    object  The mocked database object for use by test methods.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $dbo = null;
 
 	/**
 	 * @var    string  The last query sent to the dbo setQuery method.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $lastQuery = '';
 
@@ -36,7 +34,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setup()
 	{
@@ -214,7 +212,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return array  An array of results based on the setting of the last query.
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function callbackLoadObjectList()
 	{
@@ -228,7 +226,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  string  The value passed wrapped in MySQL quotes.
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function callbackQuote($value)
 	{
@@ -242,7 +240,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  string  The value passed wrapped in MySQL quotes.
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function callbackQuoteName($value)
 	{
@@ -256,7 +254,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function callbackSetQuery($query)
 	{
@@ -268,7 +266,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array  Each array element must be an array with 3 elements: SimpleXMLElement field, expected result, error message.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function dataGetAlterTableSQL()
 	{
@@ -302,14 +300,14 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 
 		return array(
 			array(
-				new SimpleXmlElement('<table_structure name="#__dbtest">' . $s1 . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__dbtest">' . $s1 . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
 				array(
 				),
 				'getAlterTableSQL should not change anything.'
 			),
 			array(
 				// Add col
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $f3 . $k1 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $f3 . $k1 . $k2 . '</table_structure>'),
 				array(
 					'ALTER TABLE "jos_test" ADD COLUMN "alias" character varying(255) NOT NULL DEFAULT \'test\'',
 				),
@@ -317,13 +315,13 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Add idx
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . $k2 . $k3 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . $k2 . $k3 . '</table_structure>'),
 				array('CREATE INDEX jos_dbtest_idx_title ON jos_dbtest USING btree (title)',),
 				'getAlterTableSQL should add the new key.'
 			),
 			array(
 				// Add unique idx
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . $k2 . $k4 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . $k2 . $k4 . '</table_structure>'),
 				array(
 					'CREATE UNIQUE INDEX jos_dbtest_uidx_name ON jos_dbtest USING btree (name)',
 				),
@@ -331,7 +329,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Add sequence
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $s2 . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $s2 . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
 				array(
 					$addSequence,
 				),
@@ -339,7 +337,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Add pkey
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . $k2 . $pk . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . $k2 . $pk . '</table_structure>'),
 				array(
 					'ALTER TABLE jos_dbtest ADD PRIMARY KEY (title)',
 				),
@@ -347,7 +345,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Drop col
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $k1 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $k1 . $k2 . '</table_structure>'),
 				array(
 					'ALTER TABLE "jos_test" DROP COLUMN "title"',
 				),
@@ -355,7 +353,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Drop idx
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . '</table_structure>'),
 				array(
 					"DROP INDEX \"jos_dbtest_idx_name\""
 				),
@@ -363,7 +361,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Drop seq
-				new SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
 				array(
 					'DROP SEQUENCE "jos_dbtest_id_seq"',
 				),
@@ -371,7 +369,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 			// Drop pkey
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k2 . '</table_structure>'),
 				array(
 					'ALTER TABLE ONLY "jos_test" DROP CONSTRAINT "jos_dbtest_pkey"',
 				),
@@ -379,13 +377,13 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Change col
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2_def . $k1 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2_def . $k1 . $k2 . '</table_structure>'),
 				array($changeCol,),
 				'getAlterTableSQL should change title field.'
 			),
 			array(
 				// Change seq
-				new SimpleXmlElement('<table_structure name="#__test">' . $s2 . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s2 . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
 				array(
 					$changeSeq,
 					"DROP SEQUENCE \"jos_dbtest_id_seq\"",),
@@ -393,7 +391,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Change idx
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . $k3 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $k1 . $k3 . '</table_structure>'),
 				array(
 					"CREATE INDEX jos_dbtest_idx_title ON jos_dbtest USING btree (title)",
 					'DROP INDEX "jos_dbtest_idx_name"'
@@ -402,7 +400,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			),
 			array(
 				// Change pkey
-				new SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $pk . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $s1 . $f1 . $f2 . $pk . $k2 . '</table_structure>'),
 				array(
 					'ALTER TABLE jos_dbtest ADD PRIMARY KEY (title)',
 					'ALTER TABLE ONLY "jos_test" DROP CONSTRAINT "jos_dbtest_pkey"'
@@ -417,7 +415,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array  Each array element must be an array with 3 elements: SimpleXMLElement field, expected result, error message.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function dataGetColumnSQL()
 	{
@@ -429,28 +427,28 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 
 		return array(
 			array(
-				new SimpleXmlElement(
+				new \SimpleXmlElement(
 					$sample['xml-id-field']
 				),
 				'"id" serial',
 				'Typical primary key field',
 			),
 			array(
-				new SimpleXmlElement(
+				new \SimpleXmlElement(
 					$sample['xml-title-field']
 				),
 				'"title" character varying(50) NOT NULL',
 				'Typical text field',
 			),
 			array(
-				new SimpleXmlElement(
+				new \SimpleXmlElement(
 					$sample['xml-body-field']
 				),
 				'"description" text NOT NULL',
 				'Typical blob field',
 			),
 			array(
-				new SimpleXmlElement(
+				new \SimpleXmlElement(
 					$sample['xml-title-def']
 				),
 				'"title" character varying(50) NOT NULL DEFAULT \'this is a test\'',
@@ -464,11 +462,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function testAsXml()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 
 		$result = $instance->asXml();
 
@@ -490,17 +488,17 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function testCheckWithNoDbo()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 
 		try
 		{
 			$instance->check();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			// Exception expected.
 			return;
@@ -516,18 +514,18 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function testCheckWithNoFrom()
 	{
-		$instance	= new JDatabaseImporterPostgresqlInspector;
+		$instance	= new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		try
 		{
 			$instance->check();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			// Exception expected.
 			return;
@@ -543,11 +541,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function testCheckWithGoodInput()
 	{
-		$instance	= new JDatabaseImporterPostgresqlInspector;
+		$instance	= new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 		$instance->from('foobar');
 
@@ -561,7 +559,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 				'check must return an object to support chaining.'
 			);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->fail(
 				'Check method should not throw exception with good setup: ' . $e->getMessage()
@@ -574,11 +572,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function testFromWithGoodInput()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 
 		try
 		{
@@ -596,7 +594,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 				'The from method did not store the value as expected.'
 			);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->fail(
 				'From method should not throw exception with good input: ' . $e->getMessage()
@@ -611,11 +609,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetAddColumnSQL()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$sample = array(
@@ -626,7 +624,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$instance->getAddColumnSQL(
 				'jos_test',
-				new SimpleXmlElement($sample['xml-title-field'])
+				new \SimpleXmlElement($sample['xml-title-field'])
 			),
 			$this->equalTo(
 				'ALTER TABLE "jos_test" ADD COLUMN "title" character varying(50) NOT NULL'
@@ -638,7 +636,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$instance->getAddColumnSQL(
 				'jos_test',
-				new SimpleXmlElement($sample['xml-title-def'])
+				new \SimpleXmlElement($sample['xml-title-def'])
 			),
 			$this->equalTo(
 				'ALTER TABLE "jos_test" ADD COLUMN "title" character varying(50) NOT NULL DEFAULT \'this is a test\''
@@ -650,7 +648,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$instance->getAddColumnSQL(
 				'jos_test',
-				new SimpleXmlElement($sample['xml-int-defnum'])
+				new \SimpleXmlElement($sample['xml-int-defnum'])
 			),
 			$this->equalTo(
 				'ALTER TABLE "jos_test" ADD COLUMN "title" integer NOT NULL DEFAULT 0'
@@ -664,11 +662,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetAddSequenceSQL()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$xmlIdSeq = '<sequence Name="jos_dbtest_id_seq" Schema="public" Table="jos_dbtest" Column="id" ' .
@@ -676,7 +674,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			$instance->getAddSequenceSQL(
-				new SimpleXmlElement($xmlIdSeq)
+				new \SimpleXmlElement($xmlIdSeq)
 			),
 			$this->equalTo(
 				'CREATE SEQUENCE jos_dbtest_id_seq INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 NO CYCLE OWNED BY "public.jos_dbtest.id"'
@@ -690,7 +688,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetAddIndexSQL()
 	{
@@ -699,12 +697,12 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 		$xmlPrimaryKey = '<key Index="jos_dbtest_pkey" is_primary="TRUE" is_unique="TRUE" ' .
 			'Query="ALTER TABLE jos_dbtest ADD PRIMARY KEY (id)" />';
 
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
 			$instance->getAddIndexSQL(
-					new SimpleXmlElement($xmlIndex)
+					new \SimpleXmlElement($xmlIndex)
 			),
 			$this->equalTo(
 				"CREATE INDEX jos_dbtest_idx_name ON jos_dbtest USING btree (name)"
@@ -714,7 +712,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			$instance->getAddIndexSQL(
-					new SimpleXmlElement($xmlPrimaryKey)
+					new \SimpleXmlElement($xmlPrimaryKey)
 			),
 			$this->equalTo(
 				"ALTER TABLE jos_dbtest ADD PRIMARY KEY (id)"
@@ -732,13 +730,13 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @dataProvider dataGetAlterTableSQL
 	 */
 	public function testGetAlterTableSQL($structure, $expected, $message)
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -759,19 +757,19 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetChangeColumnSQL()
 	{
 		$xmlTitleField = '<field Field="title" Type="character varying(50)" Null="NO" Default="NULL" Comments="" />';
 
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
 			$instance->getChangeColumnSQL(
 				'jos_test',
-				new SimpleXmlElement($xmlTitleField)
+				new \SimpleXmlElement($xmlTitleField)
 			),
 			$this->equalTo(
 				'ALTER TABLE "jos_test" ALTER COLUMN "title"  TYPE character varying(50),' . "\n" .
@@ -787,19 +785,19 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetChangeSequenceSQL()
 	{
 		$xmlIdSeq = '<sequence Name="jos_dbtest_id_seq" Schema="public" Table="jos_dbtest" Column="id" ' .
 			'Type="bigint" Start_Value="1" Min_Value="1" Max_Value="9223372036854775807" Increment="1" Cycle_option="NO" /> ';
 
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
 			$instance->getChangeSequenceSQL(
-				new SimpleXmlElement($xmlIdSeq)
+				new \SimpleXmlElement($xmlIdSeq)
 			),
 			$this->equalTo(
 				'ALTER SEQUENCE jos_dbtest_id_seq INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 OWNED BY "public.jos_dbtest.id"'
@@ -817,13 +815,13 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @dataProvider dataGetColumnSQL
 	 */
 	public function testGetColumnSQL($field, $expected, $message)
 	{
-		$instance	= new JDatabaseImporterPostgresqlInspector;
+		$instance	= new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -838,11 +836,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetDropColumnSQL()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -862,11 +860,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetDropIndexSQL()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -885,11 +883,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetDropPrimaryKeySQL()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -908,11 +906,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetDropSequenceSQL()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -931,11 +929,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetIdxLookup()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 
 		$o1 = (object) array('Index' => 'id', 'foo' => 'bar1');
 		$o2 = (object) array('Index' => 'id', 'foo' => 'bar2');
@@ -954,9 +952,9 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 			'getIdxLookup, using array input, did not yield the expected result.'
 		);
 
-		$o1 = new SimpleXmlElement('<key Index="id" foo="bar1" />');
-		$o2 = new SimpleXmlElement('<key Index="id" foo="bar2" />');
-		$o3 = new SimpleXmlElement('<key Index="title" foo="bar3" />');
+		$o1 = new \SimpleXmlElement('<key Index="id" foo="bar1" />');
+		$o2 = new \SimpleXmlElement('<key Index="id" foo="bar2" />');
+		$o3 = new \SimpleXmlElement('<key Index="title" foo="bar3" />');
 
 		$this->assertThat(
 			$instance->getIdxLookup(
@@ -977,11 +975,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function testGetRealTableName()
 	{
-		$instance	= new JDatabaseImporterPostgresqlInspector;
+		$instance	= new ImporterPostgresqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -996,17 +994,17 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function testSetDboWithBadInput()
 	{
-		$instance	= new JDatabaseImporterPostgresqlInspector;
+		$instance	= new ImporterPostgresqlInspector;
 
 		try
 		{
-			$instance->setDbo(new stdClass);
+			$instance->setDbo(new \stdClass);
 		}
-		catch (PHPUnit_Framework_Error $e)
+		catch (\PHPUnit_Framework_Error $e)
 		{
 			// Expecting the error, so just ignore it.
 			return;
@@ -1022,11 +1020,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function testSetDboWithGoodInput()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 
 		try
 		{
@@ -1038,7 +1036,7 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 				'setDbo must return an object to support chaining.'
 			);
 		}
-		catch (PHPUnit_Framework_Error $e)
+		catch (\PHPUnit_Framework_Error $e)
 		{
 			// Unknown error has occurred.
 			$this->fail(
@@ -1052,11 +1050,11 @@ class JDatabaseImporterPostgresqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testWithStructure()
 	{
-		$instance = new JDatabaseImporterPostgresqlInspector;
+		$instance = new ImporterPostgresqlInspector;
 
 		$result = $instance->withStructure();
 

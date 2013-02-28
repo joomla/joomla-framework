@@ -1,20 +1,19 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Database\Tests;
 
 /**
  * Tests the JDatabaseMySqlImporter class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Database
- * @since       11.1
+ * @package  Joomla\Framework\Tests
+ * @since    11.1
  */
-class JDatabaseImporterMySQLiTest extends PHPUnit_Framework_TestCase
+class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    object  The mocked database object for use by test methods.
@@ -52,13 +51,13 @@ class JDatabaseImporterMySQLiTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCheckWithNoDbo()
 	{
-		$instance = new JDatabaseImporterMysqli;
+		$instance = new \Joomla\Database\Importer\Mysqli;
 
 		try
 		{
 			$instance->check();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			// Exception expected.
 			return;
@@ -78,14 +77,14 @@ class JDatabaseImporterMySQLiTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCheckWithNoTables()
 	{
-		$instance = new JDatabaseImporterMysqli;
+		$instance = new \Joomla\Database\Importer\Mysqli;
 		$instance->setDbo($this->dbo);
 
 		try
 		{
 			$instance->check();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			// Exception expected.
 			return;
@@ -105,7 +104,7 @@ class JDatabaseImporterMySQLiTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCheckWithGoodInput()
 	{
-		$instance = new JDatabaseImporterMysqli;
+		$instance = new \Joomla\Database\Importer\Mysqli;
 		$instance->setDbo($this->dbo);
 		$instance->from('foobar');
 
@@ -119,7 +118,7 @@ class JDatabaseImporterMySQLiTest extends PHPUnit_Framework_TestCase
 				'check must return an object to support chaining.'
 			);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->fail(
 				'Check method should not throw exception with good setup: ' . $e->getMessage()
@@ -136,13 +135,13 @@ class JDatabaseImporterMySQLiTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSetDboWithBadInput()
 	{
-		$instance = new JDatabaseImporterMysqli;
+		$instance = new \Joomla\Database\Importer\Mysqli;
 
 		try
 		{
-			$instance->setDbo(new stdClass);
+			$instance->setDbo(new \stdClass);
 		}
-		catch (PHPUnit_Framework_Error $e)
+		catch (\PHPUnit_Framework_Error $e)
 		{
 			// Expecting the error, so just ignore it.
 			return;
@@ -162,7 +161,7 @@ class JDatabaseImporterMySQLiTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSetDboWithGoodInput()
 	{
-		$instance = new JDatabaseImporterMysqli;
+		$instance = new \Joomla\Database\Importer\Mysqli;
 
 		try
 		{
@@ -174,7 +173,7 @@ class JDatabaseImporterMySQLiTest extends PHPUnit_Framework_TestCase
 				'setDbo must return an object to support chaining.'
 			);
 		}
-		catch (PHPUnit_Framework_Error $e)
+		catch (\PHPUnit_Framework_Error $e)
 		{
 			// Unknown error has occurred.
 			$this->fail(

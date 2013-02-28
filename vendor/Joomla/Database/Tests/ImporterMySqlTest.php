@@ -1,39 +1,37 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once __DIR__ . '/JDatabaseImporterMySqlInspector.php';
+namespace Joomla\Database\Tests;
+
+require_once __DIR__ . '/ImporterMySqlInspector.php';
 
 /**
  * Tests the JDatabaseMySqlExporter class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Database
- *
- * @since       11.1
+ * @package     Joomla\Framework\Tests
+ * @since       1.0
  */
-class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
+class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    object  The mocked database object for use by test methods.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $dbo = null;
 
 	/**
 	 * @var    string  The last query sent to the dbo setQuery method.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $lastQuery = '';
 
 	/**
 	 * @var    array  Selected sample data for tests.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $sample = array(
 		'xml-id-field' =>
@@ -51,7 +49,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setup()
 	{
@@ -189,7 +187,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return array  An array of results based on the setting of the last query.
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function callbackLoadObjectList()
 	{
@@ -203,7 +201,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return string  The value passed wrapped in MySQL quotes.
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function callbackQuote($value)
 	{
@@ -217,7 +215,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return string  The value passed wrapped in MySQL quotes.
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function callbackQuoteName($value)
 	{
@@ -231,7 +229,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function callbackSetQuery($query)
 	{
@@ -243,7 +241,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array  Each array element must be an array with 3 elements: SimpleXMLElement field, expected result, error message.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function dataGetAlterTableSQL()
 	{
@@ -258,33 +256,33 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 
 		return array(
 			array(
-				new SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . $k1 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . $k1 . '</table_structure>'),
 				array(),
 				'getAlterTableSQL should not change anything.'
 			),
 			array(
-				new SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . $f3 . $k1 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . $f3 . $k1 . '</table_structure>'),
 				array(
 					"ALTER TABLE `jos_test` ADD COLUMN `alias` varchar(255) NOT NULL DEFAULT ''",
 				),
 				'getAlterTableSQL should add the new alias column.'
 			),
 			array(
-				new SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . $k1 . $k2 . '</table_structure>'),
 				array(
 					"ALTER TABLE `jos_test` ADD UNIQUE KEY `idx_title` (`title`)",
 				),
 				'getAlterTableSQL should add the new key.'
 			),
 			array(
-				new SimpleXmlElement('<table_structure name="#__test">' . $f1 . $k1 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $f1 . $k1 . '</table_structure>'),
 				array(
 					"ALTER TABLE `jos_test` DROP COLUMN `title`",
 				),
 				'getAlterTableSQL should remove the title column.'
 			),
 			array(
-				new SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . '</table_structure>'),
+				new \SimpleXmlElement('<table_structure name="#__test">' . $f1 . $f2 . '</table_structure>'),
 				array(
 					"ALTER TABLE `jos_test` DROP PRIMARY KEY",
 				),
@@ -298,27 +296,27 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array  Each array element must be an array with 3 elements: SimpleXMLElement field, expected result, error message.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function dataGetColumnSQL()
 	{
 		return array(
 			array(
-				new SimpleXmlElement(
+				new \SimpleXmlElement(
 					$this->sample['xml-id-field']
 				),
 				"`id` int(11) unsigned NOT NULL DEFAULT '' AUTO_INCREMENT",
 				'Typical primary key field',
 			),
 			array(
-				new SimpleXmlElement(
+				new \SimpleXmlElement(
 					$this->sample['xml-title-field']
 				),
 				"`title` varchar(50) NOT NULL DEFAULT ''",
 				'Typical text field',
 			),
 			array(
-				new SimpleXmlElement(
+				new \SimpleXmlElement(
 					$this->sample['xml-body-field']
 				),
 				"`body` mediumtext NOT NULL",
@@ -332,7 +330,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array  Each array element must be an array with 3 elements: SimpleXMLElement field, expected result, error message.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function dataGetKeySQL()
 	{
@@ -340,7 +338,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 			array(
 				// Keys come in arrays.
 				array(
-					new SimpleXmlElement(
+					new \SimpleXmlElement(
 						$this->sample['xml-primary-key']
 					),
 				),
@@ -355,11 +353,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testAsXml()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 
 		$result = $instance->asXml();
 
@@ -381,17 +379,17 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testCheckWithNoDbo()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 
 		try
 		{
 			$instance->check();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			// Exception expected.
 			return;
@@ -407,18 +405,18 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testCheckWithNoFrom()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		try
 		{
 			$instance->check();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			// Exception expected.
 			return;
@@ -434,11 +432,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testCheckWithGoodInput()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 		$instance->from('foobar');
 
@@ -452,7 +450,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 				'check must return an object to support chaining.'
 			);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->fail(
 				'Check method should not throw exception with good setup: ' . $e->getMessage()
@@ -465,11 +463,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testFromWithGoodInput()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 
 		try
 		{
@@ -487,7 +485,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 				'The from method did not store the value as expected.'
 			);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->fail(
 				'From method should not throw exception with good input: ' . $e->getMessage()
@@ -502,17 +500,17 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetAddColumnSQL()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
 			$instance->getAddColumnSQL(
 				'jos_test',
-				new SimpleXmlElement($this->sample['xml-title-field'])
+				new \SimpleXmlElement($this->sample['xml-title-field'])
 			),
 			$this->equalTo(
 				"ALTER TABLE `jos_test` ADD COLUMN `title` varchar(50) NOT NULL DEFAULT ''"
@@ -528,18 +526,18 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetAddKeySQL()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
 			$instance->getAddKeySQL(
 				'jos_test',
 				array(
-					new SimpleXmlElement($this->sample['xml-primary-key'])
+					new \SimpleXmlElement($this->sample['xml-primary-key'])
 				)
 			),
 			$this->equalTo(
@@ -558,13 +556,13 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 *
 	 * @dataProvider dataGetAlterTableSQL
 	 */
 	public function testGetAlterTableSQL($structure, $expected, $message)
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -583,17 +581,17 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetChangeColumnSQL()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
 			$instance->getChangeColumnSQL(
 				'jos_test',
-				new SimpleXmlElement($this->sample['xml-title-field'])
+				new \SimpleXmlElement($this->sample['xml-title-field'])
 			),
 			$this->equalTo(
 				"ALTER TABLE `jos_test` CHANGE COLUMN `title` `title` varchar(50) NOT NULL DEFAULT ''"
@@ -612,13 +610,13 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 * @internal param \SimpleXmlElement $xml The database field as an object.
 	 * @return  void
 	 *
-	 * @since    11.1
+	 * @since    1.0
 	 *
 	 * @dataProvider dataGetColumnSQL
 	 */
 	public function testGetColumnSQL($field, $expected, $message)
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -633,11 +631,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetDropColumnSQL()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -657,11 +655,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetDropKeySQL()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -681,11 +679,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetDropPrimaryKeySQL()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -704,11 +702,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetKeyLookup()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 
 		$o1 = (object) array('Key_name' => 'id', 'foo' => 'bar1');
 		$o2 = (object) array('Key_name' => 'id', 'foo' => 'bar2');
@@ -727,9 +725,9 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 			'getKeyLookup, using array input, did not yield the expected result.'
 		);
 
-		$o1 = new SimpleXmlElement('<key Key_name="id" foo="bar1" />');
-		$o2 = new SimpleXmlElement('<key Key_name="id" foo="bar2" />');
-		$o3 = new SimpleXmlElement('<key Key_name="title" foo="bar3" />');
+		$o1 = new \SimpleXmlElement('<key Key_name="id" foo="bar1" />');
+		$o2 = new \SimpleXmlElement('<key Key_name="id" foo="bar2" />');
+		$o3 = new \SimpleXmlElement('<key Key_name="title" foo="bar3" />');
 
 		$this->assertThat(
 			$instance->getKeyLookup(
@@ -755,13 +753,13 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 * @internal param \SimpleXmlElement $xml The database key as an object.
 	 * @return  void
 	 *
-	 * @since    11.1
+	 * @since    1.0
 	 *
 	 * @dataProvider dataGetKeySQL
 	 */
 	public function testGetKeySQL($field, $expected, $message)
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -776,11 +774,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testGetRealTableName()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
@@ -795,17 +793,17 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testSetDboWithBadInput()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 
 		try
 		{
-			$instance->setDbo(new stdClass);
+			$instance->setDbo(new \stdClass);
 		}
-		catch (PHPUnit_Framework_Error $e)
+		catch (\PHPUnit_Framework_Error $e)
 		{
 			// Expecting the error, so just ignore it.
 			return;
@@ -821,11 +819,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testSetDboWithGoodInput()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 
 		try
 		{
@@ -837,7 +835,7 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 				'setDbo must return an object to support chaining.'
 			);
 		}
-		catch (PHPUnit_Framework_Error $e)
+		catch (\PHPUnit_Framework_Error $e)
 		{
 			// Unknown error has occurred.
 			$this->fail(
@@ -851,11 +849,11 @@ class JDatabaseImporterMySqlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testWithStructure()
 	{
-		$instance = new JDatabaseImporterMySqlInspector;
+		$instance = new ImporterMySqlInspector;
 
 		$result = $instance->withStructure();
 
