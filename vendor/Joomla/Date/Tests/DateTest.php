@@ -6,6 +6,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+namespace Joomla\Date\Tests;
+
 use Joomla\Date\Date;
 
 /**
@@ -15,18 +17,24 @@ use Joomla\Date\Date;
  * @subpackage  Date
  * @since       11.3
  */
-class DateTest extends PHPUnit_Framework_TestCase
+class DateTest extends \PHPUnit_Framework_TestCase
 {
-	protected $object;
+	/**
+	 * An instance of the class to test.
+	 *
+	 * @var    Joomla\Date\Date
+	 * @since  1.0
+	 */
+	private $instance;
 
 	/**
-	 * Test Cases for __construct
+	 * Test cases for __construct
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function cases__construct()
+	public function seedTest__construct()
 	{
 		date_default_timezone_set('UTC');
 
@@ -53,20 +61,20 @@ class DateTest extends PHPUnit_Framework_TestCase
 			),
 			'DateTime tzCT' => array(
 				'12/23/2008 13:45',
-				new DateTimeZone('US/Central'),
+				new \DateTimeZone('US/Central'),
 				'Tue 12/23/2008 13:45',
 			),
 		);
 	}
 
 	/**
-	 * Test Cases for __get
+	 * Test cases for __get
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function cases__get()
+	public function seedTest__get()
 	{
 		return array(
 			'daysinmonth' => array(
@@ -133,13 +141,13 @@ class DateTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test Cases for format
+	 * Test cases for format
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function casesFormat()
+	public function seedTestFormat()
 	{
 		return array(
 			'basic' => array(
@@ -191,13 +199,13 @@ class DateTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test Cases for getOffsetFromGMT
+	 * Test cases for getOffsetFromGMT
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function casesGetOffsetFromGMT()
+	public function seedTestGetOffsetFromGMT()
 	{
 		return array(
 			'basic' => array(
@@ -234,13 +242,13 @@ class DateTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test Cases for setTimezone
+	 * Test cases for setTimezone
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function casesSetTimezone()
+	public function seedTestSetTimezone()
 	{
 		return array(
 			'New_York' => array(
@@ -271,13 +279,13 @@ class DateTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test Cases for toISO8601
+	 * Test cases for toISO8601
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function casesToISO8601()
+	public function seedTestToISO8601()
 	{
 		return array(
 			'basic' => array(
@@ -314,13 +322,13 @@ class DateTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test Cases for toRFC822
+	 * Test cases for toRFC822
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function casesToRFC822()
+	public function seedTestToRFC822()
 	{
 		return array(
 			'basic' => array(
@@ -357,13 +365,13 @@ class DateTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test Cases for __toString
+	 * Test cases for __toString
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function casesToString()
+	public function seedTestToString()
 	{
 		return array(
 			'basic' => array(
@@ -382,13 +390,13 @@ class DateTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test Cases for toUnix
+	 * Test cases for toUnix
 	 *
 	 * @return  array
 	 *
 	 * @since   11.3
 	 */
-	public function casesToUnix()
+	public function seedTestToUnix()
 	{
 		return array(
 			'basic' => array(
@@ -420,35 +428,6 @@ class DateTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Sets up the fixture.
-	 *
-	 * This method is called before a test is executed.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	protected function setUp()
-	{
-		// Note: do not extend parent setUp method
-
-		$this->object = new Date('12/20/2007 11:44:56', 'America/New_York');
-	}
-
-	/**
-	 * Tears down the fixture.
-	 *
-	 * This method is called after a test is executed.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function tearDown()
-	{
-	}
-
-	/**
 	 * Testing the Constructor
 	 *
 	 * @param   string  $date          What time should be set?
@@ -457,7 +436,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider  cases__construct
+	 * @dataProvider  seedTest__construct
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::__construct
 	 */
@@ -485,7 +464,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider  cases__get
+	 * @dataProvider  seedTest__get
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::__get
 	 */
@@ -527,7 +506,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider casesToString
+	 * @dataProvider seedTestToString
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::__toString
 	 */
@@ -539,7 +518,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 		}
 
 		$this->assertThat(
-			$this->object->__toString(),
+			$this->instance->__toString(),
 			$this->equalTo($expectedTime)
 		);
 	}
@@ -577,7 +556,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider casesGetOffsetFromGMT
+	 * @dataProvider seedTestGetOffsetFromGMT
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::getOffsetFromGMT
 	 */
@@ -613,14 +592,14 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider casesFormat
+	 * @dataProvider seedTestFormat
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::format
 	 */
 	public function testFormat($format, $local, $expected)
 	{
 		$this->assertThat(
-			$this->object->format($format, $local),
+			$this->instance->format($format, $local),
 			$this->equalTo($expected)
 		);
 	}
@@ -635,15 +614,12 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider casesToRFC822
+	 * @dataProvider seedTestToRFC822
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::toRFC822
 	 */
 	public function testToRFC822($tz, $setTime, $local, $expected)
 	{
-		$language = JFactory::getLanguage();
-		$debug = $language->setDebug(true);
-
 		if (is_null($tz))
 		{
 			$testDate = new Date($setTime);
@@ -657,7 +633,6 @@ class DateTest extends PHPUnit_Framework_TestCase
 			$testDate->toRFC822($local),
 			$this->equalTo($expected)
 		);
-		$language->setDebug($debug);
 	}
 
 	/**
@@ -670,7 +645,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider casesToISO8601
+	 * @dataProvider seedTestToISO8601
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::toISO8601
 	 */
@@ -700,7 +675,7 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider casesToUnix
+	 * @dataProvider seedTestToUnix
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::toUnix
 	 */
@@ -729,16 +704,32 @@ class DateTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider casesSetTimezone
+	 * @dataProvider seedTestSetTimezone
 	 * @since   11.3
 	 * @covers  Joomla\Date\Date::setTimezone
 	 */
 	public function testSetTimezone($tz, $expected)
 	{
-		$this->object->setTimezone(new DateTimeZone($tz));
+		$this->instance->setTimezone(new \DateTimeZone($tz));
 		$this->assertThat(
-			$this->object->format('r', true),
+			$this->instance->format('r', true),
 			$this->equalTo($expected)
 		);
+	}
+
+	/**
+	 * Sets up the fixture.
+	 *
+	 * This method is called before a test is executed.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.3
+	 */
+	protected function setUp()
+	{
+		// Note: do not extend parent setUp method
+
+		$this->instance = new Date('12/20/2007 11:44:56', 'America/New_York');
 	}
 }
