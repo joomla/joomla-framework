@@ -1,9 +1,8 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Date
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Date\Tests;
@@ -13,9 +12,8 @@ use Joomla\Date\Date;
 /**
  * Tests for Date class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Date
- * @since       11.3
+ * @package  Joomla\Framework\Test
+ * @since    1.0
  */
 class DateTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +30,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTest__construct()
 	{
@@ -72,7 +70,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTest__get()
 	{
@@ -145,7 +143,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTestFormat()
 	{
@@ -203,7 +201,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTestGetOffsetFromGMT()
 	{
@@ -246,7 +244,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTestSetTimezone()
 	{
@@ -283,7 +281,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTestToISO8601()
 	{
@@ -326,7 +324,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTestToRFC822()
 	{
@@ -369,7 +367,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTestToString()
 	{
@@ -394,7 +392,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function seedTestToUnix()
 	{
@@ -437,7 +435,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTest__construct
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::__construct
 	 */
 	public function test__construct($date, $tz, $expectedTime)
@@ -465,7 +463,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTest__get
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::__get
 	 */
 	public function test__get($date, $property, $expected)
@@ -483,7 +481,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::__toString
 	 */
 	public function test__toString()
@@ -507,7 +505,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedTestToString
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::__toString
 	 */
 	public function testToString($format, $expectedTime)
@@ -528,7 +526,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::getInstance
 	 */
 	public function testGetInstance()
@@ -557,7 +555,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedTestGetOffsetFromGMT
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::getOffsetFromGMT
 	 */
 	public function testGetOffsetFromGMT($tz, $setTime, $hours, $expected)
@@ -593,7 +591,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedTestFormat
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::format
 	 */
 	public function testFormat($format, $local, $expected)
@@ -615,7 +613,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedTestToRFC822
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::toRFC822
 	 */
 	public function testToRFC822($tz, $setTime, $local, $expected)
@@ -646,7 +644,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedTestToISO8601
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::toISO8601
 	 */
 	public function testToISO8601($tz, $setTime, $local, $expected)
@@ -676,7 +674,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedTestToUnix
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::toUnix
 	 */
 	public function testToUnix($tz, $setTime, $expected)
@@ -705,7 +703,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedTestSetTimezone
-	 * @since   11.3
+	 * @since   1.0
 	 * @covers  Joomla\Date\Date::setTimezone
 	 */
 	public function testSetTimezone($tz, $expected)
@@ -724,7 +722,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
