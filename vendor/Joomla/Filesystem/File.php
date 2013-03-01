@@ -452,32 +452,4 @@ class File
 	{
 		return is_file(Path::clean($file));
 	}
-
-	/**
-	 * Returns the name, without any path.
-	 *
-	 * @param   string  $file  File path
-	 *
-	 * @return  string  filename
-	 *
-	 * @since   11.1
-	 * @deprecated  13.3 Use basename() instead.
-	 */
-	public static function getName($file)
-	{
-		Log::add(__METHOD__ . ' is deprecated. Use native basename() syntax.', Log::WARNING, 'deprecated');
-
-		// Convert back slashes to forward slashes
-		$file = str_replace('\\', '/', $file);
-		$slash = strrpos($file, '/');
-
-		if ($slash !== false)
-		{
-			return substr($file, $slash + 1);
-		}
-		else
-		{
-			return $file;
-		}
-	}
 }

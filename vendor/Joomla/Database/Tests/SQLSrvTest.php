@@ -335,19 +335,6 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	/**
 	 * Test...
 	 *
-	 * @todo Implement testLoadNextRow().
-	 *
-	 * @return void
-	 */
-	public function testLoadNextRow()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test...
-	 *
 	 * @todo Implement testLoadObject().
 	 *
 	 * @return void

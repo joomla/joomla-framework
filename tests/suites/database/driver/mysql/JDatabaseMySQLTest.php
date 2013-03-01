@@ -306,18 +306,6 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	}
 
 	/**
-	 * Test loadNextRow method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.4
-	 */
-	public function testLoadNextRow()
-	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
 	 * Test loadObject method
 	 *
 	 * @return  void
