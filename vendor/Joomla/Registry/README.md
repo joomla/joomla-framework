@@ -1,1 +1,1 @@
-# The Utilities Package
+# The Registry Package

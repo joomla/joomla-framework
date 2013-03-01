@@ -1,32 +1,27 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Registry
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Registry;
 
 use Joomla\Utilities\ArrayHelper;
-use stdClass;
-use JsonSerializable;
 
 /**
  * Registry class
  *
- * @package     Joomla.Platform
- * @subpackage  Registry
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
-class Registry implements JsonSerializable
+class Registry implements \JsonSerializable
 {
 	/**
 	 * Registry Object
 	 *
 	 * @var    object
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $data;
 
@@ -43,12 +38,12 @@ class Registry implements JsonSerializable
 	 *
 	 * @param   mixed  $data  The data to bind to the new Registry object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($data = null)
 	{
 		// Instantiate the internal data object.
-		$this->data = new stdClass;
+		$this->data = new \stdClass;
 
 		// Optionally load supplied data.
 		if (is_array($data) || is_object($data))
@@ -66,7 +61,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  Registry
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __clone()
 	{
@@ -78,7 +73,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __toString()
 	{
@@ -107,7 +102,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  mixed  The value set, or the default if the value was not previously set (or null).
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function def($key, $default = '')
 	{
@@ -124,12 +119,14 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function exists($path)
 	{
 		// Explode the registry path into an array
-		if ($nodes = explode('.', $path))
+		$nodes = explode('.', $path);
+
+		if ($nodes)
 		{
 			// Initialize the current node to be the registry root.
 			$node = $this->data;
@@ -164,7 +161,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  mixed  Value of entry or null
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function get($path, $default = null)
 	{
@@ -216,7 +213,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  Registry  The Registry object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getInstance($id)
 	{
@@ -235,7 +232,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function loadArray($array)
 	{
@@ -251,7 +248,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function loadObject($object)
 	{
@@ -269,7 +266,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function loadFile($file, $format = 'JSON', $options = array())
 	{
@@ -287,7 +284,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function loadString($data, $format = 'JSON', $options = array())
 	{
@@ -307,7 +304,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function merge($source)
 	{
@@ -336,14 +333,16 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  mixed  The value of the that has been set.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function set($path, $value)
 	{
 		$result = null;
 
 		// Explode the registry path into an array
-		if ($nodes = explode('.', $path))
+		$nodes = explode('.', $path);
+
+		if ($nodes)
 		{
 			// Initialize the current node to be the registry root.
 			$node = $this->data;
@@ -353,7 +352,7 @@ class Registry implements JsonSerializable
 			{
 				if (!isset($node->$nodes[$i]) && ($i != $n))
 				{
-					$node->$nodes[$i] = new stdClass;
+					$node->$nodes[$i] = new \stdClass;
 				}
 
 				$node = $node->$nodes[$i];
@@ -371,7 +370,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  array  An associative array holding the namespace data
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function toArray()
 	{
@@ -383,7 +382,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  object   An an object holding the namespace data
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function toObject()
 	{
@@ -398,7 +397,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  string   Namespace in string format
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function toString($format = 'JSON', $options = array())
 	{
@@ -416,7 +415,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function bindData($parent, $data)
 	{
@@ -434,7 +433,7 @@ class Registry implements JsonSerializable
 		{
 			if ((is_array($v) && ArrayHelper::isAssociative($v)) || is_object($v))
 			{
-				$parent->$k = new stdClass;
+				$parent->$k = new \stdClass;
 				$this->bindData($parent->$k, $v);
 			}
 			else
@@ -451,7 +450,7 @@ class Registry implements JsonSerializable
 	 *
 	 * @return  array  Array representation of the input object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function asArray($data)
 	{

@@ -1,28 +1,23 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Registry
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Registry;
 
-use InvalidArgumentException;
-
 /**
  * Abstract Format for Registry
  *
- * @package     Joomla.Platform
- * @subpackage  Registry
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 abstract class Format
 {
 	/**
 	 * @var    array  Format instances container.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $instances = array();
 
@@ -34,7 +29,7 @@ abstract class Format
 	 *
 	 * @return  Format  Registry format handler
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public static function getInstance($type)
@@ -50,7 +45,7 @@ abstract class Format
 
 			if (!class_exists($class))
 			{
-				throw new InvalidArgumentException('Unable to load format class.', 500);
+				throw new \InvalidArgumentException('Unable to load format class.', 500);
 			}
 
 			self::$instances[$type] = new $class;
@@ -67,7 +62,7 @@ abstract class Format
 	 *
 	 * @return  string  Formatted string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function objectToString($object, $options = null);
 
@@ -79,7 +74,7 @@ abstract class Format
 	 *
 	 * @return  object  Data Object
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function stringToObject($data, array $options = array());
 }
