@@ -294,18 +294,6 @@ class JDatabaseMysqliTest extends TestCaseDatabaseMysqli
 	}
 
 	/**
-	 * Test loadNextObject method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.4
-	 */
-	public function testLoadNextObject()
-	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
 	 * Test loadNextRow method.
 	 *
 	 * @return  void
