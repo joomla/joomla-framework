@@ -11,7 +11,7 @@
     "target-dir": "Joomla/Utilities",
     "autoload": {
     	"psr-0": {
-    		"Joomla\\Utilties": ""
+    		"Joomla\\Utilities": ""
     	}
     }
 }
