@@ -6,13 +6,13 @@
     "homepage": "https://github.com/joomla/joomla-framework-registry",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10"
+        "php": ">=5.3.10",
+         "joomla/compat": "dev-master",
     },
     "target-dir": "Joomla/Registry",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Registry": ""
-    	},
-    	"classmap": ["JsonSerializeable.php"]
+    	}
     }
 }
