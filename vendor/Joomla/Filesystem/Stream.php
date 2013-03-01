@@ -1283,7 +1283,7 @@ class Stream
 
 		if (!$res && $php_errormsg)
 		{
-			throw new RuntimeException(($php_errormsg());
+			throw new RuntimeException($php_errormsg());
 		}
 
 		// Restore error tracking to what it was before.
