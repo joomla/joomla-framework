@@ -969,46 +969,6 @@ abstract class Driver implements DatabaseInterface
 	}
 
 	/**
-	 * Method to get the next row in the result set from the database query as an object.
-	 *
-	 * @param   string  $class  The class name to use for the returned row object.
-	 *
-	 * @return  mixed   The result of the query as an array, false if there are no more rows.
-	 *
-	 * @since   11.1
-	 * @throws  RuntimeException
-	 * @deprecated  To be removed
-	 */
-	public function loadNextObject($class = '\\stdClass')
-	{
-		Log::add(__METHOD__ . '() is deprecated. Use ' . __CLASS__ . '::getIterator() instead.', Log::WARNING, 'deprecated');
-		$this->connect();
-
-		static $cursor = null;
-
-		// Execute the query and get the result set cursor.
-		if ( is_null($cursor) )
-		{
-			if (!($cursor = $this->execute()))
-			{
-				return $this->errorNum ? null : false;
-			}
-		}
-
-		// Get the next row from the result set as an object of type $class.
-		if ($row = $this->fetchObject($cursor, $class))
-		{
-			return $row;
-		}
-
-		// Free up system resources and return.
-		$this->freeResult($cursor);
-		$cursor = null;
-
-		return false;
-	}
-
-	/**
 	 * Method to get the next row in the result set from the database query as an array.
 	 *
 	 * @return  mixed  The result of the query as an array, false if there are no more rows.
