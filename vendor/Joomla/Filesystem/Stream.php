@@ -31,15 +31,6 @@ namespace Joomla\Filesystem;
  */
 class Stream
 {
-	/**
-	 * An array of Exception objects.
-	 *
-	 * @var              array
-	 * @since            11.1
-	 * @deprecated       13.3
-	 */
-	protected $_errors = array();
-
 	// Publicly settable vars (protected to let our parent read them)
 	/**
 	 * File Mode
