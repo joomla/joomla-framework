@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Data
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -17,7 +17,7 @@ use Joomla\Registry\Registry;
 /**
  * Tests for the JData class.
  *
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Data
  * @since       12.3
  */

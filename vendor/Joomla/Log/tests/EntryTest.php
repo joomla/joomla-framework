@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Log
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -14,7 +14,7 @@ use Joomla\Date\Date;
 /**
  * Test class for JLogEntry.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Log
  * @since       11.1
  */

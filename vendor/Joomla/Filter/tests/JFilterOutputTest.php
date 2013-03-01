@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Filter
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ use Joomla\Filter\Output;
 /**
  * FilterTestObject
  *
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Filter
  * @since       11.1
  */
@@ -39,7 +39,7 @@ class FilterTestObject
 /**
  * Test class for Filter\Output
  *
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Filter
  * @since       11.1
  */

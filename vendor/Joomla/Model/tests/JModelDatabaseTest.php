@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Model
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ require_once __DIR__ . '/stubs/tdatabase.php';
 /**
  * Tests for the JViewBase class.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Model
  * @since       12.1
  */

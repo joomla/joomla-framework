@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  View
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
@@ -10,7 +10,7 @@
 /**
  * Mock class for JModel.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  View
  * @since       12.1
  */

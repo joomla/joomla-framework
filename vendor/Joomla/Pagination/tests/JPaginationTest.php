@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Pagination
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ use Joomla\Pagination\Pagination;
 /**
  * Test class for JPagination.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Pagination
  * @since       11.1
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Data
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -16,7 +16,7 @@ use Joomla\Data\Data;
 /**
  * Tests for the JContentHelperTest class.
  *
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Data
  * @since       12.3
  */

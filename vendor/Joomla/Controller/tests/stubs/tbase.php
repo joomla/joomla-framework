@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Controller
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -10,7 +10,7 @@
 /**
  * Concrete class extending JControllerBase.
  *
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Controller
  * @since       12.1
  */

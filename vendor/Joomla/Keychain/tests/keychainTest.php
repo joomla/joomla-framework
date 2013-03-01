@@ -12,7 +12,7 @@ use Joomla\Keychain\Keychain;
 /**
  * Tests for the Joomla Platform Keychain Class
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Keychain
  * @since       12.3
  */

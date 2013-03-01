@@ -9,7 +9,7 @@
 /**
  * Test class for JDatabasePostgresql.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Tests
  * @subpackage  Database
  *
  * @since       11.3

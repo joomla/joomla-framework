@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Application
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ use Joomla\Input\Input;
 /**
  * Test class for JApplicationWebRouterBase.
  *
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Application
  * @since       12.3
  */

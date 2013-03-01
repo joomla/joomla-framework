@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Form
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -10,7 +10,7 @@
 /**
  * Data for JForm tests.
  *
- * @package     Joomla.UnitTest
+ * @package     JoomlaFrameworkTests
  * @subpackage  Form
  * @since       11.1
  */
@@ -577,7 +577,7 @@ class JFormDataHelper
  *
  * @param   mixed  $value  Test
  *
- * @package        Joomla.UnitTest
+ * @package        Joomla\Framework\Tests
  * @subpackage     Form
  *
  * @return void
