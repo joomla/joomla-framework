@@ -1,27 +1,27 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  String
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\String\Tests;
+
 use Joomla\String\Inflector;
+use Joomla\Test\Helper;
 
 /**
  * Test for the Inflector class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  String
- * @link        http://en.wikipedia.org/wiki/English_plural
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @link     http://en.wikipedia.org/wiki/English_plural
+ * @since    1.0
  */
-class InflectorTest extends PHPUnit_Framework_TestCase
+class InflectorTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Inflector
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $inflector;
 
@@ -30,7 +30,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function seedIsCountable()
 	{
@@ -45,7 +45,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function seedSinglePlural()
 	{
@@ -89,7 +89,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -103,15 +103,15 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::addRule
 	 */
 	public function testAddRule()
 	{
 		// Case 1
-		TestReflection::invoke($this->inflector, 'addRule', '/foo/', 'singular');
+		Helper::invoke($this->inflector, 'addRule', '/foo/', 'singular');
 
-		$rules = TestReflection::getValue($this->inflector, 'rules');
+		$rules = Helper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/foo/', $rules['singular']),
@@ -120,9 +120,9 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Case 2
-		TestReflection::invoke($this->inflector, 'addRule', '/bar/', 'plural');
+		Helper::invoke($this->inflector, 'addRule', '/bar/', 'plural');
 
-		$rules = TestReflection::getValue($this->inflector, 'rules');
+		$rules = Helper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['plural']),
@@ -131,9 +131,9 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Case 3
-		TestReflection::invoke($this->inflector, 'addRule', array('/goo/', '/car/'), 'singular');
+		Helper::invoke($this->inflector, 'addRule', array('/goo/', '/car/'), 'singular');
 
-		$rules = TestReflection::getValue($this->inflector, 'rules');
+		$rules = Helper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/goo/', $rules['singular']),
@@ -153,13 +153,13 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @expectedException  InvalidArgumentException
 	 * @covers  Joomla\String\Inflector::addRule
 	 */
 	public function testAddRuleException()
 	{
-		TestReflection::invoke($this->inflector, 'addRule', new stdClass, 'singular');
+		Helper::invoke($this->inflector, 'addRule', new \stdClass, 'singular');
 	}
 
 	/**
@@ -167,22 +167,22 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::getCachedPlural
 	 */
 	public function testGetCachedPlural()
 	{
 		// Reset the cache.
-		TestReflection::setValue($this->inflector, 'cache', array('foo' => 'bar'));
+		Helper::setValue($this->inflector, 'cache', array('foo' => 'bar'));
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, 'getCachedPlural', 'bar'),
+			Helper::invoke($this->inflector, 'getCachedPlural', 'bar'),
 			$this->isFalse(),
 			'Checks for an uncached plural.'
 		);
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, 'getCachedPlural', 'foo'),
+			Helper::invoke($this->inflector, 'getCachedPlural', 'foo'),
 			$this->equalTo('bar'),
 			'Checks for a cached plural word.'
 		);
@@ -193,22 +193,22 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::getCachedSingular
 	 */
 	public function testGetCachedSingular()
 	{
 		// Reset the cache.
-		TestReflection::setValue($this->inflector, 'cache', array('foo' => 'bar'));
+		Helper::setValue($this->inflector, 'cache', array('foo' => 'bar'));
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, 'getCachedSingular', 'foo'),
+			Helper::invoke($this->inflector, 'getCachedSingular', 'foo'),
 			$this->isFalse(),
 			'Checks for an uncached singular.'
 		);
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, 'getCachedSingular', 'bar'),
+			Helper::invoke($this->inflector, 'getCachedSingular', 'bar'),
 			$this->equalTo('foo'),
 			'Checks for a cached singular word.'
 		);
@@ -219,25 +219,25 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::matchRegexRule
 	 */
 	public function testMatchRegexRule()
 	{
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, 'matchRegexRule', 'xyz', 'plural'),
+			Helper::invoke($this->inflector, 'matchRegexRule', 'xyz', 'plural'),
 			$this->equalTo('xyzs'),
 			'Checks pluralising against the basic regex.'
 		);
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, 'matchRegexRule', 'xyzs', 'singular'),
+			Helper::invoke($this->inflector, 'matchRegexRule', 'xyzs', 'singular'),
 			$this->equalTo('xyz'),
 			'Checks singularising against the basic regex.'
 		);
 
 		$this->assertThat(
-			TestReflection::invoke($this->inflector, 'matchRegexRule', 'xyz', 'singular'),
+			Helper::invoke($this->inflector, 'matchRegexRule', 'xyz', 'singular'),
 			$this->isFalse(),
 			'Checks singularising against an unmatched regex.'
 		);
@@ -248,14 +248,14 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::setCache
 	 */
 	public function testSetCache()
 	{
-		TestReflection::invoke($this->inflector, 'setCache', 'foo', 'bar');
+		Helper::invoke($this->inflector, 'setCache', 'foo', 'bar');
 
-		$cache = TestReflection::getValue($this->inflector, 'cache');
+		$cache = Helper::getValue($this->inflector, 'cache');
 
 		$this->assertThat(
 			$cache['foo'],
@@ -263,9 +263,9 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 			'Checks the cache was set.'
 		);
 
-		TestReflection::invoke($this->inflector, 'setCache', 'foo', 'car');
+		Helper::invoke($this->inflector, 'setCache', 'foo', 'car');
 
-		$cache = TestReflection::getValue($this->inflector, 'cache');
+		$cache = Helper::getValue($this->inflector, 'cache');
 
 		$this->assertThat(
 			$cache['foo'],
@@ -279,7 +279,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::addCountableRule
 	 */
 	public function testAddCountableRule()
@@ -287,7 +287,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		// Add string.
 		$this->inflector->addCountableRule('foo');
 
-		$rules = TestReflection::getValue($this->inflector, 'rules');
+		$rules = Helper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('foo', $rules['countable']),
@@ -298,7 +298,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		// Add array.
 		$this->inflector->addCountableRule(array('goo', 'car'));
 
-		$rules = TestReflection::getValue($this->inflector, 'rules');
+		$rules = Helper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('car', $rules['countable']),
@@ -312,7 +312,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::addPluraliseRule
 	 */
 	public function testAddPluraliseRule()
@@ -325,7 +325,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 			'Checks chaining.'
 		);
 
-		$rules = TestReflection::getValue($this->inflector, 'rules');
+		$rules = Helper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['plural']),
@@ -339,7 +339,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::addSingulariseRule
 	 */
 	public function testAddSingulariseRule()
@@ -352,7 +352,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 			'Checks chaining.'
 		);
 
-		$rules = TestReflection::getValue($this->inflector, 'rules');
+		$rules = Helper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['singular']),
@@ -366,7 +366,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::getInstance
 	 */
 	public function testGetInstance()
@@ -378,11 +378,11 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Inject an instance an test.
-		TestReflection::setValue($this->inflector, 'instance', new stdClass);
+		Helper::setValue($this->inflector, 'instance', new \stdClass);
 
 		$this->assertThat(
 			Inflector::getInstance(),
-			$this->equalTo(new stdClass),
+			$this->equalTo(new \stdClass),
 			'Checks singleton instance is returned.'
 		);
 
@@ -402,7 +402,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedIsCountable
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::isCountable
 	 */
 	public function testIsCountable($input, $expected)
@@ -422,7 +422,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedSinglePlural
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::isPlural
 	 */
 	public function testIsPlural($singular, $plural)
@@ -452,7 +452,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedSinglePlural
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::isSingular
 	 */
 	public function testIsSingular($singular, $plural)
@@ -482,7 +482,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedSinglePlural
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::toPlural
 	 */
 	public function testToPlural($singular, $plural)
@@ -502,7 +502,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedSinglePlural
-	 * @since   12.1
+	 * @since   1.0
 	 * @covers  Joomla\String\Inflector::toSingular
 	 */
 	public function testToSingular($singular, $plural)

@@ -1,21 +1,17 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  String
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\String;
 
-
 /**
  * Joomla Platform String Normalise Class
  *
- * @package     Joomla.Platform
- * @subpackage  String
- * @since       11.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 abstract class Normalise
 {
@@ -39,7 +35,7 @@ abstract class Normalise
 	 *
 	 * @return  string  The space separated string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function fromCamelCase($input, $grouped = false)
 	{
@@ -55,7 +51,7 @@ abstract class Normalise
 	 *
 	 * @return  string  The camel case string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function toCamelCase($input)
 	{
@@ -74,7 +70,7 @@ abstract class Normalise
 	 *
 	 * @return  string  The dash separated string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function toDashSeparated($input)
 	{
@@ -91,7 +87,7 @@ abstract class Normalise
 	 *
 	 * @return  string  The space separated string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function toSpaceSeparated($input)
 	{
@@ -108,7 +104,7 @@ abstract class Normalise
 	 *
 	 * @return  string  The underscore separated string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function toUnderscoreSeparated($input)
 	{
@@ -125,7 +121,7 @@ abstract class Normalise
 	 *
 	 * @return  string  The variable string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function toVariable($input)
 	{
@@ -153,7 +149,7 @@ abstract class Normalise
 	 *
 	 * @return  string  The key string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function toKey($input)
 	{

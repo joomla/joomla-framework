@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  String
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\String;
-
 
 // PHP mbstring and iconv local configuration
 
@@ -41,9 +38,8 @@ jimport('phputf8.strcasecmp');
  * Wraps the phputf8 library
  * All functions assume the validity of utf-8 strings.
  *
- * @package     Joomla.Platform
- * @subpackage  String
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 abstract class String
 {
@@ -51,7 +47,7 @@ abstract class String
 	 * Increment styles.
 	 *
 	 * @var    array
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $incrementStyles = array(
 		'dash' => array(
@@ -78,7 +74,7 @@ abstract class String
 	 *
 	 * @return  string  The incremented string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function increment($string, $style = 'default', $n = 0)
 	{
@@ -133,7 +129,7 @@ abstract class String
 	 * @return  mixed  Number of characters before the first match or FALSE on failure
 	 *
 	 * @see     http://www.php.net/strpos
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strpos($str, $search, $offset = false)
 	{
@@ -158,7 +154,7 @@ abstract class String
 	 * @return  mixed  Number of characters before the last match or false on failure
 	 *
 	 * @see     http://www.php.net/strrpos
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strrpos($str, $search, $offset = 0)
 	{
@@ -176,7 +172,7 @@ abstract class String
 	 * @return  mixed string or FALSE if failure
 	 *
 	 * @see     http://www.php.net/substr
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function substr($str, $offset, $length = false)
 	{
@@ -204,7 +200,7 @@ abstract class String
 	 * @return  mixed  Either string in lowercase or FALSE is UTF-8 invalid
 	 *
 	 * @see http://www.php.net/strtolower
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strtolower($str)
 	{
@@ -224,7 +220,7 @@ abstract class String
 	 * @return  mixed  Either string in uppercase or FALSE is UTF-8 invalid
 	 *
 	 * @see     http://www.php.net/strtoupper
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strtoupper($str)
 	{
@@ -241,7 +237,7 @@ abstract class String
 	 * @return  integer  Number of UTF-8 characters in string.
 	 *
 	 * @see http://www.php.net/strlen
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strlen($str)
 	{
@@ -260,7 +256,7 @@ abstract class String
 	 * @return  string  UTF-8 String
 	 *
 	 * @see     http://www.php.net/str_ireplace
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function str_ireplace($search, $replace, $str, $count = null)
 	{
@@ -286,7 +282,7 @@ abstract class String
 	 * @return  array
 	 *
 	 * @see     http://www.php.net/str_split
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function str_split($str, $split_len = 1)
 	{
@@ -308,7 +304,7 @@ abstract class String
 	 * @see     http://www.php.net/strcasecmp
 	 * @see     http://www.php.net/strcoll
 	 * @see     http://www.php.net/setlocale
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strcasecmp($str1, $str2, $locale = false)
 	{
@@ -368,7 +364,7 @@ abstract class String
 	 * @see     http://www.php.net/strcmp
 	 * @see     http://www.php.net/strcoll
 	 * @see     http://www.php.net/setlocale
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strcmp($str1, $str2, $locale = false)
 	{
@@ -424,7 +420,7 @@ abstract class String
 	 * @return  integer  The length of the initial segment of str1 which does not contain any of the characters in str2
 	 *
 	 * @see     http://www.php.net/strcspn
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strcspn($str, $mask, $start = null, $length = null)
 	{
@@ -456,7 +452,7 @@ abstract class String
 	 * @return string the sub string
 	 *
 	 * @see     http://www.php.net/stristr
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function stristr($str, $search)
 	{
@@ -474,7 +470,7 @@ abstract class String
 	 * @return  string   The string in reverse character order
 	 *
 	 * @see     http://www.php.net/strrev
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strrev($str)
 	{
@@ -495,7 +491,7 @@ abstract class String
 	 * @return  integer
 	 *
 	 * @see     http://www.php.net/strspn
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function strspn($str, $mask, $start = null, $length = null)
 	{
@@ -527,7 +523,7 @@ abstract class String
 	 * @return  string
 	 *
 	 * @see     http://www.php.net/substr_replace
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function substr_replace($str, $repl, $start, $length = null)
 	{
@@ -556,7 +552,7 @@ abstract class String
 	 * @return  string  The trimmed string
 	 *
 	 * @see     http://www.php.net/ltrim
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function ltrim($str, $charlist = false)
 	{
@@ -590,7 +586,7 @@ abstract class String
 	 * @return  string  The trimmed string
 	 *
 	 * @see     http://www.php.net/rtrim
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function rtrim($str, $charlist = false)
 	{
@@ -624,7 +620,7 @@ abstract class String
 	 * @return  string  The trimmed string
 	 *
 	 * @see     http://www.php.net/trim
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function trim($str, $charlist = false)
 	{
@@ -658,7 +654,7 @@ abstract class String
 	 *                  and return the string with the new delimiter
 	 *
 	 * @see     http://www.php.net/ucfirst
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function ucfirst($str, $delimiter = null, $newDelimiter = null)
 	{
@@ -688,7 +684,7 @@ abstract class String
 	 * @return  string  String with first char of each word uppercase
 	 *
 	 * @see     http://www.php.net/ucwords
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function ucwords($str)
 	{
@@ -708,7 +704,7 @@ abstract class String
 	 *
 	 * @link    https://bugs.php.net/bug.php?id=48147
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function transcode($source, $from_encoding, $to_encoding)
 	{
@@ -740,7 +736,7 @@ abstract class String
 	 * @author  <hsivonen@iki.fi>
 	 * @see     http://hsivonen.iki.fi/php-utf8/
 	 * @see     compliant
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function valid($str)
 	{
@@ -892,7 +888,7 @@ abstract class String
 	 *
 	 * @see     valid
 	 * @see     http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function compliant($str)
 	{
@@ -918,7 +914,7 @@ abstract class String
 	 * @return  mixed  Associative array or false if badly formed URL.
 	 *
 	 * @see     http://us3.php.net/manual/en/function.parse-url.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function parse_url($url)
 	{
