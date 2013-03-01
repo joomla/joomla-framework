@@ -1,20 +1,21 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Data
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Data\Tests;
+
+use Joomla\Data;
 
 /**
  * Joomla Platform Capitaliser Object Class
  *
- * @package     Joomla.UnitTest
- * @subpackage  Data
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    1.0
  */
-class JDataCapitaliser extends Joomla\Data\Data
+class JDataCapitaliser extends Data\Data
 {
 	/**
 	 * Set an object property.
@@ -24,7 +25,7 @@ class JDataCapitaliser extends Joomla\Data\Data
 	 *
 	 * @return  mixed  The property value.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setProperty($property, $value)
 	{

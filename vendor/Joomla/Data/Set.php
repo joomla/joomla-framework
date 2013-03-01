@@ -1,35 +1,27 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Data
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Data;
-
-use InvalidArgumentException;
-use SplObjectStorage;
-use ArrayAccess;
-use Countable;
-use Iterator;
 
 /**
  * JDataSet is a collection class that allows the developer to operate on a set of JData objects as if they were in a
  * typical PHP array.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Data
- * @since       12.3
+ * @since       1.0
  */
-class Set implements Dumpable, ArrayAccess, Countable, Iterator
+class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 {
 	/**
 	 * The current position of the iterator.
 	 *
 	 * @var    integer
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $current = false;
 
@@ -37,7 +29,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 * The iterator objects.
 	 *
 	 * @var    array
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $objects = array();
 
@@ -46,7 +38,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @param   array  $objects  An array of JData objects to bind to the data set.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException if an object is not an instance of JData.
 	 */
 	public function __construct(array $objects = array())
@@ -70,7 +62,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  array   An array of values returned by the methods called on the objects in the data set.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __call($method, $arguments = array())
 	{
@@ -107,7 +99,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  array  An associative array of the values.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __get($property)
 	{
@@ -132,7 +124,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  boolean  True if the property is set in any of the objects in the data set.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __isset($property)
 	{
@@ -159,7 +151,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 * @param   string  $property  The name of the property.
 	 * @param   mixed   $value     The value to give the data property.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __set($property, $value)
 	{
@@ -182,7 +174,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __unset($property)
 	{
@@ -198,7 +190,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  integer  The number of objects.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function count()
 	{
@@ -210,7 +202,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  JDataSet  Returns itself to allow chaining.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function clear()
 	{
@@ -225,7 +217,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  JData  The current object, or false if the array is empty or the pointer is beyond the end of the elements.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function current()
 	{
@@ -243,14 +235,14 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 * @return  array  An associative array of the date objects in the set, dumped as a simple PHP stdClass object.
 	 *
 	 * @see     JData::dump()
-	 * @since   12.3
+	 * @since   1.0
 	 */
-	public function dump($depth = 3, SplObjectStorage $dumped = null)
+	public function dump($depth = 3, \SplObjectStorage $dumped = null)
 	{
 		// Check if we should initialise the recursion tracker.
 		if ($dumped === null)
 		{
-			$dumped = new SplObjectStorage;
+			$dumped = new \SplObjectStorage;
 		}
 
 		// Add this object to the dumped stack.
@@ -282,7 +274,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  array  An array that can be serialised by json_encode().
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function jsonSerialize($serialized = null)
 	{
@@ -311,7 +303,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  scalar  The object key on success; null on failure.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function key()
 	{
@@ -323,7 +315,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  array  The array of keys
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function keys()
 	{
@@ -335,7 +327,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function next()
 	{
@@ -374,7 +366,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  boolean  True if the object exists, false otherwise.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function offsetExists($offset)
 	{
@@ -388,7 +380,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  JData  The object if it exists, null otherwise.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function offsetGet($offset)
 	{
@@ -403,7 +395,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException if an object is not an instance of JData.
 	 */
 	public function offsetSet($offset, $object)
@@ -411,7 +403,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 		// Check if the object is a JData object.
 		if (!($object instanceof Data))
 		{
-			throw new InvalidArgumentException(sprintf('%s("%s", *%s*)', __METHOD__, $offset, gettype($object)));
+			throw new \InvalidArgumentException(sprintf('%s("%s", *%s*)', __METHOD__, $offset, gettype($object)));
 		}
 
 		// Set the offset.
@@ -425,7 +417,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function offsetUnset($offset)
 	{
@@ -463,7 +455,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function rewind()
 	{
@@ -484,7 +476,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  boolean  True if valid, false otherwise.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function valid()
 	{
@@ -504,7 +496,7 @@ class Set implements Dumpable, ArrayAccess, Countable, Iterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException if an object is not an instance of JData.
 	 */
 	private function _initialise(array $input = array())

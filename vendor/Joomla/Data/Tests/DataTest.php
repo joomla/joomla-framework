@@ -1,31 +1,31 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Data
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once __DIR__ . '/stubs/buran.php';
-require_once __DIR__ . '/stubs/capitaliser.php';
+namespace Joomla\Data\Tests;
 
 use Joomla\Data\Data;
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
+use Joomla\Test\Helper;
+
+require_once __DIR__ . '/Stubs/buran.php';
+require_once __DIR__ . '/Stubs/capitaliser.php';
 
 /**
  * Tests for the JData class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Data
- * @since       12.3
+ * @package  Joomla\Framework\Test
+ * @since    1.0
  */
-class JDataTest extends PHPUnit_Framework_TestCase
+class DataTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Joomla\Data\Data
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $instance;
 
@@ -51,7 +51,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::__get
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__get()
 	{
@@ -67,7 +67,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::__isset
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__isset()
 	{
@@ -84,7 +84,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::__set
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__set_setter()
 	{
@@ -104,7 +104,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::__unset
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__unset()
 	{
@@ -123,7 +123,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::bind
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testBind()
 	{
@@ -143,7 +143,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::bind
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testBind_array()
 	{
@@ -171,7 +171,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::bind
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testBind_arrayObject()
 	{
@@ -183,7 +183,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 			'property_5' => array('foo')
 		);
 
-		$traversable = new ArrayObject($properties);
+		$traversable = new \ArrayObject($properties);
 
 		// Bind an array to the object.
 		$this->instance->bind($traversable);
@@ -201,11 +201,11 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::bind
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testBind_object()
 	{
-		$properties = new stdClass;
+		$properties = new \stdClass;
 		$properties->property_1 = 'value_1';
 		$properties->property_2 = '1';
 		$properties->property_3 = 1;
@@ -229,7 +229,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Data::bind
 	 * @expectedException  InvalidArgumentException
-	 * @since              12.3
+	 * @since              1.0
 	 */
 	public function testBind_exception()
 	{
@@ -242,7 +242,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::count
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testCount()
 	{
@@ -265,7 +265,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::dump
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDump()
 	{
@@ -336,16 +336,16 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::dumpProperty
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDumpProperty()
 	{
-		$dumped = new SplObjectStorage;
+		$dumped = new \SplObjectStorage;
 
 		$this->instance->bind(array('dump_test' => 'dump_test_value'));
 		$this->assertEquals(
 			'dump_test_value',
-			TestReflection::invoke($this->instance, 'dumpProperty', 'dump_test', 3, $dumped)
+			Helper::invoke($this->instance, 'dumpProperty', 'dump_test', 3, $dumped)
 		);
 	}
 
@@ -355,7 +355,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::getIterator
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetIterator()
 	{
@@ -368,7 +368,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::getProperty
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetProperty()
 	{
@@ -383,14 +383,14 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Data::getProperty
 	 * @expectedException  InvalidArgumentException
-	 * @since              12.3
+	 * @since              1.0
 	 */
 	public function testGetProperty_exception()
 	{
 		$this->instance->bind(array('get_test' => 'get_test_value'));
 
 		// Get the reflection property. This should throw an exception.
-		$property = TestReflection::getValue($this->instance, 'get_test');
+		$property = Helper::getValue($this->instance, 'get_test');
 	}
 
 	/**
@@ -401,7 +401,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::jsonSerialize
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testJsonSerialize()
 	{
@@ -417,7 +417,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Data\Data::setProperty
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testSetProperty()
 	{
@@ -437,12 +437,12 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Data::setProperty
 	 * @expectedException  InvalidArgumentException
-	 * @since              12.3
+	 * @since              1.0
 	 */
 	public function testSetProperty_exception()
 	{
 		// Get the reflection property. This should throw an exception.
-		$property = TestReflection::getValue($this->instance, 'set_test');
+		$property = Helper::getValue($this->instance, 'set_test');
 	}
 
 	/**
@@ -452,7 +452,7 @@ class JDataTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @covers  Joomla\Data\Data::setProperty
 	 * @see     http://us3.php.net/manual/en/language.types.array.php#language.types.array.casting
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testSetPropertySkipsPropertyWithNullBytes()
 	{

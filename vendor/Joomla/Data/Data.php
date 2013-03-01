@@ -1,40 +1,29 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Data
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Data;
 
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
-use InvalidArgumentException;
-use IteratorAggregate;
-use JsonSerializable;
-use SplObjectStorage;
-use ArrayIterator;
-use Traversable;
-use Countable;
-use stdClass;
 
 /**
  * JData is a class that is used to store data but allowing you to access the data
  * by mimicking the way PHP handles class properties.
  *
- * @package     Joomla.Platform
- * @subpackage  Data
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
-class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
+class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countable
 {
 	/**
 	 * The data properties.
 	 *
 	 * @var    array
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $properties = array();
 
@@ -72,7 +61,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 * @return  mixed  The value of the data property, or null if the data property does not exist.
 	 *
 	 * @see     JData::getProperty()
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __get($property)
 	{
@@ -86,7 +75,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 *
 	 * @return  boolean  True if set, otherwise false is returned.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __isset($property)
 	{
@@ -104,7 +93,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 * @return  void
 	 *
 	 * @see     JData::setProperty()
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __set($property, $value)
 	{
@@ -118,7 +107,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __unset($property)
 	{
@@ -133,7 +122,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 *
 	 * @return  JData  Returns itself to allow chaining.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public function bind($properties, $updateNulls = true)
@@ -141,11 +130,11 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 		// Check the properties data type.
 		if (!is_array($properties) && !is_object($properties))
 		{
-			throw new InvalidArgumentException(sprintf('%s(%s)', __METHOD__, gettype($properties)));
+			throw new \InvalidArgumentException(sprintf('%s(%s)', __METHOD__, gettype($properties)));
 		}
 
 		// Check if the object is traversable.
-		if ($properties instanceof Traversable)
+		if ($properties instanceof \Traversable)
 		{
 			// Convert iterator to array.
 			$properties = iterator_to_array($properties);
@@ -183,21 +172,21 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 *
 	 * @return  stdClass  The data properties as a simple PHP stdClass object.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
-	public function dump($depth = 3, SplObjectStorage $dumped = null)
+	public function dump($depth = 3, \SplObjectStorage $dumped = null)
 	{
 		// Check if we should initialise the recursion tracker.
 		if ($dumped === null)
 		{
-			$dumped = new SplObjectStorage;
+			$dumped = new \SplObjectStorage;
 		}
 
 		// Add this object to the dumped stack.
 		$dumped->attach($this);
 
 		// Setup a container.
-		$dump = new stdClass;
+		$dump = new \stdClass;
 
 		// Dump all object properties.
 		foreach (array_keys($this->properties) as $property)
@@ -217,11 +206,11 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 * @return  ArrayIterator  This object represented as an ArrayIterator.
 	 *
 	 * @see     IteratorAggregate::getIterator()
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getIterator()
 	{
-		return new ArrayIterator($this->dump(0));
+		return new \ArrayIterator($this->dump(0));
 	}
 
 	/**
@@ -229,7 +218,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 *
 	 * @return  string  An object that can be serialised by json_encode().
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function jsonSerialize()
 	{
@@ -248,9 +237,9 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 *
 	 * @return  mixed  The value of the dumped property.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
-	protected function dumpProperty($property, $depth, SplObjectStorage $dumped)
+	protected function dumpProperty($property, $depth, \SplObjectStorage $dumped)
 	{
 		$value = $this->getProperty($property);
 
@@ -289,7 +278,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 * @return  mixed  The value of the data property.
 	 *
 	 * @see     JData::__get()
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function getProperty($property)
 	{
@@ -310,7 +299,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 * @return  mixed  The value of the data property.
 	 *
 	 * @see     JData::__set()
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setProperty($property, $value)
 	{
@@ -334,7 +323,7 @@ class Data implements Dumpable, IteratorAggregate, JsonSerializable, Countable
 	 *
 	 * @return  integer  The number of data properties.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function count()
 	{

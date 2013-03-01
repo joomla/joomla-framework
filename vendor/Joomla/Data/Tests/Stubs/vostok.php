@@ -1,22 +1,23 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Data
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Data\Tests;
+
+use Joomla\Data;
 
 /**
  * Derived JDataSet class for testing.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Data
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    1.0
  *
  * @method      launch() launch(string $status)
  */
-class JDataVostok extends Joomla\Data\Data
+class JDataVostok extends Data\Data
 {
 	/**
 	 * An array method.
@@ -25,7 +26,7 @@ class JDataVostok extends Joomla\Data\Data
 	 *
 	 * @return  string  The return value for the method.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function launch($status)
 	{
@@ -40,7 +41,7 @@ class JDataVostok extends Joomla\Data\Data
 	 *
 	 * @return  mixed  The property value.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setProperty($property, $value)
 	{

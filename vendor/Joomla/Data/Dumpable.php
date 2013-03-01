@@ -1,23 +1,17 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Data
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Data;
 
-
-use SplObjectStorage;
-
 /**
  * An interface to define if an object is dumpable.
  *
- * @package     Joomla.Platform
- * @subpackage  Data
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 interface Dumpable
 {
@@ -31,7 +25,7 @@ interface Dumpable
 	 *
 	 * @return  stdClass  The data properties as a simple PHP stdClass object.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
-	public function dump($depth = 3, SplObjectStorage $dumped = null);
+	public function dump($depth = 3, \SplObjectStorage $dumped = null);
 }
