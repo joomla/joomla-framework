@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Database
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -16,7 +16,7 @@ use RuntimeException;
 /**
  * MySQL database driver
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Database
  * @see         http://dev.mysql.com/doc/
  * @since       12.1

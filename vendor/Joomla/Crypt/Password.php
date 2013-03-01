@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Crypt
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Crypt;
 /**
  * Joomla Platform Password Hashing Interface
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Crypt
  * @since       12.2
  */

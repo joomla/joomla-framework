@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Log
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -18,7 +18,7 @@ use Joomla\Date\Date;
  * This class is designed to hold log entries for either writing to an engine, or for
  * supported engines, retrieving lists and building in memory (PHP based) search operations.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Log
  * @since       11.1
  */

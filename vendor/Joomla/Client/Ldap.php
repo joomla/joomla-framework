@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Client
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Client;
 /**
  * LDAP client class
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Client
  * @since       12.1
  */

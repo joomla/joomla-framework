@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  HTTP
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -20,7 +20,7 @@ use RuntimeException;
 /**
  * HTTP transport class for using cURL.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  HTTP
  * @since       11.3
  */

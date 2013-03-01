@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Controller
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ use Serializable;
 /**
  * Joomla Platform Controller Interface
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Controller
  * @since       12.1
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Data
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -19,7 +19,7 @@ use Iterator;
  * JDataSet is a collection class that allows the developer to operate on a set of JData objects as if they were in a
  * typical PHP array.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Data
  * @since       12.3
  */

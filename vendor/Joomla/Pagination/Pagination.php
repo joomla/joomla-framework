@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Pagination
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -21,7 +21,7 @@ use stdClass;
  * Pagination Class. Provides a common interface for content pagination for the
  * Joomla! Platform.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Pagination
  * @since       11.1
  */

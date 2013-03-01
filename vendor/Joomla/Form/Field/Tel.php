@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -14,7 +14,7 @@ namespace Joomla\Form;
  * Form Field class for the Joomla Platform.
  * Supports a text field telephone numbers.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  * @link        http://www.w3.org/TR/html-markup/input.tel.html
  * @see         JFormRuleTel for telephone number validation

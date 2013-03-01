@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  String
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -17,7 +17,7 @@ use InvalidArgumentException;
  *
  * The Inflector transforms words
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  String
  * @since       12.1
  */

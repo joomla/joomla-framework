@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Input
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -18,7 +18,7 @@ use Joomla\Filter\Input as FilterInput;
  * This class decodes a JSON string from the raw request data and makes it available via
  * the standard JInput interface.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Input
  * @since       12.2
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  GitHub
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -17,7 +17,7 @@ use Joomla\Registry\Registry;
 /**
  * HTTP client class for connecting to a GitHub instance.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  GitHub
  * @since       11.3
  */

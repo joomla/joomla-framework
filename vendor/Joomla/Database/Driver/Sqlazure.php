@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Database
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Database\Driver;
 /**
  * SQL Server database driver
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Database
  * @see         http://msdn.microsoft.com/en-us/library/ee336279.aspx
  * @since       12.1

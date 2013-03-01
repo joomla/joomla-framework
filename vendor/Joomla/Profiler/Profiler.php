@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Profiler
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -14,7 +14,7 @@ namespace Joomla\Profiler;
  * Utility class to assist in the process of benchmarking the execution
  * of sections of code to understand where time is being spent.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Profiler
  * @since       11.1
  */

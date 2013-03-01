@@ -27,7 +27,7 @@ use DateTimeZone;
  * @property-read  string   $week          W - Numeric representation of the day of the week.
  * @property-read  string   $year          Y - A full numeric representation of a year, 4 digits.
  *
- * @package  Joomla.Platform
+ * @package     Joomla\Framework
  * @since    1.0
  */
 

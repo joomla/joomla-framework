@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  FileSystem
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ use RuntimeException;
 /**
  * A Unified Diff Format Patcher class
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  FileSystem
  *
  * @link        http://sourceforge.net/projects/phppatcher/ This has been derived from the PhpPatcher version 0.1.1 written by Giuseppe Mazzotta

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Database
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -16,7 +16,7 @@ use Iterator;
 /**
  * Joomla Platform Database Driver Class
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Database
  * @since       12.1
  */

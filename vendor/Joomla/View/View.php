@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  View
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\View;
 /**
  * Joomla Platform View Interface
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  View
  * @since       12.1
  */

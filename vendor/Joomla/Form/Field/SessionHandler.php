@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -18,7 +18,7 @@ use Joomla\Session\Session;
  * Form Field class for the Joomla Platform.
  * Provides a select list of session handler options.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  * @since       11.1
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Log
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -22,7 +22,7 @@ use Joomla\Log\Log;
  * the Windows based implementations this can be found in the Event Log. For Windows,
  * permissions may prevent PHP from properly outputting messages.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Log
  * @since       11.1
  */

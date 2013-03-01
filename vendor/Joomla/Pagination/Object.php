@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Pagination
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Pagination;
 /**
  * Pagination object representing a particular item in the pagination lists.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Pagination
  * @since       11.1
  */

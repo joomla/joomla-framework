@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Framework
+ * @package     Joomla\Framework
  * @subpackage  Cache
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ namespace Joomla\Cache;
 /**
  * Runtime cache only driver for the Joomla Framework.
  *
- * @package     Joomla.Framework
+ * @package     Joomla\Framework
  * @subpackage  Cache
  * @since       12.3
  */

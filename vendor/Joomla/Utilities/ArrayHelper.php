@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Utilities
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ use Joomla\String\String;
 /**
  * ArrayHelper is an array utility class for doing all sorts of odds and ends with arrays.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Utilities
  * @since       11.1
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Language
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -19,7 +19,7 @@ use Joomla\Language\Stemmer;
  * This class was adapted from one written by Richard Heyes.
  * See copyright and link information above.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Language
  * @since       12.1
  */

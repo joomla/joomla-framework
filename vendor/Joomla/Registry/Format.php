@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Registry
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -14,7 +14,7 @@ use InvalidArgumentException;
 /**
  * Abstract Format for Registry
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Registry
  * @since       11.1
  */

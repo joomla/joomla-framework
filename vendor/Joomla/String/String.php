@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  String
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -41,7 +41,7 @@ jimport('phputf8.strcasecmp');
  * Wraps the phputf8 library
  * All functions assume the validity of utf-8 strings.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  String
  * @since       11.1
  */

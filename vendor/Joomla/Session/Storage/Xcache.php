@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Session
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -16,7 +16,7 @@ use RuntimeException;
 /**
  * XCache session storage handler
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Session
  * @since       11.1
  */

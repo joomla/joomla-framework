@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -17,7 +17,7 @@ use Joomla\Language\Text;
  * Form Field class for the Joomla Platform.
  * Provides radio button inputs
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  * @link        http://www.w3.org/TR/html-markup/command.radio.html#command.radio
  * @since       11.1

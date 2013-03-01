@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    Joomla.Language
+ * @package     Joomla\Framework
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,7 +9,7 @@
 /**
  * en-GB localise class
  *
- * @package  Joomla.Language
+ * @package     Joomla\Framework
  * @since    1.6
  */
 abstract class En_GBLocalise

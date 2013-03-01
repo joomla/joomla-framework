@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Database
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Database\Query;
 /**
  * Query Building Class.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Database
  * @since       11.1
  */

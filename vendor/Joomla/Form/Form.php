@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -30,7 +30,7 @@ use UnexpectedValueException;
  * It uses XML definitions to construct form fields and a variety of field and rule classes to
  * render and validate the form.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  * @link        http://www.w3.org/TR/html4/interact/forms.html
  * @link        http://www.w3.org/TR/html5/forms.html

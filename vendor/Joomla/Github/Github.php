@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  GitHub
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -26,7 +26,7 @@ use Joomla\Registry\Registry;
  * @property-read  Account     $account     GitHub API object for account references.
  * @property-read  Hooks       $hooks       GitHub API object for hooks.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  GitHub
  * @since       11.3
  */

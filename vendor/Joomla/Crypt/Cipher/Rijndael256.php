@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Crypt
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Crypt;
 /**
  * JCrypt cipher for Rijndael 256 encryption, decryption and key generation.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Crypt
  * @since       12.1
  */

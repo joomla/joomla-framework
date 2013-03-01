@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Google
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -17,7 +17,7 @@ use Joomla\Registry\Registry;
 /**
  * Google OAuth authentication class
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Google
  * @since       12.3
  */

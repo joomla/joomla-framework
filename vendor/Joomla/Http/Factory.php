@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  HTTP
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -16,7 +16,7 @@ use DirectoryIterator;
 /**
  * HTTP factory class.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  HTTP
  * @since       12.1
  */

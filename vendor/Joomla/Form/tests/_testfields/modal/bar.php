@@ -10,7 +10,7 @@
 /**
  * Form Field class for the Joomla Framework.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  * @since       11.1
  */

@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * @package    Joomla.Platform
+ * @package     Joomla\Framework
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -16,7 +16,7 @@ require_once realpath('../libraries/import.php');
 /**
  * Keychain Manager
  *
- * @package  Joomla.Platform
+ * @package     Joomla\Framework
  * @since    12.3
  */
 class KeychainManager extends JApplicationCli

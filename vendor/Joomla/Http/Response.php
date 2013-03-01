@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  HTTP
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Http;
 /**
  * HTTP response data object class.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  HTTP
  * @since       11.3
  */

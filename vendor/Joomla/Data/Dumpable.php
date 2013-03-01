@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Data
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ use SplObjectStorage;
 /**
  * An interface to define if an object is dumpable.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Data
  * @since       12.3
  */

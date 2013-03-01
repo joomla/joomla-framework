@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Model
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Platform Model Interface
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Model
  * @since       12.1
  */
