@@ -906,39 +906,6 @@ abstract class Pdo extends Driver
 	}
 
 	/**
-	 * Method to get the next row in the result set from the database query as an array.
-	 *
-	 * @return  mixed  The result of the query as an array, false if there are no more rows.
-	 *
-	 * @since   12.1
-	 * @throws  RuntimeException
-	 */
-	public function loadNextRow()
-	{
-		$this->connect();
-
-		// Execute the query and get the result set cursor.
-		if (!$this->executed)
-		{
-			if (!($this->execute()))
-			{
-				return $this->errorNum ? null : false;
-			}
-		}
-
-		// Get the next row from the result set as an object of type $class.
-		if ($row = $this->fetchArray())
-		{
-			return $row;
-		}
-
-		// Free up system resources and return.
-		$this->freeResult();
-
-		return false;
-	}
-
-	/**
 	 * PDO does not support serialize
 	 *
 	 * @return  array

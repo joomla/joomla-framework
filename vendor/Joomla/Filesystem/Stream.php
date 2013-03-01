@@ -8,7 +8,7 @@
  */
 
 namespace Joomla\Filesystem;
-
+use RuntimeException;
 
 /**
  * Joomla! Stream Interface
@@ -31,15 +31,6 @@ namespace Joomla\Filesystem;
  */
 class Stream
 {
-	/**
-	 * An array of Exception objects.
-	 *
-	 * @var              array
-	 * @since            11.1
-	 * @deprecated       13.3
-	 */
-	protected $_errors = array();
-
 	// Publicly settable vars (protected to let our parent read them)
 	/**
 	 * File Mode
@@ -191,9 +182,7 @@ class Stream
 
 		if (!$filename)
 		{
-			$this->setError('Filename not set');
-
-			return false;
+			throw new RuntimeException('Filename not set');
 		}
 
 		$this->filename = $filename;
@@ -278,7 +267,7 @@ class Stream
 
 		if (!$this->fh)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 		else
 		{
@@ -306,7 +295,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError('File not open');
+			throw new RuntimeException('File not open');
 
 			return true;
 		}
@@ -336,7 +325,7 @@ class Stream
 
 		if (!$res)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 		else
 		{
@@ -369,9 +358,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError('File not open');
-
-			return false;
+			throw new RuntimeException('File not open');
 		}
 
 		// Capture PHP errors
@@ -394,7 +381,7 @@ class Stream
 
 		if ($php_errormsg)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 
 		// Restore error tracking to what it was before
@@ -415,9 +402,7 @@ class Stream
 	{
 		if (!$this->filename)
 		{
-			$this->setError('File not open');
-
-			return false;
+			throw new RuntimeException('File not open');
 		}
 
 		$retval = false;
@@ -446,12 +431,12 @@ class Stream
 				if ($tmp_error)
 				{
 					// Use the php_errormsg from before
-					$this->setError($tmp_error);
+					throw new RuntimeException($tmp_error);
 				}
 				else
 				{
 					// Error but nothing from php? How strange! Create our own
-					$this->setError('Failed to get file size. This may not work for all streams.');
+					throw new RuntimeException('Failed to get file size. This may not work for all streams.');
 				}
 			}
 			else
@@ -486,9 +471,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError('File not open');
-
-			return false;
+			throw new RuntimeException('File not open');
 		}
 
 		$retval = false;
@@ -513,7 +496,7 @@ class Stream
 
 		if (!$res)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 		else
 		{
@@ -559,9 +542,7 @@ class Stream
 
 		if (!$this->fh)
 		{
-			$this->setError('File not open');
-
-			return false;
+			throw new RuntimeException('File not open');
 		}
 
 		$retval = false;
@@ -593,10 +574,7 @@ class Stream
 
 			if (!$res)
 			{
-				$this->setError($php_errormsg);
-
-				// Jump from the loop
-				$remaining = 0;
+				throw new RuntimeException($php_errormsg);
 			}
 			else
 			{
@@ -646,9 +624,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError('File not open');
-
-			return false;
+			throw new RuntimeException('File not open');
 		}
 
 		$retval = false;
@@ -674,7 +650,7 @@ class Stream
 		// Seek, interestingly, returns 0 on success or -1 on failure.
 		if ($res == -1)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 		else
 		{
@@ -699,9 +675,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError('File not open');
-
-			return false;
+			throw new RuntimeException('File not open');
 		}
 
 		$res = false;
@@ -727,7 +701,7 @@ class Stream
 		// May return 0 so check if it's really false
 		if ($res === false)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 
 		// Restore error tracking to what it was before
@@ -761,9 +735,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError('File not open');
-
-			return false;
+			throw new RuntimeException('File not open');
 		}
 
 		// If the length isn't set, set it to the length of the string.
@@ -797,15 +769,14 @@ class Stream
 			if ($res === false)
 			{
 				// Returned error
-				$this->setError($php_errormsg);
+				throw new RuntimeException($php_errormsg);
 				$retval = false;
 				$remaining = 0;
 			}
 			elseif ($res === 0)
 			{
 				// Wrote nothing?
-				$remaining = 0;
-				$this->setError('Warning: No data written');
+				throw new RuntimeException('Warning: No data written');
 			}
 			else
 			{
@@ -839,9 +810,7 @@ class Stream
 		{
 			if (!isset($this->filename) || !$this->filename)
 			{
-				$this->setError('Filename not set');
-
-				return false;
+				throw new RuntimeException('Filename not set');
 			}
 
 			$filename = $this->filename;
@@ -877,7 +846,7 @@ class Stream
 		// Seek, interestingly, returns 0 on success or -1 on failure
 		if (!$res)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 		else
 		{
@@ -903,9 +872,7 @@ class Stream
 	{
 		if (!$this->fh)
 		{
-			$this->setError('File not open');
-
-			return false;
+			throw new RuntimeException('File not open');
 		}
 
 		return stream_get_meta_data($this->fh);
@@ -1027,7 +994,7 @@ class Stream
 
 			if (!$retval)
 			{
-				$this->setError($php_errormsg);
+				throw new RuntimeException($php_errormsg);
 			}
 
 			// Restore error tracking to what it was before
@@ -1065,7 +1032,7 @@ class Stream
 
 			if (!$res && $php_errormsg)
 			{
-				$this->setError($php_errormsg);
+				throw new RuntimeException($php_errormsg);
 			}
 			else
 			{
@@ -1106,7 +1073,7 @@ class Stream
 			if (!$res && $php_errormsg)
 			{
 				// Set the error msg
-				$this->setError($php_errormsg);
+				throw new RuntimeException($php_errormsg);
 			}
 			else
 			{
@@ -1152,7 +1119,7 @@ class Stream
 
 		if ($res && $php_errormsg)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 
 		// Restore error tracking to what it was before.
@@ -1208,7 +1175,7 @@ class Stream
 
 		if (!$res && $php_errormsg)
 		{
-			$this->setError($php_errormsg);
+			throw new RuntimeException($php_errormsg);
 		}
 		else
 		{
@@ -1264,7 +1231,7 @@ class Stream
 
 		if (!$res && $php_errormsg)
 		{
-			$this->setError($php_errormsg());
+			throw new RuntimeException($php_errormsg());
 		}
 
 		$this->chmod($dest);
@@ -1316,7 +1283,7 @@ class Stream
 
 		if (!$res && $php_errormsg)
 		{
-			$this->setError($php_errormsg());
+			throw new RuntimeException($php_errormsg());
 		}
 
 		// Restore error tracking to what it was before.
@@ -1347,9 +1314,8 @@ class Stream
 		}
 		else
 		{
-			$this->setError('Not an uploaded file.');
-
-			return false;
+			throw new RuntimeException('Not an uploaded file.');
+			
 		}
 	}
 
@@ -1469,19 +1435,5 @@ class Stream
 		}
 
 		return $default;
-	}
-
-	/**
-	 * Add an error message.
-	 *
-	 * @param   string  $error  Error message.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 */
-	public function setError($error)
-	{
-		array_push($this->_errors, $error);
 	}
 }
