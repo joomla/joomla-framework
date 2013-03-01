@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     JoomlaFrameworkTests
+ * @package     Joomla\Framework\Tests
  * @subpackage  Crypt
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ use Joomla\Crypt\Cipher_3DES;
 /**
  * Test class for JCryptCipher3DES.
  *
- * @package     JoomlaFrameworkTests
+ * @package     Joomla\Framework\Tests
  * @subpackage  Crypt
  * @since       12.1
  */

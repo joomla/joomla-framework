@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     JoomlaFrameworkTests
+ * @package     Joomla\Framework\Tests
  * @subpackage  Data
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -10,7 +10,7 @@
 /**
  * Derived JDataSet class for testing.
  *
- * @package     JoomlaFrameworkTests
+ * @package     Joomla\Framework\Tests
  * @subpackage  Data
  * @since       12.1
  *

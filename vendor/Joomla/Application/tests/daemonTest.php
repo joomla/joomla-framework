@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     JoomlaFrameworkTests
+ * @package     Joomla\Framework\Tests
  * @subpackage  Application
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ include_once __DIR__ . '/stubs/JApplicationDaemonInspector.php';
 /**
  * Test class for JApplicationDaemon.
  *
- * @package     JoomlaFrameworkTests
+ * @package     Joomla\Framework\Tests
  * @subpackage  Application
  * @since       11.1
  */

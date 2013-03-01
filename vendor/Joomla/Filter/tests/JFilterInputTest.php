@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     JoomlaFrameworkTests
+ * @package     Joomla\Framework\Tests
  * @subpackage  Filter
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ use Joomla\Filter\Input;
 /**
  * Test class for Filter\Input
  *
- * @package     JoomlaFrameworkTests
+ * @package     Joomla\Framework\Tests
  * @subpackage  Filter
  * @since       11.1
  */
