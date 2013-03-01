@@ -8,7 +8,7 @@
  */
 
 namespace Joomla\Filesystem;
-
+use RuntimeException;
 
 /**
  * Joomla! Stream Interface
