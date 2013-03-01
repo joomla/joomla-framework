@@ -10,7 +10,7 @@ namespace Joomla\Database\Tests;
 /**
  * Abstract test case class for database testing.
  *
- * @package  Joomla.Test
+ * @package     Joomla\Framework\Tests
  * @since    1.0
  */
 abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase

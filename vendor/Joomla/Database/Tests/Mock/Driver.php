@@ -12,7 +12,7 @@ use Joomla\Test\Helper;
 /**
  * Class to mock JDatabaseDriver.
  *
- * @package  Joomla.Test
+ * @package     Joomla\Framework\Tests
  * @since    1.0
  */
 class Driver
