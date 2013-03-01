@@ -1,23 +1,19 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Utilities
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Utilities;
-
 
 use Joomla\String\String;
 
 /**
  * ArrayHelper is an array utility class for doing all sorts of odds and ends with arrays.
  *
- * @package     Joomla.Platform
- * @subpackage  Utilities
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 abstract class ArrayHelper
 {
@@ -25,7 +21,7 @@ abstract class ArrayHelper
 	 * Option to perform case-sensitive sorts.
 	 *
 	 * @var    mixed  Boolean or array of booleans.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $sortCase;
 
@@ -33,7 +29,7 @@ abstract class ArrayHelper
 	 * Option to set the sort direction.
 	 *
 	 * @var    mixed  Integer or array of integers.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $sortDirection;
 
@@ -41,7 +37,7 @@ abstract class ArrayHelper
 	 * Option to set the object key to sort on.
 	 *
 	 * @var    string
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $sortKey;
 
@@ -49,7 +45,7 @@ abstract class ArrayHelper
 	 * Option to perform a language aware sort.
 	 *
 	 * @var    mixed  Boolean or array of booleans.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $sortLocale;
 
@@ -61,7 +57,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function toInteger(&$array, $default = null)
 	{
@@ -98,7 +94,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  object   The object mapped from the given array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function toObject(&$array, $class = 'stdClass')
 	{
@@ -134,7 +130,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  string   The string mapped from the given array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function toString($array = null, $inner_glue = '=', $outer_glue = ' ', $keepOuterKey = false)
 	{
@@ -173,7 +169,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  array    The array mapped from the given object
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function fromObject($p_obj, $recurse = true, $regex = null)
 	{
@@ -196,7 +192,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  array  The array mapped from the given object
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function arrayFromObject($item, $recurse, $regex)
 	{
@@ -244,7 +240,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  array  Column of values from the source array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getColumn(&$array, $index)
 	{
@@ -278,7 +274,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  mixed  The value from the source array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getValue(&$array, $name, $default = null, $type = '')
 	{
@@ -399,7 +395,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  boolean  True if the array is an associative array.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function isAssociative($array)
 	{
@@ -425,7 +421,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  array  An array of arrays pivoted either on the value of the keys, or an individual key of an object or array.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function pivot($source, $key = null)
 	{
@@ -503,7 +499,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  array  The sorted array of objects
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function sortObjects(&$a, $k, $direction = 1, $caseSensitive = true, $locale = false)
 	{
@@ -536,7 +532,7 @@ abstract class ArrayHelper
 	 * @return  integer  Comparison status
 	 *
 	 * @see     ArrayHelper::sortObjects()
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function objectSort(&$a, &$b)
 	{
@@ -597,7 +593,7 @@ abstract class ArrayHelper
 	 * @return  array
 	 *
 	 * @see     http://php.net/manual/en/function.array-unique.php
-	 * @since   11.2
+	 * @since   1.0
 	 */
 	public static function arrayUnique($myArray)
 	{
