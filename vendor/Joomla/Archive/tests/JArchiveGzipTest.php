@@ -63,7 +63,15 @@ class ArchiveGzipTest extends PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->object->extract(__DIR__ . '/logo.gz', self::$outputPath . '/logo-gz.png');
+		try
+		{
+			$this->object->extract(__DIR__ . '/logo.gz', self::$outputPath . '/logo-gz.png');
+		}
+		catch (RuntimeException $e)
+		{
+			$this->assertTrue(is_file(self::$outputPath . '/logo-gz.png'));
+		}
+
 		$this->assertTrue(is_file(self::$outputPath . '/logo-gz.png'));
 
 		if (is_file(self::$outputPath . '/logo-gz.png'))
