@@ -7,7 +7,7 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-         "joomla/compat": "dev-master",
+         "joomla/compat": "dev-master"
     },
     "target-dir": "Joomla/Registry",
     "autoload": {
