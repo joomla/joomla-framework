@@ -12,8 +12,8 @@
         "joomla/session": "dev-master",
         "joomla/registry": "dev-master",
         "joomla/uri": "dev-master",
-        "joomla/log": "dev-master",
-        "joomla/filesystem": "dev-master"
+        "joomla/filesystem": "dev-master",
+        "psr/log": "~1.0"
     },
     "require-dev": {
     	"joomla/controller": "dev-master"

@@ -1507,17 +1507,17 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	}
 
 	/**
-	 * Sets a logger.
+	 * Sets a logger instance on the object
 	 *
 	 * @param   Log\LoggerInterface  $logger  A PSR-3 compliant logger.
 	 *
-	 * @return  Driver  Returns itself to allow chaining.
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function setLogger(Log\LoggerInterface $logger)
 	{
 		$this->logger = $logger;
-
-		return $this;
 	}
 
 	/**

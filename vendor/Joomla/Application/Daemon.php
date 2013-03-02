@@ -6,10 +6,11 @@
 
 namespace Joomla\Application;
 
-use Joomla\Log\Log;
 use Joomla\Filesystem\Folder;
 use Joomla\Registry\Registry;
 use Joomla\Input\Cli as InputCli;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerAwareInterface;
 
 /**
  * Class to turn Cli applications into daemons.  It requires CLI and PCNTL support built into PHP.
@@ -18,7 +19,7 @@ use Joomla\Input\Cli as InputCli;
  * @see    http://php.net/manual/en/features.commandline.php
  * @since  1.0
  */
-abstract class Daemon extends Cli
+abstract class Daemon extends Cli implements LoggerAwareInterface
 {
 	/**
 	 * @var    array  The available POSIX signals to be caught by default.
@@ -89,6 +90,12 @@ abstract class Daemon extends Cli
 	protected $running = false;
 
 	/**
+	 * @var    LoggerInterface
+	 * @since  1.0
+	 */
+	protected $logger = null;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   InputCli  $input   An optional argument to provide dependency injection for the application's
@@ -107,14 +114,20 @@ abstract class Daemon extends Cli
 		// @codeCoverageIgnoreStart
 		if (!defined('SIGHUP'))
 		{
-			Log::add('The PCNTL extension for PHP is not available.', Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('The PCNTL extension for PHP is not available.');
+			}
 			throw new \RuntimeException('The PCNTL extension for PHP is not available.');
 		}
 
 		// Verify that POSIX support for PHP is available.
 		if (!function_exists('posix_getpid'))
 		{
-			Log::add('The POSIX extension for PHP is not available.', Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('The POSIX extension for PHP is not available.');
+			}
 			throw new \RuntimeException('The POSIX extension for PHP is not available.');
 		}
 
@@ -149,12 +162,18 @@ abstract class Daemon extends Cli
 	public static function signal($signal)
 	{
 		// Log all signals sent to the daemon.
-		Log::add('Received signal: ' . $signal, Log::DEBUG);
+		if ($this->logger)
+		{
+			$this->logger->debug('Received signal: ' . $signal);
+		}
 
 		// Let's make sure we have an application instance.
 		if (!is_subclass_of(static::$instance, __CLASS__))
 		{
-			Log::add('Cannot find the application instance.', Log::EMERGENCY);
+			if ($this->logger)
+			{
+				$this->logger->emergency('Cannot find the application instance.');
+			}
 			throw new \RuntimeException('Cannot find the application instance.');
 		}
 
@@ -240,7 +259,10 @@ abstract class Daemon extends Cli
 		{
 			// No response so remove the process id file and log the situation.
 			@ unlink($pidFile);
-			Log::add('The process found based on PID file was unresponsive.', Log::WARNING);
+			if ($this->logger)
+			{
+				$this->logger->warning('The process found based on PID file was unresponsive.');
+			}
 
 			return false;
 		}
@@ -363,7 +385,10 @@ abstract class Daemon extends Cli
 		// Enable basic garbage collection.
 		gc_enable();
 
-		Log::add('Starting ' . $this->name, Log::INFO);
+		if ($this->logger)
+		{
+			$this->logger->info('Starting ' . $this->name);
+		}
 
 		// Set off the process for becoming a daemon.
 		if ($this->daemonize())
@@ -388,7 +413,10 @@ abstract class Daemon extends Cli
 		else
 		// We were not able to daemonize the application so log the failure and die gracefully.
 		{
-			Log::add('Starting ' . $this->name . ' failed', Log::INFO);
+			if ($this->logger)
+			{
+				$this->logger->info('Starting ' . $this->name . ' failed');
+			}
 		}
 
 		// Trigger the onAfterExecute event.
@@ -405,7 +433,10 @@ abstract class Daemon extends Cli
 	 */
 	public function restart()
 	{
-		Log::add('Stopping ' . $this->name, Log::INFO);
+		if ($this->logger)
+		{
+			$this->logger->info('Stopping ' . $this->name);
+		}
 		$this->shutdown(true);
 	}
 
@@ -419,7 +450,10 @@ abstract class Daemon extends Cli
 	 */
 	public function stop()
 	{
-		Log::add('Stopping ' . $this->name, Log::INFO);
+		if ($this->logger)
+		{
+			$this->logger->info('Stopping ' . $this->name);
+		}
 		$this->shutdown();
 	}
 
@@ -443,7 +477,10 @@ abstract class Daemon extends Cli
 		// Change the user id for the process id file if necessary.
 		if ($uid && (fileowner($file) != $uid) && (!@ chown($file, $uid)))
 		{
-			Log::add('Unable to change user ownership of the process id file.', Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('Unable to change user ownership of the process id file.');
+			}
 
 			return false;
 		}
@@ -451,7 +488,10 @@ abstract class Daemon extends Cli
 		// Change the group id for the process id file if necessary.
 		if ($gid && (filegroup($file) != $gid) && (!@ chgrp($file, $gid)))
 		{
-			Log::add('Unable to change group ownership of the process id file.', Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('Unable to change group ownership of the process id file.');
+			}
 
 			return false;
 		}
@@ -465,7 +505,10 @@ abstract class Daemon extends Cli
 		// Change the user id for the process necessary.
 		if ($uid && (posix_getuid($file) != $uid) && (!@ posix_setuid($uid)))
 		{
-			Log::add('Unable to change user ownership of the proccess.', Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('Unable to change user ownership of the proccess.');
+			}
 
 			return false;
 		}
@@ -473,7 +516,10 @@ abstract class Daemon extends Cli
 		// Change the group id for the process necessary.
 		if ($gid && (posix_getgid($file) != $gid) && (!@ posix_setgid($gid)))
 		{
-			Log::add('Unable to change group ownership of the proccess.', Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('Unable to change group ownership of the proccess.');
+			}
 
 			return false;
 		}
@@ -482,7 +528,10 @@ abstract class Daemon extends Cli
 		$user = posix_getpwuid($uid);
 		$group = posix_getgrgid($gid);
 
-		Log::add('Changed daemon identity to ' . $user['name'] . ':' . $group['name'], Log::INFO);
+		if ($this->logger)
+		{
+			$this->logger->info('Changed daemon identity to ' . $user['name'] . ':' . $group['name']);
+		}
 
 		return true;
 	}
@@ -500,7 +549,10 @@ abstract class Daemon extends Cli
 		// Is there already an active daemon running?
 		if ($this->isActive())
 		{
-			Log::add($this->name . ' daemon is still running. Exiting the application.', Log::EMERGENCY);
+			if ($this->logger)
+			{
+				$this->logger->emergency($this->name . ' daemon is still running. Exiting the application.');
+			}
 
 			return false;
 		}
@@ -532,7 +584,10 @@ abstract class Daemon extends Cli
 		}
 		catch (\RuntimeException $e)
 		{
-			Log::add('Unable to fork.', Log::EMERGENCY);
+			if ($this->logger)
+			{
+				$this->logger->emergency('Unable to fork.');
+			}
 
 			return false;
 		}
@@ -540,7 +595,10 @@ abstract class Daemon extends Cli
 		// Verify the process id is valid.
 		if ($this->processId < 1)
 		{
-			Log::add('The process id is invalid; the fork failed.', Log::EMERGENCY);
+			if ($this->logger)
+			{
+				$this->logger->emergency('The process id is invalid; the fork failed.');
+			}
 
 			return false;
 		}
@@ -551,7 +609,10 @@ abstract class Daemon extends Cli
 		// Write out the process id file for concurrency management.
 		if (!$this->writeProcessIdFile())
 		{
-			Log::add('Unable to write the pid file at: ' . $this->config->get('application_pid_file'), Log::EMERGENCY);
+			if ($this->logger)
+			{
+				$this->logger->emergency('Unable to write the pid file at: ' . $this->config->get('application_pid_file'));
+			}
 
 			return false;
 		}
@@ -562,13 +623,19 @@ abstract class Daemon extends Cli
 			// If the identity change was required then we need to return false.
 			if ($this->config->get('application_require_identity'))
 			{
-				Log::add('Unable to change process owner.', Log::CRITICAL);
+				if ($this->logger)
+				{
+					$this->logger->critical('Unable to change process owner.');
+				}
 
 				return false;
 			}
 			else
 			{
-				Log::add('Unable to change process owner.', Log::WARNING);
+				if ($this->logger)
+				{
+					$this->logger->warning('Unable to change process owner.');
+				}
 			}
 		}
 
@@ -595,7 +662,10 @@ abstract class Daemon extends Cli
 	 */
 	protected function detach()
 	{
-		Log::add('Detaching the ' . $this->name . ' daemon.', Log::DEBUG);
+		if ($this->logger)
+		{
+			$this->logger->debug('Detaching the ' . $this->name . ' daemon.');
+		}
 
 		// Attempt to fork the process.
 		$pid = $this->fork();
@@ -604,7 +674,10 @@ abstract class Daemon extends Cli
 		if ($pid)
 		{
 			// Add the log entry for debugging purposes and exit gracefully.
-			Log::add('Ending ' . $this->name . ' parent process', Log::DEBUG);
+			if ($this->logger)
+			{
+				$this->logger->debug('Ending ' . $this->name . ' parent process');
+			}
 			$this->close();
 		}
 		else
@@ -646,7 +719,10 @@ abstract class Daemon extends Cli
 		// Log the fork in the parent.
 		{
 			// Log the fork.
-			Log::add('Process forked ' . $pid, Log::DEBUG);
+			if ($this->logger)
+			{
+				$this->logger->debug('Process forked ' . $pid);
+			}
 		}
 
 		// Trigger the onFork event.
@@ -692,7 +768,10 @@ abstract class Daemon extends Cli
 			if (!defined($signal) || !is_int(constant($signal)) || (constant($signal) === 0))
 			{
 				// Define the signal to avoid notices.
-				Log::add('Signal "' . $signal . '" not defined. Defining it as null.', Log::DEBUG);
+				if ($this->logger)
+				{
+					$this->logger->debug('Signal "' . $signal . '" not defined. Defining it as null.');
+				}
 				define($signal, null);
 
 				// Don't listen for signal.
@@ -702,13 +781,30 @@ abstract class Daemon extends Cli
 			// Attach the signal handler for the signal.
 			if (!$this->pcntlSignal(constant($signal), array('JApplicationDaemon', 'signal')))
 			{
-				Log::add(sprintf('Unable to reroute signal handler: %s', $signal), Log::EMERGENCY);
+				if ($this->logger)
+				{
+					$this->logger->emergency(sprintf('Unable to reroute signal handler: %s', $signal));
+				}
 
 				return false;
 			}
 		}
 
 		return true;
+	}
+
+	/**
+     * Sets a logger instance on the object
+     *
+     * @param    LoggerInterface  $logger  A PSR-3 compliant logger.
+	 *
+     * @return   void
+     *
+     * @since   1.0
+     */
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
 	}
 
 	/**
@@ -736,7 +832,10 @@ abstract class Daemon extends Cli
 		// If we aren't already daemonized then just kill the application.
 		if (!$this->running && !$this->isActive())
 		{
-			Log::add('Process was not daemonized yet, just halting current process', Log::INFO);
+			if ($this->logger)
+			{
+				$this->logger->info('Process was not daemonized yet, just halting current process');
+			}
 			$this->close();
 		}
 
@@ -778,7 +877,10 @@ abstract class Daemon extends Cli
 		// Verify the process id is valid.
 		if ($this->processId < 1)
 		{
-			Log::add('The process id is invalid.', Log::EMERGENCY);
+			if ($this->logger)
+			{
+				$this->logger->emergency('The process id is invalid.');
+			}
 
 			return false;
 		}
@@ -788,7 +890,10 @@ abstract class Daemon extends Cli
 
 		if (empty($file))
 		{
-			Log::add('The process id file path is empty.', Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('The process id file path is empty.');
+			}
 
 			return false;
 		}
@@ -798,7 +903,10 @@ abstract class Daemon extends Cli
 
 		if (!is_dir($folder) && !Folder::create($folder))
 		{
-			Log::add('Unable to create directory: ' . $folder, Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('Unable to create directory: ' . $folder);
+			}
 
 			return false;
 		}
@@ -806,7 +914,10 @@ abstract class Daemon extends Cli
 		// Write the process id file out to disk.
 		if (!file_put_contents($file, $this->processId))
 		{
-			Log::add('Unable to write proccess id file: ' . $file, Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('Unable to write proccess id file: ' . $file);
+			}
 
 			return false;
 		}
@@ -814,7 +925,10 @@ abstract class Daemon extends Cli
 		// Make sure the permissions for the proccess id file are accurate.
 		if (!chmod($file, 0644))
 		{
-			Log::add('Unable to adjust permissions for the proccess id file: ' . $file, Log::ERROR);
+			if ($this->logger)
+			{
+				$this->logger->error('Unable to adjust permissions for the proccess id file: ' . $file);
+			}
 
 			return false;
 		}
