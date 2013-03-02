@@ -12,8 +12,7 @@ use Joomla\Application\Web\Client as WebClient;
 use Joomla\Registry\Registry;
 use Joomla\Test\Config;
 use Joomla\Test\Helper;
-
-include_once __DIR__ . '/Stubs/WebInspector.php';
+use Joomla\Test\WebInspector;
 
 /**
  * Test class for Joomla\Application\Web.
@@ -829,15 +828,15 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	public function testGetInstance()
 	{
 		$this->assertInstanceOf(
-			'\\Joomla\\Application\\Tests\\WebInspector',
-			Web::getInstance('Joomla\Application\Tests\WebInspector'),
+			'\\Joomla\\Test\\WebInspector',
+			Web::getInstance('Joomla\Test\WebInspector'),
 			'Tests that getInstance will instantiate a valid child class of Joomla\Application\Web.'
 		);
 
-		Helper::setValue('Joomla\Application\Tests\WebInspector', 'instance','foo');
+		Helper::setValue('Joomla\Test\WebInspector', 'instance','foo');
 
 		$this->assertThat(
-			Web::getInstance('Joomla\Application\Tests\WebInspector'),
+			Web::getInstance('Joomla\Test\WebInspector'),
 			$this->equalTo('foo'),
 			'Tests that singleton value is returned.'
 		);

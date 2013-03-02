@@ -5,7 +5,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Application\Tests;
+namespace Joomla\Test;
 
 use Joomla\Application\Web;
 

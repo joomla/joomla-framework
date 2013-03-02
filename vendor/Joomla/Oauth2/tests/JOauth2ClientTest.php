@@ -11,6 +11,7 @@ use Joomla\Oauth2\Client;
 use Joomla\Registry\Registry;
 use Joomla\Input\Input;
 use Joomla\Http\Http;
+use Joomla\Test\WebInspector;
 
 /**
  * Test class for Client.
@@ -65,7 +66,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 		$this->http = $this->getMock('Joomla\Http\Http', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
 		$array = array();
 		$this->input = new Input($array);
-		$this->application = new JApplicationWebInspector;
+		$this->application = new WebInspector;
 		$this->object = new Client($this->options, $this->http, $this->input, $this->application);
 	}
 

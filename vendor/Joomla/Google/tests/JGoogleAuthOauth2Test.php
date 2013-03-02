@@ -10,6 +10,7 @@ use Joomla\Google\Auth\OAuth2;
 use Joomla\Oauth2\Client;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
+use Joomla\Test\WebInspector;
 
 /**
  * Test class for JGoogleAuthOauth2Test .
@@ -69,7 +70,7 @@ class JGoogleAuthOauth2Test extends PHPUnit_Framework_TestCase
 		$this->options = new Registry;
 		$this->http = $this->getMock('Joomla\\Http\\Http', array('head', 'get', 'delete', 'trace', 'post', 'put', 'patch'), array($this->options));
 		$this->input = new Input;
-		$this->application = new JApplicationWebInspector;
+		$this->application = new WebInspector;
 		$this->oauth = new Client($this->options, $this->http, $this->input, $this->application);
 		$this->object = new OAuth2($this->options, $this->oauth);
 	}
