@@ -80,7 +80,7 @@ class TestMockApplicationWeb
 
 		// Create the mock.
 		$mockObject = $test->getMock(
-			'JApplicationWeb',
+			'Joomla\\Application\\Web',
 			$methods,
 			// Constructor arguments.
 			array(),

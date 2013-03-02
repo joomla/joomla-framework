@@ -36,7 +36,7 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertAttributeInstanceOf('JApplicationWeb', 'app', $this->instance);
+		$this->assertAttributeInstanceOf('Joomla\\Application\\Web', 'app', $this->instance);
 		$this->assertAttributeInstanceOf('Joomla\\Input\\Input', 'input', $this->instance);
 	}
 
@@ -148,7 +148,7 @@ class JApplicationWebRouterTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->instance = $this->getMockForAbstractClass('JApplicationWebRouter', array($this->getMockWeb()));
+		$this->instance = $this->getMockForAbstractClass('Joomla\\Application\\Web\\Router', array($this->getMockWeb()));
 	}
 
 	/**

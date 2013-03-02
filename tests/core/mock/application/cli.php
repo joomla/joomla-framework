@@ -40,7 +40,7 @@ class TestMockApplicationCli
 
 		// Create the mock.
 		$mockObject = $test->getMock(
-			'JApplicationCli',
+			'Joomla\\Application\\Cli',
 			$methods,
 			// Constructor arguments.
 			array(),

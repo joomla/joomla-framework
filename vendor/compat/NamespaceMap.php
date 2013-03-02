@@ -1,15 +1,8 @@
 <?php
 
 return array(
-	'JApplicationBase' => 'Joomla\\Application\\Base',
-	'JApplicationCli' => 'Joomla\\Application\\Cli',
-	'JApplicationDaemon' => 'Joomla\\Application\\Daemon',
 	'JRoute' => 'Joomla\\Application\\Route',
 	'JRouter' => 'Joomla\\Application\\Router',
-	'JApplicationWeb' => 'Joomla\\Application\\Web',
-	'JApplicationWebRouter' => 'Joomla\\Application\\Web\\Router',
-	'JApplicationWebRouterBase' => 'Joomla\\Application\\Web\\Router\\Base',
-	'JApplicationWebRouterRest' => 'Joomla\\Application\\Web\\Router\\Rest',
 	'JFactory' => 'Joomla\\Factory',
 	'JFormField' => 'Joomla\\Form\\Field',
 	'JFormFieldCacheHandler' => 'Joomla\\Form\\Field_CacheHandler',
