@@ -27,17 +27,11 @@ use DateTimeZone;
  * @property-read  string   $week          W - Numeric representation of the day of the week.
  * @property-read  string   $year          Y - A full numeric representation of a year, 4 digits.
  *
- * @package  Joomla.Platform
+ * @package  Joomla\Framework
  * @since    1.0
  */
-
 class Date extends DateTime
 {
-	const DAY_ABBR = "\x021\x03";
-	const DAY_NAME = "\x022\x03";
-	const MONTH_ABBR = "\x023\x03";
-	const MONTH_NAME = "\x024\x03";
-
 	/**
 	 * The format string to be applied when using the __toString() magic method.
 	 *
@@ -200,37 +194,6 @@ class Date extends DateTime
 	public function __toString()
 	{
 		return (string) parent::format(self::$format);
-	}
-
-	/**
-	 * Proxy for new JDate().
-	 *
-	 * @param   string  $date  String in a format accepted by strtotime(), defaults to "now".
-	 * @param   mixed   $tz    Time zone to be used for the date.
-	 *
-	 * @return  JDate
-	 *
-	 * @since   11.3
-	 */
-	public static function getInstance($date = 'now', $tz = null)
-	{
-		return new self($date, $tz);
-	}
-
-	/**
-	 * Gets the date as a formatted string in a local calendar.
-	 *
-	 * @param   string   $format     The date format specification string (see {@link PHP_MANUAL#date})
-	 * @param   boolean  $local      True to return the date string in the local time zone, false to return it in GMT.
-	 * @param   boolean  $translate  True to translate localised strings
-	 *
-	 * @return  string   The date string in the specified format format.
-	 *
-	 * @since   1.0
-	 */
-	public function calendar($format, $local = false, $translate = true)
-	{
-		return $this->format($format, $local, $translate);
 	}
 
 	/**

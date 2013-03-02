@@ -522,29 +522,6 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the getInstance method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @covers  Joomla\Date\Date::getInstance
-	 */
-	public function testGetInstance()
-	{
-		$this->assertThat(
-			Date::getInstance(),
-			$this->isInstanceOf('Joomla\\Date\\Date')
-		);
-
-		Date::$format = 'Y-m-d H:i:s';
-
-		$this->assertThat(
-			(string) Date::getInstance('2000-01-01 00:00:00'),
-			$this->equalTo('2000-01-01 00:00:00')
-		);
-	}
-
-	/**
 	 * Testing getOffsetFromGMT
 	 *
 	 * @param   mixed    $tz        Which time zone? (can be string or numeric
