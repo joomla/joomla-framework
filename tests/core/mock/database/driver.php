@@ -94,7 +94,7 @@ class TestMockDatabaseDriver
 
 		// Create the mock.
 		$mockObject = $test->getMock(
-			'JDatabaseDriver',
+			'Joomla\\Database\\Driver',
 			$methods,
 			// Constructor arguments.
 			array(),

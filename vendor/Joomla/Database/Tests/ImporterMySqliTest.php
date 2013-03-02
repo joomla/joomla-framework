@@ -34,7 +34,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 
 		// Set up the database object mock.
 		$this->dbo = $this->getMock(
-			'JDatabaseDriverMysqli',
+			'Joomla\\Database\\Driver\\Mysqli',
 			array(),
 			array(),
 			'',

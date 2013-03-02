@@ -11,6 +11,8 @@ require_once 'PHPUnit/Extensions/Database/DataSet/XmlDataSet.php';
 require_once 'PHPUnit/Extensions/Database/DataSet/QueryDataSet.php';
 require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
 
+use Joomla\Database\Driver as DatabaseDriver;
+
 /**
  * Abstract test case class for database testing.
  *
@@ -20,13 +22,13 @@ require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
 abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 {
 	/**
-	 * @var    JDatabaseDriver  The active database driver being used for the tests.
+	 * @var    Joomla\Database\Driver  The active database driver being used for the tests.
 	 * @since  12.1
 	 */
 	protected static $driver;
 
 	/**
-	 * @var    JDatabaseDriver  The saved database driver to be restored after these tests.
+	 * @var    Joomla\Database\Driver  The saved database driver to be restored after these tests.
 	 * @since  12.1
 	 */
 	private static $_stash;
@@ -62,7 +64,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = JDatabaseDriver::getInstance($options);
+			self::$driver = DatabaseDriver::getInstance($options);
 
 			// Create a new PDO instance for an SQLite memory database and load the test schema into it.
 			$pdo = new PDO('sqlite::memory:');
@@ -183,33 +185,16 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	/**
 	 * Gets a mock database object.
 	 *
-	 * @return  JDatabaseDriver
+	 * @return  Joomla\Database\Driver
 	 *
 	 * @since   12.1
 	 */
 	public function getMockDatabase()
 	{
 		// Attempt to load the real class first.
-		class_exists('JDatabaseDriver');
+		class_exists('Joomla\\Database\\Driver');
 
 		return TestMockDatabaseDriver::create($this);
-	}
-
-	/**
-	 * Gets a mock dispatcher object.
-	 *
-	 * @param   boolean  $defaults  Add default register and trigger methods for testing.
-	 *
-	 * @return  JEventDispatcher
-	 *
-	 * @since   12.1
-	 */
-	public function getMockDispatcher($defaults = true)
-	{
-		// Attempt to load the real class first.
-		class_exists('JEventDispatcher');
-
-		return TestMockDispatcher::create($this, $defaults);
 	}
 
 	/**
