@@ -1,16 +1,17 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Controller
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once __DIR__ . '/stubs/tbase.php';
+namespace Joomla\Controller\Tests;
 
+use Joomla\Factory;
 use Joomla\Input\Input;
 use Joomla\Input\Cookie as InputCookie;
+
+require_once __DIR__ . '/Stubs/BaseController.php';
 
 /**
  * Tests for the JController class.
@@ -19,7 +20,7 @@ use Joomla\Input\Cookie as InputCookie;
  * @subpackage  Controller
  * @since       12.1
  */
-class JControllerBaseTest extends TestCase
+class BaseTest extends \TestCase
 {
 	/**
 	 * @var    JControllerBase
@@ -37,12 +38,16 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function test__construct()
 	{
+		$prop = new \ReflectionProperty($this->instance, 'app');
+		$prop->setAccessible(true);
+		$app = $prop->getValue($this->instance);
+
 		// New controller with no dependancies.
-		$this->assertEquals('default', TestReflection::getValue($this->instance, 'app')->input, 'Checks the mock application came from the factory.');
+		$this->assertAttributeEquals('default', 'input', $app, 'Checks the mock application came from the factory.');
 		$this->assertAttributeEquals('default', 'input', $this->instance, 'Checks the input came from the application.');
 
 		// New controller with dependancies
-		$app = TestMockApplicationWeb::create($this);
+		$app = \TestMockApplicationWeb::create($this);
 		$app->test = 'ok';
 
 		$class = new BaseController(new InputCookie, $app);
@@ -60,8 +65,11 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function testGetApplication()
 	{
-		TestReflection::setValue($this->instance, 'app', 'application');
-		$this->assertEquals('application', $this->instance->getApplication());
+		$prop = new \ReflectionProperty($this->instance, 'app');
+		$prop->setAccessible(true);
+		$prop->setValue($this->instance, 'appValue');
+
+		$this->assertEquals('appValue', $this->instance->getApplication());
 	}
 
 	/**
@@ -74,8 +82,11 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function testGetInput()
 	{
-		TestReflection::setValue($this->instance, 'input', 'input');
-		$this->assertEquals('input', $this->instance->getInput());
+		$prop = new \ReflectionProperty($this->instance, 'input');
+		$prop->setAccessible(true);
+		$prop->setValue($this->instance, 'inputValue');
+
+		$this->assertEquals('inputValue', $this->instance->getInput());
 	}
 
 	/**
@@ -132,8 +143,12 @@ class JControllerBaseTest extends TestCase
 	 */
 	public function testLoadApplication()
 	{
-		JFactory::$application = 'application';
-		$this->assertEquals('application', TestReflection::invoke($this->instance, 'loadApplication'));
+		$method = new \ReflectionMethod($this->instance, 'loadApplication');
+		$method->setAccessible(true);
+
+		Factory::$application = 'application';
+
+		$this->assertEquals('application', $method->invoke($this->instance));
 	}
 
 	/**
@@ -147,9 +162,14 @@ class JControllerBaseTest extends TestCase
 	public function testLoadInput()
 	{
 		// Reset the input property so we know it changes based on the mock application.
-		TestReflection::setValue($this->instance, 'input', null);
+		$prop = new \ReflectionProperty($this->instance, 'input');
+		$prop->setAccessible(true);
+		$prop->setValue($this->instance, null);
 
-		$this->assertEquals('default', TestReflection::invoke($this->instance, 'loadInput'));
+		$method = new \ReflectionMethod($this->instance, 'loadInput');
+		$method->setAccessible(true);
+
+		$this->assertEquals('default', $method->invoke($this->instance));
 	}
 
 	/**
@@ -165,10 +185,10 @@ class JControllerBaseTest extends TestCase
 
 		$this->saveFactoryState();
 
-		$app = TestMockApplicationWeb::create($this);
+		$app = \TestMockApplicationWeb::create($this);
 		$app->input = 'default';
 
-		JFactory::$application = $app;
+		Factory::$application = $app;
 
 		$this->instance = new BaseController;
 	}
