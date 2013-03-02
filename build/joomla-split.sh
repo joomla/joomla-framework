@@ -22,7 +22,6 @@ git subsplit publish "
 	vendor/Joomla/Log:git@github.com:joomla/joomla-framework-log.git
 	vendor/Joomla/Model:git@github.com:joomla/joomla-framework-model.git
 	vendor/Joomla/Oauth2:git@github.com:joomla/joomla-framework-oauth2.git
-	vendor/Joomla/Pagination:git@github.com:joomla/joomla-framework-pagination.git
 	vendor/Joomla/Profiler:git@github.com:joomla/joomla-framework-profiler.git
 	vendor/Joomla/Registry:git@github.com:joomla/joomla-framework-registry.git
 	vendor/Joomla/Session:git@github.com:joomla/joomla-framework-session.git
