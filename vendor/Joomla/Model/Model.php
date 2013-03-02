@@ -1,23 +1,19 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Model
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Model;
-
 
 use Joomla\Registry\Registry;
 
 /**
  * Joomla Platform Model Interface
  *
- * @package     Joomla.Platform
- * @subpackage  Model
- * @since       12.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
 interface Model
 {
@@ -26,7 +22,7 @@ interface Model
 	 *
 	 * @return  Registry  The state object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getState();
 
@@ -37,7 +33,7 @@ interface Model
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setState(Registry $state);
 }
