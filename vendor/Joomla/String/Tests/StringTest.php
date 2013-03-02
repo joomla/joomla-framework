@@ -459,7 +459,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestIncrement
 	 * @since         1.0
-	 * @covers        String::increment
+	 * @covers        Joomla\String\String::increment
 	 */
 	public function testIncrement($string, $style, $number, $expected)
 	{
@@ -484,7 +484,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrpos
 	 * @since         1.0
-	 * @covers        String::strpos
+	 * @covers        Joomla\String\String::strpos
 	 */
 	public function testStrpos($haystack, $needle, $offset = 0, $expect)
 	{
@@ -509,7 +509,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestGetStrrpos
 	 * @since         1.0
-	 * @covers        String::strrpos
+	 * @covers        Joomla\String\String::strrpos
 	 */
 	public function testStrrpos($haystack, $needle, $offset = 0, $expect)
 	{
@@ -534,7 +534,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestSubstr
 	 * @since         1.0
-	 * @covers        String::substr
+	 * @covers        Joomla\String\String::substr
 	 */
 	public function testSubstr($string, $start, $length = false, $expect)
 	{
@@ -554,7 +554,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrtolower
 	 * @since         1.0
-	 * @covers        String::strtolower
+	 * @covers        Joomla\String\String::strtolower
 	 */
 	public function testStrtolower($string, $expect)
 	{
@@ -572,7 +572,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrtoupper
 	 * @since         1.0
-	 * @covers        String::strtoupper
+	 * @covers        Joomla\String\String::strtoupper
 	 */
 	public function testStrtoupper($string, $expect)
 	{
@@ -590,7 +590,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrlen
 	 * @since         1.0
-	 * @covers        String::strlen
+	 * @covers        Joomla\String\String::strlen
 	 */
 	public function testStrlen($string, $expect)
 	{
@@ -611,7 +611,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStr_ireplace
 	 * @since         1.0
-	 * @covers        String::str_ireplace
+	 * @covers        Joomla\String\String::str_ireplace
 	 */
 	public function testStr_ireplace($search, $replace, $subject, $count, $expect)
 	{
@@ -630,7 +630,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStr_split
 	 * @since         1.0
-	 * @covers        String::str_split
+	 * @covers        Joomla\String\String::str_split
 	 */
 	public function testStr_split($string, $split_length, $expect)
 	{
@@ -650,7 +650,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrcasecmp
 	 * @since         1.0
-	 * @covers        String::strcasecmp
+	 * @covers        Joomla\String\String::strcasecmp
 	 */
 	public function testStrcasecmp($string1, $string2, $locale, $expect)
 	{
@@ -693,7 +693,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrcmp
 	 * @since         1.0
-	 * @covers        String::strcmp
+	 * @covers        Joomla\String\String::strcmp
 	 */
 	public function testStrcmp($string1, $string2, $locale, $expect)
 	{
@@ -738,7 +738,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrcspn
 	 * @since         1.0
-	 * @covers        String::strcspn
+	 * @covers        Joomla\String\String::strcspn
 	 */
 	public function testStrcspn($haystack, $needles, $start, $len, $expect)
 	{
@@ -757,7 +757,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStristr
 	 * @since         1.0
-	 * @covers        String::stristr
+	 * @covers        Joomla\String\String::stristr
 	 */
 	public function testStristr($haystack, $needle, $expect)
 	{
@@ -775,7 +775,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrrev
 	 * @since         1.0
-	 * @covers        String::strrev
+	 * @covers        Joomla\String\String::strrev
 	 */
 	public function testStrrev($string, $expect)
 	{
@@ -796,7 +796,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestStrspn
 	 * @since         1.0
-	 * @covers        String::strspn
+	 * @covers        Joomla\String\String::strspn
 	 */
 	public function testStrspn($subject, $mask, $start, $length, $expect)
 	{
@@ -817,7 +817,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestSubstr_replace
 	 * @since         1.0
-	 * @covers        String::substr_replace
+	 * @covers        Joomla\String\String::substr_replace
 	 */
 	public function testSubstr_replace($string, $replacement, $start, $length, $expect)
 	{
@@ -836,7 +836,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestLtrim
 	 * @since         1.0
-	 * @covers        String::ltrim
+	 * @covers        Joomla\String\String::ltrim
 	 */
 	public function testLtrim($string, $charlist, $expect)
 	{
@@ -863,7 +863,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestRtrim
 	 * @since         1.0
-	 * @covers        String::rtrim
+	 * @covers        Joomla\String\String::rtrim
 	 */
 	public function testRtrim($string, $charlist, $expect)
 	{
@@ -890,7 +890,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestTrim
 	 * @since         1.0
-	 * @covers        String::trim
+	 * @covers        Joomla\String\String::trim
 	 */
 	public function testTrim($string, $charlist, $expect)
 	{
@@ -917,8 +917,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 * @return  array
 	 *
 	 * @dataProvider  seedTestUcfirst
-	 * @since        1.0
-	 * @covers       String::ucfirst
+	 * @since         1.0
+	 * @covers        Joomla\String\String::ucfirst
 	 */
 	public function testUcfirst($string, $delimiter, $newDelimiter, $expect)
 	{
@@ -936,7 +936,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestUcwords
 	 * @since         1.0
-	 * @covers        String::ucwords
+	 * @covers        Joomla\String\String::ucwords
 	 */
 	public function testUcwords($string, $expect)
 	{
@@ -956,7 +956,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestTranscode
 	 * @since         1.0
-	 * @covers        String::transcode
+	 * @covers        Joomla\String\String::transcode
 	 */
 	public function testTranscode($source, $from_encoding, $to_encoding, $expect)
 	{
@@ -974,7 +974,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestValid
 	 * @since         1.0
-	 * @covers        String::valid
+	 * @covers        Joomla\String\String::valid
 	 */
 	public function testValid($string, $expect)
 	{
@@ -992,7 +992,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestValid
 	 * @since         1.0
-	 * @covers        String::compliant
+	 * @covers        Joomla\String\String::compliant
 	 */
 	public function testCompliant($string, $expect)
 	{
@@ -1005,7 +1005,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @covers  String::parse_url
+	 * @covers  Joomla\String\String::parse_url
 	 * @since   1.0
 	 */
 	public function testParse_Url()

@@ -1352,7 +1352,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestArrayUnique
-	 * @covers        ArrayHelper::arrayUnique
+	 * @covers        Joomla\Utilities\ArrayHelper::arrayUnique
 	 * @since         1.0
 	 */
 	public function testArrayUnique($input, $expected)
@@ -1375,8 +1375,8 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestFromObject
-	 * @covers        ArrayHelper::fromObject
-	 * @covers        ArrayHelper::arrayFromObject
+	 * @covers        Joomla\Utilities\ArrayHelper::fromObject
+	 * @covers        Joomla\Utilities\ArrayHelper::arrayFromObject
 	 * @since         1.0
 	 */
 	public function testFromObject($input, $recurse, $regex, $expect, $defaults)
@@ -1404,7 +1404,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestGetColumn
-	 * @covers        ArrayHelper::getColumn
+	 * @covers        Joomla\Utilities\ArrayHelper::getColumn
 	 * @since         1.0
 	 */
 	public function testGetColumn($input, $index, $expect, $message)
@@ -1426,7 +1426,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestGetValue
-	 * @covers        ArrayHelper::getValue
+	 * @covers        Joomla\Utilities\ArrayHelper::getValue
 	 * @since         1.0
 	 */
 	public function testGetValue($input, $index, $default, $type, $expect, $message, $defaults)
@@ -1513,7 +1513,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestPivot
-	 * @covers        ArrayHelper::pivot
+	 * @covers        Joomla\Utilities\ArrayHelper::pivot
 	 * @since         1.0
 	 */
 	public function testPivot($source, $key, $expected)
@@ -1539,8 +1539,8 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestSortObject
-	 * @covers        ArrayHelper::sortObjects
-	 * @covers        ArrayHelper::objectSort
+	 * @covers        Joomla\Utilities\ArrayHelper::sortObjects
+	 * @covers        Joomla\Utilities\ArrayHelper::objectSort
 	 * @since         1.0
 	 */
 	public function testSortObjects($input, $key, $direction, $casesensitive, $locale, $expect, $message, $defaults)
@@ -1588,7 +1588,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestToInteger
-	 * @covers        ArrayHelper::toInteger
+	 * @covers        Joomla\Utilities\ArrayHelper::toInteger
 	 * @since         1.0
 	 */
 	public function testToInteger($input, $default, $expect, $message)
@@ -1612,7 +1612,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestToObject
-	 * @covers        ArrayHelper::toObject
+	 * @covers        Joomla\Utilities\ArrayHelper::toObject
 	 * @since         1.0
 	 */
 	public function testToObject($input, $className, $expect, $message)
@@ -1638,7 +1638,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  seedTestToString
-	 * @covers        ArrayHelper::toString
+	 * @covers        Joomla\Utilities\ArrayHelper::toString
 	 * @since         1.0
 	 */
 	public function testToString($input, $inner, $outer, $keepKey, $expect, $message, $defaults)

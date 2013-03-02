@@ -21,7 +21,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::__clone
+	 * @covers  Joomla\Registry\Registry::__clone
 	 * @since   1.0
 	 */
 	public function test__clone()
@@ -47,7 +47,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::__toString
+	 * @covers  Joomla\Registry\Registry::__toString
 	 * @since   1.0
 	 */
 	public function test__toString()
@@ -69,7 +69,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::jsonSerialize
+	 * @covers  Joomla\Registry\Registry::jsonSerialize
 	 * @since   1.0
 	 */
 	public function testJsonSerialize()
@@ -119,7 +119,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::def
+	 * @covers  Joomla\Registry\Registry::def
 	 * @since   1.0
 	 */
 	public function testDef()
@@ -144,7 +144,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::bindData
+	 * @covers  Joomla\Registry\Registry::bindData
 	 * @since   1.0
 	 */
 	public function testBindData()
@@ -186,7 +186,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::exists
+	 * @covers  Joomla\Registry\Registry::exists
 	 * @since   1.0
 	 */
 	public function testExists()
@@ -232,7 +232,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::get
+	 * @covers  Joomla\Registry\Registry::get
 	 * @since   1.0
 	 */
 	public function testGet()
@@ -248,7 +248,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::getInstance
+	 * @covers  Joomla\Registry\Registry::getInstance
 	 * @since   1.0
 	 */
 	public function testGetInstance()
@@ -285,7 +285,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::loadArray
+	 * @covers  Joomla\Registry\Registry::loadArray
 	 * @since   1.0
 	 */
 	public function testLoadArray()
@@ -311,7 +311,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::loadFile
+	 * @covers  Joomla\Registry\Registry::loadFile
 	 * @since   1.0
 	 */
 	public function testLoadFile()
@@ -358,7 +358,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::loadString
+	 * @covers  Joomla\Registry\Registry::loadString
 	 * @since   1.0
 	 */
 	public function testLoadString()
@@ -411,7 +411,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::loadObject
+	 * @covers  Joomla\Registry\Registry::loadObject
 	 * @since   1.0
 	 */
 	public function testLoadObject()
@@ -508,7 +508,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::set
+	 * @covers  Joomla\Registry\Registry::set
 	 * @since   1.0
 	 */
 	public function testSet()
@@ -528,7 +528,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::toArray
+	 * @covers  Joomla\Registry\Registry::toArray
 	 * @since   1.0
 	 */
 	public function testToArray()
@@ -556,7 +556,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::toObject
+	 * @covers  Joomla\Registry\Registry::toObject
 	 * @since   1.0
 	 */
 	public function testToObject()
@@ -584,7 +584,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Registry::toString
+	 * @covers  Joomla\Registry\Registry::toString
 	 * @since   1.0
 	 */
 	public function testToString()
