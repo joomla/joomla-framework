@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  HTTP
- *
+ * @package     Joomla\Framework
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Http;
-
 
 use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
@@ -16,9 +13,8 @@ use Joomla\Uri\Uri;
 /**
  * HTTP transport class interface.
  *
- * @package     Joomla.Platform
- * @subpackage  HTTP
- * @since       11.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 interface Transport
 {
@@ -27,7 +23,7 @@ interface Transport
 	 *
 	 * @param   Registry  $options  Client options object.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options);
 
@@ -43,7 +39,7 @@ interface Transport
 	 *
 	 * @return  Response
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null);
 
@@ -52,7 +48,7 @@ interface Transport
 	 *
 	 * @return  boolean  True if available else false
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported();
 }

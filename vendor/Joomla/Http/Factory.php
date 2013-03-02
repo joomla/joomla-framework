@@ -1,24 +1,19 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  HTTP
- *
+ * @package     Joomla\Framework
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Http;
 
-
 use Joomla\Registry\Registry;
-use DirectoryIterator;
 
 /**
  * HTTP factory class.
  *
- * @package     Joomla.Platform
- * @subpackage  HTTP
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Factory
 {
@@ -30,7 +25,7 @@ class Factory
 	 *
 	 * @return  Http  Joomla Http class
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function getHttp(Registry $options = null, $adapters = null)
 	{
@@ -50,7 +45,7 @@ class Factory
 	 *
 	 * @return  Transport  Interface sub-class
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function getAvailableDriver(Registry $options, $default = null)
 	{
@@ -88,12 +83,12 @@ class Factory
 	 *
 	 * @return  array  An array of available transport handlers
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function getHttpTransports()
 	{
 		$names = array();
-		$iterator = new DirectoryIterator(__DIR__ . '/Transport');
+		$iterator = new \DirectoryIterator(__DIR__ . '/Transport');
 
 		foreach ($iterator as $file)
 		{

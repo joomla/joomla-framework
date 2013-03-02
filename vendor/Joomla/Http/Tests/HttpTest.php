@@ -1,41 +1,39 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Http
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Http\Tests;
 
 use Joomla\Http\Http;
 use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
- * Test class for JHttp.
+ * Test class for Joomla\Http\Http.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Http
- *
- * @since       11.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JHttpTest extends PHPUnit_Framework_TestCase
+class HttpTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the GitHub object.
-	 * @since  11.4
+	 * @var    Registry  Options for the Http object.
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttpTransport  Mock transport object.
-	 * @since  11.4
+	 * @var    Transport  Mock transport object.
+	 * @since  1.0
 	 */
 	protected $transport;
 
 	/**
 	 * @var    Http  Object under test.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $object;
 
@@ -43,9 +41,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @access protected
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -59,21 +57,11 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @access protected
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
 	 * Tests the getOption method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testGetOption()
 	{
@@ -91,7 +79,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the setOption method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testSetOption()
 	{
@@ -108,7 +98,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the options method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testOptions()
 	{
@@ -126,7 +118,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the head method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testHead()
 	{
@@ -144,7 +138,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the get method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
@@ -162,7 +158,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the post method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testPost()
 	{
@@ -180,7 +178,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the put method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testPut()
 	{
@@ -198,7 +198,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the delete method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testDelete()
 	{
@@ -216,7 +218,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the trace method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testTrace()
 	{
@@ -234,7 +238,9 @@ class JHttpTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the patch method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testPatch()
 	{

@@ -1,34 +1,28 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  HTTP
- *
+ * @package     Joomla\Framework
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Http\Transport;
 
-
 use Joomla\Registry\Registry;
 use Joomla\Http\Transport;
 use Joomla\Http\Response;
 use Joomla\Uri\Uri;
-use UnexpectedValueException;
-use RuntimeException;
 
 /**
  * HTTP transport class for using cURL.
  *
- * @package     Joomla.Platform
- * @subpackage  HTTP
- * @since       11.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Curl implements Transport
 {
 	/**
 	 * @var    Registry  The client options.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $options;
 
@@ -38,14 +32,14 @@ class Curl implements Transport
 	 * @param   Registry  $options  Client options object.
 	 *
 	 * @see     http://www.php.net/manual/en/function.curl-setopt.php
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $options)
 	{
 		if (!function_exists('curl_init') || !is_callable('curl_init'))
 		{
-			throw new RuntimeException('Cannot use a cURL transport when curl_init() is not available.');
+			throw new \RuntimeException('Cannot use a cURL transport when curl_init() is not available.');
 		}
 
 		$this->options = $options;
@@ -63,8 +57,8 @@ class Curl implements Transport
 	 *
 	 * @return  Response
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
@@ -166,7 +160,7 @@ class Curl implements Transport
 				$message = 'No HTTP response received';
 			}
 
-			throw new RuntimeException($message);
+			throw new \RuntimeException($message);
 		}
 
 		// Get the request information.
@@ -187,8 +181,8 @@ class Curl implements Transport
 	 *
 	 * @return  Response
 	 *
-	 * @since   11.3
-	 * @throws  UnexpectedValueException
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	protected function getResponse($content, $info)
 	{
@@ -224,7 +218,7 @@ class Curl implements Transport
 		// No valid response code was detected.
 		else
 		{
-			throw new UnexpectedValueException('No HTTP response code found.');
+			throw new \UnexpectedValueException('No HTTP response code found.');
 		}
 
 		// Add the response headers to the response object.
@@ -240,9 +234,9 @@ class Curl implements Transport
 	/**
 	 * Method to check if HTTP transport cURL is available for use
 	 *
-	 * @return boolean true if available, else false
+	 * @return  boolean  True if available, else false
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{

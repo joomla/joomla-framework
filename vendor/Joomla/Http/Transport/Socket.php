@@ -1,40 +1,34 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  HTTP
- *
+ * @package     Joomla\Framework
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Http\Transport;
 
-
 use Joomla\Registry\Registry;
 use Joomla\Http\Transport;
 use Joomla\Http\Response;
 use Joomla\Uri\Uri;
-use UnexpectedValueException;
-use RuntimeException;
 
 /**
  * HTTP transport class for using sockets directly.
  *
- * @package     Joomla.Platform
- * @subpackage  HTTP
- * @since       11.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Socket implements Transport
 {
 	/**
 	 * @var    array  Reusable socket connections.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $connections;
 
 	/**
 	 * @var    Registry  The client options.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $options;
 
@@ -43,14 +37,14 @@ class Socket implements Transport
 	 *
 	 * @param   Registry  $options  Client options object.
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $options)
 	{
 		if (!self::isSupported())
 		{
-			throw new RuntimeException('Cannot use a socket transport when fsockopen() is not available.');
+			throw new \RuntimeException('Cannot use a socket transport when fsockopen() is not available.');
 		}
 
 		$this->options = $options;
@@ -68,8 +62,8 @@ class Socket implements Transport
 	 *
 	 * @return  Response
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
@@ -83,12 +77,12 @@ class Socket implements Transport
 
 			if ($meta['timed_out'])
 			{
-				throw new RuntimeException('Server connection timed out.');
+				throw new \RuntimeException('Server connection timed out.');
 			}
 		}
 		else
 		{
-			throw new RuntimeException('Not connected to server.');
+			throw new \RuntimeException('Not connected to server.');
 		}
 
 		// Get the request path from the URI object.
@@ -160,8 +154,8 @@ class Socket implements Transport
 	 *
 	 * @return  Response
 	 *
-	 * @since   11.3
-	 * @throws  UnexpectedValueException
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	protected function getResponse($content)
 	{
@@ -170,7 +164,7 @@ class Socket implements Transport
 
 		if (empty($content))
 		{
-			throw new UnexpectedValueException('No content in response.');
+			throw new \UnexpectedValueException('No content in response.');
 		}
 
 		// Split the response into headers and body.
@@ -193,7 +187,7 @@ class Socket implements Transport
 		else
 		// No valid response code was detected.
 		{
-			throw new UnexpectedValueException('No HTTP response code found.');
+			throw new \UnexpectedValueException('No HTTP response code found.');
 		}
 
 		// Add the response headers to the response object.
@@ -214,8 +208,8 @@ class Socket implements Transport
 	 *
 	 * @return  resource  Socket connection resource.
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function connect(Uri $uri, $timeout = null)
 	{
@@ -250,7 +244,7 @@ class Socket implements Transport
 			{
 				if (!fclose($this->connections[$key]))
 				{
-					throw new RuntimeException('Cannot close connection');
+					throw new \RuntimeException('Cannot close connection');
 				}
 			}
 
@@ -286,7 +280,7 @@ class Socket implements Transport
 			// Restore error tracking to give control to the exception handler
 			ini_set('track_errors', $track_errors);
 
-			throw new RuntimeException($php_errormsg);
+			throw new \RuntimeException($php_errormsg);
 		}
 
 		// Restore error tracking to what it was before.
@@ -309,7 +303,7 @@ class Socket implements Transport
 	 *
 	 * @return  boolean   True if available else false
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{

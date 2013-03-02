@@ -1,34 +1,28 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  HTTP
- *
+ * @package     Joomla\Framework
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Http\Transport;
 
-
 use Joomla\Registry\Registry;
 use Joomla\Http\Transport;
 use Joomla\Http\Response;
 use Joomla\Uri\Uri;
-use UnexpectedValueException;
-use RuntimeException;
 
 /**
  * HTTP transport class for using PHP streams.
  *
- * @package     Joomla.Platform
- * @subpackage  HTTP
- * @since       11.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Stream implements Transport
 {
 	/**
 	 * @var    Registry  The client options.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $options;
 
@@ -37,21 +31,21 @@ class Stream implements Transport
 	 *
 	 * @param   Registry  $options  Client options object.
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $options)
 	{
 		// Verify that fopen() is available.
 		if (!self::isSupported())
 		{
-			throw new RuntimeException('Cannot use a stream transport when fopen() is not available.');
+			throw new \RuntimeException('Cannot use a stream transport when fopen() is not available.');
 		}
 
 		// Verify that URLs can be used with fopen();
 		if (!ini_get('allow_url_fopen'))
 		{
-			throw new RuntimeException('Cannot use a stream transport when "allow_url_fopen" is disabled.');
+			throw new \RuntimeException('Cannot use a stream transport when "allow_url_fopen" is disabled.');
 		}
 
 		$this->options = $options;
@@ -69,8 +63,8 @@ class Stream implements Transport
 	 *
 	 * @return  Response
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
@@ -155,7 +149,7 @@ class Stream implements Transport
 			// Restore error tracking to give control to the exception handler
 			ini_set('track_errors', $track_errors);
 
-			throw new RuntimeException($php_errormsg);
+			throw new \RuntimeException($php_errormsg);
 		}
 
 		// Restore error tracking to what it was before.
@@ -194,8 +188,8 @@ class Stream implements Transport
 	 *
 	 * @return  Response
 	 *
-	 * @since   11.3
-	 * @throws  UnexpectedValueException
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	protected function getResponse(array $headers, $body)
 	{
@@ -217,7 +211,7 @@ class Stream implements Transport
 		// No valid response code was detected.
 		else
 		{
-			throw new UnexpectedValueException('No HTTP response code found.');
+			throw new \UnexpectedValueException('No HTTP response code found.');
 		}
 
 		// Add the response headers to the response object.
@@ -235,7 +229,7 @@ class Stream implements Transport
 	 *
 	 * @return  boolean  True if available else false
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
