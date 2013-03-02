@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  GitHub
- *
+ * @package     Joomla\Framework
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Github;
-
 
 use Joomla\Registry\Registry;
 
@@ -26,81 +23,80 @@ use Joomla\Registry\Registry;
  * @property-read  Account     $account     GitHub API object for account references.
  * @property-read  Hooks       $hooks       GitHub API object for hooks.
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub
- * @since       11.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Github
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Http  The HTTP client object to use in sending HTTP requests.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    Gists  GitHub API object for gists.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $gists;
 
 	/**
 	 * @var    Issues  GitHub API object for issues.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $issues;
 
 	/**
 	 * @var    Pulls  GitHub API object for pulls.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $pulls;
 
 	/**
 	 * @var    Refs  GitHub API object for referencess.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $refs;
 
 	/**
 	 * @var    Forks  GitHub API object for forks.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $forks;
 
 	/**
 	 * @var    Commits  GitHub API object for commits.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $commits;
 
 	/**
 	 * @var    Milestones  GitHub API object for milestones.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $milestones;
 
 	/**
 	 * @var    Statuses  GitHub API object for statuses.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $statuses;
 
 	/**
 	 * @var    Account  GitHub API object for account references.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $account;
 
 	/**
 	 * @var    Hooks  GitHub API object for hooks.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $hooks;
 
@@ -110,7 +106,7 @@ class Github
 	 * @param   Registry  $options  GitHub options object.
 	 * @param   Http      $client   The HTTP client object.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Http $client = null)
 	{
@@ -128,108 +124,20 @@ class Github
 	 *
 	 * @return  Object  GitHub API object (gists, issues, pulls, etc).
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{
-		if ($name == 'gists')
+		$class = '\\Joomla\\Github\\' . ucfirst($name);
+
+		if (class_exists($class))
 		{
-			if ($this->gists == null)
+			if ($this->$name == null)
 			{
-				$this->gists = new Gists($this->options, $this->client);
+				$this->$name = new $class($this->options, $this->client);
 			}
 
-			return $this->gists;
-		}
-
-		if ($name == 'issues')
-		{
-			if ($this->issues == null)
-			{
-				$this->issues = new Issues($this->options, $this->client);
-			}
-
-			return $this->issues;
-		}
-
-		if ($name == 'pulls')
-		{
-			if ($this->pulls == null)
-			{
-				$this->pulls = new Pulls($this->options, $this->client);
-			}
-
-			return $this->pulls;
-		}
-
-		if ($name == 'refs')
-		{
-			if ($this->refs == null)
-			{
-				$this->refs = new Refs($this->options, $this->client);
-			}
-
-			return $this->refs;
-		}
-
-		if ($name == 'forks')
-		{
-			if ($this->forks == null)
-			{
-				$this->forks = new Forks($this->options, $this->client);
-			}
-
-			return $this->forks;
-		}
-
-		if ($name == 'commits')
-		{
-			if ($this->commits == null)
-			{
-				$this->commits = new Commits($this->options, $this->client);
-			}
-
-			return $this->commits;
-		}
-
-		if ($name == 'milestones')
-		{
-			if ($this->milestones == null)
-			{
-				$this->milestones = new Milestones($this->options, $this->client);
-			}
-
-			return $this->milestones;
-		}
-
-		if ($name == 'statuses')
-		{
-			if ($this->statuses == null)
-			{
-				$this->statuses = new Statuses($this->options, $this->client);
-			}
-
-			return $this->statuses;
-		}
-
-		if ($name == 'account')
-		{
-			if ($this->account == null)
-			{
-				$this->account = new Account($this->options, $this->client);
-			}
-
-			return $this->account;
-		}
-
-		if ($name == 'hooks')
-		{
-			if ($this->hooks == null)
-			{
-				$this->hooks = new Hooks($this->options, $this->client);
-			}
-
-			return $this->hooks;
+			return $this->$name;
 		}
 	}
 
@@ -240,7 +148,7 @@ class Github
 	 *
 	 * @return  mixed  The option value.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -255,7 +163,7 @@ class Github
 	 *
 	 * @return  GitHub  This object for method chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setOption($key, $value)
 	{
