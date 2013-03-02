@@ -1,27 +1,27 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application\Tests;
+
+use Joomla\Application\Cli;
+
 /**
- * Inspector for the JApplicationCli class.
+ * Inspector for the Joomla\Application\Cli class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
- * @since       11.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JApplicationCliInspector extends Joomla\Application\Cli
+class CliInspector extends Cli
 {
 	/**
 	 * The exit code if the application was closed otherwise null.
 	 *
 	 * @var     integer
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public $closed;
 
@@ -32,7 +32,7 @@ class JApplicationCliInspector extends Joomla\Application\Cli
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function close($code = 0)
 	{
@@ -44,11 +44,11 @@ class JApplicationCliInspector extends Joomla\Application\Cli
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function doExecute()
 	{
-		$this->triggerEvent('JWebDoExecute');
+		return;
 	}
 
 	/**
@@ -62,10 +62,10 @@ class JApplicationCliInspector extends Joomla\Application\Cli
 	 *
 	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
-	protected function fetchConfigurationData($file = '', $class = 'JConfig')
+	protected function fetchConfigurationData($file = '', $class = '\\Joomla\\Test\\Config')
 	{
 		// Instantiate variables.
 		$config = array();
@@ -95,7 +95,7 @@ class JApplicationCliInspector extends Joomla\Application\Cli
 			}
 			else
 			{
-				throw new RuntimeException('Configuration class does not exist.');
+				throw new \RuntimeException('Configuration class does not exist.');
 			}
 		}
 

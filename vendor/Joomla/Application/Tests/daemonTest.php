@@ -1,28 +1,30 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-include_once __DIR__ . '/stubs/JApplicationDaemonInspector.php';
+namespace Joomla\Application\Tests;
+
+use Joomla\Application\Daemon;
+use Joomla\Registry\Registry;
+
+include_once __DIR__ . '/Stubs/DaemonInspector.php';
 
 /**
- * Test class for JApplicationDaemon.
+ * Test class for Joomla\Application\Daemon.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Application
- * @since       11.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JApplicationDaemonTest extends TestCase
+class DaemonTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * An instance of a JApplicationDaemon inspector.
+	 * An instance of a Daemon inspector.
 	 *
-	 * @var    JApplicationDaemonInspector
-	 * @since  11.3
+	 * @var    DaemonInspector
+	 * @since  1.0
 	 */
 	protected $inspector;
 
@@ -31,26 +33,19 @@ class JApplicationDaemonTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setUp()
 	{
-		parent::setUp();
-
 		// Skip this test suite if PCNTL extension is not available
 		if (!extension_loaded("PCNTL"))
 		{
 			$this->markTestSkipped('The PCNTL extension is not available.');
 		}
 
-		// Get a new JApplicationDaemonInspector instance.
-		$this->inspector = new JApplicationDaemonInspector;
+		// Get a new DaemonInspector instance.
+		$this->inspector = new DaemonInspector;
 		$this->inspector->setClassInstance($this->inspector);
-
-		// $this->config->set('max_memory_limit', '2048M');
-
-		// We are only coupled to Document and Language in JFactory.
-		$this->saveFactoryState();
 	}
 
 	/**
@@ -59,25 +54,21 @@ class JApplicationDaemonTest extends TestCase
 	 * @return  void
 	 *
 	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
 		// Reset some daemon inspector static settings.
-		JApplicationDaemonInspector::$pcntlChildExitStatus = 0;
-		JApplicationDaemonInspector::$pcntlFork = 0;
-		JApplicationDaemonInspector::$pcntlSignal = true;
-		JApplicationDaemonInspector::$pcntlWait = 0;
+		DaemonInspector::$pcntlChildExitStatus = 0;
+		DaemonInspector::$pcntlFork = 0;
+		DaemonInspector::$pcntlSignal = true;
+		DaemonInspector::$pcntlWait = 0;
 
 		// Check if the inspector was instantiated.
 		if (isset($this->inspector))
 		{
 			$this->inspector->setClassInstance(null);
 		}
-
-		$this->restoreFactoryState();
-
-		parent::tearDown();
 	}
 
 	/**
@@ -86,7 +77,7 @@ class JApplicationDaemonTest extends TestCase
 	 * @return  void
 	 *
 	 * @see     PHPUnit_Framework_TestCase::tearDownAfterClass()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function tearDownAfterClass()
 	{
@@ -102,11 +93,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::changeIdentity method.
+	 * Tests the Joomla\Application\Daemon::changeIdentity method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testChangeIdentity()
 	{
@@ -114,11 +105,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::daemonize method.
+	 * Tests the Joomla\Application\Daemon::daemonize method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDaemonize()
 	{
@@ -126,11 +117,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::fork method.
+	 * Tests the Joomla\Application\Daemon::fork method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testFork()
 	{
@@ -138,11 +129,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::gc method.
+	 * Tests the Joomla\Application\Daemon::gc method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGc()
 	{
@@ -150,11 +141,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::isActive method.
+	 * Tests the Joomla\Application\Daemon::isActive method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testIsActive()
 	{
@@ -162,11 +153,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::loadConfiguration method.
+	 * Tests the Joomla\Application\Daemon::loadConfiguration method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadConfiguration()
 	{
@@ -174,11 +165,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::setupSignalHandlers method.
+	 * Tests the Joomla\Application\Daemon::setupSignalHandlers method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSetupSignalHandlers()
 	{
@@ -198,15 +189,15 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::setupSignalHandlers method.
+	 * Tests the Joomla\Application\Daemon::setupSignalHandlers method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSetupSignalHandlersFailure()
 	{
-		JApplicationDaemonInspector::$pcntlSignal = false;
+		DaemonInspector::$pcntlSignal = false;
 		$this->inspector->setClassSignals(array('SIGTERM', 'SIGHUP', 'SIGFOOBAR123'));
 		$return = $this->inspector->setupSignalHandlers();
 
@@ -223,11 +214,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::shutdown method.
+	 * Tests the Joomla\Application\Daemon::shutdown method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testShutdown()
 	{
@@ -235,11 +226,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::signal method.
+	 * Tests the Joomla\Application\Daemon::signal method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSignal()
 	{
@@ -247,11 +238,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::execute method.
+	 * Tests the Joomla\Application\Daemon::execute method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testExecute()
 	{
@@ -259,11 +250,11 @@ class JApplicationDaemonTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationDaemon::writeProcessIdFile method.
+	 * Tests the Joomla\Application\Daemon::writeProcessIdFile method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testWriteProcessIdFile()
 	{

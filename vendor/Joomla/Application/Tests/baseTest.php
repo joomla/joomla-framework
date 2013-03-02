@@ -1,28 +1,27 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-include_once __DIR__ . '/stubs/JApplicationBaseInspector.php';
+namespace Joomla\Application\Tests;
+
+include_once __DIR__ . '/Stubs/BaseInspector.php';
 
 /**
- * Test class for JApplicationBase.
+ * Test class for Joomla\Application\Base.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Application
- * @since       12.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JApplicationBaseTest extends PHPUnit_Framework_TestCase
+class BaseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.
 	 *
-	 * @var    JApplicationBaseInspector
-	 * @since  11.3
+	 * @var    BaseInspector
+	 * @since  1.0
 	 */
 	protected $class;
 
@@ -31,14 +30,12 @@ class JApplicationBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
-		parent::setUp();
-
 		// Create the class object to be tested.
-		$this->class = new JApplicationBaseInspector;
+		$this->class = new BaseInspector;
 	}
 
 	/**
@@ -63,18 +60,5 @@ class JApplicationBaseTest extends PHPUnit_Framework_TestCase
 			3,
 			'Checks the application was closed with exit code 3.'
 		);
-	}
-
-	/**
-	 * Overrides the parent tearDown method.
-	 *
-	 * @return  void
-	 *
-	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   11.1
-	 */
-	protected function tearDown()
-	{
-		parent::tearDown();
 	}
 }

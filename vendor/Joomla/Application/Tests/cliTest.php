@@ -1,30 +1,32 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\Registry;
+namespace Joomla\Application\Tests;
 
-include_once __DIR__ . '/stubs/JApplicationCliInspector.php';
+use Joomla\Application\Cli;
+use Joomla\Registry\Registry;
+use Joomla\Test\Config;
+use Joomla\Test\Helper;
+
+include_once __DIR__ . '/Stubs/CliInspector.php';
 
 /**
- * Test class for JApplicationCli.
+ * Test class for Joomla\Application\Cli.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Application
- * @since       11.3
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JApplicationCliTest extends PHPUnit_Framework_TestCase
+class CliTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.
 	 *
-	 * @var    JApplicationCliInspector
-	 * @since  11.3
+	 * @var    CliInspector
+	 * @since  1.0
 	 */
 	protected $class;
 
@@ -33,35 +35,20 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setUp()
 	{
-		parent::setUp();
-
-		// Get a new JApplicationCliInspector instance.
-		$this->class = new JApplicationCliInspector;
+		// Get a new CliInspector instance.
+		$this->class = new CliInspector;
 	}
 
 	/**
-	 * Overrides the parent tearDown method.
+	 * Tests the Joomla\Application\Cli::__construct method.
 	 *
 	 * @return  void
 	 *
-	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   11.1
-	 */
-	protected function tearDown()
-	{
-		parent::tearDown();
-	}
-
-	/**
-	 * Tests the JApplicationCli::__construct method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__construct()
 	{
@@ -76,11 +63,11 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JApplicationCli::__construct method with dependancy injection.
+	 * Tests the Joomla\Application\Cli::__construct method with dependancy injection.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__constructDependancyInjection()
 	{
@@ -100,19 +87,19 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 			$this->returnValue('ok')
 		);
 
-		$class = new JApplicationCliInspector($mockInput, $mockConfig);
+		$class = new CliInspector($mockInput, $mockConfig);
 
 		$this->assertEquals('ok', $class->input->test(), 'Tests input injection.');
 
-		$this->assertEquals('ok', TestReflection::getValue($class, 'config')->test(), 'Tests config injection.');
+		$this->assertEquals('ok', Helper::getValue($class, 'config')->test(), 'Tests config injection.');
 	}
 
 	/**
-	 * Tests the JApplicationCli::close method.
+	 * Tests the Joomla\Application\Cli::close method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testClose()
 	{
@@ -138,19 +125,19 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getFetchConfigurationData()
 	{
 		return array(
 			// Note: file, class, expectsClass, (expected result array), whether there should be an exception
-			'Default configuration class' => array(null, null, 'JConfig', 'ConfigEval'),
+			'Default configuration class' => array(null, null, '\\Joomla\\Test\\Config', 'ConfigEval'),
 			'Custom file, invalid class' => array(JPATH_BASE . '/config.JCli-wrongclass.php', 'noclass', false, array(), true),
 		);
 	}
 
 	/**
-	 * Tests the JApplicationCli::fetchConfigurationData method.
+	 * Tests the Joomla\Application\Cli::fetchConfigurationData method.
 	 *
 	 * @param   string   $file               The name of the configuration file.
 	 * @param   string   $class              The name of the class.
@@ -161,7 +148,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getFetchConfigurationData
-	 * @since    11.3
+	 * @since    1.0
 	 */
 	public function testFetchConfigurationData($file, $class, $expectsClass, $expects, $expectedException = false)
 	{
@@ -170,22 +157,29 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 			$this->setExpectedException('RuntimeException');
 		}
 
+		$method = new \ReflectionMethod($this->class, 'fetchConfigurationData');
+		$method->setAccessible(true);
+
 		if (is_null($file) && is_null($class))
 		{
-			$config = TestReflection::invoke($this->class, 'fetchConfigurationData');
+			$config = $method->invoke($this->class);
 		}
 		elseif (is_null($class))
 		{
-			$config = TestReflection::invoke($this->class, 'fetchConfigurationData', $file);
+			$args = array($file);
+
+			$config = $method->invokeArgs($this->class, $args);
 		}
 		else
 		{
-			$config = TestReflection::invoke($this->class, 'fetchConfigurationData', $file, $class);
+			$args = array($file, $class);
+
+			$config = $method->invokeArgs($this->class, $args);
 		}
 
 		if ($expects == 'ConfigEval')
 		{
-			$expects = new JConfig;
+			$expects = new Config;
 			$expects = (array) $expects;
 		}
 
@@ -206,17 +200,17 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JApplicationCli::get method.
+	 * Tests the Joomla\Application\Cli::get method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
 		$config = new Registry(array('foo' => 'bar'));
 
-		TestReflection::getValue($this->class, 'config', $config);
+		Helper::getValue($this->class, 'config');
 
 		$this->assertEquals('bar', $this->class->get('foo', 'car'), 'Checks a known configuration setting is returned.');
 
@@ -224,27 +218,27 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JApplicationCli::getInstance method.
+	 * Tests the Joomla\Application\Cli::getInstance method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetInstance()
 	{
 		$this->assertInstanceOf(
-			'JApplicationCliInspector',
-			JApplicationCli::getInstance('JApplicationCliInspector'),
-			'Tests that getInstance will instantiate a valid child class of JCli.'
+			'\\Joomla\\Application\\Tests\\CliInspector',
+			Cli::getInstance('Joomla\Application\Tests\CliInspector'),
+			'Tests that getInstance will instantiate a valid child class of Joomla\Application\Cli.'
 		);
 
-		TestReflection::setValue('Joomla\\Application\\Cli', 'instance', 'foo');
+		Helper::setValue('Joomla\\Application\\Cli', 'instance', 'foo');
 
-		$this->assertEquals('foo', JApplicationCli::getInstance('JApplicationCliInspector'), 'Tests that singleton value is returned.');
+		$this->assertEquals('foo', Cli::getInstance('CliInspector'), 'Tests that singleton value is returned.');
 	}
 
 	/**
-	 * Tests the JApplicationCli::getInstance method for an expected exception
+	 * Tests the Joomla\Application\Cli::getInstance method for an expected exception
 	 *
 	 * @return  void
 	 *
@@ -254,17 +248,17 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetInstanceException()
 	{
-		TestReflection::setValue('Joomla\\Application\\Cli', 'instance', null);
+		Helper::setValue('Joomla\\Application\\Cli', 'instance', null);
 
-		JApplicationCli::getInstance('Foo');
+		Cli::getInstance('Foo');
 	}
 
 	/**
-	 * Tests the JApplicationCli::loadConfiguration method.
+	 * Tests the Joomla\Application\Cli::loadConfiguration method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadConfiguration()
 	{
@@ -278,7 +272,7 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 			'Check chaining.'
 		);
 
-		$this->assertEquals('bar', TestReflection::getValue($this->class, 'config')->get('foo'), 'Check the configuration array was loaded.');
+		$this->assertEquals('bar', Helper::getValue($this->class, 'config')->get('foo'), 'Check the configuration array was loaded.');
 
 		$this->class->loadConfiguration(
 			(object) array(
@@ -286,21 +280,21 @@ class JApplicationCliTest extends PHPUnit_Framework_TestCase
 			)
 		);
 
-		$this->assertEquals('car', TestReflection::getValue($this->class, 'config')->get('goo'), 'Check the configuration object was loaded.');
+		$this->assertEquals('car', Helper::getValue($this->class, 'config')->get('goo'), 'Check the configuration object was loaded.');
 	}
 
 	/**
-	 * Tests the JApplicationCli::set method.
+	 * Tests the Joomla\Application\Cli::set method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSet()
 	{
 		$config = new Registry(array('foo' => 'bar'));
 
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
 		$this->assertEquals('bar', $this->class->set('foo', 'car'), 'Checks set returns the previous value.');
 

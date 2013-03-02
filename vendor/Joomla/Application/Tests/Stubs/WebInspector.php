@@ -1,43 +1,43 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application\Tests;
+
+use Joomla\Application\Web;
+
 /**
  * Inspector for the Joomla\Application\Web class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
- * @since       11.3
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JApplicationWebInspector extends Joomla\Application\Web
+class WebInspector extends Web
 {
 	/**
 	 * @var     boolean  True to mimic the headers already being sent.
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static $headersSent = false;
 
 	/**
 	 * @var     boolean  True to mimic the connection being alive.
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static $connectionAlive = true;
 
 	/**
 	 * @var     array  List of sent headers for inspection. array($string, $replace, $code).
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public $headers = array();
 
 	/**
 	 * @var     integer  The exit code if the application was closed otherwise null.
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public $closed;
 
@@ -46,7 +46,7 @@ class JApplicationWebInspector extends Joomla\Application\Web
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function checkConnectionAlive()
 	{
@@ -58,7 +58,7 @@ class JApplicationWebInspector extends Joomla\Application\Web
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function checkHeadersSent()
 	{
@@ -72,7 +72,7 @@ class JApplicationWebInspector extends Joomla\Application\Web
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function close($code = 0)
 	{
@@ -84,11 +84,11 @@ class JApplicationWebInspector extends Joomla\Application\Web
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function doExecute()
 	{
-		$this->triggerEvent('JWebDoExecute');
+		return;
 	}
 
 	/**
@@ -102,7 +102,7 @@ class JApplicationWebInspector extends Joomla\Application\Web
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function header($string, $replace = true, $code = null)
 	{
@@ -120,10 +120,10 @@ class JApplicationWebInspector extends Joomla\Application\Web
 	 *
 	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
-	protected function fetchConfigurationData($file = '', $class = 'JConfig')
+	protected function fetchConfigurationData($file = '', $class = '\\Joomla\\Test\\Config')
 	{
 		// Instantiate variables.
 		$config = array();
@@ -153,7 +153,7 @@ class JApplicationWebInspector extends Joomla\Application\Web
 			}
 			else
 			{
-				throw new RuntimeException('Configuration class does not exist.');
+				throw new \RuntimeException('Configuration class does not exist.');
 			}
 		}
 

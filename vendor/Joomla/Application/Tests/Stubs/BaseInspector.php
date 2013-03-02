@@ -1,26 +1,27 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application\Tests;
+
+use Joomla\Application\Base;
+
 /**
- * Inspector for the JApplicationBase class.
+ * Inspector for the Joomla\Application\Base class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Application
- * @since       12.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JApplicationBaseInspector extends Joomla\Application\Base
+class BaseInspector extends Base
 {
 	/**
 	 * The exit code if the application was closed otherwise null.
 	 *
 	 * @var     integer
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public $closed;
 
@@ -31,7 +32,7 @@ class JApplicationBaseInspector extends Joomla\Application\Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function close($code = 0)
 	{
@@ -49,7 +50,7 @@ class JApplicationBaseInspector extends Joomla\Application\Base
 	 *
 	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function fetchConfigurationData($file = '', $class = 'JConfig')
 	{
@@ -62,7 +63,7 @@ class JApplicationBaseInspector extends Joomla\Application\Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function doExecute()
 	{

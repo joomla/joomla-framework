@@ -1,49 +1,49 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Application\Tests;
+
+use Joomla\Application\Daemon;
+
 /**
- * Inspector for the JApplicationDaemon class.
+ * Inspector for the Joomla\Application\Daemon class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
- * @since       11.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JApplicationDaemonInspector extends Joomla\Application\Daemon
+class DaemonInspector extends Daemon
 {
 	/**
 	 * @var     integer  Mimic the response of the pcntlChildExitStatus method.
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static $pcntlChildExitStatus = 0;
 
 	/**
 	 * @var     integer  Mimic the response of the pcntlFork method.
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static $pcntlFork = 0;
 
 	/**
 	 * @var     boolean  Mimic the response of the pcntlSignal method.
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static $pcntlSignal = true;
 
 	/**
 	 * @var     integer  Mimic the response of the pcntlWait method.
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static $pcntlWait = 0;
 
 	/**
 	 * @var     array  Container for successfully setup signal handlers.
-	 * @since   11.3
+	 * @since   1.0
 	 */
 		public $setupSignalHandlers = array();
 
@@ -54,7 +54,8 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *
 	 * @return  mixed  The value of the class variable.
 	 *
-	 * @since   11.3
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	public function getClassProperty($name)
 	{
@@ -64,7 +65,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 		}
 		else
 		{
-			throw new Exception('Undefined or private property: ' . __CLASS__ . '::' . $name);
+			throw new \Exception('Undefined or private property: ' . __CLASS__ . '::' . $name);
 		}
 	}
 
@@ -75,7 +76,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *
 	 * @return  void.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setClassInstance($value)
 	{
@@ -89,7 +90,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *
 	 * @return  void.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setClassSignals(array $value)
 	{
@@ -104,7 +105,8 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *
 	 * @return  void.
 	 *
-	 * @since   11.3
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	public function setClassProperty($name, $value)
 	{
@@ -114,7 +116,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 		}
 		else
 		{
-			throw new Exception('Undefined or private property: ' . __CLASS__ . '::' . $name);
+			throw new \Exception('Undefined or private property: ' . __CLASS__ . '::' . $name);
 		}
 	}
 
@@ -123,7 +125,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *
 	 * @return  boolean  True if identity successfully changed
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function changeIdentity()
 	{
@@ -212,7 +214,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 * @return  integer  The child process exit code.
 	 *
 	 * @see     pcntl_wexitstatus()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function pcntlChildExitStatus($status)
 	{
@@ -228,7 +230,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *                   will be created, and a PHP error is raised.
 	 *
 	 * @see     pcntl_fork()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function pcntlFork()
 	{
@@ -247,7 +249,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 * @return  boolean  True on success.
 	 *
 	 * @see     pcntl_signal()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function pcntlSignal($signal , $handler, $restart = true)
 	{
@@ -270,7 +272,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *                   was provided as an option (on wait3-available systems) and no child was available.
 	 *
 	 * @see     pcntl_wait()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function pcntlWait(&$status, $options = 0)
 	{
@@ -282,11 +284,11 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function doExecute()
 	{
-		$this->triggerEvent('DaemonDoExecute');
+		return;
 	}
 
 	/**
@@ -300,10 +302,10 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 	 *
 	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
-	 * @since   11.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
-	protected function fetchConfigurationData($file = '', $class = 'JConfig')
+	protected function fetchConfigurationData($file = '', $class = '\\Joomla\\Test\\Config')
 	{
 		// Instantiate variables.
 		$config = array();
@@ -333,7 +335,7 @@ class JApplicationDaemonInspector extends Joomla\Application\Daemon
 			}
 			else
 			{
-				throw new RuntimeException('Configuration class does not exist.');
+				throw new \RuntimeException('Configuration class does not exist.');
 			}
 		}
 

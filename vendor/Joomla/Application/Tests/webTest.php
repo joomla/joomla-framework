@@ -1,30 +1,33 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Application
- *
+ * @package     Joomla\Framework\Tests
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\Registry;
+namespace Joomla\Application\Tests;
 
-include_once __DIR__ . '/stubs/JApplicationWebInspector.php';
+use Joomla\Application\Web;
+use Joomla\Application\Web\Client as WebClient;
+use Joomla\Registry\Registry;
+use Joomla\Test\Config;
+use Joomla\Test\Helper;
+
+include_once __DIR__ . '/Stubs/WebInspector.php';
 
 /**
- * Test class for JApplicationWeb.
+ * Test class for Joomla\Application\Web.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Application
- * @since       11.3
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JApplicationWebTest extends TestCase
+class WebTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Value for test host.
 	 *
 	 * @var    string
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const TEST_HTTP_HOST = 'mydomain.com';
 
@@ -32,7 +35,7 @@ class JApplicationWebTest extends TestCase
 	 * Value for test user agent.
 	 *
 	 * @var    string
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const TEST_USER_AGENT = 'Mozilla/5.0';
 
@@ -40,15 +43,15 @@ class JApplicationWebTest extends TestCase
 	 * Value for test user agent.
 	 *
 	 * @var    string
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const TEST_REQUEST_URI = '/index.php';
 
 	/**
 	 * An instance of the class to test.
 	 *
-	 * @var    JApplicationWebInspector
-	 * @since  11.3
+	 * @var    WebInspector
+	 * @since  1.0
 	 */
 	protected $class;
 
@@ -57,7 +60,7 @@ class JApplicationWebTest extends TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getDetectRequestUriData()
 	{
@@ -75,14 +78,14 @@ class JApplicationWebTest extends TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getRedirectData()
 	{
 		return array(
 			// Note: url, base, request, (expected result)
-			array('/foo', 'http://j.org/', 'http://j.org/index.php?v=11.3', 'http://j.org/foo'),
-			array('foo', 'http://j.org/', 'http://j.org/index.php?v=11.3', 'http://j.org/foo'),
+			array('/foo', 'http://j.org/', 'http://j.org/index.php?v=1.0', 'http://j.org/foo'),
+			array('foo', 'http://j.org/', 'http://j.org/index.php?v=1.0', 'http://j.org/foo'),
 		);
 	}
 
@@ -91,24 +94,17 @@ class JApplicationWebTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setUp()
 	{
-		parent::setUp();
-
 		$_SERVER['HTTP_HOST'] = self::TEST_HTTP_HOST;
 		$_SERVER['HTTP_USER_AGENT'] = self::TEST_USER_AGENT;
 		$_SERVER['REQUEST_URI'] = self::TEST_REQUEST_URI;
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
-		// Get a new JApplicationWebInspector instance.
-		$this->class = new JApplicationWebInspector;
-
-		// We are only coupled to Language in JFactory.
-		$this->saveFactoryState();
-
-		JFactory::$language = $this->getMockLanguage();
+		// Get a new WebInspector instance.
+		$this->class = new WebInspector;
 	}
 
 	/**
@@ -117,25 +113,21 @@ class JApplicationWebTest extends TestCase
 	 * @return  void
 	 *
 	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
 		// Reset some web inspector static settings.
-		JApplicationWebInspector::$headersSent = false;
-		JApplicationWebInspector::$connectionAlive = true;
-
-		$this->restoreFactoryState();
-
-		parent::tearDown();
+		WebInspector::$headersSent = false;
+		WebInspector::$connectionAlive = true;
 	}
 
 	/**
-	 * Tests the JApplicationWeb::__construct method.
+	 * Tests the Joomla\Application\Web::__construct method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__construct()
 	{
@@ -147,7 +139,7 @@ class JApplicationWebTest extends TestCase
 
 		$this->assertInstanceOf(
 			'Joomla\Registry\Registry',
-			TestReflection::getValue($this->class, 'config'),
+			Helper::getValue($this->class, 'config'),
 			'Config property wrong type'
 		);
 
@@ -179,11 +171,11 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::__construct method with dependancy injection.
+	 * Tests the Joomla\Application\Web::__construct method with dependancy injection.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__constructDependancyInjection()
 	{
@@ -211,7 +203,7 @@ class JApplicationWebTest extends TestCase
 			$this->returnValue('ok')
 		);
 
-		$inspector = new JApplicationWebInspector($mockInput, $mockConfig, $mockClient);
+		$inspector = new WebInspector($mockInput, $mockConfig, $mockClient);
 
 		$this->assertThat(
 			$inspector->input->test(),
@@ -220,7 +212,7 @@ class JApplicationWebTest extends TestCase
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($inspector, 'config')->test(),
+			Helper::getValue($inspector, 'config')->test(),
 			$this->equalTo('ok'),
 			'Tests config injection.'
 		);
@@ -233,11 +225,11 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::allowCache method.
+	 * Tests the Joomla\Application\Web::allowCache method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testAllowCache()
 	{
@@ -254,28 +246,28 @@ class JApplicationWebTest extends TestCase
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->cachable,
+			Helper::getValue($this->class, 'response')->cachable,
 			$this->isTrue(),
 			'Checks the internal cache property has been set.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::appendBody method.
+	 * Tests the Joomla\Application\Web::appendBody method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testAppendBody()
 	{
 		// Similulate a previous call to setBody or appendBody.
-		TestReflection::getValue($this->class, 'response')->body = array('foo');
+		Helper::getValue($this->class, 'response')->body = array('foo');
 
 		$this->class->appendBody('bar');
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->body,
+			Helper::getValue($this->class, 'response')->body,
 			$this->equalTo(
 				array('foo', 'bar')
 			),
@@ -285,7 +277,7 @@ class JApplicationWebTest extends TestCase
 		$this->class->appendBody(true);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->body,
+			Helper::getValue($this->class, 'response')->body,
 			$this->equalTo(
 				array('foo', 'bar', '1')
 			),
@@ -294,16 +286,16 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::clearHeaders method.
+	 * Tests the Joomla\Application\Web::clearHeaders method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testClearHeaders()
 	{
 		// Fill the header array with an arbitrary value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -317,17 +309,17 @@ class JApplicationWebTest extends TestCase
 
 		$this->assertEquals(
 			array(),
-			TestReflection::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->class, 'response')->headers,
 			'Checks the headers were cleared.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::close method.
+	 * Tests the Joomla\Application\Web::close method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testClose()
 	{
@@ -349,16 +341,16 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::compress method.
+	 * Tests the Joomla\Application\Web::compress method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCompressWithGzipEncoding()
 	{
 		// Fill the header body with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -374,7 +366,7 @@ class JApplicationWebTest extends TestCase
 		);
 
 		// Load the client encoding with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
@@ -382,7 +374,7 @@ class JApplicationWebTest extends TestCase
 			)
 		);
 
-		TestReflection::invoke($this->class, 'compress');
+		Helper::invoke($this->class, 'compress');
 
 		// Ensure that the compressed body is shorter than the raw body.
 		$this->assertThat(
@@ -393,7 +385,7 @@ class JApplicationWebTest extends TestCase
 
 		// Ensure that the compression headers were set.
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->class, 'response')->headers,
 			$this->equalTo(
 				array(
 					0 => array('name' => 'Content-Encoding', 'value' => 'gzip'),
@@ -405,16 +397,16 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::compress method.
+	 * Tests the Joomla\Application\Web::compress method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCompressWithDeflateEncoding()
 	{
 		// Fill the header body with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -430,7 +422,7 @@ class JApplicationWebTest extends TestCase
 		);
 
 		// Load the client encoding with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
@@ -438,7 +430,7 @@ class JApplicationWebTest extends TestCase
 			)
 		);
 
-		TestReflection::invoke($this->class, 'compress');
+		Helper::invoke($this->class, 'compress');
 
 		// Ensure that the compressed body is shorter than the raw body.
 		$this->assertThat(
@@ -449,7 +441,7 @@ class JApplicationWebTest extends TestCase
 
 		// Ensure that the compression headers were set.
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->class, 'response')->headers,
 			$this->equalTo(
 				array(
 					0 => array('name' => 'Content-Encoding', 'value' => 'deflate'),
@@ -461,11 +453,11 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::compress method.
+	 * Tests the Joomla\Application\Web::compress method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCompressWithNoAcceptEncodings()
 	{
@@ -478,7 +470,7 @@ class JApplicationWebTest extends TestCase
 
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -489,7 +481,7 @@ class JApplicationWebTest extends TestCase
 		);
 
 		// Load the client encoding with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
@@ -497,7 +489,7 @@ class JApplicationWebTest extends TestCase
 			)
 		);
 
-		TestReflection::invoke($this->class, 'compress');
+		Helper::invoke($this->class, 'compress');
 
 		// Ensure that the compressed body is the same as the raw body since there is no compression.
 		$this->assertThat(
@@ -508,18 +500,18 @@ class JApplicationWebTest extends TestCase
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->class, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::compress method.
+	 * Tests the Joomla\Application\Web::compress method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCompressWithHeadersSent()
 	{
@@ -532,7 +524,7 @@ class JApplicationWebTest extends TestCase
 
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -543,7 +535,7 @@ class JApplicationWebTest extends TestCase
 		);
 
 		// Load the client encoding with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
@@ -552,12 +544,12 @@ class JApplicationWebTest extends TestCase
 		);
 
 		// Set the headers sent flag to true.
-		JApplicationWebInspector::$headersSent = true;
+		WebInspector::$headersSent = true;
 
-		TestReflection::invoke($this->class, 'compress');
+		Helper::invoke($this->class, 'compress');
 
 		// Set the headers sent flag back to false.
-		JApplicationWebInspector::$headersSent = false;
+		WebInspector::$headersSent = false;
 
 		// Ensure that the compressed body is the same as the raw body since there is no compression.
 		$this->assertThat(
@@ -568,18 +560,18 @@ class JApplicationWebTest extends TestCase
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->class, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::compress method.
+	 * Tests the Joomla\Application\Web::compress method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCompressWithUnsupportedEncodings()
 	{
@@ -592,7 +584,7 @@ class JApplicationWebTest extends TestCase
 
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -603,7 +595,7 @@ class JApplicationWebTest extends TestCase
 		);
 
 		// Load the client encoding with a value.
-		TestReflection::getValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
@@ -611,7 +603,7 @@ class JApplicationWebTest extends TestCase
 			)
 		);
 
-		TestReflection::invoke($this->class, 'compress');
+		Helper::invoke($this->class, 'compress');
 
 		// Ensure that the compressed body is the same as the raw body since there is no supported compression.
 		$this->assertThat(
@@ -622,14 +614,14 @@ class JApplicationWebTest extends TestCase
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->class, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::detectRequestUri method.
+	 * Tests the Joomla\Application\Web::detectRequestUri method.
 	 *
 	 * @param   string  $https        @todo
 	 * @param   string  $phpSelf      @todo
@@ -642,7 +634,7 @@ class JApplicationWebTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getDetectRequestUriData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDetectRequestUri($https, $phpSelf, $requestUri, $httpHost, $scriptName, $queryString, $expects)
 	{
@@ -658,7 +650,7 @@ class JApplicationWebTest extends TestCase
 		$_SERVER['QUERY_STRING'] = $queryString;
 
 		$this->assertThat(
-			TestReflection::invoke($this->class, 'detectRequestUri'),
+			Helper::invoke($this->class, 'detectRequestUri'),
 			$this->equalTo($expects)
 		);
 	}
@@ -668,13 +660,13 @@ class JApplicationWebTest extends TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getFetchConfigurationData()
 	{
 		return array(
 			// Note: file, class, expectsClass, (expected result array), whether there should be an exception
-			'Default configuration class' => array(null, null, 'JConfig', 'ConfigEval'),
+			'Default configuration class' => array(null, null, '\\Joomla\\Test\\Config', 'ConfigEval'),
 			'Custom file, invalid class' => array(JPATH_BASE . '/config.JCli-wrongclass.php', 'noclass', false, array(), true),
 		);
 	}
@@ -691,7 +683,7 @@ class JApplicationWebTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getFetchConfigurationData
-	 * @since    11.3
+	 * @since    1.0
 	 */
 	public function testFetchConfigurationData($file, $class, $expectsClass, $expects, $expectedException = false)
 	{
@@ -702,20 +694,20 @@ class JApplicationWebTest extends TestCase
 
 		if (is_null($file) && is_null($class))
 		{
-			$config = TestReflection::invoke($this->class, 'fetchConfigurationData');
+			$config = Helper::invoke($this->class, 'fetchConfigurationData');
 		}
 		elseif (is_null($class))
 		{
-			$config = TestReflection::invoke($this->class, 'fetchConfigurationData', $file);
+			$config = Helper::invoke($this->class, 'fetchConfigurationData', $file);
 		}
 		else
 		{
-			$config = TestReflection::invoke($this->class, 'fetchConfigurationData', $file, $class);
+			$config = Helper::invoke($this->class, 'fetchConfigurationData', $file, $class);
 		}
 
 		if ($expects == 'ConfigEval')
 		{
-			$expects = new JConfig;
+			$expects = new Config;
 			$expects = (array) $expects;
 		}
 
@@ -736,17 +728,17 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::get method.
+	 * Tests the Joomla\Application\Web::get method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
 		$config = new Registry(array('foo' => 'bar'));
 
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
 		$this->assertThat(
 			$this->class->get('foo', 'car'),
@@ -762,16 +754,16 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::getBody method.
+	 * Tests the Joomla\Application\Web::getBody method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetBody()
 	{
 		// Fill the header body with an arbitrary value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -801,16 +793,16 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::getHeaders method.
+	 * Tests the Joomla\Application\Web::getHeaders method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetHeaders()
 	{
 		// Fill the header body with an arbitrary value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -828,31 +820,31 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::getInstance method.
+	 * Tests the Joomla\Application\Web::getInstance method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetInstance()
 	{
 		$this->assertInstanceOf(
-			'JApplicationWebInspector',
-			Joomla\Application\Web::getInstance('JApplicationWebInspector'),
-			'Tests that getInstance will instantiate a valid child class of JApplicationWeb.'
+			'\\Joomla\\Application\\Tests\\WebInspector',
+			Web::getInstance('Joomla\Application\Tests\WebInspector'),
+			'Tests that getInstance will instantiate a valid child class of Joomla\Application\Web.'
 		);
 
-		TestReflection::setValue('JApplicationWeb', 'instance', 'foo');
+		Helper::setValue('Joomla\Application\Tests\WebInspector', 'instance','foo');
 
 		$this->assertThat(
-			Joomla\Application\Web::getInstance('JApplicationWebInspector'),
+			Web::getInstance('Joomla\Application\Tests\WebInspector'),
 			$this->equalTo('foo'),
 			'Tests that singleton value is returned.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::getInstance method for an expected exception
+	 * Tests the Joomla\Application\Web::getInstance method for an expected exception
 	 *
 	 * @return  void
 	 *
@@ -862,17 +854,17 @@ class JApplicationWebTest extends TestCase
 	 */
 	public function testGetInstanceException()
 	{
-		TestReflection::setValue('JApplicationWeb', 'instance', null);
+		Helper::setValue($this->class, 'instance', null);
 
-		Joomla\Application\Web::getInstance('Foo');
+		Web::getInstance('Foo');
 	}
 
 	/**
-	 * Tests the JApplicationWeb::loadConfiguration method.
+	 * Tests the Joomla\Application\Web::loadConfiguration method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadConfiguration()
 	{
@@ -887,7 +879,7 @@ class JApplicationWebTest extends TestCase
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('foo'),
+			Helper::getValue($this->class, 'config')->get('foo'),
 			$this->equalTo('bar'),
 			'Check the configuration array was loaded.'
 		);
@@ -899,42 +891,43 @@ class JApplicationWebTest extends TestCase
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('goo'),
+			Helper::getValue($this->class, 'config')->get('goo'),
 			$this->equalTo('car'),
 			'Check the configuration object was loaded.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::loadLanguage method.
+	 * Tests the Joomla\Application\Web::loadLanguage method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadLanguage()
 	{
 		$this->class->loadLanguage();
 
 		$this->assertInstanceOf(
-			'JLanguage',
-			TestReflection::getValue($this->class, 'language'),
+			'\\Joomla\\Language\\Language',
+			Helper::getValue($this->class, 'language'),
 			'Tests that the language object is the correct class.'
 		);
 
+		/* TODO: There's no test method...
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'language')->test(),
+			Helper::getValue($this->class, 'language')->test(),
 			$this->equalTo('ok'),
 			'Tests that we got the language from the factory.'
-		);
+		); */
 	}
 
 	/**
-	 * Tests the JApplicationWeb::loadSession method.
+	 * Tests the Joomla\Application\Web::loadSession method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadSession()
 	{
@@ -942,203 +935,203 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::loadSystemUris method.
+	 * Tests the Joomla\Application\Web::loadSystemUris method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadSystemUrisWithSiteUriSet()
 	{
 		// Set the site_uri value in the configuration.
 		$config = new Registry(array('site_uri' => 'http://test.joomla.org/path/'));
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
-		TestReflection::invoke($this->class, 'loadSystemUris');
+		Helper::invoke($this->class, 'loadSystemUris');
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.full'),
+			Helper::getValue($this->class, 'config')->get('uri.base.full'),
 			$this->equalTo('http://test.joomla.org/path/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.host'),
+			Helper::getValue($this->class, 'config')->get('uri.base.host'),
 			$this->equalTo('http://test.joomla.org'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.path'),
+			Helper::getValue($this->class, 'config')->get('uri.base.path'),
 			$this->equalTo('/path/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.media.full'),
+			Helper::getValue($this->class, 'config')->get('uri.media.full'),
 			$this->equalTo('http://test.joomla.org/path/media/'),
 			'Checks the full media uri.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.media.path'),
+			Helper::getValue($this->class, 'config')->get('uri.media.path'),
 			$this->equalTo('/path/media/'),
 			'Checks the media uri path.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::loadSystemUris method.
+	 * Tests the Joomla\Application\Web::loadSystemUris method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadSystemUrisWithoutSiteUriSet()
 	{
-		TestReflection::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
+		Helper::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.full'),
+			Helper::getValue($this->class, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.host'),
+			Helper::getValue($this->class, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.path'),
+			Helper::getValue($this->class, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.media.full'),
+			Helper::getValue($this->class, 'config')->get('uri.media.full'),
 			$this->equalTo('http://joom.la/media/'),
 			'Checks the full media uri.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.media.path'),
+			Helper::getValue($this->class, 'config')->get('uri.media.path'),
 			$this->equalTo('/media/'),
 			'Checks the media uri path.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::loadSystemUris method.
+	 * Tests the Joomla\Application\Web::loadSystemUris method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadSystemUrisWithoutSiteUriWithMediaUriSet()
 	{
 		// Set the media_uri value in the configuration.
 		$config = new Registry(array('media_uri' => 'http://cdn.joomla.org/media/'));
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
-		TestReflection::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
+		Helper::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.full'),
+			Helper::getValue($this->class, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.host'),
+			Helper::getValue($this->class, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.path'),
+			Helper::getValue($this->class, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.media.full'),
+			Helper::getValue($this->class, 'config')->get('uri.media.full'),
 			$this->equalTo('http://cdn.joomla.org/media/'),
 			'Checks the full media uri.'
 		);
 
 		// Since this is on a different domain we need the full url for this too.
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.media.path'),
+			Helper::getValue($this->class, 'config')->get('uri.media.path'),
 			$this->equalTo('http://cdn.joomla.org/media/'),
 			'Checks the media uri path.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::loadSystemUris method.
+	 * Tests the Joomla\Application\Web::loadSystemUris method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadSystemUrisWithoutSiteUriWithRelativeMediaUriSet()
 	{
 		// Set the media_uri value in the configuration.
 		$config = new Registry(array('media_uri' => '/media/'));
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
-		TestReflection::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
+		Helper::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.full'),
+			Helper::getValue($this->class, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.host'),
+			Helper::getValue($this->class, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.base.path'),
+			Helper::getValue($this->class, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.media.full'),
+			Helper::getValue($this->class, 'config')->get('uri.media.full'),
 			$this->equalTo('http://joom.la/media/'),
 			'Checks the full media uri.'
 		);
 
 		// Since this is on a different domain we need the full url for this too.
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'config')->get('uri.media.path'),
+			Helper::getValue($this->class, 'config')->get('uri.media.path'),
 			$this->equalTo('/media/'),
 			'Checks the media uri path.'
 		);
 	}
 
 	/**
-	 * Tests the JApplicationWeb::prependBody method.
+	 * Tests the Joomla\Application\Web::prependBody method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testPrependBody()
 	{
 		// Similulate a previous call to a body method.
-		TestReflection::getValue($this->class, 'response')->body = array('foo');
+		Helper::getValue($this->class, 'response')->body = array('foo');
 
 		$this->class->prependBody('bar');
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->body,
+			Helper::getValue($this->class, 'response')->body,
 			$this->equalTo(
 				array('bar', 'foo')
 			),
@@ -1148,7 +1141,7 @@ class JApplicationWebTest extends TestCase
 		$this->class->prependBody(true);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->body,
+			Helper::getValue($this->class, 'response')->body,
 			$this->equalTo(
 				array('1', 'bar', 'foo')
 			),
@@ -1157,11 +1150,11 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::redirect method.
+	 * Tests the Joomla\Application\Web::redirect method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRedirect()
 	{
@@ -1169,11 +1162,11 @@ class JApplicationWebTest extends TestCase
 		$url = 'index.php';
 
 		// Inject the client information.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
-				'engine' => Joomla\Application\Web\Client::GECKO,
+				'engine' => WebClient::GECKO,
 			)
 		);
 
@@ -1181,7 +1174,7 @@ class JApplicationWebTest extends TestCase
 		$config = new Registry;
 		$config->set('uri.base.full', $base);
 
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
 		$this->class->redirect($url, false);
 
@@ -1198,11 +1191,11 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::redirect method with headers already sent.
+	 * Tests the Joomla\Application\Web::redirect method with headers already sent.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRedirectWithHeadersSent()
 	{
@@ -1210,13 +1203,13 @@ class JApplicationWebTest extends TestCase
 		$url = 'index.php';
 
 		// Emulate headers already sent.
-		JApplicationWebInspector::$headersSent = true;
+		WebInspector::$headersSent = true;
 
 		// Inject the internal configuration.
 		$config = new Registry;
 		$config->set('uri.base.full', $base);
 
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
 		// Capture the output for this test.
 		ob_start();
@@ -1231,22 +1224,22 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::redirect method with headers already sent.
+	 * Tests the Joomla\Application\Web::redirect method with headers already sent.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRedirectWithJavascriptRedirect()
 	{
 		$url = 'http://j.org/index.php?phi=Φ';
 
 		// Inject the client information.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
-				'engine' => Joomla\Application\Web\Client::TRIDENT,
+				'engine' => WebClient::TRIDENT,
 			)
 		);
 
@@ -1268,22 +1261,22 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::redirect method with moved option.
+	 * Tests the Joomla\Application\Web::redirect method with moved option.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRedirectWithMoved()
 	{
 		$url = 'http://j.org/index.php';
 
 		// Inject the client information.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
-				'engine' => Joomla\Application\Web\Client::GECKO,
+				'engine' => WebClient::GECKO,
 			)
 		);
 
@@ -1302,7 +1295,7 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::redirect method with assorted URL's.
+	 * Tests the Joomla\Application\Web::redirect method with assorted URL's.
 	 *
 	 * @param   string  $url       @todo
 	 * @param   string  $base      @todo
@@ -1312,16 +1305,16 @@ class JApplicationWebTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider  getRedirectData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRedirectWithUrl($url, $base, $request, $expected)
 	{
 		// Inject the client information.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'client',
 			(object) array(
-				'engine' => Joomla\Application\Web\Client::GECKO,
+				'engine' => WebClient::GECKO,
 			)
 		);
 
@@ -1330,7 +1323,7 @@ class JApplicationWebTest extends TestCase
 		$config->set('uri.base.full', $base);
 		$config->set('uri.request', $request);
 
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
 		$this->class->redirect($url, false);
 
@@ -1341,11 +1334,11 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::respond method.
+	 * Tests the Joomla\Application\Web::respond method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRespond()
 	{
@@ -1353,16 +1346,16 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::sendHeaders method.
+	 * Tests the Joomla\Application\Web::sendHeaders method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSendHeaders()
 	{
 		// Similulate a previous call to a setHeader method.
-		TestReflection::getValue($this->class, 'response')->headers = array(
+		Helper::getValue($this->class, 'response')->headers = array(
 			array('name' => 'Status', 'value' => 200),
 			array('name' => 'X-JWeb-SendHeaders', 'value' => 'foo'),
 		);
@@ -1385,17 +1378,17 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::set method.
+	 * Tests the Joomla\Application\Web::set method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSet()
 	{
 		$config = new Registry(array('foo' => 'bar'));
 
-		TestReflection::setValue($this->class, 'config', $config);
+		Helper::setValue($this->class, 'config', $config);
 
 		$this->assertThat(
 			$this->class->set('foo', 'car'),
@@ -1411,18 +1404,18 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::setBody method.
+	 * Tests the Joomla\Application\Web::setBody method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSetBody()
 	{
 		$this->class->setBody('foo');
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->body,
+			Helper::getValue($this->class, 'response')->body,
 			$this->equalTo(
 				array('foo')
 			),
@@ -1432,7 +1425,7 @@ class JApplicationWebTest extends TestCase
 		$this->class->setBody(true);
 
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->body,
+			Helper::getValue($this->class, 'response')->body,
 			$this->equalTo(
 				array('1')
 			),
@@ -1441,16 +1434,16 @@ class JApplicationWebTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationWeb::setHeader method.
+	 * Tests the Joomla\Application\Web::setHeader method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSetHeader()
 	{
 		// Fill the header body with an arbitrary value.
-		TestReflection::setValue(
+		Helper::setValue(
 			$this->class,
 			'response',
 			(object) array(
@@ -1464,7 +1457,7 @@ class JApplicationWebTest extends TestCase
 
 		$this->class->setHeader('foo', 'car');
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->class, 'response')->headers,
 			$this->equalTo(
 				array(
 					array('name' => 'foo', 'value' => 'bar'),
@@ -1476,7 +1469,7 @@ class JApplicationWebTest extends TestCase
 
 		$this->class->setHeader('foo', 'car', true);
 		$this->assertThat(
-			TestReflection::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->class, 'response')->headers,
 			$this->equalTo(
 				array(
 					array('name' => 'foo', 'value' => 'car')
@@ -1489,7 +1482,7 @@ class JApplicationWebTest extends TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers JApplicationWeb::isSSLConnection
+	 * @covers Joomla\Application\Web::isSSLConnection
 	 *
 	 * @return void
 	 */

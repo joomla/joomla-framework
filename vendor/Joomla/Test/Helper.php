@@ -74,7 +74,7 @@ class Helper
 	 * @return  mixed  The value of the property.
 	 *
 	 * @since   11.3
-	 * @throws  InvalidArgumentException if property not available.
+	 * @throws  \InvalidArgumentException if property not available.
 	 */
 	public static function getValue($object, $propertyName)
 	{
