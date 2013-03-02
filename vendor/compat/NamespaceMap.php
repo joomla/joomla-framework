@@ -41,7 +41,6 @@ return array(
 	'JFormFieldUrl' => 'Joomla\\Form\\Field_Url',
 	'JForm' => 'Joomla\\Form\\Form',
 	'JFormHelper' => 'Joomla\\Form\\Helper',
-	'JFormRuleUsername' => 'Joomla\\Form\\Rule\\Username',
 	'JGithubAccount' => 'Joomla\\Github\\Account',
 	'JGithubCommits' => 'Joomla\\Github\\Commits',
 	'JGithubForks' => 'Joomla\\Github\\Forks',
