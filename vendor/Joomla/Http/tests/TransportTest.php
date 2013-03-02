@@ -68,9 +68,9 @@ class JHttpTransportTest extends PHPUnit_Framework_TestCase
 	public function transportProvider()
 	{
 		return array(
-			'stream' => array('JHttpTransportStream'),
-			'curl' => array('JHttpTransportCurl'),
-			'socket' => array('JHttpTransportSocket')
+			'stream' => array('\\Joomla\\Http\\Transport\\Stream'),
+			'curl' => array('\\Joomla\\Http\\Transport\\Curl'),
+			'socket' => array('\\Joomla\\Http\\Transport\\Socket')
 		);
 	}
 
