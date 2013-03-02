@@ -112,40 +112,6 @@ class JFactoryTest extends TestCase
 	}
 
 	/**
-	 * Tests the JFactory::getCache method.
-	 *
-	 * @return  void
-	 *
-	 * @since   12.1
-	 * @covers  JFactory::getCache
-	 * @todo    Implement testGetCache().
-	 */
-	public function testGetCache()
-	{
-		$this->assertInstanceOf(
-			'JCacheController',
-			JFactory::getCache(),
-			'Line: ' . __LINE__
-		);
-
-		$this->assertInstanceOf(
-			'JCacheControllerCallback',
-			JFactory::getCache(),
-			'Line: ' . __LINE__
-		);
-
-		$this->assertInstanceOf(
-			'JCacheControllerView',
-			JFactory::getCache('', 'view', null),
-			'Line: ' . __LINE__
-		);
-
-		$this->markTestIncomplete(
-			'This test has not been implemented completely yet.'
-		);
-	}
-
-	/**
 	 * Tests the JFactory::getURI method.
 	 *
 	 * @return  void

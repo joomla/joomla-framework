@@ -137,32 +137,25 @@ class Helper
 
 		if (empty($languages))
 		{
-			$cache = Factory::getCache('com_languages', '');
+			$db = Factory::getDBO();
+			$query = $db->getQuery(true);
+			$query->select('*')
+				->from('#__languages')
+				->where('published=1')
+				->order('ordering ASC');
+			$db->setQuery($query);
 
-			if (!$languages = $cache->get('languages'))
+			$languages['default'] = $db->loadObjectList();
+			$languages['sef'] = array();
+			$languages['lang_code'] = array();
+
+			if (isset($languages['default'][0]))
 			{
-				$db = Factory::getDBO();
-				$query = $db->getQuery(true);
-				$query->select('*')
-					->from('#__languages')
-					->where('published=1')
-					->order('ordering ASC');
-				$db->setQuery($query);
-
-				$languages['default'] = $db->loadObjectList();
-				$languages['sef'] = array();
-				$languages['lang_code'] = array();
-
-				if (isset($languages['default'][0]))
+				foreach ($languages['default'] as $lang)
 				{
-					foreach ($languages['default'] as $lang)
-					{
-						$languages['sef'][$lang->sef] = $lang;
-						$languages['lang_code'][$lang->lang_code] = $lang;
-					}
+					$languages['sef'][$lang->sef] = $lang;
+					$languages['lang_code'][$lang->lang_code] = $lang;
 				}
-
-				$cache->store($languages, 'languages');
 			}
 		}
 

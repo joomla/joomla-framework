@@ -8,9 +8,6 @@
 
 namespace Joomla;
 
-
-use Joomla\Mail\Helper as MailHelper;
-use Joomla\Document\Document;
 use Joomla\Registry\Registry;
 use Joomla\Language\Language;
 use Joomla\Filesystem\Stream;
@@ -18,9 +15,7 @@ use Joomla\Session\Session;
 use Joomla\Database\Driver;
 use Joomla\Language\Text;
 use Joomla\Client\Helper;
-use Joomla\Cache\Cache;
 use Joomla\Date\Date;
-use Joomla\Log\Log;
 use RuntimeException;
 use Exception;
 
@@ -42,12 +37,6 @@ abstract class Factory
 	 * @since  11.1
 	 */
 	public static $application = null;
-
-	/**
-	 * @var    Cache
-	 * @since  11.1
-	 */
-	public static $cache = null;
 
 	/**
 	 * @var    JConfig
@@ -178,43 +167,6 @@ abstract class Factory
 		}
 
 		return self::$language;
-	}
-
-	/**
-	 * Get a cache object
-	 *
-	 * Returns the global {@link Cache} object
-	 *
-	 * @param   string  $group    The cache group name
-	 * @param   string  $handler  The handler to use
-	 * @param   string  $storage  The storage method
-	 *
-	 * @return  \Joomla\Cache\Controller object
-	 *
-	 * @see     Cache
-	 */
-	public static function getCache($group = '', $handler = 'callback', $storage = null)
-	{
-		$hash = md5($group . $handler . $storage);
-
-		if (isset(self::$cache[$hash]))
-		{
-			return self::$cache[$hash];
-		}
-		$handler = ($handler == 'function') ? 'callback' : $handler;
-
-		$options = array('defaultgroup' => $group);
-
-		if (isset($storage))
-		{
-			$options['storage'] = $storage;
-		}
-
-		$cache = Cache::getInstance($handler, $options);
-
-		self::$cache[$hash] = $cache;
-
-		return self::$cache[$hash];
 	}
 
 	/**
