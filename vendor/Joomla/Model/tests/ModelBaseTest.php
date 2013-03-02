@@ -1,28 +1,27 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Model
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Model\Tests;
 
 use Joomla\Registry\Registry;
 
-require_once __DIR__ . '/stubs/tbase.php';
+require_once __DIR__ . '/Stubs/BaseModel.php';
 
 /**
- * Tests for the JViewBase class.
+ * Tests for the Joomla\Model\Base class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Model
- * @since       12.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
-class JModelBaseTest extends PHPUnit_Framework_TestCase
+class ModelBaseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    BaseModel
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $instance;
 
@@ -32,14 +31,11 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Model\Base::__construct
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__construct()
 	{
-		// @codingStandardsIgnoreStart
-		// @todo check the instanciating new classes without brackets sniff
 		$this->assertEquals(new Registry, $this->instance->getState(), 'Checks default state.');
-		// @codingStandardsIgnoreEnd
 
 		$state = new Registry(array('foo' => 'bar'));
 		$class = new BaseModel($state);
@@ -52,12 +48,14 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Model\Base::getState
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetState()
 	{
 		// Reset the state property to a known value.
-		TestReflection::setValue($this->instance, 'state', 'foo');
+		$prop = new \ReflectionProperty($this->instance, 'state');
+		$prop->setAccessible(true);
+		$prop->setValue($this->instance, 'foo');
 
 		$this->assertEquals('foo', $this->instance->getState());
 	}
@@ -68,7 +66,7 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Model\Base::setState
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSetState()
 	{
@@ -83,11 +81,14 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Model\Base::loadState
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testLoadState()
 	{
-		$this->assertInstanceOf('Joomla\Registry\Registry', TestReflection::invoke($this->instance, 'loadState'));
+		$method = new \ReflectionMethod($this->instance, 'loadState');
+		$method->setAccessible(true);
+
+		$this->assertInstanceOf('Joomla\Registry\Registry', $method->invoke($this->instance));
 	}
 
 	/**
@@ -95,12 +96,10 @@ class JModelBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
-		parent::setUp();
-
 		$this->instance = new BaseModel;
 	}
 }

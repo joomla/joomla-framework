@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Model
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Model;
-
 
 use Joomla\Database\Driver;
 use Joomla\Registry\Registry;
@@ -17,9 +14,8 @@ use Joomla\Factory;
 /**
  * Joomla Platform Database Model Class
  *
- * @package     Joomla.Platform
- * @subpackage  Model
- * @since       12.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
 abstract class Database extends Base
 {
@@ -27,7 +23,7 @@ abstract class Database extends Base
 	 * The database driver.
 	 *
 	 * @var    Driver
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $db;
 
@@ -37,7 +33,7 @@ abstract class Database extends Base
 	 * @param   Registry  $state  The model state.
 	 * @param   Driver    $db     The database adpater.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct(Registry $state = null, Driver $db = null)
 	{
@@ -52,7 +48,7 @@ abstract class Database extends Base
 	 *
 	 * @return  Driver  The database driver.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getDb()
 	{
@@ -66,7 +62,7 @@ abstract class Database extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setDb(Driver $db)
 	{
@@ -78,7 +74,7 @@ abstract class Database extends Base
 	 *
 	 * @return  Driver  The database driver.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function loadDb()
 	{

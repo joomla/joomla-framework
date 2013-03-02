@@ -1,23 +1,19 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Model
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Model;
 
-
 use Joomla\Registry\Registry;
 
 /**
- * Joomla Platform Base Model Class
+ * Joomla Framework Base Model Class
  *
- * @package     Joomla.Platform
- * @subpackage  Model
- * @since       12.1
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
 abstract class Base implements Model
 {
@@ -25,7 +21,7 @@ abstract class Base implements Model
 	 * The model state.
 	 *
 	 * @var    Registry
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $state;
 
@@ -34,7 +30,7 @@ abstract class Base implements Model
 	 *
 	 * @param   Registry  $state  The model state.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct(Registry $state = null)
 	{
@@ -47,7 +43,7 @@ abstract class Base implements Model
 	 *
 	 * @return  Registry  The state object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getState()
 	{
@@ -61,7 +57,7 @@ abstract class Base implements Model
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setState(Registry $state)
 	{
@@ -73,7 +69,7 @@ abstract class Base implements Model
 	 *
 	 * @return  Registry  The state object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function loadState()
 	{
