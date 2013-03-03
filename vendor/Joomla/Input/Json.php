@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Input
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Input;
-
 
 use Joomla\Filter\Input as FilterInput;
 
@@ -18,9 +15,8 @@ use Joomla\Filter\Input as FilterInput;
  * This class decodes a JSON string from the raw request data and makes it available via
  * the standard JInput interface.
  *
- * @package     Joomla\Framework
- * @subpackage  Input
- * @since       12.2
+ * @package  Joomla\Framework
+ * @since    12.2
  */
 class Json extends Input
 {

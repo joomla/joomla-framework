@@ -1,25 +1,21 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Form;
-
 
 /**
  * Form Field class for the Joomla Platform.
  * Single check box field.
  * This is a boolean field with null for false and the specified option for true
  *
- * @package     Joomla\Framework
- * @subpackage  Form
- * @link        http://www.w3.org/TR/html-markup/input.checkbox.html#input.checkbox
- * @see         JFormFieldCheckboxes
- * @since       11.1
+ * @package  Joomla\Framework
+ * @link     http://www.w3.org/TR/html-markup/input.checkbox.html#input.checkbox
+ * @see      JFormFieldCheckboxes
+ * @since    11.1
  */
 class Field_Checkbox extends Field
 {

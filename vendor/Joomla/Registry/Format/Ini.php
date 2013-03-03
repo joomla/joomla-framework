@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Registry
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Registry\Format;
-
 
 use Joomla\Registry\Format;
 use stdClass;
@@ -16,9 +13,8 @@ use stdClass;
 /**
  * INI format handler for Registry.
  *
- * @package     Joomla\Framework
- * @subpackage  Registry
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Ini extends Format
 {

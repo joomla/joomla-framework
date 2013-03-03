@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Database;
-
 
 use Countable;
 use Iterator;
@@ -16,9 +13,8 @@ use Iterator;
 /**
  * Joomla Platform Database Driver Class
  *
- * @package     Joomla\Framework
- * @subpackage  Database
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    12.1
  */
 abstract class DatabaseIterator implements Countable, Iterator
 {

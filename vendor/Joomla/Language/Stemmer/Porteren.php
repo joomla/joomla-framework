@@ -1,15 +1,12 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Language
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @copyright   Copyright (C) 2005 Richard Heyes (http://www.phpguru.org/). All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 Richard Heyes (http://www.phpguru.org/). All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Language\Stemmer;
-
 
 use Joomla\Language\Stemmer;
 
@@ -19,9 +16,8 @@ use Joomla\Language\Stemmer;
  * This class was adapted from one written by Richard Heyes.
  * See copyright and link information above.
  *
- * @package     Joomla\Framework
- * @subpackage  Language
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    12.1
  */
 class Porteren extends Stemmer
 {

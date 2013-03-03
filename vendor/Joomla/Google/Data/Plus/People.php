@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Google
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Google\Data\Plus;
-
 
 use Joomla\Google\Data;
 use Joomla\Google\Auth;
@@ -17,9 +14,8 @@ use Joomla\Registry\Registry;
 /**
  * Google+ data class for the Joomla Platform.
  *
- * @package     Joomla\Framework
- * @subpackage  Google
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    12.3
  */
 class People extends Data
 {

@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Log
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Log;
-
 
 use Joomla\Date\Date;
 
@@ -18,9 +15,8 @@ use Joomla\Date\Date;
  * This class is designed to hold log entries for either writing to an engine, or for
  * supported engines, retrieving lists and building in memory (PHP based) search operations.
  *
- * @package     Joomla\Framework
- * @subpackage  Log
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Entry
 {

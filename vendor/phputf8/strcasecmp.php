@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -16,7 +14,6 @@
 * @see http://www.php.net/strcasecmp
 * @see utf8_strtolower
 * @package utf8
-* @subpackage strings
 */
 function utf8_strcasecmp($strX, $strY) {
     $strX = utf8_strtolower($strX);

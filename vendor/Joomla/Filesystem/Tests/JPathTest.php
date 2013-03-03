@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Filesystem
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 use Joomla\Filesystem\Path;
@@ -12,9 +10,8 @@ use Joomla\Filesystem\Path;
 /**
  * Tests for the Path class.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Filesystem
- * @since       12.2
+ * @package  Joomla\Framework\Test
+ * @since    12.2
  */
 class PathTest extends PHPUnit_Framework_TestCase
 {
@@ -102,7 +99,7 @@ class PathTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @covers        Joomla\Filesystem\Path::clean
 	 * @dataProvider  getCleanData
-	 * @since         12.2
+	 * @since      12.2
 	 */
 	public function testClean($input, $ds, $expected)
 	{

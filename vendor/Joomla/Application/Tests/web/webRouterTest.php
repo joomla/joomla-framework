@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Application
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 JLoader::register('TControllerBar', __DIR__ . '/stubs/controllers/bar.php');
@@ -14,9 +12,8 @@ JLoader::register('MyTestControllerFoo', __DIR__ . '/stubs/controllers/foo.php')
 /**
  * Test class for JApplicationWebRouter.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Application
- * @since       12.3
+ * @package  Joomla\Framework\Test
+ * @since    12.3
  */
 class JApplicationWebRouterTest extends TestCase
 {

@@ -3,10 +3,8 @@
 * PCRE Regular expressions for UTF-8. Note this file is not actually used by
 * the rest of the library but these regular expressions can be useful to have
 * available.
-* @version $Id$
 * @see http://www.w3.org/International/questions/qa-forms-utf-8
 * @package utf8
-* @subpackage patterns
 */
 
 //--------------------------------------------------------------------
@@ -16,7 +14,6 @@
 * Note: modified to include full ASCII range including control chars
 * @see http://www.w3.org/International/questions/qa-forms-utf-8
 * @package utf8
-* @subpackage patterns
 */
 $UTF8_VALID = '^('.
     '[\x00-\x7F]'.                          # ASCII (including control chars)
@@ -36,7 +33,6 @@ $UTF8_VALID = '^('.
 * Note: modified to include full ASCII range including control chars
 * @see http://www.w3.org/International/questions/qa-forms-utf-8
 * @package utf8
-* @subpackage patterns
 */
 $UTF8_MATCH =
     '([\x00-\x7F])'.                          # ASCII (including control chars)
@@ -55,7 +51,6 @@ $UTF8_MATCH =
 * Note: modified to include full ASCII range including control chars
 * @see http://www.w3.org/International/questions/qa-forms-utf-8
 * @package utf8
-* @subpackage patterns
 */
 $UTF8_BAD =
     '([\x00-\x7F]'.                          # ASCII (including control chars)

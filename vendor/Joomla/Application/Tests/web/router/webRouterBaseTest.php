@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Application
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 use Joomla\Input\Input;
@@ -12,9 +10,8 @@ use Joomla\Input\Input;
 /**
  * Test class for JApplicationWebRouterBase.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Application
- * @since       12.3
+ * @package  Joomla\Framework\Test
+ * @since    12.3
  */
 class JApplicationWebRouterBaseTest extends TestCase
 {
@@ -145,7 +142,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @covers       Joomla\Application\Web\Router\Base::parseRoute
 	 * @dataProvider getParseRouteData
-	 * @since        12.3
+	 * @since     12.3
 	 */
 	public function testParseRoute($r, $e, $c, $i, $m)
 	{

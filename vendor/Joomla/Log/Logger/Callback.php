@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Log
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Log\Logger;
-
 
 use Joomla\Log\Entry;
 use Joomla\Log\Logger;
@@ -20,9 +17,8 @@ use Exception;
  * This class allows logging to be handled by a callback function.
  * This allows unprecedented flexibility in the way logging can be handled.
  *
- * @package     Joomla\Framework
- * @subpackage  Log
- * @since       12.2
+ * @package  Joomla\Framework
+ * @since    12.2
  */
 class Callback extends Logger
 {

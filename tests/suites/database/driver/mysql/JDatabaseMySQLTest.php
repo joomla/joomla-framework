@@ -1,18 +1,15 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 /**
  * Test class for JDatabaseMysql.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Database
- * @since       11.1
+ * @package  Joomla\Framework\Test
+ * @since    11.1
  */
 class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 {
@@ -77,7 +74,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 * @return  void
 	 *
 	 * @dataProvider  dataTestEscape
-	 * @since         11.4
+	 * @since      11.4
 	 */
 	public function testEscape($text, $extra, $expected)
 	{

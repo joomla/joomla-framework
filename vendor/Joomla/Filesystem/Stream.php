@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  FileSystem
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Filesystem;
@@ -17,17 +15,16 @@ use RuntimeException;
  * where as the legacy JFile static class treated files in a rather
  * atomic manner.
  *
- * @package     Joomla\Framework
- * @subpackage  FileSystem
+ * @package  Joomla\Framework
  *
  * This class adheres to the stream wrapper operations:
  *
- * @see         http://php.net/manual/en/function.stream-get-wrappers.php
- * @see         http://php.net/manual/en/intro.stream.php PHP Stream Manual
- * @see         http://php.net/manual/en/wrappers.php Stream Wrappers
- * @see         http://php.net/manual/en/filters.php Stream Filters
- * @see         http://php.net/manual/en/transports.php Socket Transports (used by some options, particularly HTTP proxy)
- * @since       11.1
+ * @see      http://php.net/manual/en/function.stream-get-wrappers.php
+ * @see      http://php.net/manual/en/intro.stream.php PHP Stream Manual
+ * @see      http://php.net/manual/en/wrappers.php Stream Wrappers
+ * @see      http://php.net/manual/en/filters.php Stream Filters
+ * @see      http://php.net/manual/en/transports.php Socket Transports (used by some options, particularly HTTP proxy)
+ * @since    11.1
  */
 class Stream
 {
@@ -1315,7 +1312,6 @@ class Stream
 		else
 		{
 			throw new RuntimeException('Not an uploaded file.');
-			
 		}
 	}
 

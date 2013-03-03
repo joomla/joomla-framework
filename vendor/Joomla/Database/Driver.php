@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Database;
-
 
 use Joomla\Log\Log;
 use RuntimeException;
@@ -17,9 +14,8 @@ use DirectoryIterator;
 /**
  * Joomla Platform Database Driver Class
  *
- * @package     Joomla\Framework
- * @subpackage  Database
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    12.1
  *
  * @method      string  q()   q($text, $escape = true)  Alias for quote method
  * @method      string  qn()  qn($name, $as = null)     Alias for quoteName method
@@ -126,13 +122,13 @@ abstract class Driver implements DatabaseInterface
 
 	/**
 	 * @var         integer  The database error number
-	 * @since       11.1
+	 * @since    11.1
 	 */
 	protected $errorNum = 0;
 
 	/**
 	 * @var         string  The database error message
-	 * @since       11.1
+	 * @since    11.1
 	 */
 	protected $errorMsg;
 

@@ -1,9 +1,8 @@
 <?php
 /**
 * Tools to help with ASCII in UTF-8
-* @version $Id$
+*
 * @package utf8
-* @subpackage ascii
 */
 
 //--------------------------------------------------------------------
@@ -25,7 +24,6 @@
 * @param string
 * @return boolean TRUE if it's all ASCII
 * @package utf8
-* @subpackage ascii
 * @see utf8_is_ascii_ctrl
 */
 function utf8_is_ascii($str) {
@@ -42,7 +40,6 @@ function utf8_is_ascii($str) {
 * @param string
 * @return boolean TRUE if it's all ASCII without device control codes
 * @package utf8
-* @subpackage ascii
 * @see utf8_is_ascii
 */
 function utf8_is_ascii_ctrl($str) {
@@ -62,7 +59,6 @@ function utf8_is_ascii_ctrl($str) {
 * @param string
 * @return string with non ASCII bytes removed
 * @package utf8
-* @subpackage ascii
 * @see utf8_strip_non_ascii_ctrl
 */
 function utf8_strip_non_ascii($str) {
@@ -114,7 +110,6 @@ function utf8_strip_ascii_ctrl($str) {
 * @param string
 * @return boolean TRUE if it's all ASCII
 * @package utf8
-* @subpackage ascii
 */
 function utf8_strip_non_ascii_ctrl($str) {
     ob_start();
@@ -152,7 +147,6 @@ function utf8_strip_non_ascii_ctrl($str) {
 * @return string accented chars replaced with ascii equivalents
 * @author Andreas Gohr <andi@splitbrain.org>
 * @package utf8
-* @subpackage ascii
 */
 function utf8_accents_to_ascii( $str, $case=0 ){
 

@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Crypt
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Crypt;
@@ -13,9 +11,8 @@ namespace Joomla\Crypt;
 /**
  * JCrypt cipher for Blowfish encryption, decryption and key generation.
  *
- * @package     Joomla\Framework
- * @subpackage  Crypt
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    12.1
  */
 class Cipher_Blowfish extends Cipher_Mcrypt
 {

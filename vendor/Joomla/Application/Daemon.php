@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Application
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Application;
@@ -19,11 +17,10 @@ use Joomla\Input\Cli as InputCli;
 /**
  * Class to turn Cli applications into daemons.  It requires CLI and PCNTL support built into PHP.
  *
- * @package     Joomla\Framework
- * @subpackage  Application
- * @see         http://www.php.net/manual/en/book.pcntl.php
- * @see         http://php.net/manual/en/features.commandline.php
- * @since       11.1
+ * @package  Joomla\Framework
+ * @see      http://www.php.net/manual/en/book.pcntl.php
+ * @see      http://php.net/manual/en/features.commandline.php
+ * @since    11.1
  */
 abstract class Daemon extends Cli
 {
@@ -98,12 +95,12 @@ abstract class Daemon extends Cli
 	/**
 	 * Class constructor.
 	 *
-	 * @param   mixed  $input       An optional argument to provide dependency injection for the application's
-	 *                              input object.  If the argument is a InputCli object that object will become
-	 *                              the application's input object, otherwise a default input object is created.
-	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
-	 *                              config object.  If the argument is a Registry object that object will become
-	 *                              the application's config object, otherwise a default config object is created.
+	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
+	 *                          input object.  If the argument is a InputCli object that object will become
+	 *                          the application's input object, otherwise a default input object is created.
+	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
+	 *                          config object.  If the argument is a Registry object that object will become
+	 *                          the application's config object, otherwise a default config object is created.
 	 *
 	 * @since   11.1
 	 * @throws  RuntimeException

@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -16,7 +14,6 @@
 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
 * @return string
 * @package utf8
-* @subpackage strings
 */
 function utf8_ltrim( $str, $charlist = FALSE ) {
     if($charlist === FALSE) return ltrim($str);
@@ -38,7 +35,6 @@ function utf8_ltrim( $str, $charlist = FALSE ) {
 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
 * @return string
 * @package utf8
-* @subpackage strings
 */
 function utf8_rtrim( $str, $charlist = FALSE ) {
     if($charlist === FALSE) return rtrim($str);
@@ -60,7 +56,6 @@ function utf8_rtrim( $str, $charlist = FALSE ) {
 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
 * @return string
 * @package utf8
-* @subpackage strings
 */
 function utf8_trim( $str, $charlist = FALSE ) {
     if($charlist === FALSE) return trim($str);

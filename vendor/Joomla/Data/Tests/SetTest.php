@@ -57,7 +57,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Set::__construct
 	 * @expectedException  InvalidArgumentException
-	 * @since              1.0
+	 * @since           1.0
 	 */
 	public function test__construct_array()
 	{
@@ -71,7 +71,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Set::__construct
 	 * @expectedException  PHPUnit_Framework_Error
-	 * @since              1.0
+	 * @since           1.0
 	 */
 	public function test__construct_scalar()
 	{
@@ -367,7 +367,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Set::OffsetSet
 	 * @expectedException  InvalidArgumentException
-	 * @since              1.0
+	 * @since           1.0
 	 */
 	public function testOffsetSet_exception1()
 	{
@@ -451,7 +451,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @coversNothing  Integration test.
-	 * @since          1.0
+	 * @since    1.0
 	 */
 	public function test_foreach()
 	{

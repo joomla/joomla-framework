@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 /**
@@ -28,7 +26,6 @@ if ( !defined('UTF8_CORE') ) {
 * @param string UTF-8 string
 * @return int number of UTF-8 characters in string
 * @package utf8
-* @subpackage strings
 */
 function utf8_strlen($str){
     return strlen(utf8_decode($str));
@@ -49,7 +46,6 @@ function utf8_strlen($str){
 * @see utf8_strlen
 * @see utf8_substr
 * @package utf8
-* @subpackage strings
 */
 function utf8_strpos($str, $needle, $offset = NULL) {
 
@@ -93,7 +89,6 @@ function utf8_strpos($str, $needle, $offset = NULL) {
 * @see utf8_substr
 * @see utf8_strlen
 * @package utf8
-* @subpackage strings
 */
 function utf8_strrpos($str, $needle, $offset = NULL) {
 
@@ -155,7 +150,6 @@ function utf8_strrpos($str, $needle, $offset = NULL) {
 * @param integer (optional) length in UTF-8 characters from offset
 * @return mixed string or FALSE if failure
 * @package utf8
-* @subpackage strings
 */
 function utf8_substr($str, $offset, $length = NULL) {
 
@@ -279,7 +273,6 @@ function utf8_substr($str, $offset, $length = NULL) {
 * @see http://www.unicode.org/reports/tr21/tr21-5.html
 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
 * @package utf8
-* @subpackage strings
 */
 function utf8_strtolower($string){
 
@@ -367,7 +360,6 @@ function utf8_strtolower($string){
 * @see http://www.unicode.org/reports/tr21/tr21-5.html
 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
 * @package utf8
-* @subpackage strings
 */
 function utf8_strtoupper($string){
 

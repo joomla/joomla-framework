@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 /**
@@ -21,7 +19,6 @@ if ( !defined('UTF8_CORE') ) {
 * @param string UTF-8 string
 * @return int number of UTF-8 characters in string
 * @package utf8
-* @subpackage strings
 */
 function utf8_strlen($str){
     return mb_strlen($str);
@@ -38,7 +35,6 @@ function utf8_strlen($str){
 * @param integer offset in characters (from left)
 * @return mixed integer position or FALSE on failure
 * @package utf8
-* @subpackage strings
 */
 function utf8_strpos($str, $search, $offset = FALSE){
     if ( $offset === FALSE ) {
@@ -58,7 +54,6 @@ function utf8_strpos($str, $search, $offset = FALSE){
 * @param integer (optional) offset (from left)
 * @return mixed integer position or FALSE on failure
 * @package utf8
-* @subpackage strings
 */
 function utf8_strrpos($str, $search, $offset = FALSE){
     if ( $offset === FALSE ) {
@@ -93,7 +88,6 @@ function utf8_strrpos($str, $search, $offset = FALSE){
 * @param integer (optional) length in UTF-8 characters from offset
 * @return mixed string or FALSE if failure
 * @package utf8
-* @subpackage strings
 */
 function utf8_substr($str, $offset, $length = FALSE){
     if ( $length === FALSE ) {
@@ -115,7 +109,6 @@ function utf8_substr($str, $offset, $length = FALSE){
 * @param string
 * @return mixed either string in lowercase or FALSE is UTF-8 invalid
 * @package utf8
-* @subpackage strings
 */
 function utf8_strtolower($str){
     return mb_strtolower($str);
@@ -133,7 +126,6 @@ function utf8_strtolower($str){
 * @param string
 * @return mixed either string in lowercase or FALSE is UTF-8 invalid
 * @package utf8
-* @subpackage strings
 */
 function utf8_strtoupper($str){
     return mb_strtoupper($str);

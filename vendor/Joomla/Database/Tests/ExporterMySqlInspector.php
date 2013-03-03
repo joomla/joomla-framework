@@ -114,6 +114,7 @@ class ExporterMySqlInspector extends \Joomla\Database\Exporter\Mysql
 	 *
 	 * @param   boolean  $setting  True to export the structure, false to not.
 	 *
+	 * @return  boolean
 	 *
 	 * @since    1.0
 	 */

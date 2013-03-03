@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  GitHub
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Github;
-
 
 use Joomla\Http\Http as BaseHttp;
 use Joomla\Http\Transport;
@@ -17,9 +14,8 @@ use Joomla\Registry\Registry;
 /**
  * HTTP client class for connecting to a GitHub instance.
  *
- * @package     Joomla\Framework
- * @subpackage  GitHub
- * @since       11.3
+ * @package  Joomla\Framework
+ * @since    11.3
  */
 class Http extends BaseHttp
 {

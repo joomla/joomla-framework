@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Log
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 require_once __DIR__ . '/stubs/database/inspector.php';
@@ -16,9 +14,8 @@ use Joomla\Log\Logger\Database as LoggerDatabase;
 /**
  * Test class for LoggerDatabase.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Log
- * @since       11.1
+ * @package  Joomla\Framework\Test
+ * @since    11.1
  */
 class LoggerDatabaseTest extends TestCaseDatabase
 {

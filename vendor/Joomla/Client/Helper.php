@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Client
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Client;
@@ -15,9 +13,8 @@ use InvalidArgumentException;
 /**
  * Client helper class
  *
- * @package     Joomla\Framework
- * @subpackage  Client
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Helper
 {

@@ -1,9 +1,7 @@
 <?php
 /**
 * Locate a byte index given a UTF-8 character index
-* @version $Id$
 * @package utf8
-* @subpackage position
 */
 
 //--------------------------------------------------------------------
@@ -25,7 +23,6 @@
 * @return mixed - int if only one input int, array if more
 * @return boolean TRUE if it's all ASCII
 * @package utf8
-* @subpackage position
 */
 function utf8_byte_position() {
 
@@ -126,7 +123,6 @@ function utf8_byte_position() {
 * @param int byte index in the string
 * @return int byte index of start of next UTF-8 character
 * @package utf8
-* @subpackage position
 */
 function utf8_locate_current_chr( &$str, $idx ) {
 
@@ -154,7 +150,6 @@ function utf8_locate_current_chr( &$str, $idx ) {
 * @param int byte index in the string
 * @return int byte index of start of next UTF-8 character
 * @package utf8
-* @subpackage position
 */
 function utf8_locate_next_chr( &$str, $idx ) {
 

@@ -11,9 +11,8 @@ namespace Joomla\Data;
  * JDataSet is a collection class that allows the developer to operate on a set of JData objects as if they were in a
  * typical PHP array.
  *
- * @package     Joomla\Framework
- * @subpackage  Data
- * @since       1.0
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 {

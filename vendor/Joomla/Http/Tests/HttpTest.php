@@ -1,8 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Tests
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Http\Tests;
@@ -51,7 +51,13 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 
 		static $classNumber = 1;
 		$this->options = $this->getMock('Joomla\Registry\Registry', array('get', 'set'));
-		$this->transport = $this->getMock('Joomla\Http\Transport\Stream', array('request'), array($this->options), 'CustomTransport' . $classNumber ++, false);
+		$this->transport = $this->getMock(
+			'Joomla\Http\Transport\Stream',
+			array('request'),
+			array($this->options),
+			'CustomTransport' . $classNumber ++,
+			false
+		);
 
 		$this->object = new Http($this->options, $this->transport);
 	}

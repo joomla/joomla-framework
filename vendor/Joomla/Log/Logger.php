@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Log
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Log;
-
 
 /**
  * Joomla! Logger Base Class
@@ -16,9 +13,8 @@ namespace Joomla\Log;
  * This class is used to be the basis of logger classes to allow for defined functions
  * to exist regardless of the child class.
  *
- * @package     Joomla\Framework
- * @subpackage  Log
- * @since       12.2
+ * @package  Joomla\Framework
+ * @since    12.2
  */
 abstract class Logger
 {

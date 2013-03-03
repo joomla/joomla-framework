@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Archive
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Archive;
@@ -17,9 +15,8 @@ use RuntimeException;
 /**
  * Bzip2 format adapter for the JArchive class
  *
- * @package     Joomla\Framework
- * @subpackage  Archive
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Bzip2 implements Extractable
 {

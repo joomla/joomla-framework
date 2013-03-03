@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Session
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Session\Storage;
-
 
 use Joomla\Session\Storage;
 use RuntimeException;
@@ -16,10 +13,9 @@ use RuntimeException;
 /**
  * APC session storage handler for PHP
  *
- * @package     Joomla\Framework
- * @subpackage  Session
+ * @package  Joomla\Framework
  * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
- * @since       11.1
+ * @since    11.1
  */
 class Apc extends Storage
 {

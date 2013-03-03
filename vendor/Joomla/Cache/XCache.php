@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla.Framework
- * @subpackage  Cache
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Cache;
@@ -14,9 +12,8 @@ use Joomla\Registry\Registry;
 /**
  * XCache cache driver for the Joomla Framework.
  *
- * @package     Joomla.Framework
- * @subpackage  Cache
- * @since       1.0
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class XCache extends Cache
 {

@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Application
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Application;
@@ -18,9 +16,8 @@ use Joomla\Input\Cli as InputCli;
 /**
  * Base class for a Joomla! command line application.
  *
- * @package     Joomla\Framework
- * @subpackage  Application
- * @since       11.4
+ * @package  Joomla\Framework
+ * @since    11.4
  */
 abstract class Cli extends Base
 {

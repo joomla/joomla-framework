@@ -1,8 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Tests
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Http\Tests;
@@ -76,7 +76,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since         1.0
+	 * @since      1.0
 	 * @dataProvider  transportProvider
 \	 */
 	public function testRequestGet($transportClass)
@@ -105,7 +105,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since              1.0
+	 * @since           1.0
 	 * @dataProvider       transportProvider
 	 * @expectedException  RuntimeException
 	 */
@@ -122,7 +122,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since         1.0
+	 * @since      1.0
 	 * @dataProvider  transportProvider
 	 */
 	public function testRequestGet404($transportClass)
@@ -138,7 +138,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since         1.0
+	 * @since      1.0
 	 * @dataProvider  transportProvider
 	 */
 	public function testRequestPut($transportClass)
@@ -167,7 +167,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since         1.0
+	 * @since      1.0
 	 * @dataProvider  transportProvider
 	 */
 	public function testRequestPost($transportClass)
@@ -201,7 +201,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since         1.0
+	 * @since      1.0
 	 * @dataProvider  transportProvider
 	 */
 	public function testRequestPostScalar($transportClass)

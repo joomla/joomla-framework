@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Form;
-
 
 use Joomla\Language\Text;
 use Joomla\Database\Driver;
@@ -18,10 +15,9 @@ use Joomla\Database\Driver;
  * Provides a list of available database connections, optionally limiting to
  * a given list.
  *
- * @package     Joomla\Framework
- * @subpackage  Form
- * @see         JDatabaseDriver
- * @since       11.3
+ * @package  Joomla\Framework
+ * @see      JDatabaseDriver
+ * @since    11.3
  */
 class Field_DatabaseConnection extends Field_List
 {

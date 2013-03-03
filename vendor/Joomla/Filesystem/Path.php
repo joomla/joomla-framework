@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  FileSystem
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Filesystem;
-
 
 use Exception;
 use Iterator;
@@ -23,9 +20,8 @@ if (!defined('JPATH_ROOT'))
 /**
  * A Path handling class
  *
- * @package     Joomla\Framework
- * @subpackage  FileSystem
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Path
 {

@@ -1,6 +1,5 @@
 <?php
 /**
-* @version $Id$
 * Tools for validing a UTF-8 string is well formed.
 * The Original Code is Mozilla Communicator client code.
 * The Initial Developer of the Original Code is
@@ -13,7 +12,6 @@
 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
 * @see http://hsivonen.iki.fi/php-utf8/
 * @package utf8
-* @subpackage validation
 */
 
 //--------------------------------------------------------------------
@@ -27,7 +25,6 @@
 * @see http://hsivonen.iki.fi/php-utf8/
 * @see utf8_compliant
 * @package utf8
-* @subpackage validation
 */
 function utf8_is_valid($str) {
 
@@ -170,7 +167,6 @@ function utf8_is_valid($str) {
 * @param string UTF-8 string to check
 * @return boolean TRUE if string is valid UTF-8
 * @package utf8
-* @subpackage validation
 */
 function utf8_compliant($str) {
     if ( strlen($str) == 0 ) {

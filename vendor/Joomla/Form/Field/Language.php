@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Form;
-
 
 use Joomla\Html\Html;
 use Joomla\Language\Helper as LanguageHelper;
@@ -17,10 +14,9 @@ use Joomla\Language\Helper as LanguageHelper;
  * Form Field class for the Joomla Platform.
  * Supports a list of installed application languages
  *
- * @package     Joomla\Framework
- * @subpackage  Form
- * @see         JFormFieldContentLanguage for a select list of content languages.
- * @since       11.1
+ * @package  Joomla\Framework
+ * @see      JFormFieldContentLanguage for a select list of content languages.
+ * @since    11.1
  */
 class Field_Language extends Field_List
 {

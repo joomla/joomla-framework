@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Form;
-
 
 use Joomla\Html\Html;
 
@@ -16,10 +13,9 @@ use Joomla\Html\Html;
  * Color Form Field class for the Joomla Platform.
  * This implementation is designed to be compatible with HTML5's <input type="color">
  *
- * @package     Joomla\Framework
- * @subpackage  Form
- * @link        http://www.w3.org/TR/html-markup/input.color.html
- * @since       11.3
+ * @package  Joomla\Framework
+ * @link     http://www.w3.org/TR/html-markup/input.color.html
+ * @since    11.3
  */
 class Field_Color extends Field
 {

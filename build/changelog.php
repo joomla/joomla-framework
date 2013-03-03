@@ -27,9 +27,8 @@ require realpath('../libraries/import.php');
  * This application builds the HTML version of the Joomla Platform change log from the Github API
  * that is used in news annoucements.
  *
- * @package     Joomla.Examples
- * @subpackage  Changlog
- * @since       12.1
+ * @package  Joomla.Examples
+ * @since    12.1
  */
 class Changelog extends JApplicationCli
 {

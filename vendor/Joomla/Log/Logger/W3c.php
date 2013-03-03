@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Log
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Log\Logger;
-
 
 use Joomla\Log\Logger\Formattedtext;
 
@@ -18,9 +15,8 @@ use Joomla\Log\Logger\Formattedtext;
  * This class is designed to build log files based on the W3c specification
  * at: http://www.w3.org/TR/WD-logfile.html
  *
- * @package     Joomla\Framework
- * @subpackage  Log
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class W3c extends Formattedtext
 {

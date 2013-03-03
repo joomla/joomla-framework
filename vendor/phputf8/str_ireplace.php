@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -19,7 +17,6 @@
 * @see http://www.php.net/str_ireplace
 * @see utf8_strtolower
 * @package utf8
-* @subpackage strings
 */
 function utf8_ireplace($search, $replace, $str, $count = NULL){
 

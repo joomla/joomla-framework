@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Image
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 require_once __DIR__ . '/stubs/JImageInspector.php';
@@ -15,9 +13,8 @@ use Joomla\Image\Image;
 /**
  * Test class for Image.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Image
- * @since       11.3
+ * @package  Joomla\Framework\Test
+ * @since    11.3
  */
 class ImageTest extends PHPUnit_Framework_TestCase
 {

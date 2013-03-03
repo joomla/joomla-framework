@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -18,7 +16,6 @@
 * @see http://www.php.net/str_pad
 * @see utf8_substr
 * @package utf8
-* @subpackage strings
 */
 function utf8_str_pad($input, $length, $padStr = ' ', $type = STR_PAD_RIGHT) {
 

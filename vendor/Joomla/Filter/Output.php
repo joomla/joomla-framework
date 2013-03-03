@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Filter
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Filter;
@@ -15,9 +13,8 @@ use Joomla\String\String;
 /**
  * JFilterOutput
  *
- * @package     Joomla\Framework
- * @subpackage  Filter
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Output
 {

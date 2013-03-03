@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -14,7 +12,6 @@
 * @return int
 * @see http://www.php.net/strspn
 * @package utf8
-* @subpackage strings
 */
 function utf8_strspn($str, $mask, $start = NULL, $length = NULL) {
 

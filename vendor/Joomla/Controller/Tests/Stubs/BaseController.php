@@ -19,9 +19,8 @@ use Joomla\Controller\Base;
 /**
  * Concrete class extending JControllerBase.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Controller
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    12.1
  */
 class BaseController extends Base
 {

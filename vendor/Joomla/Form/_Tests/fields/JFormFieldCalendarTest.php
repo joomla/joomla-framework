@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 // Include our inspector which will allow us to manipulate and call protected methods and attributes
@@ -13,10 +11,8 @@ require_once __DIR__ . '/inspectors/JFormFieldCalendar.php';
 /**
  * Test class for JForm.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Form
- *
- * @since       11.1
+ * @package  Joomla\Framework\Test
+ * @since    11.1
  */
 class JFormFieldCalendarTest extends TestCase
 {

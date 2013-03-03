@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -15,7 +13,6 @@
 * @see http://www.php.net/ucfirst
 * @see utf8_strtoupper
 * @package utf8
-* @subpackage strings
 */
 function utf8_ucfirst($str){
     switch ( utf8_strlen($str) ) {

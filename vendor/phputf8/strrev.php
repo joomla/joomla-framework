@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -13,7 +11,6 @@
 * @return string characters in string reverses
 * @see http://www.php.net/strrev
 * @package utf8
-* @subpackage strings
 */
 function utf8_strrev($str){
     preg_match_all('/./us', $str, $ar);

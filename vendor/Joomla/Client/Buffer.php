@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Utilities
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Client;
@@ -16,9 +14,8 @@ namespace Joomla\Client;
  * This class provides a generic buffer stream.  It can be used to store/retrieve/manipulate
  * string buffers with the standard PHP filesystem I/O methods.
  *
- * @package     Joomla\Framework
- * @subpackage  Utilities
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Buffer
 {

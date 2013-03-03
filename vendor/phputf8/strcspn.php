@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -15,7 +13,6 @@
 * @see http://www.php.net/strcspn
 * @see utf8_strlen
 * @package utf8
-* @subpackage strings
 */
 function utf8_strcspn($str, $mask, $start = NULL, $length = NULL) {
 

@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -16,7 +14,6 @@
 * @see http://www.php.net/str_split
 * @see utf8_strlen
 * @package utf8
-* @subpackage strings
 */
 function utf8_str_split($str, $split_len = 1) {
 

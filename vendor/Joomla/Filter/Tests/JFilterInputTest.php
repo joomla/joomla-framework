@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Filter
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 use Joomla\Filter\Input;
@@ -12,9 +10,8 @@ use Joomla\Filter\Input;
 /**
  * Test class for Filter\Input
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Filter
- * @since       11.1
+ * @package  Joomla\Framework\Test
+ * @since    11.1
  */
 class FilterInputTest extends PHPUnit_Framework_TestCase
 {

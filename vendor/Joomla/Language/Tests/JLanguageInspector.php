@@ -1,17 +1,15 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Event
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 /**
  * Inspector for the JLanguage class.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Language
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    12.1
  */
 class JLanguageInspector extends Joomla\Language\Language
 {

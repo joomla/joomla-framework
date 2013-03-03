@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Input
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Input;
@@ -19,9 +17,8 @@ use Countable;
  *
  * This is an abstracted input class used to manage retrieving data from the application environment.
  *
- * @package     Joomla\Framework
- * @subpackage  Input
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  *
  * @property-read    Input   $get
  * @property-read    Input   $post

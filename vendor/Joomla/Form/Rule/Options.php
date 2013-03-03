@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Form\Rule;
-
 
 use Joomla\Form\Rule;
 use Joomla\Form\Form;
@@ -19,9 +16,8 @@ use SimpleXMLElement;
  * Form Rule class for the Joomla Platform.
  * Requires the value entered be one of the options in a field of type="list"
  *
- * @package     Joomla\Framework
- * @subpackage  Form
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Options extends Rule
 {

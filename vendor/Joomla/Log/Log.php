@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Log
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Log;
-
 
 use RuntimeException;
 
@@ -21,9 +18,8 @@ use RuntimeException;
  * or plain Formattedtext) and finally MySQL offers the most features (e.g. rapid searching)
  * but will incur a performance hit due to INSERT being issued.
  *
- * @package     Joomla\Framework
- * @subpackage  Log
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Log
 {

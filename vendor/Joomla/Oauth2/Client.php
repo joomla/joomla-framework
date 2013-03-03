@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Oauth
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Oauth2;
-
 
 use Joomla\Registry\Registry;
 use Joomla\Application\Web;
@@ -22,9 +19,8 @@ use Exception;
 /**
  * Joomla Platform class for interacting with an OAuth 2.0 server.
  *
- * @package     Joomla\Framework
- * @subpackage  Oauth
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    12.3
  */
 class Client
 {

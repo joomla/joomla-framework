@@ -4,9 +4,7 @@
 * be regarded as a non-word character, like ASCII control characters and punctuation. This has a "Roman"
 * bias - it would be unaware of modern Chinese "punctuation" characters for example.
 * Note: requires utils/unicode.php to be loaded
-* @version $Id$
 * @package utf8
-* @subpackage utils
 * @see utf8_is_valid
 */
 
@@ -21,7 +19,6 @@
 * This function adds the control chars 0x00 to 0x19 to the array of
 * special chars (they are not included in $UTF8_SPECIAL_CHARS)
 * @package utf8
-* @subpackage utils
 * @return string
 * @see utf8_from_unicode
 * @see utf8_is_word_chars
@@ -98,7 +95,6 @@ function utf8_specials_pattern() {
 * numeric characters but just that common non-alphanumeric are not
 * in the string, including ASCII device control characters.
 * @package utf8
-* @subpackage utils
 * @param string to check
 * @return boolean TRUE if the string only contains word characters
 * @see utf8_specials_pattern
@@ -117,7 +113,6 @@ function utf8_is_word_chars($str) {
 * not intended is some kind of security / injection filter.
 *
 * @package utf8
-* @subpackage utils
 * @author Andreas Gohr <andi@splitbrain.org>
 * @param string $string The UTF8 string to strip of special chars
 * @param string (optional) $repl   Replace special with this string

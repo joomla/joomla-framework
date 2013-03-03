@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Keychain
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 use Joomla\Keychain\Keychain;
@@ -12,9 +10,8 @@ use Joomla\Keychain\Keychain;
 /**
  * Tests for the Joomla Platform Keychain Class
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Keychain
- * @since       12.3
+ * @package  Joomla\Framework\Test
+ * @since    12.3
  */
 class KeychainTest extends PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,5 @@
 <?php
 /**
-* @version $Id$
 * Tools for locating / replacing bad bytes in UTF-8 strings
 * The Original Code is Mozilla Communicator client code.
 * The Initial Developer of the Original Code is
@@ -13,7 +12,6 @@
 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
 * @see http://hsivonen.iki.fi/php-utf8/
 * @package utf8
-* @subpackage bad
 * @see utf8_is_valid
 */
 
@@ -28,7 +26,6 @@
 * @param string
 * @return mixed integer byte index or FALSE if no bad found
 * @package utf8
-* @subpackage bad
 */
 function utf8_bad_find($str) {
     $UTF8_BAD =
@@ -65,7 +62,6 @@ function utf8_bad_find($str) {
 * @param string
 * @return mixed array of integers or FALSE if no bad found
 * @package utf8
-* @subpackage bad
 */
 function utf8_bad_findall($str) {
     $UTF8_BAD =
@@ -104,7 +100,6 @@ function utf8_bad_findall($str) {
 * @param string
 * @return string
 * @package utf8
-* @subpackage bad
 */
 function utf8_bad_strip($str) {
     $UTF8_BAD =
@@ -141,7 +136,6 @@ function utf8_bad_strip($str) {
 * @param string to replace bad bytes with (defaults to '?') - use ASCII
 * @return string
 * @package utf8
-* @subpackage bad
 */
 function utf8_bad_replace($str, $replace = '?') {
     $UTF8_BAD =
@@ -175,7 +169,6 @@ function utf8_bad_replace($str, $replace = '?') {
 * do not represent a useful character
 * @see utf8_bad_identify
 * @package utf8
-* @subpackage bad
 */
 define('UTF8_BAD_5OCTET',1);
 
@@ -185,7 +178,6 @@ define('UTF8_BAD_5OCTET',1);
 * do not represent a useful character
 * @see utf8_bad_identify
 * @package utf8
-* @subpackage bad
 */
 define('UTF8_BAD_6OCTET',2);
 
@@ -194,7 +186,6 @@ define('UTF8_BAD_6OCTET',2);
 * Invalid octet for use as start of multi-byte UTF-8 sequence
 * @see utf8_bad_identify
 * @package utf8
-* @subpackage bad
 */
 define('UTF8_BAD_SEQID',3);
 
@@ -203,7 +194,6 @@ define('UTF8_BAD_SEQID',3);
 * From Unicode 3.1, non-shortest form is illegal
 * @see utf8_bad_identify
 * @package utf8
-* @subpackage bad
 */
 define('UTF8_BAD_NONSHORT',4);
 
@@ -212,7 +202,6 @@ define('UTF8_BAD_NONSHORT',4);
 * From Unicode 3.2, surrogate characters are illegal
 * @see utf8_bad_identify
 * @package utf8
-* @subpackage bad
 */
 define('UTF8_BAD_SURROGATE',5);
 
@@ -221,7 +210,6 @@ define('UTF8_BAD_SURROGATE',5);
 * Codepoints outside the Unicode range are illegal
 * @see utf8_bad_identify
 * @package utf8
-* @subpackage bad
 */
 define('UTF8_BAD_UNIOUTRANGE',6);
 
@@ -231,7 +219,6 @@ define('UTF8_BAD_UNIOUTRANGE',6);
 * Note: this is kind of a "catch-all"
 * @see utf8_bad_identify
 * @package utf8
-* @subpackage bad
 */
 define('UTF8_BAD_SEQINCOMPLETE',7);
 
@@ -245,7 +232,6 @@ define('UTF8_BAD_SEQINCOMPLETE',7);
 * @see utf8_bad_explain
 * @see http://hsivonen.iki.fi/php-utf8/
 * @package utf8
-* @subpackage bad
 */
 function utf8_bad_identify($str, &$i) {
 
@@ -379,7 +365,6 @@ function utf8_bad_identify($str, &$i) {
 * @return mixed string message or FALSE if return code unknown
 * @see utf8_bad_identify
 * @package utf8
-* @subpackage bad
 */
 function utf8_bad_explain($code) {
 

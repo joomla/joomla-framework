@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  GitHub
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Github;
-
 
 use Joomla\Uri\Uri;
 use Joomla\Registry\Registry;
@@ -16,9 +13,8 @@ use Joomla\Registry\Registry;
 /**
  * GitHub API object class for the Joomla Platform.
  *
- * @package     Joomla\Framework
- * @subpackage  GitHub
- * @since       11.3
+ * @package  Joomla\Framework
+ * @since    11.3
  */
 abstract class Object
 {

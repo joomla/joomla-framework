@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  FileSystem
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Filesystem\Stream;
-
 
 use Joomla\Filesystem\Support\StringController;
 
@@ -18,9 +15,8 @@ use Joomla\Filesystem\Support\StringController;
  * This class allows you to use a PHP string in the same way that
  * you would normally use a regular stream wrapper
  *
- * @package     Joomla\Framework
- * @subpackage  FileSystem
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class String
 {

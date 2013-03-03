@@ -1,8 +1,6 @@
 <?php
 /**
-* @version $Id$
 * @package utf8
-* @subpackage strings
 */
 
 //---------------------------------------------------------------
@@ -14,7 +12,6 @@
 * @return string with first char of each word uppercase
 * @see http://www.php.net/ucwords
 * @package utf8
-* @subpackage strings
 */
 function utf8_ucwords($str) {
     // Note: [\x0c\x09\x0b\x0a\x0d\x20] matches;
@@ -33,7 +30,6 @@ function utf8_ucwords($str) {
 * @see utf8_ucwords
 * @see utf8_strtoupper
 * @package utf8
-* @subpackage strings
 */
 function utf8_ucwords_callback($matches) {
     $leadingws = $matches[2];

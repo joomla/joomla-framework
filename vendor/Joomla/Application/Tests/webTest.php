@@ -1,8 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Tests
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Application\Tests;
@@ -833,7 +833,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 			'Tests that getInstance will instantiate a valid child class of Joomla\Application\Web.'
 		);
 
-		Helper::setValue('Joomla\Test\WebInspector', 'instance','foo');
+		Helper::setValue('Joomla\Test\WebInspector', 'instance', 'foo');
 
 		$this->assertThat(
 			Web::getInstance('Joomla\Test\WebInspector'),

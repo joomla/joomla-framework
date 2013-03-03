@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Database\Driver;
-
 
 use Joomla\Log\Log;
 use Joomla\Database\Driver;
@@ -17,10 +14,9 @@ use RuntimeException;
 /**
  * MySQLi database driver
  *
- * @package     Joomla\Framework
- * @subpackage  Database
- * @see         http://php.net/manual/en/book.mysqli.php
- * @since       12.1
+ * @package  Joomla\Framework
+ * @see      http://php.net/manual/en/book.mysqli.php
+ * @since    12.1
  */
 class Mysqli extends Driver
 {

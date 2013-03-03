@@ -1,6 +1,5 @@
 <?php
 /**
-* @version $Id$
 * Tools for conversion between UTF-8 and unicode
 * The Original Code is Mozilla Communicator client code.
 * The Initial Developer of the Original Code is
@@ -13,7 +12,6 @@
 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
 * @see http://hsivonen.iki.fi/php-utf8/
 * @package utf8
-* @subpackage unicode
 */
 
 //--------------------------------------------------------------------
@@ -32,7 +30,6 @@
 * @see utf8_from_unicode
 * @see http://hsivonen.iki.fi/php-utf8/
 * @package utf8
-* @subpackage unicode
 */
 function utf8_to_unicode($str) {
     $mState = 0;     // cached expected number of octets after the current octet
@@ -200,7 +197,6 @@ function utf8_to_unicode($str) {
 * @see utf8_to_unicode
 * @see http://hsivonen.iki.fi/php-utf8/
 * @package utf8
-* @subpackage unicode
 */
 function utf8_from_unicode($arr) {
     ob_start();

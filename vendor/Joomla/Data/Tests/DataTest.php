@@ -229,7 +229,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Data::bind
 	 * @expectedException  InvalidArgumentException
-	 * @since              1.0
+	 * @since           1.0
 	 */
 	public function testBind_exception()
 	{
@@ -383,7 +383,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Data::getProperty
 	 * @expectedException  InvalidArgumentException
-	 * @since              1.0
+	 * @since           1.0
 	 */
 	public function testGetProperty_exception()
 	{
@@ -437,7 +437,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             Joomla\Data\Data::setProperty
 	 * @expectedException  InvalidArgumentException
-	 * @since              1.0
+	 * @since           1.0
 	 */
 	public function testSetProperty_exception()
 	{

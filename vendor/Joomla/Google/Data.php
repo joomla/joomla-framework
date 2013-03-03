@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Google
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Google;
-
 
 use Joomla\Registry\Registry;
 use UnexpectedValueException;
@@ -18,9 +15,8 @@ use Exception;
 /**
  * Google API data class for the Joomla Platform.
  *
- * @package     Joomla\Framework
- * @subpackage  Google
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    12.3
  */
 abstract class Data
 {

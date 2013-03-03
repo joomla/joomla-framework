@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Tests
- * @subpackage  Database
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Tests
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Database\Tests;
@@ -14,8 +12,8 @@ require_once __DIR__ . '/QueryInspector.php';
 /**
  * Test class for \Joomla\Database\Query.
  *
- * @package     Joomla\Framework\Tests
- * @since       1.0
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
  */
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -688,7 +686,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::dateFormat
 	 * @expectedException  RuntimeException
-	 * @since              11.3
+	 * @since           11.3
 	 */
 	public function testDateFormatException()
 	{
@@ -800,7 +798,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::escape
 	 * @expectedException  RuntimeException
-	 * @since              11.3
+	 * @since           11.3
 	 */
 	public function testEscapeException()
 	{
@@ -1090,7 +1088,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers        \Joomla\Database\Query::nullDate
 	 * @dataProvider  seedNullDateTest
-	 * @since         1.0
+	 * @since      1.0
 	 */
 	public function testNullDate($quoted, $expected)
 	{
@@ -1108,7 +1106,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::nullDate
 	 * @expectedException  RuntimeException
-	 * @since              11.3
+	 * @since           11.3
 	 */
 	public function testNullDateException()
 	{
@@ -1201,7 +1199,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers        \Joomla\Database\Query::quote
-	 * @since         1.0
+	 * @since      1.0
 	 * @dataProvider  seedQuoteTest
 	 */
 	public function testQuote($text, $escape, $expected)
@@ -1216,7 +1214,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::quote
 	 * @expectedException  RuntimeException
-	 * @since              11.3
+	 * @since           11.3
 	 */
 	public function testQuoteException()
 	{
@@ -1250,7 +1248,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::quoteName
 	 * @expectedException  RuntimeException
-	 * @since              11.3
+	 * @since           11.3
 	 */
 	public function testQuoteNameException()
 	{

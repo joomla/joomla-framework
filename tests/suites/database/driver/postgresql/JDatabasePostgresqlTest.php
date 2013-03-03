@@ -1,7 +1,6 @@
 <?php
 /**
  * @package    Joomla.Test
- *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -9,10 +8,8 @@
 /**
  * Test class for JDatabasePostgresql.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Database
- *
- * @since       11.3
+ * @package  Joomla\Framework\Test
+ * @since    11.3
  */
 class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 {

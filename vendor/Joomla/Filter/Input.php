@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Filter
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Filter;
-
 
 /**
  * JFilterInput is a class for filtering input from any data source
@@ -16,9 +13,8 @@ namespace Joomla\Filter;
  * Forked from the php input filter library by: Daniel Morris <dan@rootcube.com>
  * Original Contributors: Gianpaolo Racca, Ghislain Picard, Marco Wandschneider, Chris Tobin and Andrew Eddie.
  *
- * @package     Joomla\Framework
- * @subpackage  Filter
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    11.1
  */
 class Input
 {

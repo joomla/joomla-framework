@@ -1,21 +1,17 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Crypt
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Crypt;
 
-
 /**
  * JCrypt is a Joomla Platform class for handling basic encryption/decryption of data.
  *
- * @package     Joomla\Framework
- * @subpackage  Crypt
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    12.1
  */
 class Crypt
 {

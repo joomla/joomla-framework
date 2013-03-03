@@ -1,17 +1,15 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Utilities
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 /**
  * Tests for JDate class.
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Utilities
- * @since       11.3
+ * @package  Joomla\Framework\Test
+ * @since    11.3
  */
 class JFactoryTest extends TestCase
 {

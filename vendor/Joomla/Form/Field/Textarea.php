@@ -1,23 +1,19 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Form;
-
 
 /**
  * Form Field class for the Joomla Platform.
  * Supports a multi line area for entry of plain text
  *
- * @package     Joomla\Framework
- * @subpackage  Form
- * @link        http://www.w3.org/TR/html-markup/textarea.html#textarea
- * @since       11.1
+ * @package  Joomla\Framework
+ * @link     http://www.w3.org/TR/html-markup/textarea.html#textarea
+ * @since    11.1
  */
 class Field_Textarea extends Field
 {

@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Form\Rule;
-
 
 use Joomla\Form\Rule;
 use Joomla\Form\Form;
@@ -18,9 +15,8 @@ use SimpleXMLElement;
 /**
  * Form Rule class for the Joomla Platform.
  *
- * @package     Joomla\Framework
- * @subpackage  Form
- * @since       11.2
+ * @package  Joomla\Framework
+ * @since    11.2
  */
 class Color extends Rule
 {

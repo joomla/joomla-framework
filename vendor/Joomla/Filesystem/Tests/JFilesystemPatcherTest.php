@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework\Test
- * @subpackage  Filesystem
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 use Joomla\Filesystem\Patcher;
@@ -13,10 +11,8 @@ use Joomla\Filesystem\Path;
 /**
  * A unit test class for Patcher
  *
- * @package     Joomla\Framework\Test
- * @subpackage  Filesystem
- *
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    12.1
  */
 class PatcherTest extends PHPUnit_Framework_TestCase
 {
@@ -26,7 +22,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since       12.1
+	 * @since    12.1
 	 */
 	protected function setUp()
 	{
@@ -44,7 +40,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since       12.1
+	 * @since    12.1
 	 */
 	protected function tearDown()
 	{
@@ -95,7 +91,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since       12.1
+	 * @since    12.1
 	 */
 	public function addData()
 	{
@@ -185,7 +181,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since       12.1
+	 * @since    12.1
 	 *
 	 * @dataProvider PatcherTest::addData
 	 */
@@ -206,7 +202,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since       12.1
+	 * @since    12.1
 	 */
 	public function testAddFile()
 	{
@@ -319,7 +315,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since       12.1
+	 * @since    12.1
 	 */
 	public function applyData()
 	{
@@ -916,7 +912,7 @@ But after they are produced,
 	 *
 	 * @return  void
 	 *
-	 * @since       12.1
+	 * @since    12.1
 	 *
 	 * @dataProvider PatcherTest::applyData
 	 */
