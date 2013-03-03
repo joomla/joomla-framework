@@ -7,7 +7,7 @@
 
 namespace Joomla\Model\Tests;
 
-use Joomla\Model\Base;
+use Joomla\Model;
 
 /**
  * Concrete class extending Joomla\Model\Base.
@@ -15,6 +15,6 @@ use Joomla\Model\Base;
  * @package  Joomla\Framework\Tests
  * @since    1.0
  */
-class BaseModel extends Base
+class BaseModel extends Model\Base
 {
 }

@@ -7,6 +7,10 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\View\Tests;
+
+use Joomla\View;
+
 /**
  * Concrete class extending JViewBase.
  *
@@ -14,7 +18,7 @@
  * @subpackage  View
  * @since       12.1
  */
-class BaseView extends Joomla\View\Base
+class BaseView extends View\Base
 {
 	/**
 	 * Method to render the view.

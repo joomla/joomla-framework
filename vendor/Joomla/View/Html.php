@@ -1,26 +1,20 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  View
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\View;
 
-
 use Joomla\Filesystem\Path;
 use Joomla\Model\Model;
-use SplPriorityQueue;
-use RuntimeException;
 
 /**
  * Joomla Platform HTML View Class
  *
- * @package     Joomla.Platform
- * @subpackage  View
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 abstract class Html extends Base
 {
@@ -28,7 +22,7 @@ abstract class Html extends Base
 	 * The view layout.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $layout = 'default';
 
@@ -36,7 +30,7 @@ abstract class Html extends Base
 	 * The paths queue.
 	 *
 	 * @var    SplPriorityQueue
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $paths;
 
@@ -46,9 +40,9 @@ abstract class Html extends Base
 	 * @param   Model             $model  The model object.
 	 * @param   SplPriorityQueue  $paths  The paths queue.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function __construct(Model $model, SplPriorityQueue $paths = null)
+	public function __construct(Model $model, \SplPriorityQueue $paths = null)
 	{
 		parent::__construct($model);
 
@@ -61,7 +55,7 @@ abstract class Html extends Base
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __toString()
 	{
@@ -76,7 +70,7 @@ abstract class Html extends Base
 	 * @return  string  The escaped output.
 	 *
 	 * @see     View::escape()
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function escape($output)
 	{
@@ -89,7 +83,7 @@ abstract class Html extends Base
 	 *
 	 * @return  string  The layout name.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getLayout()
 	{
@@ -104,7 +98,7 @@ abstract class Html extends Base
 	 *
 	 * @return  mixed  The layout file name if found, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getPath($layout, $ext = 'php')
 	{
@@ -122,7 +116,7 @@ abstract class Html extends Base
 	 *
 	 * @return  SplPriorityQueue  The paths queue.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getPaths()
 	{
@@ -134,7 +128,7 @@ abstract class Html extends Base
 	 *
 	 * @return  string  The rendered view.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function render()
@@ -145,7 +139,7 @@ abstract class Html extends Base
 		// Check if the layout path was found.
 		if (!$path)
 		{
-			throw new RuntimeException('Layout Path Not Found');
+			throw new \RuntimeException('Layout Path Not Found');
 		}
 
 		// Start an output buffer.
@@ -167,7 +161,7 @@ abstract class Html extends Base
 	 *
 	 * @return  Html  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setLayout($layout)
 	{
@@ -183,9 +177,9 @@ abstract class Html extends Base
 	 *
 	 * @return  Html  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public function setPaths(SplPriorityQueue $paths)
+	public function setPaths(\SplPriorityQueue $paths)
 	{
 		$this->paths = $paths;
 
@@ -197,10 +191,10 @@ abstract class Html extends Base
 	 *
 	 * @return  SplPriorityQueue  The paths queue.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function loadPaths()
 	{
-		return new SplPriorityQueue;
+		return new \SplPriorityQueue;
 	}
 }

@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Framework Base Model Class
  *
- * @package  Joomla\Framework\Tests
+ * @package  Joomla\Framework
  * @since    1.0
  */
 abstract class Base implements Model

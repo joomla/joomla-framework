@@ -1,27 +1,27 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  View
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\View\Tests;
+
+use Joomla\Model;
 
 require_once __DIR__ . '/stubs/tbase.php';
-require_once __DIR__ . '/mocks/JModelMock.php';
 
 /**
- * Tests for the JViewBase class.
+ * Tests for the Joomla\View\Base class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  View
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    1.0
  */
-class JViewBaseTest extends PHPUnit_Framework_TestCase
+class BaseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JViewBase
-	 * @since  12.1
+	 * @var    \Joomla\View\Base
+	 * @since  1.0
 	 */
 	private $instance;
 
@@ -31,7 +31,7 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Base::__construct
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__construct()
 	{
@@ -44,7 +44,7 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Base::escape
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testEscape()
 	{
@@ -56,13 +56,13 @@ class JViewBaseTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
 		parent::setUp();
 
-		$model = JModelMock::create($this);
+		$model = Model\Tests\Mock\Model::create($this);
 
 		$this->instance = new BaseView($model);
 	}

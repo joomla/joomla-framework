@@ -1,23 +1,19 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  View
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\View;
-
 
 use Joomla\Model\Model;
 
 /**
  * Joomla Platform Base View Class
  *
- * @package     Joomla.Platform
- * @subpackage  View
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 abstract class Base implements View
 {
@@ -25,7 +21,7 @@ abstract class Base implements View
 	 * The model object.
 	 *
 	 * @var    Model
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $model;
 
@@ -34,7 +30,7 @@ abstract class Base implements View
 	 *
 	 * @param   Model  $model  The model object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct(Model $model)
 	{
@@ -50,7 +46,7 @@ abstract class Base implements View
 	 * @return  string  The escaped output.
 	 *
 	 * @see     View::escape()
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function escape($output)
 	{

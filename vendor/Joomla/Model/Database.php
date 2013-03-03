@@ -14,7 +14,7 @@ use Joomla\Factory;
 /**
  * Joomla Platform Database Model Class
  *
- * @package  Joomla\Framework\Tests
+ * @package  Joomla\Framework
  * @since    1.0
  */
 abstract class Database extends Base

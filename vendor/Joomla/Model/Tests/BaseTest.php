@@ -9,7 +9,7 @@ namespace Joomla\Model\Tests;
 
 use Joomla\Registry\Registry;
 
-require_once __DIR__ . '/Stubs/BaseModel.php';
+require_once __DIR__ . '/Stubs/tbase.php';
 
 /**
  * Tests for the Joomla\Model\Base class.
@@ -17,10 +17,10 @@ require_once __DIR__ . '/Stubs/BaseModel.php';
  * @package  Joomla\Framework\Tests
  * @since    1.0
  */
-class ModelBaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    BaseModel
+	 * @var    \Joomla\Model\Base
 	 * @since  1.0
 	 */
 	private $instance;

@@ -7,6 +7,10 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Model\Tests;
+
+use Joomla\Model;
+
 /**
  * Concrete class extending JModelDatabase.
  *
@@ -14,6 +18,6 @@
  * @subpackage  Model
  * @since       12.1
  */
-class DatabaseModel extends Joomla\Model\Database
+class DatabaseModel extends Model\Database
 {
 }

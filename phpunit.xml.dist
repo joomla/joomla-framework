@@ -10,30 +10,27 @@
 	-->
 
 	<testsuites>
-		<!-- <testsuite name="Database">
-			<directory>tests/suites/database</directory>
-		</testsuite> -->
 		<testsuite name="Unit">
 			<directory>vendor/Joomla/*/tests</directory>
 		</testsuite>
 	</testsuites>
 
 	<logging>
-		<!-- <log type="coverage-html" target="build/coverage" title="Joomla-Framework" charset="UTF-8" yui="true" highlight="true"
+		<!--
+		<log type="coverage-html" target="build/coverage" title="Joomla-Framework" charset="UTF-8" yui="true" highlight="true"
 			lowUpperBound="35" highLowerBound="70" />
 		<log type="coverage-clover" target="build/logs/clover.xml" />
 		<log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false" /> -->
 	</logging>
 	<filter>
-		<!-- <whitelist addUncoveredFilesFromWhitelist="true">
+		<!--
+		<whitelist addUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">vendor/Joomla</directory>
-			<file>vendor/import.php</file>
-			<file>vendor/loader.php</file>
-			<file>vendor/platform.php</file>
 			<exclude>
 				<directory suffix=".php">vendor/Joomla/*/Tests</directory>
 				<directory suffix=".php">vendor/Joomla/*/tests</directory>
 			</exclude>
-		</whitelist> -->
+		</whitelist>
+		-->
 	</filter>
 </phpunit>

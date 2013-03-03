@@ -1,25 +1,19 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Controller
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Controller;
 
-
-use Serializable;
-
 /**
  * Joomla Platform Controller Interface
  *
- * @package     Joomla.Platform
- * @subpackage  Controller
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
-interface Controller extends Serializable
+interface Controller extends \Serializable
 {
 	/**
 	 * Execute the controller.
@@ -28,7 +22,7 @@ interface Controller extends Serializable
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  LogicException
 	 * @throws  RuntimeException
 	 */
@@ -37,18 +31,18 @@ interface Controller extends Serializable
 	/**
 	 * Get the application object.
 	 *
-	 * @return  JApplicationBase  The application object.
+	 * @return  \Joomla\Application\Base  The application object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getApplication();
 
 	/**
 	 * Get the input object.
 	 *
-	 * @return  JInput  The input object.
+	 * @return  \Joomla\Input\Input  The input object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getInput();
 }

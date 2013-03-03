@@ -1,27 +1,28 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  View
- *
- * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\View\Tests;
+
+use Joomla\Model;
+use Joomla\Test\Helper;
 
 require_once __DIR__ . '/stubs/thtml.php';
-require_once __DIR__ . '/mocks/JModelMock.php';
 
 /**
- * Tests for the JViewHtml class.
+ * Tests for the Joomla\View\Html class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  View
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    1.0
  */
-class JViewHtmlTest extends PHPUnit_Framework_TestCase
+class HtmlTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JViewHtml
-	 * @since  12.1
+	 * @var    \Joomla\View\Html
+	 * @since  1.0
 	 */
 	private $instance;
 
@@ -31,14 +32,14 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::__construct
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__construct()
 	{
-		$this->assertAttributeEquals(new SplPriorityQueue, 'paths', $this->instance, 'Check default paths.');
+		$this->assertAttributeEquals(new \SplPriorityQueue, 'paths', $this->instance, 'Check default paths.');
 
-		$model = JModelMock::create($this);
-		$paths = new SplPriorityQueue;
+		$model = Model\Tests\Mock\Model::create($this);
+		$paths = new \SplPriorityQueue;
 		$paths->insert('foo', 1);
 
 		$this->instance = new HtmlView($model, $paths);
@@ -51,7 +52,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::__toString
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toString()
 	{
@@ -69,7 +70,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::escape
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testEscape()
 	{
@@ -82,11 +83,11 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::getLayout
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetLayout()
 	{
-		TestReflection::setValue($this->instance, 'layout', 'foo');
+		Helper::setValue($this->instance, 'layout', 'foo');
 
 		$this->assertEquals('foo', $this->instance->getLayout());
 	}
@@ -97,7 +98,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::getPath
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetPath()
 	{
@@ -124,12 +125,12 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::getPaths
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetPaths()
 	{
 		// Inject a known value into the property.
-		TestReflection::setValue($this->instance, 'paths', 'paths');
+		Helper::setValue($this->instance, 'paths', 'paths');
 
 		// Check dirty path.
 		$this->assertEquals('paths', $this->instance->getPaths());
@@ -141,7 +142,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::render
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testRender()
 	{
@@ -160,7 +161,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::render
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @expectedException  RuntimeException
 	 */
@@ -175,7 +176,7 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::setLayout
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSetLayout()
 	{
@@ -190,11 +191,11 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::setPaths
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSetPaths()
 	{
-		$paths = new SplPriorityQueue;
+		$paths = new \SplPriorityQueue;
 		$paths->insert('bar', 99);
 
 		$result = $this->instance->setPaths($paths);
@@ -208,11 +209,11 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\View\Html::loadPaths
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testLoadPaths()
 	{
-		$this->assertEquals(new SplPriorityQueue, TestReflection::invoke($this->instance, 'loadPaths'));
+		$this->assertEquals(new \SplPriorityQueue, Helper::invoke($this->instance, 'loadPaths'));
 	}
 
 	/**
@@ -220,13 +221,13 @@ class JViewHtmlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
 		parent::setUp();
 
-		$model = JModelMock::create($this);
+		$model = Model\Tests\Mock\Model::create($this);
 
 		$this->instance = new HtmlView($model);
 	}

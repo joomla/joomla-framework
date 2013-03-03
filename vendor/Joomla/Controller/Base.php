@@ -1,34 +1,29 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Controller
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Controller;
 
-
 use Joomla\Factory;
 use Joomla\Input\Input;
 use Joomla\Application\Base as ApplicationBase;
-use UnexpectedValueException;
 
 /**
  * Joomla Platform Base Controller Class
  *
- * @package     Joomla.Platform
- * @subpackage  Controller
- * @since       12.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 abstract class Base implements Controller
 {
 	/**
 	 * The application object.
 	 *
-	 * @var    JApplicationBase
-	 * @since  12.1
+	 * @var    ApplicationBase
+	 * @since  1.0
 	 */
 	protected $app;
 
@@ -36,17 +31,17 @@ abstract class Base implements Controller
 	 * The input object.
 	 *
 	 * @var    JInput
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $input;
 
 	/**
 	 * Instantiate the controller.
 	 *
-	 * @param   JInput            $input  The input object.
-	 * @param   JApplicationBase  $app    The application object.
+	 * @param   Input            $input  The input object.
+	 * @param   ApplicationBase  $app    The application object.
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function __construct(Input $input = null, ApplicationBase $app = null)
 	{
@@ -58,9 +53,9 @@ abstract class Base implements Controller
 	/**
 	 * Get the application object.
 	 *
-	 * @return  JApplicationBase  The application object.
+	 * @return  ApplicationBase  The application object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getApplication()
 	{
@@ -70,9 +65,9 @@ abstract class Base implements Controller
 	/**
 	 * Get the input object.
 	 *
-	 * @return  JInput  The input object.
+	 * @return  \Joomla\Input\Input  The input object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getInput()
 	{
@@ -84,7 +79,7 @@ abstract class Base implements Controller
 	 *
 	 * @return  string  The serialized controller.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function serialize()
 	{
@@ -96,10 +91,10 @@ abstract class Base implements Controller
 	 *
 	 * @param   string  $input  The serialized controller.
 	 *
-	 * @return  JController  Supports chaining.
+	 * @return  \Joomla\Controller\Base  Supports chaining.
 	 *
-	 * @since   12.1
-	 * @throws  UnexpectedValueException if input is not the right class.
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException if input is not the right class.
 	 */
 	public function unserialize($input)
 	{
@@ -111,7 +106,7 @@ abstract class Base implements Controller
 
 		if (!($this->input instanceof Input))
 		{
-			throw new UnexpectedValueException(sprintf('%s::unserialize would not accept a `%s`.', get_class($this), gettype($this->input)));
+			throw new \UnexpectedValueException(sprintf('%s::unserialize would not accept a `%s`.', get_class($this), gettype($this->input)));
 		}
 
 		return $this;
@@ -120,9 +115,9 @@ abstract class Base implements Controller
 	/**
 	 * Load the application object.
 	 *
-	 * @return  JApplicationBase  The application object.
+	 * @return  ApplicationBase  The application object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function loadApplication()
 	{
@@ -132,9 +127,9 @@ abstract class Base implements Controller
 	/**
 	 * Load the input object.
 	 *
-	 * @return  JInput  The input object.
+	 * @return  Input  The input object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function loadInput()
 	{

@@ -7,6 +7,10 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\View\Tests;
+
+use Joomla\View;
+
 /**
  * Concrete class extending JViewHtml.
  *
@@ -14,6 +18,6 @@
  * @subpackage  View
  * @since       12.1
  */
-class HtmlView extends Joomla\View\Html
+class HtmlView extends View\Html
 {
 }

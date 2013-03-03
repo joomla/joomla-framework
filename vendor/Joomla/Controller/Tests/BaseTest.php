@@ -7,24 +7,25 @@
 
 namespace Joomla\Controller\Tests;
 
+use Joomla\Application\Tests\Mock as ApplicationMock;
 use Joomla\Factory;
 use Joomla\Input\Input;
 use Joomla\Input\Cookie as InputCookie;
+use Joomla\Test\Helper;
 
 require_once __DIR__ . '/Stubs/BaseController.php';
 
 /**
- * Tests for the JController class.
+ * Tests for the Joomla\Controller\Base class.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Controller
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    1.0
  */
 class BaseTest extends \TestCase
 {
 	/**
-	 * @var    JControllerBase
-	 * @since  12.1
+	 * @var    \Joomla\Controller\Base
+	 * @since  1.0
 	 */
 	private $instance;
 
@@ -34,20 +35,18 @@ class BaseTest extends \TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Controller\Base::__construct
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__construct()
 	{
-		$prop = new \ReflectionProperty($this->instance, 'app');
-		$prop->setAccessible(true);
-		$app = $prop->getValue($this->instance);
+		$app = Helper::getValue($this->instance, 'app');
 
 		// New controller with no dependancies.
 		$this->assertAttributeEquals('default', 'input', $app, 'Checks the mock application came from the factory.');
 		$this->assertAttributeEquals('default', 'input', $this->instance, 'Checks the input came from the application.');
 
 		// New controller with dependancies
-		$app = \TestMockApplicationWeb::create($this);
+		$app = ApplicationMock\Base::create($this);
 		$app->test = 'ok';
 
 		$class = new BaseController(new InputCookie, $app);
@@ -61,13 +60,11 @@ class BaseTest extends \TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Controller\Base::getApplication
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetApplication()
 	{
-		$prop = new \ReflectionProperty($this->instance, 'app');
-		$prop->setAccessible(true);
-		$prop->setValue($this->instance, 'appValue');
+		Helper::setValue($this->instance, 'app', 'appValue');
 
 		$this->assertEquals('appValue', $this->instance->getApplication());
 	}
@@ -78,13 +75,11 @@ class BaseTest extends \TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Controller\Base::getInput
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetInput()
 	{
-		$prop = new \ReflectionProperty($this->instance, 'input');
-		$prop->setAccessible(true);
-		$prop->setValue($this->instance, 'inputValue');
+		Helper::setValue($this->instance, 'input', 'inputValue');
 
 		$this->assertEquals('inputValue', $this->instance->getInput());
 	}
@@ -95,7 +90,7 @@ class BaseTest extends \TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Controller\Base::serialize
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSerialise()
 	{
@@ -108,7 +103,7 @@ class BaseTest extends \TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Controller\Base::unserialize
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnserialise()
 	{
@@ -124,7 +119,7 @@ class BaseTest extends \TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Controller\Base::unserialize
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @expectedException  UnexpectedValueException
 	 */
@@ -139,16 +134,13 @@ class BaseTest extends \TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Controller\Base::loadApplication
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testLoadApplication()
 	{
-		$method = new \ReflectionMethod($this->instance, 'loadApplication');
-		$method->setAccessible(true);
-
 		Factory::$application = 'application';
 
-		$this->assertEquals('application', $method->invoke($this->instance));
+		$this->assertEquals('application', Helper::invoke($this->instance, 'loadApplication'));
 	}
 
 	/**
@@ -157,19 +149,14 @@ class BaseTest extends \TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Controller\Base::loadInput
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testLoadInput()
 	{
 		// Reset the input property so we know it changes based on the mock application.
-		$prop = new \ReflectionProperty($this->instance, 'input');
-		$prop->setAccessible(true);
-		$prop->setValue($this->instance, null);
+		Helper::setValue($this->instance, 'input', null);
 
-		$method = new \ReflectionMethod($this->instance, 'loadInput');
-		$method->setAccessible(true);
-
-		$this->assertEquals('default', $method->invoke($this->instance));
+		$this->assertEquals('default', Helper::invoke($this->instance, 'loadInput'));
 	}
 
 	/**
@@ -177,7 +164,7 @@ class BaseTest extends \TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -185,7 +172,7 @@ class BaseTest extends \TestCase
 
 		$this->saveFactoryState();
 
-		$app = \TestMockApplicationWeb::create($this);
+		$app = ApplicationMock\Base::create($this);
 		$app->input = 'default';
 
 		Factory::$application = $app;
@@ -198,7 +185,7 @@ class BaseTest extends \TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{

@@ -1,31 +1,30 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  View
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
- * @license     GNU General Public License
+ * @package    Joomla\Framework\Test
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License
  */
 
+namespace Joomla\Model\Tests\Mock;
+
 /**
- * Mock class for JModel.
+ * Mock class for \Joomla\Model\Base.
  *
- * @package     Joomla.UnitTest
- * @subpackage  View
- * @since       12.1
+ * @package  Joomla\Framework\Test
+ * @since    1.0
  */
-class JModelMock
+class Model
 {
 	/**
 	 * Creates and instance of the mock JModel object.
 	 *
-	 * @param   object  $test  A test object.
+	 * @param   \PHPUnit_Framework_TestCase  $test  A test object.
 	 *
 	 * @return  object
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
-	public static function create($test)
+	public static function create(\PHPUnit_Framework_TestCase $test)
 	{
 		// Collect all the relevant methods in JModel.
 		$methods = array(

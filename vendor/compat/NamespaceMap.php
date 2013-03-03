@@ -1,8 +1,6 @@
 <?php
 
 return array(
-	'JRoute' => 'Joomla\\Application\\Route',
-	'JRouter' => 'Joomla\\Application\\Router',
 	'JFactory' => 'Joomla\\Factory',
 	'JFormField' => 'Joomla\\Form\\Field',
 	'JFormFieldCacheHandler' => 'Joomla\\Form\\Field_CacheHandler',

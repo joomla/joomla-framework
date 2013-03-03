@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Platform Model Interface
  *
- * @package  Joomla\Framework\Tests
+ * @package  Joomla\Framework
  * @since    1.0
  */
 interface Model
