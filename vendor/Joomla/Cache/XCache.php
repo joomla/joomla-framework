@@ -11,14 +11,12 @@ namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
 
-use RuntimeException;
-
 /**
  * XCache cache driver for the Joomla Framework.
  *
  * @package     Joomla.Framework
  * @subpackage  Cache
- * @since       12.3
+ * @since       1.0
  */
 class XCache extends Cache
 {
@@ -27,8 +25,8 @@ class XCache extends Cache
 	 *
 	 * @param   JRegistry  $options  Caching options object.
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $options = null)
 	{
@@ -36,7 +34,7 @@ class XCache extends Cache
 
 		if (!extension_loaded('xcache') || !is_callable('xcache_get'))
 		{
-			throw new RuntimeException('XCache not supported.');
+			throw new \RuntimeException('XCache not supported.');
 		}
 	}
 
@@ -50,14 +48,14 @@ class XCache extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function add($key, $value, $ttl)
 	{
-		if (!xcache_set($key, $value, $ttl))
+		if (!\xcache_set($key, $value, $ttl))
 		{
-			throw new RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
 		}
 	}
 
@@ -68,11 +66,11 @@ class XCache extends Cache
 	 *
 	 * @return  boolean
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function exists($key)
 	{
-		return xcache_isset($key);
+		return \xcache_isset($key);
 	}
 
 	/**
@@ -82,11 +80,11 @@ class XCache extends Cache
 	 *
 	 * @return  mixed
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function fetch($key)
 	{
-		return xcache_get($key);
+		return \xcache_get($key);
 	}
 
 	/**
@@ -96,14 +94,14 @@ class XCache extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function delete($key)
 	{
-		if (!xcache_unset($key))
+		if (!\xcache_unset($key))
 		{
-			throw new RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
 		}
 	}
 
@@ -116,14 +114,14 @@ class XCache extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function set($key, $value, $ttl)
 	{
-		if (!xcache_set($key, $value, $ttl))
+		if (!\xcache_set($key, $value, $ttl))
 		{
-			throw new RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
 		}
 	}
 }

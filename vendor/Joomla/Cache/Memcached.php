@@ -1,30 +1,25 @@
 <?php
 /**
- * @package     Joomla.Framework
- * @subpackage  Cache
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
 
-use RuntimeException;
-
 /**
  * Memcached cache driver for the Joomla Framework.
  *
- * @package     Joomla.Framework
- * @subpackage  Cache
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Memcached extends Cache
 {
 	/**
 	 * @var    Memcached  The memcached driver.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $driver;
 
@@ -33,8 +28,8 @@ class Memcached extends Cache
 	 *
 	 * @param   JRegistry  $options  Caching options object.
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $options = null)
 	{
@@ -42,7 +37,7 @@ class Memcached extends Cache
 
 		if (!extension_loaded('memcached') || !class_exists('\\Memcached'))
 		{
-			throw new RuntimeException('Memcached not supported.');
+			throw new \RuntimeException('Memcached not supported.');
 		}
 	}
 
@@ -55,8 +50,8 @@ class Memcached extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function add($key, $value, $ttl)
 	{
@@ -66,7 +61,7 @@ class Memcached extends Cache
 
 		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS)
 		{
-			throw new RuntimeException(sprintf('Unable to add cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
+			throw new \RuntimeException(sprintf('Unable to add cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 		}
 	}
 
@@ -77,7 +72,7 @@ class Memcached extends Cache
 	 *
 	 * @return  boolean
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function exists($key)
 	{
@@ -95,8 +90,8 @@ class Memcached extends Cache
 	 *
 	 * @return  mixed
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function fetch($key)
 	{
@@ -116,7 +111,7 @@ class Memcached extends Cache
 		}
 		else
 		{
-			throw new RuntimeException(sprintf('Unable to fetch cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 		}
 	}
 
@@ -127,8 +122,8 @@ class Memcached extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function delete($key)
 	{
@@ -138,7 +133,7 @@ class Memcached extends Cache
 
 		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
 		{
-			throw new RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
+			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 		}
 	}
 
@@ -151,8 +146,8 @@ class Memcached extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function set($key, $value, $ttl)
 	{
@@ -162,7 +157,7 @@ class Memcached extends Cache
 
 		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS)
 		{
-			throw new RuntimeException(sprintf('Unable to set cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
+			throw new \RuntimeException(sprintf('Unable to set cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 		}
 	}
 
@@ -171,7 +166,7 @@ class Memcached extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	private function _connect()
 	{

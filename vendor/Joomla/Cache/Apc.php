@@ -1,24 +1,19 @@
 <?php
 /**
- * @package     Joomla.Framework
- * @subpackage  Cache
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
 
-use RuntimeException;
-
 /**
  * APC cache driver for the Joomla Platform.
  *
- * @package     Joomla.Framework
- * @subpackage  Cache
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Apc extends Cache
 {
@@ -27,8 +22,8 @@ class Apc extends Cache
 	 *
 	 * @param   JRegistry  $options  Caching options object.
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $options = null)
 	{
@@ -36,7 +31,7 @@ class Apc extends Cache
 
 		if (!extension_loaded('apc') || !is_callable('apc_fetch'))
 		{
-			throw new RuntimeException('APC not supported.');
+			throw new \RuntimeException('APC not supported.');
 		}
 	}
 
@@ -49,14 +44,14 @@ class Apc extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function add($key, $value, $ttl)
 	{
 		if (!apc_add($key, $value, $ttl))
 		{
-			throw new RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
 		}
 	}
 
@@ -67,11 +62,11 @@ class Apc extends Cache
 	 *
 	 * @return  boolean
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function exists($key)
 	{
-		return apc_exists($key);
+		return \apc_exists($key);
 	}
 
 	/**
@@ -81,8 +76,8 @@ class Apc extends Cache
 	 *
 	 * @return  mixed
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function fetch($key)
 	{
@@ -92,7 +87,7 @@ class Apc extends Cache
 
 		if (!$success)
 		{
-			throw new RuntimeException(sprintf('Unable to fetch cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.', $key));
 		}
 
 		return $data;
@@ -105,14 +100,14 @@ class Apc extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function delete($key)
 	{
 		if (!apc_delete($key))
 		{
-			throw new RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
 		}
 	}
 
@@ -125,14 +120,14 @@ class Apc extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function set($key, $value, $ttl)
 	{
 		if (!apc_store($key, $value, $ttl))
 		{
-			throw new RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
 		}
 	}
 }

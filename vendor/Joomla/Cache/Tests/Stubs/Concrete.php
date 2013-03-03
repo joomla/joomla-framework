@@ -1,19 +1,21 @@
 <?php
 /**
- * @package    Joomla\Framework
+ * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Cache;
+namespace Joomla\Cache\Tests;
+
+use Joomla\Cache\Cache;
 
 /**
- * Runtime cache only driver for the Joomla Framework.
+ * Tests for the Joomla\Cache\Cache class.
  *
- * @package  Joomla\Framework
+ * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class None extends Cache
+class ConcreteCache extends Cache
 {
 	/**
 	 * Method to add a storage entry.
@@ -25,40 +27,10 @@ class None extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
+	 * @throws  RuntimeException
 	 */
 	protected function add($key, $value, $ttl)
 	{
-		return null;
-	}
-
-	/**
-	 * Method to determine whether a storage entry has been set for a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	protected function exists($key)
-	{
-		return false;
-	}
-
-	/**
-	 * Method to get a storage entry value from a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function fetch($key)
-	{
-		return null;
 	}
 
 	/**
@@ -69,11 +41,24 @@ class None extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
+	 * @throws  RuntimeException
+	*/
 	protected function delete($key)
 	{
-		return null;
+	}
+
+	/**
+	 * Method to get a storage entry value from a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 * @throws  RuntimeException
+	*/
+	protected function fetch($key)
+	{
 	}
 
 	/**
@@ -86,10 +71,9 @@ class None extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
+	 * @throws  RuntimeException
+	*/
 	protected function set($key, $value, $ttl)
 	{
-		return null;
 	}
 }

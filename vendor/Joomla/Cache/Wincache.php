@@ -1,24 +1,19 @@
 <?php
 /**
- * @package     Joomla.Framework
- * @subpackage  Cache
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
 
-use RuntimeException;
-
 /**
  * WinCache cache driver for the Joomla Framework.
  *
- * @package     Joomla.Framework
- * @subpackage  Cache
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Wincache extends Cache
 {
@@ -27,8 +22,8 @@ class Wincache extends Cache
 	 *
 	 * @param   JRegistry  $options  Caching options object.
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $options = null)
 	{
@@ -36,7 +31,7 @@ class Wincache extends Cache
 
 		if (!extension_loaded('wincache') || !is_callable('wincache_ucache_get'))
 		{
-			throw new RuntimeException('WinCache not supported.');
+			throw new \RuntimeException('WinCache not supported.');
 		}
 	}
 
@@ -49,14 +44,14 @@ class Wincache extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function add($key, $value, $ttl)
 	{
-		if (!wincache_ucache_add($key, $value, $ttl))
+		if (!\wincache_ucache_add($key, $value, $ttl))
 		{
-			throw new RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
 		}
 	}
 
@@ -67,11 +62,11 @@ class Wincache extends Cache
 	 *
 	 * @return  boolean
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function exists($key)
 	{
-		return wincache_ucache_exists($key);
+		return \wincache_ucache_exists($key);
 	}
 
 	/**
@@ -81,18 +76,18 @@ class Wincache extends Cache
 	 *
 	 * @return  mixed
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function fetch($key)
 	{
 		$success = true;
 
-		$data = wincache_ucache_get($key, $success);
+		$data = \wincache_ucache_get($key, $success);
 
 		if (!$success)
 		{
-			throw new RuntimeException(sprintf('Unable to fetch cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.', $key));
 		}
 
 		return $data;
@@ -105,14 +100,14 @@ class Wincache extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function delete($key)
 	{
-		if (!wincache_ucache_delete($key))
+		if (!\wincache_ucache_delete($key))
 		{
-			throw new RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
 		}
 	}
 
@@ -125,14 +120,14 @@ class Wincache extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function set($key, $value, $ttl)
 	{
-		if (!wincache_ucache_set($key, $value, $ttl))
+		if (!\wincache_ucache_set($key, $value, $ttl))
 		{
-			throw new RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
 		}
 	}
 }

@@ -1,24 +1,19 @@
 <?php
 /**
- * @package     Joomla.Framework
- * @subpackage  Cache
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
 
-use RuntimeException;
-
 /**
  * Filesystem cache driver for the Joomla Platform.
  *
- * @package     Joomla.Framework
- * @subpackage  Cache
- * @since       12.3
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class File extends Cache
 {
@@ -27,8 +22,8 @@ class File extends Cache
 	 *
 	 * @param   JRegistry  $options  Caching options object.
 	 *
-	 * @since   12.3
-	 * @throws  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $options = null)
 	{
@@ -38,11 +33,11 @@ class File extends Cache
 
 		if (!is_dir($this->options->get('file.path')))
 		{
-			throw new RuntimeException(sprintf('The base cache path `%s` does not exist.', $this->options->get('file.path')));
+			throw new \RuntimeException(sprintf('The base cache path `%s` does not exist.', $this->options->get('file.path')));
 		}
 		elseif (!is_writable($this->options->get('file.path')))
 		{
-			throw new RuntimeException(sprintf('The base cache path `%s` is not writable.', $this->options->get('file.path')));
+			throw new \RuntimeException(sprintf('The base cache path `%s` is not writable.', $this->options->get('file.path')));
 		}
 	}
 
@@ -55,14 +50,14 @@ class File extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function add($key, $value, $ttl)
 	{
 		if ($this->exists($key))
 		{
-			throw new RuntimeException(sprintf('Unable to add cache entry for %s. Entry already exists.', $key));
+			throw new \RuntimeException(sprintf('Unable to add cache entry for %s. Entry already exists.', $key));
 		}
 
 		$success = (bool) file_put_contents(
@@ -73,7 +68,7 @@ class File extends Cache
 
 		if (!$success)
 		{
-			throw new RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
 		}
 	}
 
@@ -84,7 +79,7 @@ class File extends Cache
 	 *
 	 * @return  boolean
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function exists($key)
 	{
@@ -98,7 +93,7 @@ class File extends Cache
 	 *
 	 * @return  mixed
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function fetch($key)
@@ -110,9 +105,9 @@ class File extends Cache
 			{
 				$this->delete($key);
 			}
-			catch (RuntimeException $e)
+			catch (\RuntimeException $e)
 			{
-				throw new RuntimeException(sprintf('Unable to clean expired cache entry for %s.', $key), null, $e);
+				throw new \RuntimeException(sprintf('Unable to clean expired cache entry for %s.', $key), null, $e);
 			}
 
 			return;
@@ -127,13 +122,13 @@ class File extends Cache
 
 		if (!$resource)
 		{
-			throw new RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot open the resource.', $key));
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot open the resource.', $key));
 		}
 
 		// If locking is enabled get a shared lock for reading on the resource.
 		if ($this->options->get('file.locking') && !flock($resource, LOCK_SH))
 		{
-			throw new RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot obtain a lock.', $key));
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot obtain a lock.', $key));
 		}
 
 		$data = stream_get_contents($resource);
@@ -141,7 +136,7 @@ class File extends Cache
 		// If locking is enabled release the lock on the resource.
 		if ($this->options->get('file.locking') && !flock($resource, LOCK_UN))
 		{
-			throw new RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot release the lock.', $key));
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot release the lock.', $key));
 		}
 
 		fclose($resource);
@@ -156,7 +151,7 @@ class File extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function delete($key)
@@ -165,7 +160,7 @@ class File extends Cache
 
 		if (!$success)
 		{
-			throw new RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
 		}
 	}
 
@@ -178,7 +173,7 @@ class File extends Cache
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function set($key, $value, $ttl)
@@ -191,7 +186,7 @@ class File extends Cache
 
 		if (!$success)
 		{
-			throw new RuntimeException(sprintf('Unable to set cache entry for %s.', $value));
+			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $value));
 		}
 	}
 
@@ -216,7 +211,7 @@ class File extends Cache
 	 *
 	 * @return  boolean  True if the data has expired.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	private function _isExpired($key)
 	{
