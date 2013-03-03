@@ -3,6 +3,7 @@
 <project name="joomla-platform" default="build" basedir=".">
 	<property name="source" value="vendor" />
 	<property name="joomlasource" value="vendor/Joomla,vendor/compat,vendor/platform.php,vendor/loader.php,vendor/import.php" />
+	<property name="testsource" value="${basedir}/vendor/Joomla/*/Tests,${basedir}/vendor/Joomla/*/_Tests" />
 
 	<condition property="script-suffix" value=".bat" else="">
 		<os family="windows" />
@@ -48,6 +49,7 @@
 			<arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
 			<arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
 			<arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+			<arg value="--ignore=${testsource}" />
 			<arg path="${source}" />
 		</exec>
 	</target>
@@ -57,6 +59,8 @@
 			<arg path="${joomlasource}" />
 			<arg value="xml" />
 			<arg value="${basedir}/build/phpmd.xml" />
+			<arg value="--exclude" />
+			<arg value="${testsource}" />
 			<arg value="--reportfile" />
 			<arg value="${basedir}/build/logs/pmd.xml" />
 		</exec>
@@ -66,6 +70,8 @@
 		<exec executable="phpcpd${script-suffix}">
 			<arg value="--log-pmd" />
 			<arg value="${basedir}/build/logs/pmd-cpd.xml" />
+			<arg value="--exclude" />
+			<arg value="${testsource}" />
 			<arg path="${source}/Joomla" />
 		</exec>
 	</target>
@@ -74,6 +80,8 @@
 		<exec executable="phploc${script-suffix}">
 			<arg value="--log-csv" />
 			<arg value="${basedir}/build/logs/phploc.csv" />
+			<arg value="--exclude" />
+			<arg value="${testsource}" />
 			<arg path="${source}/Joomla" />
 		</exec>
 	</target>
