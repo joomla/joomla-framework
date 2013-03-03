@@ -1,10 +1,8 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Uri
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Uri;
@@ -18,14 +16,13 @@ use Joomla\String\String;
  * for the Joomla Platform to access and manipulate a URI.  Second it obtains the URI of
  * the current executing script from the server regardless of server.
  *
- * @package     Joomla.Platform
- * @subpackage  Uri
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Uri
 {
 	/**
-	 * @var    string Original URI
+	 * @var    string  Original URI
 	 * @since  12.1
 	 */
 	protected $uri = null;
@@ -86,7 +83,7 @@ class Uri
 
 	/**
 	 * @var    array  An array of Uri instances.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected static $instances = array();
 
@@ -96,7 +93,7 @@ class Uri
 	 *
 	 * @param   string  $uri  The optional URI string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($uri = null)
 	{
@@ -111,7 +108,7 @@ class Uri
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __toString()
 	{
@@ -126,7 +123,7 @@ class Uri
 	 *
 	 * @return  Uri  The Uri object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getInstance($uri = 'SERVER')
 	{
@@ -150,7 +147,6 @@ class Uri
 				 * to determine if we are running on apache or IIS.  If PHP_SELF and REQUEST_URI
 				 * are present, we will assume we are running on apache.
 				 */
-
 				if (!empty($_SERVER['PHP_SELF']) && !empty($_SERVER['REQUEST_URI']))
 				{
 					// To build the entire URI we need to prepend the protocol, and the http host
@@ -192,7 +188,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function reset()
 	{
@@ -206,7 +202,7 @@ class Uri
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function parse($uri)
 	{
@@ -253,7 +249,7 @@ class Uri
 	 *
 	 * @return  string  The rendered URI string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function toString(array $parts = array('scheme', 'user', 'pass', 'host', 'port', 'path', 'query', 'fragment'))
 	{
@@ -282,7 +278,7 @@ class Uri
 	 *
 	 * @return  string  Previous value for the query variable.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setVar($name, $value)
 	{
@@ -303,7 +299,7 @@ class Uri
 	 *
 	 * @return  boolean  True if the variable exists.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function hasVar($name)
 	{
@@ -318,7 +314,7 @@ class Uri
 	 *
 	 * @return  array   Query variables.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getVar($name, $default = null)
 	{
@@ -337,7 +333,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function delVar($name)
 	{
@@ -358,7 +354,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setQuery($query)
 	{
@@ -387,7 +383,7 @@ class Uri
 	 *
 	 * @return  string   Query string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getQuery($toArray = false)
 	{
@@ -413,7 +409,7 @@ class Uri
 	 * @return  string  The resulting query string.
 	 *
 	 * @see     parse_str()
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function buildQuery(array $params)
 	{
@@ -431,7 +427,7 @@ class Uri
 	 *
 	 * @return  string  The URI scheme.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getScheme()
 	{
@@ -446,7 +442,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setScheme($scheme)
 	{
@@ -459,7 +455,7 @@ class Uri
 	 *
 	 * @return  string  The URI username.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getUser()
 	{
@@ -473,7 +469,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setUser($user)
 	{
@@ -486,7 +482,7 @@ class Uri
 	 *
 	 * @return  string  The URI password.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getPass()
 	{
@@ -500,7 +496,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setPass($pass)
 	{
@@ -513,7 +509,7 @@ class Uri
 	 *
 	 * @return  string  The URI host.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getHost()
 	{
@@ -527,7 +523,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setHost($host)
 	{
@@ -540,7 +536,7 @@ class Uri
 	 *
 	 * @return  integer  The URI port number.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getPort()
 	{
@@ -554,7 +550,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setPort($port)
 	{
@@ -566,7 +562,7 @@ class Uri
 	 *
 	 * @return  string  The URI path string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getPath()
 	{
@@ -580,7 +576,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setPath($path)
 	{
@@ -593,7 +589,7 @@ class Uri
 	 *
 	 * @return  string  The URI anchor string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getFragment()
 	{
@@ -608,7 +604,7 @@ class Uri
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setFragment($anchor)
 	{
@@ -620,7 +616,7 @@ class Uri
 	 *
 	 * @return  boolean  True if using SSL via HTTPS.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function isSSL()
 	{
@@ -639,7 +635,7 @@ class Uri
 	 *
 	 * @return  string  Cleaned and resolved URI path.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function cleanPath($path)
 	{
