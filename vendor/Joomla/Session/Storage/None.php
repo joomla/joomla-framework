@@ -10,7 +10,7 @@ namespace Joomla\Session\Storage;
 use Joomla\Session\Storage;
 
 /**
- * File session handler for PHP
+ * Default PHP configured session handler for Joomla!
  *
  * @package  Joomla\Framework
  * @see      http://www.php.net/manual/en/function.session-set-save-handler.php
@@ -18,15 +18,4 @@ use Joomla\Session\Storage;
  */
 class None extends Storage
 {
-	/**
-	 * Register the functions of this class with PHP's session handler
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 */
-	public function register()
-	{
-		ini_set('session.save_handler', 'files');
-	}
 }
