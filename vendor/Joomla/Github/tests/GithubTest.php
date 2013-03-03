@@ -225,13 +225,12 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	 * @since  11.3
 	 *
 	 * @return void
+	 *
+	 * @expectedException  InvalidArgumentException
 	 */
 	public function test__GetFailure()
 	{
-		$this->assertThat(
-			$this->object->other,
-			$this->isNull()
-		);
+		$tmp = $this->object->other;
 	}
 
 	/**

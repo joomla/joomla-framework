@@ -1,8 +1,8 @@
 <?php
 /**
- * @package     Joomla\Framework
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Github;
@@ -125,6 +125,7 @@ class Github
 	 * @return  Object  GitHub API object (gists, issues, pulls, etc).
 	 *
 	 * @since   1.0
+	 * @throws  InvalidArgumentException If $name is not a valid sub class.
 	 */
 	public function __get($name)
 	{
@@ -139,6 +140,8 @@ class Github
 
 			return $this->$name;
 		}
+
+		throw new \InvalidArgumentException(sprintf('Argument %s produced an invalid class name: %s', $name, $class));
 	}
 
 	/**
