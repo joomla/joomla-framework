@@ -7,6 +7,7 @@
 
 namespace Joomla\Github;
 
+use Joomla\Http\Response;
 use Joomla\Uri\Uri;
 use Joomla\Registry\Registry;
 
@@ -14,19 +15,19 @@ use Joomla\Registry\Registry;
  * GitHub API object class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 abstract class Object
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Http  The HTTP client object to use in sending HTTP requests.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $client;
 
@@ -36,7 +37,7 @@ abstract class Object
 	 * @param   Registry  $options  GitHub options object.
 	 * @param   Http      $client   The HTTP client object.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Http $client = null)
 	{
@@ -55,11 +56,11 @@ abstract class Object
 	 *
 	 * @return  string   The request URL.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function fetchUrl($path, $page = 0, $limit = 0)
 	{
-		// Get a new JUri object fousing the api url and given path.
+		// Get a new Uri object fousing the api url and given path.
 		$uri = new Uri($this->options->get('api.url') . $path);
 
 		if ($this->options->get('api.username', false))
@@ -85,5 +86,29 @@ abstract class Object
 		}
 
 		return (string) $uri;
+	}
+
+	/**
+	 * Process the response and decode it.
+	 *
+	 * @param   Response  $response      The response.
+	 * @param   integer   $expectedCode  The expected "good" code.
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
+	 */
+	protected function processResponse(Response $response, $expectedCode = 200)
+	{
+		// Validate the response code.
+		if ($response->code != $expectedCode)
+		{
+			// Decode the error response and throw an exception.
+			$error = json_decode($response->body);
+			throw new \DomainException($error->message, $response->code);
+		}
+
+		return json_decode($response->body);
 	}
 }

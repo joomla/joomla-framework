@@ -22,6 +22,7 @@ use Joomla\Registry\Registry;
  * @property-read  Statuses    $statuses    GitHub API object for commits.
  * @property-read  Account     $account     GitHub API object for account references.
  * @property-read  Hooks       $hooks       GitHub API object for hooks.
+ * @property-read  Meta        $meta        GitHub API object for meta.
  *
  * @package  Joomla\Framework
  * @since    1.0
@@ -99,6 +100,12 @@ class Github
 	 * @since  1.0
 	 */
 	protected $hooks;
+
+	/**
+	 * @var    Meta  GitHub API object for meta.
+	 * @since  1.0
+	 */
+	protected $meta;
 
 	/**
 	 * Constructor.

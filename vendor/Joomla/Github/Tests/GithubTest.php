@@ -216,6 +216,21 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the magic __get method - meta
+	 *
+	 * @since  1.0
+	 *
+	 * @return void
+	 */
+	public function test__GetMeta()
+	{
+		$this->assertThat(
+			$this->object->meta,
+			$this->isInstanceOf('Joomla\Github\Meta')
+		);
+	}
+
+	/**
 	 * Tests the magic __get method - failure
 	 *
 	 * @since  11.3
