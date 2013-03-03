@@ -33,7 +33,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouterRest::setHttpMethodSuffix
+	 * @covers  Joomla\Application\Web\Router\Rest::setHttpMethodSuffix
 	 * @since   12.3
 	 */
 	public function testSetHttpMethodSuffix()
@@ -48,7 +48,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouterRest::fetchControllerSuffix
+	 * @covers  Joomla\Application\Web\Router\Rest::fetchControllerSuffix
 	 * @since   12.3
 	 */
 	public function testFetchControllerSuffixWithMissingSuffixMap()
@@ -119,7 +119,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers        JApplicationWebRouterRest::fetchControllerSuffix
+	 * @covers        Joomla\Application\Web\Router\Rest::fetchControllerSuffix
 	 * @dataProvider  seedFetchControllerSuffixData
 	 * @since         12.3
 	 */
@@ -151,8 +151,8 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouterRest::setMethodInPostRequest
-	 * @covers  JApplicationWebRouterRest::isMethodInPostRequest
+	 * @covers  Joomla\Application\Web\Router\Rest::setMethodInPostRequest
+	 * @covers  Joomla\Application\Web\Router\Rest::isMethodInPostRequest
 	 * @since   12.3
 	 */
 	public function testMethodInPostRequest()

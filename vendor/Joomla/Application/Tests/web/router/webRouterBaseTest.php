@@ -67,7 +67,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouterBase::addMap
+	 * @covers  Joomla\Application\Web\Router\Base::addMap
 	 * @since   12.3
 	 */
 	public function testAddMap()
@@ -92,7 +92,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouterBase::addMaps
+	 * @covers  Joomla\Application\Web\Router\Base::addMaps
 	 * @since   12.3
 	 */
 	public function testAddMaps()
@@ -143,7 +143,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers       JApplicationWebRouterBase::parseRoute
+	 * @covers       Joomla\Application\Web\Router\Base::parseRoute
 	 * @dataProvider getParseRouteData
 	 * @since        12.3
 	 */
