@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Log
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -22,7 +22,7 @@ use Joomla\Factory;
  * table are based on the Syslog style of log output. This is designed to allow quick and
  * easy searching.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Log
  * @since       11.1
  */

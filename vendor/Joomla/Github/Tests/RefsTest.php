@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Github
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 /**
  * Test class for JGithubGists.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Github
  *
  * @since       11.1

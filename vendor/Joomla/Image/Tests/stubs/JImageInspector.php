@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Image
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -12,7 +12,7 @@ use Joomla\Image\Image;
 /**
  * Inspector for the JImage class.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Image
  * @since       11.3
  */

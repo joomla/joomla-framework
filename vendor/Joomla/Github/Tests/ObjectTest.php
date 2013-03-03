@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Client
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -14,7 +14,7 @@ require_once __DIR__ . '/stubs/JGithubObjectMock.php';
 /**
  * Test class for JGithub.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Github
  *
  * @since       11.1

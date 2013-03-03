@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Language
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -24,7 +24,7 @@ define('_QQ_', '"');
 /**
  * Languages/translation handler class
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Language
  * @since       11.1
  */

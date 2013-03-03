@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Crypt
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ namespace Joomla\Crypt;
  *
  * @property-read  string  $type  The key type.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Crypt
  * @since       12.1
  */

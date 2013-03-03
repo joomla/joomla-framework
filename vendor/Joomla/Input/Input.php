@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Input
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -19,7 +19,7 @@ use Countable;
  *
  * This is an abstracted input class used to manage retrieving data from the application environment.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Input
  * @since       11.1
  *

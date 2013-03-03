@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -19,7 +19,7 @@ use SimpleXMLElement;
  * Form Rule class for the Joomla Platform.
  * Requires the value entered be one of the options in a field of type="list"
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  * @since       11.1
  */

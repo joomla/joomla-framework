@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  FileSystem
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -17,7 +17,7 @@ use RuntimeException;
  * where as the legacy JFile static class treated files in a rather
  * atomic manner.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  FileSystem
  *
  * This class adheres to the stream wrapper operations:

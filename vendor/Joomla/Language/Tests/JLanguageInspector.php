@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Event
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -9,7 +9,7 @@
 /**
  * Inspector for the JLanguage class.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Language
  * @since       12.1
  */

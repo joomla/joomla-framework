@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Database
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -10,7 +10,7 @@
 /**
  * Test class for JDatabaseResults using MySQL engine.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Database
  *
  * @since       12.1

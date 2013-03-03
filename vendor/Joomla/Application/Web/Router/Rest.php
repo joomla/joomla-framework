@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Application
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ use RuntimeException;
 /**
  * RESTful Web application router class for the Joomla Platform.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Application
  * @since       12.2
  */

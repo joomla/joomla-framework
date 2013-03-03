@@ -3,7 +3,7 @@
  * Bootstrap file for the Joomla Platform.  This file becomes the PHAR stub when the platform is built
  * into a single deployable archive to be used in Joomla applications.
  *
- * @package    Joomla.Platform
+ * @package    Joomla\Framework
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE

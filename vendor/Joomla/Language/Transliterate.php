@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Language
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Language;
 /**
  * Class to transliterate strings
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Language
  * @since       11.1
  * @note        Port of phputf8's utf8_accents_to_ascii()

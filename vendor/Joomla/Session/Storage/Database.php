@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Session
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -17,7 +17,7 @@ use Exception;
 /**
  * Database session storage handler for PHP
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Session
  * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
  * @since       11.1

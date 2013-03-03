@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Crypt
  *
  * @copyright   Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ use InvalidArgumentException;
 /**
  * JCrypt cipher for Simple encryption, decryption and key generation.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Crypt
  * @since       12.1
  */

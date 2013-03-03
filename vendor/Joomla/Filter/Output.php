@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Filter
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -15,7 +15,7 @@ use Joomla\String\String;
 /**
  * JFilterOutput
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Filter
  * @since       11.1
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Image
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -19,7 +19,7 @@ use stdClass;
 /**
  * Class to manipulate an image.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Image
  * @since       11.3
  */

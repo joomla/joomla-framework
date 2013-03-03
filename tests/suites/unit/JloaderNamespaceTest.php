@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    Joomla.UnitTest
+ * @package    Joomla\Framework\Test
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -16,7 +16,7 @@ use Color\Blue;
  * This is a complementary class to JLoaderTest for the namespace loaders.
  * To check the classes are correctly loaded from a given namespace with use or without use.
  *
- * @package  Joomla.UnitTest
+ * @package  Joomla\Framework\Test
  * @since    12.3
  */
 class JLoaderNamespaceTest extends \PHPUnit_Framework_TestCase

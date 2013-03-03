@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  FileSystem
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -13,7 +13,7 @@ namespace Joomla\Filesystem\Support;
 /**
  * String Controller
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  FileSystem
  * @since       11.1
  */

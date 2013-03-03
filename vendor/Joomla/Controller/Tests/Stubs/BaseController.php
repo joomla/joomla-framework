@@ -19,7 +19,7 @@ use Joomla\Controller\Base;
 /**
  * Concrete class extending JControllerBase.
  *
- * @package     Joomla.UnitTest
+ * @package     Joomla\Framework\Test
  * @subpackage  Controller
  * @since       12.1
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Application
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -22,7 +22,7 @@ use RuntimeException;
 /**
  * Base class for a Joomla! Web application.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Application
  * @since       11.4
  */

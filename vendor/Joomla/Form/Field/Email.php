@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -14,7 +14,7 @@ namespace Joomla\Form;
  * Form Field class for the Joomla Platform.
  * Provides and input field for e-mail addresses
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Form
  * @link        http://www.w3.org/TR/html-markup/input.email.html#input.email
  * @see         JFormRuleEmail

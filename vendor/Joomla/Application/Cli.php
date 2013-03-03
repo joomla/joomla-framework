@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Application
  *
  * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
@@ -18,7 +18,7 @@ use Joomla\Input\Cli as InputCli;
 /**
  * Base class for a Joomla! command line application.
  *
- * @package     Joomla.Platform
+ * @package     Joomla\Framework
  * @subpackage  Application
  * @since       11.4
  */
