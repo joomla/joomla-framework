@@ -31,7 +31,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouter::__construct
+	 * @covers  Joomla\Application\Web\Router::__construct
 	 * @since   12.3
 	 */
 	public function test__construct()
@@ -45,7 +45,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouter::setControllerPrefix
+	 * @covers  Joomla\Application\Web\Router::setControllerPrefix
 	 * @since   12.3
 	 */
 	public function testSetControllerPrefix()
@@ -59,7 +59,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouter::setDefaultController
+	 * @covers  Joomla\Application\Web\Router::setDefaultController
 	 * @since   12.3
 	 */
 	public function testSetDefaultController()
@@ -73,7 +73,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouter::fetchController
+	 * @covers  Joomla\Application\Web\Router::fetchController
 	 * @since   12.3
 	 */
 	public function testFetchControllerWithMissingClass()
@@ -87,7 +87,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouter::fetchController
+	 * @covers  Joomla\Application\Web\Router::fetchController
 	 * @since   12.3
 	 */
 	public function testFetchControllerWithNonController()
@@ -101,7 +101,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouter::fetchController
+	 * @covers  Joomla\Application\Web\Router::fetchController
 	 * @since   12.3
 	 */
 	public function testFetchControllerWithPrefixSet()
@@ -115,7 +115,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouter::fetchController
+	 * @covers  Joomla\Application\Web\Router::fetchController
 	 * @since   12.3
 	 */
 	public function testFetchControllerWithoutPrefixSetThoughNecessary()
@@ -129,7 +129,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  JApplicationWebRouter::fetchController
+	 * @covers  Joomla\Application\Web\Router::fetchController
 	 * @since   12.3
 	 */
 	public function testFetchControllerWithoutPrefixSet()
