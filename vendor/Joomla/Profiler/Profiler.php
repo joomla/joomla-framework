@@ -1,57 +1,61 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Profiler
- *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Profiler;
-
 
 /**
  * Utility class to assist in the process of benchmarking the execution
  * of sections of code to understand where time is being spent.
  *
- * @package     Joomla.Platform
- * @subpackage  Profiler
- * @since       11.1
+ * @package  Joomla\Framework
+ * @since    1.0
  */
 class Profiler
 {
 	/**
-	 * @var    integer  The start time.
-	 * @since  12.1
+	 * The start time.
+	 *
+	 * @var    integer
+	 * @since  1.0
 	 */
 	protected $start = 0;
 
 	/**
-	 * @var    string  The prefix to use in the output
-	 * @since  12.1
+	 * The prefix to use in the output.
+	 *
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $prefix = '';
 
 	/**
-	 * @var    array  The buffer of profiling messages.
-	 * @since  12.1
+	 * The buffer of profiling messages.
+	 *
+	 * @var    array
+	 * @since  1.0
 	 */
 	protected $buffer = null;
 
 	/**
 	 * @var    float
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $previousTime = 0.0;
 
 	/**
 	 * @var    float
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $previousMem = 0.0;
 
 	/**
-	 * @var    array  Profiler instances container.
+	 * Profiler instances container.
+	 *
+	 * @var    array
 	 * @since  11.3
 	 */
 	protected static $instances = array();
@@ -61,9 +65,9 @@ class Profiler
 	 *
 	 * @param   string  $prefix  Prefix for mark messages
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
-	public function __construct($prefix = '')
+	protected function __construct($prefix = '')
 	{
 		$this->start = $this->getmicrotime();
 		$this->prefix = $prefix;
@@ -78,7 +82,7 @@ class Profiler
 	 *
 	 * @return  Profiler  The Profiler object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getInstance($prefix = '')
 	{
@@ -100,7 +104,7 @@ class Profiler
 	 *
 	 * @return  string  Mark enclosed in <div> tags
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function mark($label)
 	{
@@ -130,7 +134,7 @@ class Profiler
 	 *
 	 * @return  float The current time
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getmicrotime()
 	{
