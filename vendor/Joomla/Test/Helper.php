@@ -7,6 +7,12 @@
 
 namespace Joomla\Test;
 
+/**
+ * Static helper methods to assist unit testing PHP code.
+ *
+ * @package  Joomla\Framework\Tests
+ * @since    1.0
+ */
 class Helper
 {
 	/**

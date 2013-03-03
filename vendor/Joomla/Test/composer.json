@@ -1,0 +1,17 @@
+{
+    "name": "joomla/test",
+    "type": "joomla-package",
+    "description": "Joomla Test Helper Package",
+    "keywords": ["joomla", "framework", "unit test", "phpunit", "reflection"],
+    "homepage": "https://github.com/joomla/joomla-framework-test",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "target-dir": "Joomla/Test",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Test": ""
+    	}
+    }
+}
