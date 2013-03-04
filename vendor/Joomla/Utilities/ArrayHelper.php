@@ -18,38 +18,6 @@ use Joomla\String\String;
 abstract class ArrayHelper
 {
 	/**
-	 * Option to perform case-sensitive sorts.
-	 *
-	 * @var    mixed  Boolean or array of booleans.
-	 * @since  1.0
-	 */
-	protected static $sortCase;
-
-	/**
-	 * Option to set the sort direction.
-	 *
-	 * @var    mixed  Integer or array of integers.
-	 * @since  1.0
-	 */
-	protected static $sortDirection;
-
-	/**
-	 * Option to set the object key to sort on.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected static $sortKey;
-
-	/**
-	 * Option to perform a language aware sort.
-	 *
-	 * @var    mixed  Boolean or array of booleans.
-	 * @since  1.0
-	 */
-	protected static $sortLocale;
-
-	/**
 	 * Function to convert array to integer values
 	 *
 	 * @param   array  &$array   The source array to convert
@@ -294,44 +262,44 @@ abstract class ArrayHelper
 		// Handle the type constraint
 		switch (strtoupper($type))
 		{
-			case 'INT':
-			case 'INTEGER':
-				// Only use the first integer value
-				@preg_match('/-?[0-9]+/', $result, $matches);
-				$result = @(int) $matches[0];
-				break;
+		case 'INT':
+		case 'INTEGER':
+			// Only use the first integer value
+			@preg_match('/-?[0-9]+/', $result, $matches);
+			$result = @(int) $matches[0];
+			break;
 
-			case 'FLOAT':
-			case 'DOUBLE':
-				// Only use the first floating point value
-				@preg_match('/-?[0-9]+(\.[0-9]+)?/', $result, $matches);
-				$result = @(float) $matches[0];
-				break;
+		case 'FLOAT':
+		case 'DOUBLE':
+			// Only use the first floating point value
+			@preg_match('/-?[0-9]+(\.[0-9]+)?/', $result, $matches);
+			$result = @(float) $matches[0];
+			break;
 
-			case 'BOOL':
-			case 'BOOLEAN':
-				$result = (bool) $result;
-				break;
+		case 'BOOL':
+		case 'BOOLEAN':
+			$result = (bool) $result;
+			break;
 
-			case 'ARRAY':
-				if (!is_array($result))
-				{
-					$result = array($result);
-				}
-				break;
+		case 'ARRAY':
+			if (!is_array($result))
+			{
+				$result = array($result);
+			}
+			break;
 
-			case 'STRING':
-				$result = (string) $result;
-				break;
+		case 'STRING':
+			$result = (string) $result;
+			break;
 
-			case 'WORD':
-				$result = (string) preg_replace('#\W#', '', $result);
-				break;
+		case 'WORD':
+			$result = (string) preg_replace('#\W#', '', $result);
+			break;
 
-			case 'NONE':
-			default:
-				// No casting necessary
-				break;
+		case 'NONE':
+		default:
+			// No casting necessary
+			break;
 		}
 
 		return $result;
@@ -508,81 +476,63 @@ abstract class ArrayHelper
 			$locale = array($locale);
 		}
 
-		self::$sortCase      = (array) $caseSensitive;
-		self::$sortDirection = (array) $direction;
-		self::$sortKey       = (array) $k;
-		self::$sortLocale    = $locale;
+		$sortCase      = (array) $caseSensitive;
+		$sortDirection = (array) $direction;
+		$key       = (array) $k;
+		$sortLocale    = $locale;
 
-		usort($a, array(__CLASS__, 'objectSort'));
+		usort(
+			$a, function(&$a, &$b) use($sortCase, $sortDirection, $key, $sortLocale) {
 
-		self::$sortCase      = null;
-		self::$sortDirection = null;
-		self::$sortKey       = null;
-		self::$sortLocale    = null;
+				for ($i = 0, $count = count($key); $i < $count; $i++)
+				{
+					if (isset($sortDirection[$i]))
+					{
+						$direction = $sortDirection[$i];
+					}
+
+					if (isset($sortCase[$i]))
+					{
+						$caseSensitive = $sortCase[$i];
+					}
+
+					if (isset($sortLocale[$i]))
+					{
+						$locale = $sortLocale[$i];
+					}
+
+					$va = $a->$key[$i];
+					$vb = $b->$key[$i];
+
+					if ((is_bool($va) || is_numeric($va)) && (is_bool($vb) || is_numeric($vb)))
+					{
+						$cmp = $va - $vb;
+					}
+					elseif ($caseSensitive)
+					{
+						$cmp = String::strcmp($va, $vb, $locale);
+					}
+					else
+					{
+						$cmp = String::strcasecmp($va, $vb, $locale);
+					}
+
+					if ($cmp > 0)
+					{
+						return $direction;
+					}
+
+					if ($cmp < 0)
+					{
+						return -$direction;
+					}
+				}
+
+				return 0;
+			}
+		);
 
 		return $a;
-	}
-
-	/**
-	 * Callback function for sorting an array of objects on a key
-	 *
-	 * @param   array  &$a  An array of objects
-	 * @param   array  &$b  An array of objects
-	 *
-	 * @return  integer  Comparison status
-	 *
-	 * @see     ArrayHelper::sortObjects()
-	 * @since   1.0
-	 */
-	protected static function objectSort(&$a, &$b)
-	{
-		$key = self::$sortKey;
-
-		for ($i = 0, $count = count($key); $i < $count; $i++)
-		{
-			if (isset(self::$sortDirection[$i]))
-			{
-				$direction = self::$sortDirection[$i];
-			}
-
-			if (isset(self::$sortCase[$i]))
-			{
-				$caseSensitive = self::$sortCase[$i];
-			}
-
-			if (isset(self::$sortLocale[$i]))
-			{
-				$locale = self::$sortLocale[$i];
-			}
-
-			$va = $a->$key[$i];
-			$vb = $b->$key[$i];
-
-			if ((is_bool($va) || is_numeric($va)) && (is_bool($vb) || is_numeric($vb)))
-			{
-				$cmp = $va - $vb;
-			}
-			elseif ($caseSensitive)
-			{
-				$cmp = String::strcmp($va, $vb, $locale);
-			}
-			else
-			{
-				$cmp = String::strcasecmp($va, $vb, $locale);
-			}
-
-			if ($cmp > 0)
-			{
-				return $direction;
-			}
-
-			if ($cmp < 0)
-			{
-				return -$direction;
-			}
-		}
-
-		return 0;
 	}
 
 	/**
