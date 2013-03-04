@@ -16,7 +16,7 @@ use Joomla\Language\Text;
  *
  * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/command.radio.html#command.radio
- * @since    11.1
+ * @since    1.0
  */
 class Field_Radio extends Field
 {
@@ -24,7 +24,7 @@ class Field_Radio extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'Radio';
 
@@ -33,7 +33,7 @@ class Field_Radio extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{
@@ -77,7 +77,7 @@ class Field_Radio extends Field
 	 *
 	 * @return  array  The field option objects.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getOptions()
 	{

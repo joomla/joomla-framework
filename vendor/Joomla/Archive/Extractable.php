@@ -12,7 +12,7 @@ namespace Joomla\Archive;
  * Archieve class interface
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 interface Extractable
 {
@@ -25,7 +25,7 @@ interface Extractable
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function extract($archive, $destination, array $options = array());
 
@@ -34,7 +34,7 @@ interface Extractable
 	 *
 	 * @return  boolean  True if supported
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported();
 }

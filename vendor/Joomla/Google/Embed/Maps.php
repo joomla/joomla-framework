@@ -19,13 +19,13 @@ use UnexpectedValueException;
  * Google Maps embed class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Maps extends Embed
 {
 	/**
 	 * @var    Http  The HTTP client object to use in sending HTTP requests.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $http;
 
@@ -36,7 +36,7 @@ class Maps extends Embed
 	 * @param   Uri       $uri      URL of the page being rendered
 	 * @param   Http      $http     Http client for geocoding requests
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Uri $uri = null, Http $http = null)
 	{
@@ -49,7 +49,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The Google Maps API key
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getKey()
 	{
@@ -63,7 +63,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setKey($key)
 	{
@@ -77,7 +77,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The ID
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getMapID()
 	{
@@ -91,7 +91,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setMapID($id)
 	{
@@ -105,7 +105,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The class
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getMapClass()
 	{
@@ -119,7 +119,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setMapClass($class)
 	{
@@ -133,7 +133,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The style
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getMapStyle()
 	{
@@ -147,7 +147,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setMapStyle($style)
 	{
@@ -161,7 +161,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The class
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getMapType()
 	{
@@ -175,7 +175,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setMapType($type)
 	{
@@ -189,7 +189,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The options
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getAdditionalMapOptions()
 	{
@@ -203,7 +203,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setAdditionalMapOptions($options)
 	{
@@ -217,7 +217,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The options
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getAdditionalJavascript()
 	{
@@ -231,7 +231,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setAdditionalJavascript($script)
 	{
@@ -245,7 +245,7 @@ class Maps extends Embed
 	 *
 	 * @return  integer  The zoom level
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getZoom()
 	{
@@ -259,7 +259,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setZoom($zoom)
 	{
@@ -273,7 +273,7 @@ class Maps extends Embed
 	 *
 	 * @return  mixed  A latitude longitude array or an address string
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getCenter()
 	{
@@ -289,7 +289,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The latitude/longitude of the center or false on failure
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setCenter($location, $title = true, $markeroptions = array())
 	{
@@ -331,7 +331,7 @@ class Maps extends Embed
 	 *
 	 * @return  mixed  The marker or false on failure
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function addMarker($location, $title = null, $options = array())
 	{
@@ -371,7 +371,7 @@ class Maps extends Embed
 	 *
 	 * @return  array  A list of markers
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function listMarkers()
 	{
@@ -385,7 +385,7 @@ class Maps extends Embed
 	 *
 	 * @return  array The latitude/longitude of the deleted marker
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  OutOfBoundsException
 	 */
 	public function deleteMarker($index = null)
@@ -415,7 +415,7 @@ class Maps extends Embed
 	 *
 	 * @return  boolean  True if asynchronous
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function isAsync()
 	{
@@ -427,7 +427,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function useAsync()
 	{
@@ -441,7 +441,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function useSync()
 	{
@@ -455,7 +455,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The ID
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getAsyncCallback()
 	{
@@ -469,7 +469,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setAsyncCallback($callback)
 	{
@@ -483,7 +483,7 @@ class Maps extends Embed
 	 *
 	 * @return  boolean  True if asynchronous
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function hasSensor()
 	{
@@ -495,7 +495,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function useSensor()
 	{
@@ -509,7 +509,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function noSensor()
 	{
@@ -523,7 +523,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  Autoload type (onload, jquery, mootools, or false)
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getAutoload()
 	{
@@ -537,7 +537,7 @@ class Maps extends Embed
 	 *
 	 * @return  Maps  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setAutoload($type = 'onload')
 	{
@@ -551,7 +551,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  Javascript code
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function getHeader()
@@ -645,7 +645,7 @@ class Maps extends Embed
 	 *
 	 * @return  string  The body
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getBody()
 	{
@@ -677,7 +677,7 @@ class Maps extends Embed
 	 *
 	 * @return  array  An array containing Google's geocode data
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function geocodeAddress($address)

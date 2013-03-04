@@ -21,55 +21,55 @@ use RuntimeException;
  * Base class for a Joomla! Web application.
  *
  * @package  Joomla\Framework
- * @since    11.4
+ * @since    1.0
  */
 abstract class Web extends Base
 {
 	/**
 	 * @var    string  Character encoding string.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	public $charSet = 'utf-8';
 
 	/**
 	 * @var    string  Response mime type.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	public $mimeType = 'text/html';
 
 	/**
 	 * @var    Date  The body modified date for response headers.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	public $modifiedDate;
 
 	/**
 	 * @var    Web\Client  The application client object.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	public $client;
 
 	/**
 	 * @var    Language  The application language object.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $language;
 
 	/**
 	 * @var    Session  The application session object.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $session;
 
 	/**
 	 * @var    object  The application response object.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $response;
 
 	/**
 	 * @var    Web  The application instance.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $instance;
 
@@ -86,7 +86,7 @@ abstract class Web extends Base
 	 *                          client object.  If the argument is a Web\Client object that object will become
 	 *                          the application's client object, otherwise a default client object is created.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, Registry $config = null, Web\Client $client = null)
 	{
@@ -149,7 +149,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public static function getInstance($name = null)
@@ -175,7 +175,7 @@ abstract class Web extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function execute()
 	{
@@ -206,7 +206,7 @@ abstract class Web extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function compress()
 	{
@@ -278,7 +278,7 @@ abstract class Web extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function respond()
 	{
@@ -327,7 +327,7 @@ abstract class Web extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function redirect($url, $moved = false)
 	{
@@ -410,7 +410,7 @@ abstract class Web extends Base
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function allowCache($allow = null)
 	{
@@ -433,7 +433,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web  Instance of $this to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setHeader($name, $value, $replace = false)
 	{
@@ -468,7 +468,7 @@ abstract class Web extends Base
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getHeaders()
 	{
@@ -480,7 +480,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web  Instance of $this to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function clearHeaders()
 	{
@@ -494,7 +494,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web  Instance of $this to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function sendHeaders()
 	{
@@ -524,7 +524,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web  Instance of $this to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setBody($content)
 	{
@@ -540,7 +540,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web  Instance of $this to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function prependBody($content)
 	{
@@ -556,7 +556,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web  Instance of $this to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function appendBody($content)
 	{
@@ -572,7 +572,7 @@ abstract class Web extends Base
 	 *
 	 * @return  mixed  The response body either as an array or concatenated string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getBody($asArray = false)
 	{
@@ -584,7 +584,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Language  The language object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getLanguage()
 	{
@@ -596,7 +596,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Session  The session object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getSession()
 	{
@@ -611,7 +611,7 @@ abstract class Web extends Base
 	 *
 	 * @codeCoverageIgnore
 	 * @see     connection_status()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function checkConnectionAlive()
 	{
@@ -626,7 +626,7 @@ abstract class Web extends Base
 	 *
 	 * @codeCoverageIgnore
 	 * @see     headers_sent()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function checkHeadersSent()
 	{
@@ -638,7 +638,7 @@ abstract class Web extends Base
 	 *
 	 * @return  string  The requested URI
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function detectRequestUri()
 	{
@@ -696,7 +696,7 @@ abstract class Web extends Base
 	 *
 	 * @codeCoverageIgnore
 	 * @see     header()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function header($string, $replace = true, $code = null)
 	{
@@ -708,7 +708,7 @@ abstract class Web extends Base
 	 *
 	 * @return  boolean  True if using SSL, false if not.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function isSSLConnection()
 	{
@@ -726,7 +726,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web This method is chainable.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function loadLanguage(Language $language = null)
 	{
@@ -746,7 +746,7 @@ abstract class Web extends Base
 	 *
 	 * @return  Web This method is chainable.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function loadSession(Session $session = null)
 	{
@@ -799,7 +799,7 @@ abstract class Web extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function afterSessionStart()
 	{
@@ -819,7 +819,7 @@ abstract class Web extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function loadSystemUris($requestUri = null)
 	{

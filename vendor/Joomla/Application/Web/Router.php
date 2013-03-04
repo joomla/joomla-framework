@@ -16,31 +16,31 @@ use RuntimeException;
  * Class to define an abstract Web application router.
  *
  * @package  Joomla\Framework
- * @since    12.2
+ * @since    1.0
  */
 abstract class Router
 {
 	/**
 	 * @var    JApplicationWeb  The web application on whose behalf we are routing the request.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $app;
 
 	/**
 	 * @var    string  The default page controller name for an empty route.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $default;
 
 	/**
 	 * @var    string  Controller class name prefix for creating controller objects by name.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $controllerPrefix;
 
 	/**
 	 * @var    JInput  An input object from which to derive the route.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $input;
 
@@ -51,7 +51,7 @@ abstract class Router
 	 * @param   JInput           $input  An optional input object from which to derive the route.  If none
 	 *                                   is given than the input from the application object will be used.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function __construct(Web $app, Input $input = null)
 	{
@@ -66,7 +66,7 @@ abstract class Router
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  RuntimeException
 	 */
@@ -89,7 +89,7 @@ abstract class Router
 	 *
 	 * @return  JApplicationWebRouter  This object for method chaining.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function setControllerPrefix($prefix)
 	{
@@ -105,7 +105,7 @@ abstract class Router
 	 *
 	 * @return  JApplicationWebRouter  This object for method chaining.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function setDefaultController($name)
 	{
@@ -121,7 +121,7 @@ abstract class Router
 	 *
 	 * @return  string  The controller name for the given route excluding prefix.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	abstract protected function parseRoute($route);
@@ -133,7 +133,7 @@ abstract class Router
 	 *
 	 * @return  JController
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function fetchController($name)

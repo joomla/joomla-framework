@@ -13,19 +13,19 @@ use Joomla\Database\Query;
  * Query Building Class.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Mysqli extends Query implements Limitable
 {
 	/**
 	 * @var    interger  The offset for the result set.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $offset;
 
 	/**
 	 * @var    integer  The limit for the result set.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $limit;
 
@@ -40,7 +40,7 @@ class Mysqli extends Query implements Limitable
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function processLimit($query, $limit, $offset = 0)
 	{
@@ -60,7 +60,7 @@ class Mysqli extends Query implements Limitable
 	 *
 	 * @return  string  The concatenated values.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function concatenate($values, $separator = null)
 	{
@@ -93,7 +93,7 @@ class Mysqli extends Query implements Limitable
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setLimit($limit = 0, $offset = 0)
 	{

@@ -16,7 +16,7 @@ use SimpleXMLElement;
  * Form Rule class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Url extends Rule
 {
@@ -33,7 +33,7 @@ class Url extends Rule
 	 *
 	 * @return  boolean  True if the value is valid, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @link    http://www.w3.org/Addressing/URL/url-spec.txt
 	 * @see	    Jstring
 	 */

@@ -13,7 +13,7 @@ use Joomla\Registry\Format;
  * PHP class format handler for Registry
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Php extends Format
 {
@@ -26,7 +26,7 @@ class Php extends Format
 	 *
 	 * @return  string  Config class formatted string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function objectToString($object, $params = array())
 	{
@@ -66,7 +66,7 @@ class Php extends Format
 	 *
 	 * @return  object   Data object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function stringToObject($data, array $options = array())
 	{
@@ -80,7 +80,7 @@ class Php extends Format
 	 *
 	 * @return  array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getArrayString($a)
 	{

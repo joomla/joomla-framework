@@ -12,25 +12,25 @@ use Joomla\Registry\Registry;
  * Test class for JGithub.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JGithubHttpTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Joomla\Http\Transport  Mock client object.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $transport;
 
 	/**
 	 * @var    Http  Object under test.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $object;
 
@@ -40,7 +40,7 @@ class JGithubHttpTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -58,7 +58,7 @@ class JGithubHttpTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
@@ -69,7 +69,7 @@ class JGithubHttpTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__Construct()
 	{

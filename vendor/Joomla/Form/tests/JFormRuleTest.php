@@ -11,7 +11,7 @@ use Joomla\Form\Rule;
  * Test class for JForm.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  *
  * @return void
  */

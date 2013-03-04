@@ -137,7 +137,7 @@ class DaemonInspector extends Daemon
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function gc()
 	{
@@ -149,7 +149,7 @@ class DaemonInspector extends Daemon
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function daemonize()
 	{
@@ -161,7 +161,7 @@ class DaemonInspector extends Daemon
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setupSignalHandlers()
 	{
@@ -173,7 +173,7 @@ class DaemonInspector extends Daemon
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function fork()
 	{
@@ -185,7 +185,7 @@ class DaemonInspector extends Daemon
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function writeProcessIdFile()
 	{
@@ -199,7 +199,7 @@ class DaemonInspector extends Daemon
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function shutdown($restart = false)
 	{

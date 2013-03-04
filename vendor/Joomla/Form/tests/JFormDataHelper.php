@@ -9,7 +9,7 @@
  * Data for JForm tests.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormDataHelper
 {

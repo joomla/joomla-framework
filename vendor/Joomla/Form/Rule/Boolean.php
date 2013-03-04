@@ -13,7 +13,7 @@ use Joomla\Form\Rule;
  * Form Rule class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Boolean extends Rule
 {
@@ -21,7 +21,7 @@ class Boolean extends Rule
 	 * The regular expression to use in testing a form field value.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $regex = '^(?:[01]|true|false)$';
 
@@ -29,7 +29,7 @@ class Boolean extends Rule
 	 * The regular expression modifiers to use when testing a form field value.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $modifiers = 'i';
 }

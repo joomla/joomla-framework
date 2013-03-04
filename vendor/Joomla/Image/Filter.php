@@ -15,13 +15,13 @@ use RuntimeException;
  * Class to manipulate an image.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 abstract class Filter
 {
 	/**
 	 * @var    resource  The image resource handle.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $handle;
 
@@ -30,7 +30,7 @@ abstract class Filter
 	 *
 	 * @param   resource  $handle  The image resource on which to apply the filter.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  RuntimeException
 	 */
@@ -63,7 +63,7 @@ abstract class Filter
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	abstract public function execute(array $options = array());
 }

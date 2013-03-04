@@ -16,7 +16,7 @@ use Joomla\Language\Helper as LanguageHelper;
  *
  * @package  Joomla\Framework
  * @see      JFormFieldContentLanguage for a select list of content languages.
- * @since    11.1
+ * @since    1.0
  */
 class Field_Language extends Field_List
 {
@@ -24,7 +24,7 @@ class Field_Language extends Field_List
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'Language';
 
@@ -33,7 +33,7 @@ class Field_Language extends Field_List
 	 *
 	 * @return  array  The field option objects.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getOptions()
 	{

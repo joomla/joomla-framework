@@ -97,7 +97,7 @@ abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @return  xml dataset
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getDataSet()
 	{

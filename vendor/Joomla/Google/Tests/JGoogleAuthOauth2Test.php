@@ -15,7 +15,7 @@ use Joomla\Test\WebInspector;
  * Test class for JGoogleAuthOauth2Test .
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleAuthOauth2Test extends PHPUnit_Framework_TestCase
 {

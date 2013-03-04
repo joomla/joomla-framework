@@ -30,7 +30,7 @@ requirements of the interface are already satisfied by the base class.
  *
  * @pacakge  Examples
  *
- * @since   12.1
+ * @since   1.0
  */
 class MyModel extends JModelBase
 {
@@ -39,7 +39,7 @@ class MyModel extends JModelBase
 	 *
 	 * @return  integer
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getTime()
 	{
@@ -69,7 +69,7 @@ forms a base for any model that needs to interact with a database.
  *
  * @package  Examples
  *
- * @since   12.1
+ * @since   1.0
  */
 class MyDatabaseModel extends JModelDatabase
 {
@@ -78,7 +78,7 @@ class MyDatabaseModel extends JModelDatabase
 	 *
 	 * @return  integer
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException on database error.
 	 */
 	public function getCount()

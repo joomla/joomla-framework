@@ -235,7 +235,7 @@ class DatabaseQueryElementTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__clone_array()
 	{
@@ -256,7 +256,7 @@ class DatabaseQueryElementTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__clone_object()
 	{

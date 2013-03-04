@@ -9,7 +9,7 @@
  * Test class for JFormFieldCheckbox.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormFieldCheckboxTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class JFormFieldCheckboxTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -33,7 +33,7 @@ class JFormFieldCheckboxTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testGetInputNoValueNoChecked()
 	{
@@ -59,7 +59,7 @@ class JFormFieldCheckboxTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testGetInputValueNoChecked()
 	{
@@ -85,7 +85,7 @@ class JFormFieldCheckboxTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testGetInputNoValueChecked()
 	{
@@ -110,7 +110,7 @@ class JFormFieldCheckboxTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testGetInputDisabled()
 	{

@@ -14,7 +14,7 @@ use RuntimeException;
  * XCache session storage handler
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Xcache extends Storage
 {
@@ -23,7 +23,7 @@ class Xcache extends Storage
 	 *
 	 * @param   array  $options  Optional parameters.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function __construct($options = array())
@@ -43,7 +43,7 @@ class Xcache extends Storage
 	 *
 	 * @return  string  The session data.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function read($id)
 	{
@@ -66,7 +66,7 @@ class Xcache extends Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function write($id, $session_data)
 	{
@@ -82,7 +82,7 @@ class Xcache extends Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function destroy($id)
 	{
@@ -101,7 +101,7 @@ class Xcache extends Storage
 	 *
 	 * @return boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	static public function isSupported()
 	{

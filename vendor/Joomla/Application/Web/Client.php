@@ -25,7 +25,7 @@ namespace Joomla\Application\Web;
  * @property-read  boolean  $robot           True if the web client is a robot
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Client
 {
@@ -54,73 +54,73 @@ class Client
 
 	/**
 	 * @var    integer  The detected platform on which the web client runs.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $platform;
 
 	/**
 	 * @var    boolean  True if the web client is a mobile device.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $mobile = false;
 
 	/**
 	 * @var    integer  The detected rendering engine used by the web client.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $engine;
 
 	/**
 	 * @var    integer  The detected browser used by the web client.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $browser;
 
 	/**
 	 * @var    string  The detected browser version used by the web client.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $browserVersion;
 
 	/**
 	 * @var    array  The priority order detected accepted languages for the client.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $languages = array();
 
 	/**
 	 * @var    array  The priority order detected accepted encodings for the client.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $encodings = array();
 
 	/**
 	 * @var    string  The web client's user agent string.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $userAgent;
 
 	/**
 	 * @var    string  The web client's accepted encoding string.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $acceptEncoding;
 
 	/**
 	 * @var    string  The web client's accepted languages string.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $acceptLanguage;
 
 	/**
 	 * @var    boolean  True if the web client is a robot.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $robot = false;
 
 	/**
 	 * @var    array  An array of flags determining whether or not a detection routine has been run.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $detection = array();
 
@@ -131,7 +131,7 @@ class Client
 	 * @param   string  $acceptEncoding  The optional client accept encoding string to parse.
 	 * @param   string  $acceptLanguage  The optional client accept language string to parse.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct($userAgent = null, $acceptEncoding = null, $acceptLanguage = null)
 	{
@@ -173,7 +173,7 @@ class Client
 	 *
 	 * @return  mixed  The requested value if it exists.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{
@@ -238,7 +238,7 @@ class Client
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function detectBrowser($userAgent)
 	{
@@ -321,7 +321,7 @@ class Client
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function detectEncoding($acceptEncoding)
 	{
@@ -339,7 +339,7 @@ class Client
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function detectEngine($userAgent)
 	{
@@ -385,7 +385,7 @@ class Client
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function detectLanguage($acceptLanguage)
 	{
@@ -403,7 +403,7 @@ class Client
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function detectPlatform($userAgent)
 	{
@@ -496,7 +496,7 @@ class Client
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function detectRobot($userAgent)
 	{

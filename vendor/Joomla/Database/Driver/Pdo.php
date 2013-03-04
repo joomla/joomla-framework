@@ -21,7 +21,7 @@ use RuntimeException;
  *
  * @package  Joomla\Framework
  * @see      http://php.net/pdo
- * @since    12.1
+ * @since    1.0
  */
 abstract class Pdo extends Driver
 {
@@ -29,7 +29,7 @@ abstract class Pdo extends Driver
 	 * The name of the database driver.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $name = 'pdo';
 
@@ -40,7 +40,7 @@ abstract class Pdo extends Driver
 	 * used for the opening quote and the second for the closing quote.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $nameQuote = "'";
 
@@ -49,13 +49,13 @@ abstract class Pdo extends Driver
 	 * defined in child classes to hold the appropriate value for the engine.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $nullDate = '0000-00-00 00:00:00';
 
 	/**
 	 * @var    resource  The prepared statement.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $prepared;
 
@@ -72,7 +72,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @param   array  $options  List of options used to configure the connection
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct($options)
 	{
@@ -92,7 +92,7 @@ abstract class Pdo extends Driver
 	/**
 	 * Destructor.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -105,7 +105,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  void  Returns void if the database connected successfully.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function connect()
@@ -310,7 +310,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function disconnect()
 	{
@@ -337,7 +337,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  string  The escaped string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function escape($text, $extra = false)
 	{
@@ -356,7 +356,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 * @throws  Exception
 	 */
@@ -471,7 +471,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return mixed
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function getOption($key)
 	{
@@ -485,7 +485,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  string  The query to check the health of the DB.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function getConnectedQuery()
 	{
@@ -505,7 +505,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return boolean
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public function setOption($key, $value)
 	{
@@ -520,7 +520,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -532,7 +532,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  boolean  True if connected to the database engine.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function connected()
 	{
@@ -583,7 +583,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  integer  The number of affected rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getAffectedRows()
 	{
@@ -606,7 +606,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  integer   The number of returned rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getNumRows($cursor = null)
 	{
@@ -631,7 +631,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  string  The value of the auto-increment field from the last inserted row.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function insertid()
 	{
@@ -648,7 +648,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  boolean  True if the database was successfully selected.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function select($database)
@@ -668,7 +668,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  Pdo  This object to support method chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setQuery($query, $offset = null, $limit = null, $driverOptions = array())
 	{
@@ -702,7 +702,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setUTF()
 	{
@@ -716,7 +716,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
@@ -738,7 +738,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
@@ -760,7 +760,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
@@ -782,7 +782,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchArray($cursor = null)
 	{
@@ -804,7 +804,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchAssoc($cursor = null)
 	{
@@ -827,7 +827,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchObject($cursor = null, $class = '\\stdClass')
 	{
@@ -849,7 +849,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function freeResult($cursor = null)
 	{
@@ -873,7 +873,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  mixed  The result of the query as an array, false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadNextAssoc()
@@ -906,7 +906,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __sleep()
 	{
@@ -934,7 +934,7 @@ abstract class Pdo extends Driver
 	 *
 	 * @return  array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __wakeup()
 	{

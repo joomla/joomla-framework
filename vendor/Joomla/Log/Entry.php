@@ -16,35 +16,35 @@ use Joomla\Date\Date;
  * supported engines, retrieving lists and building in memory (PHP based) search operations.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Entry
 {
 	/**
 	 * Application responsible for log entry.
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $category;
 
 	/**
 	 * The date the message was logged.
 	 * @var    Date
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $date;
 
 	/**
 	 * Message to be logged.
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $message;
 
 	/**
 	 * The priority of the message to be logged.
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 * @see    $priorities
 	 */
 	public $priority = Log::INFO;
@@ -52,7 +52,7 @@ class Entry
 	/**
 	 * List of available log priority levels [Based on the Syslog default levels].
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $priorities = array(
 		Log::EMERGENCY,
@@ -73,7 +73,7 @@ class Entry
 	 * @param   string  $category  Type of entry
 	 * @param   string  $date      Date of entry (defaults to now if not specified or blank)
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($message, $priority = Log::INFO, $category = '', $date = null)
 	{

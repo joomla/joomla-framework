@@ -11,19 +11,19 @@ use Joomla\Input\Input;
  * Test class for JApplicationWebRouterBase.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JApplicationWebRouterBaseTest extends TestCase
 {
 	/**
 	 * @var    Joomla\Application\Web\Router\Base  The object to be tested.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
 	 * @var    Joomla\Input\Input  The JInput object to be inspected for route variables.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $input;
 
@@ -32,7 +32,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public static function getParseRouteData()
 	{
@@ -65,7 +65,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router\Base::addMap
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testAddMap()
 	{
@@ -90,7 +90,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router\Base::addMaps
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testAddMaps()
 	{
@@ -142,7 +142,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @covers       Joomla\Application\Web\Router\Base::parseRoute
 	 * @dataProvider getParseRouteData
-	 * @since     12.3
+	 * @since     1.0
 	 */
 	public function testParseRoute($r, $e, $c, $i, $m)
 	{
@@ -171,7 +171,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setMaps1()
 	{
@@ -184,7 +184,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setMaps2()
 	{
@@ -207,7 +207,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -225,7 +225,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{

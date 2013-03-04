@@ -13,7 +13,7 @@ use Joomla\Image\Filter;
  * Image Filter class to add an edge detect effect to an image.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Edgedetect extends Filter
 {
@@ -24,7 +24,7 @@ class Edgedetect extends Filter
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function execute(array $options = array())
 	{

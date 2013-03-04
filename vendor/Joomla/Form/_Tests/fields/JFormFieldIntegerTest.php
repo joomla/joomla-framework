@@ -9,7 +9,7 @@
  * Test class for JForm.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormFieldIntegersTest extends TestCase
 {
@@ -62,7 +62,7 @@ class JFormFieldIntegersTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetOptions()
 	{

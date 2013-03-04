@@ -11,7 +11,7 @@ namespace Joomla\Crypt;
  * Joomla Platform Password Hashing Interface
  *
  * @package  Joomla\Framework
- * @since    12.2
+ * @since    1.0
  */
 interface Password
 {
@@ -31,7 +31,7 @@ interface Password
 	 *
 	 * @return  string  The hashed password.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function create($password, $type = null);
 
@@ -43,7 +43,7 @@ interface Password
 	 *
 	 * @return  boolean  True if the password is valid, false otherwise.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function verify($password, $hash);
 
@@ -54,7 +54,7 @@ interface Password
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setDefaultType($type);
 
@@ -63,7 +63,7 @@ interface Password
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getDefaultType();
 }

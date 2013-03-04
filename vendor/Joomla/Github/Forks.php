@@ -13,7 +13,7 @@ use DomainException;
  * GitHub API Forks class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Forks extends Object
 {
@@ -26,7 +26,7 @@ class Forks extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  DomainException
 	 */
 	public function create($user, $repo, $org = '')
@@ -69,7 +69,7 @@ class Forks extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  DomainException
 	 */
 	public function getList($user, $repo, $page = 0, $limit = 0)

@@ -11,7 +11,7 @@ namespace Joomla\Database\Iterator;
  * SQLite database iterator.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Sqlite extends Pdo
 {

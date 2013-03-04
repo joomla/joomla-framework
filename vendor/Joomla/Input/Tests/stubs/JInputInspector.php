@@ -11,7 +11,7 @@ use Joomla\Input\Input;
  * Inspector class for the JInput library.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JInputInspector extends Input
 {

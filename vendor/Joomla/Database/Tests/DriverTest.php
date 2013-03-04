@@ -22,7 +22,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 {
 	/**
 	 * @var    \Joomla\Database\Driver
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $instance;
 
@@ -31,7 +31,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__callQuote()
 	{
@@ -47,7 +47,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__callQuoteName()
 	{
@@ -63,7 +63,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__callUnknown()
 	{
@@ -118,7 +118,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetConnection()
 	{
@@ -143,7 +143,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetCount()
 	{
@@ -155,7 +155,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetDatabase()
 	{
@@ -167,7 +167,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetDateFormat()
 	{
@@ -182,7 +182,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSplitSql()
 	{
@@ -203,7 +203,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetLog()
 	{
@@ -215,7 +215,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetPrefix()
 	{
@@ -230,7 +230,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetNullDate()
 	{
@@ -245,7 +245,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetMinimum()
 	{
@@ -261,7 +261,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testIsMinimumVersion()
 	{
@@ -277,7 +277,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSetDebug()
 	{
@@ -293,7 +293,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSetQuery()
 	{
@@ -309,7 +309,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testReplacePrefix()
 	{
@@ -326,7 +326,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Database\Driver::quote
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testQuote()
 	{
@@ -354,7 +354,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testQuoteBooleanTrue()
 	{
@@ -370,7 +370,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testQuoteBooleanFalse()
 	{
@@ -386,7 +386,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testQuoteNull()
 	{
@@ -402,7 +402,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testQuoteInteger()
 	{
@@ -418,7 +418,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testQuoteFloat()
 	{
@@ -434,7 +434,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testQuoteName()
 	{
@@ -499,7 +499,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testTruncateTable()
 	{

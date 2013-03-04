@@ -11,7 +11,7 @@ require_once __DIR__ . '/case/GoogleTestCase.php';
  * Test class for JGoogleDataPicasa.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleDataPicasaTest extends GoogleTestCase
 {
@@ -217,7 +217,7 @@ class JGoogleDataPicasaTest extends GoogleTestCase
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function picasaAlbumCallback($url, array $headers = null, $timeout = null)
 {
@@ -240,7 +240,7 @@ function picasaAlbumCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function dataPicasaAlbumCallback($url, $data, array $headers = null, $timeout = null)
 {
@@ -264,7 +264,7 @@ function dataPicasaAlbumCallback($url, $data, array $headers = null, $timeout = 
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function picasaAlbumlistCallback($url, array $headers = null, $timeout = null)
 {
@@ -286,7 +286,7 @@ function picasaAlbumlistCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function picasaExceptionCallback($url, array $headers = null, $timeout = null)
 {
@@ -309,7 +309,7 @@ function picasaExceptionCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function picasaDataExceptionCallback($url, $data, array $headers = null, $timeout = null)
 {
@@ -331,7 +331,7 @@ function picasaDataExceptionCallback($url, $data, array $headers = null, $timeou
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function picasaBadXmlCallback($url, array $headers = null, $timeout = null)
 {

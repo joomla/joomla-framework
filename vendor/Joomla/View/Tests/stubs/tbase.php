@@ -13,7 +13,7 @@ use Joomla\View;
  * Concrete class extending JViewBase.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class BaseView extends View\Base
 {
@@ -22,7 +22,7 @@ class BaseView extends View\Base
 	 *
 	 * @return  string  The rendered view.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function render()

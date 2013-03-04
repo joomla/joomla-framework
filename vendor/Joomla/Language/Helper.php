@@ -13,7 +13,7 @@ use Joomla\Factory;
  * Language helper class
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Helper
 {
@@ -27,7 +27,7 @@ class Helper
 	 *
 	 * @return  array  List of system languages
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function createLanguageList($actualLanguage, $basePath = JPATH_BASE, $caching = false, $installed = false)
 	{
@@ -76,7 +76,7 @@ class Helper
 	 *
 	 * @return  string  locale or null if not found
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function detectLanguage()
 	{
@@ -126,7 +126,7 @@ class Helper
 	 *
 	 * @return  array  An array of published languages
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getLanguages($key = 'default')
 	{

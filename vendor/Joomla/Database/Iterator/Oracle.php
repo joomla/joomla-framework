@@ -11,7 +11,7 @@ namespace Joomla\Database\Iterator;
  * Oracle database iterator.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Oracle extends Pdo
 {

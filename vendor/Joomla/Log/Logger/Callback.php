@@ -18,13 +18,13 @@ use Exception;
  * This allows unprecedented flexibility in the way logging can be handled.
  *
  * @package  Joomla\Framework
- * @since    12.2
+ * @since    1.0
  */
 class Callback extends Logger
 {
 	/**
 	 * @var    callable  The function to call when an entry is added - should return True on success
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $callback;
 
@@ -33,7 +33,7 @@ class Callback extends Logger
 	 *
 	 * @param   array  &$options  Log object options.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  Exception
 	 */
 	public function __construct(array &$options)
@@ -59,7 +59,7 @@ class Callback extends Logger
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  Exception
 	 */
 	public function addEntry(Entry $entry)

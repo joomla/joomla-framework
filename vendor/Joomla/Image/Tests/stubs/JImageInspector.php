@@ -11,13 +11,13 @@ use Joomla\Image\Image;
  * Inspector for the JImage class.
  *
  * @package  Joomla\Framework\Test
- * @since    11.3
+ * @since    1.0
  */
 class JImageInspector extends Image
 {
 	/**
 	 * @var    JImageFilter  A mock image filter to be returned from getFilterInstance().
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	public $mockFilter;
 
@@ -28,7 +28,7 @@ class JImageInspector extends Image
 	 *
 	 * @return  mixed  The value of the class variable.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getClassProperty($name)
 	{
@@ -50,7 +50,7 @@ class JImageInspector extends Image
 	 *
 	 * @return  void.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setClassProperty($name, $value)
 	{
@@ -71,7 +71,7 @@ class JImageInspector extends Image
 	 *
 	 * @return  JImageFilter
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getFilterInstance($type)
@@ -95,7 +95,7 @@ class JImageInspector extends Image
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function prepareDimensions($width, $height, $scaleMethod)
 	{
@@ -110,7 +110,7 @@ class JImageInspector extends Image
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function sanitizeHeight($height, $width)
 	{
@@ -124,7 +124,7 @@ class JImageInspector extends Image
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function sanitizeOffset($offset)
 	{
@@ -139,7 +139,7 @@ class JImageInspector extends Image
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function sanitizeWidth($width, $height)
 	{

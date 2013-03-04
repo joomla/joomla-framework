@@ -9,7 +9,7 @@
  * Test class for JLogLoggerSysLog.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JLogLoggerSysLogTest extends PHPUnit_Framework_TestCase
 {

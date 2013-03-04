@@ -15,25 +15,25 @@ use Joomla\Registry\Registry;
  * HTTP client class for connecting to a GitHub instance.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Http extends BaseHttp
 {
 	/**
 	 * @const  integer  Use no authentication for HTTP connections.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const AUTHENTICATION_NONE = 0;
 
 	/**
 	 * @const  integer  Use basic authentication for HTTP connections.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const AUTHENTICATION_BASIC = 1;
 
 	/**
 	 * @const  integer  Use OAuth authentication for HTTP connections.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const AUTHENTICATION_OAUTH = 2;
 
@@ -43,7 +43,7 @@ class Http extends BaseHttp
 	 * @param   Registry   $options    Client options object.
 	 * @param   Transport  $transport  The HTTP transport object.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Transport $transport = null)
 	{

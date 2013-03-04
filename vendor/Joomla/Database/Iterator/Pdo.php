@@ -14,7 +14,7 @@ use PDOStatement;
  * PDO database iterator.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Pdo extends DatabaseIterator
 {
@@ -23,7 +23,7 @@ class Pdo extends DatabaseIterator
 	 *
 	 * @return  integer  The number of rows in the result set.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @see     Countable::count()
 	 */
 	public function count()
@@ -43,7 +43,7 @@ class Pdo extends DatabaseIterator
 	 *
 	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchObject()
 	{
@@ -62,7 +62,7 @@ class Pdo extends DatabaseIterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function freeResult()
 	{

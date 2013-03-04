@@ -11,7 +11,7 @@ use Joomla\Keychain\Keychain;
  * Tests for the Joomla Platform Keychain Class
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class KeychainTest extends PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public static function setUpBeforeClass()
 	{
@@ -36,7 +36,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public static function tearDownAfterClass()
 	{
@@ -52,7 +52,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testLoadCLIKeychain()
 	{
@@ -72,7 +72,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testCreatePassphraseFile()
 	{
@@ -95,7 +95,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testLoadKeychainNonexistant()
 	{
@@ -117,7 +117,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testLoadKeychainInvalid()
 	{
@@ -136,7 +136,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testSaveKeychain()
 	{
@@ -158,7 +158,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return   void
 	 *
-	 * @since    12.3
+	 * @since    1.0
 	 */
 	public function testLoadKeychain()
 	{
@@ -180,7 +180,7 @@ class KeychainTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return   void
 	 *
-	 * @since    12.3
+	 * @since    1.0
 	 */
 	public function testDeleteValue()
 	{

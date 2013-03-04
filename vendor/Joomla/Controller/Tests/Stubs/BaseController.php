@@ -20,7 +20,7 @@ use Joomla\Controller\Base;
  * Concrete class extending JControllerBase.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class BaseController extends Base
 {
@@ -29,7 +29,7 @@ class BaseController extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function execute()

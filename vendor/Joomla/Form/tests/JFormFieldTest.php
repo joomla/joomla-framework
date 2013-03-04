@@ -9,7 +9,7 @@
  * Test class for JFormField.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormFieldTest extends PHPUnit_Framework_TestCase
 {

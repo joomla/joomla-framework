@@ -17,49 +17,49 @@ use stdClass;
  * Class to manipulate an image.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Image
 {
 	/**
 	 * @const  integer
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const SCALE_FILL = 1;
 
 	/**
 	 * @const  integer
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const SCALE_INSIDE = 2;
 
 	/**
 	 * @const  integer
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	const SCALE_OUTSIDE = 3;
 
 	/**
 	 * @const  integer
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	const CROP = 4;
 
 	/**
 	 * @var    resource  The image resource handle.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $handle;
 
 	/**
 	 * @var    string  The source image path.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $path = null;
 
 	/**
 	 * @var    array  Whether or not different image formats are supported.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $formats = array();
 
@@ -68,7 +68,7 @@ class Image
 	 *
 	 * @param   mixed  $source  Either a file path for a source image or a GD resource handler for an image.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function __construct($source = null)
@@ -113,7 +113,7 @@ class Image
 	 *
 	 * @return  \stdClass
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  RuntimeException
 	 */
@@ -296,7 +296,7 @@ class Image
 	 *
 	 * @return  Image
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  LogicException
 	 */
 	public function crop($width, $height, $left = null, $top = null, $createNew = true)
@@ -384,7 +384,7 @@ class Image
 	 *
 	 * @return  Image
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @see     JImageFilter
 	 * @throws  LogicException
 	 * @throws  RuntimeException
@@ -411,7 +411,7 @@ class Image
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  LogicException
 	 */
 	public function getHeight()
@@ -430,7 +430,7 @@ class Image
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  LogicException
 	 */
 	public function getWidth()
@@ -461,7 +461,7 @@ class Image
 	 *
 	 * @return  bool
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function isLoaded()
 	{
@@ -479,7 +479,7 @@ class Image
 	 *
 	 * @return  bool
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  LogicException
 	 */
 	public function isTransparent()
@@ -500,7 +500,7 @@ class Image
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  RuntimeException
 	 */
@@ -617,7 +617,7 @@ class Image
 	 *
 	 * @return  Image
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  LogicException
 	 */
 	public function resize($width, $height, $createNew = true, $scaleMethod = self::SCALE_INSIDE)
@@ -693,7 +693,7 @@ class Image
 	 *
 	 * @return  Image
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  LogicException
 	 */
 	public function rotate($angle, $background = -1, $createNew = true)
@@ -752,7 +752,7 @@ class Image
 	 * @return  boolean
 	 *
 	 * @see     http://www.php.net/manual/image.constants.php
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  LogicException
 	 */
 	public function toFile($path, $type = IMAGETYPE_JPEG, array $options = array())
@@ -786,7 +786,7 @@ class Image
 	 *
 	 * @return  Filter
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function getFilterInstance($type)
@@ -828,7 +828,7 @@ class Image
 	 *
 	 * @return  stdClass
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException  If width, height or both given as zero
 	 */
 	protected function prepareDimensions($width, $height, $scaleMethod)
@@ -887,7 +887,7 @@ class Image
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function sanitizeHeight($height, $width)
 	{
@@ -915,7 +915,7 @@ class Image
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function sanitizeOffset($offset)
 	{
@@ -930,7 +930,7 @@ class Image
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function sanitizeWidth($width, $height)
 	{
@@ -957,7 +957,7 @@ class Image
 	 *
 	 * @return  boolean  True on success, false on failure or if no image is loaded
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function destroy()
 	{

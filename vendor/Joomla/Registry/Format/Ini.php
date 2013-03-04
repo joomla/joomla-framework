@@ -14,7 +14,7 @@ use stdClass;
  * INI format handler for Registry.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Ini extends Format
 {
@@ -31,7 +31,7 @@ class Ini extends Format
 	 *
 	 * @return  string  INI formatted string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function objectToString($object, $options = array())
 	{
@@ -72,7 +72,7 @@ class Ini extends Format
 	 *
 	 * @return  object   Data object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function stringToObject($data, array $options = array())
 	{
@@ -204,7 +204,7 @@ class Ini extends Format
 	 *
 	 * @return  string  The value in INI format.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getValueAsINI($value)
 	{

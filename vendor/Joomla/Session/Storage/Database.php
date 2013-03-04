@@ -16,7 +16,7 @@ use Exception;
  *
  * @package  Joomla\Framework
  * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
- * @since    11.1
+ * @since    1.0
  */
 class Database extends Storage
 {
@@ -27,7 +27,7 @@ class Database extends Storage
 	 *
 	 * @return  string  The session data.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function read($id)
 	{
@@ -60,7 +60,7 @@ class Database extends Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function write($id, $data)
 	{
@@ -101,7 +101,7 @@ class Database extends Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function destroy($id)
 	{
@@ -132,7 +132,7 @@ class Database extends Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function gc($lifetime = 1440)
 	{

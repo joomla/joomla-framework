@@ -14,7 +14,7 @@ use Sqlite3;
  *
  * @package  Joomla\Framework
  * @see      http://php.net/pdo
- * @since    12.1
+ * @since    1.0
  */
 class Sqlite extends Pdo
 {
@@ -22,7 +22,7 @@ class Sqlite extends Pdo
 	 * The name of the database driver.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $name = 'sqlite';
 
@@ -33,14 +33,14 @@ class Sqlite extends Pdo
 	 * used for the opening quote and the second for the closing quote.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $nameQuote = '`';
 
 	/**
 	 * Destructor.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -53,7 +53,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function disconnect()
 	{
@@ -69,7 +69,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  Sqlite  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function dropTable($tableName, $ifExists = true)
 	{
@@ -95,7 +95,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  string  The escaped string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function escape($text, $extra = false)
 	{
@@ -112,7 +112,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  mixed  The collation in use by the database or boolean false if not supported.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getCollation()
 	{
@@ -128,7 +128,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  array  A list of the create SQL for the tables.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableCreate($tables)
@@ -149,7 +149,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  array  An array of fields for the database table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
@@ -205,7 +205,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  array  An array of the column specification for the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableKeys($table)
@@ -245,7 +245,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  array   An array of all the tables in the database.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableList()
@@ -275,7 +275,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  string  The database connector version.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getVersion()
 	{
@@ -293,7 +293,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  boolean  True if the database was successfully selected.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function select($database)
@@ -312,7 +312,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setUTF()
 	{
@@ -328,7 +328,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  Sqlite  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function lockTable($table)
@@ -346,7 +346,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  Sqlite  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
@@ -361,7 +361,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  Sqlite  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function unlockTables()
@@ -374,7 +374,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -388,7 +388,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
@@ -412,7 +412,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
@@ -442,7 +442,7 @@ class Sqlite extends Pdo
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)

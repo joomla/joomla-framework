@@ -14,7 +14,7 @@ use Joomla\Language\Text;
  * Provides spacer markup to be used in form layouts.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_Spacer extends Field
 {
@@ -22,7 +22,7 @@ class Field_Spacer extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'Spacer';
 
@@ -32,7 +32,7 @@ class Field_Spacer extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{
@@ -46,7 +46,7 @@ class Field_Spacer extends Field
 	 *
 	 * @return  string  The field label markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getLabel()
 	{
@@ -103,7 +103,7 @@ class Field_Spacer extends Field
 	 *
 	 * @return  string  The field title.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getTitle()
 	{

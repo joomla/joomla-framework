@@ -11,7 +11,7 @@ require_once __DIR__ . '/case/GoogleTestCase.php';
  * Test class for JGoogleDataPlusActivities.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleDataPlusActivitiesTest extends GoogleTestCase
 {
@@ -22,13 +22,13 @@ class JGoogleDataPlusActivitiesTest extends GoogleTestCase
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $errorString = '{"error": {"message": "Generic Error."}}';
 
@@ -77,7 +77,7 @@ class JGoogleDataPlusActivitiesTest extends GoogleTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testListActivities()
 	{
@@ -118,7 +118,7 @@ class JGoogleDataPlusActivitiesTest extends GoogleTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetActivity()
 	{
@@ -155,7 +155,7 @@ class JGoogleDataPlusActivitiesTest extends GoogleTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testSearch()
 	{

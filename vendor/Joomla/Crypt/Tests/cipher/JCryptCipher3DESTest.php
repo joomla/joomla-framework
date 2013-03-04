@@ -11,13 +11,13 @@ use Joomla\Crypt\Cipher_3DES;
  * Test class for JCryptCipher3DES.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class JCryptCipher3DESTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JCryptCipher3DES
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $cipher;
 
@@ -26,7 +26,7 @@ class JCryptCipher3DESTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -51,7 +51,7 @@ class JCryptCipher3DESTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
@@ -94,7 +94,7 @@ class JCryptCipher3DESTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider data
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testDecrypt($file, $data)
 	{
@@ -114,7 +114,7 @@ class JCryptCipher3DESTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider data
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testEncrypt($file, $data)
 	{
@@ -132,7 +132,7 @@ class JCryptCipher3DESTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGenerateKey()
 	{

@@ -11,7 +11,7 @@ use Joomla\Language\Helper as LanguageHelper;
  * Test class for LanguageHelper.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class LanguageHelperTest extends PHPUnit_Framework_TestCase
 {

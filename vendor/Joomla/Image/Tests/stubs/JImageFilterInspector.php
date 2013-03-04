@@ -13,7 +13,7 @@ use Joomla\Image\Filter;
  * Image Filter class inspector for testing purposes.
  *
  * @package  Joomla\Framework\Test
- * @since    11.3
+ * @since    1.0
  */
 class Inspector extends Filter
 {
@@ -24,7 +24,7 @@ class Inspector extends Filter
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function execute(array $options = array())
 	{

@@ -362,7 +362,7 @@ abstract class ArrayHelper
 	 *
 	 * @return  array  The inverted array.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public static function invert($array)
 	{

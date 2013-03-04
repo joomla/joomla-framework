@@ -14,7 +14,7 @@ use RuntimeException;
  * GitHub API Account class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Account extends Object
 {
@@ -27,7 +27,7 @@ class Account extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function createAuthorisation(array $scopes = array(), $note = '', $url = '')
 	{
@@ -59,7 +59,7 @@ class Account extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function deleteAuthorisation($id)
 	{
@@ -92,7 +92,7 @@ class Account extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function editAuthorisation($id, array $scopes = array(), array $addScopes = array(), array $removeScopes = array(), $note = '', $url = '')
@@ -159,7 +159,7 @@ class Account extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @note    This method will only accept Basic Authentication
 	 */
 	public function getAuthorisation($id)
@@ -186,7 +186,7 @@ class Account extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @note    This method will only accept Basic Authentication
 	 */
 	public function getAuthorisations()
@@ -213,7 +213,7 @@ class Account extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getRateLimit()
 	{

@@ -15,7 +15,7 @@ use DirectoryIterator;
  * Joomla Platform Database Driver Class
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  *
  * @method      string  q()   q($text, $escape = true)  Alias for quote method
  * @method      string  qn()  qn($name, $as = null)     Alias for quoteName method
@@ -26,7 +26,7 @@ abstract class Driver implements DatabaseInterface
 	 * The name of the database.
 	 *
 	 * @var    string
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	private $database;
 
@@ -34,43 +34,43 @@ abstract class Driver implements DatabaseInterface
 	 * The name of the database driver.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $name;
 
 	/**
 	 * @var    resource  The database connection resource.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $connection;
 
 	/**
 	 * @var    integer  The number of SQL statements executed by the database driver.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $count = 0;
 
 	/**
 	 * @var    resource  The database connection cursor from the last query.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $cursor;
 
 	/**
 	 * @var    boolean  The database driver debugging state.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $debug = false;
 
 	/**
 	 * @var    integer  The affected row limit for the current SQL statement.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $limit = 0;
 
 	/**
 	 * @var    array  The log of executed SQL statements by the database driver.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $log = array();
 
@@ -79,74 +79,74 @@ abstract class Driver implements DatabaseInterface
 	 *                 etc.  The child classes should define this as necessary.  If a single character string the
 	 *                 same character is used for both sides of the quoted name, else the first character will be
 	 *                 used for the opening quote and the second for the closing quote.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $nameQuote;
 
 	/**
 	 * @var    string  The null or zero representation of a timestamp for the database driver.  This should be
 	 *                 defined in child classes to hold the appropriate value for the engine.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $nullDate;
 
 	/**
 	 * @var    integer  The affected row offset to apply for the current SQL statement.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $offset = 0;
 
 	/**
 	 * @var    array  Passed in upon instantiation and saved.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    mixed  The current SQL statement to execute.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $sql;
 
 	/**
 	 * @var    string  The common database table prefix.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $tablePrefix;
 
 	/**
 	 * @var    boolean  True if the database engine supports UTF-8 character encoding.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $utf = true;
 
 	/**
 	 * @var         integer  The database error number
-	 * @since    11.1
+	 * @since    1.0
 	 */
 	protected $errorNum = 0;
 
 	/**
 	 * @var         string  The database error message
-	 * @since    11.1
+	 * @since    1.0
 	 */
 	protected $errorMsg;
 
 	/**
 	 * @var    array  JDatabaseDriver instances container.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected static $instances = array();
 
 	/**
 	 * @var    string  The minimum supported database version.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected static $dbMinimum;
 
 	/**
 	 * @var    integer  The depth of the current transaction.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $transactionDepth = 0;
 
@@ -157,7 +157,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  array  An array of available database connectors.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getConnectors()
 	{
@@ -210,7 +210,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Driver  A database object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public static function getInstance($options = array())
@@ -259,7 +259,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  array  The queries from the input string separated into an array.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function splitSql($sql)
 	{
@@ -318,7 +318,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  The aliased method's return value or null.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __call($method, $args)
 	{
@@ -344,7 +344,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @param   array  $options  List of options used to configure the connection
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($options)
 	{
@@ -365,7 +365,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  void  Returns void if the database connected successfully.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function connect();
@@ -375,7 +375,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  boolean  True if connected to the database engine.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function connected();
 
@@ -384,7 +384,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	abstract public function disconnect();
 
@@ -396,7 +396,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Driver     Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public abstract function dropTable($table, $ifExists = true);
@@ -409,7 +409,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string   The escaped string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function escape($text, $extra = false);
 
@@ -420,7 +420,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract protected function fetchArray($cursor = null);
 
@@ -431,7 +431,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract protected function fetchAssoc($cursor = null);
 
@@ -443,7 +443,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract protected function fetchObject($cursor = null, $class = 'stdClass');
 
@@ -454,7 +454,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract protected function freeResult($cursor = null);
 
@@ -463,7 +463,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  integer  The number of affected rows.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function getAffectedRows();
 
@@ -472,7 +472,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  The collation in use by the database or boolean false if not supported.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function getCollation();
 
@@ -482,7 +482,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  resource  The underlying database connection resource.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getConnection()
 	{
@@ -494,7 +494,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getCount()
 	{
@@ -506,7 +506,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	protected function getDatabase()
 	{
@@ -518,7 +518,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  The format string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getDateFormat()
 	{
@@ -530,7 +530,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  array  SQL statements executed by the database driver.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getLog()
 	{
@@ -542,7 +542,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  The minimum version number for the database driver.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getMinimum()
 	{
@@ -554,7 +554,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  Null or zero representation of a timestamp.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getNullDate()
 	{
@@ -568,7 +568,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  integer   The number of returned rows.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function getNumRows($cursor = null);
 
@@ -577,7 +577,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  The common database table prefix.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getPrefix()
 	{
@@ -589,7 +589,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Exporter  An exporter object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getExporter()
@@ -615,7 +615,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Importer  An importer object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getImporter()
@@ -643,7 +643,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Query  The current query object or a new object extending the Query class.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getQuery($new = false)
@@ -676,7 +676,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  DatabaseIterator  A new database iterator.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getIterator($column = null, $class = '\\stdClass')
@@ -703,7 +703,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  array  An array of fields by table.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function getTableColumns($table, $typeOnly = true);
@@ -715,7 +715,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  array  A list of the create SQL for the tables.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function getTableCreate($tables);
@@ -727,7 +727,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  array  An array of keys for the table(s).
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function getTableKeys($tables);
@@ -737,7 +737,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  array  An array of all the tables in the database.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function getTableList();
@@ -747,7 +747,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  boolean  True if the database engine supports UTF-8 character encoding.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function hasUTFSupport()
 	{
@@ -759,7 +759,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  The database connector version.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function getVersion();
 
@@ -768,7 +768,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  The value of the auto-increment field from the last inserted row.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function insertid();
 
@@ -781,7 +781,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  boolean    True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function insertObject($table, &$object, $key = null)
@@ -839,7 +839,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  boolean  True if the database version is supported
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function isMinimumVersion()
 	{
@@ -852,7 +852,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  The return value or null if the query failed.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadAssoc()
@@ -893,7 +893,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed   The return value or null if the query failed.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadAssocList($key = null, $column = null)
@@ -937,7 +937,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed    The return value or null if the query failed.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadColumn($offset = 0)
@@ -971,7 +971,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed   The return value or null if the query failed.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadObject($class = 'stdClass')
@@ -1010,7 +1010,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed   The return value or null if the query failed.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadObjectList($key = '', $class = 'stdClass')
@@ -1049,7 +1049,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  The return value or null if the query failed.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadResult()
@@ -1082,7 +1082,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  The return value or null if the query failed.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadRow()
@@ -1120,7 +1120,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed   The return value or null if the query failed.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadRowList($key = null)
@@ -1161,7 +1161,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Driver  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public abstract function lockTable($tableName);
@@ -1175,7 +1175,7 @@ abstract class Driver implements DatabaseInterface
 	 * @return  string  The quoted input string.
 	 *
 	 * @note    Accepting an array of strings was added in 12.3.
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function quote($text, $escape = true)
 	{
@@ -1205,7 +1205,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  The quote wrapped name, same type of $name.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function quoteName($name, $as = null)
 	{
@@ -1255,7 +1255,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  Dot-imploded string of quoted parts.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function quoteNameStr($strArr)
 	{
@@ -1291,7 +1291,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  string  The processed SQL statement.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function replacePrefix($sql, $prefix = '#__')
 	{
@@ -1396,7 +1396,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Driver  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public abstract function renameTable($oldTable, $newTable, $backup = null, $prefix = null);
@@ -1408,7 +1408,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  boolean  True if the database was successfully selected.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function select($database);
@@ -1420,7 +1420,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  boolean  The old debugging level.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setDebug($level)
 	{
@@ -1439,7 +1439,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Driver  This object to support method chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setQuery($query, $offset = 0, $limit = 0)
 	{
@@ -1455,7 +1455,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract public function setUTF();
 
@@ -1466,7 +1466,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function transactionCommit($toSavepoint = false);
@@ -1478,7 +1478,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function transactionRollback($toSavepoint = false);
@@ -1490,7 +1490,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function transactionStart($asSavepoint = false);
@@ -1502,7 +1502,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function truncateTable($table)
@@ -1521,7 +1521,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function updateObject($table, &$object, $key, $nulls = false)
@@ -1599,7 +1599,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract public function execute();
@@ -1609,7 +1609,7 @@ abstract class Driver implements DatabaseInterface
 	 *
 	 * @return  Driver  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public abstract function unlockTables();

@@ -13,7 +13,7 @@ use Joomla\Session\Storage;
  * Test class for JSessionStorageApc.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JSessionStorageApcTest extends PHPUnit_Framework_TestCase
 {

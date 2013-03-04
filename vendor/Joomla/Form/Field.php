@@ -17,7 +17,7 @@ use SimpleXMLElement;
  * Abstract Form Field class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 abstract class Field
 {
@@ -25,7 +25,7 @@ abstract class Field
 	 * The description text for the form field.  Usually used in tooltips.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $description;
 
@@ -33,7 +33,7 @@ abstract class Field
 	 * The SimpleXMLElement object of the <field /> XML element that describes the form field.
 	 *
 	 * @var    SimpleXMLElement
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $element;
 
@@ -41,7 +41,7 @@ abstract class Field
 	 * The Form object of the form attached to the form field.
 	 *
 	 * @var    Form
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $form;
 
@@ -49,7 +49,7 @@ abstract class Field
 	 * The form control prefix for field names from the Form object attached to the form field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $formControl;
 
@@ -57,7 +57,7 @@ abstract class Field
 	 * The hidden state for the form field.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $hidden = false;
 
@@ -65,7 +65,7 @@ abstract class Field
 	 * True to translate the field label string.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $translateLabel = true;
 
@@ -73,7 +73,7 @@ abstract class Field
 	 * True to translate the field description string.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $translateDescription = true;
 
@@ -81,7 +81,7 @@ abstract class Field
 	 * The document id for the form field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $id;
 
@@ -89,7 +89,7 @@ abstract class Field
 	 * The input for the form field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $input;
 
@@ -97,7 +97,7 @@ abstract class Field
 	 * The label for the form field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $label;
 
@@ -106,7 +106,7 @@ abstract class Field
 	 * field.  Most often used for list field types.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $multiple = false;
 
@@ -114,7 +114,7 @@ abstract class Field
 	 * The name of the form field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $name;
 
@@ -122,7 +122,7 @@ abstract class Field
 	 * The name of the field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $fieldname;
 
@@ -130,7 +130,7 @@ abstract class Field
 	 * The group of the field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $group;
 
@@ -139,7 +139,7 @@ abstract class Field
 	 * be considered valid.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $required = false;
 
@@ -148,7 +148,7 @@ abstract class Field
 	 * to change the pre-selected value, and the value must not be submitted by the browser.
 	 *
 	 * @var    boolean
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $disabled = false;
 
@@ -157,7 +157,7 @@ abstract class Field
 	 * to change the pre-selected value, and the value must submitted by the browser.
 	 *
 	 * @var    boolean
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $readonly = false;
 
@@ -165,7 +165,7 @@ abstract class Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type;
 
@@ -174,7 +174,7 @@ abstract class Field
 	 * to validate the value for a field.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $validate;
 
@@ -182,7 +182,7 @@ abstract class Field
 	 * The value of the form field.
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $value;
 
@@ -190,7 +190,7 @@ abstract class Field
 	 * The label's CSS class of the form field
 	 *
 	 * @var    mixed
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $labelClass;
 
@@ -198,7 +198,7 @@ abstract class Field
 	 * The count value for generated name field
 	 *
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected static $count = 0;
 
@@ -206,7 +206,7 @@ abstract class Field
 	 * The string used for generated fields names
 	 *
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected static $generated_fieldname = '__field';
 
@@ -215,7 +215,7 @@ abstract class Field
 	 *
 	 * @param   Form  $form  The form to attach to the form field object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct(Form $form = null)
 	{
@@ -249,7 +249,7 @@ abstract class Field
 	 *
 	 * @return  mixed  The property value or null.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{
@@ -304,7 +304,7 @@ abstract class Field
 	 *
 	 * @return  FormField  The form field object so that the method can be used in a chain.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setForm(Form $form)
 	{
@@ -325,7 +325,7 @@ abstract class Field
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setup(SimpleXMLElement $element, $value, $group = null)
 	{
@@ -418,7 +418,7 @@ abstract class Field
 	 *
 	 * @return  string  The id to be used for the field input tag.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getId($fieldId, $fieldName)
 	{
@@ -465,7 +465,7 @@ abstract class Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	abstract protected function getInput();
 
@@ -474,7 +474,7 @@ abstract class Field
 	 *
 	 * @return  string  The field title.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getTitle()
 	{
@@ -497,7 +497,7 @@ abstract class Field
 	 *
 	 * @return  string  The field label markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getLabel()
 	{
@@ -550,7 +550,7 @@ abstract class Field
 	 *
 	 * @return  string  The name to be used for the field input tag.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getName($fieldName)
 	{
@@ -612,7 +612,7 @@ abstract class Field
 	 *
 	 * @return  string  The field name
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getFieldName($fieldName)
 	{

@@ -12,7 +12,7 @@ namespace Joomla\Database\Driver;
  *
  * @package  Joomla\Framework
  * @see      http://msdn.microsoft.com/en-us/library/ee336279.aspx
- * @since    12.1
+ * @since    1.0
  */
 class Sqlazure extends Sqlsrv
 {
@@ -20,7 +20,7 @@ class Sqlazure extends Sqlsrv
 	 * The name of the database driver.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $name = 'sqlzure';
 }

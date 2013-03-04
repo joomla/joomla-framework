@@ -16,7 +16,7 @@ use RuntimeException;
  * PostgreSQL database driver
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Postgresql extends Driver
 {
@@ -43,7 +43,7 @@ class Postgresql extends Driver
 
 	/**
 	 * @var    string  The minimum supported database version.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected static $dbMinimum = '8.3.18';
 
@@ -97,7 +97,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  void  Returns void if the database connected successfully.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function connect()
@@ -131,7 +131,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function disconnect()
 	{
@@ -152,7 +152,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  string  The escaped string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function escape($text, $extra = false)
 	{
@@ -205,7 +205,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  boolean	true
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function dropTable($tableName, $ifExists = true)
@@ -237,7 +237,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  mixed  The collation in use by the database or boolean false if not supported.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getCollation()
@@ -257,7 +257,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  integer   The number of returned rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getNumRows( $cur = null )
 	{
@@ -274,7 +274,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  \Joomla\Database\Query\Postgresql  The current query object or a new object extending the Query class.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getQuery($new = false, $asObj = false)
@@ -313,7 +313,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  char  An empty char because this function is not supported by PostgreSQL.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableCreate($tables)
@@ -329,7 +329,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  array  An array of fields for the database table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
@@ -402,7 +402,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  array  An array of the column specification for the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableKeys($table)
@@ -440,7 +440,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  array  An array of all the tables in the database.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableList()
@@ -469,7 +469,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  array  An array of sequences specification for the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableSequences($table)
@@ -516,7 +516,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  string  The database connector version.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getVersion()
 	{
@@ -554,7 +554,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  integer  The value of the auto-increment field from the last inserted row.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function insertid()
 	{
@@ -592,7 +592,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  Postgresql  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function lockTable($tableName)
@@ -608,7 +608,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function execute()
@@ -701,7 +701,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  Postgresql  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
@@ -787,7 +787,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  integer  Zero on success, -1 on failure
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setUTF()
 	{
@@ -805,7 +805,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  string  The quoted string.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function sqlValue($columns, $field_name, $field_value)
 	{
@@ -860,7 +860,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
@@ -887,7 +887,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
@@ -920,7 +920,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
@@ -953,7 +953,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchArray($cursor = null)
 	{
@@ -967,7 +967,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchAssoc($cursor = null)
 	{
@@ -982,7 +982,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchObject($cursor = null, $class = 'stdClass')
 	{
@@ -996,7 +996,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function freeResult($cursor = null)
 	{
@@ -1012,7 +1012,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  boolean    True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function insertObject($table, &$object, $key = null)
@@ -1085,7 +1085,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -1156,7 +1156,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  string  The query that alter the database query string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getAlterDbCharacterSet($dbName)
 	{
@@ -1175,7 +1175,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  string	The query that creates database, owned by $options['user']
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getCreateDbQuery($options, $utf)
 	{
@@ -1198,7 +1198,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  string  The processed SQL statement.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function replacePrefix($sql, $prefix = '#__')
 	{
@@ -1273,7 +1273,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function releaseTransactionSavepoint($savepointName)
 	{
@@ -1289,7 +1289,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function transactionSavepoint($savepointName)
 	{
@@ -1304,7 +1304,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  Postgresql  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function unlockTables()
@@ -1324,7 +1324,7 @@ class Postgresql extends Driver
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function updateObject($table, &$object, $key, $nulls = false)

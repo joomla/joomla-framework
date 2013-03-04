@@ -16,7 +16,7 @@ use Joomla\Session\Session;
  * Provides a select list of session handler options.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_SessionHandler extends Field_List
 {
@@ -24,7 +24,7 @@ class Field_SessionHandler extends Field_List
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'SessionHandler';
 
@@ -33,7 +33,7 @@ class Field_SessionHandler extends Field_List
 	 *
 	 * @return  array  The field option objects.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getOptions()
 	{

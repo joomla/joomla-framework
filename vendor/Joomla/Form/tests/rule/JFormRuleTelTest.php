@@ -11,7 +11,7 @@ use Joomla\Form\Rule\Tel as RuleTel;
  * Test class for JForm.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormRuleTelTest extends PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,7 @@
  * Test class for JFormFieldGroupedList.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class JFormFieldGroupedListTest extends TestCase
 {
@@ -18,7 +18,7 @@ class JFormFieldGroupedListTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -30,7 +30,7 @@ class JFormFieldGroupedListTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetInput()
 	{

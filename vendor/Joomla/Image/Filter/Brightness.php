@@ -14,7 +14,7 @@ use InvalidArgumentException;
  * Image Filter class adjust the brightness of an image.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Brightness extends Filter
 {
@@ -25,7 +25,7 @@ class Brightness extends Filter
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public function execute(array $options = array())

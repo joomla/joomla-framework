@@ -15,7 +15,7 @@ use Joomla\Test\WebInspector;
  * Test class for Client.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class ClientTest extends PHPUnit_Framework_TestCase
 {
@@ -334,7 +334,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
  *
  * @return  object
  *
- * @since   12.3
+ * @since   1.0
  */
 function encodedGrantOauthCallback($url, $data, array $headers = null, $timeout = null)
 {
@@ -357,7 +357,7 @@ function encodedGrantOauthCallback($url, $data, array $headers = null, $timeout 
  *
  * @return  object
  *
- * @since   12.3
+ * @since   1.0
  */
 function jsonGrantOauthCallback($url, $data, array $headers = null, $timeout = null)
 {
@@ -380,7 +380,7 @@ function jsonGrantOauthCallback($url, $data, array $headers = null, $timeout = n
  *
  * @return  object
  *
- * @since   12.3
+ * @since   1.0
  */
 function queryOauthCallback($url, $data, array $headers = null, $timeout = null)
 {
@@ -402,7 +402,7 @@ function queryOauthCallback($url, $data, array $headers = null, $timeout = null)
  *
  * @return  object
  *
- * @since   12.3
+ * @since   1.0
  */
 function getOauthCallback($url, array $headers = null, $timeout = null)
 {

@@ -20,31 +20,31 @@ use Exception;
  * Joomla Platform class for interacting with an OAuth 2.0 server.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Client
 {
 	/**
 	 * @var    Registry  Options for the Client object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Http  The HTTP client object to use in sending HTTP requests.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $http;
 
 	/**
 	 * @var    Input  The input object to use in retrieving GET/POST data.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $input;
 
 	/**
 	 * @var    Web  The application object to send HTTP headers for redirects.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $application;
 
@@ -56,7 +56,7 @@ class Client
 	 * @param   Input     $input        The input object
 	 * @param   Web       $application  The application object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Http $http = null, Input $input, Web $application = null)
 	{
@@ -71,7 +71,7 @@ class Client
 	 *
 	 * @return  string  The access token
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function authenticate()
@@ -119,7 +119,7 @@ class Client
 	 *
 	 * @return  boolean  Is authenticated
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function isAuthenticated()
 	{
@@ -144,7 +144,7 @@ class Client
 	 *
 	 * @return  \Joomla\Http\Response  The HTTP response
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public function createUrl()
@@ -206,7 +206,7 @@ class Client
 	 *
 	 * @return  string  The URL.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  RuntimeException
 	 */
@@ -277,7 +277,7 @@ class Client
 	 *
 	 * @return  mixed  The option value
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -292,7 +292,7 @@ class Client
 	 *
 	 * @return  Client  This object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setOption($key, $value)
 	{
@@ -306,7 +306,7 @@ class Client
 	 *
 	 * @return  array  The access token
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getToken()
 	{
@@ -320,7 +320,7 @@ class Client
 	 *
 	 * @return  Client  This object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setToken($value)
 	{
@@ -342,7 +342,7 @@ class Client
 	 *
 	 * @return  array  The new access token
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  Exception
 	 * @throws  RuntimeException
 	 */

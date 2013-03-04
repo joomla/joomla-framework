@@ -11,7 +11,7 @@ namespace Joomla\Crypt;
  * JCrypt cipher interface.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 interface Cipher
 {
@@ -23,7 +23,7 @@ interface Cipher
 	 *
 	 * @return  string  The decrypted data string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function decrypt($data, Key $key);
 
@@ -35,7 +35,7 @@ interface Cipher
 	 *
 	 * @return  string  The encrypted data string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function encrypt($data, Key $key);
 
@@ -46,7 +46,7 @@ interface Cipher
 	 *
 	 * @return  JCryptKey
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function generateKey(array $options = array());
 }

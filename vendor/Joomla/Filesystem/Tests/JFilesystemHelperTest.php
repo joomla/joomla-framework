@@ -11,7 +11,7 @@ use Joomla\Filesystem\Helper;
  * Test class for Helper.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class FilesystemHelperTest extends PHPUnit_Framework_TestCase
 {

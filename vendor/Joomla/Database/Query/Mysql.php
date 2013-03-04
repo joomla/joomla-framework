@@ -11,7 +11,7 @@ namespace Joomla\Database\Query;
  * Query Building Class.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Mysql extends Mysqli
 {

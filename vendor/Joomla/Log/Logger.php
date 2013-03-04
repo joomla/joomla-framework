@@ -14,20 +14,20 @@ namespace Joomla\Log;
  * to exist regardless of the child class.
  *
  * @package  Joomla\Framework
- * @since    12.2
+ * @since    1.0
  */
 abstract class Logger
 {
 	/**
 	 * Options array for the JLog instance.
 	 * @var    array
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $options = array();
 
 	/**
 	 * @var    array  Translation array for JLogEntry priorities to text strings.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $priorities = array(
 		Log::EMERGENCY => 'EMERGENCY',
@@ -44,7 +44,7 @@ abstract class Logger
 	 *
 	 * @param   array  &$options  Log object options.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function __construct(array &$options)
 	{
@@ -59,7 +59,7 @@ abstract class Logger
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	abstract public function addEntry(Entry $entry);
 }

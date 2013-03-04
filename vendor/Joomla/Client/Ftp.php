@@ -52,49 +52,49 @@ if (!defined('FTP_NATIVE'))
  * FTP client class
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Ftp
 {
 	/**
 	 * @var    resource  Socket resource
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $conn = null;
 
 	/**
 	 * @var    resource  Data port connection resource
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $dataconn = null;
 
 	/**
 	 * @var    array  Passive connection information
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $pasv = null;
 
 	/**
 	 * @var    string  Response Message
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $response = null;
 
 	/**
 	 * @var    integer  Timeout limit
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $timeout = 15;
 
 	/**
 	 * @var    integer  Transfer Type
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $type = null;
 
 	/**
 	 * @var    array  Array to hold ascii format file extensions
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private $autoAscii = array(
 		"asp",
@@ -123,13 +123,13 @@ class Ftp
 	 * Array to hold native line ending characters
 	 *
 	 * @var    array
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $lineEndings = array('UNIX' => "\n", 'WIN' => "\r\n");
 
 	/**
 	 * @var    array  JClientFtp instances container.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected static $instances = array();
 
@@ -138,7 +138,7 @@ class Ftp
 	 *
 	 * @param   array  $options  Associative array of options to set
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct(array $options = array())
 	{
@@ -162,7 +162,7 @@ class Ftp
 	 *
 	 * Closes an existing connection, if we have one
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -189,7 +189,7 @@ class Ftp
 	 *
 	 * @return  JClientFtp        The FTP Client object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function getInstance($host = '127.0.0.1', $port = '21', array $options = array(), $user = null, $pass = null)
 	{
@@ -226,7 +226,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setOptions(array $options)
 	{
@@ -251,7 +251,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function connect($host = '127.0.0.1', $port = 21)
 	{
@@ -321,7 +321,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if connected
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function isConnected()
 	{
@@ -336,7 +336,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function login($user = 'anonymous', $pass = 'jftp@joomla.org')
 	{
@@ -386,7 +386,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function quit()
 	{
@@ -410,7 +410,7 @@ class Ftp
 	 *
 	 * @return  string   Current working directory
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function pwd()
 	{
@@ -449,7 +449,7 @@ class Ftp
 	 *
 	 * @return  string   System identifier string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function syst()
 	{
@@ -501,7 +501,7 @@ class Ftp
 	 *
 	 * @return  boolean True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function chdir($path)
 	{
@@ -539,7 +539,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function reinit()
 	{
@@ -575,7 +575,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function rename($from, $to)
 	{
@@ -625,7 +625,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function chmod($path, $mode)
 	{
@@ -688,7 +688,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function delete($path)
 	{
@@ -732,7 +732,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function mkdir($path)
 	{
@@ -770,7 +770,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function restart($point)
 	{
@@ -810,7 +810,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function create($path)
 	{
@@ -883,7 +883,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function read($remote, &$buffer)
 	{
@@ -994,7 +994,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function get($local, $remote)
 	{
@@ -1085,7 +1085,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function store($local, $remote = null)
 	{
@@ -1206,7 +1206,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function write($remote, $buffer)
 	{
@@ -1305,7 +1305,7 @@ class Ftp
 	 *
 	 * @return  string  Directory listing
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function listNames($path = null)
 	{
@@ -1423,7 +1423,7 @@ class Ftp
 	 *
 	 * @return  mixed  If $type is raw: string Directory listing, otherwise array of string with file-names
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function listDetails($path = null, $type = 'all')
 	{
@@ -1658,7 +1658,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if command executed successfully
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function _putCmd($cmd, $expectedResponse)
 	{
@@ -1686,7 +1686,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if response code from the server is expected
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function _verifyResponse($expected)
 	{
@@ -1752,7 +1752,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function _passive()
 	{
@@ -1855,7 +1855,7 @@ class Ftp
 	 *
 	 * @return  integer Transfer-mode for this filetype [FTP_ASCII|FTP_BINARY]
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function _findMode($fileName)
 	{
@@ -1893,7 +1893,7 @@ class Ftp
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function _mode($mode)
 	{

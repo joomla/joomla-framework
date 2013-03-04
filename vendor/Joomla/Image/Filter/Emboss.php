@@ -13,7 +13,7 @@ use Joomla\Image\Filter;
  * Image Filter class to emboss an image.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Emboss extends Filter
 {
@@ -24,7 +24,7 @@ class Emboss extends Filter
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function execute(array $options = array())
 	{

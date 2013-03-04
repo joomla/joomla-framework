@@ -16,7 +16,7 @@ use UnexpectedValueException;
  * Provides a grouped list select field.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_GroupedList extends Field
 {
@@ -24,7 +24,7 @@ class Field_GroupedList extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'GroupedList';
 
@@ -33,7 +33,7 @@ class Field_GroupedList extends Field
 	 *
 	 * @return  array  The field option objects as a nested array in groups.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	protected function getGroups()
@@ -132,7 +132,7 @@ class Field_GroupedList extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{

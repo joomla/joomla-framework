@@ -20,14 +20,14 @@ use Joomla\Input\Cli as InputCli;
  * @package  Joomla\Framework
  * @see      http://www.php.net/manual/en/book.pcntl.php
  * @see      http://php.net/manual/en/features.commandline.php
- * @since    11.1
+ * @since    1.0
  */
 abstract class Daemon extends Cli
 {
 	/**
 	 * @var    array  The available POSIX signals to be caught by default.
 	 * @see    http://php.net/manual/pcntl.constants.php
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected static $signals = array(
 		'SIGHUP',
@@ -70,25 +70,25 @@ abstract class Daemon extends Cli
 
 	/**
 	 * @var    boolean  True if the daemon is in the process of exiting.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $exiting = false;
 
 	/**
 	 * @var    integer  The parent process id.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $parentId = 0;
 
 	/**
 	 * @var    integer  The process id of the daemon.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $processId = 0;
 
 	/**
 	 * @var    boolean  True if the daemon is currently running.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $running = false;
 
@@ -102,7 +102,7 @@ abstract class Daemon extends Cli
 	 *                          config object.  If the argument is a Registry object that object will become
 	 *                          the application's config object, otherwise a default config object is created.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function __construct(InputCli $input = null, Registry $config = null)
@@ -146,7 +146,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @see     pcntl_signal()
 	 * @throws  RuntimeException
 	 */
@@ -214,7 +214,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  boolean  True if daemon is active.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function isActive()
 	{
@@ -259,7 +259,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  JCli  Instance of $this to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function loadConfiguration($data)
 	{
@@ -357,7 +357,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function execute()
 	{
@@ -405,7 +405,7 @@ abstract class Daemon extends Cli
 	 * @return  void
 	 *
 	 * @codeCoverageIgnore
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function restart()
 	{
@@ -419,7 +419,7 @@ abstract class Daemon extends Cli
 	 * @return  void
 	 *
 	 * @codeCoverageIgnore
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function stop()
 	{
@@ -432,7 +432,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  boolean  True if identity successfully changed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @see     posix_setuid()
 	 */
 	protected function changeIdentity()
@@ -496,7 +496,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function daemonize()
@@ -594,7 +594,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function detach()
@@ -628,7 +628,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  integer  The child process id to the parent process, zero to the child process.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function fork()
@@ -666,7 +666,7 @@ abstract class Daemon extends Cli
 	 * @return  void
 	 *
 	 * @codeCoverageIgnore
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function gc()
 	{
@@ -684,7 +684,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @see     pcntl_signal()
 	 */
 	protected function setupSignalHandlers()
@@ -722,7 +722,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function shutdown($restart = false)
 	{
@@ -775,7 +775,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function writeProcessIdFile()
 	{
@@ -831,7 +831,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function postFork()
 	{
@@ -848,7 +848,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @codeCoverageIgnore
 	 * @see     pcntl_wexitstatus()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function pcntlChildExitStatus($status)
 	{
@@ -865,7 +865,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @codeCoverageIgnore
 	 * @see     pcntl_fork()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function pcntlFork()
 	{
@@ -885,7 +885,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @codeCoverageIgnore
 	 * @see     pcntl_signal()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function pcntlSignal($signal , $handler, $restart = true)
 	{
@@ -904,7 +904,7 @@ abstract class Daemon extends Cli
 	 *
 	 * @codeCoverageIgnore
 	 * @see     pcntl_wait()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function pcntlWait(&$status, $options = 0)
 	{

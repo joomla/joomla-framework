@@ -14,7 +14,7 @@ use DomainException;
  * GitHub API Pull Requests class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Pulls extends Object
 {
@@ -33,7 +33,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function create($user, $repo, $title, $base, $head, $body = '')
 	{
@@ -77,7 +77,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function createComment($user, $repo, $pullId, $body, $commitId, $filePath, $position)
 	{
@@ -119,7 +119,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function createCommentReply($user, $repo, $pullId, $body, $inReplyTo)
 	{
@@ -162,7 +162,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function createFromIssue($user, $repo, $issueId, $base, $head)
 	{
@@ -201,7 +201,7 @@ class Pulls extends Object
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function deleteComment($user, $repo, $commentId)
 	{
@@ -232,7 +232,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function edit($user, $repo, $pullId, $title = null, $body = null, $state = null)
 	{
@@ -287,7 +287,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function editComment($user, $repo, $commentId, $body)
 	{
@@ -324,7 +324,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function get($user, $repo, $pullId)
 	{
@@ -354,7 +354,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getComment($user, $repo, $commentId)
 	{
@@ -386,7 +386,7 @@ class Pulls extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getComments($user, $repo, $pullId, $page = 0, $limit = 0)
 	{
@@ -418,7 +418,7 @@ class Pulls extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getCommits($user, $repo, $pullId, $page = 0, $limit = 0)
 	{
@@ -450,7 +450,7 @@ class Pulls extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getFiles($user, $repo, $pullId, $page = 0, $limit = 0)
 	{
@@ -482,7 +482,7 @@ class Pulls extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getList($user, $repo, $state = 'open', $page = 0, $limit = 0)
 	{
@@ -518,7 +518,7 @@ class Pulls extends Object
 	 *
 	 * @return  boolean  True if the pull request has been merged.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function isMerged($user, $repo, $pullId)
 	{
@@ -555,7 +555,7 @@ class Pulls extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function merge($user, $repo, $pullId, $message = '')
 	{

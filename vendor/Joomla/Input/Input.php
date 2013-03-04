@@ -18,7 +18,7 @@ use Countable;
  * This is an abstracted input class used to manage retrieving data from the application environment.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  *
  * @property-read    Input   $get
  * @property-read    Input   $post
@@ -46,7 +46,7 @@ class Input implements Serializable, Countable
 	 * Options array for the JInput instance.
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $options = array();
 
@@ -54,7 +54,7 @@ class Input implements Serializable, Countable
 	 * Filter object to use.
 	 *
 	 * @var    FilterInput
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $filter = null;
 
@@ -62,7 +62,7 @@ class Input implements Serializable, Countable
 	 * Input data.
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $data = array();
 
@@ -70,7 +70,7 @@ class Input implements Serializable, Countable
 	 * Input objects
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $inputs = array();
 
@@ -80,7 +80,7 @@ class Input implements Serializable, Countable
 	 * @param   array  $source   Source data (Optional, default is $_REQUEST)
 	 * @param   array  $options  Array of configuration parameters (Optional)
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($source = null, array $options = array())
 	{
@@ -113,7 +113,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  Input  The request input object
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{
@@ -148,7 +148,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  integer  The number of variables in the input.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @see     Countable::count()
 	 */
 	public function count()
@@ -165,7 +165,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  mixed  The filtered input value.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function get($name, $default = null, $filter = 'cmd')
 	{
@@ -187,7 +187,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  mixed  The filtered input data.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getArray(array $vars = array(), $datasource = null)
 	{
@@ -239,7 +239,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function set($name, $value)
 	{
@@ -254,7 +254,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function def($name, $value)
 	{
@@ -274,7 +274,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  mixed   The filtered input value.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __call($name, $arguments)
 	{
@@ -298,7 +298,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  string   The request method.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getMethod()
 	{
@@ -312,7 +312,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  string  The serialized input.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function serialize()
 	{
@@ -335,7 +335,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  Input  The input object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function unserialize($input)
 	{
@@ -358,7 +358,7 @@ class Input implements Serializable, Countable
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function loadAllInputs()
 	{

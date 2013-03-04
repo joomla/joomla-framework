@@ -9,7 +9,7 @@
  * JFilterInputMock test class.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFilterInputMock
 {

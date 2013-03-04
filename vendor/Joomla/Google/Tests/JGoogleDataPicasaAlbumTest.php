@@ -11,7 +11,7 @@ require_once __DIR__ . '/case/GoogleTestCase.php';
  * Test class for JGoogleDataPicasa.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleDataPicasaAlbumTest extends GoogleTestCase
 {
@@ -434,7 +434,7 @@ class JGoogleDataPicasaAlbumTest extends GoogleTestCase
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function emptyPicasaCallback($url, array $headers = null, $timeout = null)
 {
@@ -456,7 +456,7 @@ function emptyPicasaCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function picasaPhotolistCallback($url, array $headers = null, $timeout = null)
 {
@@ -479,7 +479,7 @@ function picasaPhotolistCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function dataPicasaUploadCallback($url, $data, array $headers = null, $timeout = null)
 {

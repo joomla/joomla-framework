@@ -118,7 +118,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__toStringFrom_subquery()
 	{
@@ -141,7 +141,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__toStringInsert_subquery()
 	{
@@ -168,7 +168,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringYear()
 	{
@@ -185,7 +185,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringMonth()
 	{
@@ -202,7 +202,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringDay()
 	{
@@ -219,7 +219,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringHour()
 	{
@@ -236,7 +236,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringMinute()
 	{
@@ -253,7 +253,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringSecond()
 	{
@@ -302,7 +302,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__toStringUpdate()
 	{
@@ -329,7 +329,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::__toString
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringUnion()
 	{
@@ -598,7 +598,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::columns
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testColumns()
 	{
@@ -630,7 +630,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::concatenate
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testConcatenate()
 	{
@@ -653,7 +653,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::currentTimestamp
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCurrentTimestamp()
 	{
@@ -669,7 +669,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::dateFormat
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDateFormat()
 	{
@@ -686,7 +686,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::dateFormat
 	 * @expectedException  RuntimeException
-	 * @since           11.3
+	 * @since           1.0
 	 */
 	public function testDateFormatException()
 	{
@@ -702,7 +702,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::delete
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDelete()
 	{
@@ -757,7 +757,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::dump
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDump()
 	{
@@ -781,7 +781,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::escape
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testEscape()
 	{
@@ -798,7 +798,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::escape
 	 * @expectedException  RuntimeException
-	 * @since           11.3
+	 * @since           1.0
 	 */
 	public function testEscapeException()
 	{
@@ -842,7 +842,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::from
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testFrom()
 	{
@@ -874,7 +874,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::group
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGroup()
 	{
@@ -906,7 +906,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::having
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testHaving()
 	{
@@ -949,7 +949,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::innerJoin
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testInnerJoin()
 	{
@@ -978,7 +978,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::insert
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testInsert()
 	{
@@ -1007,7 +1007,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::join
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testJoin()
 	{
@@ -1038,7 +1038,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::leftJoin
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLeftJoin()
 	{
@@ -1067,7 +1067,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::length
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLength()
 	{
@@ -1106,7 +1106,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::nullDate
 	 * @expectedException  RuntimeException
-	 * @since           11.3
+	 * @since           1.0
 	 */
 	public function testNullDateException()
 	{
@@ -1122,7 +1122,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::order
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testOrder()
 	{
@@ -1166,7 +1166,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::outerJoin
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testOuterJoin()
 	{
@@ -1214,7 +1214,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::quote
 	 * @expectedException  RuntimeException
-	 * @since           11.3
+	 * @since           1.0
 	 */
 	public function testQuoteException()
 	{
@@ -1248,7 +1248,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers             \Joomla\Database\Query::quoteName
 	 * @expectedException  RuntimeException
-	 * @since           11.3
+	 * @since           1.0
 	 */
 	public function testQuoteNameException()
 	{
@@ -1264,7 +1264,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::rightJoin
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRightJoin()
 	{
@@ -1293,7 +1293,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::select
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSelect()
 	{
@@ -1342,7 +1342,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::set
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSet()
 	{
@@ -1427,7 +1427,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::update
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testUpdate()
 	{
@@ -1456,7 +1456,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::values
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testValues()
 	{
@@ -1493,7 +1493,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::where
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testWhere()
 	{
@@ -1545,7 +1545,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__clone_array()
 	{
@@ -1566,7 +1566,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function test__clone_object()
 	{
@@ -1587,7 +1587,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::union
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionChain()
 	{
@@ -1604,7 +1604,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::union
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionClear()
 	{
@@ -1625,7 +1625,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::union
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionUnion()
 	{
@@ -1645,7 +1645,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::union
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionDistinctString()
 	{
@@ -1665,7 +1665,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::union
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionDistinctTrue()
 	{
@@ -1685,7 +1685,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::union
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionDistinctFalse()
 	{
@@ -1705,7 +1705,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::union
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionArray()
 	{
@@ -1725,7 +1725,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::union
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionTwo()
 	{
@@ -1746,7 +1746,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::unionDistinct
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionDistinct()
 	{
@@ -1766,7 +1766,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  \Joomla\Database\Query::unionDistinct
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnionDistinctArray()
 	{

@@ -9,7 +9,7 @@
  * Test class for JFormFieldSQL.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class JFormFieldSQLTest extends TestCaseDatabase
 {
@@ -18,7 +18,7 @@ class JFormFieldSQLTest extends TestCaseDatabase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -30,7 +30,7 @@ class JFormFieldSQLTest extends TestCaseDatabase
 	 *
 	 * @return  xml dataset
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getDataSet()
 	{
@@ -42,7 +42,7 @@ class JFormFieldSQLTest extends TestCaseDatabase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetInput()
 	{

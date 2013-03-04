@@ -13,7 +13,7 @@ use Joomla\Archive\Gzip as ArchiveGzip;
  *
  * @package  Joomla\Framework\Test
  *
- * @since    11.1
+ * @since    1.0
  */
 class ArchiveGzipTest extends PHPUnit_Framework_TestCase
 {

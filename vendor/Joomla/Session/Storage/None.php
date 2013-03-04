@@ -14,7 +14,7 @@ use Joomla\Session\Storage;
  *
  * @package  Joomla\Framework
  * @see      http://www.php.net/manual/en/function.session-set-save-handler.php
- * @since    11.1
+ * @since    1.0
  */
 class None extends Storage
 {

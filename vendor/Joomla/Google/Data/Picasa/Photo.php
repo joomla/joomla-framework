@@ -18,13 +18,13 @@ use UnexpectedValueException;
  * Google Picasa data class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Photo extends Data
 {
 	/**
 	 * @var    SimpleXMLElement  The photo's XML
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $xml;
 
@@ -35,7 +35,7 @@ class Photo extends Data
 	 * @param   Registry          $options  Google options object
 	 * @param   Auth              $auth     Google data http client object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(SimpleXMLElement $xml, Registry $options = null, Auth $auth = null)
 	{
@@ -56,7 +56,7 @@ class Photo extends Data
 	 *
 	 * @return  boolean  Success or failure.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  Exception
 	 * @throws  RuntimeException
 	 * @throws  UnexpectedValueException
@@ -109,7 +109,7 @@ class Photo extends Data
 	 *
 	 * @return  string  Link or false on failure
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getLink($type = 'edit')
 	{
@@ -131,7 +131,7 @@ class Photo extends Data
 	 *
 	 * @return  string  Link
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getURL()
 	{
@@ -143,7 +143,7 @@ class Photo extends Data
 	 *
 	 * @return  array  An array of thumbnails
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getThumbnails()
 	{
@@ -165,7 +165,7 @@ class Photo extends Data
 	 *
 	 * @return  string  Photo title
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getTitle()
 	{
@@ -177,7 +177,7 @@ class Photo extends Data
 	 *
 	 * @return  string  Photo description
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getSummary()
 	{
@@ -189,7 +189,7 @@ class Photo extends Data
 	 *
 	 * @return  string  Photo access level
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getAccess()
 	{
@@ -201,7 +201,7 @@ class Photo extends Data
 	 *
 	 * @return  double  Photo time
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getTime()
 	{
@@ -213,7 +213,7 @@ class Photo extends Data
 	 *
 	 * @return  int  Photo size
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getSize()
 	{
@@ -225,7 +225,7 @@ class Photo extends Data
 	 *
 	 * @return  int  Photo height
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getHeight()
 	{
@@ -237,7 +237,7 @@ class Photo extends Data
 	 *
 	 * @return  int  Photo width
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getWidth()
 	{
@@ -251,7 +251,7 @@ class Photo extends Data
 	 *
 	 * @return  Photo  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setTitle($title)
 	{
@@ -267,7 +267,7 @@ class Photo extends Data
 	 *
 	 * @return  Photo  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setSummary($summary)
 	{
@@ -283,7 +283,7 @@ class Photo extends Data
 	 *
 	 * @return  Photo  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setAccess($access)
 	{
@@ -299,7 +299,7 @@ class Photo extends Data
 	 *
 	 * @return  Photo  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setTime($time)
 	{
@@ -315,7 +315,7 @@ class Photo extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  Exception
 	 * @throws  RuntimeException
 	 */
@@ -361,7 +361,7 @@ class Photo extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function refresh()
 	{

@@ -9,7 +9,7 @@
  * Test stub non-controller.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class MyTestControllerBaz
 {

@@ -15,7 +15,7 @@ use Joomla\Language\Text;
  * Supports a generic list of options.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_List extends Field
 {
@@ -23,7 +23,7 @@ class Field_List extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'List';
 
@@ -33,7 +33,7 @@ class Field_List extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{
@@ -78,7 +78,7 @@ class Field_List extends Field
 	 *
 	 * @return  array  The field option objects.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getOptions()
 	{

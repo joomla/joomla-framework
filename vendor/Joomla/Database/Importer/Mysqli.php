@@ -16,7 +16,7 @@ use SimpleXMLElement;
  * MySQLi import driver.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Mysqli extends Importer
 {
@@ -25,7 +25,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  Mysqli  Method supports chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception if an error is encountered.
 	 */
 	public function check()
@@ -53,7 +53,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getAddColumnSQL($table, SimpleXMLElement $field)
 	{
@@ -70,7 +70,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getAddKeySQL($table, $keys)
 	{
@@ -86,7 +86,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getAlterTableSQL(\SimpleXMLElement $structure)
 	{
@@ -236,7 +236,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getChangeColumnSQL($table, SimpleXMLElement $field)
 	{
@@ -253,7 +253,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getColumnSQL(\SimpleXMLElement $field)
 	{
@@ -309,7 +309,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getDropKeySQL($table, $name)
 	{
@@ -325,7 +325,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getDropPrimaryKeySQL($table)
 	{
@@ -341,7 +341,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  array  The lookup array. array({key name} => array(object, ...))
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception
 	 */
 	protected function getKeyLookup($keys)
@@ -378,7 +378,7 @@ class Mysqli extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getKeySQL($columns)
 	{

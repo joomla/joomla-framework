@@ -11,7 +11,7 @@ use Joomla\Form\Rule\Options as RuleOptions;
  * Test class for JForm.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormRuleOptionsTest extends PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class JFormRuleOptionsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setUp()
 	{
@@ -32,7 +32,7 @@ class JFormRuleOptionsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
@@ -43,7 +43,7 @@ class JFormRuleOptionsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testOptions()
 	{

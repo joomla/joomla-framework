@@ -14,7 +14,7 @@ use RuntimeException;
  * GitHub API Hooks class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Hooks extends Object
 {
@@ -22,7 +22,7 @@ class Hooks extends Object
 	 * Array containing the allowed hook events
 	 *
 	 * @var    array
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $events = array(
 		'push', 'issues', 'issue_comment', 'commit_comment', 'pull_request', 'gollum', 'watch', 'download', 'fork', 'fork_apply',
@@ -41,7 +41,7 @@ class Hooks extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  DomainException
 	 */
 	public function create($user, $repo, $name, array $config, array $events = array('push'), $active = true)
@@ -85,7 +85,7 @@ class Hooks extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  DomainException
 	 */
 	public function delete($user, $repo, $id)
@@ -122,7 +122,7 @@ class Hooks extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  DomainException
 	 * @throws  RuntimeException
 	 */
@@ -190,7 +190,7 @@ class Hooks extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  DomainException
 	 */
 	public function get($user, $repo, $id)
@@ -222,7 +222,7 @@ class Hooks extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  DomainException
 	 */
 	public function getList($user, $repo, $page = 0, $limit = 0)
@@ -253,7 +253,7 @@ class Hooks extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  DomainException
 	 */
 	public function test($user, $repo, $id)

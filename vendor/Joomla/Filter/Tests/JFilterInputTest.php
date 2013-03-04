@@ -11,7 +11,7 @@ use Joomla\Filter\Input;
  * Test class for Filter\Input
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class FilterInputTest extends PHPUnit_Framework_TestCase
 {

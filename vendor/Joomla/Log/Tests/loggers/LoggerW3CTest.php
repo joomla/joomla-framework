@@ -14,7 +14,7 @@ use Joomla\Log\Entry;
  * Test class for JLogLoggerW3C.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JLogLoggerW3CTest extends PHPUnit_Framework_TestCase
 {
@@ -70,7 +70,7 @@ class JLogLoggerW3CTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getLastLine($path)
 	{

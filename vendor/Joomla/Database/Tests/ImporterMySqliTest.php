@@ -11,13 +11,13 @@ namespace Joomla\Database\Tests;
  * Tests the JDatabaseMySqlImporter class.
  *
  * @package  Joomla\Framework\Tests
- * @since    11.1
+ * @since    1.0
  */
 class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    object  The mocked database object for use by test methods.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $dbo = null;
 
@@ -26,7 +26,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function setup()
 	{
@@ -47,7 +47,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testCheckWithNoDbo()
 	{
@@ -73,7 +73,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testCheckWithNoTables()
 	{
@@ -100,7 +100,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testCheckWithGoodInput()
 	{
@@ -131,7 +131,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testSetDboWithBadInput()
 	{
@@ -157,7 +157,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public function testSetDboWithGoodInput()
 	{

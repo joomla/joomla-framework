@@ -12,7 +12,7 @@ namespace Joomla\Database\Driver;
  *
  * @package  Joomla\Framework
  * @see      http://php.net/pdo
- * @since    12.1
+ * @since    1.0
  */
 class Oracle extends Pdo
 {
@@ -20,7 +20,7 @@ class Oracle extends Pdo
 	 * The name of the database driver.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $name = 'oracle';
 
@@ -31,7 +31,7 @@ class Oracle extends Pdo
 	 * used for the opening quote and the second for the closing quote.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $nameQuote = '"';
 
@@ -56,7 +56,7 @@ class Oracle extends Pdo
 	 *
 	 * @param   array  $options  List of options used to configure the connection
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct($options)
 	{
@@ -74,7 +74,7 @@ class Oracle extends Pdo
 	/**
 	 * Destructor.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -87,7 +87,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  void  Returns void if the database connected successfully.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function connect()
@@ -112,7 +112,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function disconnect()
 	{
@@ -131,7 +131,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  Oracle  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function dropTable($tableName, $ifExists = true)
 	{
@@ -154,7 +154,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  mixed  The collation in use by the database or boolean false if not supported.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getCollation()
 	{
@@ -166,7 +166,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  string  The query to check the health of the DB.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function getConnectedQuery()
 	{
@@ -199,7 +199,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  array  A list of the create SQL for the tables.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableCreate($tables)
@@ -236,7 +236,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  array  An array of fields for the database table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
@@ -289,7 +289,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  array  An array of the column specification for the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableKeys($table)
@@ -325,7 +325,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  array    An array of all the tables in the database.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableList($databaseName = null, $includeDatabaseName = false)
@@ -374,7 +374,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  string  The database connector version.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getVersion()
 	{
@@ -392,7 +392,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  boolean  True if the database was successfully selected.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function select($database)
@@ -414,7 +414,7 @@ class Oracle extends Pdo
      *
      * @return boolean
      *
-     * @since  12.1
+     * @since  1.0
      */
 	public function setDateFormat($dateFormat = 'DD-MON-RR')
 	{
@@ -448,7 +448,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setUTF()
 	{
@@ -462,7 +462,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  Oracle  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function lockTable($table)
@@ -482,7 +482,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  Oracle  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
@@ -497,7 +497,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  Oracle  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function unlockTables()
@@ -512,7 +512,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -528,7 +528,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  string  The processed SQL statement.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function replacePrefix($sql, $prefix = '#__')
 	{
@@ -619,7 +619,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
@@ -643,7 +643,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
@@ -673,7 +673,7 @@ class Oracle extends Pdo
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)

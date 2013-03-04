@@ -11,7 +11,7 @@ use Joomla\Input\Files;
  * Test class for JInputFiles.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JInputFilesTest extends PHPUnit_Framework_TestCase
 {

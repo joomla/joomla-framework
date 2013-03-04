@@ -13,7 +13,7 @@ namespace Joomla\Form;
  *
  * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/input.file.html#input.file
- * @since    11.1
+ * @since    1.0
  */
 class Field_File extends Field
 {
@@ -21,7 +21,7 @@ class Field_File extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $type = 'File';
 
@@ -32,7 +32,7 @@ class Field_File extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 *
 	 * @note    The field does not include an upload mechanism.
 	 * @see     JFormFieldMedia

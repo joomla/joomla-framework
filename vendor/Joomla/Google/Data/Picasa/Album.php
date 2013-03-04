@@ -19,13 +19,13 @@ use UnexpectedValueException;
  * Google Picasa data class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Album extends Data
 {
 	/**
 	 * @var    SimpleXMLElement  The album's XML
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $xml;
 
@@ -36,7 +36,7 @@ class Album extends Data
 	 * @param   Registry          $options  Google options object
 	 * @param   Auth              $auth     Google data http client object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(SimpleXMLElement $xml, Registry $options = null, Auth $auth = null)
 	{
@@ -57,7 +57,7 @@ class Album extends Data
 	 *
 	 * @return  boolean  Success or failure.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  Exception
 	 * @throws  RuntimeException
 	 * @throws  UnexpectedValueException
@@ -110,7 +110,7 @@ class Album extends Data
 	 *
 	 * @return  string  Link or false on failure
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getLink($type = 'edit')
 	{
@@ -132,7 +132,7 @@ class Album extends Data
 	 *
 	 * @return  string  Album title
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getTitle()
 	{
@@ -144,7 +144,7 @@ class Album extends Data
 	 *
 	 * @return  string  Album summary
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getSummary()
 	{
@@ -156,7 +156,7 @@ class Album extends Data
 	 *
 	 * @return  string  Album location
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getLocation()
 	{
@@ -168,7 +168,7 @@ class Album extends Data
 	 *
 	 * @return  string  Album access level
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getAccess()
 	{
@@ -180,7 +180,7 @@ class Album extends Data
 	 *
 	 * @return  double  Album time
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getTime()
 	{
@@ -194,7 +194,7 @@ class Album extends Data
 	 *
 	 * @return  Album  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setTitle($title)
 	{
@@ -210,7 +210,7 @@ class Album extends Data
 	 *
 	 * @return  Album  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setSummary($summary)
 	{
@@ -226,7 +226,7 @@ class Album extends Data
 	 *
 	 * @return  Album  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setLocation($location)
 	{
@@ -242,7 +242,7 @@ class Album extends Data
 	 *
 	 * @return  Album  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setAccess($access)
 	{
@@ -258,7 +258,7 @@ class Album extends Data
 	 *
 	 * @return  Album  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setTime($time)
 	{
@@ -274,7 +274,7 @@ class Album extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  Exception
 	 * @throws  RuntimeException
 	 */
@@ -320,7 +320,7 @@ class Album extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function refresh()
 	{
@@ -343,7 +343,7 @@ class Album extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listPhotos()
@@ -385,7 +385,7 @@ class Album extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 * @throws  UnexpectedValueException
 	 */
@@ -438,7 +438,7 @@ class Album extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	protected function getMIME($file)

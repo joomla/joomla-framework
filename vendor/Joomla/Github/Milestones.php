@@ -13,7 +13,7 @@ use DomainException;
  * GitHub API Milestones class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Milestones extends Object
 {
@@ -30,7 +30,7 @@ class Milestones extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getList($user, $repo, $state = 'open', $sort = 'due_date', $direction = 'desc', $page = 0, $limit = 0)
 	{
@@ -64,7 +64,7 @@ class Milestones extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function get($user, $repo, $milestoneId)
 	{
@@ -97,7 +97,7 @@ class Milestones extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function create($user, $repo, $title, $state = null, $description = null, $due_on = null)
 	{
@@ -153,7 +153,7 @@ class Milestones extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function edit($user, $repo, $milestoneId, $title = null, $state = null, $description = null, $due_on = null)
 	{
@@ -208,7 +208,7 @@ class Milestones extends Object
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function delete($user, $repo, $milestoneId)
 	{

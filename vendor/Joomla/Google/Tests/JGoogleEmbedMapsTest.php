@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
  * Test class for JGoogle.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleEmbedMapsTest extends PHPUnit_Framework_TestCase
 {
@@ -739,7 +739,7 @@ class JGoogleEmbedMapsTest extends PHPUnit_Framework_TestCase
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function mapsGeocodeCallback($url, array $headers = null, $timeout = null)
 {
@@ -778,7 +778,7 @@ function mapsGeocodeCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function mapsGeocode400Callback($url, array $headers = null, $timeout = null)
 {
@@ -800,7 +800,7 @@ function mapsGeocode400Callback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function mapsGeocodeBadJsonCallback($url, array $headers = null, $timeout = null)
 {

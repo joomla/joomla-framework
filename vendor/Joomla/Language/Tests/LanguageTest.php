@@ -15,7 +15,7 @@ use Joomla\Filesystem\Folder;
  * Test class for Joomla\Language\Language.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class LanguageTest extends PHPUnit_Framework_TestCase
 {

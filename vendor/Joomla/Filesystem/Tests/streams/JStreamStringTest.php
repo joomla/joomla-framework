@@ -11,7 +11,7 @@ use Joomla\Filesystem\Stream\String as StreamString;
  * Test class for StreamString.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class StreamStringTest extends PHPUnit_Framework_TestCase
 {

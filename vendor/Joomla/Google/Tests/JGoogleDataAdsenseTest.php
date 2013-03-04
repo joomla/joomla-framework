@@ -11,7 +11,7 @@ require_once __DIR__ . '/case/GoogleTestCase.php';
  * Test class for JGoogleDataAdsense.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleDataAdsenseTest extends GoogleTestCase
 {
@@ -335,7 +335,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function jsonAdsenseCallback($url, array $headers = null, $timeout = null)
 {
@@ -357,7 +357,7 @@ function jsonAdsenseCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function jsonAdsenseReportCallback($url, array $headers = null, $timeout = null)
 {
@@ -379,7 +379,7 @@ function jsonAdsenseReportCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function adsenseExceptionCallback($url, array $headers = null, $timeout = null)
 {

@@ -14,7 +14,7 @@ use Exception;
  * Joomla Platform Database Exporter Class
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 abstract class Exporter
 {
@@ -22,7 +22,7 @@ abstract class Exporter
 	 * The type of output format (xml).
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $asFormat = 'xml';
 
@@ -30,7 +30,7 @@ abstract class Exporter
 	 * An array of cached data.
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $cache = array();
 
@@ -38,7 +38,7 @@ abstract class Exporter
 	 * The database connector to use for exporting structure and/or data.
 	 *
 	 * @var    Driver
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $db = null;
 
@@ -46,7 +46,7 @@ abstract class Exporter
 	 * An array input sources (table names).
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $from = array();
 
@@ -54,7 +54,7 @@ abstract class Exporter
 	 * An array of options for the exporter.
 	 *
 	 * @var    object
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $options = null;
 
@@ -63,7 +63,7 @@ abstract class Exporter
 	 *
 	 * Sets up the default options for the exporter.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct()
 	{
@@ -87,7 +87,7 @@ abstract class Exporter
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception if an error is encountered.
 	 */
 	public function __toString()
@@ -114,7 +114,7 @@ abstract class Exporter
 	 *
 	 * @return  Exporter  Method supports chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function asXml()
 	{
@@ -128,7 +128,7 @@ abstract class Exporter
 	 *
 	 * @return  string  An XML string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception if an error occurs.
 	 */
 	abstract protected function buildXml();
@@ -138,7 +138,7 @@ abstract class Exporter
 	 *
 	 * @return  array  An array of XML lines (strings).
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception if an error occurs.
 	 */
 	abstract protected function buildXmlStructure();
@@ -148,7 +148,7 @@ abstract class Exporter
 	 *
 	 * @return  Driver  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception if an error is encountered.
 	 */
 	abstract public function check();
@@ -160,7 +160,7 @@ abstract class Exporter
 	 *
 	 * @return  Exporter  Method supports chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception if input is not a string or array.
 	 */
 	public function from($from)
@@ -188,7 +188,7 @@ abstract class Exporter
 	 *
 	 * @return  string  The name of the table with the database prefix replaced with #__.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getGenericTableName($table)
 	{
@@ -207,7 +207,7 @@ abstract class Exporter
 	 *
 	 * @return  Mysqli  Method supports chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setDbo(Driver $db)
 	{
@@ -223,7 +223,7 @@ abstract class Exporter
 	 *
 	 * @return  Exporter  Method supports chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function withStructure($setting = true)
 	{

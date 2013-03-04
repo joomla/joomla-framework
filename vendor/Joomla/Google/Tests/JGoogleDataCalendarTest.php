@@ -11,7 +11,7 @@ require_once __DIR__ . '/case/GoogleTestCase.php';
  * Test class for JGoogleDataCalendar.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleDataCalendarTest extends GoogleTestCase
 {
@@ -444,7 +444,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function jsonDataCalendarCallback($url, $data, array $headers = null, $timeout = null)
 {
@@ -467,7 +467,7 @@ function jsonDataCalendarCallback($url, $data, array $headers = null, $timeout =
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function emptyDataCalendarCallback($url, $data, array $headers = null, $timeout = null)
 {
@@ -489,7 +489,7 @@ function emptyDataCalendarCallback($url, $data, array $headers = null, $timeout 
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function jsonCalendarCallback($url, array $headers = null, $timeout = null)
 {
@@ -511,7 +511,7 @@ function jsonCalendarCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function emptyCalendarCallback($url, array $headers = null, $timeout = null)
 {
@@ -533,7 +533,7 @@ function emptyCalendarCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function calendarExceptionCallback($url, array $headers = null, $timeout = null)
 {
@@ -556,7 +556,7 @@ function calendarExceptionCallback($url, array $headers = null, $timeout = null)
  *
  * @return  JHttpResponse
  *
- * @since   12.3
+ * @since   1.0
  */
 function calendarDataExceptionCallback($url, $data, array $headers = null, $timeout = null)
 {

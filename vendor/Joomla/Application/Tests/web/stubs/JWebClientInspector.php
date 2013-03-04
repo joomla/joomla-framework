@@ -9,7 +9,7 @@
  * JWebClientInspector
  *
  * @package  Joomla\Framework\Test
- * @since    11.3
+ * @since    1.0
  */
 class JWebClientInspector extends Joomla\Application\Web\Client
 {
@@ -18,7 +18,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function detectRequestURI()
 	{
@@ -32,7 +32,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function detectBrowser($userAgent)
 	{
@@ -46,7 +46,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  string
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function detectEngine($userAgent)
 	{
@@ -60,7 +60,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  string
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function detectPlatform($userAgent)
 	{
@@ -74,7 +74,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  string
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function detectEncoding($acceptEncoding)
 	{
@@ -88,7 +88,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  string
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function detectLanguage($acceptLanguage)
 	{
@@ -102,7 +102,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function detectRobot($userAgent)
 	{
@@ -116,7 +116,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  mixed  The value of the class variable.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getProperty($name)
 	{
@@ -137,7 +137,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function loadClientInformation($userAgent = null)
 	{
@@ -149,7 +149,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function fetchConfigurationData()
 	{
@@ -161,7 +161,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function loadSystemURIs()
 	{
@@ -175,7 +175,7 @@ class JWebClientInspector extends Joomla\Application\Web\Client
 	 *
 	 * @return  string
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testHelperClient($ua)
 	{

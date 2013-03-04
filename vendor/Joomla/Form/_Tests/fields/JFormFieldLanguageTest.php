@@ -9,7 +9,7 @@
  * Test class for JFormFieldLanguage.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormFieldLanguageTest extends TestCaseDatabase
 {
@@ -18,7 +18,7 @@ class JFormFieldLanguageTest extends TestCaseDatabase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -32,7 +32,7 @@ class JFormFieldLanguageTest extends TestCaseDatabase
 	 *
 	 * @return  xml  dataset
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getDataSet()
 	{
@@ -44,7 +44,7 @@ class JFormFieldLanguageTest extends TestCaseDatabase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetInput()
 	{

@@ -16,7 +16,7 @@ use Joomla\Html\Html;
  * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/input.password.html#input.password
  * @note     Two password fields may be validated as matching using JFormRuleEquals
- * @since    11.1
+ * @since    1.0
  */
 class Field_Password extends Field
 {
@@ -24,7 +24,7 @@ class Field_Password extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'Password';
 
@@ -33,7 +33,7 @@ class Field_Password extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{

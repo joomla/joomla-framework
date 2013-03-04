@@ -18,7 +18,7 @@ use InvalidArgumentException;
  * Google Adsense data class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Adsense extends Data
 {
@@ -28,7 +28,7 @@ class Adsense extends Data
 	 * @param   Registry  $options  Google options object
 	 * @param   Auth      $auth     Google data http client object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -48,7 +48,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function getAccount($accountID, $subaccounts = true)
@@ -81,7 +81,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listAccounts($options = array(), $maxpages = 1)
@@ -109,7 +109,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listClients($accountID, $options = array(), $maxpages = 1)
@@ -137,7 +137,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function getUnit($accountID, $adclientID, $adunitID)
@@ -174,7 +174,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listUnitChannels($accountID, $adclientID, $adunitID, $options = array(), $maxpages = 1)
@@ -203,7 +203,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function getChannel($accountID, $adclientID, $channelID)
@@ -239,7 +239,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listChannels($accountID, $adclientID, $options = array(), $maxpages = 1)
@@ -270,7 +270,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listChannelUnits($accountID, $adclientID, $channelID, $options = array(), $maxpages = 1)
@@ -300,7 +300,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listUrlChannels($accountID, $adclientID, $options = array(), $maxpages = 1)
@@ -331,7 +331,7 @@ class Adsense extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  UnexpectedValueException
 	 */

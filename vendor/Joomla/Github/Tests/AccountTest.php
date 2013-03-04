@@ -11,37 +11,37 @@ use Joomla\Registry\Registry;
  * Test class for JGithubAccount.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JGithubAccountTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Joomla\Github\Http  Mock client object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    JGithubAccount  Object under test.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $object;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $errorString = '{"message": "Generic Error"}';
 
@@ -51,7 +51,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -68,7 +68,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testCreateAuthorisation()
 	{
@@ -97,7 +97,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testCreateAuthorisationFailure()
 	{
@@ -138,7 +138,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDeleteAuthorisation()
 	{
@@ -162,7 +162,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDeleteAuthorisationFailure()
 	{
@@ -198,7 +198,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditAuthorisationAddScopes()
 	{
@@ -227,7 +227,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditAuthorisationRemoveScopes()
 	{
@@ -256,7 +256,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditAuthorisationScopes()
 	{
@@ -285,7 +285,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditAuthorisationFailure()
 	{
@@ -326,7 +326,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  RuntimeException
 	 */
@@ -340,7 +340,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetAuthorisation()
 	{
@@ -364,7 +364,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @expectedException  DomainException
 	 */
@@ -387,7 +387,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetAuthorisations()
 	{
@@ -411,7 +411,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  DomainException
 	 */
@@ -434,7 +434,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetRateLimit()
 	{
@@ -458,7 +458,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  DomainException
 	 */

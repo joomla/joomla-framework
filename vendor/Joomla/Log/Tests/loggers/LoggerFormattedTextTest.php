@@ -14,7 +14,7 @@ use Joomla\Log\Entry;
  * Test class for JLogLoggerFormattedText.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 {
@@ -174,7 +174,7 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getLastLine($path)
 	{

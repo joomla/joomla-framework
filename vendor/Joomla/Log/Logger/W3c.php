@@ -16,14 +16,14 @@ use Joomla\Log\Logger\Formattedtext;
  * at: http://www.w3.org/TR/WD-logfile.html
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class W3c extends Formattedtext
 {
 	/**
 	 * @var    string  The format which each entry follows in the log file.  All fields must be
 	 * named in all caps and be within curly brackets eg. {FOOBAR}.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $format = '{DATE}	{TIME}	{PRIORITY}	{CLIENTIP}	{CATEGORY}	{MESSAGE}';
 
@@ -32,7 +32,7 @@ class W3c extends Formattedtext
 	 *
 	 * @param   array  &$options  Log object options.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct(array &$options)
 	{

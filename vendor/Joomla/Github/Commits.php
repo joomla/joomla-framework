@@ -13,7 +13,7 @@ use DomainException;
  * GitHub API Commits class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Commits extends Object
 {
@@ -31,7 +31,7 @@ class Commits extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function create($user, $repo, $message, $tree, array $parents = array())
 	{
@@ -69,7 +69,7 @@ class Commits extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function createCommitComment($user, $repo, $sha, $comment, $line, $filepath, $position)
 	{
@@ -109,7 +109,7 @@ class Commits extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function deleteCommitComment($user, $repo, $id)
 	{
@@ -140,7 +140,7 @@ class Commits extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function editCommitComment($user, $repo, $id, $comment)
 	{
@@ -178,7 +178,7 @@ class Commits extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getCommit($user, $repo, $sha, $page = 0, $limit = 0)
 	{
@@ -208,7 +208,7 @@ class Commits extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getCommitComment($user, $repo, $id)
 	{
@@ -240,7 +240,7 @@ class Commits extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getCommitComments($user, $repo, $sha, $page = 0, $limit = 0)
 	{
@@ -271,7 +271,7 @@ class Commits extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getDiff($user, $repo, $base, $head)
 	{
@@ -302,7 +302,7 @@ class Commits extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getList($user, $repo, $page = 0, $limit = 0)
 	{
@@ -333,7 +333,7 @@ class Commits extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getListComments($user, $repo, $page = 0, $limit = 0)
 	{

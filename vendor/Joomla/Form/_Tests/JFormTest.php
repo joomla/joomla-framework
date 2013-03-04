@@ -9,7 +9,7 @@
  * Test class for JForm.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormTest extends TestCase
 {
@@ -2216,7 +2216,7 @@ class JFormTest extends TestCase
 	 * return   void
 	 *
 	 * @covers  JForm::validateField
-	 * @since   11.1
+	 * @since   1.0
 	 *
 	 * @return void
 	 */
@@ -2280,7 +2280,7 @@ class JFormTest extends TestCase
 	 * return   void
 	 *
 	 * @covers  JForm::validateField
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @expectedException  UnexpectedValueException
 	 *

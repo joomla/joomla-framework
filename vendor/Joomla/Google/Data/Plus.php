@@ -15,25 +15,25 @@ use Joomla\Registry\Registry;
  * Google+ data class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Plus extends Data
 {
 	/**
 	* @var    Plus\People  Google+ API object for people.
-	* @since  12.3
+	* @since  1.0
 	*/
 	protected $people;
 
 	/**
 	* @var    Plus\Activities  Google+ API object for people.
-	* @since  12.3
+	* @since  1.0
 	*/
 	protected $activities;
 
 	/**
 	* @var    Plus\Comments  Google+ API object for people.
-	* @since  12.3
+	* @since  1.0
 	*/
 	protected $comments;
 
@@ -43,7 +43,7 @@ class Plus extends Data
 	 * @param   Registry  $options  Google options object
 	 * @param   Auth      $auth     Google data http client object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -65,7 +65,7 @@ class Plus extends Data
 	 *
 	 * @return  Plus  Google+ API object (people, activities, comments).
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{

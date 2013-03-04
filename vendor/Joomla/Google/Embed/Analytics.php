@@ -14,7 +14,7 @@ use UnexpectedValueException;
  * Google Analytics embed class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Analytics extends Embed
 {
@@ -23,7 +23,7 @@ class Analytics extends Embed
 	 *
 	 * @return  string  The Google Analytics tracking code
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getCode()
 	{
@@ -37,7 +37,7 @@ class Analytics extends Embed
 	 *
 	 * @return  Analytics  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setCode($code)
 	{
@@ -51,7 +51,7 @@ class Analytics extends Embed
 	 *
 	 * @return  boolean  True if asynchronous
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function isAsync()
 	{
@@ -63,7 +63,7 @@ class Analytics extends Embed
 	 *
 	 * @return  Analytics  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function useAsync()
 	{
@@ -77,7 +77,7 @@ class Analytics extends Embed
 	 *
 	 * @return  Analytics  The object for method chaining
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function useSync()
 	{
@@ -94,7 +94,7 @@ class Analytics extends Embed
 	 *
 	 * @return  array  The added call
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function addCall($method, $params = array())
 	{
@@ -112,7 +112,7 @@ class Analytics extends Embed
 	 *
 	 * @return  array  A list of calls
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function listCalls()
 	{
@@ -126,7 +126,7 @@ class Analytics extends Embed
 	 *
 	 * @return  array  The deleted call
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function deleteCall($index = null)
 	{
@@ -153,7 +153,7 @@ class Analytics extends Embed
 	 *
 	 * @return  string  The created call
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function createCall($method, $params = array())
 	{
@@ -185,7 +185,7 @@ class Analytics extends Embed
 	 *
 	 * @return  array  The added call
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function addCustomVar($slot, $name, $value, $scope = 3)
 	{
@@ -202,7 +202,7 @@ class Analytics extends Embed
 	 *
 	 * @return  string  The created call
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function createCustomVar($slot, $name, $value, $scope = 3)
 	{
@@ -220,7 +220,7 @@ class Analytics extends Embed
 	 *
 	 * @return  array  The added call
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function addEvent($category, $action, $label = null, $value = null, $noninteract = false)
 	{
@@ -238,7 +238,7 @@ class Analytics extends Embed
 	 *
 	 * @return  string  The created call
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function createEvent($category, $action, $label = null, $value = null, $noninteract = false)
 	{
@@ -250,7 +250,7 @@ class Analytics extends Embed
 	 *
 	 * @return  string  Javascript code
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function getHeader()
@@ -288,7 +288,7 @@ class Analytics extends Embed
 	 *
 	 * @return  null
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function getBody()

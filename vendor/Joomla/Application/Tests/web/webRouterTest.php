@@ -13,13 +13,13 @@ JLoader::register('MyTestControllerFoo', __DIR__ . '/stubs/controllers/foo.php')
  * Test class for JApplicationWebRouter.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JApplicationWebRouterTest extends TestCase
 {
 	/**
 	 * @var    JApplicationWebRouter  The object to be tested.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $instance;
 
@@ -29,7 +29,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router::__construct
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__construct()
 	{
@@ -43,7 +43,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router::setControllerPrefix
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testSetControllerPrefix()
 	{
@@ -57,7 +57,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router::setDefaultController
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testSetDefaultController()
 	{
@@ -71,7 +71,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router::fetchController
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testFetchControllerWithMissingClass()
 	{
@@ -85,7 +85,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router::fetchController
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testFetchControllerWithNonController()
 	{
@@ -99,7 +99,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router::fetchController
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testFetchControllerWithPrefixSet()
 	{
@@ -113,7 +113,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router::fetchController
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testFetchControllerWithoutPrefixSetThoughNecessary()
 	{
@@ -127,7 +127,7 @@ class JApplicationWebRouterTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router::fetchController
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testFetchControllerWithoutPrefixSet()
 	{
@@ -139,7 +139,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -153,7 +153,7 @@ class JApplicationWebRouterTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{

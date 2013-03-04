@@ -12,7 +12,7 @@ namespace Joomla\Application;
  * Joomla Platform Base Application Class
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 abstract class Base
 {
@@ -20,7 +20,7 @@ abstract class Base
 	 * The application configuration object.
 	 *
 	 * @var    Registry
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $config;
 
@@ -28,7 +28,7 @@ abstract class Base
 	 * The application input object.
 	 *
 	 * @var    Joomla\Input\Input
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $input = null;
 
@@ -40,7 +40,7 @@ abstract class Base
 	 * @return  void
 	 *
 	 * @codeCoverageIgnore
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function close($code = 0)
 	{
@@ -53,7 +53,7 @@ abstract class Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	abstract protected function doExecute();
 
@@ -62,7 +62,7 @@ abstract class Base
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function execute()
 	{
@@ -85,7 +85,7 @@ abstract class Base
 	 *
 	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	abstract protected function fetchConfigurationData($file = '', $class = 'JConfig');
@@ -97,7 +97,7 @@ abstract class Base
 	 *
 	 * @return  Base  Instance of $this to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function loadConfiguration($data)
 	{
@@ -122,7 +122,7 @@ abstract class Base
 	 *
 	 * @return  mixed   The value of the configuration.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function get($key, $default = null)
 	{
@@ -137,7 +137,7 @@ abstract class Base
 	 *
 	 * @return  mixed   Previous value of the property
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function set($key, $value = null)
 	{

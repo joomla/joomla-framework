@@ -11,7 +11,7 @@ require_once __DIR__ . '/case/GoogleTestCase.php';
  * Test class for JGoogleDataPlus.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleDataPlusTest extends GoogleTestCase
 {
@@ -54,7 +54,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__GetPeople()
 	{
@@ -69,7 +69,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__GetActivities()
 	{
@@ -84,7 +84,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__GetComments()
 	{
@@ -99,7 +99,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function test__GetOther()
 	{

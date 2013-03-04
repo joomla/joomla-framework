@@ -13,7 +13,7 @@
  * Helper class for JLogLoggerCallbackTest
  *
  * @package  Joomla\Framework\Test
- * @since    12.2
+ * @since    1.0
  */
 class JLogLoggerCallbackTestHelper
 {
@@ -26,7 +26,7 @@ class JLogLoggerCallbackTestHelper
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public static function callback01(Joomla\Log\Entry $entry)
 	{
@@ -40,7 +40,7 @@ class JLogLoggerCallbackTestHelper
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function callback02(Joomla\Log\Entry $entry)
 	{
@@ -54,7 +54,7 @@ class JLogLoggerCallbackTestHelper
  *
  * @return  null
  *
- * @since   12.2
+ * @since   1.0
  */
 function jLogLoggerCallbackTestHelperFunction(Joomla\Log\Entry $entry)
 {

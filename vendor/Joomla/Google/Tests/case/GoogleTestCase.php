@@ -16,7 +16,7 @@ use Joomla\Test\WebInspector;
  * Test case for JGoogle.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class GoogleTestCase extends PHPUnit_Framework_TestCase
 {

@@ -13,7 +13,7 @@ use RuntimeException;
  * Query Building Class.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  *
  * @method      string  q()   q($text, $escape = true)  Alias for quote method
  * @method      string  qn()  qs($name, $as = null)     Alias for quoteName method
@@ -23,127 +23,127 @@ abstract class Query
 {
 	/**
 	 * @var    Driver  The database driver.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $db = null;
 
 	/**
 	 * @var    string  The SQL query (if a direct query string was provided).
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $sql = null;
 
 	/**
 	 * @var    string  The query type.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = '';
 
 	/**
 	 * @var    Query\Element  The query element for a generic query (type = null).
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $element = null;
 
 	/**
 	 * @var    Query\Element  The select element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $select = null;
 
 	/**
 	 * @var    Query\Element  The delete element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $delete = null;
 
 	/**
 	 * @var    Query\Element  The update element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $update = null;
 
 	/**
 	 * @var    Query\Element  The insert element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $insert = null;
 
 	/**
 	 * @var    Query\Element  The from element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $from = null;
 
 	/**
 	 * @var    Query\Element  The join element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $join = null;
 
 	/**
 	 * @var    Query\Element  The set element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $set = null;
 
 	/**
 	 * @var    Query\Element  The where element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $where = null;
 
 	/**
 	 * @var    Query\Element  The group by element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $group = null;
 
 	/**
 	 * @var    Query\Element  The having element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $having = null;
 
 	/**
 	 * @var    Query\Element  The column list for an INSERT statement.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $columns = null;
 
 	/**
 	 * @var    Query\Element  The values list for an INSERT statement.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $values = null;
 
 	/**
 	 * @var    Query\Element  The order element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $order = null;
 
 	/**
 	 * @var    object  The auto increment insert field element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $autoIncrementField = null;
 
 	/**
 	 * @var    Query\Element  The call element.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $call = null;
 
 	/**
 	 * @var    Query\Element  The exec element.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $exec = null;
 
 	/**
 	 * @var    Query\Element  The union element.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $union = null;
 
@@ -155,7 +155,7 @@ abstract class Query
 	 *
 	 * @return  string  The aliased method's return value or null.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __call($method, $args)
 	{
@@ -185,7 +185,7 @@ abstract class Query
 	 *
 	 * @param   Driver  $db  The database driver.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct(Driver $db = null)
 	{
@@ -197,7 +197,7 @@ abstract class Query
 	 *
 	 * @return  string	The completed query.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __toString()
 	{
@@ -346,7 +346,7 @@ abstract class Query
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{
@@ -367,7 +367,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function call($columns)
 	{
@@ -397,7 +397,7 @@ abstract class Query
 	 *
 	 * @return  string  Returns the cast value.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function castAsChar($value)
 	{
@@ -418,7 +418,7 @@ abstract class Query
 	 *
 	 * @return  string  The required char length call.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function charLength($field, $operator = null, $condition = null)
 	{
@@ -432,7 +432,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function clear($clause = null)
 	{
@@ -550,7 +550,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function columns($columns)
 	{
@@ -577,7 +577,7 @@ abstract class Query
 	 *
 	 * @return  string  The concatenated values.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function concatenate($values, $separator = null)
 	{
@@ -599,7 +599,7 @@ abstract class Query
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function currentTimestamp()
 	{
@@ -614,7 +614,7 @@ abstract class Query
 	 *
 	 * @return  string  The format string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function dateFormat()
@@ -635,7 +635,7 @@ abstract class Query
 	 *
 	 * @return  string
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function dump()
 	{
@@ -654,7 +654,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function delete($table = null)
 	{
@@ -682,7 +682,7 @@ abstract class Query
 	 *
 	 * @return  string  The escaped string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException if the internal db property is not a valid object.
 	 */
 	public function escape($text, $extra = false)
@@ -709,7 +709,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function exec($columns)
 	{
@@ -742,7 +742,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function from($tables, $subQueryAlias = null)
@@ -779,7 +779,7 @@ abstract class Query
 	 *
 	 * @return  string  Returns string to extract year from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function year($date)
 	{
@@ -796,7 +796,7 @@ abstract class Query
 	 *
 	 * @return  string  Returns string to extract month from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function month($date)
 	{
@@ -813,7 +813,7 @@ abstract class Query
 	 *
 	 * @return  string  Returns string to extract day from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function day($date)
 	{
@@ -830,7 +830,7 @@ abstract class Query
 	 *
 	 * @return  string  Returns string to extract hour from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function hour($date)
 	{
@@ -847,7 +847,7 @@ abstract class Query
 	 *
 	 * @return  string  Returns string to extract minute from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function minute($date)
 	{
@@ -864,7 +864,7 @@ abstract class Query
 	 *
 	 * @return  string  Returns string to extract second from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function second($date)
 	{
@@ -881,7 +881,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function group($columns)
 	{
@@ -908,7 +908,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function having($conditions, $glue = 'AND')
 	{
@@ -935,7 +935,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function innerJoin($condition)
 	{
@@ -959,7 +959,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function insert($table, $incrementField=false)
 	{
@@ -981,7 +981,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function join($type, $conditions)
 	{
@@ -1005,7 +1005,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function leftJoin($condition)
 	{
@@ -1026,7 +1026,7 @@ abstract class Query
 	 *
 	 * @return  int
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function length($value)
 	{
@@ -1046,7 +1046,7 @@ abstract class Query
 	 *
 	 * @return  string  Null or zero representation of a timestamp.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function nullDate($quoted = true)
@@ -1077,7 +1077,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function order($columns)
 	{
@@ -1103,7 +1103,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function outerJoin($condition)
 	{
@@ -1130,7 +1130,7 @@ abstract class Query
 	 *
 	 * @return  string  The quoted input string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException if the internal db property is not a valid object.
 	 */
 	public function quote($text, $escape = true)
@@ -1163,7 +1163,7 @@ abstract class Query
 	 *
 	 * @return  mixed  The quote wrapped name, same type of $name.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException if the internal db property is not a valid object.
 	 */
 	public function quoteName($name, $as = null)
@@ -1186,7 +1186,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function rightJoin($condition)
 	{
@@ -1209,7 +1209,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function select($columns)
 	{
@@ -1240,7 +1240,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function set($conditions, $glue = ',')
 	{
@@ -1269,7 +1269,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setQuery($sql)
 	{
@@ -1290,7 +1290,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function update($table)
 	{
@@ -1311,7 +1311,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function values($values)
 	{
@@ -1340,7 +1340,7 @@ abstract class Query
 	 *
 	 * @return  Query  Returns this object to allow chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function where($conditions, $glue = 'AND')
 	{
@@ -1363,7 +1363,7 @@ abstract class Query
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __clone()
 	{
@@ -1391,7 +1391,7 @@ abstract class Query
 	 *
 	 * @return  mixed    The Query object on success or boolean false on failure.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function union($query, $distinct = false, $glue = '')
 	{
@@ -1440,7 +1440,7 @@ abstract class Query
 	 *
 	 * @return  mixed   The Query object on success or boolean false on failure.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function unionDistinct($query, $glue = '')
 	{
@@ -1495,7 +1495,7 @@ abstract class Query
 	 *
 	 * @return  string  Returns a string produced according to the formatting string.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function format($format)
 	{

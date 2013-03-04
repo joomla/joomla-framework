@@ -12,7 +12,7 @@ use Joomla\Filesystem\Path;
  * A unit test class for Patcher
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class PatcherTest extends PHPUnit_Framework_TestCase
 {
@@ -22,7 +22,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 */
 	protected function setUp()
 	{
@@ -40,7 +40,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 */
 	protected function tearDown()
 	{
@@ -52,7 +52,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private function _cleanupTestFiles()
 	{
@@ -69,7 +69,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private function _cleanupFile($path)
 	{
@@ -91,7 +91,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 */
 	public function addData()
 	{
@@ -181,7 +181,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 *
 	 * @dataProvider PatcherTest::addData
 	 */
@@ -202,7 +202,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 */
 	public function testAddFile()
 	{
@@ -315,7 +315,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 */
 	public function applyData()
 	{
@@ -912,7 +912,7 @@ But after they are produced,
 	 *
 	 * @return  void
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 *
 	 * @dataProvider PatcherTest::applyData
 	 */

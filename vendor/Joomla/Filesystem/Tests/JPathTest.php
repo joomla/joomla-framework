@@ -11,7 +11,7 @@ use Joomla\Filesystem\Path;
  * Tests for the Path class.
  *
  * @package  Joomla\Framework\Test
- * @since    12.2
+ * @since    1.0
  */
 class PathTest extends PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class PathTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function getCleanData()
 	{
@@ -99,7 +99,7 @@ class PathTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @covers        Joomla\Filesystem\Path::clean
 	 * @dataProvider  getCleanData
-	 * @since      12.2
+	 * @since      1.0
 	 */
 	public function testClean($input, $ds, $expected)
 	{

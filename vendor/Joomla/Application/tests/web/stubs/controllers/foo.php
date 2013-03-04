@@ -9,7 +9,7 @@
  * Test stub controller.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class MyTestControllerFoo extends Joomla\Controller\Base
 {
@@ -20,7 +20,7 @@ class MyTestControllerFoo extends Joomla\Controller\Base
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  LogicException
 	 * @throws  RuntimeException
 	 */

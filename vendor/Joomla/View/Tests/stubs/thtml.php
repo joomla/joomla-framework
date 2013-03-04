@@ -13,7 +13,7 @@ use Joomla\View;
  * Concrete class extending JViewHtml.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class HtmlView extends View\Html
 {

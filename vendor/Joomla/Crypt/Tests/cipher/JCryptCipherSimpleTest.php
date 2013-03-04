@@ -12,13 +12,13 @@ use Joomla\Crypt\Cipher_Simple;
  * Test class for JCryptCipherSimple.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JCryptCipherSimple
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $cipher;
 
@@ -27,7 +27,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -45,7 +45,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
@@ -89,7 +89,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider dataForEncrypt
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testDecrypt($file, $data)
 	{
@@ -109,7 +109,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider dataForEncrypt
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testEncrypt($file, $data)
 	{
@@ -127,7 +127,7 @@ class JCryptCipherSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGenerateKey()
 	{

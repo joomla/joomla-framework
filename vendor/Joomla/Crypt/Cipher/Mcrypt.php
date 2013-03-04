@@ -15,34 +15,34 @@ use InvalidArgumentException;
  * JCrypt cipher for mcrypt algorithm encryption, decryption and key generation.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 abstract class Cipher_Mcrypt implements Cipher
 {
 	/**
 	 * @var    integer  The mcrypt cipher constant.
 	 * @see    http://www.php.net/manual/en/mcrypt.ciphers.php
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $type;
 
 	/**
 	 * @var    integer  The mcrypt block cipher mode.
 	 * @see    http://www.php.net/manual/en/mcrypt.constants.php
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $mode;
 
 	/**
 	 * @var    string  The JCrypt key type for validation.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $keyType;
 
 	/**
 	 * Constructor.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function __construct()
@@ -61,7 +61,7 @@ abstract class Cipher_Mcrypt implements Cipher
 	 *
 	 * @return  string  The decrypted data string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function decrypt($data, Key $key)
 	{
@@ -85,7 +85,7 @@ abstract class Cipher_Mcrypt implements Cipher
 	 *
 	 * @return  string  The encrypted data string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function encrypt($data, Key $key)
 	{
@@ -108,7 +108,7 @@ abstract class Cipher_Mcrypt implements Cipher
 	 *
 	 * @return  JCryptKey
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function generateKey(array $options = array())
 	{
@@ -141,7 +141,7 @@ abstract class Cipher_Mcrypt implements Cipher
 	 *
 	 * @see     http://en.wikipedia.org/wiki/PBKDF2
 	 * @see     http://www.ietf.org/rfc/rfc2898.txt
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function pbkdf2($p, $s, $kl, $c = 10000, $a = 'sha256')
 	{

@@ -12,7 +12,7 @@ require_once __DIR__ . '/inspectors/JFormFieldCalendar.php';
  * Test class for JForm.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormFieldCalendarTest extends TestCase
 {

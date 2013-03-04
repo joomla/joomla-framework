@@ -19,7 +19,7 @@ use DateTimeZone;
  * Optionally may be filtered to use user's or server's time zone.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_Calendar extends Field
 {
@@ -27,7 +27,7 @@ class Field_Calendar extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $type = 'Calendar';
 
@@ -36,7 +36,7 @@ class Field_Calendar extends Field
 	 *
 	 * @return  string   The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{

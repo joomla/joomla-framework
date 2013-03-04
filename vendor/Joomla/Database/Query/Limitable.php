@@ -14,7 +14,7 @@ namespace Joomla\Database\Query;
  * query execution.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 interface Limitable
 {
@@ -31,7 +31,7 @@ interface Limitable
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function processLimit($query, $limit, $offset = 0);
 
@@ -47,7 +47,7 @@ interface Limitable
 	 *
 	 * @return  Limitable  Returns this object to allow chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setLimit($limit = 0, $offset = 0);
 }

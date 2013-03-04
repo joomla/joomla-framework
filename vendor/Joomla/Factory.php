@@ -28,43 +28,43 @@ use JVersion;
  * Joomla Platform Factory class
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 abstract class Factory
 {
 	/**
 	 * @var    JApplication
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public static $application = null;
 
 	/**
 	 * @var    JConfig
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public static $config = null;
 
 	/**
 	 * @var    array
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	public static $dates = array();
 
 	/**
 	 * @var    Session
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public static $session = null;
 
 	/**
 	 * @var    Language
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public static $language = null;
 
 	/**
 	 * @var    Driver
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public static $database = null;
 
@@ -80,7 +80,7 @@ abstract class Factory
 	 * @return  JApplication object
 	 *
 	 * @see     JApplication
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception
 	 */
 	public static function getApplication($id = null, array $config = array(), $prefix = 'J')
@@ -110,7 +110,7 @@ abstract class Factory
 	 * @return  Registry
 	 *
 	 * @see     Registry
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getConfig($file = null, $type = 'PHP', $namespace = '')
 	{
@@ -137,7 +137,7 @@ abstract class Factory
 	 * @return  Session object
 	 *
 	 * @see     JSession
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getSession(array $options = array())
 	{
@@ -157,7 +157,7 @@ abstract class Factory
 	 * @return  Language object
 	 *
 	 * @see     JLanguage
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getLanguage()
 	{
@@ -177,7 +177,7 @@ abstract class Factory
 	 * @return  Driver
 	 *
 	 * @see     Driver
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getDbo()
 	{
@@ -203,7 +203,7 @@ abstract class Factory
 	 * @return  Date object
 	 *
 	 * @see     Date
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getDate($time = 'now', $tzOffset = null)
 	{
@@ -257,7 +257,7 @@ abstract class Factory
 	 * @return  Registry
 	 *
 	 * @see     Registry
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function createConfig($file, $type = 'PHP', $namespace = '')
 	{
@@ -295,7 +295,7 @@ abstract class Factory
 	 *
 	 * @return  Session object
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function createSession(array $options = array())
 	{
@@ -322,7 +322,7 @@ abstract class Factory
 	 * @return  Driver
 	 *
 	 * @see     Driver
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function createDbo()
 	{
@@ -362,7 +362,7 @@ abstract class Factory
 	 * @return  Language object
 	 *
 	 * @see     JLanguage
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function createLanguage()
 	{
@@ -385,7 +385,7 @@ abstract class Factory
 	 * @return  Stream
 	 *
 	 * @see Stream
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getStream($use_prefix = true, $use_network = true, $ua = null, $uamask = false)
 	{

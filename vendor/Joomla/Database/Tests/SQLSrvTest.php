@@ -9,13 +9,13 @@
  * Test class for JDatabaseSQLSrv.
  *
  * @package  Joomla\Framework\Tests
- * @since    12.1
+ * @since    1.0
  */
 class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 {
 	/**
 	 * @var    JDatabaseSQLSrv
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $object;
 
@@ -24,7 +24,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function dataTestEscape()
 	{
@@ -39,7 +39,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  xml dataset
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getDataSet()
 	{
@@ -52,7 +52,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -111,7 +111,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testDropTable()
 	{
@@ -205,7 +205,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetTableCreate()
 	{
@@ -234,7 +234,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetTableKeys()
 	{
@@ -250,7 +250,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetTableList()
 	{
@@ -266,7 +266,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetVersion()
 	{

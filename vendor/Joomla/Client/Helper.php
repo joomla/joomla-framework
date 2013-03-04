@@ -14,7 +14,7 @@ use InvalidArgumentException;
  * Client helper class
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Helper
 {
@@ -28,7 +28,7 @@ class Helper
 	 * @return  array    Client layer configuration options, consisting of at least
 	 *                   these fields: enabled, host, port, user, pass, root
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getCredentials($client, $force = false)
 	{
@@ -88,7 +88,7 @@ class Helper
 	 *
 	 * @return  boolean  True if the given login credentials have been set and are valid
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function setCredentials($client, $user, $pass)
 	{
@@ -144,7 +144,7 @@ class Helper
 	 *
 	 * @return  boolean  True if login credentials are available
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function hasCredentials($client)
 	{
@@ -201,7 +201,7 @@ class Helper
 	 *
 	 * @return  boolean  True on success, false on failure.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  InvalidArgumentException if credentials invalid
 	 */
 	public static function setCredentialsFromRequest($client)

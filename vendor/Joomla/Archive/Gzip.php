@@ -22,7 +22,7 @@ use RuntimeException;
  * @contributor  Michael Cochrane <mike@graftonhall.co.nz>
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Gzip implements Extractable
 {
@@ -30,7 +30,7 @@ class Gzip implements Extractable
 	 * Gzip file flags.
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $flags = array('FTEXT' => 0x01, 'FHCRC' => 0x02, 'FEXTRA' => 0x04, 'FNAME' => 0x08, 'FCOMMENT' => 0x10);
 
@@ -38,7 +38,7 @@ class Gzip implements Extractable
 	 * Gzip file data buffer
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $data = null;
 
@@ -51,7 +51,7 @@ class Gzip implements Extractable
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function extract($archive, $destination, array $options = array ())
@@ -134,7 +134,7 @@ class Gzip implements Extractable
 	 *
 	 * @return  boolean  True if supported
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -146,7 +146,7 @@ class Gzip implements Extractable
 	 *
 	 * @return  integer  Data position marker for archive
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function _getFilePosition()

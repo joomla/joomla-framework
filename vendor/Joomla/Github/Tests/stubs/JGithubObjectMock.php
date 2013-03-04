@@ -9,7 +9,7 @@
  * JGithubObjectMock class.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JGithubObjectMock extends JGithubObject
 {
@@ -24,7 +24,7 @@ class JGithubObjectMock extends JGithubObject
 	 *
 	 * @return  string   The request URL.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function fetchUrl($path, $page = 0, $limit = 0)
 	{

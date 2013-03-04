@@ -14,7 +14,7 @@ use Joomla\Image\Image;
  * Test class for Image.
  *
  * @package  Joomla\Framework\Test
- * @since    11.3
+ * @since    1.0
  */
 class ImageTest extends PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -50,7 +50,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
@@ -64,7 +64,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getPrepareDimensionsData()
 	{
@@ -85,7 +85,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getSanitizeDimensionData()
 	{
@@ -107,7 +107,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getCropData()
 	{
@@ -124,7 +124,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getSanitizeOffsetData()
 	{
@@ -140,7 +140,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testConstructor()
 	{
@@ -167,7 +167,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testloadFile()
 	{
@@ -188,7 +188,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testloadFileGif()
 	{
@@ -209,7 +209,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testloadFilePng()
 	{
@@ -230,7 +230,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 *
 	 * @expectedException  InvalidArgumentException
 	 */
@@ -246,7 +246,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  InvalidArgumentException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testloadFileWithInvalidFile()
 	{
@@ -259,7 +259,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testResize()
 	{
@@ -279,7 +279,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testResizeTransparent()
 	{
@@ -305,7 +305,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 *
 	 * @expectedException  LogicException
 	 */
@@ -323,7 +323,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  LogicException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testToFileInvalid()
 	{
@@ -341,7 +341,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testToFileGif()
 	{
@@ -376,7 +376,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testToFilePng()
 	{
@@ -411,7 +411,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testToFileJpg()
 	{
@@ -446,7 +446,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testToFileDefault()
 	{
@@ -478,7 +478,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetFilterInstance()
 	{
@@ -497,7 +497,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetHeight()
 	{
@@ -516,7 +516,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  LogicException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetHeightWithoutLoadedImage()
 	{
@@ -532,7 +532,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetWidth()
 	{
@@ -551,7 +551,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  LogicException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetWidthWithoutLoadedImage()
 	{
@@ -567,7 +567,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  InvalidArgumentException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetImageFilePropertiesWithInvalidFile()
 	{
@@ -580,7 +580,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  LogicException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testIsTransparentWithoutLoadedImage()
 	{
@@ -596,7 +596,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testTransparentIsTransparent()
 	{
@@ -619,7 +619,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testOpaqueIsNotTransparent()
 	{
@@ -639,7 +639,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  LogicException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCropWithoutLoadedImage()
 	{
@@ -667,7 +667,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getCropData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCrop($startHeight, $startWidth, $cropHeight, $cropWidth, $cropTop, $cropLeft, $transparent = false)
 	{
@@ -724,7 +724,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  LogicException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRotateWithoutLoadedImage()
 	{
@@ -742,7 +742,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRotate()
 	{
@@ -780,7 +780,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testFilter()
 	{
@@ -807,7 +807,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  LogicException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testFilterWithoutLoadedImage()
 	{
@@ -823,7 +823,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  RuntimeException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testFilterWithInvalidFilterType()
 	{
@@ -847,7 +847,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getPrepareDimensionsData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testPrepareDimensions($inputHeight, $inputWidth, $inputScale, $imageHeight, $imageWidth, $expectedHeight, $expectedWidth)
 	{
@@ -870,7 +870,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @expectedException  InvalidArgumentException
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testPrepareDimensionsWithInvalidScale()
 	{
@@ -896,7 +896,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getSanitizeDimensionData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSanitizeHeight($inputHeight, $inputWidth, $imageHeight, $imageWidth, $expectedHeight, $expectedWidth)
 	{
@@ -923,7 +923,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getSanitizeDimensionData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSanitizeWidth($inputHeight, $inputWidth, $imageHeight, $imageWidth, $expectedHeight, $expectedWidth)
 	{
@@ -946,7 +946,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getSanitizeOffsetData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSanitizeOffset($input, $expected)
 	{
@@ -962,7 +962,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDestroy()
 	{

@@ -11,7 +11,7 @@ namespace Joomla\Database;
  * Joomla Platform Database Interface
  *
  * @package  Joomla\Framework
- * @since    11.2
+ * @since    1.0
  */
 interface DatabaseInterface
 {
@@ -20,7 +20,7 @@ interface DatabaseInterface
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.2
+	 * @since   1.0
 	 */
 	public static function isSupported();
 }

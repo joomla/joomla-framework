@@ -14,20 +14,20 @@ use RuntimeException;
  * RESTful Web application router class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.2
+ * @since    1.0
  */
 class Rest extends Base
 {
 	/**
 	 * @var     boolean  A boolean allowing to pass _method as parameter in POST requests
 	 *
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $methodInPostRequest = false;
 
 	/**
 	 * @var    array  An array of HTTP Method => controller suffix pairs for routing the request.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $suffixMap = array(
 		'GET' => 'Get',
@@ -46,7 +46,7 @@ class Rest extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  RuntimeException
 	 */
@@ -73,7 +73,7 @@ class Rest extends Base
 	 *
 	 * @return  JApplicationWebRouter  This object for method chaining.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function setHttpMethodSuffix($method, $suffix)
 	{
@@ -89,7 +89,7 @@ class Rest extends Base
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function setMethodInPostRequest($value)
 	{
@@ -101,7 +101,7 @@ class Rest extends Base
 	 *
 	 * @return  boolean
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function isMethodInPostRequest()
 	{
@@ -113,7 +113,7 @@ class Rest extends Base
 	 *
 	 * @return  string
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function fetchControllerSuffix()

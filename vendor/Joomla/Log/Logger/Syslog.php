@@ -20,7 +20,7 @@ use Joomla\Log\Log;
  * permissions may prevent PHP from properly outputting messages.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Syslog extends Logger
 {
@@ -43,7 +43,7 @@ class Syslog extends Logger
 	 *
 	 * @param   array  &$options  Log object options.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct(array &$options)
 	{
@@ -105,7 +105,7 @@ class Syslog extends Logger
 	/**
 	 * Destructor.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -119,7 +119,7 @@ class Syslog extends Logger
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function addEntry(Entry $entry)
 	{

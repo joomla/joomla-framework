@@ -9,19 +9,19 @@
  * Test class for JApplicationWebRouterRest.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JApplicationWebRouterRestTest extends TestCase
 {
 	/**
 	 * @var    Joomla\Application\Web\Router\Rest  The object to be tested.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
 	 * @var    string  The server REQUEST_METHOD cached to keep it clean.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	private $requestMethod;
 
@@ -31,7 +31,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router\Rest::setHttpMethodSuffix
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testSetHttpMethodSuffix()
 	{
@@ -46,7 +46,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Application\Web\Router\Rest::fetchControllerSuffix
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testFetchControllerSuffixWithMissingSuffixMap()
 	{
@@ -118,7 +118,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @covers        Joomla\Application\Web\Router\Rest::fetchControllerSuffix
 	 * @dataProvider  seedFetchControllerSuffixData
-	 * @since      12.3
+	 * @since      1.0
 	 */
 	public function testFetchControllerSuffix($input, $expected, $method, $exception, $allowMethod=false)
 	{
@@ -150,7 +150,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @covers  Joomla\Application\Web\Router\Rest::setMethodInPostRequest
 	 * @covers  Joomla\Application\Web\Router\Rest::isMethodInPostRequest
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testMethodInPostRequest()
 	{
@@ -171,7 +171,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -186,7 +186,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{

@@ -13,25 +13,25 @@ use Joomla\Registry\Registry;
  * Test class for Github.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JGithubTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Joomla\Github\Http  Mock client object.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    Joomla\Github\Issues  Object under test.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $object;
 
@@ -68,7 +68,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - gists
 	 *
-	 * @since  11.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -83,7 +83,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - issues
 	 *
-	 * @since  11.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -98,7 +98,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - pulls
 	 *
-	 * @since  11.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -113,7 +113,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - refs
 	 *
-	 * @since  11.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -128,7 +128,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - forks
 	 *
-	 * @since  11.4
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -143,7 +143,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - commits
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -158,7 +158,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - milestones
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -173,7 +173,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - statuses
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -188,7 +188,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - account
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -203,7 +203,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - hooks
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -233,7 +233,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - failure
 	 *
-	 * @since  11.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 *
@@ -247,7 +247,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the setOption method
 	 *
-	 * @since  11.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */
@@ -264,7 +264,7 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the getOption method
 	 *
-	 * @since  11.3
+	 * @since  1.0
 	 *
 	 * @return void
 	 */

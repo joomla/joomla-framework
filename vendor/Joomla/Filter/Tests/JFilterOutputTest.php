@@ -11,7 +11,7 @@ use Joomla\Filter\Output;
  * FilterTestObject
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class FilterTestObject
 {
@@ -37,7 +37,7 @@ class FilterTestObject
  * Test class for Filter\Output
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class FilterOutputTest extends PHPUnit_Framework_TestCase
 {
@@ -123,7 +123,7 @@ class FilterOutputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testStringURLUnicodeSlug()
 	{
@@ -194,7 +194,7 @@ class FilterOutputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testStripImages()
 	{
@@ -210,7 +210,7 @@ class FilterOutputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testStripIframes()
 	{

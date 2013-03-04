@@ -9,7 +9,7 @@
  * Test class for JInput.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JInputCLITest extends PHPUnit_Framework_TestCase
 {

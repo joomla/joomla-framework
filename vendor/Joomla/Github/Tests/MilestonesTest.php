@@ -11,37 +11,37 @@ use Joomla\Registry\Registry;
  * Test class for JGithubPulls.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Joomla\Github\Http  Mock client object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    JGithubPulls  Object under test.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $object;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $errorString = '{"message": "Generic Error"}';
 
@@ -84,7 +84,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testCreate()
 	{
@@ -116,7 +116,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testCreateFailure()
 	{
@@ -143,7 +143,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testEdit()
 	{
@@ -170,7 +170,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testEditAllParameters()
 	{
@@ -203,7 +203,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testEditFailure()
 	{
@@ -227,7 +227,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testGet()
 	{
@@ -253,7 +253,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testGetFailure()
 	{
@@ -274,7 +274,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testGetList()
 	{
@@ -300,7 +300,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testGetListFailure()
 	{
@@ -321,7 +321,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testDelete()
 	{
@@ -344,7 +344,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public function testDeleteFailure()
 	{

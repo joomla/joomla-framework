@@ -17,7 +17,7 @@ use Joomla\Language\Text;
  *
  * @package  Joomla\Framework
  * @see      JFormFieldCheckbox
- * @since    11.1
+ * @since    1.0
  */
 class Field_Checkboxes extends Field
 {
@@ -25,7 +25,7 @@ class Field_Checkboxes extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'Checkboxes';
 
@@ -33,7 +33,7 @@ class Field_Checkboxes extends Field
 	 * Flag to tell the field to always be in multiple values mode.
 	 *
 	 * @var    boolean
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $forceMultiple = true;
 
@@ -42,7 +42,7 @@ class Field_Checkboxes extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{
@@ -101,7 +101,7 @@ class Field_Checkboxes extends Field
 	 *
 	 * @return  array  The field option objects.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getOptions()
 	{

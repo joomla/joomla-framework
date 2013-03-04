@@ -13,7 +13,7 @@ use Joomla\Database\Driver;
  * Test class JDatabase.
  *
  * @package  Joomla\Framework\Tests
- * @since    11.4
+ * @since    1.0
  */
 class Nosql extends Driver
 {
@@ -21,7 +21,7 @@ class Nosql extends Driver
 	 * The name of the database driver.
 	 *
 	 * @var    string
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	public $name = 'nosql';
 
@@ -32,7 +32,7 @@ class Nosql extends Driver
 	 * used for the opening quote and the second for the closing quote.
 	 *
 	 * @var    string
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $nameQuote = '[]';
 
@@ -41,13 +41,13 @@ class Nosql extends Driver
 	 * defined in child classes to hold the appropriate value for the engine.
 	 *
 	 * @var    string
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $nullDate = '1BC';
 
 	/**
 	 * @var    string  The minimum supported database version.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected static $dbMinimum = '12.1';
 
@@ -56,7 +56,7 @@ class Nosql extends Driver
 	 *
 	 * @return  void  Returns void if the database connected successfully.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function connect()
@@ -69,7 +69,7 @@ class Nosql extends Driver
 	 *
 	 * @return  boolean  True if connected to the database engine.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function connected()
 	{
@@ -81,7 +81,7 @@ class Nosql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function disconnect()
 	{
@@ -96,7 +96,7 @@ class Nosql extends Driver
 	 *
 	 * @return  JDatabase  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function dropTable($table, $ifExists = true)
@@ -112,7 +112,7 @@ class Nosql extends Driver
 	 *
 	 * @return  string   The escaped string.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function escape($text, $extra = false)
 	{
@@ -126,7 +126,7 @@ class Nosql extends Driver
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	protected function fetchArray($cursor = null)
 	{
@@ -140,7 +140,7 @@ class Nosql extends Driver
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	protected function fetchAssoc($cursor = null)
 	{
@@ -155,7 +155,7 @@ class Nosql extends Driver
 	 *
 	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	protected function fetchObject($cursor = null, $class = 'stdClass')
 	{
@@ -169,7 +169,7 @@ class Nosql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	protected function freeResult($cursor = null)
 	{
@@ -181,7 +181,7 @@ class Nosql extends Driver
 	 *
 	 * @return  integer  The number of affected rows.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function getAffectedRows()
 	{
@@ -193,7 +193,7 @@ class Nosql extends Driver
 	 *
 	 * @return  mixed  The collation in use by the database or boolean false if not supported.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function getCollation()
 	{
@@ -207,7 +207,7 @@ class Nosql extends Driver
 	 *
 	 * @return  integer   The number of returned rows.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function getNumRows($cursor = null)
 	{
@@ -221,7 +221,7 @@ class Nosql extends Driver
 	 *
 	 * @return  JDatabaseQuery  The current query object or a new object extending the JDatabaseQuery class.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getQuery($new = false)
@@ -237,7 +237,7 @@ class Nosql extends Driver
 	 *
 	 * @return  array  An array of fields by table.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
@@ -252,7 +252,7 @@ class Nosql extends Driver
 	 *
 	 * @return  array  A list of the create SQL for the tables.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableCreate($tables)
@@ -267,7 +267,7 @@ class Nosql extends Driver
 	 *
 	 * @return  array  An array of keys for the table(s).
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableKeys($tables)
@@ -280,7 +280,7 @@ class Nosql extends Driver
 	 *
 	 * @return  array  An array of all the tables in the database.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableList()
@@ -293,7 +293,7 @@ class Nosql extends Driver
 	 *
 	 * @return  string  The database connector version.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function getVersion()
 	{
@@ -305,7 +305,7 @@ class Nosql extends Driver
 	 *
 	 * @return  integer  The value of the auto-increment field from the last inserted row.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function insertid()
 	{
@@ -319,7 +319,7 @@ class Nosql extends Driver
 	 *
 	 * @return  JDatabase  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function lockTable($tableName)
@@ -332,7 +332,7 @@ class Nosql extends Driver
 	 *
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function execute()
@@ -350,7 +350,7 @@ class Nosql extends Driver
 	 *
 	 * @return  JDatabase  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
@@ -365,7 +365,7 @@ class Nosql extends Driver
 	 *
 	 * @return  boolean  True if the database was successfully selected.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function select($database)
@@ -378,7 +378,7 @@ class Nosql extends Driver
 	*
 	* @return  boolean  True on success.
 	*
-	* @since   11.4
+	* @since   1.0
 	*/
 	public function setUTF()
 	{
@@ -390,7 +390,7 @@ class Nosql extends Driver
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.2
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -404,7 +404,7 @@ class Nosql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
@@ -418,7 +418,7 @@ class Nosql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
@@ -432,7 +432,7 @@ class Nosql extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
@@ -444,7 +444,7 @@ class Nosql extends Driver
 	 *
 	 * @return  JDatabase  Returns this object to support chaining.
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function unlockTables()

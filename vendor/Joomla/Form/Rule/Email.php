@@ -17,7 +17,7 @@ use SimpleXMLElement;
  * Form Rule class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Email extends Rule
 {
@@ -25,7 +25,7 @@ class Email extends Rule
 	 * The regular expression to use in testing a form field value.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 * @see    http://www.w3.org/TR/html-markup/input.email.html
 	 */
 	protected $regex = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
@@ -43,7 +43,7 @@ class Email extends Rule
 	 *
 	 * @return  boolean  True if the value is valid, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{

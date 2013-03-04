@@ -471,7 +471,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{

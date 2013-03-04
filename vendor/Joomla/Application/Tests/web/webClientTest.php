@@ -11,7 +11,7 @@ require_once __DIR__ . '/stubs/JWebClientInspector.php';
  * Test class for Joomla\Application\Web\Client.
  *
  * @package  Joomla\Framework\Test
- * @since    11.3
+ * @since    1.0
  */
 class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +19,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 * An instance of a JWebClient inspector.
 	 *
 	 * @var    JWebClientInspector
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $inspector;
 
@@ -28,7 +28,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function getUserAgentData()
 	{
@@ -121,7 +121,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function getEncodingData()
 	{
@@ -142,7 +142,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function getLanguageData()
 	{
@@ -163,7 +163,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public static function detectRobotData()
 	{
@@ -185,7 +185,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setUp()
 	{
@@ -235,7 +235,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getUserAgentData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDetectBrowser($p, $m, $e, $b, $v, $ua)
 	{
@@ -255,7 +255,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getEncodingData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDetectEncoding($ae, $e)
 	{
@@ -278,7 +278,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getUserAgentData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDetectEngine($p, $m, $e, $b, $v, $ua)
 	{
@@ -297,7 +297,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getLanguageData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDetectLanguage($al, $l)
 	{
@@ -320,7 +320,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider getUserAgentData
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testDetectPlatform($p, $m, $e, $b, $v, $ua)
 	{
@@ -340,7 +340,7 @@ class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider detectRobotData
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDetectRobot($userAgent, $expected)
 	{

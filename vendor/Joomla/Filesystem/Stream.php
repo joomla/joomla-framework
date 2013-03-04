@@ -24,7 +24,7 @@ use RuntimeException;
  * @see      http://php.net/manual/en/wrappers.php Stream Wrappers
  * @see      http://php.net/manual/en/filters.php Stream Filters
  * @see      http://php.net/manual/en/transports.php Socket Transports (used by some options, particularly HTTP proxy)
- * @since    11.1
+ * @since    1.0
  */
 class Stream
 {
@@ -32,42 +32,42 @@ class Stream
 	/**
 	 * File Mode
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 * */
 	protected $filemode = 0644;
 
 	/**
 	 * Directory Mode
 	 * @var   integer
-	 * @since  11.1
+	 * @since  1.0
 	 * */
 	protected $dirmode = 0755;
 
 	/**
 	 * Default Chunk Size
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $chunksize = 8192;
 
 	/**
 	 * Filename
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $filename;
 
 	/**
 	 * Prefix of the connection for writing
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $writeprefix;
 
 	/**
 	 * Prefix of the connection for reading
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $readprefix;
 
@@ -77,49 +77,49 @@ class Stream
 	 * @var   string  gz, bz, f
 	 * If a scheme is detected, fopen will be defaulted
 	 * To use compression with a network stream use a filter
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $processingmethod = 'f';
 
 	/**
 	 * Filters applied to the current stream
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $filters = array();
 
 	/**
 	 * File Handle
 	 * @var    array
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $fh;
 
 	/**
 	 * File size
 	 * @var    integer
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $filesize;
 
 	/**
 	 *Context to use when opening the connection
 	 * @var
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $context = null;
 
 	/**
 	 * Context options; used to rebuild the context
 	 * @var
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $contextOptions;
 
 	/**
 	 * The mode under which the file was opened
 	 * @var
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $openmode;
 
@@ -130,7 +130,7 @@ class Stream
 	 * @param   string  $readprefix   The read prefix (optional).
 	 * @param   array   $context      The context options (optional).
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($writeprefix = '', $readprefix = '', $context = array())
 	{
@@ -143,7 +143,7 @@ class Stream
 	/**
 	 * Destructor
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -170,7 +170,7 @@ class Stream
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function open($filename, $mode = 'r', $use_include_path = false, $context = null,
 		$use_prefix = false, $relative = false, $detectprocessingmode = false)
@@ -286,7 +286,7 @@ class Stream
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function close()
 	{
@@ -349,7 +349,7 @@ class Stream
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function eof()
 	{
@@ -393,7 +393,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function filesize()
 	{
@@ -462,7 +462,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function gets($length = 0)
 	{
@@ -517,7 +517,7 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @see     http://php.net/manual/en/function.fread.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function read($length = 0)
 	{
@@ -615,7 +615,7 @@ class Stream
 	 * @return  boolean  True on success, false on failure
 	 *
 	 * @see http://php.net/manual/en/function.fseek.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function seek($offset, $whence = SEEK_SET)
 	{
@@ -666,7 +666,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function tell()
 	{
@@ -726,7 +726,7 @@ class Stream
 	 * @return  boolean
 	 *
 	 * @see     http://php.net/manual/en/function.fwrite.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function write(&$string, $length = 0, $chunk = 0)
 	{
@@ -799,7 +799,7 @@ class Stream
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function chmod($filename = '', $mode = 0)
 	{
@@ -863,7 +863,7 @@ class Stream
 	 * @return  array  header/metadata
 	 *
 	 * @see     http://php.net/manual/en/function.stream-get-meta-data.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function get_meta_data()
 	{
@@ -881,7 +881,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function _buildContext()
 	{
@@ -906,7 +906,7 @@ class Stream
 	 * @return  void
 	 *
 	 * @see       http://php.net/stream_context_create
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function setContextOptions($context)
 	{
@@ -925,7 +925,7 @@ class Stream
 	 *
 	 * @see     http://php.net/stream_context_create Stream Context Creation
 	 * @see     http://php.net/manual/en/context.php Context Options for various streams
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function addContextEntry($wrapper, $name, $value)
 	{
@@ -942,7 +942,7 @@ class Stream
 	 * @return  void
 	 *
 	 * @see     http://php.net/stream_context_create
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function deleteContextEntry($wrapper, $name)
 	{
@@ -975,7 +975,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function applyContextToStream()
 	{
@@ -1012,7 +1012,7 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @see     http://php.net/manual/en/function.stream-filter-append.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function appendFilter($filtername, $read_write = STREAM_FILTER_READ, $params = array())
 	{
@@ -1053,7 +1053,7 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @see     http://php.net/manual/en/function.stream-filter-prepend.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function prependFilter($filtername, $read_write = STREAM_FILTER_READ, $params = array())
 	{
@@ -1094,7 +1094,7 @@ class Stream
 	 *
 	 * @return  boolean   Result of operation
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function removeFilter(&$resource, $byindex = false)
 	{
@@ -1136,7 +1136,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function copy($src, $dest, $context = null, $use_prefix = true, $relative = false)
 	{
@@ -1196,7 +1196,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function move($src, $dest, $context = null, $use_prefix = true, $relative = false)
 	{
@@ -1249,7 +1249,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function delete($filename, $context = null, $use_prefix = true, $relative = false)
 	{
@@ -1300,7 +1300,7 @@ class Stream
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function upload($src, $dest, $context = null, $use_prefix = true, $relative = false)
 	{
@@ -1323,7 +1323,7 @@ class Stream
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function writeFile($filename, &$buffer)
 	{
@@ -1349,7 +1349,7 @@ class Stream
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function _getFilename($filename, $mode, $use_prefix, $relative)
 	{
@@ -1388,7 +1388,7 @@ class Stream
 	 *
 	 * @return  File handler
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getFileHandle()
 	{
@@ -1403,7 +1403,7 @@ class Stream
 	 *
 	 * @return  mixed  Previous value of the property.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function set($property, $value = null)
 	{
@@ -1421,7 +1421,7 @@ class Stream
 	 *
 	 * @return  mixed    The value of the property.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function get($property, $default = null)
 	{

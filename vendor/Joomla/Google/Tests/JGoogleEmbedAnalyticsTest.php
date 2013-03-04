@@ -12,7 +12,7 @@ use Joomla\Uri\Uri;
  * Test class for JGoogle.
  *
  * @package  Joomla\Framework\Test
- * @since    12.3
+ * @since    1.0
  */
 class JGoogleEmbedAnalyticsTest extends PHPUnit_Framework_TestCase
 {

@@ -36,7 +36,7 @@ data types. This class does not support layouts.
  *
  * @package  Examples
  *
- * @since   12.1
+ * @since   1.0
  */
 class MyView extends JViewBase
 {
@@ -45,7 +45,7 @@ class MyView extends JViewBase
 	 *
 	 * @return  string  The rendered view.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException on database error.
 	 */
 	public function render()
@@ -92,7 +92,7 @@ folder not stored under the web-server root.
  * Example layout "layouts/count.php".
  *
  * @package  Examples
- * @since    12.1
+ * @since    1.0
  */
 
 // Declare variables to support type hinting.
@@ -111,7 +111,7 @@ folder not stored under the web-server root.
  * My custom HTML view.
  *
  * @package  Examples
- * @since    12.1
+ * @since    1.0
  */
 class MyHtmlView extends JViewHtml
 {
@@ -119,7 +119,7 @@ class MyHtmlView extends JViewHtml
 	 * Redefine the model so the correct type hinting is available in the layout.
 	 *
 	 * @var     MyDatabaseModel
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected $model;
 }
@@ -155,7 +155,7 @@ The default extension for layouts is ".php". This can be modified in derived vie
  * My custom HTML view.
  *
  * @package  Examples
- * @since    12.1
+ * @since    1.0
  */
 class MyHtmlView extends JViewHtml
 {
@@ -168,7 +168,7 @@ class MyHtmlView extends JViewHtml
 	 * @return  mixed  The layout file name if found, false otherwise.
 	 *
 	 * @see     JViewHtml::getPath
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getPath($layout, $ext = 'phtml')
 	{

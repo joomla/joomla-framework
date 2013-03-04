@@ -16,7 +16,7 @@ use RuntimeException;
  *
  * @package  Joomla\Framework
  * @see      http://msdn.microsoft.com/en-us/library/cc296152(SQL.90).aspx
- * @since    12.1
+ * @since    1.0
  */
 class Sqlsrv extends Driver
 {
@@ -24,7 +24,7 @@ class Sqlsrv extends Driver
 	 * The name of the database driver.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $name = 'sqlsrv';
 
@@ -35,7 +35,7 @@ class Sqlsrv extends Driver
 	 * used for the opening quote and the second for the closing quote.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $nameQuote;
 
@@ -44,13 +44,13 @@ class Sqlsrv extends Driver
 	 * defined in child classes to hold the appropriate value for the engine.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $nullDate = '1900-01-01 00:00:00';
 
 	/**
 	 * @var    string  The minimum supported database version.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected static $dbMinimum = '10.50.1600.1';
 
@@ -59,7 +59,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -71,7 +71,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @param   array  $options  List of options used to configure the connection
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct($options)
 	{
@@ -89,7 +89,7 @@ class Sqlsrv extends Driver
 	/**
 	 * Destructor.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -104,7 +104,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  void  Returns void if the database connected successfully.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function connect()
@@ -149,7 +149,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function disconnect()
 	{
@@ -169,7 +169,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  array  Any constraints available for the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getTableConstraints($tableName)
 	{
@@ -193,7 +193,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function renameConstraints($constraints = array(), $prefix = null, $backup = null)
 	{
@@ -217,7 +217,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  string  The escaped string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function escape($text, $extra = false)
 	{
@@ -240,7 +240,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  boolean  True if connected to the database engine.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function connected()
 	{
@@ -256,7 +256,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  Sqlsrv  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function dropTable($tableName, $ifExists = true)
 	{
@@ -285,7 +285,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  integer  The number of affected rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getAffectedRows()
 	{
@@ -299,7 +299,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  mixed  The collation in use by the database or boolean false if not supported.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getCollation()
 	{
@@ -314,7 +314,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  integer   The number of returned rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getNumRows($cursor = null)
 	{
@@ -331,7 +331,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  array  An array of fields.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
@@ -376,7 +376,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  array  A list of the create SQL for the tables.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableCreate($tables)
@@ -393,7 +393,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  array  An array of the column specification for the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableKeys($table)
@@ -409,7 +409,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  array  An array of all the tables in the database.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getTableList()
@@ -428,7 +428,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  string  The database connector version.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getVersion()
 	{
@@ -448,7 +448,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  boolean    True on success.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function insertObject($table, &$object, $key = null)
@@ -508,7 +508,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  integer  The value of the auto-increment field from the last inserted row.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function insertid()
 	{
@@ -525,7 +525,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  mixed  The return value or null if the query failed.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadResult()
@@ -558,7 +558,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 * @throws  Exception
 	 */
@@ -663,7 +663,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  string  The processed SQL statement.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function replacePrefix($sql, $prefix = '#__')
 	{
@@ -765,7 +765,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  boolean  True if the database was successfully selected.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function select($database)
@@ -790,7 +790,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setUTF()
 	{
@@ -804,7 +804,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
@@ -831,7 +831,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
@@ -864,7 +864,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
@@ -897,7 +897,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchArray($cursor = null)
 	{
@@ -911,7 +911,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchAssoc($cursor = null)
 	{
@@ -926,7 +926,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchObject($cursor = null, $class = 'stdClass')
 	{
@@ -940,7 +940,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function freeResult($cursor = null)
 	{
@@ -955,7 +955,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  boolean  True if the field exists in the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function checkFieldExists($table, $field)
 	{
@@ -985,7 +985,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  string   The processed SQL statement.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function limit($sql, $limit, $offset)
 	{
@@ -1016,7 +1016,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  Sqlsrv  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
@@ -1045,7 +1045,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  Sqlsrv  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function lockTable($tableName)
@@ -1058,7 +1058,7 @@ class Sqlsrv extends Driver
 	 *
 	 * @return  Sqlsrv  Returns this object to support chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function unlockTables()

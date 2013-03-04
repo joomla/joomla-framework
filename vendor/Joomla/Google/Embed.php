@@ -14,19 +14,19 @@ use Joomla\Registry\Registry;
  * Google API object class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 abstract class Embed
 {
 	/**
 	 * @var    Registry  Options for the Google data object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Uri  URI of the page being rendered.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $uri;
 
@@ -36,7 +36,7 @@ abstract class Embed
 	 * @param   Registry  $options  Google options object
 	 * @param   Uri       $uri      URL of the page being rendered
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Uri $uri = null)
 	{
@@ -49,7 +49,7 @@ abstract class Embed
 	 *
 	 * @return  string  The header
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function isSecure()
 	{
@@ -61,7 +61,7 @@ abstract class Embed
 	 *
 	 * @return  string  The header
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	abstract public function getHeader();
 
@@ -70,7 +70,7 @@ abstract class Embed
 	 *
 	 * @return  string  The body
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	abstract public function getBody();
 
@@ -79,7 +79,7 @@ abstract class Embed
 	 *
 	 * @return  null
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function echoHeader()
 	{
@@ -91,7 +91,7 @@ abstract class Embed
 	 *
 	 * @return  null
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function echoBody()
 	{
@@ -105,7 +105,7 @@ abstract class Embed
 	 *
 	 * @return  mixed  The option value.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -120,7 +120,7 @@ abstract class Embed
 	 *
 	 * @return  Embed  This object for method chaining.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setOption($key, $value)
 	{

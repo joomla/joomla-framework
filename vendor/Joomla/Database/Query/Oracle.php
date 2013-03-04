@@ -13,25 +13,25 @@ use stdClass;
  * Oracle Query Building Class.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Oracle extends Pdo implements Preparable, Limitable
 {
 	/**
 	 * @var    integer
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $limit;
 
 	/**
 	 * @var    integer
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $offset;
 
 	/**
 	 * @var    mixed
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $bounded = array();
 
@@ -49,7 +49,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 *
 	 * @return  Oracle
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function bind($key = null, &$value = null, $dataType = \PDO::PARAM_STR, $length = 0, $driverOptions = array())
 	{
@@ -93,7 +93,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 *
 	 * @return  mixed
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function &getBounded($key = null)
 	{
@@ -117,7 +117,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 *
 	 * @return  Oracle  Returns this object to allow chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function clear($clause = null)
 	{
@@ -146,7 +146,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function processLimit($query, $limit, $offset = 0)
 	{
@@ -191,7 +191,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 *
 	 * @return  Oracle  Returns this object to allow chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setLimit($limit = 0, $offset = 0)
 	{

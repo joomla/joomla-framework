@@ -13,7 +13,7 @@ use Joomla\Database\Query;
  * Query Building Class.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Sqlsrv extends Query
 {
@@ -25,7 +25,7 @@ class Sqlsrv extends Query
 	 *
 	 * @var    string
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $name_quotes = '`';
 
@@ -35,7 +35,7 @@ class Sqlsrv extends Query
 	 *
 	 * @var    string
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $null_date = '1900-01-01 00:00:00';
 
@@ -44,7 +44,7 @@ class Sqlsrv extends Query
 	 *
 	 * @return  string	The completed query.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __toString()
 	{
@@ -104,7 +104,7 @@ class Sqlsrv extends Query
 	 *
 	 * @return  string  Returns the cast value.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function castAsChar($value)
 	{
@@ -120,7 +120,7 @@ class Sqlsrv extends Query
 	 *
 	 * @return  string  The required char length call.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function charLength($field, $operator = null, $condition = null)
 	{
@@ -135,7 +135,7 @@ class Sqlsrv extends Query
 	 *
 	 * @return  string  The concatenated values.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function concatenate($values, $separator = null)
 	{
@@ -154,7 +154,7 @@ class Sqlsrv extends Query
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function currentTimestamp()
 	{
@@ -168,7 +168,7 @@ class Sqlsrv extends Query
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function length($value)
 	{

@@ -23,7 +23,7 @@ use RuntimeException;
  * @contributor  Michael Cochrane <mike@graftonhall.co.nz>
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Tar implements Extractable
 {
@@ -31,7 +31,7 @@ class Tar implements Extractable
 	 * Tar file types.
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $types = array(
 		0x0 => 'Unix file',
@@ -48,7 +48,7 @@ class Tar implements Extractable
 	 * Tar file data buffer
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $data = null;
 
@@ -56,7 +56,7 @@ class Tar implements Extractable
 	 * Tar file metadata array
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $metadata = null;
 
@@ -70,7 +70,7 @@ class Tar implements Extractable
 	 * @return  boolean True if successful
 	 *
 	 * @throws  RuntimeException
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function extract($archive, $destination, array $options = array())
 	{
@@ -116,7 +116,7 @@ class Tar implements Extractable
 	 *
 	 * @return  boolean  True if supported
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -139,7 +139,7 @@ class Tar implements Extractable
 	 * 'type'  --  File type
 	 * </pre>
 	 *
-	 * @since    11.1
+	 * @since    1.0
 	 */
 	protected function _getTarInfo(& $data)
 	{

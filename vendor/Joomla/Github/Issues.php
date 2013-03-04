@@ -16,7 +16,7 @@ use DomainException;
  * GitHub API Issues class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Issues extends Object
 {
@@ -33,7 +33,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = null)
 	{
@@ -81,7 +81,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function createComment($user, $repo, $issueId, $body)
 	{
@@ -119,7 +119,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function createLabel($user, $repo, $name, $color)
 	{
@@ -157,7 +157,7 @@ class Issues extends Object
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function deleteComment($user, $repo, $commentId)
 	{
@@ -185,7 +185,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function deleteLabel($user, $repo, $label)
 	{
@@ -219,7 +219,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function edit($user, $repo, $issueId, $state = null, $title = null, $body = null, $assignee = null, $milestone = null, array $labels = null)
 	{
@@ -298,7 +298,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function editComment($user, $repo, $commentId, $body)
 	{
@@ -337,7 +337,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function editLabel($user, $repo, $label, $name, $color)
 	{
@@ -375,7 +375,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function get($user, $repo, $issueId)
 	{
@@ -405,7 +405,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getComment($user, $repo, $commentId)
 	{
@@ -437,7 +437,7 @@ class Issues extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getComments($user, $repo, $issueId, $page = 0, $limit = 0)
 	{
@@ -467,7 +467,7 @@ class Issues extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getLabel($user, $repo, $name)
 	{
@@ -496,7 +496,7 @@ class Issues extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getLabels($user, $repo)
 	{
@@ -531,7 +531,7 @@ class Issues extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getList($filter = null, $state = null, $labels = null, $sort = null, $direction = null, Date $since = null, $page = 0, $limit = 0)
 	{
@@ -572,7 +572,7 @@ class Issues extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getListByRepository($user, $repo, $milestone = null, $state = null, $assignee = null, $mentioned = null, $labels = null,
 		$sort = null, $direction = null, Date $since = null, $page = 0, $limit = 0)

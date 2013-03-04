@@ -13,25 +13,25 @@ require_once __DIR__ . '/stubs/JGithubObjectMock.php';
  * Test class for JGithub.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JGithubObjectTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Joomla\Github\Http  Mock client object.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    JGithubIssues  Object under test.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $object;
 

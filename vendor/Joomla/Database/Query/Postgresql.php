@@ -13,43 +13,43 @@ use Joomla\Database\Query;
  * Query Building Class.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Postgresql extends Query implements Limitable
 {
 	/**
 	 * @var    object  The FOR UPDATE element used in "FOR UPDATE"  lock
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $forUpdate = null;
 
 	/**
 	 * @var    object  The FOR SHARE element used in "FOR SHARE"  lock
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $forShare = null;
 
 	/**
 	 * @var    object  The NOWAIT element used in "FOR SHARE" and "FOR UPDATE" lock
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $noWait = null;
 
 	/**
 	 * @var    object  The LIMIT element
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $limit = null;
 
 	/**
 	 * @var    object  The OFFSET element
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $offset = null;
 
 	/**
 	 * @var    object  The RETURNING element of INSERT INTO
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $returning = null;
 
@@ -58,7 +58,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string	The completed query.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __toString()
 	{
@@ -199,7 +199,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function clear($clause = null)
 	{
@@ -272,7 +272,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  Returns the cast value.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function castAsChar($value)
 	{
@@ -290,7 +290,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  The concatenated values.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function concatenate($values, $separator = null)
 	{
@@ -309,7 +309,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  Return string used in query to obtain
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function currentTimestamp()
 	{
@@ -324,7 +324,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  Postgresql  FOR UPDATE query element
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function forUpdate ($table_name, $glue = ',')
 	{
@@ -351,7 +351,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  Postgresql  FOR SHARE query element
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function forShare ($table_name, $glue = ',')
 	{
@@ -380,7 +380,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  Returns string to extract year from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function year($date)
 	{
@@ -397,7 +397,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  Returns string to extract month from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function month($date)
 	{
@@ -414,7 +414,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  Returns string to extract day from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function day($date)
 	{
@@ -431,7 +431,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  Returns string to extract hour from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function hour($date)
 	{
@@ -448,7 +448,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  Returns string to extract minute from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function minute($date)
 	{
@@ -465,7 +465,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string  Returns string to extract second from a date.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function second($date)
 	{
@@ -477,7 +477,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  Postgresql  NOWAIT query element
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function noWait()
 	{
@@ -498,7 +498,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  Postgresql  Returns this object to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function limit($limit = 0)
 	{
@@ -517,7 +517,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  Postgresql  Returns this object to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function offset($offset = 0)
 	{
@@ -536,7 +536,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  Postgresql  Returns this object to allow chaining.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function returning($pkCol)
 	{
@@ -560,7 +560,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  Postgresql  Returns this object to allow chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setLimit($limit = 0, $offset = 0)
 	{
@@ -581,7 +581,7 @@ class Postgresql extends Query implements Limitable
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function processLimit($query, $limit, $offset = 0)
 	{

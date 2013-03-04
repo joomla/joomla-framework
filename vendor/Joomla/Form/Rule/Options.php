@@ -17,7 +17,7 @@ use SimpleXMLElement;
  * Requires the value entered be one of the options in a field of type="list"
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Options extends Rule
 {
@@ -34,7 +34,7 @@ class Options extends Rule
 	 *
 	 * @return  boolean  True if the value is valid, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{

@@ -13,7 +13,7 @@ use RuntimeException;
  * Stemmer base class.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 abstract class Stemmer
 {
@@ -21,7 +21,7 @@ abstract class Stemmer
 	 * An internal cache of stemmed tokens.
 	 *
 	 * @var    array
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $cache = array();
 
@@ -29,7 +29,7 @@ abstract class Stemmer
 	 * JLanguageStemmer instances.
 	 *
 	 * @var    array
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected static $instances = array();
 
@@ -40,7 +40,7 @@ abstract class Stemmer
 	 *
 	 * @return  Stemmer  A JLanguageStemmer instance.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException on invalid stemmer.
 	 */
 	public static function getInstance($adapter)
@@ -74,7 +74,7 @@ abstract class Stemmer
 	 *
 	 * @return  string  The root token.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	abstract public function stem($token, $lang);
 }

@@ -29,7 +29,7 @@ class Registry implements \JsonSerializable
 	 * Registry instances container.
 	 *
 	 * @var    array
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $instances = array();
 
@@ -86,7 +86,7 @@ class Registry implements \JsonSerializable
 	 *
 	 * @return  object
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @note    The interface is only present in PHP 5.4 and up.
 	 */
 	public function jsonSerialize()

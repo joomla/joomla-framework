@@ -15,7 +15,7 @@ namespace Joomla\Form;
  * @link     http://www.w3.org/TR/html-markup/input.tel.html
  * @see      JFormRuleTel for telephone number validation
  * @see      JHtmlTel for rendering of telephone numbers
- * @since    11.1
+ * @since    1.0
  */
 class Field_Tel extends Field_Text
 {
@@ -23,7 +23,7 @@ class Field_Tel extends Field_Text
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'Tel';
 }

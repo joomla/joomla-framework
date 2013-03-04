@@ -9,7 +9,7 @@
  * Form Field class for the Joomla Framework.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class FooFormFieldModal_Bar extends JFormField
 {

@@ -15,13 +15,13 @@ use Joomla\Registry\Registry;
  * Google OAuth authentication class
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class OAuth2 extends Auth
 {
 	/**
 	 * @var    Client  OAuth client for the Google authentication object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $client;
 
@@ -31,7 +31,7 @@ class OAuth2 extends Auth
 	 * @param   Registry  $options  Auth options object.
 	 * @param   Client    $client   OAuth client for Google authentication.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Client $client = null)
 	{
@@ -44,7 +44,7 @@ class OAuth2 extends Auth
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function authenticate()
 	{
@@ -58,7 +58,7 @@ class OAuth2 extends Auth
 	 *
 	 * @return  boolean  Is authenticated
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function isAuthenticated()
 	{
@@ -75,7 +75,7 @@ class OAuth2 extends Auth
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function query($url, $data = null, $headers = null, $method = 'get')
 	{
@@ -89,7 +89,7 @@ class OAuth2 extends Auth
 	 *
 	 * @return  Client  Google-configured Oauth2 client.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function googlize()
 	{

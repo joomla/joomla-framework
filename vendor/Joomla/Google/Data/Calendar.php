@@ -18,7 +18,7 @@ use InvalidArgumentException;
  * Google Calendar data class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Calendar extends Data
 {
@@ -28,7 +28,7 @@ class Calendar extends Data
 	 * @param   Registry  $options  Google options object
 	 * @param   Auth      $auth     Google data http client object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -47,7 +47,7 @@ class Calendar extends Data
 	 *
 	 * @return  boolean  Success or failure
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function removeCalendar($calendarID)
@@ -76,7 +76,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function getCalendar($calendarID)
@@ -108,7 +108,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function addCalendar($calendarID, $options = array())
@@ -142,7 +142,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listCalendars($options = array(), $maxpages = 1)
@@ -169,7 +169,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function editCalendarSettings($calendarID, $options)
@@ -201,7 +201,7 @@ class Calendar extends Data
 	 *
 	 * @return  boolean  Success or failure
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function clearCalendar($calendarID)
@@ -230,7 +230,7 @@ class Calendar extends Data
 	 *
 	 * @return  boolean  Success or failure
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function deleteCalendar($calendarID)
@@ -260,7 +260,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function createCalendar($title, $options = array())
@@ -294,7 +294,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function editCalendar($calendarID, $options)
@@ -328,7 +328,7 @@ class Calendar extends Data
 	 *
 	 * @return  boolean  Success or failure.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function deleteEvent($calendarID, $eventID)
@@ -360,7 +360,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function getEvent($calendarID, $eventID, $options = array())
@@ -399,7 +399,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  UnexpectedValueException
 	 */
@@ -506,7 +506,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listRecurrences($calendarID, $eventID, $options = array(), $maxpages = 1)
@@ -535,7 +535,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function listEvents($calendarID, $options = array(), $maxpages = 1)
@@ -564,7 +564,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function moveEvent($calendarID, $eventID, $destID, $notify = false)
@@ -600,7 +600,7 @@ class Calendar extends Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public function editEvent($calendarID, $eventID, $options, $notify = false)

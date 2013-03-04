@@ -197,7 +197,7 @@ class File extends Cache
 	 *
 	 * @return  string  The full stream URI for the cache entry.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private function _fetchStreamUri($key)
 	{

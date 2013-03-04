@@ -13,7 +13,7 @@ namespace Joomla\Form;
  *
  * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/input.hidden.html#input.hidden
- * @since    11.1
+ * @since    1.0
  */
 class Field_Hidden extends Field
 {
@@ -21,7 +21,7 @@ class Field_Hidden extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'Hidden';
 
@@ -30,7 +30,7 @@ class Field_Hidden extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{

@@ -193,7 +193,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringYear()
 	{
@@ -212,7 +212,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringMonth()
 	{
@@ -231,7 +231,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringDay()
 	{
@@ -250,7 +250,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringHour()
 	{
@@ -269,7 +269,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringMinute()
 	{
@@ -288,7 +288,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__toStringSecond()
 	{

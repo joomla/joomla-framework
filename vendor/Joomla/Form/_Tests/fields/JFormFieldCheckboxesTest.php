@@ -9,14 +9,14 @@
  * Test class for JForm.
  *
  * @package  Joomla\Framework\Test
- * @since    11.3
+ * @since    1.0
  */
 class JFormFieldCheckboxesTest extends TestCase
 {
 	/**
 	 * Sets up dependencies for the test.
 	 *
-	 * @since    11.3
+	 * @since    1.0
 	 *
 	 * @return void
 	 */
@@ -27,7 +27,7 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with no value and no checked attribute.
 	 *
-	 * @since    12.2
+	 * @since    1.0
 	 *
 	 * @return void
 	 */
@@ -73,7 +73,7 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with one value selected and no checked attribute.
 	 *
-	 * @since    12.2
+	 * @since    1.0
 	 *
 	 * @return void
 	 */
@@ -121,7 +121,7 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with one value that is an array and no checked attribute.
 	 *
-	 * @since    12.2
+	 * @since    1.0
 	 *
 	 * @return void
 	 */
@@ -168,7 +168,7 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method  with no value and one value in checked.
 	 *
-	 * @since    12.2
+	 * @since    1.0
 	 *
 	 * @return void
 	 */
@@ -214,7 +214,7 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with no value and two values in the checked element.
 	 *
-	 * @since    12.2
+	 * @since    1.0
 	 *
 	 * @return void
 	 */
@@ -261,7 +261,7 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with one value and a different checked value.
 	 *
-	 * @since    12.2
+	 * @since    1.0
 	 *
 	 * @return void
 	 */
@@ -308,7 +308,7 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with multiple values, no checked.
 	 *
-	 * @since    12.2
+	 * @since    1.0
 	 *
 	 * @return void
 	 */
@@ -354,7 +354,7 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getOptions method.
 	 *
-	 * @since    12.2
+	 * @since    1.0
 	 *
 	 * @return void
 	 */

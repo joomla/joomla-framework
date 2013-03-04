@@ -15,7 +15,7 @@ use Joomla\Html\Html;
  *
  * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/input.color.html
- * @since    11.3
+ * @since    1.0
  */
 class Field_Color extends Field
 {
@@ -23,7 +23,7 @@ class Field_Color extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected $type = 'Color';
 
@@ -32,7 +32,7 @@ class Field_Color extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{

@@ -13,7 +13,7 @@ use RuntimeException;
  * Joomla Platform Database Factory class
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Factory
 {
@@ -21,7 +21,7 @@ class Factory
 	 * Contains the current Factory instance
 	 *
 	 * @var    Factroy
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private static $instance = null;
 
@@ -39,7 +39,7 @@ class Factory
 	 *
 	 * @return  Driver  A database driver object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getDriver($name = 'mysqli', $options = array())
@@ -79,7 +79,7 @@ class Factory
 	 *
 	 * @return  Exporter  An exporter object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getExporter($name, Driver $db = null)
@@ -112,7 +112,7 @@ class Factory
 	 *
 	 * @return  Importer  An importer object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getImporter($name, Driver $db = null)
@@ -142,7 +142,7 @@ class Factory
 	 *
 	 * @return  Factory
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function getInstance()
 	{
@@ -162,7 +162,7 @@ class Factory
 	 *
 	 * @return  Query  The current query object or a new object extending the Query class.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getQuery($name, Driver $db = null)
@@ -187,7 +187,7 @@ class Factory
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function setInstance(Factory $instance = null)
 	{

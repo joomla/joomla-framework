@@ -16,7 +16,7 @@ use RuntimeException;
  * Bzip2 format adapter for the JArchive class
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Bzip2 implements Extractable
 {
@@ -24,7 +24,7 @@ class Bzip2 implements Extractable
 	 * Bzip2 file data buffer
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $data = null;
 
@@ -37,7 +37,7 @@ class Bzip2 implements Extractable
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function extract($archive, $destination, array $options = array ())
@@ -122,7 +122,7 @@ class Bzip2 implements Extractable
 	 *
 	 * @return  boolean  True if supported
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{

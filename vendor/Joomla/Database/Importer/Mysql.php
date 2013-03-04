@@ -14,7 +14,7 @@ use Exception;
  * MySQL import driver.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Mysql extends Mysqli
 {
@@ -23,7 +23,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  Mysql  Method supports chaining.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception if an error is encountered.
 	 */
 	public function check()

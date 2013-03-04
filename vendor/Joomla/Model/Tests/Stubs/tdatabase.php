@@ -13,7 +13,7 @@ use Joomla\Model;
  * Concrete class extending JModelDatabase.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class DatabaseModel extends Model\Database
 {

@@ -18,7 +18,7 @@ use InvalidArgumentException;
  * Form Rule class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Equals extends Rule
 {
@@ -37,7 +37,7 @@ class Equals extends Rule
 	 *
 	 * @return  boolean  True if the value is valid, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 * @throws  UnexpectedValueException
 	 */

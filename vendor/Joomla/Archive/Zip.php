@@ -34,7 +34,7 @@ use RuntimeException;
  * @contributor  Michael Cochrane <mike@graftonhall.co.nz>
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Zip implements Extractable
 {
@@ -42,7 +42,7 @@ class Zip implements Extractable
 	 * ZIP compression methods.
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $methods = array(0x0 => 'None', 0x1 => 'Shrunk', 0x2 => 'Super Fast', 0x3 => 'Fast', 0x4 => 'Normal', 0x5 => 'Maximum', 0x6 => 'Imploded',
 		0x8 => 'Deflated');
@@ -51,7 +51,7 @@ class Zip implements Extractable
 	 * Beginning of central directory record.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $ctrlDirHeader = "\x50\x4b\x01\x02";
 
@@ -59,7 +59,7 @@ class Zip implements Extractable
 	 * End of central directory record.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $ctrlDirEnd = "\x50\x4b\x05\x06\x00\x00\x00\x00";
 
@@ -67,7 +67,7 @@ class Zip implements Extractable
 	 * Beginning of file contents.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $fileHeader = "\x50\x4b\x03\x04";
 
@@ -75,7 +75,7 @@ class Zip implements Extractable
 	 * ZIP file data buffer
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $data = null;
 
@@ -83,7 +83,7 @@ class Zip implements Extractable
 	 * ZIP file metadata array
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	private $metadata = null;
 
@@ -95,7 +95,7 @@ class Zip implements Extractable
 	 *
 	 * @return  boolean  True if successful.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 *
 	 * @todo    Finish Implementation
 	 */
@@ -121,7 +121,7 @@ class Zip implements Extractable
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws RuntimeException
 	 */
 	public function extract($archive, $destination, array $options = array())
@@ -146,7 +146,7 @@ class Zip implements Extractable
 	 *
 	 * @return  boolean  True if supported
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -158,7 +158,7 @@ class Zip implements Extractable
 	 *
 	 * @return  boolean  True if php has native ZIP support
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function hasNativeSupport()
 	{
@@ -172,7 +172,7 @@ class Zip implements Extractable
 	 *
 	 * @return  boolean  True if valid, false if invalid.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function checkZipData(&$data)
 	{
@@ -194,7 +194,7 @@ class Zip implements Extractable
 	 *
 	 * @return  mixed   True if successful
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function extractCustom($archive, $destination)
@@ -252,7 +252,7 @@ class Zip implements Extractable
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function extractNative($archive, $destination)
@@ -319,7 +319,7 @@ class Zip implements Extractable
 	 *
 	 * @return  boolean True on success
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	private function _readZipInfo(&$data)
@@ -425,7 +425,7 @@ class Zip implements Extractable
 	 *
 	 * @return  string  Uncompressed file data buffer.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	private function _getFileData($key)
 	{
@@ -459,7 +459,7 @@ class Zip implements Extractable
 	 *
 	 * @return  int  The current date in a 4-byte DOS format.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function _unix2DOSTime($unixtime = null)
 	{
@@ -488,7 +488,7 @@ class Zip implements Extractable
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 *
 	 * @todo    Review and finish implementation
 	 */
@@ -599,7 +599,7 @@ class Zip implements Extractable
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 *
 	 * @todo	Review and finish implementation
 	 */

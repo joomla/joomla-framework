@@ -17,13 +17,13 @@ use Joomla\Input\Cli as InputCli;
  * Base class for a Joomla! command line application.
  *
  * @package  Joomla\Framework
- * @since    11.4
+ * @since    1.0
  */
 abstract class Cli extends Base
 {
 	/**
 	 * @var    Cli  The application instance.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected static $instance;
 
@@ -37,7 +37,7 @@ abstract class Cli extends Base
 	 *                          config object.  If the argument is a Registry object that object will become
 	 *                          the application's config object, otherwise a default config object is created.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct(InputCli $input = null, Registry $config = null)
 	{
@@ -95,7 +95,7 @@ abstract class Cli extends Base
 	 *
 	 * @return  Cli
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public static function getInstance($name = null)
@@ -125,7 +125,7 @@ abstract class Cli extends Base
 	 * @return  Cli  Instance of $this to allow chaining.
 	 *
 	 * @codeCoverageIgnore
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function out($text = '', $nl = true)
 	{
@@ -140,7 +140,7 @@ abstract class Cli extends Base
 	 * @return  string  The input string from standard input.
 	 *
 	 * @codeCoverageIgnore
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function in()
 	{

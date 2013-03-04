@@ -11,7 +11,7 @@ use Joomla\Language\Text;
  * Test class for JText.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JTextTest extends PHPUnit_Framework_TestCase
 {

@@ -17,7 +17,7 @@ use Joomla\Filesystem\Path;
  * Also stores objects with entities' prototypes for further reusing.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Helper
 {
@@ -33,7 +33,7 @@ class Helper
 	 * </code>
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 *
 	 */
 	protected static $paths;
@@ -50,7 +50,7 @@ class Helper
 	 * </code>
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected static $entities = array();
 
@@ -62,7 +62,7 @@ class Helper
 	 *
 	 * @return  mixed  JFormField object on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function loadFieldType($type, $new = true)
 	{
@@ -77,7 +77,7 @@ class Helper
 	 *
 	 * @return  mixed  JFormRule object on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function loadRuleType($type, $new = true)
 	{
@@ -95,7 +95,7 @@ class Helper
 	 *
 	 * @return  mixed  Entity object on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function loadType($entity, $type, $new = true)
 	{
@@ -133,7 +133,7 @@ class Helper
 	 *
 	 * @return  mixed  Class name on success or false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function loadFieldClass($type)
 	{
@@ -148,7 +148,7 @@ class Helper
 	 *
 	 * @return  mixed  Class name on success or false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function loadRuleClass($type)
 	{
@@ -165,7 +165,7 @@ class Helper
 	 *
 	 * @return  mixed  Class name on success or false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function loadClass($entity, $type)
 	{
@@ -235,7 +235,7 @@ class Helper
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function addFieldPath($new = null)
 	{
@@ -249,7 +249,7 @@ class Helper
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function addFormPath($new = null)
 	{
@@ -263,7 +263,7 @@ class Helper
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function addRulePath($new = null)
 	{
@@ -279,7 +279,7 @@ class Helper
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function addPath($entity, $new = null)
 	{

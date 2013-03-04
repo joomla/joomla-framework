@@ -11,87 +11,87 @@ namespace Joomla\Client;
  * LDAP client class
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Ldap
 {
 	/**
 	 * @var    string  Hostname of LDAP server
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $host = null;
 
 	/**
 	 * @var    bool  Authorization Method to use
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $auth_method = null;
 
 	/**
 	 * @var    int  Port of LDAP server
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $port = null;
 
 	/**
 	 * @var    string  Base DN (e.g. o=MyDir)
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $base_dn = null;
 
 	/**
 	 * @var    string  User DN (e.g. cn=Users,o=MyDir)
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $users_dn = null;
 
 	/**
 	 * @var    string  Search String
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $search_string = null;
 
 	/**
 	 * @var    boolean  Use LDAP Version 3
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $use_ldapV3 = null;
 
 	/**
 	 * @var    boolean  No referrals (server transfers)
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $no_referrals = null;
 
 	/**
 	 * @var    boolean  Negotiate TLS (encrypted communications)
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $negotiate_tls = null;
 
 	/**
 	 * @var    string  Username to connect to server
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $username = null;
 
 	/**
 	 *
 	 * @var    string  Password to connect to server
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $password = null;
 
 	/**
 	 * @var    mixed  LDAP Resource Identifier
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $resource = null;
 
 	/**
 	 *
 	 * @var    string  Current DN
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $dn = null;
 
@@ -100,7 +100,7 @@ class Ldap
 	 *
 	 * @param   object  $configObj  An object of configuration variables
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct($configObj = null)
 	{
@@ -128,7 +128,7 @@ class Ldap
 	 *
 	 * @return  boolean  True if successful
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function connect()
 	{
@@ -175,7 +175,7 @@ class Ldap
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function close()
 	{
@@ -190,7 +190,7 @@ class Ldap
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setDN($username, $nosub = 0)
 	{
@@ -213,7 +213,7 @@ class Ldap
 	 *
 	 * @return  string  The current dn
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getDN()
 	{
@@ -225,7 +225,7 @@ class Ldap
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function anonymous_bind()
 	{
@@ -243,7 +243,7 @@ class Ldap
 	 *
 	 * @return  boolean
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function bind($username = null, $password = null, $nosub = 0)
 	{
@@ -270,7 +270,7 @@ class Ldap
 	 *
 	 * @return  array  Search results
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 */
 	public function simple_search($search)
 	{
@@ -293,7 +293,7 @@ class Ldap
 	 *
 	 * @return  array  Multidimensional array of results
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function search(array $filters, $dnoverride = null, array $attributes = array())
 	{
@@ -363,7 +363,7 @@ class Ldap
 	 *
 	 * @return  mixed  result of comparison (true, false, -1 on error)
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function replace($dn, $attribute)
 	{
@@ -378,7 +378,7 @@ class Ldap
 	 *
 	 * @return  mixed  result of comparison (true, false, -1 on error)
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function modify($dn, $attribute)
 	{
@@ -393,7 +393,7 @@ class Ldap
 	 *
 	 * @return  mixed  result of comparison (true, false, -1 on error)
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function remove($dn, $attribute)
 	{
@@ -411,7 +411,7 @@ class Ldap
 	 *
 	 * @return  mixed  result of comparison (true, false, -1 on error)
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function compare($dn, $attribute, $value)
 	{
@@ -425,7 +425,7 @@ class Ldap
 	 *
 	 * @return  mixed  array of attributes or -1 on error
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function read($dn)
 	{
@@ -450,7 +450,7 @@ class Ldap
 	 *
 	 * @return  boolean  Result of operation
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function delete($dn)
 	{
@@ -465,7 +465,7 @@ class Ldap
 	 *
 	 * @return  boolean  Result of operation
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function create($dn, array $entries)
 	{
@@ -481,7 +481,7 @@ class Ldap
 	 *
 	 * @return  boolean   Result of operation
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function add($dn, array $entry)
 	{
@@ -498,7 +498,7 @@ class Ldap
 	 *
 	 * @return  boolean  Result of operation
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function rename($dn, $newdn, $newparent, $deleteolddn)
 	{
@@ -510,7 +510,7 @@ class Ldap
 	 *
 	 * @return  string   error message
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getErrorMsg()
 	{
@@ -524,7 +524,7 @@ class Ldap
 	 *
 	 * @return  string  Net address
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function ipToNetAddress($ip)
 	{
@@ -568,7 +568,7 @@ class Ldap
 	 * @return  array
 	 *
 	 * @author  Jay Burrell, Systems & Networks, Mississippi State University
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function LDAPNetAddr($networkaddress)
 	{
@@ -638,7 +638,7 @@ class Ldap
 	 *
 	 * @return  string   Encrypted password
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function generatePassword($password, $type = 'md5')
 	{

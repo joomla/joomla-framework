@@ -18,7 +18,7 @@ use UnexpectedValueException;
  * A Folder handling class
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 abstract class Folder
 {
@@ -33,7 +33,7 @@ abstract class Folder
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public static function copy($src, $dest, $path = '', $force = false, $use_streams = false)
@@ -171,7 +171,7 @@ abstract class Folder
 	 *
 	 * @return  boolean  True if successful.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function create($path = '', $mode = 0755)
 	{
@@ -295,7 +295,7 @@ abstract class Folder
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function delete($path)
 	{
@@ -406,7 +406,7 @@ abstract class Folder
 	 *
 	 * @return  mixed  Error message on false or boolean true on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function move($src, $dest, $path = '', $use_streams = false)
 	{
@@ -479,7 +479,7 @@ abstract class Folder
 	 *
 	 * @return  boolean  True if path is a folder
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function exists($path)
 	{
@@ -498,7 +498,7 @@ abstract class Folder
 	 *
 	 * @return  array  Files in the given folder.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function files($path, $filter = '.', $recurse = false, $full = false, $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'),
 		$excludefilter = array('^\..*', '.*~'))
@@ -545,7 +545,7 @@ abstract class Folder
 	 *
 	 * @return  array  Folders in the given folder.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function folders($path, $filter = '.', $recurse = false, $full = false, $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'),
 		$excludefilter = array('^\..*'))
@@ -593,7 +593,7 @@ abstract class Folder
 	 *
 	 * @return  array  Files.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected static function _items($path, $filter, $recurse, $full, $exclude, $excludefilter_string, $findfiles)
 	{
@@ -665,7 +665,7 @@ abstract class Folder
 	 *
 	 * @return  array  Folders in the given folder.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function listFolderTree($path, $filter, $maxLevel = 3, $level = 0, $parent = 0)
 	{
@@ -702,7 +702,7 @@ abstract class Folder
 	 *
 	 * @return  string  The sanitised string.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function makeSafe($path)
 	{

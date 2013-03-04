@@ -17,7 +17,7 @@ use Joomla\Language\Stemmer;
  * See copyright and link information above.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Porteren extends Stemmer
 {
@@ -25,14 +25,14 @@ class Porteren extends Stemmer
 	 * Regex for matching a consonant.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private static $regex_consonant = '(?:[bcdfghjklmnpqrstvwxz]|(?<=[aeiou])y|^y)';
 
 	/**
 	 * Regex for matching a vowel
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private static $regex_vowel = '(?:[aeiou]|(?<![aeiou])y)';
 
@@ -44,7 +44,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  string  The root token.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function stem($token, $lang)
 	{
@@ -86,7 +86,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function step1ab($word)
 	{
@@ -136,7 +136,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function step1c($word)
 	{
@@ -157,7 +157,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function step2($word)
 	{
@@ -219,7 +219,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function step3($word)
 	{
@@ -261,7 +261,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function step4($word)
 	{
@@ -340,7 +340,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function step5($word)
 	{
@@ -382,7 +382,7 @@ class Porteren extends Stemmer
 	 *                   of the $str string. True does not necessarily mean
 	 *                   that it was replaced.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function replace(&$str, $check, $repl, $m = null)
 	{
@@ -417,7 +417,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  integer  The m count
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function m($str)
 	{
@@ -440,7 +440,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  boolean  Result
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function doubleConsonant($str)
 	{
@@ -456,7 +456,7 @@ class Porteren extends Stemmer
 	 *
 	 * @return  boolean  Result
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private static function cvc($str)
 	{

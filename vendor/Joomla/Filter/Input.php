@@ -14,7 +14,7 @@ namespace Joomla\Filter;
  * Original Contributors: Gianpaolo Racca, Ghislain Picard, Marco Wandschneider, Chris Tobin and Andrew Eddie.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Input
 {
@@ -22,7 +22,7 @@ class Input
 	 * A container for JFilterInput instances.
 	 *
 	 * @var    array
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $instances = array();
 
@@ -30,7 +30,7 @@ class Input
 	 * The array of permitted tags (white list).
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $tagsArray;
 
@@ -38,7 +38,7 @@ class Input
 	 * The array of permitted tag attributes (white list).
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $attrArray;
 
@@ -46,7 +46,7 @@ class Input
 	 * The method for sanitising tags: WhiteList method = 0 (default), BlackList method = 1
 	 *
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $tagsMethod;
 
@@ -54,7 +54,7 @@ class Input
 	 * The method for sanitising attributes: WhiteList method = 0 (default), BlackList method = 1
 	 *
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $attrMethod;
 
@@ -62,7 +62,7 @@ class Input
 	 * A flag for XSS checks. Only auto clean essentials = 0, Allow clean blacklisted tags/attr = 1
 	 *
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $xssAuto;
 
@@ -70,7 +70,7 @@ class Input
 	 * The list of the default blacklisted tags.
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $tagBlacklist = array(
 		'applet',
@@ -101,7 +101,7 @@ class Input
 	 * The list of the default blacklisted tag attributes. All event handlers implicit.
 	 *
 	 * @var    array
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public $attrBlacklist = array(
 		'action',
@@ -120,7 +120,7 @@ class Input
 	 * @param   integer  $attrMethod  WhiteList method = 0, BlackList method = 1
 	 * @param   integer  $xssAuto     Only auto clean essentials = 0, Allow clean blacklisted tags/attr = 1
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($tagsArray = array(), $attrArray = array(), $tagsMethod = 0, $attrMethod = 0, $xssAuto = 1)
 	{
@@ -147,7 +147,7 @@ class Input
 	 *
 	 * @return  Input  The Input object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function &getInstance($tagsArray = array(), $attrArray = array(), $tagsMethod = 0, $attrMethod = 0, $xssAuto = 1)
 	{
@@ -186,7 +186,7 @@ class Input
 	 *
 	 * @return  mixed  'Cleaned' version of input parameter
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function clean($source, $type = 'string')
 	{
@@ -300,7 +300,7 @@ class Input
 	 *
 	 * @return  boolean  True if bad code is detected
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function checkAttribute($attrSubSet)
 	{
@@ -319,7 +319,7 @@ class Input
 	 *
 	 * @return  string  'Cleaned' version of input parameter
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function remove($source)
 	{
@@ -342,7 +342,7 @@ class Input
 	 *
 	 * @return  string  'Cleaned' version of input parameter
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function cleanTags($source)
 	{
@@ -573,7 +573,7 @@ class Input
 	 *
 	 * @return  array  Filtered array of attribute pairs
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function cleanAttributes($attrSet)
 	{
@@ -675,7 +675,7 @@ class Input
 	 *
 	 * @return  string  Plaintext string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function decode($source)
 	{
@@ -710,7 +710,7 @@ class Input
 	 *
 	 * @return  string  Filtered string
 	 *
-	 * @since    11.1
+	 * @since    1.0
 	 */
 	protected function escapeAttributeValues($source)
 	{
@@ -765,7 +765,7 @@ class Input
 	 *
 	 * @return  string  Filtered string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function stripCssExpressions($source)
 	{

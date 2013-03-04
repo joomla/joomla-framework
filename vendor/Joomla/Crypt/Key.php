@@ -13,25 +13,25 @@ namespace Joomla\Crypt;
  * @property-read  string  $type  The key type.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Key
 {
 	/**
 	 * @var    string  The private key.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $private;
 
 	/**
 	 * @var    string  The public key.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $public;
 
 	/**
 	 * @var    string  The key type.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $type;
 
@@ -42,7 +42,7 @@ class Key
 	 * @param   string  $private  The private key.
 	 * @param   string  $public   The public key.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct($type, $private = null, $public = null)
 	{
@@ -61,7 +61,7 @@ class Key
 	 *
 	 * @return  mixed
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{

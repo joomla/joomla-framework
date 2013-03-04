@@ -15,14 +15,14 @@ use InvalidArgumentException;
  * Basic Web application router class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.2
+ * @since    1.0
  */
 class Base extends Router
 {
 	/**
 	 * @var    array  An array of rules, each rule being an associative array('regex'=> $regex, 'vars' => $vars, 'controller' => $controller)
 	 *                for routing the request.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $maps = array();
 
@@ -34,7 +34,7 @@ class Base extends Router
 	 *
 	 * @return  JApplicationWebRouter  This object for method chaining.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function addMap($pattern, $controller)
 	{
@@ -105,7 +105,7 @@ class Base extends Router
 	 *
 	 * @return  JApplicationWebRouter  This object for method chaining.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function addMaps($maps)
 	{
@@ -124,7 +124,7 @@ class Base extends Router
 	 *
 	 * @return  string  The controller name for the given route excluding prefix.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	protected function parseRoute($route)

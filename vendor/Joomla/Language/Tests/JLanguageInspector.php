@@ -9,7 +9,7 @@
  * Inspector for the JLanguage class.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class JLanguageInspector extends Joomla\Language\Language
 {
@@ -67,7 +67,7 @@ class JLanguageInspector extends Joomla\Language\Language
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function setInstance($instance)
 	{

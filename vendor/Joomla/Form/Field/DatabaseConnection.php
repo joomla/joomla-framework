@@ -17,7 +17,7 @@ use Joomla\Database\Driver;
  *
  * @package  Joomla\Framework
  * @see      JDatabaseDriver
- * @since    11.3
+ * @since    1.0
  */
 class Field_DatabaseConnection extends Field_List
 {
@@ -25,7 +25,7 @@ class Field_DatabaseConnection extends Field_List
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	public $type = 'DatabaseConnection';
 
@@ -37,7 +37,7 @@ class Field_DatabaseConnection extends Field_List
 	 *
 	 * @return  array    The field option objects.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @see		JDatabaseDriver
 	 */
 	protected function getOptions()

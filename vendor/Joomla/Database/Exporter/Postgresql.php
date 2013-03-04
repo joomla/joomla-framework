@@ -15,7 +15,7 @@ use Exception;
  * PostgreSQL export driver.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Postgresql extends Exporter
 {
@@ -24,7 +24,7 @@ class Postgresql extends Exporter
 	 *
 	 * @return  string  An XML string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception if an error occurs.
 	 */
 	protected function buildXml()
@@ -48,7 +48,7 @@ class Postgresql extends Exporter
 	 *
 	 * @return  array  An array of XML lines (strings).
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception if an error occurs.
 	 */
 	protected function buildXmlStructure()
@@ -106,7 +106,7 @@ class Postgresql extends Exporter
 	 *
 	 * @return  Postgresql  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception if an error is encountered.
 	 */
 	public function check()

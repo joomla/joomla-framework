@@ -19,105 +19,105 @@ use RuntimeException;
  * but will incur a performance hit due to INSERT being issued.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Log
 {
 	/**
 	 * All log priorities.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const ALL = 30719;
 
 	/**
 	 * The system is unusable.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const EMERGENCY = 1;
 
 	/**
 	 * Action must be taken immediately.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const ALERT = 2;
 
 	/**
 	 * Critical conditions.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const CRITICAL = 4;
 
 	/**
 	 * Error conditions.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const ERROR = 8;
 
 	/**
 	 * Warning conditions.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const WARNING = 16;
 
 	/**
 	 * Normal, but significant condition.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const NOTICE = 32;
 
 	/**
 	 * Informational message.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const INFO = 64;
 
 	/**
 	 * Debugging message.
 	 * @var    integer
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	const DEBUG = 128;
 
 	/**
 	 * The global Log instance.
 	 * @var    Log
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected static $instance;
 
 	/**
 	 * Container for JLogLogger configurations.
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $configurations = array();
 
 	/**
 	 * Container for JLogLogger objects.
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $loggers = array();
 
 	/**
 	 * Lookup array for loggers.
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $lookup = array();
 
 	/**
 	 * Constructor.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function __construct()
 	{
@@ -133,7 +133,7 @@ class Log
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function add($entry, $priority = self::INFO, $category = '', $date = null)
 	{
@@ -162,7 +162,7 @@ class Log
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function addLogger(array $options, $priorities = self::ALL, $categories = array(), $exclude = false)
 	{
@@ -217,7 +217,7 @@ class Log
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function setInstance($instance)
 	{
@@ -234,7 +234,7 @@ class Log
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function addLogEntry(Entry $entry)
@@ -272,7 +272,7 @@ class Log
 	 *
 	 * @return  array  The array of loggers to use for the given priority and category values.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function findLoggers($priority, $category)
 	{

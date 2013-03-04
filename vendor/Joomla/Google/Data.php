@@ -16,19 +16,19 @@ use Exception;
  * Google API data class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 abstract class Data
 {
 	/**
 	 * @var    Registry  Options for the Google data object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Auth  Authentication client for the Google data object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $auth;
 
@@ -38,7 +38,7 @@ abstract class Data
 	 * @param   Registry  $options  Google options object.
 	 * @param   Auth      $auth     Google data http client object.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -51,7 +51,7 @@ abstract class Data
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function authenticate()
 	{
@@ -63,7 +63,7 @@ abstract class Data
 	 *
 	 * @return  boolean  True if authenticated.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function isAuthenticated()
 	{
@@ -77,7 +77,7 @@ abstract class Data
 	 *
 	 * @return  SimpleXMLElement  XMLElement of parsed data
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	protected static function safeXML($data)
@@ -101,7 +101,7 @@ abstract class Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	protected function listGetData($url, $maxpages = 1, $token = null)
@@ -149,7 +149,7 @@ abstract class Data
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function query($url, $data = null, $headers = null, $method = 'get')
 	{
@@ -163,7 +163,7 @@ abstract class Data
 	 *
 	 * @return  mixed  The option value.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -178,7 +178,7 @@ abstract class Data
 	 *
 	 * @return  Data  This object for method chaining.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setOption($key, $value)
 	{

@@ -37,7 +37,7 @@ allow for HMVC architectures.
  *
  * @package  Examples
  *
- * @since   12.1
+ * @since   1.0
  */
 class MyController extends JControllerBase
 {
@@ -46,7 +46,7 @@ class MyController extends JControllerBase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function execute()

@@ -15,13 +15,13 @@ use Joomla\Filter\Input;
  * @package  Joomla\Framework
  * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
  * @todo        When dropping compatibility with PHP 5.3 use the SessionHandlerInterface and the SessionHandler class
- * @since    11.1
+ * @since    1.0
  */
 abstract class Storage
 {
 	/**
 	 * @var    array  JSessionStorage instances container.
-	 * @since  11.3
+	 * @since  1.0
 	 */
 	protected static $instances = array();
 
@@ -30,7 +30,7 @@ abstract class Storage
 	 *
 	 * @param   array  $options  Optional parameters.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($options = array())
 	{
@@ -45,7 +45,7 @@ abstract class Storage
 	 *
 	 * @return  Storage
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function getInstance($name = 'none', $options = array())
 	{
@@ -81,7 +81,7 @@ abstract class Storage
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function register()
 	{
@@ -100,7 +100,7 @@ abstract class Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function open($save_path, $session_name)
 	{
@@ -112,7 +112,7 @@ abstract class Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function close()
 	{
@@ -127,7 +127,7 @@ abstract class Storage
 	 *
 	 * @return  string  The session data.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function read($id)
 	{
@@ -142,7 +142,7 @@ abstract class Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function write($id, $session_data)
 	{
@@ -157,7 +157,7 @@ abstract class Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function destroy($id)
 	{
@@ -171,7 +171,7 @@ abstract class Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function gc($maxlifetime = null)
 	{
@@ -183,7 +183,7 @@ abstract class Storage
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{

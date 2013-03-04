@@ -13,7 +13,7 @@ use Joomla\Archive\Tar as ArchiveTar;
  *
  * @package  Joomla\Framework\Test
  *
- * @since    11.1
+ * @since    1.0
  */
 class ArchiveTarTest extends PHPUnit_Framework_TestCase
 {

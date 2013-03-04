@@ -11,7 +11,7 @@ namespace Joomla\Language;
  * Class to transliterate strings
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  * @note        Port of phputf8's utf8_accents_to_ascii()
  */
 class Transliterate
@@ -24,7 +24,7 @@ class Transliterate
 	 *
 	 * @return  string  Transliterated string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public static function utf8_latin_to_ascii($string, $case = 0)
 	{

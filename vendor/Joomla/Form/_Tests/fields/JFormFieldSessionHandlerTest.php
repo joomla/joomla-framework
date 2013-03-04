@@ -9,7 +9,7 @@
  * Test class for JFormFieldSessionHandler.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JFormFieldSessionHandlerTest extends TestCase
 {
@@ -18,7 +18,7 @@ class JFormFieldSessionHandlerTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -32,7 +32,7 @@ class JFormFieldSessionHandlerTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetInput()
 	{

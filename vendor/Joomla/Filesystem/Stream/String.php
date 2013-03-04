@@ -16,7 +16,7 @@ use Joomla\Filesystem\Support\StringController;
  * you would normally use a regular stream wrapper
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class String
 {
@@ -24,7 +24,7 @@ class String
 	 * The current string
 	 *
 	 * @var   string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $currentString;
 
@@ -33,7 +33,7 @@ class String
 	 * The path
 	 *
 	 * @var   string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $path;
 
@@ -42,7 +42,7 @@ class String
 	 * The mode
 	 *
 	 * @var   string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $mode;
 
@@ -51,7 +51,7 @@ class String
 	 * Enter description here ...
 	 * @var   string
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $options;
 
@@ -60,7 +60,7 @@ class String
 	 * Enter description here ...
 	 * @var   string
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $openedPath;
 
@@ -68,7 +68,7 @@ class String
 	 * Current position
 	 *
 	 * @var   integer
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $pos;
 
@@ -77,7 +77,7 @@ class String
 	 *
 	 * @var   string
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $len;
 
@@ -85,7 +85,7 @@ class String
 	 * Statistics for a file
 	 *
 	 * @var    array
-	 * @since  12.1
+	 * @since  1.0
 	 *
 	 * @see    http://us.php.net/manual/en/function.stat.php
 	 */
@@ -101,7 +101,7 @@ class String
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function stream_open($path, $mode, $options, &$opened_path)
 	{
@@ -127,7 +127,7 @@ class String
 	 * @return  array
 	 *
 	 * @see     http://www.php.net/manual/en/streamwrapper.stream-stat.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function stream_stat()
 	{
@@ -143,7 +143,7 @@ class String
 	 * @return  array
 	 *
 	 * @see     http://php.net/manual/en/streamwrapper.url-stat.php
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function url_stat($path, $flags = 0)
 	{
@@ -176,7 +176,7 @@ class String
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 *
 	 * @see     http://www.php.net/manual/en/streamwrapper.stream-read.php
 	 */
@@ -195,7 +195,7 @@ class String
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @note    Updating the string is not supported.
 	 */
 	public function stream_write($data)
@@ -209,7 +209,7 @@ class String
 	 *
 	 * @return  integer  The position
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function stream_tell()
 	{
@@ -221,7 +221,7 @@ class String
 	 *
 	 * @return  boolean  True if at end of field.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function stream_eof()
 	{
@@ -241,7 +241,7 @@ class String
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function stream_seek($offset, $whence)
 	{
@@ -282,7 +282,7 @@ class String
 	 *
 	 * @return  boolean
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @note    Data storage is not supported
 	 */
 	public function stream_flush()

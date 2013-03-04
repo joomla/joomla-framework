@@ -33,7 +33,7 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 * @param   mixed  $properties  Either an associative array or another object
 	 *                              by which to set the initial properties of the new object.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public function __construct($properties = array())

@@ -13,7 +13,7 @@ use Joomla\Archive\Bzip2 as ArchiveBzip2;
  *
  * @package  Joomla\Framework\Test
  *
- * @since    11.1
+ * @since    1.0
  */
 class ArchiveBzip2Test extends PHPUnit_Framework_TestCase
 {

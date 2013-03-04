@@ -15,13 +15,13 @@ use stdClass;
  * Joomla Platform Database Importer Class
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 abstract class Importer
 {
 	/**
 	 * @var    array  An array of cached data.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $cache = array();
 
@@ -29,7 +29,7 @@ abstract class Importer
 	 * The database connector to use for exporting structure and/or data.
 	 *
 	 * @var    Driver
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $db = null;
 
@@ -37,7 +37,7 @@ abstract class Importer
 	 * The input source.
 	 *
 	 * @var    mixed
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $from = array();
 
@@ -45,7 +45,7 @@ abstract class Importer
 	 * The type of input format (XML).
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $asFormat = 'xml';
 
@@ -53,7 +53,7 @@ abstract class Importer
 	 * An array of options for the exporter.
 	 *
 	 * @var    object
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $options = null;
 
@@ -62,7 +62,7 @@ abstract class Importer
 	 *
 	 * Sets up the default options for the exporter.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct()
 	{
@@ -86,7 +86,7 @@ abstract class Importer
 	 *
 	 * @return  Importer  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function asXml()
 	{
@@ -100,7 +100,7 @@ abstract class Importer
 	 *
 	 * @return  Importer  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception if an error is encountered.
 	 */
 	abstract public function check();
@@ -112,7 +112,7 @@ abstract class Importer
 	 *
 	 * @return  Importer  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function from($from)
 	{
@@ -129,7 +129,7 @@ abstract class Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getDropColumnSQL($table, $name)
 	{
@@ -145,7 +145,7 @@ abstract class Importer
 	 *
 	 * @return  string	The real name of the table.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getRealTableName($table)
 	{
@@ -163,7 +163,7 @@ abstract class Importer
 	 * @return  void
 	 *
 	 * @note    Currently only supports XML format.
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException on error.
 	 */
 	protected function mergeStructure()
@@ -240,7 +240,7 @@ abstract class Importer
 	 *
 	 * @return  Importer  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setDbo(Driver $db)
 	{
@@ -256,7 +256,7 @@ abstract class Importer
 	 *
 	 * @return  Importer  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function withStructure($setting = true)
 	{

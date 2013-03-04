@@ -13,7 +13,7 @@ use InvalidArgumentException;
  * JCrypt cipher for Simple encryption, decryption and key generation.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Cipher_Simple implements Cipher
 {
@@ -25,7 +25,7 @@ class Cipher_Simple implements Cipher
 	 *
 	 * @return  string  The decrypted data string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public function decrypt($data, Key $key)
@@ -66,7 +66,7 @@ class Cipher_Simple implements Cipher
 	 *
 	 * @return  string  The encrypted data string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public function encrypt($data, Key $key)
@@ -106,7 +106,7 @@ class Cipher_Simple implements Cipher
 	 *
 	 * @return  JCryptKey
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function generateKey(array $options = array())
 	{
@@ -127,7 +127,7 @@ class Cipher_Simple implements Cipher
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	private function _getRandomKey($length = 256)
 	{
@@ -152,7 +152,7 @@ class Cipher_Simple implements Cipher
 	 *
 	 * @return  integer
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	private function _hexToInt($s, $i)
 	{
@@ -232,7 +232,7 @@ class Cipher_Simple implements Cipher
 	 *
 	 * @return  array  An array of integers.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	private function _hexToIntArray($hex)
 	{
@@ -255,7 +255,7 @@ class Cipher_Simple implements Cipher
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	private function _intToHex($i)
 	{

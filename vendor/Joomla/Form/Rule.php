@@ -22,7 +22,7 @@ if (!defined('JCOMPAT_UNICODE_PROPERTIES'))
  * Form Rule class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Rule
 {
@@ -30,7 +30,7 @@ class Rule
 	 * The regular expression to use in testing a form field value.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $regex;
 
@@ -38,7 +38,7 @@ class Rule
 	 * The regular expression modifiers to use when testing a form field value.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $modifiers;
 
@@ -55,7 +55,7 @@ class Rule
 	 *
 	 * @return  boolean  True if the value is valid, false otherwise.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  UnexpectedValueException if rule is invalid.
 	 */
 	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)

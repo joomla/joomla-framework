@@ -15,25 +15,25 @@ namespace Joomla\Database\Query;
  * @property-read    string  $glue      Glue piece.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Element
 {
 	/**
 	 * @var    string  The name of the element.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $name = null;
 
 	/**
 	 * @var    array  An array of elements.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $elements = null;
 
 	/**
 	 * @var    string  Glue piece.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $glue = null;
 
@@ -44,7 +44,7 @@ class Element
 	 * @param   mixed   $elements  String or array.
 	 * @param   string  $glue      The glue for elements.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($name, $elements, $glue = ',')
 	{
@@ -60,7 +60,7 @@ class Element
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __toString()
 	{
@@ -81,7 +81,7 @@ class Element
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function append($elements)
 	{
@@ -100,7 +100,7 @@ class Element
 	 *
 	 * @return  string
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getElements()
 	{
@@ -113,7 +113,7 @@ class Element
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function __clone()
 	{

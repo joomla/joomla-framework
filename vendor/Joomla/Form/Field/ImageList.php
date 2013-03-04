@@ -11,7 +11,7 @@ namespace Joomla\Form;
  * Supports an HTML select list of image
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_ImageList extends Field_FileList
 {
@@ -19,7 +19,7 @@ class Field_ImageList extends Field_FileList
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $type = 'ImageList';
 
@@ -29,7 +29,7 @@ class Field_ImageList extends Field_FileList
 	 *
 	 * @return  array  The field option objects.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getOptions()
 	{

@@ -13,7 +13,7 @@ use Joomla\Filter\Input as FilterInput;
  * Joomla! Input CLI Class
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Cli extends Input
 {
@@ -21,7 +21,7 @@ class Cli extends Input
 	 * The executable that was called to run the CLI script.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $executable;
 
@@ -30,7 +30,7 @@ class Cli extends Input
 	 * with a specific argument name.
 	 *
 	 * @var    array
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $args = array();
 
@@ -40,7 +40,7 @@ class Cli extends Input
 	 * @param   array  $source   Source data (Optional, default is $_REQUEST)
 	 * @param   array  $options  Array of configuration parameters (Optional)
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct(array $source = null, array $options = array())
 	{
@@ -65,7 +65,7 @@ class Cli extends Input
 	 *
 	 * @return  string  The serialized input.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function serialize()
 	{
@@ -88,7 +88,7 @@ class Cli extends Input
 	 *
 	 * @return  Input  The input object.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function unserialize($input)
 	{
@@ -111,7 +111,7 @@ class Cli extends Input
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function parseArguments()
 	{

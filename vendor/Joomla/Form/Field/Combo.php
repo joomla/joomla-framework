@@ -15,7 +15,7 @@ use Joomla\Language\Text;
  * Implements a combo box field.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_Combo extends Field_List
 {
@@ -23,7 +23,7 @@ class Field_Combo extends Field_List
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $type = 'Combo';
 
@@ -32,7 +32,7 @@ class Field_Combo extends Field_List
 	 *
 	 * @return  string   The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{

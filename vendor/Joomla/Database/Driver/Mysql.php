@@ -15,7 +15,7 @@ use RuntimeException;
  *
  * @package  Joomla\Framework
  * @see      http://dev.mysql.com/doc/
- * @since    12.1
+ * @since    1.0
  */
 class Mysql extends Mysqli
 {
@@ -23,7 +23,7 @@ class Mysql extends Mysqli
 	 * The name of the database driver.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public $name = 'mysql';
 
@@ -32,7 +32,7 @@ class Mysql extends Mysqli
 	 *
 	 * @param   array  $options  Array of database options with keys: host, user, password, database, select.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct($options)
 	{
@@ -50,7 +50,7 @@ class Mysql extends Mysqli
 	/**
 	 * Destructor.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -65,7 +65,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  void  Returns void if the database connected successfully.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function connect()
@@ -105,7 +105,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function disconnect()
 	{
@@ -123,7 +123,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  string  The escaped string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function escape($text, $extra = false)
 	{
@@ -144,7 +144,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function isSupported()
 	{
@@ -156,7 +156,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  boolean  True if connected to the database engine.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function connected()
 	{
@@ -173,7 +173,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  integer  The number of affected rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getAffectedRows()
 	{
@@ -189,7 +189,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  integer   The number of returned rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getNumRows($cursor = null)
 	{
@@ -203,7 +203,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  string  The database connector version.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getVersion()
 	{
@@ -217,7 +217,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  integer  The value of the auto-increment field from the last inserted row.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function insertid()
 	{
@@ -231,7 +231,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function execute()
@@ -321,7 +321,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  boolean  True if the database was successfully selected.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function select($database)
@@ -346,7 +346,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setUTF()
 	{
@@ -362,7 +362,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchArray($cursor = null)
 	{
@@ -376,7 +376,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchAssoc($cursor = null)
 	{
@@ -391,7 +391,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchObject($cursor = null, $class = '\\stdClass')
 	{
@@ -405,7 +405,7 @@ class Mysql extends Mysqli
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function freeResult($cursor = null)
 	{

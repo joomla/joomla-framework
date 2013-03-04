@@ -23,61 +23,61 @@ class Uri
 {
 	/**
 	 * @var    string  Original URI
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $uri = null;
 
 	/**
 	 * @var    string  Protocol
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $scheme = null;
 
 	/**
 	 * @var    string  Host
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $host = null;
 
 	/**
 	 * @var    integer  Port
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $port = null;
 
 	/**
 	 * @var    string  Username
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $user = null;
 
 	/**
 	 * @var    string  Password
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $pass = null;
 
 	/**
 	 * @var    string  Path
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $path = null;
 
 	/**
 	 * @var    string  Query
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $query = null;
 
 	/**
 	 * @var    string  Anchor
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $fragment = null;
 
 	/**
 	 * @var    array  Query variable hash
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $vars = array();
 

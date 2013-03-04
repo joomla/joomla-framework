@@ -11,7 +11,7 @@ namespace Joomla\Database\Iterator;
  * SQL azure database iterator.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Azure extends Sqlsrv
 {

@@ -14,7 +14,7 @@ use Joomla\Log\Entry;
  * Test class for JLogLoggerCallback.
  *
  * @package  Joomla\Framework\Test
- * @since    12.2
+ * @since    1.0
  */
 class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testConstructor01()
 	{
@@ -48,7 +48,7 @@ class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testConstructor02()
 	{
@@ -76,7 +76,7 @@ class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testConstructor03()
 	{
@@ -101,7 +101,7 @@ class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testConstructor04()
 	{
@@ -126,7 +126,7 @@ class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testConstructor05()
 	{
@@ -151,7 +151,7 @@ class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testConstructor06()
 	{
@@ -177,7 +177,7 @@ class JLogLoggerCallbackTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  null
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testAddEntry()
 	{

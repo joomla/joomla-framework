@@ -15,7 +15,7 @@ use InvalidArgumentException;
  * GitHub API Gists class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Gists extends Object
 {
@@ -28,7 +28,7 @@ class Gists extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function create($files, $public = false, $description = null)
 	{
@@ -66,7 +66,7 @@ class Gists extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function createComment($gistId, $body)
 	{
@@ -101,7 +101,7 @@ class Gists extends Object
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function delete($gistId)
 	{
@@ -127,7 +127,7 @@ class Gists extends Object
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function deleteComment($commentId)
 	{
@@ -156,7 +156,7 @@ class Gists extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function edit($gistId, $files = null, $public = null, $description = null)
 	{
@@ -209,7 +209,7 @@ class Gists extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function editComment($commentId, $body)
 	{
@@ -244,7 +244,7 @@ class Gists extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function fork($gistId)
 	{
@@ -273,7 +273,7 @@ class Gists extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function get($gistId)
 	{
@@ -301,7 +301,7 @@ class Gists extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getComment($commentId)
 	{
@@ -331,7 +331,7 @@ class Gists extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getComments($gistId, $page = 0, $limit = 0)
 	{
@@ -361,7 +361,7 @@ class Gists extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getList($page = 0, $limit = 0)
 	{
@@ -391,7 +391,7 @@ class Gists extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getListByUser($user, $page = 0, $limit = 0)
 	{
@@ -420,7 +420,7 @@ class Gists extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getListPublic($page = 0, $limit = 0)
 	{
@@ -449,7 +449,7 @@ class Gists extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getListStarred($page = 0, $limit = 0)
 	{
@@ -477,7 +477,7 @@ class Gists extends Object
 	 *
 	 * @return  boolean  True if the gist is starred.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function isStarred($gistId)
 	{
@@ -511,7 +511,7 @@ class Gists extends Object
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function star($gistId)
 	{
@@ -537,7 +537,7 @@ class Gists extends Object
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function unstar($gistId)
 	{
@@ -564,7 +564,7 @@ class Gists extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function buildFileData(array $files)
 	{

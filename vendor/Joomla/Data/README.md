@@ -129,7 +129,7 @@ $players->clear();
  * A custom JData.
  *
  * @package   Joomla\Examples
- * @since     12.1
+ * @since     1.0
  */
 class PlayerObject extends JData
 {
@@ -138,7 +138,7 @@ class PlayerObject extends JData
      *
      * @return  integer  The amount of damage the player has received.
      *
-     * @since   12.1
+     * @since   1.0
      */
     public function hurt()
     {

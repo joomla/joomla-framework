@@ -14,19 +14,19 @@ use InvalidArgumentException;
  * Joomla Platform Password Crypter
  *
  * @package  Joomla\Framework
- * @since    12.2
+ * @since    1.0
  */
 class Simple implements Password
 {
 	/**
 	 * @var    integer  The cost parameter for hashing algorithms.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $cost = 10;
 
 	/**
 	 * @var    string   The default hash type
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $defaultType = '$2y$';
 
@@ -38,7 +38,7 @@ class Simple implements Password
 	 *
 	 * @return  string  The hashed password.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function create($password, $type = null)
 	{
@@ -91,7 +91,7 @@ class Simple implements Password
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function setCost($cost)
 	{
@@ -105,7 +105,7 @@ class Simple implements Password
 	 *
 	 * @return  string  The string of random characters.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	protected function getSalt($length)
 	{
@@ -124,7 +124,7 @@ class Simple implements Password
 	 *
 	 * @return  boolean  True if the password is valid, false otherwise.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function verify($password, $hash)
 	{
@@ -167,7 +167,7 @@ class Simple implements Password
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setDefaultType($type)
 	{
@@ -182,7 +182,7 @@ class Simple implements Password
 	 *
 	 * @return   string  $type  The default type
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getDefaultType()
 	{

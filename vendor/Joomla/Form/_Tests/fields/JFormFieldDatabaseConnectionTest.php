@@ -9,7 +9,7 @@
  * Test class for JFormFieldDatabaseConnection.
  *
  * @package  Joomla\Framework\Test
- * @since    11.3
+ * @since    1.0
  */
 class JFormFieldDatabaseConnectionTest extends TestCase
 {
@@ -18,7 +18,7 @@ class JFormFieldDatabaseConnectionTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -32,7 +32,7 @@ class JFormFieldDatabaseConnectionTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetInput()
 	{

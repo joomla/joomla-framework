@@ -11,37 +11,37 @@ use Joomla\Registry\Registry;
  * Test class for JGithubGists.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JGithubForksTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Joomla\Github\Http  Mock client object.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    JGithubGists  Object under test.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $object;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  11.4
+	 * @since  1.0
 	 */
 	protected $errorString = '{"message": "Generic Error"}';
 

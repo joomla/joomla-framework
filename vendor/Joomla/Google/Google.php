@@ -16,31 +16,31 @@ use Joomla\Registry\Registry;
  * @property-read  Embed  $embed   Google API object for embed generation.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Google
 {
 	/**
 	 * @var    Registry  Options for the Google object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    Auth  The authentication client object to use in sending authenticated HTTP requests.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $auth;
 
 	/**
 	 * @var    Data  Google API object for data request.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $data;
 
 	/**
 	 * @var    Embed  Google API object for embed generation.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $embed;
 
@@ -50,7 +50,7 @@ class Google
 	 * @param   Registry  $options  Google options object.
 	 * @param   Auth      $auth     The authentication client object.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -67,7 +67,7 @@ class Google
 	 *
 	 * @return  Data  Google data API object.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function data($name, $options = null, $auth = null)
 	{
@@ -108,7 +108,7 @@ class Google
 	 *
 	 * @return  Embed  Google embed API object.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function embed($name, $options = null)
 	{
@@ -137,7 +137,7 @@ class Google
 	 *
 	 * @return  mixed  The option value.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -152,7 +152,7 @@ class Google
 	 *
 	 * @return  Google  This object for method chaining.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setOption($key, $value)
 	{

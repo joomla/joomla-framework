@@ -16,7 +16,7 @@ use Joomla\Registry\Registry;
  * Google+ data class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Comments extends Data
 {
@@ -26,7 +26,7 @@ class Comments extends Data
 	 * @param   Registry  $options  Google options object
 	 * @param   Auth      $auth     Google data http client object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Auth $auth = null)
 	{
@@ -51,7 +51,7 @@ class Comments extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function listComments($activityId, $fields = null, $max = 20, $order = null, $token = null, $alt = null)
 	{
@@ -111,7 +111,7 @@ class Comments extends Data
 	 *
 	 * @return  mixed  Data from Google
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getComment($id, $fields = null)
 	{

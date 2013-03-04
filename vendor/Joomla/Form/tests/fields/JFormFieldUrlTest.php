@@ -9,7 +9,7 @@
  * Test class for JFormFieldUrl.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class JFormFieldUrlTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class JFormFieldUrlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -32,7 +32,7 @@ class JFormFieldUrlTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetInput()
 	{

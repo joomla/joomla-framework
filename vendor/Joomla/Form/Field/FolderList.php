@@ -15,7 +15,7 @@ use Joomla\Filesystem\Folder;
  * Supports an HTML select list of folder
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_FolderList extends Field_List
 {
@@ -23,7 +23,7 @@ class Field_FolderList extends Field_List
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $type = 'FolderList';
 
@@ -32,7 +32,7 @@ class Field_FolderList extends Field_List
 	 *
 	 * @return  array  The field option objects.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getOptions()
 	{

@@ -11,7 +11,7 @@ use Joomla\Input\Cli;
  * Inspector classes for the JInputCLI library.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JInputCliInspector extends Cli
 {

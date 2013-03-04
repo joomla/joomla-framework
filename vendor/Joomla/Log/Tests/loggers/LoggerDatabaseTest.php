@@ -15,7 +15,7 @@ use Joomla\Log\Logger\Database as LoggerDatabase;
  * Test class for LoggerDatabase.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class LoggerDatabaseTest extends TestCaseDatabase
 {
@@ -136,7 +136,7 @@ class LoggerDatabaseTest extends TestCaseDatabase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 *
 	 * @expectedException RuntimeException
 	 */

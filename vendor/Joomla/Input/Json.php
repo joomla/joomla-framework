@@ -16,13 +16,13 @@ use Joomla\Filter\Input as FilterInput;
  * the standard JInput interface.
  *
  * @package  Joomla\Framework
- * @since    12.2
+ * @since    1.0
  */
 class Json extends Input
 {
 	/**
 	 * @var    string  The raw JSON string from the request.
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	private $raw;
 
@@ -32,7 +32,7 @@ class Json extends Input
 	 * @param   array  $source   Source data (Optional, default is the raw HTTP input decoded from JSON)
 	 * @param   array  $options  Array of configuration parameters (Optional)
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function __construct(array $source = null, array $options = array())
 	{
@@ -64,7 +64,7 @@ class Json extends Input
 	 *
 	 * @return  string  The raw JSON string from the request.
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function getRaw()
 	{

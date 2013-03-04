@@ -13,7 +13,7 @@
  * JLogLoggerW3CInspector class.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JLogLoggerW3CInspector extends Joomla\Log\Logger\W3c
 {

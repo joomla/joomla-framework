@@ -20,49 +20,49 @@ use Joomla\Factory;
  * easy searching.
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Database extends Logger
 {
 	/**
 	 * @var    string  The name of the database driver to use for connecting to the database.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $driver = 'mysqli';
 
 	/**
 	 * @var    string  The host name (or IP) of the server with which to connect for the logger.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $host = '127.0.0.1';
 
 	/**
 	 * @var    string  The database server user to connect as for the logger.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $user = 'root';
 
 	/**
 	 * @var    string  The password to use for connecting to the database server.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $password = '';
 
 	/**
 	 * @var    string  The name of the database table to use for the logger.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $database = 'logging';
 
 	/**
 	 * @var    string  The database table to use for logging entries.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $table = 'jos_';
 
 	/**
 	 * @var    Driver  The database driver object for the logger.
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $dbo;
 
@@ -71,7 +71,7 @@ class Database extends Logger
 	 *
 	 * @param   array  &$options  Log object options.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct(array &$options)
 	{
@@ -111,7 +111,7 @@ class Database extends Logger
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function addEntry(Entry $entry)
 	{
@@ -132,7 +132,7 @@ class Database extends Logger
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
 	protected function connect()

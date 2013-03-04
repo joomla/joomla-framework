@@ -11,19 +11,19 @@ namespace Joomla\Crypt;
  * JCrypt is a Joomla Platform class for handling basic encryption/decryption of data.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Crypt
 {
 	/**
 	 * @var    JCryptCipher  The encryption cipher object.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $cipher;
 
 	/**
 	 * @var    JCryptKey  The encryption key[/pair)].
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $key;
 
@@ -34,7 +34,7 @@ class Crypt
 	 * @param   JCryptCipher  $cipher  The encryption cipher object.
 	 * @param   JCryptKey     $key     The encryption key[/pair)].
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __construct(Cipher $cipher = null, Key $key = null)
 	{
@@ -52,7 +52,7 @@ class Crypt
 	 *
 	 * @return  string  The decrypted data string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function decrypt($data)
 	{
@@ -66,7 +66,7 @@ class Crypt
 	 *
 	 * @return  string  The encrypted data string.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function encrypt($data)
 	{
@@ -80,7 +80,7 @@ class Crypt
 	 *
 	 * @return  JCryptKey
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function generateKey(array $options = array())
 	{
@@ -94,7 +94,7 @@ class Crypt
 	 *
 	 * @return  JCrypt
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function setKey(Key $key)
 	{
@@ -110,7 +110,7 @@ class Crypt
 	 *
 	 * @return  string  Random binary data
 	 *
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	public static function genRandomBytes($length = 16)
 	{

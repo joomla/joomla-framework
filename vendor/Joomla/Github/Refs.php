@@ -14,7 +14,7 @@ use DomainException;
  * GitHub API References class for the Joomla Platform.
  *
  * @package  Joomla\Framework
- * @since    11.3
+ * @since    1.0
  */
 class Refs extends Object
 {
@@ -28,7 +28,7 @@ class Refs extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function create($user, $repo, $ref, $sha)
 	{
@@ -68,7 +68,7 @@ class Refs extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function edit($user, $repo, $ref, $sha, $force = false)
 	{
@@ -112,7 +112,7 @@ class Refs extends Object
 	 *
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function get($user, $repo, $ref)
 	{
@@ -144,7 +144,7 @@ class Refs extends Object
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function getList($user, $repo, $namespace = '', $page = 0, $limit = 0)
 	{

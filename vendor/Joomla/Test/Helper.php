@@ -79,7 +79,7 @@ class Helper
 	 *
 	 * @return  mixed  The value of the property.
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 * @throws  \InvalidArgumentException if property not available.
 	 */
 	public static function getValue($object, $propertyName)
@@ -119,7 +119,7 @@ class Helper
 	 *
 	 * @return  mixed
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function invoke($object, $methodName)
 	{
@@ -147,7 +147,7 @@ class Helper
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public static function setValue($object, $propertyName, $value)
 	{

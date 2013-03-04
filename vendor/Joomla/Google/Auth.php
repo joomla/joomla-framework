@@ -11,13 +11,13 @@ namespace Joomla\Google;
  * Google authentication class abstract
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 abstract class Auth
 {
 	/**
 	 * @var    \Joomla\Registry\Registry  Options for the Google authentication object.
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $options;
 
@@ -26,7 +26,7 @@ abstract class Auth
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	abstract public function authenticate();
 
@@ -35,7 +35,7 @@ abstract class Auth
 	 *
 	 * @return  boolean  Is authenticated
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	abstract public function isAuthenticated();
 
@@ -49,7 +49,7 @@ abstract class Auth
 	 *
 	 * @return  mixed  Data from Google.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	abstract public function query($url, $data = null, $headers = null, $method = 'get');
 
@@ -60,7 +60,7 @@ abstract class Auth
 	 *
 	 * @return  mixed  The option value.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -75,7 +75,7 @@ abstract class Auth
 	 *
 	 * @return  Auth  This object for method chaining.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function setOption($key, $value)
 	{

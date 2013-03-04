@@ -14,7 +14,7 @@ use Joomla\Database\DatabaseIterator;
  *
  * @package  Joomla\Framework
  * @see      http://dev.mysql.com/doc/
- * @since    12.1
+ * @since    1.0
  */
 class Mysql extends DatabaseIterator
 {
@@ -23,7 +23,7 @@ class Mysql extends DatabaseIterator
 	 *
 	 * @return  integer  The number of rows in the result set.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @see     Countable::count()
 	 */
 	public function count()
@@ -36,7 +36,7 @@ class Mysql extends DatabaseIterator
 	 *
 	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function fetchObject()
 	{
@@ -48,7 +48,7 @@ class Mysql extends DatabaseIterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function freeResult()
 	{

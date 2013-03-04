@@ -16,7 +16,7 @@ use SimpleXMLElement;
  * PostgreSQL import driver.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 class Postgresql extends Importer
 {
@@ -25,7 +25,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  JDatabaseImporterPostgresql  Method supports chaining.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception if an error is encountered.
 	 */
 	public function check()
@@ -53,7 +53,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getAddColumnSQL($table, SimpleXMLElement $field)
 	{
@@ -69,7 +69,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getAddIndexSQL(\SimpleXMLElement $field)
 	{
@@ -83,7 +83,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getAlterTableSQL(\SimpleXMLElement $structure)
 	{
@@ -260,7 +260,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getDropSequenceSQL($name)
 	{
@@ -276,7 +276,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getAddSequenceSQL($field)
 	{
@@ -308,7 +308,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getChangeSequenceSQL($field)
 	{
@@ -340,7 +340,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getChangeColumnSQL($table, SimpleXMLElement $field)
 	{
@@ -358,7 +358,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getAlterColumnSQL($table, $field)
 	{
@@ -412,7 +412,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getColumnSQL(\SimpleXMLElement $field)
 	{
@@ -465,7 +465,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getDropIndexSQL($name)
 	{
@@ -482,7 +482,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  string
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getDropPrimaryKeySQL($table, $name)
 	{
@@ -498,7 +498,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  array  The lookup array. array({key name} => array(object, ...))
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception
 	 */
 	protected function getIdxLookup($keys)
@@ -535,7 +535,7 @@ class Postgresql extends Importer
 	 *
 	 * @return  array  The lookup array. array({key name} => array(object, ...))
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @throws  Exception
 	 */
 	protected function getSeqLookup($sequences)

@@ -14,7 +14,7 @@ use Joomla\Html\Html;
  * Supports an custom SQL select list
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Field_SQL extends Field_List
 {
@@ -22,7 +22,7 @@ class Field_SQL extends Field_List
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $type = 'SQL';
 
@@ -32,7 +32,7 @@ class Field_SQL extends Field_List
 	 *
 	 * @return  array  The field option objects.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getOptions()
 	{

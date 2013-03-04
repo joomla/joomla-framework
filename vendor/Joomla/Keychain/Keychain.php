@@ -15,7 +15,7 @@ use stdClass;
  * Keychain Class
  *
  * @package  Joomla\Framework
- * @since    12.3
+ * @since    1.0
  */
 class Keychain extends Registry
 {
@@ -23,7 +23,7 @@ class Keychain extends Registry
 	 * Method to use for encryption.
 	 *
 	 * @var    string
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public $method = 'aes-128-cbc';
 
@@ -31,7 +31,7 @@ class Keychain extends Registry
 	 * Initialisation vector for encryption method.
 	 *
 	 * @var    string
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	public $iv = "1234567890123456";
 
@@ -45,7 +45,7 @@ class Keychain extends Registry
 	 *
 	 * @return  boolean  Result of writing the passphrase file to disk.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function createPassphraseFile($passphrase, $passphraseFile, $privateKeyFile, $privateKeyPassphrase)
@@ -74,7 +74,7 @@ class Keychain extends Registry
 	 *
 	 * @return  mixed  Value of old value or boolean false if operation failed
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function deleteValue($path)
 	{
@@ -116,7 +116,7 @@ class Keychain extends Registry
 	 *
 	 * @return  boolean  Result of loading the object.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function loadKeychain($keychainFile, $passphraseFile, $publicKeyFile)
@@ -147,7 +147,7 @@ class Keychain extends Registry
 	 *
 	 * @return  boolean  Result of storing the file.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function saveKeychain($keychainFile, $passphraseFile, $publicKeyFile)
@@ -173,7 +173,7 @@ class Keychain extends Registry
 	 *
 	 * @return  string  The passphrase in from passphraseFile
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	protected function getPassphraseFromFile($passphraseFile, $publicKeyFile)

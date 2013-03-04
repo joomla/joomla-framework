@@ -15,7 +15,7 @@ namespace Joomla\Form;
  * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/input.checkbox.html#input.checkbox
  * @see      JFormFieldCheckboxes
- * @since    11.1
+ * @since    1.0
  */
 class Field_Checkbox extends Field
 {
@@ -23,7 +23,7 @@ class Field_Checkbox extends Field
 	 * The form field type.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	public $type = 'Checkbox';
 
@@ -33,7 +33,7 @@ class Field_Checkbox extends Field
 	 *
 	 * @return  string   The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{

@@ -12,13 +12,13 @@ use Joomla\Crypt\Cipher_Rijndael256;
  * Test class for JCryptCipherRijndael256.
  *
  * @package  Joomla\Framework\Test
- * @since    12.1
+ * @since    1.0
  */
 class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JCryptCipherRijndael256
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $cipher;
 
@@ -27,7 +27,7 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -52,7 +52,7 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
@@ -95,7 +95,7 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider data
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testDecrypt($file, $data)
 	{
@@ -115,7 +115,7 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @dataProvider data
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testEncrypt($file, $data)
 	{
@@ -133,7 +133,7 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGenerateKey()
 	{

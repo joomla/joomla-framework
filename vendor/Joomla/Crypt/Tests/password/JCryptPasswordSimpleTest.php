@@ -12,7 +12,7 @@ use Joomla\Crypt\Password\Simple;
  * Test class for JCryptPasswordSimple.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 {
@@ -45,7 +45,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function createExceptionData()
 	{
@@ -71,7 +71,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  createExceptionData
 	 *
-	 * @since    12.3
+	 * @since    1.0
 	 */
 	public function testCreateException($password, $type, $salt, $expected, $cost)
 	{
@@ -102,7 +102,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  createData
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testCreate($password, $type, $salt, $expected, $cost = 10)
 	{
@@ -163,7 +163,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function defaultTypeData()
 	{
@@ -185,7 +185,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testSetDefaultType($type, $expectation)
 	{
@@ -208,7 +208,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetDefaultType($type, $expectation)
 	{

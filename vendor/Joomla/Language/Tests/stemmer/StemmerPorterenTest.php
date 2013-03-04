@@ -11,7 +11,7 @@ use Joomla\Language\Stemmer\Porteren;
  * Test class for Porteren.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class PorterenTest extends PHPUnit_Framework_TestCase
 {

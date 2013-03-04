@@ -20,13 +20,13 @@ use UnexpectedValueException;
  * An Archive handling class
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Archive
 {
 	/**
 	 * @var    array  The array of instantiated archive adapters.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected static $adapters = array();
 
@@ -38,7 +38,7 @@ class Archive
 	 *
 	 * @return  boolean  True for success
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public static function extract($archivename, $extractdir)
@@ -178,7 +178,7 @@ class Archive
 	 *
 	 * @return  JArchiveExtractable  Adapter for the requested type
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  UnexpectedValueException
 	 */
 	public static function getAdapter($type)

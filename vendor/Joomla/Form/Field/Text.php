@@ -13,7 +13,7 @@ namespace Joomla\Form;
  *
  * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/input.text.html#input.text
- * @since    11.1
+ * @since    1.0
  */
 class Field_Text extends Field
 {
@@ -22,7 +22,7 @@ class Field_Text extends Field
 	 *
 	 * @var    string
 	 *
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $type = 'Text';
 
@@ -31,7 +31,7 @@ class Field_Text extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getInput()
 	{

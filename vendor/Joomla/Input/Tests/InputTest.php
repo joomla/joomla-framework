@@ -12,7 +12,7 @@ use Joomla\Input\Cookie;
  * Test class for Input.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class JInputTest extends PHPUnit_Framework_TestCase
 {
@@ -28,7 +28,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__construct()
 	{
@@ -40,7 +40,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__call()
 	{
@@ -52,7 +52,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function test__get()
 	{
@@ -81,7 +81,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function testCount()
 	{
@@ -106,7 +106,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
@@ -141,7 +141,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testDef()
 	{
@@ -169,7 +169,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSet()
 	{
@@ -188,7 +188,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetArray()
 	{
@@ -236,7 +236,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetArrayNested()
 	{
@@ -286,7 +286,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetArrayWithoutSpecifiedVariables()
 	{
@@ -309,7 +309,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetFromCookie()
 	{
@@ -335,7 +335,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetMethod()
 	{
@@ -347,7 +347,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testSerialize()
 	{
@@ -370,7 +370,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testUnserialize()
 	{
@@ -386,7 +386,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testLoadAllInputs()
 	{
@@ -398,7 +398,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{

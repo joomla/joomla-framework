@@ -14,7 +14,7 @@ use Joomla\Log\Entry;
  * Test class for JLog.
  *
  * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since    1.0
  */
 class LogTest extends PHPUnit_Framework_TestCase
 {
@@ -24,7 +24,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
@@ -41,7 +41,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testAddLogEntry()
 	{
@@ -63,7 +63,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testAddLoggerAutoInstantiation()
 	{
@@ -82,7 +82,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testAddLoggerAutoInstantiationInvalidLogger()
 	{
@@ -103,7 +103,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testFindLoggersByCategory()
 	{
@@ -191,7 +191,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testFindLoggersByNotCategory()
 	{
@@ -301,7 +301,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testFindLoggersByPriority()
 	{
@@ -384,7 +384,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testFindLoggersByPriorityAndCategory()
 	{
@@ -475,7 +475,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testSetInstance()
 	{

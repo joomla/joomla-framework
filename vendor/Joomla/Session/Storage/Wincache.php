@@ -14,7 +14,7 @@ use RuntimeException;
  * WINCACHE session storage handler for PHP
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class Wincache extends Storage
 {
@@ -23,7 +23,7 @@ class Wincache extends Storage
 	 *
 	 * @param   array  $options  Optional parameters.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function __construct($options = array())
@@ -41,7 +41,7 @@ class Wincache extends Storage
 	 *
 	 * @return  void
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function register()
 	{
@@ -53,7 +53,7 @@ class Wincache extends Storage
 	 *
 	 * @return boolean  True on success, false otherwise.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	static public function isSupported()
 	{

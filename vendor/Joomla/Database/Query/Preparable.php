@@ -14,7 +14,7 @@ namespace Joomla\Database\Query;
  * query execution.
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 interface Preparable
 {
@@ -32,7 +32,7 @@ interface Preparable
 	 *
 	 * @return  Preparable
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function bind($key = null, &$value = null, $dataType = \PDO::PARAM_STR, $length = 0, $driverOptions = array());
 
@@ -44,7 +44,7 @@ interface Preparable
 	 *
 	 * @return  mixed
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function &getBounded($key = null);
 }

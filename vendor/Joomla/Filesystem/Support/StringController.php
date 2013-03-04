@@ -11,7 +11,7 @@ namespace Joomla\Filesystem\Support;
  * String Controller
  *
  * @package  Joomla\Framework
- * @since    11.1
+ * @since    1.0
  */
 class StringController
 {
@@ -20,7 +20,7 @@ class StringController
 	 *
 	 * @return  array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function _getArray()
 	{
@@ -37,7 +37,7 @@ class StringController
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function createRef($reference, &$string)
 	{
@@ -52,7 +52,7 @@ class StringController
 	 *
 	 * @return  mixed  False if not set, reference if it it exists
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function getRef($reference)
 	{

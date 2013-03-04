@@ -14,7 +14,7 @@ use Iterator;
  * Joomla Platform Database Driver Class
  *
  * @package  Joomla\Framework
- * @since    12.1
+ * @since    1.0
  */
 abstract class DatabaseIterator implements Countable, Iterator
 {
@@ -22,7 +22,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * The database cursor.
 	 *
 	 * @var    mixed
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $cursor;
 
@@ -30,7 +30,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * The class of object to create.
 	 *
 	 * @var    string
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	protected $class;
 
@@ -38,7 +38,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * The name of the column to use for the key of the database record.
 	 *
 	 * @var    mixed
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $column;
 
@@ -46,7 +46,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * The current database record.
 	 *
 	 * @var    mixed
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $current;
 
@@ -54,7 +54,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * A numeric or string key for the current database record.
 	 *
 	 * @var    scalar
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $key;
 
@@ -62,7 +62,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * The number of fetched records.
 	 *
 	 * @var    integer
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $fetched = 0;
 
@@ -92,7 +92,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	/**
 	 * Database iterator destructor.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -107,7 +107,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 *
 	 * @return  integer  The number of rows in the result set.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 * @see     Countable::count()
 	 */
 	abstract public function count();
@@ -118,7 +118,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @return  object
 	 *
 	 * @see     Iterator::current()
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function current()
 	{
@@ -131,7 +131,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @return  scalar
 	 *
 	 * @see     Iterator::key()
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function key()
 	{
@@ -144,7 +144,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @return  void
 	 *
 	 * @see     Iterator::next()
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function next()
 	{
@@ -176,7 +176,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @return  void
 	 *
 	 * @see     Iterator::rewind()
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function rewind()
 	{
@@ -188,7 +188,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 * @return  boolean
 	 *
 	 * @see     Iterator::valid()
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function valid()
 	{
@@ -200,7 +200,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 *
 	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	abstract protected function fetchObject();
 
@@ -209,7 +209,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	abstract protected function freeResult();
 }
