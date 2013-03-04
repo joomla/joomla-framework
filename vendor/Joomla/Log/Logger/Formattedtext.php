@@ -194,7 +194,6 @@ class Formattedtext extends Logger
 		}
 
 		$head[] = '#Date: ' . gmdate('Y-m-d H:i:s') . ' UTC';
-		$head[] = '#Software: ' . JPlatform::getLongVersion();
 		$head[] = '';
 
 		// Prepare the fields string
