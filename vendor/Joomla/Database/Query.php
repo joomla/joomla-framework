@@ -1247,7 +1247,7 @@ abstract class Query
 		if (is_null($this->set))
 		{
 			$glue = strtoupper($glue);
-			$this->set = new Query\Element('SET', $conditions, "\n\t$glue ");
+			$this->set = new Query\Element('SET', $conditions, PHP_EOL . "\t$glue ");
 		}
 		else
 		{
