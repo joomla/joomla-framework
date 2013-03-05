@@ -15,8 +15,13 @@ use Joomla\String\String;
  * @package  Joomla\Framework
  * @since    1.0
  */
-abstract class ArrayHelper
+final class ArrayHelper
 {
+	// Private constructor to prevent instantiation of this class
+	private function __construct() {
+
+	}
+
 	/**
 	 * Function to convert array to integer values
 	 *
