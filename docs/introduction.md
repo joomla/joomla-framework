@@ -47,7 +47,6 @@ overriden).
 define('JPATH_PLATFORM', '/path/to/platform/');
 
 // Load the platform version and loader classes.
-require_once JPATH_PLATFORM . '/platform.php';
 require_once JPATH_PLATFORM . '/loader.php';
 
 // Setup the autoloaders.
@@ -55,15 +54,6 @@ JLoader::setup();
 
 // Do custom registration if required.
 ```
-
-### Legacy Platform
-
-The Joomla Platform also supports a legacy tree for API. It includes
-many classes that are only used by the Joomla CMS, or classes and
-packages that have been upgraded and introduced backward compatibility
-issues. Bootstrapping the legacy Joomla Platform is done by including
-`/libraries/import.legacy.php`. This instructs the auto-loader to look
-for classes in the legacy tree first, and then in the core tree.
 
 ### Using Phar
 
@@ -83,52 +73,6 @@ For advanced applications or projects that include their own unit test suite, th
 
 ```bash
 $ joomla-packager.phar -f packager.test.phar
-```
-
-## Platform Version
-
-Platform version information can be found by accessing the `JPlatform`
-class.
-
-### JPlatform
-
-`JPlatform` is a final class that cannot be modified by the developer. It
-has a number of public constant pertaining to the platform version and
-some static utility methods.
-
-#### Constants
-
-Name                           | Description
------------------------------- | ---------------------------
-JPlatform::PRODUCT             | Joomla Platform
-JPlatform::RELEASE             | The release number of the platform.
-JPlatform::MAINTENANCE         | The point maintenance version if applicable.
-JPlatform::STATUS              | The development status.
-JPlatform::BUILD               | The build number for the platform, if applicable.
-JPlatform::CODE\_NAME          | A human readable code name for this version.
-JPlatform::RELEASE\_DATE       | The official release date for this version.
-JPlatform::RELEASE\_TIME       | The official release time for this version, if applicable.
-JPlatform::RELEASE\_TIME\_ZONE | The timezone for the official release date and time.
-JPlatform::COPYRIGHT           | The copyright statement.
-JPlatform::LINK\_TEXT          | An HTML hyperlink to the Joomla Project.
-
-#### Methods
-
-`JPlatform` has three utility methods, one for testing the version and two
-for display.
-
-Method                            | Description
---------------------------------- | ------------------------
-JPlatform::isCompatible($version) | Tests if $version is the installed version of the platform.
-JPlatform::getShortVersion()      | A short textual representation of the platform version.
-JPlatform::getLongVersion()       | A really verbose representation of the platform version.
-
-```php
-    // Tests the required version of the platform.
-    if (!JPlatform::isCompatible('11.4'))
-    {
-        throw new LogicException(sprintf('Platform version %s not compatible.', JPlatform::getShortVersion());
-    }
 ```
 
 ## Class Auto-loading
