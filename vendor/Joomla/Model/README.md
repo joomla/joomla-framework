@@ -1,30 +1,35 @@
-## The Model Package
+# The Model Package
 
-### Interfaces
+## Interfaces
 
-#### JModel
+### `Model\Model`
 
-`JModel` is an interface that requires a class to be implemented with a
+`Model\Model` is an interface that requires a class to be implemented with a
 `getState` and a `setState` method.
 
-### Classes
+## Classes
 
-#### JModelBase
+# `Model\Base`
 
-##### Construction
+#### Construction
 
-The contructor for `JModelBase` takes an optional `Registry` object that
+The contructor for a new `Model\Base` object takes an optional `Registry` object that
 defines the state of the model. If omitted, the contructor defers to the
 protected `loadState` method. This method can be overriden in a derived
 class and takes the place of the `populateState` method used in the legacy
 model class.
 
-##### Usage
+#### Usage
 
-The `JModelBase` class is abstract so cannot be used directly. All
+The `Model\Base` class is abstract so cannot be used directly. All
 requirements of the interface are already satisfied by the base class.
 
 ```php
+
+namespace MyApp;
+
+use Joomla\Model\Base;
+
 /**
  * My custom model.
  *
@@ -32,9 +37,9 @@ requirements of the interface are already satisfied by the base class.
  *
  * @since   1.0
  */
-class MyModel extends JModelBase
+class MyModel extends Base
 {
-	/**
+  /**
 	 * Get the time.
 	 *
 	 * @return  integer
@@ -48,22 +53,27 @@ class MyModel extends JModelBase
 }
 ```
 
-#### JModelDatabase
+# `Model\Database`
 
-##### Construction
+#### Construction
 
-`JModelDatabase` is extended from `JModelBase` and the contructor takes an
-optional `JDatabaseDriver` object and an optional `Registry` object (the
+`Model\Database` is extended from `Model\Base` and the contructor takes an
+optional `Database\Driver` object and an optional `Registry` object (the
 same one that `JModelBase` uses). If the database object is omitted, the
 contructor defers to the protected `loadDb` method which loads the
 database object from the platform factory.
 
-##### Usage
+#### Usage
 
-The `JModelDatabase` class is abstract so cannot be used directly. It
+The `Model\Database` class is abstract so cannot be used directly. It
 forms a base for any model that needs to interact with a database.
 
 ```php
+
+namespace MyApp
+
+use Joomla\Model;
+
 /**
  * My custom database model.
  *
@@ -71,7 +81,7 @@ forms a base for any model that needs to interact with a database.
  *
  * @since   1.0
  */
-class MyDatabaseModel extends JModelDatabase
+class MyDatabaseModel extends Model\Database
 {
 	/**
 	 * Get the content count.
@@ -82,7 +92,7 @@ class MyDatabaseModel extends JModelDatabase
 	 * @throws  RuntimeException on database error.
 	 */
 	public function getCount()
-	{
+	{		
 		// Get the query builder from the internal database object.
 		$q = $this->db->getQuery(true);
 
