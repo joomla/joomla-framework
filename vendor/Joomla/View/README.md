@@ -1,29 +1,29 @@
-## The View Package
+# The View Package
 
-### Interfaces
+## Interfaces
 
-#### JView
+### `View\View`
 
-`JView` is an interface that requires a class to be implemented with an
+`View\View` is an interface that requires a class to be implemented with an
 `escape` and a `render` method.
 
-### Classes
+## Classes
 
-#### JViewBase
+# `View\Base`
 
 ##### Construction
 
-The contructor for `JViewBase` takes a mandatory `JModel` parameter.
+The contructor for `View\Base` takes a mandatory `Model\Model` parameter.
 
-Note that `JModel` is an interface so the actual object passed does
-necessarily have to extend from `JModelBase` class. Given that, the view
+Note that `Model\Model` is an interface so the actual object passed does
+necessarily have to extend from `Model\Base` class. Given that, the view
 should only rely on the API that is exposed by the interface and not
 concrete classes unless the contructor is changed in a derived class to
 take more explicit classes or interaces as required by the developer.
 
 ##### Usage
 
-The `JViewBase` class is abstract so cannot be used directly. It forms a
+The `View\Base` class is abstract so cannot be used directly. It forms a
 simple base for rendering any kind of data. The class already implements
 the escape method so only a render method need to be added. Views
 derived from this class would be used to support very simple cases, well
@@ -38,7 +38,12 @@ data types. This class does not support layouts.
  *
  * @since   1.0
  */
-class MyView extends JViewBase
+ 
+namespace myApp;
+
+use Joomla\View\Base;
+
+class MyView extends Base
 {
 	/**
 	 * Render some data
@@ -69,18 +74,18 @@ catch (RuntimeException $e)
 }
 ```
 
-#### JViewHtml
+## `View\Html`
 
 ##### Construction
 
-`JViewHtml` is extended from `JViewBase`. The constructor, in addition to
+`View\Html` is extended from `View\Base`. The constructor, in addition to
 the required model argument, take an optional `SplPriorityQueue` object
 that serves as a lookup for layouts. If omitted, the view defers to the
 protected loadPaths method.
 
 ##### Usage
 
-The `JViewHtml` class is abstract so cannot be used directly. This view
+The `View\Html` class is abstract so cannot be used directly. This view
 class implements render. It will try to find the layout, include it
 using output buffering and return the result. The following examples
 show a layout file that is assumed to be stored in a generic layout
@@ -94,6 +99,10 @@ folder not stored under the web-server root.
  * @package  Examples
  * @since    1.0
  */
+
+namespace myApp;
+
+use Joomla\View;
 
 // Declare variables to support type hinting.
 
@@ -113,7 +122,7 @@ folder not stored under the web-server root.
  * @package  Examples
  * @since    1.0
  */
-class MyHtmlView extends JViewHtml
+class MyHtmlView extends View\Html
 {
 	/**
 	 * Redefine the model so the correct type hinting is available in the layout.
@@ -157,7 +166,12 @@ The default extension for layouts is ".php". This can be modified in derived vie
  * @package  Examples
  * @since    1.0
  */
-class MyHtmlView extends JViewHtml
+ 
+namespace myApp;
+
+use Joomla\View;
+
+class MyHtmlView extends View\Html
 {
 	/**
 	 * Override the parent method to use the '.phtml' extension for layout files.
