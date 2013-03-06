@@ -10,7 +10,7 @@ namespace Joomla\Model\Tests;
 use Joomla\Database\Tests\Mock as DatabaseMock;
 use Joomla\Test\Helper;
 
-require_once __DIR__ . '/stubs/tdatabase.php';
+require_once __DIR__ . '/Stubs/DatabaseModel.php';
 
 /**
  * Tests for the Joomla\Model\Database class.

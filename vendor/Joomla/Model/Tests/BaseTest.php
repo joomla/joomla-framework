@@ -9,7 +9,7 @@ namespace Joomla\Model\Tests;
 
 use Joomla\Registry\Registry;
 
-require_once __DIR__ . '/Stubs/tbase.php';
+require_once __DIR__ . '/Stubs/BaseModel.php';
 
 /**
  * Tests for the Joomla\Model\Base class.
