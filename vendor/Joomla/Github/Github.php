@@ -132,7 +132,7 @@ class Github
 	 * @return  Object  GitHub API object (gists, issues, pulls, etc).
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException If $name is not a valid sub class.
+	 * @throws  \InvalidArgumentException If $name is not a valid sub class.
 	 */
 	public function __get($name)
 	{

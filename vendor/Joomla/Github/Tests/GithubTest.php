@@ -5,17 +5,19 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github\Tests;
+
 use Joomla\Github\Github;
 use Joomla\Github\Http;
 use Joomla\Registry\Registry;
 
 /**
- * Test class for Github.
+ * Test class for Joomla\Github\Github.
  *
  * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class JGithubTest extends PHPUnit_Framework_TestCase
+class GithubTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
@@ -24,13 +26,13 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    Joomla\Github\Http  Mock client object.
+	 * @var    Http  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    Joomla\Github\Issues  Object under test.
+	 * @var    Github  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -39,38 +41,26 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @access protected
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
 		$this->object = new Github($this->options, $this->client);
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @access protected
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
-	}
-
-	/**
 	 * Tests the magic __get method - gists
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetGists()
 	{
@@ -83,9 +73,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - issues
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetIssues()
 	{
@@ -98,9 +88,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - pulls
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetPulls()
 	{
@@ -113,9 +103,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - refs
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetRefs()
 	{
@@ -128,9 +118,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - forks
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetForks()
 	{
@@ -143,9 +133,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - commits
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetCommits()
 	{
@@ -158,9 +148,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - milestones
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetMilestones()
 	{
@@ -173,9 +163,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - statuses
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetStatuses()
 	{
@@ -188,9 +178,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - account
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetAccount()
 	{
@@ -203,9 +193,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - hooks
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetHooks()
 	{
@@ -218,9 +208,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - meta
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function test__GetMeta()
 	{
@@ -233,10 +223,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the magic __get method - failure
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
-	 *
+	 * @since              1.0
 	 * @expectedException  InvalidArgumentException
 	 */
 	public function test__GetFailure()
@@ -247,9 +236,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the setOption method
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function testSetOption()
 	{
@@ -264,9 +253,9 @@ class JGithubTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the getOption method
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function testGetOption()
 	{

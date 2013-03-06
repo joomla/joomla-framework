@@ -5,13 +5,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github\Tests;
+
+use Joomla\Github\Object;
+
 /**
  * JGithubObjectMock class.
  *
  * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class JGithubObjectMock extends JGithubObject
+class ObjectMock extends Object
 {
 	/**
 	 * Method to build and return a full request URL for the request.  This method will
