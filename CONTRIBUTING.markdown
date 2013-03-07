@@ -54,6 +54,8 @@ Eclipse : [http://www.websitefactors.co.uk/php/2011/10/installing-php-codesniffe
 
 PHPStorm : [http://www.jetbrains.com/phpstorm/webhelp/using-php-code-sniffer-tool.html](http://www.jetbrains.com/phpstorm/webhelp/using-php-code-sniffer-tool.html)
 
+Sublime Text : [http://www.soulbroken.co.uk/code/sublimephpcs/](http://www.soulbroken.co.uk/code/sublimephpcs/)
+
 ### Auto formatter
 
 You can find configuration files for your editor formatter on this repository :
