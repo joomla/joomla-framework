@@ -4,15 +4,13 @@
 
 ## What is the Joomla Framework ?
 
-The `Joomla Framework` is a platform for writing Web and command line applications in PHP.  It is free and open source software,
-distributed under the GNU General Public License version 2 or later.
+The `Joomla Framework` is a platform for writing web and command line applications in PHP.  It is free and open source software, distributed under the GNU General Public License version 2 or later.
 
-The Joomla Content Management System (CMS) is built on top of the `Joomla Framework`.
-For more information about the Joomla CMS visit: http://www.joomla.org/about-joomla.html
+It is comprises code originally developed for the Joomla Content Management System (CMS). For more information about the Joomla CMS visit [http://www.joomla.org/about-joomla.html](http://www.joomla.org/about-joomla.html).
 
-You can find out more about Joomla development at: http://developer.joomla.org.
+For news and information about developering with Joomla, please visit [http://developer.joomla.org](http://developer.joomla.org).
 
-You can discuss Joomla Framework development at: http://groups.google.com/group/joomla-dev-platform.
+You can discuss Joomla Framework development by joining the mailing list at [http://groups.google.com/group/joomla-dev-platform](http://groups.google.com/group/joomla-dev-platform).
 
 ## Requirements
 
@@ -46,13 +44,16 @@ You can discuss Joomla Framework development at: http://groups.google.com/group/
 
 ## Documentation
 
-The documentation can be found [here](docs/).
+General documentation about the Joomla Platform can be found under the [/docs](docs/) folder of this repository. In addition, each package has documentation in a `README.md` file.
+
+## Reporting Bugs and Issue
+
+Bugs and issues found in the Joomla Framework code can be reported on the [Issues](https://github.com/joomla/joomla-framework/issues) list.
 
 ## Contributing
 
-All kind of contributions are welcome,
-please consult the document about how to contribute [here](CONTRIBUTING.markdown).
+All kind of contributions are welcome. Please read about how to contribute [here](CONTRIBUTING.markdown).
 
-## Running Unit Tests
+You may find tasks you can do on the [Issues](https://github.com/joomla/joomla-framework/issues) list by filtering on labels and milestones.
 
-`phpunit`
+
