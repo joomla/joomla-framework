@@ -25,8 +25,7 @@ $profiler->mark('Middle');
 $profiler->mark('End');
 ```
 
-You must at least mark the first point, that will be the reference.
-But it is always a good idea to mark the end point, even if you have intermediate steps.
+You must at least mark the first point which will be the reference.
 
 Now, you can retrieve the elapsed time between two points :
 
@@ -59,12 +58,18 @@ $render = $profiler->render();
 The output could look something like the following:
 
 ```
-Notes 0.015 seconds (+0.015); 0.96 MB (+0.960) - Start
-Notes 1.000 seconds (+0.985); 3.00 MB (+2.040) - Middle
+Notes 0.000 seconds (+0.000); 0.00 MB (+0.000) - Start
+Notes 1.000 seconds (+1.000); 3.00 MB (+3.000) - Middle
 Notes 1.813 seconds (+0.813); 6.24 MB (+3.240) - End
 ```
 
-You can see each line is qualified by the label you used when you created the profiler object, and then the label you used for the mark.  Following that is the time difference from when the profiler object was created down to the millisecond level.  Lastly is the amount of memory that is being usage by PHP.
+You can see each line is qualified by the name you used when creating your profiler,
+and then the names you used for the mark.
+
+The start point (the first marked point) is the reference, and by consequence has a null time and memory usage.
+
+We can see that the code executed between the "Start" and the "Middle" point took 1 second to perform and
+increased the memory usage by 3 Mega Bytes.
 
 ## Writing your own Renderer
 
