@@ -64,31 +64,26 @@ final class ArrayHelper
 	/**
 	 * Utility function to map an array to a stdClass object.
 	 *
-	 * @param   array   &$array  The array to map.
-	 * @param   string  $class   Name of the class to create
+	 * @param   array   $array  The array to map.
+	 * @param   string  $class  Name of the class to create
 	 *
 	 * @return  object   The object mapped from the given array
 	 *
 	 * @since   1.0
 	 */
-	public static function toObject(&$array, $class = 'stdClass')
+	public static function toObject(array $array, $class = 'stdClass')
 	{
-		$obj = null;
+		$obj = new $class;
 
-		if (is_array($array))
+		foreach ($array as $k => $v)
 		{
-			$obj = new $class;
-
-			foreach ($array as $k => $v)
+			if (is_array($v))
 			{
-				if (is_array($v))
-				{
-					$obj->$k = self::toObject($v, $class);
-				}
-				else
-				{
-					$obj->$k = $v;
-				}
+				$obj->$k = self::toObject($v, $class);
+			}
+			else
+			{
+				$obj->$k = $v;
 			}
 		}
 
@@ -107,28 +102,25 @@ final class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function toString($array = null, $inner_glue = '=', $outer_glue = ' ', $keepOuterKey = false)
+	public static function toString(array $array, $inner_glue = '=', $outer_glue = ' ', $keepOuterKey = false)
 	{
 		$output = array();
 
-		if (is_array($array))
+		foreach ($array as $key => $item)
 		{
-			foreach ($array as $key => $item)
+			if (is_array($item))
 			{
-				if (is_array($item))
+				if ($keepOuterKey)
 				{
-					if ($keepOuterKey)
-					{
-						$output[] = $key;
-					}
+					$output[] = $key;
+				}
 
-					// This is value is an array, go and do it again!
-					$output[] = self::toString($item, $inner_glue, $outer_glue, $keepOuterKey);
-				}
-				else
-				{
-					$output[] = $key . $inner_glue . '"' . $item . '"';
-				}
+				// This is value is an array, go and do it again!
+				$output[] = self::toString($item, $inner_glue, $outer_glue, $keepOuterKey);
+			}
+			else
+			{
+				$output[] = $key . $inner_glue . '"' . $item . '"';
 			}
 		}
 
@@ -169,7 +161,7 @@ final class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	protected static function arrayFromObject($item, $recurse, $regex)
+	private static function arrayFromObject($item, $recurse, $regex)
 	{
 		if (is_object($item))
 		{
@@ -210,29 +202,26 @@ final class ArrayHelper
 	/**
 	 * Extracts a column from an array of arrays or objects
 	 *
-	 * @param   array   &$array  The source array
-	 * @param   string  $index   The index of the column or name of object property
+	 * @param   array   $array  The source array
+	 * @param   string  $index  The index of the column or name of object property
 	 *
 	 * @return  array  Column of values from the source array
 	 *
 	 * @since   1.0
 	 */
-	public static function getColumn(&$array, $index)
+	public static function getColumn(array $array, $index)
 	{
 		$result = array();
 
-		if (is_array($array))
+		foreach ($array as $item)
 		{
-			foreach ($array as &$item)
+			if (is_array($item) && isset($item[$index]))
 			{
-				if (is_array($item) && isset($item[$index]))
-				{
-					$result[] = $item[$index];
-				}
-				elseif (is_object($item) && isset($item->$index))
-				{
-					$result[] = $item->$index;
-				}
+				$result[] = $item[$index];
+			}
+			elseif (is_object($item) && isset($item->$index))
+			{
+				$result[] = $item->$index;
 			}
 		}
 
@@ -242,7 +231,7 @@ final class ArrayHelper
 	/**
 	 * Utility function to return a value from a named array or a specified default
 	 *
-	 * @param   array   &$array   A named array
+	 * @param   array   $array    A named array
 	 * @param   string  $name     The key to search for
 	 * @param   mixed   $default  The default value to give if no key found
 	 * @param   string  $type     Return type for the variable (INT, FLOAT, STRING, WORD, BOOLEAN, ARRAY)
@@ -251,7 +240,7 @@ final class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function getValue(&$array, $name, $default = null, $type = '')
+	public static function getValue(array $array, $name, $default = null, $type = '')
 	{
 		$result = null;
 
@@ -339,7 +328,7 @@ final class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function invert($array)
+	public static function invert(array $array)
 	{
 		$return = array();
 
@@ -372,16 +361,13 @@ final class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function isAssociative($array)
+	public static function isAssociative(array $array)
 	{
-		if (is_array($array))
+		foreach (array_keys($array) as $k => $v)
 		{
-			foreach (array_keys($array) as $k => $v)
+			if ($k !== $v)
 			{
-				if ($k !== $v)
-				{
-					return true;
-				}
+				return true;
 			}
 		}
 
@@ -398,7 +384,7 @@ final class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function pivot($source, $key = null)
+	public static function pivot(array $source, $key = null)
 	{
 		$result  = array();
 		$counter = array();
@@ -415,7 +401,7 @@ final class ArrayHelper
 				}
 
 				$resultKey   = $value[$key];
-				$resultValue = &$source[$index];
+				$resultValue = $source[$index];
 			}
 			elseif (is_object($value))
 			{
@@ -426,7 +412,7 @@ final class ArrayHelper
 				}
 
 				$resultKey   = $value->$key;
-				$resultValue = &$source[$index];
+				$resultValue = $source[$index];
 			}
 			else
 			{
@@ -466,7 +452,7 @@ final class ArrayHelper
 	/**
 	 * Utility function to sort an array of objects on a given field
 	 *
-	 * @param   array  &$a             An array of objects
+	 * @param   array  $a              An array of objects
 	 * @param   mixed  $k              The key (string) or a array of key to sort on
 	 * @param   mixed  $direction      Direction (integer) or an array of direction to sort in [1 = Ascending] [-1 = Descending]
 	 * @param   mixed  $caseSensitive  Boolean or array of booleans to let sort occur case sensitive or insensitive
@@ -476,7 +462,7 @@ final class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function sortObjects(&$a, $k, $direction = 1, $caseSensitive = true, $locale = false)
+	public static function sortObjects(array $a, $k, $direction = 1, $caseSensitive = true, $locale = false)
 	{
 		if (!is_array($locale) || !is_array($locale[0]))
 		{
@@ -489,7 +475,7 @@ final class ArrayHelper
 		$sortLocale    = $locale;
 
 		usort(
-			$a, function(&$a, &$b) use($sortCase, $sortDirection, $key, $sortLocale) {
+			$a, function($a, $b) use($sortCase, $sortDirection, $key, $sortLocale) {
 
 				for ($i = 0, $count = count($key); $i < $count; $i++)
 				{
