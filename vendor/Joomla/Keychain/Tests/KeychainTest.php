@@ -5,6 +5,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Keychain\Tests;
+
 use Joomla\Keychain\Keychain;
 
 /**
@@ -13,7 +15,7 @@ use Joomla\Keychain\Keychain;
  * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class KeychainTest extends PHPUnit_Framework_TestCase
+class KeychainTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Set up the system by ensuring some files aren't there.
