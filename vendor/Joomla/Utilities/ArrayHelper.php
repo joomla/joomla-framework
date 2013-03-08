@@ -38,10 +38,7 @@ final class ArrayHelper
 	{
 		if (is_array($array))
 		{
-			foreach ($array as $i => $v)
-			{
-				$array[$i] = (int) $v;
-			}
+			$array = array_map('intval', $array);
 		}
 		else
 		{
@@ -545,17 +542,9 @@ final class ArrayHelper
 			return $myArray;
 		}
 
-		foreach ($myArray as &$myvalue)
-		{
-			$myvalue = serialize($myvalue);
-		}
-
+		$myArray = array_map('serialize', $myArray);
 		$myArray = array_unique($myArray);
-
-		foreach ($myArray as &$myvalue)
-		{
-			$myvalue = unserialize($myvalue);
-		}
+		$myArray = array_map('unserialize', $myArray);
 
 		return $myArray;
 	}
