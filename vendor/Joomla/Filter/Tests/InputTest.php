@@ -5,7 +5,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Filter\Tests;
+
 use Joomla\Filter\Input;
+use Joomla\Filter\Output;
 
 /**
  * Test class for Filter\Input
@@ -13,7 +16,7 @@ use Joomla\Filter\Input;
  * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class FilterInputTest extends PHPUnit_Framework_TestCase
+class FilterInputTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Produces the array of test cases common to all test runs.
@@ -491,7 +494,7 @@ class FilterInputTest extends PHPUnit_Framework_TestCase
 		$this->markTestSkipped('Why are we calling JFilterOutput in JFilterInputTest?');
 		$this->assertThat(
 			$expect,
-			$this->equalTo(JFilterOutput::cleanText($data))
+			$this->equalTo(Output::cleanText($data))
 		);
 	}
 
