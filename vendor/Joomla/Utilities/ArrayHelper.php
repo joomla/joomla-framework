@@ -17,9 +17,11 @@ use Joomla\String\String;
  */
 final class ArrayHelper
 {
-	// Private constructor to prevent instantiation of this class
-	private function __construct() {
-
+	/**
+	 * Private constructor to prevent instantiation of this class
+	 */
+	private function __construct()
+	{
 	}
 
 	/**
@@ -267,44 +269,44 @@ final class ArrayHelper
 		// Handle the type constraint
 		switch (strtoupper($type))
 		{
-		case 'INT':
-		case 'INTEGER':
-			// Only use the first integer value
-			@preg_match('/-?[0-9]+/', $result, $matches);
-			$result = @(int) $matches[0];
-			break;
+			case 'INT':
+			case 'INTEGER':
+				// Only use the first integer value
+				@preg_match('/-?[0-9]+/', $result, $matches);
+				$result = @(int) $matches[0];
+				break;
 
-		case 'FLOAT':
-		case 'DOUBLE':
-			// Only use the first floating point value
-			@preg_match('/-?[0-9]+(\.[0-9]+)?/', $result, $matches);
-			$result = @(float) $matches[0];
-			break;
+			case 'FLOAT':
+			case 'DOUBLE':
+				// Only use the first floating point value
+				@preg_match('/-?[0-9]+(\.[0-9]+)?/', $result, $matches);
+				$result = @(float) $matches[0];
+				break;
 
-		case 'BOOL':
-		case 'BOOLEAN':
-			$result = (bool) $result;
-			break;
+			case 'BOOL':
+			case 'BOOLEAN':
+				$result = (bool) $result;
+				break;
 
-		case 'ARRAY':
-			if (!is_array($result))
-			{
-				$result = array($result);
-			}
-			break;
+			case 'ARRAY':
+				if (!is_array($result))
+				{
+					$result = array($result);
+				}
+				break;
 
-		case 'STRING':
-			$result = (string) $result;
-			break;
+			case 'STRING':
+				$result = (string) $result;
+				break;
 
-		case 'WORD':
-			$result = (string) preg_replace('#\W#', '', $result);
-			break;
+			case 'WORD':
+				$result = (string) preg_replace('#\W#', '', $result);
+				break;
 
-		case 'NONE':
-		default:
-			// No casting necessary
-			break;
+			case 'NONE':
+			default:
+				// No casting necessary
+				break;
 		}
 
 		return $result;
