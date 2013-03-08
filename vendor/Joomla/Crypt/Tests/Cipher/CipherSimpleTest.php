@@ -5,19 +5,21 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt\Tests;
+
 use Joomla\Crypt\Key;
-use Joomla\Crypt\Cipher_Rijndael256;
+use Joomla\Crypt\Cipher_Simple;
 
 /**
- * Test class for JCryptCipherRijndael256.
+ * Test class for JCryptCipherSimple.
  *
  * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
+class CipherSimpleTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JCryptCipherRijndael256
+	 * @var    JCryptCipherSimple
 	 * @since  1.0
 	 */
 	private $cipher;
@@ -33,18 +35,11 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		// Only run the test if mcrypt is loaded.
-		if (!extension_loaded('mcrypt'))
-		{
-			$this->markTestSkipped('The mcrypt extension must be available for this test to run.');
-		}
+		$this->cipher = new Cipher_Simple;
 
-		$this->cipher = new Cipher_Rijndael256;
-
-		// Build the key for testing.
-		$this->key = new Key('rijndael256');
-		$this->key->private = file_get_contents(__DIR__ . '/stubs/encrypted/rijndael256/key.priv');
-		$this->key->public = file_get_contents(__DIR__ . '/stubs/encrypted/rijndael256/key.pub');
+		$this->key = new Key('simple');
+		$this->key->private = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUgkVF4mLxAUf80ZJPAJHXHoac';
+		$this->key->public = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUgkVF4mLxAUf80ZJPAJHXHoac';
 	}
 
 	/**
@@ -57,6 +52,7 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	protected function tearDown()
 	{
 		$this->cipher = null;
+		$this->key = null;
 
 		parent::tearDown();
 	}
@@ -66,7 +62,7 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	 *
 	 * @return array
 	 */
-	public function data()
+	public function dataForEncrypt()
 	{
 		return array(
 			array(
@@ -87,19 +83,19 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests JCryptCipherRijndael256Test->decrypt()
+	 * Tests JCryptCipherSimple->decrypt()
 	 *
 	 * @param   string  $file  @todo
 	 * @param   string  $data  @todo
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider data
+	 * @dataProvider dataForEncrypt
 	 * @since   1.0
 	 */
 	public function testDecrypt($file, $data)
 	{
-		$encrypted = file_get_contents(__DIR__ . '/stubs/encrypted/rijndael256/' . $file);
+		$encrypted = file_get_contents(__DIR__ . '/stubs/encrypted/simple/' . $file);
 		$decrypted = $this->cipher->decrypt($encrypted, $this->key);
 
 		// Assert that the decrypted values are the same as the expected ones.
@@ -107,14 +103,14 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests JCryptCipherRijndael256Test->encrypt()
+	 * Tests JCryptCipherSimple->encrypt()
 	 *
 	 * @param   string  $file  @todo
 	 * @param   string  $data  @todo
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider data
+	 * @dataProvider dataForEncrypt
 	 * @since   1.0
 	 */
 	public function testEncrypt($file, $data)
@@ -125,11 +121,11 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 		$this->assertNotEquals($data, $encrypted);
 
 		// Assert that the encrypted values are the same as the expected ones.
-		$this->assertStringEqualsFile(__DIR__ . '/stubs/encrypted/rijndael256/' . $file, $encrypted);
+		$this->assertStringEqualsFile(__DIR__ . '/stubs/encrypted/simple/' . $file, $encrypted);
 	}
 
 	/**
-	 * Tests JCryptCipherRijndael256Test->generateKey()
+	 * Tests JCryptCipherSimple->generateKey()
 	 *
 	 * @return  void
 	 *
@@ -142,10 +138,10 @@ class JCryptCipherRijndael256Test extends PHPUnit_Framework_TestCase
 		// Assert that the key is the correct type.
 		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
 
-		// Assert that the private key is 32 bytes long.
-		$this->assertEquals(32, strlen($key->private));
+		// Assert the public and private keys are the same.
+		$this->assertEquals($key->public, $key->private);
 
 		// Assert the key is of the correct type.
-		$this->assertAttributeEquals('rijndael256', 'type', $key);
+		$this->assertAttributeEquals('simple', 'type', $key);
 	}
 }

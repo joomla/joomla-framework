@@ -5,19 +5,21 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt\Tests;
+
 use Joomla\Crypt\Key;
-use Joomla\Crypt\Cipher_Blowfish;
+use Joomla\Crypt\Cipher_Rijndael256;
 
 /**
- * Test class for JCryptCipherBlowfish.
+ * Test class for JCryptCipherRijndael256.
  *
  * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
+class CipherRijndael256Test extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JCryptCipherBlowfish
+	 * @var    JCryptCipherRijndael256
 	 * @since  1.0
 	 */
 	private $cipher;
@@ -39,12 +41,12 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 			$this->markTestSkipped('The mcrypt extension must be available for this test to run.');
 		}
 
-		$this->cipher = new Cipher_Blowfish;
+		$this->cipher = new Cipher_Rijndael256;
 
 		// Build the key for testing.
-		$this->key = new Key('blowfish');
-		$this->key->private = file_get_contents(__DIR__ . '/stubs/encrypted/blowfish/key.priv');
-		$this->key->public = file_get_contents(__DIR__ . '/stubs/encrypted/blowfish/key.pub');
+		$this->key = new Key('rijndael256');
+		$this->key->private = file_get_contents(__DIR__ . '/stubs/encrypted/rijndael256/key.priv');
+		$this->key->public = file_get_contents(__DIR__ . '/stubs/encrypted/rijndael256/key.pub');
 	}
 
 	/**
@@ -87,7 +89,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests JCryptCipherBlowfish->decrypt()
+	 * Tests JCryptCipherRijndael256Test->decrypt()
 	 *
 	 * @param   string  $file  @todo
 	 * @param   string  $data  @todo
@@ -99,7 +101,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDecrypt($file, $data)
 	{
-		$encrypted = file_get_contents(__DIR__ . '/stubs/encrypted/blowfish/' . $file);
+		$encrypted = file_get_contents(__DIR__ . '/stubs/encrypted/rijndael256/' . $file);
 		$decrypted = $this->cipher->decrypt($encrypted, $this->key);
 
 		// Assert that the decrypted values are the same as the expected ones.
@@ -107,7 +109,7 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests JCryptCipherBlowfish->encrypt()
+	 * Tests JCryptCipherRijndael256Test->encrypt()
 	 *
 	 * @param   string  $file  @todo
 	 * @param   string  $data  @todo
@@ -125,11 +127,11 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 		$this->assertNotEquals($data, $encrypted);
 
 		// Assert that the encrypted values are the same as the expected ones.
-		$this->assertStringEqualsFile(__DIR__ . '/stubs/encrypted/blowfish/' . $file, $encrypted);
+		$this->assertStringEqualsFile(__DIR__ . '/stubs/encrypted/rijndael256/' . $file, $encrypted);
 	}
 
 	/**
-	 * Tests JCryptCipherBlowfish->generateKey()
+	 * Tests JCryptCipherRijndael256Test->generateKey()
 	 *
 	 * @return  void
 	 *
@@ -142,10 +144,10 @@ class JCryptCipherBlowfishTest extends PHPUnit_Framework_TestCase
 		// Assert that the key is the correct type.
 		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
 
-		// Assert that the private key is 56 bytes long.
-		$this->assertEquals(56, strlen($key->private));
+		// Assert that the private key is 32 bytes long.
+		$this->assertEquals(32, strlen($key->private));
 
 		// Assert the key is of the correct type.
-		$this->assertAttributeEquals('blowfish', 'type', $key);
+		$this->assertAttributeEquals('rijndael256', 'type', $key);
 	}
 }

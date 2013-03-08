@@ -8,7 +8,7 @@
 namespace Joomla\Crypt;
 
 /**
- * JCrypt is a Joomla Platform class for handling basic encryption/decryption of data.
+ * Crypt is a Joomla Platform class for handling basic encryption/decryption of data.
  *
  * @package  Joomla\Framework
  * @since    1.0
@@ -16,13 +16,13 @@ namespace Joomla\Crypt;
 class Crypt
 {
 	/**
-	 * @var    JCryptCipher  The encryption cipher object.
+	 * @var    Cipher  The encryption cipher object.
 	 * @since  1.0
 	 */
 	private $cipher;
 
 	/**
-	 * @var    JCryptKey  The encryption key[/pair)].
+	 * @var    Key  The encryption key[/pair)].
 	 * @since  1.0
 	 */
 	private $key;
@@ -31,8 +31,8 @@ class Crypt
 	 * Object Constructor takes an optional key to be used for encryption/decryption. If no key is given then the
 	 * secret word from the configuration object is used.
 	 *
-	 * @param   JCryptCipher  $cipher  The encryption cipher object.
-	 * @param   JCryptKey     $key     The encryption key[/pair)].
+	 * @param   Cipher  $cipher  The encryption cipher object.
+	 * @param   Key     $key     The encryption key[/pair)].
 	 *
 	 * @since   1.0
 	 */
@@ -78,7 +78,7 @@ class Crypt
 	 *
 	 * @param   array  $options  Key generation options.
 	 *
-	 * @return  JCryptKey
+	 * @return  Key
 	 *
 	 * @since   1.0
 	 */
@@ -90,9 +90,9 @@ class Crypt
 	/**
 	 * Method to set the encryption key[/pair] object.
 	 *
-	 * @param   JCryptKey  $key  The key object to set.
+	 * @param   Key  $key  The key object to set.
 	 *
-	 * @return  JCrypt
+	 * @return  Key
 	 *
 	 * @since   1.0
 	 */

@@ -7,7 +7,6 @@
 
 namespace Joomla\Crypt;
 
-
 /**
  * JCrypt cipher for Blowfish encryption, decryption and key generation.
  *
