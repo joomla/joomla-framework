@@ -7,10 +7,6 @@
 
 namespace Joomla\Crypt;
 
-
-use RuntimeException;
-use InvalidArgumentException;
-
 /**
  * JCrypt cipher for mcrypt algorithm encryption, decryption and key generation.
  *
@@ -43,13 +39,13 @@ abstract class Cipher_Mcrypt implements Cipher
 	 * Constructor.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function __construct()
 	{
 		if (!is_callable('mcrypt_encrypt'))
 		{
-			throw new RuntimeException('The mcrypt extension is not available.');
+			throw new \RuntimeException('The mcrypt extension is not available.');
 		}
 	}
 
@@ -68,7 +64,7 @@ abstract class Cipher_Mcrypt implements Cipher
 		// Validate key.
 		if ($key->type != $this->keyType)
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
 		}
 
 		// Decrypt the data.
@@ -92,7 +88,7 @@ abstract class Cipher_Mcrypt implements Cipher
 		// Validate key.
 		if ($key->type != $this->keyType)
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
 		}
 
 		// Encrypt the data.

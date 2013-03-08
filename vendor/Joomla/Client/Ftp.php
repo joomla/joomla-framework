@@ -7,7 +7,6 @@
 
 namespace Joomla\Client;
 
-
 use Joomla\Log\Log;
 use Joomla\Client\Buffer;
 

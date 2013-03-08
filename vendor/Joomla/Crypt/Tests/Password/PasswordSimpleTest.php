@@ -5,8 +5,11 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Crypt\Tests;
+
 use Joomla\Crypt\Password;
 use Joomla\Crypt\Password\Simple;
+use Joomla\Test\Helper;
 
 /**
  * Test class for JCryptPasswordSimple.
@@ -14,7 +17,7 @@ use Joomla\Crypt\Password\Simple;
  * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
+class PasswordSimpleTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Data provider for testCreate method.
@@ -192,7 +195,7 @@ class JCryptPasswordSimpleTest extends PHPUnit_Framework_TestCase
 		$test = new Simple;
 		$test->setDefaultType($type);
 		$this->assertThat(
-			TestReflection::getValue($test, 'defaultType'),
+			Helper::getValue($test, 'defaultType'),
 			$this->equalTo($expectation)
 		);
 	}

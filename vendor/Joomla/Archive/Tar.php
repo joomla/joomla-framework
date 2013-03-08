@@ -7,11 +7,9 @@
 
 namespace Joomla\Archive;
 
-
 use Joomla\Filesystem\Path;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
-use RuntimeException;
 
 /**
  * Tar format adapter for the JArchive class
@@ -69,8 +67,8 @@ class Tar implements Extractable
 	 *
 	 * @return  boolean True if successful
 	 *
-	 * @throws  RuntimeException
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function extract($archive, $destination, array $options = array())
 	{
@@ -81,7 +79,7 @@ class Tar implements Extractable
 
 		if (!$this->data)
 		{
-			throw new RuntimeException('Unable to read archive');
+			throw new \RuntimeException('Unable to read archive');
 		}
 
 		$this->_getTarInfo($this->data);
@@ -98,12 +96,12 @@ class Tar implements Extractable
 				// Make sure the destination folder exists
 				if (!Folder::create(dirname($path)))
 				{
-					throw new RuntimeException('Unable to create destination');
+					throw new \RuntimeException('Unable to create destination');
 				}
 
 				if (File::write($path, $buffer) === false)
 				{
-					throw new RuntimeException('Unable to write entry');
+					throw new \RuntimeException('Unable to write entry');
 				}
 			}
 		}
@@ -155,7 +153,7 @@ class Tar implements Extractable
 
 			if (!$info)
 			{
-				throw new RuntimeException('Unable to decompress data');
+				throw new \RuntimeException('Unable to decompress data');
 			}
 
 			$position += 512;

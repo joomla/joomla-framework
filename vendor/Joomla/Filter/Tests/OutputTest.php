@@ -5,6 +5,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Filter\Tests;
+
 use Joomla\Filter\Output;
 
 /**
@@ -39,7 +41,7 @@ class FilterTestObject
  * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class FilterOutputTest extends PHPUnit_Framework_TestCase
+class FilterOutputTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var  Output

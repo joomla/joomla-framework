@@ -7,7 +7,6 @@
 
 namespace Joomla\Client;
 
-
 /**
  * Generic Buffer stream handler
  *

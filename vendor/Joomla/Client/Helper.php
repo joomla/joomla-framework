@@ -8,7 +8,6 @@
 namespace Joomla\Client;
 
 use Joomla\Factory;
-use InvalidArgumentException;
 
 /**
  * Client helper class
@@ -202,7 +201,7 @@ class Helper
 	 * @return  boolean  True on success, false on failure.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if credentials invalid
+	 * @throws  \InvalidArgumentException if credentials invalid
 	 */
 	public static function setCredentialsFromRequest($client)
 	{
@@ -220,7 +219,7 @@ class Helper
 			}
 			else
 			{
-				throw new InvalidArgumentException('Invalid user credentials');
+				throw new \InvalidArgumentException('Invalid user credentials');
 			}
 		}
 		else

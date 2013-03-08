@@ -5,6 +5,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Archive\Tests;
+
 use Joomla\Archive\Tar as ArchiveTar;
 
 /**
@@ -15,7 +17,7 @@ use Joomla\Archive\Tar as ArchiveTar;
  *
  * @since    1.0
  */
-class ArchiveTarTest extends PHPUnit_Framework_TestCase
+class ArchiveTarTest extends \PHPUnit_Framework_TestCase
 {
 	protected static $outputPath;
 

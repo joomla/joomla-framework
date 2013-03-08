@@ -7,7 +7,6 @@
 
 namespace Joomla\Crypt;
 
-
 /**
  * JCrypt cipher for Rijndael 256 encryption, decryption and key generation.
  *
