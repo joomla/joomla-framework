@@ -188,13 +188,8 @@ class Profiler implements ProfilerInterface, IteratorAggregate, Countable
 			);
 		}
 
-		// Update the memory peak if needed.
-		$memoryPeakBytes = memory_get_peak_usage($this->memoryRealUsage);
-
-		if ($memoryPeakBytes > $this->memoryPeakBytes)
-		{
-			$this->memoryPeakBytes = $memoryPeakBytes;
-		}
+		// Update the memory peak (it cannot decrease).
+		$this->memoryPeakBytes = memory_get_peak_usage($this->memoryRealUsage);
 
 		// Get the current timestamp and allocated memory amount.
 		$timeStamp = microtime(true);
