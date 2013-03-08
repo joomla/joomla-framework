@@ -27,14 +27,14 @@ final class ArrayHelper
 	/**
 	 * Function to convert array to integer values
 	 *
-	 * @param   array  &$array   The source array to convert
+	 * @param   array  $array    The source array to convert
 	 * @param   mixed  $default  A default value (int|array) to assign if $array is not an array
 	 *
-	 * @return  void
+	 * @return  array The converted array
 	 *
 	 * @since   1.0
 	 */
-	public static function toInteger(&$array, $default = null)
+	public static function toInteger($array, $default = null)
 	{
 		if (is_array($array))
 		{
@@ -48,14 +48,15 @@ final class ArrayHelper
 			}
 			elseif (is_array($default))
 			{
-				self::toInteger($default, null);
-				$array = $default;
+				$array = self::toInteger($default, null);
 			}
 			else
 			{
 				$array = array((int) $default);
 			}
 		}
+
+		return $array;
 	}
 
 	/**

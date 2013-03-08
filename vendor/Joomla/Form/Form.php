@@ -1186,8 +1186,7 @@ class Form
 
 				$value = is_array($value) ? $value : array($value);
 
-				ArrayHelper::toInteger($value);
-				$return = $value;
+				$return = ArrayHelper::toInteger($value);
 				break;
 
 			// Filter safe HTML.

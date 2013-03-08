@@ -1593,10 +1593,10 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToInteger($input, $default, $expect, $message)
 	{
-		ArrayHelper::toInteger($input, $default);
+		$result = ArrayHelper::toInteger($input, $default);
 		$this->assertEquals(
 			$expect,
-			$input,
+			$result,
 			$message
 		);
 	}
