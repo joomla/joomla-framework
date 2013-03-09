@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Tests
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -15,7 +14,6 @@ include_once __DIR__ . '/Stubs/DaemonInspector.php';
 /**
  * Test class for Joomla\Application\Daemon.
  *
- * @package  Joomla\Framework\Tests
  * @since    1.0
  */
 class DaemonTest extends \PHPUnit_Framework_TestCase

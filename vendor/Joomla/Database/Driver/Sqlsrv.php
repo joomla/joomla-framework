@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -14,7 +13,6 @@ use RuntimeException;
 /**
  * SQL Server database driver
  *
- * @package  Joomla\Framework
  * @see      http://msdn.microsoft.com/en-us/library/cc296152(SQL.90).aspx
  * @since    1.0
  */

@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,14 +11,12 @@ use Joomla\Controller\Base;
 /**
  * Joomla Platform Capitaliser Object Class
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 
 /**
  * Concrete class extending JControllerBase.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class BaseController extends Base

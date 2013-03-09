@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -16,7 +15,6 @@ use SimpleXMLElement;
  * Form Rule class for the Joomla Platform.
  * Requires the value entered be one of the options in a field of type="list"
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Options extends Rule

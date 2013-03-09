@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -10,7 +9,6 @@ use Joomla\Image\Filter\Edgedetect as FilterEdgedetect;
 /**
  * Test class for JImage.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class JImageFilterEdgedetectTest extends PHPUnit_Framework_TestCase

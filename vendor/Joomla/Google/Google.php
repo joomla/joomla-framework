@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -15,7 +14,6 @@ use Joomla\Registry\Registry;
  * @property-read  Data   $data    Google API object for data.
  * @property-read  Embed  $embed   Google API object for embed generation.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Google

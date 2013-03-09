@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use Joomla\Filter\Input;
 /**
  * Custom session storage handler for PHP
  *
- * @package  Joomla\Framework
  * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
  * @todo        When dropping compatibility with PHP 5.3 use the SessionHandlerInterface and the SessionHandler class
  * @since    1.0

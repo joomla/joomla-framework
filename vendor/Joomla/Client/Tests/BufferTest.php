@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use Joomla\Client\Buffer;
 /**
  * Test class for JBuffer.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class BufferTest extends \PHPUnit_Framework_TestCase

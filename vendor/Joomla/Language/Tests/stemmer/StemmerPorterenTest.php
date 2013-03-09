@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -10,7 +9,6 @@ use Joomla\Language\Stemmer\Porteren;
 /**
  * Test class for Porteren.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class PorterenTest extends PHPUnit_Framework_TestCase

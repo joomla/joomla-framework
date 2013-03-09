@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -17,7 +16,6 @@ use Joomla\Input\Cli as InputCli;
 /**
  * Class to turn Cli applications into daemons.  It requires CLI and PCNTL support built into PHP.
  *
- * @package  Joomla\Framework
  * @see      http://www.php.net/manual/en/book.pcntl.php
  * @see      http://php.net/manual/en/features.commandline.php
  * @since    1.0

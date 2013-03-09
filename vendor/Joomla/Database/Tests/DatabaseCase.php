@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -10,7 +9,6 @@ namespace Joomla\Database\Tests;
 /**
  * Abstract test case class for database testing.
  *
- * @package  Joomla.Test
  * @since    1.0
  */
 abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase

@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Tests
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -10,7 +9,6 @@ namespace Joomla\Database\Tests;
 /**
  * Class to expose protected properties and methods in JDatabaseMySqlExporter for testing purposes.
  *
- * @package  Joomla\Framework\Tests
  * @since    1.0
  */
 class ImporterMySqlInspector extends \Joomla\Database\Importer\Mysql

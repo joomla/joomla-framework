@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -11,7 +10,6 @@ namespace Joomla\Data;
  * JDataSet is a collection class that allows the developer to operate on a set of JData objects as if they were in a
  * typical PHP array.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator

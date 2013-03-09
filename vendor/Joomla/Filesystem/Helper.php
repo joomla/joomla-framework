@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -14,7 +13,6 @@ use DirectoryIterator;
  *
  * Holds support functions for the filesystem, particularly the stream
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Helper
