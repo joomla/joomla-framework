@@ -10,6 +10,8 @@ It is comprises code originally developed for the Joomla Content Management Syst
 
 For news and information about developering with Joomla, please visit [http://developer.joomla.org](http://developer.joomla.org).
 
+View the Joomla Framework API Documentation at [http://joomla.github.com/joomla-framework](http://joomla.github.com/joomla-framework). Powered by [phpDocumentor 2](http://www.phpdoc.org).
+
 You can discuss Joomla Framework development by joining the mailing list at [http://groups.google.com/group/joomla-dev-platform](http://groups.google.com/group/joomla-dev-platform).
 
 ## Requirements
