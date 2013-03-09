@@ -24,7 +24,7 @@ abstract class Cache
 	static protected $runtime = array();
 
 	/**
-	 * @var    JRegistry  The options for the cache object.
+	 * @var    Registry  The options for the cache object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -32,7 +32,7 @@ abstract class Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Caching options object.
+	 * @param   Registry  $options  Caching options object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

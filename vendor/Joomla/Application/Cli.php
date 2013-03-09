@@ -9,8 +9,6 @@ namespace Joomla\Application;
 
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
-use RuntimeException;
-
 use Joomla\Input\Cli as InputCli;
 
 /**
@@ -30,12 +28,12 @@ abstract class Cli extends Base
 	/**
 	 * Class constructor.
 	 *
-	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
-	 *                          input object.  If the argument is a InputCli object that object will become
-	 *                          the application's input object, otherwise a default input object is created.
-	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
-	 *                          config object.  If the argument is a Registry object that object will become
-	 *                          the application's config object, otherwise a default config object is created.
+	 * @param   InputCli  $input   An optional argument to provide dependency injection for the application's
+	 *                             input object.  If the argument is a InputCli object that object will become
+	 *                             the application's input object, otherwise a default input object is created.
+	 * @param   Registry  $config  An optional argument to provide dependency injection for the application's
+	 *                             config object.  If the argument is a Registry object that object will become
+	 *                             the application's config object, otherwise a default config object is created.
 	 *
 	 * @since   1.0
 	 */
@@ -96,7 +94,7 @@ abstract class Cli extends Base
 	 * @return  Cli
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public static function getInstance($name = null)
 	{
@@ -109,7 +107,7 @@ abstract class Cli extends Base
 			}
 			else
 			{
-				throw new RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
+				throw new \RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
 			}
 		}
 

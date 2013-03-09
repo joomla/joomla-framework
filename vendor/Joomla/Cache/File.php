@@ -20,7 +20,7 @@ class File extends Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Caching options object.
+	 * @param   Registry  $options  Caching options object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
