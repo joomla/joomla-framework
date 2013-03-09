@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License
  */
@@ -10,7 +9,6 @@ namespace Joomla\Model\Tests\Mock;
 /**
  * Mock class for \Joomla\Model\Base.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class Model

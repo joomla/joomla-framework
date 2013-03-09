@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -13,7 +12,6 @@ use Joomla\Crypt\Cipher_Rijndael256;
 /**
  * Test class for JCryptCipherRijndael256.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class CipherRijndael256Test extends \PHPUnit_Framework_TestCase

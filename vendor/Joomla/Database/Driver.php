@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -14,7 +13,6 @@ use DirectoryIterator;
 /**
  * Joomla Platform Database Driver Class
  *
- * @package  Joomla\Framework
  * @since    1.0
  *
  * @method      string  q()   q($text, $escape = true)  Alias for quote method

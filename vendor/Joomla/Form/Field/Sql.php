@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -13,7 +12,6 @@ use Joomla\Html\Html;
 /**
  * Supports an custom SQL select list
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Field_SQL extends Field_List

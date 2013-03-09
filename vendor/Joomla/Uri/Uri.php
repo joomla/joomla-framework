@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -16,7 +15,6 @@ use Joomla\String\String;
  * for the Joomla Platform to access and manipulate a URI.  Second it obtains the URI of
  * the current executing script from the server regardless of server.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Uri

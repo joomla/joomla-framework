@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -13,7 +12,6 @@ use Joomla\Crypt\Cipher_Simple;
 /**
  * Test class for JCryptCipherSimple.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class CipherSimpleTest extends \PHPUnit_Framework_TestCase

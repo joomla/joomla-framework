@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -20,7 +19,6 @@ use RuntimeException;
  * This class is designed to use as a base for building formatted text files for output. By
  * default it emulates the Syslog style format output. This is a disk based output format.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Formattedtext extends Logger

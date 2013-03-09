@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use Joomla\Filter\Output;
 /**
  * FilterTestObject
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class FilterTestObject
@@ -38,7 +36,6 @@ class FilterTestObject
 /**
  * Test class for Filter\Output
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class FilterOutputTest extends \PHPUnit_Framework_TestCase

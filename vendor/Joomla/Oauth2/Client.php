@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -19,7 +18,6 @@ use Exception;
 /**
  * Joomla Platform class for interacting with an OAuth 2.0 server.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Client

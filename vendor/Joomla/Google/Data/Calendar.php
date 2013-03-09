@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -17,7 +16,6 @@ use InvalidArgumentException;
 /**
  * Google Calendar data class for the Joomla Platform.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Calendar extends Data

@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use Joomla\Keychain\Keychain;
 /**
  * Tests for the Joomla Platform Keychain Class
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class KeychainTest extends \PHPUnit_Framework_TestCase

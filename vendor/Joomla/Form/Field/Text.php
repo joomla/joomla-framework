@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -11,7 +10,6 @@ namespace Joomla\Form;
  * Form Field class for the Joomla Platform.
  * Supports a one line text field.
  *
- * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/input.text.html#input.text
  * @since    1.0
  */

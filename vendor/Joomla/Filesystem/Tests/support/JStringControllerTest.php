@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -10,7 +9,6 @@ use Joomla\Filesystem\Support\StringController;
 /**
  * Test class for StringController.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class StringControllerTest extends PHPUnit_Framework_TestCase

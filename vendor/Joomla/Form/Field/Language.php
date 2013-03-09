@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -14,7 +13,6 @@ use Joomla\Language\Helper as LanguageHelper;
  * Form Field class for the Joomla Platform.
  * Supports a list of installed application languages
  *
- * @package  Joomla\Framework
  * @see      JFormFieldContentLanguage for a select list of content languages.
  * @since    1.0
  */

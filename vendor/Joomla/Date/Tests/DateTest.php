@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -12,7 +11,6 @@ use Joomla\Date\Date;
 /**
  * Tests for Date class.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class DateTest extends \PHPUnit_Framework_TestCase
