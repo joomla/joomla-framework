@@ -6,6 +6,8 @@
 
 namespace Joomla\Application;
 
+use Joomla\Input\Input;
+use Joomla\Registry\Registry;
 
 /**
  * Joomla Platform Base Application Class
@@ -25,10 +27,28 @@ abstract class Base
 	/**
 	 * The application input object.
 	 *
-	 * @var    Joomla\Input\Input
+	 * @var    Input
 	 * @since  1.0
 	 */
 	public $input = null;
+
+	/**
+	 * Class constructor.
+	 *
+	 * @param   InputCli  $input   An optional argument to provide dependency injection for the application's
+	 *                             input object.  If the argument is a InputCli object that object will become
+	 *                             the application's input object, otherwise a default input object is created.
+	 * @param   Registry  $config  An optional argument to provide dependency injection for the application's
+	 *                             config object.  If the argument is a Registry object that object will become
+	 *                             the application's config object, otherwise a default config object is created.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct(Input $input = null, Registry $config = null)
+	{
+		$this->input = $input instanceof Input ? $input : new Input;
+		$this->config = $config instanceof Registry ? $config : new Registry;
+	}
 
 	/**
 	 * Method to close the application.
@@ -73,41 +93,17 @@ abstract class Base
 	}
 
 	/**
-	 * Method to load a PHP configuration class file based on convention and return the instantiated data object.  You
-	 * will extend this method in child classes to provide configuration data from whatever data source is relevant
-	 * for your specific application.
+	 * Sets the configuration for the application.
 	 *
-	 * @param   string  $file   The path and filename of the configuration file. If not provided, configuration.php
-	 *                          in JPATH_BASE will be used.
-	 * @param   string  $class  The class name to instantiate.
+	 * @param   Registry  $data  A registry object holding the configuration.
 	 *
-	 * @return  mixed   Either an array or object to be loaded into the configuration object.
-	 *
-	 * @since   1.0
-	 * @throws  RuntimeException
-	 */
-	abstract protected function fetchConfigurationData($file = '', $class = 'JConfig');
-
-	/**
-	 * Load an object or array into the application configuration object.
-	 *
-	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.
-	 *
-	 * @return  Base  Instance of $this to allow chaining.
+	 * @return  Base  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function loadConfiguration($data)
+	public function setConfiguration(Registry $config)
 	{
-		// Load the data into the configuration object.
-		if (is_array($data))
-		{
-			$this->config->loadArray($data);
-		}
-		elseif (is_object($data))
-		{
-			$this->config->loadObject($data);
-		}
+		$this->config = $config;
 
 		return $this;
 	}

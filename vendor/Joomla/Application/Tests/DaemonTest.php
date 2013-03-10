@@ -8,8 +8,9 @@ namespace Joomla\Application\Tests;
 
 use Joomla\Application\Daemon;
 use Joomla\Registry\Registry;
+use Joomla\Test\Helper;
 
-include_once __DIR__ . '/Stubs/DaemonInspector.php';
+include_once __DIR__ . '/Stubs/ConcreteDaemon.php';
 
 /**
  * Test class for Joomla\Application\Daemon.
@@ -21,53 +22,10 @@ class DaemonTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * An instance of a Daemon inspector.
 	 *
-	 * @var    DaemonInspector
+	 * @var    ConcreteDaemon
 	 * @since  1.0
 	 */
 	protected $inspector;
-
-	/**
-	 * Setup for testing.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setUp()
-	{
-		// Skip this test suite if PCNTL extension is not available
-		if (!extension_loaded("PCNTL"))
-		{
-			$this->markTestSkipped('The PCNTL extension is not available.');
-		}
-
-		// Get a new DaemonInspector instance.
-		$this->inspector = new DaemonInspector;
-		$this->inspector->setClassInstance($this->inspector);
-	}
-
-	/**
-	 * Overrides the parent tearDown method.
-	 *
-	 * @return  void
-	 *
-	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   1.0
-	 */
-	protected function tearDown()
-	{
-		// Reset some daemon inspector static settings.
-		DaemonInspector::$pcntlChildExitStatus = 0;
-		DaemonInspector::$pcntlFork = 0;
-		DaemonInspector::$pcntlSignal = true;
-		DaemonInspector::$pcntlWait = 0;
-
-		// Check if the inspector was instantiated.
-		if (isset($this->inspector))
-		{
-			$this->inspector->setClassInstance(null);
-		}
-	}
 
 	/**
 	 * Overrides the parent tearDown method.
@@ -195,7 +153,7 @@ class DaemonTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetupSignalHandlersFailure()
 	{
-		DaemonInspector::$pcntlSignal = false;
+		ConcreteDaemon::$pcntlSignal = false;
 		$this->inspector->setClassSignals(array('SIGTERM', 'SIGHUP', 'SIGFOOBAR123'));
 		$return = $this->inspector->setupSignalHandlers();
 
@@ -287,5 +245,48 @@ class DaemonTest extends \PHPUnit_Framework_TestCase
 			substr(decoct(fileperms($this->inspector->getClassProperty('config')->get('application_pid_file'))), 1),
 			'Line: ' . __LINE__
 		);
+	}
+
+	/**
+	 * Setup for testing.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setUp()
+	{
+		// Skip this test suite if PCNTL extension is not available
+		if (!extension_loaded('PCNTL'))
+		{
+			$this->markTestSkipped('The PCNTL extension is not available.');
+		}
+
+		// Get a new ConcreteDaemon instance.
+		$this->inspector = new ConcreteDaemon;
+		Helper::setValue('Joomla\Application\Daemon', 'instance', $this->inspector);
+	}
+
+	/**
+	 * Overrides the parent tearDown method.
+	 *
+	 * @return  void
+	 *
+	 * @see     PHPUnit_Framework_TestCase::tearDown()
+	 * @since   1.0
+	 */
+	protected function tearDown()
+	{
+		// Reset some daemon inspector static settings.
+		ConcreteDaemon::$pcntlChildExitStatus = 0;
+		ConcreteDaemon::$pcntlFork = 0;
+		ConcreteDaemon::$pcntlSignal = true;
+		ConcreteDaemon::$pcntlWait = 0;
+
+		// Check if the inspector was instantiated.
+		if (isset($this->inspector))
+		{
+			Helper::setValue('Joomla\Application\Daemon', 'instance', null);
+		}
 	}
 }
