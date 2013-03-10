@@ -11,7 +11,6 @@ use Joomla\Uri\Uri;
 use Joomla\Date\Date;
 use Joomla\Input\Input;
 use Joomla\Session\Session;
-use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
 /**
@@ -22,52 +21,60 @@ use Joomla\Registry\Registry;
 abstract class Web extends Base
 {
 	/**
-	 * @var    string  Character encoding string.
+	 * Character encoding string.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	public $charSet = 'utf-8';
 
 	/**
-	 * @var    string  Response mime type.
+	 * Response mime type.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	public $mimeType = 'text/html';
 
 	/**
-	 * @var    Date  The body modified date for response headers.
+	 * The body modified date for response headers.
+	 *
+	 * @var    Date
 	 * @since  1.0
 	 */
 	public $modifiedDate;
 
 	/**
-	 * @var    Web\Client  The application client object.
+	 * The application client object.
+	 *
+	 * @var    Web\Client
 	 * @since  1.0
 	 */
 	public $client;
 
 	/**
-	 * @var    Language  The application language object.
-	 * @since  1.0
-	 */
-	protected $language;
-
-	/**
-	 * @var    Session  The application session object.
-	 * @since  1.0
-	 */
-	protected $session;
-
-	/**
-	 * @var    object  The application response object.
+	 * The application response object.
+	 *
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $response;
 
 	/**
-	 * @var    Web  The application instance.
+	 * The application instance.
+	 *
+	 * @var    Web
 	 * @since  1.0
 	 */
-	protected static $instance;
+	private static $instance;
+
+	/**
+	 * The application session object.
+	 *
+	 * @var    Session
+	 * @since  1.0
+	 */
+	private $session;
 
 	/**
 	 * Class constructor.
@@ -86,41 +93,9 @@ abstract class Web extends Base
 	 */
 	public function __construct(Input $input = null, Registry $config = null, Web\Client $client = null)
 	{
-		// If a input object is given use it.
-		if ($input instanceof Input)
-		{
-			$this->input = $input;
-		}
-		else
-		// Create the input based on the application logic.
-		{
-			$this->input = new Input;
-		}
+		parent::__construct($input, $config);
 
-		// If a config object is given use it.
-		if ($config instanceof Registry)
-		{
-			$this->config = $config;
-		}
-		else
-		// Instantiate a new configuration object.
-		{
-			$this->config = new Registry;
-		}
-
-		// If a client object is given use it.
-		if ($client instanceof Web\Client)
-		{
-			$this->client = $client;
-		}
-		else
-		// Instantiate a new web client object.
-		{
-			$this->client = new Web\Client;
-		}
-
-		// Load the configuration object.
-		$this->loadConfiguration($this->fetchConfigurationData());
+		$this->client = $client instanceof Web\Client ? $client : new Web\Client;
 
 		// Set the execution datetime and timestamp;
 		$this->set('execution.datetime', gmdate('Y-m-d H:i:s'));
@@ -576,18 +551,6 @@ abstract class Web extends Base
 	}
 
 	/**
-	 * Method to get the application language object.
-	 *
-	 * @return  Language  The language object
-	 *
-	 * @since   1.0
-	 */
-	public function getLanguage()
-	{
-		return $this->language;
-	}
-
-	/**
 	 * Method to get the application session object.
 	 *
 	 * @return  Session  The session object
@@ -712,99 +675,19 @@ abstract class Web extends Base
 	}
 
 	/**
-	 * Allows the application to load a custom or default language.
+	 * Sets the session for the application to use, if required.
 	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create a language,
-	 * if required, based on more specific needs.
+	 * @param   Session  $session  A session object.
 	 *
-	 * @param   Language  $language  An optional language object. If omitted, the factory language is created.
-	 *
-	 * @return  Web This method is chainable.
+	 * @return  Web  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function loadLanguage(Language $language = null)
+	public function setSession(Session $session)
 	{
-		$this->language = ($language === null) ? Factory::getLanguage() : $language;
-
-		return $this;
-	}
-
-	/**
-	 * Allows the application to load a custom or default session.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create a session,
-	 * if required, based on more specific needs.
-	 *
-	 * @param   Session  $session  An optional session object. If omitted, the session is created.
-	 *
-	 * @return  Web This method is chainable.
-	 *
-	 * @since   1.0
-	 */
-	public function loadSession(Session $session = null)
-	{
-		if ($session !== null)
-		{
-			$this->session = $session;
-
-			return $this;
-		}
-
-		// Generate a session name.
-		$name = md5($this->get('secret') . $this->get('session_name', get_class($this)));
-
-		// Calculate the session lifetime.
-		$lifetime = (($this->get('sess_lifetime')) ? $this->get('sess_lifetime') * 60 : 900);
-
-		// Get the session handler from the configuration.
-		$handler = $this->get('sess_handler', 'none');
-
-		// Initialize the options for JSession.
-		$options = array(
-			'name' => $name,
-			'expire' => $lifetime,
-			'force_ssl' => $this->get('force_ssl')
-		);
-
-		$this->registerEvent('onAfterSessionStart', array($this, 'afterSessionStart'));
-
-		// Instantiate the session object.
-		$session = Session::getInstance($handler, $options);
-		$session->initialise($this->input, $this->dispatcher);
-
-		if ($session->getState() == 'expired')
-		{
-			$session->restart();
-		}
-		else
-		{
-			$session->start();
-		}
-
-		// Set the session object.
 		$this->session = $session;
 
 		return $this;
-	}
-
-	/**
-	 * After the session has been started we need to populate it with some default values.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function afterSessionStart()
-	{
-		$session = Factory::getSession();
-
-		if ($session->isNew())
-		{
-			$session->set('registry', new Registry('session'));
-		}
 	}
 
 	/**

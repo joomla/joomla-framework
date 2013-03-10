@@ -7,13 +7,14 @@
 namespace Joomla\Application\Tests;
 
 use Joomla\Application\Daemon;
+use Joomla\Test\Helper;
 
 /**
  * Inspector for the Joomla\Application\Daemon class.
  *
  * @since    1.0
  */
-class DaemonInspector extends Daemon
+class ConcreteDaemon extends Daemon
 {
 	/**
 	 * @var     integer  Mimic the response of the pcntlChildExitStatus method.
@@ -43,7 +44,7 @@ class DaemonInspector extends Daemon
 	 * @var     array  Container for successfully setup signal handlers.
 	 * @since   1.0
 	 */
-		public $setupSignalHandlers = array();
+	public $setupSignalHandlers = array();
 
 	/**
 	 * Method for inspecting protected variables.
@@ -78,7 +79,7 @@ class DaemonInspector extends Daemon
 	 */
 	public function setClassInstance($value)
 	{
-		self::$instance = $value;
+		Helper::setValue('Joomla\Application\Daemon', 'instance', $value);
 	}
 
 	/**

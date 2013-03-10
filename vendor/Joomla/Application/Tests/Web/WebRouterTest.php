@@ -4,9 +4,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-JLoader::register('TControllerBar', __DIR__ . '/stubs/controllers/bar.php');
-JLoader::register('MyTestControllerBaz', __DIR__ . '/stubs/controllers/baz.php');
-JLoader::register('MyTestControllerFoo', __DIR__ . '/stubs/controllers/foo.php');
+require_once __DIR__ . '/Stubs/Bar.php';
+require_once __DIR__ . '/Stubs/Baz.php';
+require_once __DIR__ . '/Stubs/Foo.php';
 
 /**
  * Test class for JApplicationWebRouter.

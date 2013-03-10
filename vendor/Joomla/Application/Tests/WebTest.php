@@ -11,12 +11,13 @@ use Joomla\Application\Web\Client as WebClient;
 use Joomla\Registry\Registry;
 use Joomla\Test\Config;
 use Joomla\Test\Helper;
-use Joomla\Test\WebInspector;
+
+include_once __DIR__ . '/Stubs/ConcreteWeb.php';
 
 /**
  * Test class for Joomla\Application\Web.
  *
- * @since    1.0
+ * @since  1.0
  */
 class WebTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,10 +48,10 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * An instance of the class to test.
 	 *
-	 * @var    WebInspector
+	 * @var    ConcreteWeb
 	 * @since  1.0
 	 */
-	protected $class;
+	protected $instance;
 
 	/**
 	 * Data for detectRequestUri method.
@@ -87,39 +88,6 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Setup for testing.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setUp()
-	{
-		$_SERVER['HTTP_HOST'] = self::TEST_HTTP_HOST;
-		$_SERVER['HTTP_USER_AGENT'] = self::TEST_USER_AGENT;
-		$_SERVER['REQUEST_URI'] = self::TEST_REQUEST_URI;
-		$_SERVER['SCRIPT_NAME'] = '/index.php';
-
-		// Get a new WebInspector instance.
-		$this->class = new WebInspector;
-	}
-
-	/**
-	 * Overrides the parent tearDown method.
-	 *
-	 * @return  void
-	 *
-	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   1.0
-	 */
-	protected function tearDown()
-	{
-		// Reset some web inspector static settings.
-		WebInspector::$headersSent = false;
-		WebInspector::$connectionAlive = true;
-	}
-
-	/**
 	 * Tests the Joomla\Application\Web::__construct method.
 	 *
 	 * @return  void
@@ -130,38 +98,38 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertInstanceOf(
 			'Joomla\\Input\\Input',
-			$this->class->input,
+			$this->instance->input,
 			'Input property wrong type'
 		);
 
 		$this->assertInstanceOf(
 			'Joomla\Registry\Registry',
-			Helper::getValue($this->class, 'config'),
+			Helper::getValue($this->instance, 'config'),
 			'Config property wrong type'
 		);
 
 		$this->assertInstanceOf(
 			'Joomla\\Application\\Web\\Client',
-			$this->class->client,
+			$this->instance->client,
 			'Client property wrong type'
 		);
 
 		// TODO Test that configuration data loaded.
 
 		$this->assertThat(
-			$this->class->get('execution.datetime'),
+			$this->instance->get('execution.datetime'),
 			$this->greaterThan('2001'),
 			'Tests execution.datetime was set.'
 		);
 
 		$this->assertThat(
-			$this->class->get('execution.timestamp'),
+			$this->instance->get('execution.timestamp'),
 			$this->greaterThan(1),
 			'Tests execution.timestamp was set.'
 		);
 
 		$this->assertThat(
-			$this->class->get('uri.base.host'),
+			$this->instance->get('uri.base.host'),
 			$this->equalTo('http://' . self::TEST_HTTP_HOST),
 			'Tests uri base host setting.'
 		);
@@ -200,7 +168,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 			$this->returnValue('ok')
 		);
 
-		$inspector = new WebInspector($mockInput, $mockConfig, $mockClient);
+		$inspector = new ConcreteWeb($mockInput, $mockConfig, $mockClient);
 
 		$this->assertThat(
 			$inspector->input->test(),
@@ -231,19 +199,19 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	public function testAllowCache()
 	{
 		$this->assertThat(
-			$this->class->allowCache(),
+			$this->instance->allowCache(),
 			$this->isFalse(),
 			'Return value of allowCache should be false by default.'
 		);
 
 		$this->assertThat(
-			$this->class->allowCache(true),
+			$this->instance->allowCache(true),
 			$this->isTrue(),
 			'Return value of allowCache should return the new state.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->cachable,
+			Helper::getValue($this->instance, 'response')->cachable,
 			$this->isTrue(),
 			'Checks the internal cache property has been set.'
 		);
@@ -259,22 +227,22 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	public function testAppendBody()
 	{
 		// Similulate a previous call to setBody or appendBody.
-		Helper::getValue($this->class, 'response')->body = array('foo');
+		Helper::getValue($this->instance, 'response')->body = array('foo');
 
-		$this->class->appendBody('bar');
+		$this->instance->appendBody('bar');
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->body,
+			Helper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('foo', 'bar')
 			),
 			'Checks the body array has been appended.'
 		);
 
-		$this->class->appendBody(true);
+		$this->instance->appendBody(true);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->body,
+			Helper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('foo', 'bar', '1')
 			),
@@ -293,7 +261,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Fill the header array with an arbitrary value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -302,11 +270,11 @@ class WebTest extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		$this->class->clearHeaders();
+		$this->instance->clearHeaders();
 
 		$this->assertEquals(
 			array(),
-			Helper::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->instance, 'response')->headers,
 			'Checks the headers were cleared.'
 		);
 	}
@@ -322,16 +290,16 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Make sure the application is not already closed.
 		$this->assertSame(
-			$this->class->closed,
+			$this->instance->closed,
 			null,
 			'Checks the application doesn\'t start closed.'
 		);
 
-		$this->class->close(3);
+		$this->instance->close(3);
 
 		// Make sure the application is closed with code 3.
 		$this->assertSame(
-			$this->class->closed,
+			$this->instance->closed,
 			3,
 			'Checks the application was closed with exit code 3.'
 		);
@@ -348,7 +316,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Fill the header body with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -364,25 +332,25 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Load the client encoding with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'encodings' => array('gzip', 'deflate'),
 			)
 		);
 
-		Helper::invoke($this->class, 'compress');
+		Helper::invoke($this->instance, 'compress');
 
 		// Ensure that the compressed body is shorter than the raw body.
 		$this->assertThat(
-			strlen($this->class->getBody()),
+			strlen($this->instance->getBody()),
 			$this->lessThan(471),
 			'Checks the compressed output is smaller than the uncompressed output.'
 		);
 
 		// Ensure that the compression headers were set.
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(
 				array(
 					0 => array('name' => 'Content-Encoding', 'value' => 'gzip'),
@@ -404,7 +372,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Fill the header body with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -420,25 +388,25 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Load the client encoding with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'encodings' => array('deflate', 'gzip'),
 			)
 		);
 
-		Helper::invoke($this->class, 'compress');
+		Helper::invoke($this->instance, 'compress');
 
 		// Ensure that the compressed body is shorter than the raw body.
 		$this->assertThat(
-			strlen($this->class->getBody()),
+			strlen($this->instance->getBody()),
 			$this->lessThan(471),
 			'Checks the compressed output is smaller than the uncompressed output.'
 		);
 
 		// Ensure that the compression headers were set.
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(
 				array(
 					0 => array('name' => 'Content-Encoding', 'value' => 'deflate'),
@@ -468,7 +436,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -479,25 +447,25 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Load the client encoding with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'encodings' => array(),
 			)
 		);
 
-		Helper::invoke($this->class, 'compress');
+		Helper::invoke($this->instance, 'compress');
 
 		// Ensure that the compressed body is the same as the raw body since there is no compression.
 		$this->assertThat(
-			strlen($this->class->getBody()),
+			strlen($this->instance->getBody()),
 			$this->equalTo(471),
 			'Checks the compressed output is the same as the uncompressed output -- no compression.'
 		);
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
@@ -522,7 +490,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -533,7 +501,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Load the client encoding with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'encodings' => array('gzip', 'deflate'),
@@ -541,23 +509,23 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Set the headers sent flag to true.
-		WebInspector::$headersSent = true;
+		$this->instance->headersSent = true;
 
-		Helper::invoke($this->class, 'compress');
+		Helper::invoke($this->instance, 'compress');
 
 		// Set the headers sent flag back to false.
-		WebInspector::$headersSent = false;
+		$this->instance->headersSent = false;
 
 		// Ensure that the compressed body is the same as the raw body since there is no compression.
 		$this->assertThat(
-			strlen($this->class->getBody()),
+			strlen($this->instance->getBody()),
 			$this->equalTo(471),
 			'Checks the compressed output is the same as the uncompressed output -- no compression.'
 		);
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
@@ -582,7 +550,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -593,25 +561,25 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Load the client encoding with a value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'encodings' => array('foo', 'bar'),
 			)
 		);
 
-		Helper::invoke($this->class, 'compress');
+		Helper::invoke($this->instance, 'compress');
 
 		// Ensure that the compressed body is the same as the raw body since there is no supported compression.
 		$this->assertThat(
-			strlen($this->class->getBody()),
+			strlen($this->instance->getBody()),
 			$this->equalTo(471),
 			'Checks the compressed output is the same as the uncompressed output -- no supported compression.'
 		);
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
@@ -647,107 +615,32 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		$_SERVER['QUERY_STRING'] = $queryString;
 
 		$this->assertThat(
-			Helper::invoke($this->class, 'detectRequestUri'),
+			Helper::invoke($this->instance, 'detectRequestUri'),
 			$this->equalTo($expects)
 		);
 	}
 
 	/**
-	 * Data for fetchConfigurationData method.
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	public function getFetchConfigurationData()
-	{
-		return array(
-			// Note: file, class, expectsClass, (expected result array), whether there should be an exception
-			'Default configuration class' => array(null, null, '\\Joomla\\Test\\Config', 'ConfigEval'),
-			'Custom file, invalid class' => array(JPATH_BASE . '/config.JCli-wrongclass.php', 'noclass', false, array(), true),
-		);
-	}
-
-	/**
-	 * Tests the JCli::fetchConfigurationData method.
-	 *
-	 * @param   string   $file               The name of the configuration file.
-	 * @param   string   $class              The name of the class.
-	 * @param   boolean  $expectsClass       The result is expected to be a class.
-	 * @param   array    $expects            The expected result as an array.
-	 * @param   bool     $expectedException  The expected exception.
+	 * Test the execute method
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider getFetchConfigurationData
-	 * @since    1.0
-	 */
-	public function testFetchConfigurationData($file, $class, $expectsClass, $expects, $expectedException = false)
-	{
-		if ($expectedException)
-		{
-			$this->setExpectedException('RuntimeException');
-		}
-
-		if (is_null($file) && is_null($class))
-		{
-			$config = Helper::invoke($this->class, 'fetchConfigurationData');
-		}
-		elseif (is_null($class))
-		{
-			$config = Helper::invoke($this->class, 'fetchConfigurationData', $file);
-		}
-		else
-		{
-			$config = Helper::invoke($this->class, 'fetchConfigurationData', $file, $class);
-		}
-
-		if ($expects == 'ConfigEval')
-		{
-			$expects = new Config;
-			$expects = (array) $expects;
-		}
-
-		if ($expectsClass)
-		{
-			$this->assertInstanceOf(
-				$expectsClass,
-				$config,
-				'Checks the configuration object is the appropriate class.'
-			);
-		}
-
-		$this->assertThat(
-			(array) $config,
-			$this->equalTo($expects),
-			'Checks the content of the configuration object.'
-		);
-	}
-
-	/**
-	 * Tests the Joomla\Application\Web::get method.
-	 *
-	 * @return  void
-	 *
+	 * @covers  Joomla\Application\Web::execute
 	 * @since   1.0
 	 */
-	public function testGet()
+	public function testExecute()
 	{
-		$config = new Registry(array('foo' => 'bar'));
+		$this->instance->doExecute = false;
+		$this->instance->headers = array();
 
-		Helper::setValue($this->class, 'config', $config);
+		// Check doExecute was fired.
+		$this->instance->execute();
+		$this->assertTrue($this->instance->doExecute);
 
-		$this->assertThat(
-			$this->class->get('foo', 'car'),
-			$this->equalTo('bar'),
-			'Checks a known configuration setting is returned.'
-		);
+		// Check the respond method was called.
+		$this->assertContains('Content-Type: text/html; charset=utf-8', $this->instance->headers[0]);
 
-		$this->assertThat(
-			$this->class->get('goo', 'car'),
-			$this->equalTo('car'),
-			'Checks an unknown configuration setting returns the default.'
-		);
+		// @todo Check compress
 	}
 
 	/**
@@ -761,7 +654,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Fill the header body with an arbitrary value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -771,19 +664,19 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			$this->class->getBody(),
+			$this->instance->getBody(),
 			$this->equalTo('foobar'),
 			'Checks the default state returns the body as a string.'
 		);
 
 		$this->assertThat(
-			$this->class->getBody(),
-			$this->equalTo($this->class->getBody(false)),
+			$this->instance->getBody(),
+			$this->equalTo($this->instance->getBody(false)),
 			'Checks the default state is $asArray = false.'
 		);
 
 		$this->assertThat(
-			$this->class->getBody(true),
+			$this->instance->getBody(true),
 			$this->equalTo(array('foo', 'bar')),
 			'Checks that the body is returned as an array.'
 		);
@@ -800,7 +693,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Fill the header body with an arbitrary value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -810,7 +703,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			$this->class->getHeaders(),
+			$this->instance->getHeaders(),
 			$this->equalTo(array('ok')),
 			'Checks the headers part of the response is returned correctly.'
 		);
@@ -826,15 +719,15 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	public function testGetInstance()
 	{
 		$this->assertInstanceOf(
-			'\\Joomla\\Test\\WebInspector',
-			Web::getInstance('Joomla\Test\WebInspector'),
+			'\Joomla\Application\Web',
+			Web::getInstance('Joomla\Application\Tests\ConcreteWeb'),
 			'Tests that getInstance will instantiate a valid child class of Joomla\Application\Web.'
 		);
 
-		Helper::setValue('Joomla\Test\WebInspector', 'instance', 'foo');
+		Helper::setValue('Joomla\Application\Tests\ConcreteWeb', 'instance', 'foo');
 
 		$this->assertThat(
-			Web::getInstance('Joomla\Test\WebInspector'),
+			Web::getInstance('ConcreteWeb'),
 			$this->equalTo('foo'),
 			'Tests that singleton value is returned.'
 		);
@@ -851,84 +744,9 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetInstanceException()
 	{
-		Helper::setValue($this->class, 'instance', null);
+		Helper::setValue($this->instance, 'instance', null);
 
 		Web::getInstance('Foo');
-	}
-
-	/**
-	 * Tests the Joomla\Application\Web::loadConfiguration method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testLoadConfiguration()
-	{
-		$this->assertThat(
-			$this->class->loadConfiguration(
-				array(
-					'foo' => 'bar',
-				)
-			),
-			$this->identicalTo($this->class),
-			'Check chaining.'
-		);
-
-		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('foo'),
-			$this->equalTo('bar'),
-			'Check the configuration array was loaded.'
-		);
-
-		$this->class->loadConfiguration(
-			(object) array(
-				'goo' => 'car',
-			)
-		);
-
-		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('goo'),
-			$this->equalTo('car'),
-			'Check the configuration object was loaded.'
-		);
-	}
-
-	/**
-	 * Tests the Joomla\Application\Web::loadLanguage method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testLoadLanguage()
-	{
-		$this->class->loadLanguage();
-
-		$this->assertInstanceOf(
-			'\\Joomla\\Language\\Language',
-			Helper::getValue($this->class, 'language'),
-			'Tests that the language object is the correct class.'
-		);
-
-		/* TODO: There's no test method...
-		$this->assertThat(
-			Helper::getValue($this->class, 'language')->test(),
-			$this->equalTo('ok'),
-			'Tests that we got the language from the factory.'
-		); */
-	}
-
-	/**
-	 * Tests the Joomla\Application\Web::loadSession method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testLoadSession()
-	{
-		$this->markTestIncomplete();
 	}
 
 	/**
@@ -942,36 +760,36 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Set the site_uri value in the configuration.
 		$config = new Registry(array('site_uri' => 'http://test.joomla.org/path/'));
-		Helper::setValue($this->class, 'config', $config);
+		Helper::setValue($this->instance, 'config', $config);
 
-		Helper::invoke($this->class, 'loadSystemUris');
+		Helper::invoke($this->instance, 'loadSystemUris');
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.full'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.full'),
 			$this->equalTo('http://test.joomla.org/path/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.host'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.host'),
 			$this->equalTo('http://test.joomla.org'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.path'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.path'),
 			$this->equalTo('/path/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.media.full'),
+			Helper::getValue($this->instance, 'config')->get('uri.media.full'),
 			$this->equalTo('http://test.joomla.org/path/media/'),
 			'Checks the full media uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.media.path'),
+			Helper::getValue($this->instance, 'config')->get('uri.media.path'),
 			$this->equalTo('/path/media/'),
 			'Checks the media uri path.'
 		);
@@ -986,34 +804,34 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testLoadSystemUrisWithoutSiteUriSet()
 	{
-		Helper::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
+		Helper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.full'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.host'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.path'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.media.full'),
+			Helper::getValue($this->instance, 'config')->get('uri.media.full'),
 			$this->equalTo('http://joom.la/media/'),
 			'Checks the full media uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.media.path'),
+			Helper::getValue($this->instance, 'config')->get('uri.media.path'),
 			$this->equalTo('/media/'),
 			'Checks the media uri path.'
 		);
@@ -1030,37 +848,37 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Set the media_uri value in the configuration.
 		$config = new Registry(array('media_uri' => 'http://cdn.joomla.org/media/'));
-		Helper::setValue($this->class, 'config', $config);
+		Helper::setValue($this->instance, 'config', $config);
 
-		Helper::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
+		Helper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.full'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.host'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.path'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.media.full'),
+			Helper::getValue($this->instance, 'config')->get('uri.media.full'),
 			$this->equalTo('http://cdn.joomla.org/media/'),
 			'Checks the full media uri.'
 		);
 
 		// Since this is on a different domain we need the full url for this too.
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.media.path'),
+			Helper::getValue($this->instance, 'config')->get('uri.media.path'),
 			$this->equalTo('http://cdn.joomla.org/media/'),
 			'Checks the media uri path.'
 		);
@@ -1077,37 +895,37 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Set the media_uri value in the configuration.
 		$config = new Registry(array('media_uri' => '/media/'));
-		Helper::setValue($this->class, 'config', $config);
+		Helper::setValue($this->instance, 'config', $config);
 
-		Helper::invoke($this->class, 'loadSystemUris', 'http://joom.la/application');
+		Helper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.full'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.host'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.base.path'),
+			Helper::getValue($this->instance, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.media.full'),
+			Helper::getValue($this->instance, 'config')->get('uri.media.full'),
 			$this->equalTo('http://joom.la/media/'),
 			'Checks the full media uri.'
 		);
 
 		// Since this is on a different domain we need the full url for this too.
 		$this->assertThat(
-			Helper::getValue($this->class, 'config')->get('uri.media.path'),
+			Helper::getValue($this->instance, 'config')->get('uri.media.path'),
 			$this->equalTo('/media/'),
 			'Checks the media uri path.'
 		);
@@ -1123,22 +941,22 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	public function testPrependBody()
 	{
 		// Similulate a previous call to a body method.
-		Helper::getValue($this->class, 'response')->body = array('foo');
+		Helper::getValue($this->instance, 'response')->body = array('foo');
 
-		$this->class->prependBody('bar');
+		$this->instance->prependBody('bar');
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->body,
+			Helper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('bar', 'foo')
 			),
 			'Checks the body array has been prepended.'
 		);
 
-		$this->class->prependBody(true);
+		$this->instance->prependBody(true);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->body,
+			Helper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('1', 'bar', 'foo')
 			),
@@ -1160,7 +978,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Inject the client information.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'engine' => WebClient::GECKO,
@@ -1171,12 +989,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		$config = new Registry;
 		$config->set('uri.base.full', $base);
 
-		Helper::setValue($this->class, 'config', $config);
+		Helper::setValue($this->instance, 'config', $config);
 
-		$this->class->redirect($url, false);
+		$this->instance->redirect($url, false);
 
 		$this->assertThat(
-			$this->class->headers,
+			$this->instance->headers,
 			$this->equalTo(
 				array(
 					array('HTTP/1.1 303 See other', true, null),
@@ -1200,17 +1018,17 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		$url = 'index.php';
 
 		// Emulate headers already sent.
-		WebInspector::$headersSent = true;
+		$this->instance->headersSent = true;
 
 		// Inject the internal configuration.
 		$config = new Registry;
 		$config->set('uri.base.full', $base);
 
-		Helper::setValue($this->class, 'config', $config);
+		Helper::setValue($this->instance, 'config', $config);
 
 		// Capture the output for this test.
 		ob_start();
-		$this->class->redirect('index.php');
+		$this->instance->redirect('index.php');
 		$buffer = ob_get_contents();
 		ob_end_clean();
 
@@ -1233,7 +1051,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Inject the client information.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'engine' => WebClient::TRIDENT,
@@ -1242,7 +1060,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Capture the output for this test.
 		ob_start();
-		$this->class->redirect($url);
+		$this->instance->redirect($url);
 		$buffer = ob_get_contents();
 		ob_end_clean();
 
@@ -1270,17 +1088,17 @@ class WebTest extends \PHPUnit_Framework_TestCase
 
 		// Inject the client information.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'engine' => WebClient::GECKO,
 			)
 		);
 
-		$this->class->redirect($url, true);
+		$this->instance->redirect($url, true);
 
 		$this->assertThat(
-			$this->class->headers,
+			$this->instance->headers,
 			$this->equalTo(
 				array(
 					array('HTTP/1.1 301 Moved Permanently', true, null),
@@ -1308,7 +1126,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Inject the client information.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'client',
 			(object) array(
 				'engine' => WebClient::GECKO,
@@ -1320,12 +1138,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		$config->set('uri.base.full', $base);
 		$config->set('uri.request', $request);
 
-		Helper::setValue($this->class, 'config', $config);
+		Helper::setValue($this->instance, 'config', $config);
 
-		$this->class->redirect($url, false);
+		$this->instance->redirect($url, false);
 
 		$this->assertThat(
-			$this->class->headers[1][0],
+			$this->instance->headers[1][0],
 			$this->equalTo('Location: ' . $expected)
 		);
 	}
@@ -1352,51 +1170,25 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	public function testSendHeaders()
 	{
 		// Similulate a previous call to a setHeader method.
-		Helper::getValue($this->class, 'response')->headers = array(
+		Helper::getValue($this->instance, 'response')->headers = array(
 			array('name' => 'Status', 'value' => 200),
 			array('name' => 'X-JWeb-SendHeaders', 'value' => 'foo'),
 		);
 
 		$this->assertThat(
-			$this->class->sendHeaders(),
-			$this->identicalTo($this->class),
+			$this->instance->sendHeaders(),
+			$this->identicalTo($this->instance),
 			'Check chaining.'
 		);
 
 		$this->assertThat(
-			$this->class->headers,
+			$this->instance->headers,
 			$this->equalTo(
 				array(
 					array('Status: 200', null, 200),
 					array('X-JWeb-SendHeaders: foo', true, null),
 				)
 			)
-		);
-	}
-
-	/**
-	 * Tests the Joomla\Application\Web::set method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testSet()
-	{
-		$config = new Registry(array('foo' => 'bar'));
-
-		Helper::setValue($this->class, 'config', $config);
-
-		$this->assertThat(
-			$this->class->set('foo', 'car'),
-			$this->equalTo('bar'),
-			'Checks set returns the previous value.'
-		);
-
-		$this->assertThat(
-			$config->get('foo'),
-			$this->equalTo('car'),
-			'Checks the new value has been set.'
 		);
 	}
 
@@ -1409,20 +1201,20 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetBody()
 	{
-		$this->class->setBody('foo');
+		$this->instance->setBody('foo');
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->body,
+			Helper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('foo')
 			),
 			'Checks the body array has been reset.'
 		);
 
-		$this->class->setBody(true);
+		$this->instance->setBody(true);
 
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->body,
+			Helper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('1')
 			),
@@ -1441,7 +1233,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	{
 		// Fill the header body with an arbitrary value.
 		Helper::setValue(
-			$this->class,
+			$this->instance,
 			'response',
 			(object) array(
 				'cachable' => null,
@@ -1452,9 +1244,9 @@ class WebTest extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		$this->class->setHeader('foo', 'car');
+		$this->instance->setHeader('foo', 'car');
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(
 				array(
 					array('name' => 'foo', 'value' => 'bar'),
@@ -1464,9 +1256,9 @@ class WebTest extends \PHPUnit_Framework_TestCase
 			'Tests that a header is added.'
 		);
 
-		$this->class->setHeader('foo', 'car', true);
+		$this->instance->setHeader('foo', 'car', true);
 		$this->assertThat(
-			Helper::getValue($this->class, 'response')->headers,
+			Helper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(
 				array(
 					array('name' => 'foo', 'value' => 'car')
@@ -1474,6 +1266,23 @@ class WebTest extends \PHPUnit_Framework_TestCase
 			),
 			'Tests that headers of the same name are replaced.'
 		);
+	}
+
+	/**
+	 * Tests the setSession method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Application\Web::getSession
+	 * @covers  Joomla\Application\Web::setSession
+	 * @since   1.0
+	 */
+	public function testSetSession()
+	{
+		$mockSession = $this->getMock('Joomla\Session\Session', array('test'), array(), '', false);
+
+		$this->assertSame($this->instance, $this->instance->setSession($mockSession), 'Checks chainging.');
+		$this->assertNull($this->instance->getSession()->test(), 'Checks the session was set with the new object.');
 	}
 
 	/**
@@ -1488,15 +1297,33 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		unset($_SERVER['HTTPS']);
 
 		$this->assertThat(
-			$this->class->isSSLConnection(),
+			$this->instance->isSSLConnection(),
 			$this->equalTo(false)
 		);
 
 		$_SERVER['HTTPS'] = 'on';
 
 		$this->assertThat(
-			$this->class->isSSLConnection(),
+			$this->instance->isSSLConnection(),
 			$this->equalTo(true)
 		);
+	}
+
+	/**
+	 * Setup for testing.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setUp()
+	{
+		$_SERVER['HTTP_HOST'] = self::TEST_HTTP_HOST;
+		$_SERVER['HTTP_USER_AGENT'] = self::TEST_USER_AGENT;
+		$_SERVER['REQUEST_URI'] = self::TEST_REQUEST_URI;
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
+
+		// Get a new ConcreteWeb instance.
+		$this->instance = new ConcreteWeb;
 	}
 }
