@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use Joomla\Registry\Registry;
 /**
  * APC cache driver for the Joomla Platform.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Apc extends Cache
@@ -20,7 +18,7 @@ class Apc extends Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Caching options object.
+	 * @param   Registry  $options  Caching options object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

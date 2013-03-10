@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -10,7 +9,6 @@ namespace Joomla\Crypt;
 /**
  * JCrypt cipher interface.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 interface Cipher
@@ -18,8 +16,8 @@ interface Cipher
 	/**
 	 * Method to decrypt a data string.
 	 *
-	 * @param   string     $data  The encrypted string to decrypt.
-	 * @param   JCryptKey  $key   The key[/pair] object to use for decryption.
+	 * @param   string  $data  The encrypted string to decrypt.
+	 * @param   Key     $key   The key[/pair] object to use for decryption.
 	 *
 	 * @return  string  The decrypted data string.
 	 *
@@ -30,8 +28,8 @@ interface Cipher
 	/**
 	 * Method to encrypt a data string.
 	 *
-	 * @param   string     $data  The data string to encrypt.
-	 * @param   JCryptKey  $key   The key[/pair] object to use for encryption.
+	 * @param   string  $data  The data string to encrypt.
+	 * @param   Key     $key   The key[/pair] object to use for encryption.
 	 *
 	 * @return  string  The encrypted data string.
 	 *
@@ -44,7 +42,7 @@ interface Cipher
 	 *
 	 * @param   array  $options  Key generation options.
 	 *
-	 * @return  JCryptKey
+	 * @return  Key
 	 *
 	 * @since   1.0
 	 */

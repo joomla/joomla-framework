@@ -1,31 +1,27 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Archive;
 
-
 use Joomla\Factory;
 use Joomla\Filesystem\Path;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
-use Exception;
-use InvalidArgumentException;
-use UnexpectedValueException;
 
 /**
  * An Archive handling class
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Archive
 {
 	/**
-	 * @var    array  The array of instantiated archive adapters.
+	 * The array of instantiated archive adapters.
+	 *
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected static $adapters = array();
@@ -39,7 +35,7 @@ class Archive
 	 * @return  boolean  True for success
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	public static function extract($archivename, $extractdir)
 	{
@@ -88,7 +84,7 @@ class Archive
 					$tmpfname = $config->get('tmp_path') . '/' . uniqid('gzip');
 					$gzresult = $adapter->extract($archivename, $tmpfname);
 
-					if ($gzresult instanceof Exception)
+					if ($gzresult instanceof \Exception)
 					{
 						@unlink($tmpfname);
 
@@ -131,7 +127,7 @@ class Archive
 					$tmpfname = $config->get('tmp_path') . '/' . uniqid('bzip2');
 					$bzresult = $adapter->extract($archivename, $tmpfname);
 
-					if ($bzresult instanceof Exception)
+					if ($bzresult instanceof \Exception)
 					{
 						@unlink($tmpfname);
 
@@ -160,10 +156,10 @@ class Archive
 				break;
 
 			default:
-				throw new InvalidArgumentException('Unknown Archive Type');
+				throw new \InvalidArgumentException('Unknown Archive Type');
 		}
 
-		if (!$result || $result instanceof Exception)
+		if (!$result || $result instanceof \Exception)
 		{
 			return false;
 		}
@@ -179,7 +175,7 @@ class Archive
 	 * @return  JArchiveExtractable  Adapter for the requested type
 	 *
 	 * @since   1.0
-	 * @throws  UnexpectedValueException
+	 * @throws  \UnexpectedValueException
 	 */
 	public static function getAdapter($type)
 	{
@@ -190,7 +186,7 @@ class Archive
 
 			if (!class_exists($class))
 			{
-				throw new UnexpectedValueException('Unable to load archive', 500);
+				throw new \UnexpectedValueException('Unable to load archive', 500);
 			}
 
 			self::$adapters[$type] = new $class;

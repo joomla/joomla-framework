@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -10,14 +9,11 @@ namespace Joomla\Application;
 use Joomla\Log\Log;
 use Joomla\Filesystem\Folder;
 use Joomla\Registry\Registry;
-use RuntimeException;
-
 use Joomla\Input\Cli as InputCli;
 
 /**
  * Class to turn Cli applications into daemons.  It requires CLI and PCNTL support built into PHP.
  *
- * @package  Joomla\Framework
  * @see      http://www.php.net/manual/en/book.pcntl.php
  * @see      http://php.net/manual/en/features.commandline.php
  * @since    1.0
@@ -95,15 +91,15 @@ abstract class Daemon extends Cli
 	/**
 	 * Class constructor.
 	 *
-	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
-	 *                          input object.  If the argument is a InputCli object that object will become
-	 *                          the application's input object, otherwise a default input object is created.
-	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
-	 *                          config object.  If the argument is a Registry object that object will become
-	 *                          the application's config object, otherwise a default config object is created.
+	 * @param   InputCli  $input   An optional argument to provide dependency injection for the application's
+	 *                             input object.  If the argument is a InputCli object that object will become
+	 *                             the application's input object, otherwise a default input object is created.
+	 * @param   Registry  $config  An optional argument to provide dependency injection for the application's
+	 *                             config object.  If the argument is a Registry object that object will become
+	 *                             the application's config object, otherwise a default config object is created.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(InputCli $input = null, Registry $config = null)
 	{
@@ -112,14 +108,14 @@ abstract class Daemon extends Cli
 		if (!defined('SIGHUP'))
 		{
 			Log::add('The PCNTL extension for PHP is not available.', Log::ERROR);
-			throw new RuntimeException('The PCNTL extension for PHP is not available.');
+			throw new \RuntimeException('The PCNTL extension for PHP is not available.');
 		}
 
 		// Verify that POSIX support for PHP is available.
 		if (!function_exists('posix_getpid'))
 		{
 			Log::add('The POSIX extension for PHP is not available.', Log::ERROR);
-			throw new RuntimeException('The POSIX extension for PHP is not available.');
+			throw new \RuntimeException('The POSIX extension for PHP is not available.');
 		}
 
 		// @codeCoverageIgnoreEnd
@@ -159,7 +155,7 @@ abstract class Daemon extends Cli
 		if (!is_subclass_of(static::$instance, __CLASS__))
 		{
 			Log::add('Cannot find the application instance.', Log::EMERGENCY);
-			throw new RuntimeException('Cannot find the application instance.');
+			throw new \RuntimeException('Cannot find the application instance.');
 		}
 
 		// Fire the onReceiveSignal event.
@@ -534,7 +530,7 @@ abstract class Daemon extends Cli
 				$this->parentId = $this->processId;
 			}
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			Log::add('Unable to fork.', Log::EMERGENCY);
 
@@ -639,7 +635,7 @@ abstract class Daemon extends Cli
 		// If the fork failed, throw an exception.
 		if ($pid === -1)
 		{
-			throw new RuntimeException('The process could not be forked.');
+			throw new \RuntimeException('The process could not be forked.');
 		}
 		elseif ($pid === 0)
 		// Update the process id for the child.

@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -15,7 +14,6 @@ use Joomla\Database\Driver;
  * Provides a list of available database connections, optionally limiting to
  * a given list.
  *
- * @package  Joomla\Framework
  * @see      JDatabaseDriver
  * @since    1.0
  */

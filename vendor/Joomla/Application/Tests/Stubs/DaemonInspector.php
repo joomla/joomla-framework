@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Tests
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use Joomla\Application\Daemon;
 /**
  * Inspector for the Joomla\Application\Daemon class.
  *
- * @package  Joomla\Framework\Tests
  * @since    1.0
  */
 class DaemonInspector extends Daemon

@@ -1,27 +1,24 @@
-## The Controller Package
+# The Controller Package
 
-### Interfaces
+## Interfaces
 
-#### JController
+### `Controller\Controller`
 
-`JController` is an interface that requires a class to be implemented with
+`Controller\Controller` is an interface that requires a class to be implemented with
 an `execute`, a `getApplication` and a `getInput` method.
 
-### Classes
+## Classes
 
-#### JControllerBase
+### `Controller\Base`
 
-##### Construction
+#### Construction
 
-The constructor for `JControllerBase` takes an optional `JInput` object and
-an optional `JApplciationBase` object. If either is omitted, the
-constructor defers to the protected `loadInput` and `loadApplication`
-methods respectively. These methods can be overriden in derived classes
-if the default application and request input is not appropriate.
+The constructor for `Controller\Base` takes an optional `Joomla\Input\Input` object and
+an optional `Joomla\Applciation\Base` object. One or the other can be omitted but using `getApplication` or `getInput` without setting them will throw an exception.
 
-##### Usage
+#### Usage
 
-The `JControllerBase` class is abstract so cannot be used directly. The
+The `Controller\Base` class is abstract so cannot be used directly. The
 derived class must implement the execute method to satisfy the interface
 requirements. Note that the execute method no longer takes a "task"
 argument as each controller class. Multi-task controllers are still
@@ -32,22 +29,25 @@ even models and views, have the liberty of invoking other controllers to
 allow for HMVC architectures.
 
 ```php
+namespace Examples;
+
+use Joomla\Application;
+use Joomla\Input;
+
 /**
  * My custom controller.
  *
- * @package  Examples
- *
- * @since   1.0
+ * @since  1.0
  */
-class MyController extends JControllerBase
+class MyController extends Controller\Base
 {
 	/**
-	 * Method to execute the controller.
+	 * Executes the controller.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -55,16 +55,20 @@ class MyController extends JControllerBase
 	}
 }
 
+// We'll assume we've already defined an application in this namespace. 
+$app = new ExampleApplication;
+$input = new Input\Input;
+
 // Instantiate the controller.
-$controller = new MyController;
+$controller = new MyController($input, $app);
 
 // Print the time.
 $controller->execute();
 ```
 
-##### Serialization
+#### Serialization
 
-The `JControllerBase` class implements `Serializable`. When serializing,
+The `Controller\Base` class implements `Serializable`. When serializing,
 only the input property is serialized. When unserializing, the input
 variable is unserialized and the internal application property is loaded
 at runtime.

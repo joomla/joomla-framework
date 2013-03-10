@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -16,7 +15,6 @@ use Joomla\Filesystem\Path;
  * Provides a storage for filesystem's paths where JForm's entities reside and methods for creating those entities.
  * Also stores objects with entities' prototypes for further reusing.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Helper

@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -14,7 +13,6 @@ require_once __DIR__ . '/stubs/tbase.php';
 /**
  * Tests for the Joomla\View\Base class.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
 class BaseTest extends \PHPUnit_Framework_TestCase

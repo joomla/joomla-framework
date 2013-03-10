@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -8,12 +7,10 @@
 namespace Joomla\Client;
 
 use Joomla\Factory;
-use InvalidArgumentException;
 
 /**
  * Client helper class
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Helper
@@ -202,7 +199,7 @@ class Helper
 	 * @return  boolean  True on success, false on failure.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if credentials invalid
+	 * @throws  \InvalidArgumentException if credentials invalid
 	 */
 	public static function setCredentialsFromRequest($client)
 	{
@@ -220,7 +217,7 @@ class Helper
 			}
 			else
 			{
-				throw new InvalidArgumentException('Invalid user credentials');
+				throw new \InvalidArgumentException('Invalid user credentials');
 			}
 		}
 		else

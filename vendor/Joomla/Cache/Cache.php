@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use Joomla\Registry\Registry;
 /**
  * Joomla! Caching Class
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 abstract class Cache
@@ -24,7 +22,7 @@ abstract class Cache
 	static protected $runtime = array();
 
 	/**
-	 * @var    JRegistry  The options for the cache object.
+	 * @var    Registry  The options for the cache object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -32,7 +30,7 @@ abstract class Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Caching options object.
+	 * @param   Registry  $options  Caching options object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

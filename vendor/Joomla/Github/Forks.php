@@ -1,18 +1,14 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Github;
 
-use DomainException;
-
 /**
  * GitHub API Forks class for the Joomla Platform.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Forks extends Object
@@ -27,7 +23,6 @@ class Forks extends Object
 	 * @return  object
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
 	 */
 	public function create($user, $repo, $org = '')
 	{
@@ -46,17 +41,7 @@ class Forks extends Object
 		}
 
 		// Send the request.
-		$response = $this->client->post($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 202)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), $data), 202);
 	}
 
 	/**
@@ -70,7 +55,6 @@ class Forks extends Object
 	 * @return  array
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
 	 */
 	public function getList($user, $repo, $page = 0, $limit = 0)
 	{
@@ -78,16 +62,6 @@ class Forks extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/forks';
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path, $page, $limit));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
 	}
 }

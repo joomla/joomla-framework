@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -27,7 +26,6 @@ use DateTimeZone;
  * @property-read  string   $week          W - Numeric representation of the day of the week.
  * @property-read  string   $year          Y - A full numeric representation of a year, 4 digits.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Date extends DateTime

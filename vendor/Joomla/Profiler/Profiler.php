@@ -1,158 +1,420 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Profiler;
 
+use Joomla\Profiler\Renderer\DefaultRenderer;
+use InvalidArgumentException;
+use LogicException;
+use ArrayIterator;
+use IteratorAggregate;
+use Countable;
+
 /**
- * Utility class to assist in the process of benchmarking the execution
- * of sections of code to understand where time is being spent.
+ * Implementation of ProfilerInterface.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
-class Profiler
+class Profiler implements ProfilerInterface, IteratorAggregate, Countable
 {
 	/**
-	 * The start time.
+	 * The name of the profiler.
 	 *
-	 * @var    integer
-	 * @since  1.0
+	 * @var  string
 	 */
-	protected $start = 0;
+	protected $name;
 
 	/**
-	 * The prefix to use in the output.
+	 * An array of profiler points (from the first to last).
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @var  ProfilePointInterface[]
 	 */
-	protected $prefix = '';
+	protected $points;
 
 	/**
-	 * The buffer of profiling messages.
+	 * A lookup array containing the
+	 * names of the already marked points as keys
+	 * and their indexes in $points as value.
+	 * It is used to quickly find a point
+	 * without having to traverse $points.
 	 *
-	 * @var    array
-	 * @since  1.0
+	 * @var  array
 	 */
-	protected $buffer = null;
+	protected $lookup = array();
 
 	/**
-	 * @var    float
-	 * @since  1.0
+	 * A flag to see if we must get
+	 * the real memory usage, or the usage of emalloc().
+	 *
+	 * @var  boolean
 	 */
-	protected $previousTime = 0.0;
+	protected $memoryRealUsage;
 
 	/**
-	 * @var    float
-	 * @since  1.0
+	 * The timestamp with microseconds
+	 * when the first point was marked.
+	 *
+	 * @var  float
 	 */
-	protected $previousMem = 0.0;
+	protected $startTimeStamp = 0.0;
 
 	/**
-	 * Profiler instances container.
+	 * The memory usage in bytes
+	 * when the first point was marked.
 	 *
-	 * @var    array
-	 * @since  1.0
+	 * @var  integer
 	 */
-	protected static $instances = array();
+	protected $startMemoryBytes = 0;
 
 	/**
-	 * Constructor
+	 * The memory peak in bytes during
+	 * the profiler run.
 	 *
-	 * @param   string  $prefix  Prefix for mark messages
-	 *
-	 * @since  1.0
+	 * @var  integer
 	 */
-	protected function __construct($prefix = '')
+	protected $memoryPeakBytes;
+
+	/**
+	 * The profiler renderer.
+	 *
+	 * @var  ProfilerRendererInterface
+	 */
+	protected $renderer;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param   string                     $name             The profiler name.
+	 * @param   ProfilerRendererInterface  $renderer         The renderer.
+	 * @param   ProfilePointInterface[]    $points           An array of profile points.
+	 * @param   boolean                    $memoryRealUsage  True to get the real memory usage.
+	 *
+	 * @throws  InvalidArgumentException
+	 */
+	public function __construct($name, ProfilerRendererInterface $renderer = null, array $points = array(), $memoryRealUsage = false)
 	{
-		$this->start = $this->getmicrotime();
-		$this->prefix = $prefix;
-		$this->buffer = array();
-	}
+		$this->name = $name;
+		$this->renderer = $renderer ? : new DefaultRenderer;
 
-	/**
-	 * Returns the global Profiler object, only creating it
-	 * if it doesn't already exist.
-	 *
-	 * @param   string  $prefix  Prefix used to distinguish profiler objects.
-	 *
-	 * @return  Profiler  The Profiler object.
-	 *
-	 * @since   1.0
-	 */
-	public static function getInstance($prefix = '')
-	{
-		if (empty(self::$instances[$prefix]))
+		if (empty($points))
 		{
-			self::$instances[$prefix] = new self($prefix);
+			$this->points = array();
 		}
 
-		return self::$instances[$prefix];
+		else
+		{
+			$this->setPoints($points);
+		}
+
+		$this->memoryRealUsage = (bool) $memoryRealUsage;
 	}
 
 	/**
-	 * Output a time mark
+	 * Set the points in this profiler.
+	 * This function is called by the constructor when injecting an array of points
+	 * (mostly for testing purposes).
 	 *
-	 * The mark is returned as text enclosed in <div> tags
-	 * with a CSS class of 'profiler'.
+	 * @param   ProfilePointInterface[]  $points  An array of profile points.
 	 *
-	 * @param   string  $label  A label for the time mark
+	 * @return  void
 	 *
-	 * @return  string  Mark enclosed in <div> tags
-	 *
-	 * @since   1.0
+	 * @throws  InvalidArgumentException
 	 */
-	public function mark($label)
+	protected function setPoints(array $points)
 	{
-		$current = self::getmicrotime() - $this->start;
-		$currentMem = 0;
+		foreach ($points as $point)
+		{
+			if (!($point instanceof ProfilePointInterface))
+			{
+				throw new InvalidArgumentException(
+					'One of the passed point does not implement ProfilePointInterface.'
+				);
+			}
 
-		$currentMem = memory_get_usage() / 1048576;
-		$mark = sprintf(
-			'<code>%s %.3f seconds (+%.3f); %0.2f MB (%s%0.3f) - %s</code>',
-			$this->prefix,
-			$current,
-			$current - $this->previousTime,
-			$currentMem,
-			($currentMem > $this->previousMem) ? '+' : '', $currentMem - $this->previousMem,
-			$label
+			if (isset($this->lookup[$point->getName()]))
+			{
+				throw new InvalidArgumentException(
+					sprintf(
+						'The point %s already exists in the profiler %s.',
+						$point->getName(),
+						$this->name
+					)
+				);
+			}
+
+			// Store the point.
+			$this->points[] = $point;
+
+			// Add it in the lookup table.
+			$this->lookup[$point->getName()] = count($this->points) - 1;
+		}
+	}
+
+	/**
+	 * Get the name of this profiler.
+	 *
+	 * @return  string  The name of this profiler.
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Mark a profile point.
+	 *
+	 * @param   string  $name  The profile point name.
+	 *
+	 * @return  ProfilerInterface  This method is chainable.
+	 *
+	 * @throws  InvalidArgumentException  If the point already exists.
+	 */
+	public function mark($name)
+	{
+		// If a point already exists with this name.
+		if (isset($this->lookup[$name]))
+		{
+			throw new InvalidArgumentException(
+				sprintf(
+					'A point already exists with the name %s in the profiler %s.',
+					$name,
+					$this->name
+				)
+			);
+		}
+
+		// Update the memory peak (it cannot decrease).
+		$this->memoryPeakBytes = memory_get_peak_usage($this->memoryRealUsage);
+
+		// Get the current timestamp and allocated memory amount.
+		$timeStamp = microtime(true);
+		$memoryBytes = memory_get_usage($this->memoryRealUsage);
+
+		// If this is the first point.
+		if (empty($this->points))
+		{
+			$this->startTimeStamp = $timeStamp;
+			$this->startMemoryBytes = $memoryBytes;
+		}
+
+		// Create the point.
+		$point = new ProfilePoint(
+			$name,
+			$timeStamp - $this->startTimeStamp,
+			$memoryBytes - $this->startMemoryBytes
 		);
 
-		$this->previousTime = $current;
-		$this->previousMem = $currentMem;
-		$this->buffer[] = $mark;
+		// Store it.
+		$this->points[] = $point;
 
-		return $mark;
+		// Store the point name and its key in $points, in the lookup array.
+		$this->lookup[$name] = count($this->points) - 1;
+
+		return $this;
 	}
 
 	/**
-	 * Get the current time.
+	 * Check if the profiler has marked the given point.
 	 *
-	 * @return  float The current time
+	 * @param   string  $name  The name of the point.
 	 *
-	 * @since   1.0
+	 * @return  boolean  True if the profiler has marked the point, false otherwise.
 	 */
-	public static function getmicrotime()
+	public function hasPoint($name)
 	{
-		list ($usec, $sec) = explode(' ', microtime());
-
-		return ((float) $usec + (float) $sec);
+		return isset($this->lookup[$name]);
 	}
 
 	/**
-	 * Get all profiler marks.
+	 * Get the point identified by the given name.
 	 *
-	 * Returns an array of all marks created since the Profiler object
-	 * was instantiated.  Marks are strings as per {@link Profiler::mark()}.
+	 * @param   string  $name     The name of the point.
+	 * @param   mixed   $default  The default value if the point hasn't been marked.
 	 *
-	 * @return  array  Array of profiler marks
+	 * @return  ProfilePointInterface|mixed  The profile point or the default value.
 	 */
-	public function getBuffer()
+	public function getPoint($name, $default = null)
 	{
-		return $this->buffer;
+		if (isset($this->lookup[$name]))
+		{
+			$index = $this->lookup[$name];
+
+			return $this->points[$index];
+		}
+
+		return $default;
+	}
+
+	/**
+	 * Get the elapsed time in seconds between the two points.
+	 *
+	 * @param   string  $first   The name of the first point.
+	 * @param   string  $second  The name of the second point.
+	 *
+	 * @return  float  The elapsed time between these points in seconds.
+	 *
+	 * @throws  LogicException  If the points were not marked.
+	 */
+	public function getTimeBetween($first, $second)
+	{
+		if (!isset($this->lookup[$first]))
+		{
+			throw new LogicException(
+				sprintf(
+					'The point %s was not marked in the profiler %s.',
+					$first,
+					$this->name
+				)
+			);
+		}
+
+		if (!isset($this->lookup[$second]))
+		{
+			throw new LogicException(
+				sprintf(
+					'The point %s was not marked in the profiler %s.',
+					$second,
+					$this->name
+				)
+			);
+		}
+
+		$indexFirst = $this->lookup[$first];
+		$indexSecond = $this->lookup[$second];
+
+		$firstPoint = $this->points[$indexFirst];
+		$secondPoint = $this->points[$indexSecond];
+
+		return abs($secondPoint->getTime() - $firstPoint->getTime());
+	}
+
+	/**
+	 * Get the amount of allocated memory in bytes between the two points.
+	 *
+	 * @param   string  $first   The name of the first point.
+	 * @param   string  $second  The name of the second point.
+	 *
+	 * @return  integer  The amount of allocated memory between these points in bytes.
+	 *
+	 * @throws  LogicException  If the points were not marked.
+	 */
+	public function getMemoryBytesBetween($first, $second)
+	{
+		if (!isset($this->lookup[$first]))
+		{
+			throw new LogicException(
+				sprintf(
+					'The point %s was not marked in the profiler %s.',
+					$first,
+					$this->name
+				)
+			);
+		}
+
+		if (!isset($this->lookup[$second]))
+		{
+			throw new LogicException(
+				sprintf(
+					'The point %s was not marked in the profiler %s.',
+					$second,
+					$this->name
+				)
+			);
+		}
+
+		$indexFirst = $this->lookup[$first];
+		$indexSecond = $this->lookup[$second];
+
+		$firstPoint = $this->points[$indexFirst];
+		$secondPoint = $this->points[$indexSecond];
+
+		return abs($secondPoint->getMemoryBytes() - $firstPoint->getMemoryBytes());
+	}
+
+	/**
+	 * Get the memory peak in bytes during the profiler run.
+	 *
+	 * @return  integer  The memory peak in bytes.
+	 */
+	public function getMemoryPeakBytes()
+	{
+		return $this->memoryPeakBytes;
+	}
+
+	/**
+	 * Get the points in this profiler (from the first to the last).
+	 *
+	 * @return  ProfilePointInterface[]  An array of points in this profiler.
+	 */
+	public function getPoints()
+	{
+		return $this->points;
+	}
+
+	/**
+	 * Set the renderer to render this profiler.
+	 *
+	 * @param   ProfilerRendererInterface  $renderer  The renderer.
+	 *
+	 * @return  Profiler  This method is chainable.
+	 */
+	public function setRenderer(ProfilerRendererInterface $renderer)
+	{
+		$this->renderer = $renderer;
+
+		return $this;
+	}
+
+	/**
+	 * Get the currently used renderer in this profiler.
+	 *
+	 * @return  ProfilerRendererInterface  The renderer.
+	 */
+	public function getRenderer()
+	{
+		return $this->renderer;
+	}
+
+	/**
+	 * Render the profiler.
+	 *
+	 * @return  string  The rendered profiler.
+	 */
+	public function render()
+	{
+		return $this->renderer->render($this);
+	}
+
+	/**
+	 * Cast the profiler to a string using the renderer.
+	 *
+	 * @return  string  The rendered profiler.
+	 */
+	public function __toString()
+	{
+		return $this->render();
+	}
+
+	/**
+	 * Get an iterator on the profiler points.
+	 *
+	 * @return  ArrayIterator  An iterator on the profiler points.
+	 */
+	public function getIterator()
+	{
+		return new ArrayIterator($this->points);
+	}
+
+	/**
+	 * Count the number of points in this profiler.
+	 *
+	 * @return  integer  The number of points.
+	 */
+	public function count()
+	{
+		return count($this->points);
 	}
 }

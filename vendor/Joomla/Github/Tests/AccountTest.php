@@ -1,19 +1,20 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github\Tests;
+
+use Joomla\Github\Account;
 use Joomla\Registry\Registry;
 
 /**
- * Test class for JGithubAccount.
+ * Test class for Joomla\Github\Account.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class JGithubAccountTest extends PHPUnit_Framework_TestCase
+class AccountTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
@@ -22,13 +23,19 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    Joomla\Github\Http  Mock client object.
+	 * @var    \Joomla\Github\Http  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    JGithubAccount  Object under test.
+	 * @var    \Joomla\Http\Response  Mock response object.
+	 * @since  1.0
+	 */
+	protected $response;
+
+	/**
+	 * @var    Account  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -58,9 +65,10 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
-		$this->object = new JGithubAccount($this->options, $this->client);
+		$this->object = new Account($this->options, $this->client);
 	}
 
 	/**
@@ -72,11 +80,10 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCreateAuthorisation()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 201;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
 
-		$authorisation = new stdClass;
+		$authorisation = new \stdClass;
 		$authorisation->scopes = array('public_repo');
 		$authorisation->note = 'My test app';
 		$authorisation->note_url = 'http://www.joomla.org';
@@ -84,7 +91,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/authorizations', json_encode($authorisation))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->createAuthorisation(array('public_repo'), 'My test app', 'http://www.joomla.org'),
@@ -97,17 +104,15 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  DomainException
 	 */
 	public function testCreateAuthorisationFailure()
 	{
-		$exception = false;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		$authorisation = new stdClass;
+		$authorisation = new \stdClass;
 		$authorisation->scopes = array('public_repo');
 		$authorisation->note = 'My test app';
 		$authorisation->note_url = 'http://www.joomla.org';
@@ -115,22 +120,9 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/authorizations', json_encode($authorisation))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
-		try
-		{
-			$this->object->createAuthorisation(array('public_repo'), 'My test app', 'http://www.joomla.org');
-		}
-		catch (DomainException $e)
-		{
-			$exception = true;
-
-			$this->assertThat(
-				$e->getMessage(),
-				$this->equalTo(json_decode($this->errorString)->message)
-			);
-		}
-		$this->assertTrue($exception);
+		$this->object->createAuthorisation(array('public_repo'), 'My test app', 'http://www.joomla.org');
 	}
 
 	/**
@@ -142,14 +134,13 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDeleteAuthorisation()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 204;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('delete')
 			->with('/authorizations/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->deleteAuthorisation(42),
@@ -162,35 +153,20 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  DomainException
 	 */
 	public function testDeleteAuthorisationFailure()
 	{
-		$exception = false;
-
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('delete')
 			->with('/authorizations/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
-		try
-		{
-			$this->object->deleteAuthorisation(42);
-		}
-		catch (DomainException $e)
-		{
-			$exception = true;
-
-			$this->assertThat(
-				$e->getMessage(),
-				$this->equalTo(json_decode($this->errorString)->message)
-			);
-		}
-		$this->assertTrue($exception);
+		$this->object->deleteAuthorisation(42);
 	}
 
 	/**
@@ -202,11 +178,10 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEditAuthorisationAddScopes()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
-		$authorisation = new stdClass;
+		$authorisation = new \stdClass;
 		$authorisation->add_scopes = array('public_repo', 'gist');
 		$authorisation->note = 'My test app';
 		$authorisation->note_url = 'http://www.joomla.org';
@@ -214,7 +189,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/authorizations/42', json_encode($authorisation))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->editAuthorisation(42, array(), array('public_repo', 'gist'), array(), 'My test app', 'http://www.joomla.org'),
@@ -231,11 +206,10 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEditAuthorisationRemoveScopes()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
-		$authorisation = new stdClass;
+		$authorisation = new \stdClass;
 		$authorisation->remove_scopes = array('public_repo', 'gist');
 		$authorisation->note = 'My test app';
 		$authorisation->note_url = 'http://www.joomla.org';
@@ -243,7 +217,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/authorizations/42', json_encode($authorisation))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->editAuthorisation(42, array(), array(), array('public_repo', 'gist'), 'My test app', 'http://www.joomla.org'),
@@ -260,11 +234,10 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEditAuthorisationScopes()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
-		$authorisation = new stdClass;
+		$authorisation = new \stdClass;
 		$authorisation->scopes = array('public_repo', 'gist');
 		$authorisation->note = 'My test app';
 		$authorisation->note_url = 'http://www.joomla.org';
@@ -272,7 +245,7 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/authorizations/42', json_encode($authorisation))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->editAuthorisation(42, array('public_repo', 'gist'), array(), array(), 'My test app', 'http://www.joomla.org'),
@@ -285,17 +258,15 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  DomainException
 	 */
 	public function testEditAuthorisationFailure()
 	{
-		$exception = false;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		$authorisation = new stdClass;
+		$authorisation = new \stdClass;
 		$authorisation->add_scopes = array('public_repo', 'gist');
 		$authorisation->note = 'My test app';
 		$authorisation->note_url = 'http://www.joomla.org';
@@ -303,22 +274,9 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/authorizations/42', json_encode($authorisation))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
-		try
-		{
-			$this->object->editAuthorisation(42, array(), array('public_repo', 'gist'), array(), 'My test app', 'http://www.joomla.org');
-		}
-		catch (DomainException $e)
-		{
-			$exception = true;
-
-			$this->assertThat(
-				$e->getMessage(),
-				$this->equalTo(json_decode($this->errorString)->message)
-			);
-		}
-		$this->assertTrue($exception);
+		$this->object->editAuthorisation(42, array(), array('public_repo', 'gist'), array(), 'My test app', 'http://www.joomla.org');
 	}
 
 	/**
@@ -344,14 +302,13 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetAuthorisation()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/authorizations/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getAuthorisation(42),
@@ -364,20 +321,18 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetAuthorisationFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/authorizations/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getAuthorisation(42);
 	}
@@ -391,14 +346,13 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetAuthorisations()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/authorizations')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getAuthorisations(),
@@ -411,20 +365,18 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetAuthorisationsFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/authorizations')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getAuthorisations();
 	}
@@ -438,14 +390,13 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetRateLimit()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/rate_limit')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getRateLimit(),
@@ -458,20 +409,18 @@ class JGithubAccountTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetRateLimitFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/rate_limit')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getRateLimit();
 	}

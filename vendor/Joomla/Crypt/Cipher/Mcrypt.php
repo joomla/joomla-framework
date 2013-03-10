@@ -1,20 +1,14 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Crypt;
 
-
-use RuntimeException;
-use InvalidArgumentException;
-
 /**
  * JCrypt cipher for mcrypt algorithm encryption, decryption and key generation.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 abstract class Cipher_Mcrypt implements Cipher
@@ -43,13 +37,13 @@ abstract class Cipher_Mcrypt implements Cipher
 	 * Constructor.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function __construct()
 	{
 		if (!is_callable('mcrypt_encrypt'))
 		{
-			throw new RuntimeException('The mcrypt extension is not available.');
+			throw new \RuntimeException('The mcrypt extension is not available.');
 		}
 	}
 
@@ -68,7 +62,7 @@ abstract class Cipher_Mcrypt implements Cipher
 		// Validate key.
 		if ($key->type != $this->keyType)
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
 		}
 
 		// Decrypt the data.
@@ -92,7 +86,7 @@ abstract class Cipher_Mcrypt implements Cipher
 		// Validate key.
 		if ($key->type != $this->keyType)
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected ' . $this->keyType . '.');
 		}
 
 		// Encrypt the data.

@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use Joomla\Registry\Registry;
 /**
  * Memcached cache driver for the Joomla Framework.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Memcached extends Cache
@@ -26,7 +24,7 @@ class Memcached extends Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  Caching options object.
+	 * @param   Registry  $options  Caching options object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

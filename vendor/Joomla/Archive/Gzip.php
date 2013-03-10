@@ -1,16 +1,13 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Archive;
 
-
 use Joomla\Factory;
 use Joomla\Filesystem\File;
-use RuntimeException;
 
 /**
  * Gzip format adapter for the JArchive class
@@ -21,7 +18,6 @@ use RuntimeException;
  * @contributor  Michael Slusarz <slusarz@horde.org>
  * @contributor  Michael Cochrane <mike@graftonhall.co.nz>
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Gzip implements Extractable
@@ -52,7 +48,7 @@ class Gzip implements Extractable
 	 * @return  boolean  True if successful
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function extract($archive, $destination, array $options = array ())
 	{
@@ -60,7 +56,7 @@ class Gzip implements Extractable
 
 		if (!extension_loaded('zlib'))
 		{
-			throw new RuntimeException('The zlib extension is not available.');
+			throw new \RuntimeException('The zlib extension is not available.');
 		}
 
 		if (!isset($options['use_streams']) || $options['use_streams'] == false)
@@ -69,7 +65,7 @@ class Gzip implements Extractable
 
 			if (!$this->data)
 			{
-				throw new RuntimeException('Unable to read archive');
+				throw new \RuntimeException('Unable to read archive');
 			}
 
 			$position = $this->_getFilePosition();
@@ -77,12 +73,12 @@ class Gzip implements Extractable
 
 			if (empty($buffer))
 			{
-				throw new RuntimeException('Unable to decompress data');
+				throw new \RuntimeException('Unable to decompress data');
 			}
 
 			if (File::write($destination, $buffer) === false)
 			{
-				throw new RuntimeException('Unable to write archive');
+				throw new \RuntimeException('Unable to write archive');
 			}
 		}
 		else
@@ -95,7 +91,7 @@ class Gzip implements Extractable
 
 			if (!$input->open($archive))
 			{
-				throw new RuntimeException('Unable to read archive (gz)');
+				throw new \RuntimeException('Unable to read archive (gz)');
 			}
 
 			$output = Factory::getStream();
@@ -104,7 +100,7 @@ class Gzip implements Extractable
 			{
 				$input->close();
 
-				throw new RuntimeException('Unable to write archive (gz)');
+				throw new \RuntimeException('Unable to write archive (gz)');
 			}
 
 			do
@@ -117,7 +113,7 @@ class Gzip implements Extractable
 					{
 						$input->close();
 
-						throw new RuntimeException('Unable to write file (gz)');
+						throw new \RuntimeException('Unable to write file (gz)');
 					}
 				}
 			}
@@ -147,7 +143,7 @@ class Gzip implements Extractable
 	 * @return  integer  Data position marker for archive
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function _getFilePosition()
 	{
@@ -157,7 +153,7 @@ class Gzip implements Extractable
 
 		if (!$info)
 		{
-			throw new RuntimeException('Unable to decompress data.');
+			throw new \RuntimeException('Unable to decompress data.');
 		}
 
 		$position += 10;

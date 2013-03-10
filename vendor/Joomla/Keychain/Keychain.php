@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -8,13 +7,10 @@
 namespace Joomla\Keychain;
 
 use Joomla\Registry\Registry;
-use RuntimeException;
-use stdClass;
 
 /**
  * Keychain Class
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Keychain extends Registry
@@ -54,14 +50,14 @@ class Keychain extends Registry
 
 		if (!$privateKey)
 		{
-			throw new RuntimeException("Failed to load private key.");
+			throw new \RuntimeException("Failed to load private key.");
 		}
 
 		$crypted = '';
 
 		if (!openssl_private_encrypt($passphrase, $crypted, $privateKey))
 		{
-			throw new RuntimeException("Failed to encrypt data using private key.");
+			throw new \RuntimeException("Failed to encrypt data using private key.");
 		}
 
 		return file_put_contents($passphraseFile, $crypted);
@@ -93,7 +89,7 @@ class Keychain extends Registry
 			{
 				if (!isset($node->$nodes[$i]) && ($i != $n))
 				{
-					$node->$nodes[$i] = new stdClass;
+					$node->$nodes[$i] = new \stdClass;
 				}
 
 				$node = $node->$nodes[$i];
@@ -123,7 +119,7 @@ class Keychain extends Registry
 	{
 		if (!file_exists($keychainFile))
 		{
-			throw new RuntimeException('Attempting to load non-existent keychain file');
+			throw new \RuntimeException('Attempting to load non-existent keychain file');
 		}
 
 		$passphrase = $this->getPassphraseFromFile($passphraseFile, $publicKeyFile);
@@ -132,7 +128,7 @@ class Keychain extends Registry
 
 		if ($cleartext === false)
 		{
-			throw new RuntimeException("Failed to decrypt keychain file");
+			throw new \RuntimeException("Failed to decrypt keychain file");
 		}
 
 		return $this->loadObject(json_decode($cleartext));
@@ -159,7 +155,7 @@ class Keychain extends Registry
 
 		if ($encrypted === false)
 		{
-			throw new RuntimeException('Unable to encrypt keychain');
+			throw new \RuntimeException('Unable to encrypt keychain');
 		}
 
 		return file_put_contents($keychainFile, $encrypted);
@@ -180,26 +176,26 @@ class Keychain extends Registry
 	{
 		if (!file_exists($publicKeyFile))
 		{
-			throw new RuntimeException('Missing public key file');
+			throw new \RuntimeException('Missing public key file');
 		}
 
 		$publicKey = openssl_get_publickey(file_get_contents($publicKeyFile));
 
 		if (!$publicKey)
 		{
-			throw new RuntimeException("Failed to load public key.");
+			throw new \RuntimeException("Failed to load public key.");
 		}
 
 		if (!file_exists($passphraseFile))
 		{
-			throw new RuntimeException('Missing passphrase file');
+			throw new \RuntimeException('Missing passphrase file');
 		}
 
 		$passphrase = '';
 
 		if (!openssl_public_decrypt(file_get_contents($passphraseFile), $passphrase, $publicKey))
 		{
-			throw new RuntimeException('Failed to decrypt passphrase file');
+			throw new \RuntimeException('Failed to decrypt passphrase file');
 		}
 
 		return $passphrase;

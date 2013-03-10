@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -24,7 +23,6 @@ use Joomla\Registry\Registry;
  * @property-read  Hooks       $hooks       GitHub API object for hooks.
  * @property-read  Meta        $meta        GitHub API object for meta.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Github
@@ -132,7 +130,7 @@ class Github
 	 * @return  Object  GitHub API object (gists, issues, pulls, etc).
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException If $name is not a valid sub class.
+	 * @throws  \InvalidArgumentException If $name is not a valid sub class.
 	 */
 	public function __get($name)
 	{

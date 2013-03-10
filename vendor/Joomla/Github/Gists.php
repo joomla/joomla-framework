@@ -1,20 +1,14 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Github;
 
-use stdClass;
-use DomainException;
-use InvalidArgumentException;
-
 /**
  * GitHub API Gists class for the Joomla Platform.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Gists extends Object
@@ -45,17 +39,7 @@ class Gists extends Object
 		);
 
 		// Send the request.
-		$response = $this->client->post($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 201)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), $data), 201);
 	}
 
 	/**
@@ -81,17 +65,7 @@ class Gists extends Object
 		);
 
 		// Send the request.
-		$response = $this->client->post($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 201)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), $data), 201);
 	}
 
 	/**
@@ -109,15 +83,7 @@ class Gists extends Object
 		$path = '/gists/' . (int) $gistId;
 
 		// Send the request.
-		$response = $this->client->delete($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 204)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
+		return $this->processResponse($this->client->delete($this->fetchUrl($path)), 204);
 	}
 
 	/**
@@ -135,15 +101,7 @@ class Gists extends Object
 		$path = '/gists/comments/' . (int) $commentId;
 
 		// Send the request.
-		$response = $this->client->delete($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 204)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
+		return $this->processResponse($this->client->delete($this->fetchUrl($path)), 204);
 	}
 
 	/**
@@ -164,7 +122,7 @@ class Gists extends Object
 		$path = '/gists/' . (int) $gistId;
 
 		// Craete the data object.
-		$data = new stdClass;
+		$data = new \stdClass;
 
 		// If a description is set add it to the data object.
 		if (isset($description))
@@ -188,17 +146,7 @@ class Gists extends Object
 		$data = json_encode($data);
 
 		// Send the request.
-		$response = $this->client->patch($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->patch($this->fetchUrl($path), $data), 200);
 	}
 
 	/**
@@ -224,17 +172,7 @@ class Gists extends Object
 		);
 
 		// Send the request.
-		$response = $this->client->patch($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->patch($this->fetchUrl($path), $data), 200);
 	}
 
 	/**
@@ -253,17 +191,7 @@ class Gists extends Object
 
 		// Send the request.
 		// TODO: Verify change
-		$response = $this->client->post($this->fetchUrl($path), '');
-
-		// Validate the response code.
-		if ($response->code != 201)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), ''), 201);
 	}
 
 	/**
@@ -281,17 +209,7 @@ class Gists extends Object
 		$path = '/gists/' . (int) $gistId;
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
 	}
 
 	/**
@@ -309,17 +227,7 @@ class Gists extends Object
 		$path = '/gists/comments/' . (int) $commentId;
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
 	}
 
 	/**
@@ -339,17 +247,7 @@ class Gists extends Object
 		$path = '/gists/' . (int) $gistId . '/comments';
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path, $page, $limit));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
 	}
 
 	/**
@@ -369,17 +267,7 @@ class Gists extends Object
 		$path = '/gists';
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path, $page, $limit));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
 	}
 
 	/**
@@ -399,17 +287,7 @@ class Gists extends Object
 		$path = '/users/' . $user . '/gists';
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path, $page, $limit));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
 	}
 
 	/**
@@ -428,17 +306,7 @@ class Gists extends Object
 		$path = '/gists/public';
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path, $page, $limit));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
 	}
 
 	/**
@@ -457,17 +325,7 @@ class Gists extends Object
 		$path = '/gists/starred';
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path, $page, $limit));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
 	}
 
 	/**
@@ -478,6 +336,7 @@ class Gists extends Object
 	 * @return  boolean  True if the gist is starred.
 	 *
 	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function isStarred($gistId)
 	{
@@ -500,7 +359,7 @@ class Gists extends Object
 		{
 			// Decode the error response and throw an exception.
 			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
+			throw new \DomainException($error->message, $response->code);
 		}
 	}
 
@@ -519,15 +378,7 @@ class Gists extends Object
 		$path = '/gists/' . (int) $gistId . '/star';
 
 		// Send the request.
-		$response = $this->client->put($this->fetchUrl($path), '');
-
-		// Validate the response code.
-		if ($response->code != 204)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
+		return $this->processResponse($this->client->put($this->fetchUrl($path), ''), 204);
 	}
 
 	/**
@@ -545,15 +396,7 @@ class Gists extends Object
 		$path = '/gists/' . (int) $gistId . '/star';
 
 		// Send the request.
-		$response = $this->client->delete($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 204)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
+		return $this->processResponse($this->client->delete($this->fetchUrl($path)), 204);
 	}
 
 	/**
@@ -565,6 +408,7 @@ class Gists extends Object
 	 * @return  array
 	 *
 	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	protected function buildFileData(array $files)
 	{
@@ -581,7 +425,7 @@ class Gists extends Object
 			// Otherwise, we have been given a path and we have to load the content
 			// Verify that the each file exists.
 			{
-				throw new InvalidArgumentException('The file ' . $file . ' does not exist.');
+				throw new \InvalidArgumentException('The file ' . $file . ' does not exist.');
 			}
 			else
 			{

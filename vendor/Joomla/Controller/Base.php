@@ -1,77 +1,85 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Controller;
 
-use Joomla\Factory;
 use Joomla\Input\Input;
-use Joomla\Application\Base as ApplicationBase;
+use Joomla\Application;
 
 /**
  * Joomla Platform Base Controller Class
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 abstract class Base implements Controller
 {
-	/**
+  /**
 	 * The application object.
 	 *
-	 * @var    ApplicationBase
+	 * @var    Application\Base
 	 * @since  1.0
 	 */
-	protected $app;
+	private $app;
 
 	/**
 	 * The input object.
 	 *
-	 * @var    JInput
+	 * @var    Input
 	 * @since  1.0
 	 */
-	protected $input;
+	private $input;
 
 	/**
 	 * Instantiate the controller.
 	 *
-	 * @param   Input            $input  The input object.
-	 * @param   ApplicationBase  $app    The application object.
+	 * @param   Input             $input  The input object.
+	 * @param   Application\Base  $app    The application object.
 	 *
 	 * @since  1.0
 	 */
-	public function __construct(Input $input = null, ApplicationBase $app = null)
+	public function __construct(Input $input = null, Application\Base $app = null)
 	{
-		// Setup dependencies.
-		$this->app = isset($app) ? $app : $this->loadApplication();
-		$this->input = isset($input) ? $input : $this->loadInput();
+		$this->input = $input;
+		$this->app = $app;
 	}
 
 	/**
 	 * Get the application object.
 	 *
-	 * @return  ApplicationBase  The application object.
+	 * @return  Application\Base  The application object.
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException if the application has not been set.
 	 */
 	public function getApplication()
 	{
-		return $this->app;
+		if ($this->app)
+		{
+			return $this->app;
+		}
+
+		throw new \UnexpectedValueException('Application not set in ' . __CLASS__);
 	}
 
 	/**
 	 * Get the input object.
 	 *
-	 * @return  \Joomla\Input\Input  The input object.
+	 * @return  Input  The input object.
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getInput()
 	{
-		return $this->input;
+		if ($this->input)
+		{
+			return $this->input;
+		}
+
+		throw new \UnexpectedValueException('Input not set in ' . __CLASS__);
 	}
 
 	/**
@@ -83,7 +91,39 @@ abstract class Base implements Controller
 	 */
 	public function serialize()
 	{
-		return serialize($this->input);
+		return serialize($this->getInput());
+	}
+
+	/**
+	 * Set the application object.
+	 *
+	 * @param   Application\Base  $app  The application object.
+	 *
+	 * @return  Base  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setApplication(Application\Base $app)
+	{
+		$this->app = $app;
+
+		return $this;
+	}
+
+	/**
+	 * Set the input object.
+	 *
+	 * @param   Input  $input  The input object.
+	 *
+	 * @return  Base  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setInput(Input $input)
+	{
+		$this->input = $input;
+
+		return $this;
 	}
 
 	/**
@@ -91,48 +131,22 @@ abstract class Base implements Controller
 	 *
 	 * @param   string  $input  The serialized controller.
 	 *
-	 * @return  \Joomla\Controller\Base  Supports chaining.
+	 * @return  Base  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException if input is not the right class.
 	 */
 	public function unserialize($input)
 	{
-		// Setup dependencies.
-		$this->app = $this->loadApplication();
+		$input = unserialize($input);
 
-		// Unserialize the input.
-		$this->input = unserialize($input);
-
-		if (!($this->input instanceof Input))
+		if (!($input instanceof Input))
 		{
-			throw new \UnexpectedValueException(sprintf('%s::unserialize would not accept a `%s`.', get_class($this), gettype($this->input)));
+			throw new \UnexpectedValueException(sprintf('%s would not accept a `%s`.', __METHOD__, gettype($this->input)));
 		}
 
+		$this->setInput($input);
+
 		return $this;
-	}
-
-	/**
-	 * Load the application object.
-	 *
-	 * @return  ApplicationBase  The application object.
-	 *
-	 * @since   1.0
-	 */
-	protected function loadApplication()
-	{
-		return Factory::getApplication();
-	}
-
-	/**
-	 * Load the input object.
-	 *
-	 * @return  Input  The input object.
-	 *
-	 * @since   1.0
-	 */
-	protected function loadInput()
-	{
-		return $this->app->input;
 	}
 }

@@ -1,17 +1,14 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Archive;
 
-
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Path;
 use Joomla\Filesystem\Folder;
-use RuntimeException;
 
 /**
  * ZIP format adapter for the JArchive class
@@ -33,7 +30,6 @@ use RuntimeException;
  * @contributor  Michael Slusarz <slusarz@horde.org>
  * @contributor  Michael Cochrane <mike@graftonhall.co.nz>
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Zip implements Extractable
@@ -122,13 +118,13 @@ class Zip implements Extractable
 	 * @return  boolean  True if successful
 	 *
 	 * @since   1.0
-	 * @throws RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function extract($archive, $destination, array $options = array())
 	{
 		if (!is_file($archive))
 		{
-			throw new RuntimeException('Archive does not exist');
+			throw new \RuntimeException('Archive does not exist');
 		}
 
 		if ($this->hasNativeSupport())
@@ -195,7 +191,7 @@ class Zip implements Extractable
 	 * @return  mixed   True if successful
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function extractCustom($archive, $destination)
 	{
@@ -204,19 +200,19 @@ class Zip implements Extractable
 
 		if (!extension_loaded('zlib'))
 		{
-			throw new RuntimeException('Zlib not supported');
+			throw new \RuntimeException('Zlib not supported');
 		}
 
 		$this->data = file_get_contents($archive);
 
 		if (!$this->data)
 		{
-			throw new RuntimeException('Unable to read archive (zip)');
+			throw new \RuntimeException('Unable to read archive (zip)');
 		}
 
 		if (!$this->_readZipInfo($this->data))
 		{
-			throw new RuntimeException('Get ZIP Information failed');
+			throw new \RuntimeException('Get ZIP Information failed');
 		}
 
 		for ($i = 0, $n = count($this->metadata); $i < $n; $i++)
@@ -231,12 +227,12 @@ class Zip implements Extractable
 				// Make sure the destination folder exists
 				if (!Folder::create(dirname($path)))
 				{
-					throw new RuntimeException('Unable to create destination');
+					throw new \RuntimeException('Unable to create destination');
 				}
 
 				if (File::write($path, $buffer) === false)
 				{
-					throw new RuntimeException('Unable to write entry');
+					throw new \RuntimeException('Unable to write entry');
 				}
 			}
 		}
@@ -264,7 +260,7 @@ class Zip implements Extractable
 			// Make sure the destination folder exists
 			if (!Folder::create($destination))
 			{
-				throw new RuntimeException('Unable to create destination');
+				throw new \RuntimeException('Unable to create destination');
 			}
 
 			// Read files in the archive
@@ -278,7 +274,7 @@ class Zip implements Extractable
 
 						if (File::write($destination . '/' . zip_entry_name($file), $buffer) === false)
 						{
-							throw new RuntimeException('Unable to write entry');
+							throw new \RuntimeException('Unable to write entry');
 						}
 
 						zip_entry_close($file);
@@ -286,7 +282,7 @@ class Zip implements Extractable
 				}
 				else
 				{
-					throw new RuntimeException('Unable to read entry');
+					throw new \RuntimeException('Unable to read entry');
 				}
 			}
 
@@ -294,7 +290,7 @@ class Zip implements Extractable
 		}
 		else
 		{
-			throw new RuntimeException('Unable to open archive');
+			throw new \RuntimeException('Unable to open archive');
 		}
 
 		return true;
@@ -356,7 +352,7 @@ class Zip implements Extractable
 		{
 			if ($dataLength < $fhStart + 31)
 			{
-				throw new RuntimeException('Invalid Zip Data');
+				throw new \RuntimeException('Invalid Zip Data');
 			}
 
 			$info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength', substr($data, $fhStart + 10, 20));
@@ -386,7 +382,7 @@ class Zip implements Extractable
 
 			if ($dataLength < $fhStart + 43)
 			{
-				throw new RuntimeException('Invalid ZIP data');
+				throw new \RuntimeException('Invalid ZIP data');
 			}
 
 			$info = unpack('vInternal/VExternal/VOffset', substr($data, $fhStart + 36, 10));
@@ -401,7 +397,7 @@ class Zip implements Extractable
 
 			if ($dataLength < $lfhStart + 34)
 			{
-				throw new RuntimeException('Invalid Zip Data');
+				throw new \RuntimeException('Invalid Zip Data');
 			}
 
 			$info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength/vExtraLength', substr($data, $lfhStart + 8, 25));
@@ -615,7 +611,7 @@ class Zip implements Extractable
 		pack('V', strlen($data)) . /* ZIP file comment length. */
 		"\x00\x00";
 
-		if (JFile::write($path, $buffer) === false)
+		if (File::write($path, $buffer) === false)
 		{
 			return false;
 		}

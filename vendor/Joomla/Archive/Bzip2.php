@@ -1,21 +1,17 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Archive;
 
-
 use Joomla\Factory;
 use Joomla\Filesystem\File;
-use RuntimeException;
 
 /**
  * Bzip2 format adapter for the JArchive class
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Bzip2 implements Extractable
@@ -38,7 +34,7 @@ class Bzip2 implements Extractable
 	 * @return  boolean  True if successful
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function extract($archive, $destination, array $options = array ())
 	{
@@ -46,7 +42,7 @@ class Bzip2 implements Extractable
 
 		if (!extension_loaded('bz2'))
 		{
-			throw new RuntimeException('The bz2 extension is not available.');
+			throw new \RuntimeException('The bz2 extension is not available.');
 		}
 
 		if (!isset($options['use_streams']) || $options['use_streams'] == false)
@@ -56,7 +52,7 @@ class Bzip2 implements Extractable
 
 			if (!$this->data)
 			{
-				throw new RuntimeException('Unable to read archive');
+				throw new \RuntimeException('Unable to read archive');
 			}
 
 			$buffer = bzdecompress($this->data);
@@ -64,12 +60,12 @@ class Bzip2 implements Extractable
 
 			if (empty($buffer))
 			{
-				throw new RuntimeException('Unable to decompress data');
+				throw new \RuntimeException('Unable to decompress data');
 			}
 
 			if (File::write($destination, $buffer) === false)
 			{
-				throw new RuntimeException('Unable to write archive');
+				throw new \RuntimeException('Unable to write archive');
 			}
 		}
 		else
@@ -82,7 +78,7 @@ class Bzip2 implements Extractable
 
 			if (!$input->open($archive))
 			{
-				throw new RuntimeException('Unable to read archive (bz2)');
+				throw new \RuntimeException('Unable to read archive (bz2)');
 			}
 
 			$output = Factory::getStream();
@@ -91,7 +87,7 @@ class Bzip2 implements Extractable
 			{
 				$input->close();
 
-				throw new RuntimeException('Unable to write archive (bz2)');
+				throw new \RuntimeException('Unable to write archive (bz2)');
 			}
 
 			do
@@ -104,7 +100,7 @@ class Bzip2 implements Extractable
 					{
 						$input->close();
 
-						throw new RuntimeException('Unable to write archive (bz2)');
+						throw new \RuntimeException('Unable to write archive (bz2)');
 					}
 				}
 			}

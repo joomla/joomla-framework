@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ namespace Joomla\Form;
  * Single check box field.
  * This is a boolean field with null for false and the specified option for true
  *
- * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html-markup/input.checkbox.html#input.checkbox
  * @see      JFormFieldCheckboxes
  * @since    1.0

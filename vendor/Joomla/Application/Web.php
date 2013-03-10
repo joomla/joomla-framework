@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -14,13 +13,10 @@ use Joomla\Input\Input;
 use Joomla\Session\Session;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
-use stdClass;
-use RuntimeException;
 
 /**
  * Base class for a Joomla! Web application.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 abstract class Web extends Base
@@ -76,15 +72,15 @@ abstract class Web extends Base
 	/**
 	 * Class constructor.
 	 *
-	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
-	 *                          input object.  If the argument is a Input object that object will become
-	 *                          the application's input object, otherwise a default input object is created.
-	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
-	 *                          config object.  If the argument is a Registry object that object will become
-	 *                          the application's config object, otherwise a default config object is created.
-	 * @param   mixed  $client  An optional argument to provide dependency injection for the application's
-	 *                          client object.  If the argument is a Web\Client object that object will become
-	 *                          the application's client object, otherwise a default client object is created.
+	 * @param   Input       $input   An optional argument to provide dependency injection for the application's
+	 *                               input object.  If the argument is a Input object that object will become
+	 *                               the application's input object, otherwise a default input object is created.
+	 * @param   Registry    $config  An optional argument to provide dependency injection for the application's
+	 *                               config object.  If the argument is a Registry object that object will become
+	 *                               the application's config object, otherwise a default config object is created.
+	 * @param   Web\Client  $client  An optional argument to provide dependency injection for the application's
+	 *                               client object.  If the argument is a Web\Client object that object will become
+	 *                               the application's client object, otherwise a default client object is created.
 	 *
 	 * @since   1.0
 	 */
@@ -131,7 +127,7 @@ abstract class Web extends Base
 		$this->set('execution.timestamp', time());
 
 		// Setup the response object.
-		$this->response = new stdClass;
+		$this->response = new \stdClass;
 		$this->response->cachable = false;
 		$this->response->headers = array();
 		$this->response->body = array();
@@ -163,7 +159,7 @@ abstract class Web extends Base
 			}
 			else
 			{
-				throw new RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
+				throw new \RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
 			}
 		}
 

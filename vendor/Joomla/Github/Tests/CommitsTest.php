@@ -1,19 +1,20 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github\Tests;
+
+use Joomla\Github\Commits;
 use Joomla\Registry\Registry;
 
 /**
- * Test class for JGitHubCommits.
+ * Test class for Joomla\GitHub\Commits.
  *
- * @package  Joomla\Framework\Test
  * @since    1.0
  */
-class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
+class CommitsTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
@@ -22,13 +23,19 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    Joomla\Github\Http  Mock client object.
+	 * @var    \Joomla\Github\Http  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    JGithubCommits  Object under test.
+	 * @var    \Joomla\Http\Response  Mock response object.
+	 * @since  1.0
+	 */
+	protected $response;
+
+	/**
+	 * @var    Commits  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -58,9 +65,10 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
-		$this->object = new JGithubCommits($this->options, $this->client);
+		$this->object = new Commits($this->options, $this->client);
 	}
 
 	/**
@@ -72,11 +80,10 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCreate()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 201;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
 
-		$pull = new stdClass;
+		$pull = new \stdClass;
 		$pull->message = 'My latest commit';
 		$pull->tree = 'abc1234';
 		$pull->parents = array('def5678');
@@ -84,7 +91,7 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/git/commits', json_encode($pull))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->create('joomla', 'joomla-platform', 'My latest commit', 'abc1234', array('def5678')),
@@ -97,17 +104,15 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  DomainException
 	 */
 	public function testCreateFailure()
 	{
-		$exception = false;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		$pull = new stdClass;
+		$pull = new \stdClass;
 		$pull->message = 'My latest commit';
 		$pull->tree = 'abc1234';
 		$pull->parents = array('def5678');
@@ -115,22 +120,9 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/git/commits', json_encode($pull))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
-		try
-		{
-			$this->object->create('joomla', 'joomla-platform', 'My latest commit', 'abc1234', array('def5678'));
-		}
-		catch (DomainException $e)
-		{
-			$exception = true;
-
-			$this->assertThat(
-				$e->getMessage(),
-				$this->equalTo(json_decode($this->errorString)->message)
-			);
-		}
-		$this->assertTrue($exception);
+		$this->object->create('joomla', 'joomla-platform', 'My latest commit', 'abc1234', array('def5678'));
 	}
 
 	/**
@@ -142,12 +134,11 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCreateCommitComment()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 201;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
 
 		// The comment data
-		$comment = new stdClass;
+		$comment = new \stdClass;
 		$comment->body = 'My Insightful Comment';
 		$comment->commit_id = 'abc1234';
 		$comment->line = 1;
@@ -157,7 +148,7 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/commits/abc1234/comments', json_encode($comment))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->createCommitComment('joomla', 'joomla-platform', 'abc1234', 'My Insightful Comment', 1, 'path/to/file', 254),
@@ -170,18 +161,16 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  DomainException
 	 */
 	public function testCreateCommitCommentFailure()
 	{
-		$exception = false;
-
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		// The comment data
-		$comment = new stdClass;
+		$comment = new \stdClass;
 		$comment->body = 'My Insightful Comment';
 		$comment->commit_id = 'abc1234';
 		$comment->line = 1;
@@ -191,22 +180,9 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/commits/abc1234/comments', json_encode($comment))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
-		try
-		{
-			$this->object->createCommitComment('joomla', 'joomla-platform', 'abc1234', 'My Insightful Comment', 1, 'path/to/file', 254);
-		}
-		catch (DomainException $e)
-		{
-			$exception = true;
-
-			$this->assertThat(
-				$e->getMessage(),
-				$this->equalTo(json_decode($this->errorString)->message)
-			);
-		}
-		$this->assertTrue($exception);
+		$this->object->createCommitComment('joomla', 'joomla-platform', 'abc1234', 'My Insightful Comment', 1, 'path/to/file', 254);
 	}
 
 	/**
@@ -218,14 +194,13 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDeleteCommitComment()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 204;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('delete')
 			->with('/repos/joomla/joomla-platform/comments/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->deleteCommitComment('joomla', 'joomla-platform', 42),
@@ -238,35 +213,20 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  DomainException
 	 */
 	public function testDeleteCommitCommentFailure()
 	{
-		$exception = false;
-
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('delete')
 			->with('/repos/joomla/joomla-platform/comments/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
-		try
-		{
-			$this->object->deleteCommitComment('joomla', 'joomla-platform', 42);
-		}
-		catch (DomainException $e)
-		{
-			$exception = true;
-
-			$this->assertThat(
-				$e->getMessage(),
-				$this->equalTo(json_decode($this->errorString)->message)
-			);
-		}
-		$this->assertTrue($exception);
+		$this->object->deleteCommitComment('joomla', 'joomla-platform', 42);
 	}
 
 	/**
@@ -278,18 +238,17 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEditCommitComment()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		// The comment data
-		$comment = new stdClass;
+		$comment = new \stdClass;
 		$comment->body = 'My Insightful Comment';
 
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/repos/joomla/joomla-platform/comments/42', json_encode($comment))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->editCommitComment('joomla', 'joomla-platform', 42, 'My Insightful Comment'),
@@ -302,39 +261,26 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  DomainException
 	 */
 	public function testEditCommitCommentFailure()
 	{
 		$exception = false;
 
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		// The comment data
-		$comment = new stdClass;
+		$comment = new \stdClass;
 		$comment->body = 'My Insightful Comment';
 
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/repos/joomla/joomla-platform/comments/42', json_encode($comment))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
-		try
-		{
-			$this->object->editCommitComment('joomla', 'joomla-platform', 42, 'My Insightful Comment');
-		}
-		catch (DomainException $e)
-		{
-			$exception = true;
-
-			$this->assertThat(
-				$e->getMessage(),
-				$this->equalTo(json_decode($this->errorString)->message)
-			);
-		}
-		$this->assertTrue($exception);
+		$this->object->editCommitComment('joomla', 'joomla-platform', 42, 'My Insightful Comment');
 	}
 
 	/**
@@ -346,14 +292,13 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetCommit()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/commits/abc1234')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getCommit('joomla', 'joomla-platform', 'abc1234'),
@@ -366,20 +311,18 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetCommitFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/commits/abc1234')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getCommit('joomla', 'joomla-platform', 'abc1234');
 	}
@@ -393,14 +336,13 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetCommitComment()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/comments/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getCommitComment('joomla', 'joomla-platform', 42),
@@ -413,20 +355,18 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetCommitCommentFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/comments/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getCommitComment('joomla', 'joomla-platform', 42);
 	}
@@ -440,14 +380,13 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetCommitComments()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/commits/abc1234/comments')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getCommitComments('joomla', 'joomla-platform', 'abc1234'),
@@ -460,20 +399,18 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetCommitCommentsFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/commits/abc1234/comments')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getCommitComments('joomla', 'joomla-platform', 'abc1234');
 	}
@@ -487,14 +424,13 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetDiff()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/compare/master...staging')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getDiff('joomla', 'joomla-platform', 'master', 'staging'),
@@ -507,20 +443,18 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetDiffFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/compare/master...staging')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getDiff('joomla', 'joomla-platform', 'master', 'staging');
 	}
@@ -534,14 +468,13 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetList()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/commits')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getList('joomla', 'joomla-platform'),
@@ -554,20 +487,18 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetListFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/commits')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getList('joomla', 'joomla-platform');
 	}
@@ -581,14 +512,13 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetListComments()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/comments')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getListComments('joomla', 'joomla-platform'),
@@ -601,20 +531,18 @@ class JGitHubCommitsTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
 	 */
 	public function testGetListCommentsFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/comments')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getListComments('joomla', 'joomla-platform');
 	}

@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -24,7 +23,6 @@ namespace Joomla\Application\Web;
  * @property-read  array    $detection       An array of flags determining whether or not a detection routine has been run.
  * @property-read  boolean  $robot           True if the web client is a robot
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Client

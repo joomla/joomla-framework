@@ -1,18 +1,14 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Crypt;
 
-use InvalidArgumentException;
-
 /**
  * JCrypt cipher for Simple encryption, decryption and key generation.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Cipher_Simple implements Cipher
@@ -26,14 +22,14 @@ class Cipher_Simple implements Cipher
 	 * @return  string  The decrypted data string.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function decrypt($data, Key $key)
 	{
 		// Validate key.
 		if ($key->type != 'simple')
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected simple.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected simple.');
 		}
 
 		$decrypted = '';
@@ -67,14 +63,14 @@ class Cipher_Simple implements Cipher
 	 * @return  string  The encrypted data string.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function encrypt($data, Key $key)
 	{
 		// Validate key.
 		if ($key->type != 'simple')
 		{
-			throw new InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected simple.');
+			throw new \InvalidArgumentException('Invalid key of type: ' . $key->type . '.  Expected simple.');
 		}
 
 		$encrypted = '';

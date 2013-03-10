@@ -11,7 +11,7 @@
 
 	<testsuites>
 		<testsuite name="Unit">
-			<directory>vendor/Joomla/*/tests</directory>
+			<directory>vendor/Joomla/*/Tests</directory>
 		</testsuite>
 	</testsuites>
 

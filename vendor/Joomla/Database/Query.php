@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ use RuntimeException;
 /**
  * Query Building Class.
  *
- * @package  Joomla\Framework
  * @since    1.0
  *
  * @method      string  q()   q($text, $escape = true)  Alias for quote method
@@ -1247,7 +1245,7 @@ abstract class Query
 		if (is_null($this->set))
 		{
 			$glue = strtoupper($glue);
-			$this->set = new Query\Element('SET', $conditions, "\n\t$glue ");
+			$this->set = new Query\Element('SET', $conditions, PHP_EOL . "\t$glue ");
 		}
 		else
 		{

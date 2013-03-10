@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework\Tests
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,7 +11,6 @@ require_once __DIR__ . '/ExporterMySqlInspector.php';
 /**
  * Tests the JDatabaseExporterMySql class.
  *
- * @package  Joomla\Framework\Tests
  * @since    1.0
  */
 class ExporterMySqlTest extends \PHPUnit_Framework_TestCase

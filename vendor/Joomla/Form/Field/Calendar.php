@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -18,7 +17,6 @@ use DateTimeZone;
  * Provides a pop up date picker linked to a button.
  * Optionally may be filtered to use user's or server's time zone.
  *
- * @package  Joomla\Framework
  * @since    1.0
  */
 class Field_Calendar extends Field

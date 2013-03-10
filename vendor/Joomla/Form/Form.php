@@ -1,6 +1,5 @@
 <?php
 /**
- * @package    Joomla\Framework
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -28,7 +27,6 @@ use UnexpectedValueException;
  * It uses XML definitions to construct form fields and a variety of field and rule classes to
  * render and validate the form.
  *
- * @package  Joomla\Framework
  * @link     http://www.w3.org/TR/html4/interact/forms.html
  * @link     http://www.w3.org/TR/html5/forms.html
  * @since    1.0
@@ -1186,7 +1184,8 @@ class Form
 
 				$value = is_array($value) ? $value : array($value);
 
-				$return = ArrayHelper::toInteger($value);
+				$value = ArrayHelper::toInteger($value);
+				$return = $value;
 				break;
 
 			// Filter safe HTML.
