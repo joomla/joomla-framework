@@ -43,6 +43,14 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	protected $connection;
 
 	/**
+	 * Holds the list of available db connectors.
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected static $connectors;
+
+	/**
 	 * The number of SQL statements executed by the database driver.
 	 *
 	 * @var    integer
@@ -196,39 +204,37 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 */
 	public static function getConnectors()
 	{
-		$connectors = array();
-
-		// Get an iterator and loop trough the driver classes.
-		$iterator = new \DirectoryIterator(__DIR__ . '/Driver');
-
-		foreach ($iterator as $file)
+		if (!isset(self::$connectors))
 		{
-			$fileName = $file->getFilename();
+			// Get an iterator and loop trough the driver classes.
+			$iterator = new \DirectoryIterator(__DIR__ . '/Driver');
 
-			// Only load for php files.
-			if (!$file->isFile() || $file->getExtension() != 'php')
+			foreach ($iterator as $file)
 			{
-				continue;
-			}
+				$fileName = $file->getFilename();
+				$baseName = $file->getBasename('.php');
 
-			// Derive the class name from the type.
-			$class = str_ireplace('.php', '', '\\Joomla\\Database\\Driver\\' . ucfirst(trim($fileName)));
+				// Only load for php files.
+				if (!$file->isFile() || $file->getExtension() != 'php')
+				{
+					continue;
+				}
 
-			// If the class doesn't exist we have nothing left to do but look at the next type. We did our best.
-			if (!class_exists($class))
-			{
-				continue;
-			}
+				// Derive the class name from the type.
+				$class = '\\Joomla\\Database\\Driver\\' . $baseName;
 
-			// Sweet!  Our class exists, so now we just need to know if it passes its test method.
-			if ($class::isSupported())
-			{
-				// Connector names should not have file extensions.
-				$connectors[] = str_ireplace('.php', '', $fileName);
+				// If the class doesn't exist, or if it's not supported on this system, move on to the next type.
+				if (!class_exists($class) || !($class::isSupported()))
+				{
+					continue;
+				}
+
+				// Everything looks good, add it to the list.
+				self::$connectors[] = $baseName;
 			}
 		}
 
-		return $connectors;
+		return self::$connectors;
 	}
 
 	/**
