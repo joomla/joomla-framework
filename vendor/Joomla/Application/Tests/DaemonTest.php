@@ -15,7 +15,7 @@ include_once __DIR__ . '/Stubs/ConcreteDaemon.php';
 /**
  * Test class for Joomla\Application\Daemon.
  *
- * @since    1.0
+ * @since  1.0
  */
 class DaemonTest extends \PHPUnit_Framework_TestCase
 {

@@ -12,7 +12,7 @@ use Joomla\Input;
 /**
  * Base class for a Joomla! command line application.
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Cli extends Base
 {

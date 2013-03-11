@@ -14,9 +14,9 @@ use Joomla\Input\Cli as InputCli;
 /**
  * Class to turn Cli applications into daemons.  It requires CLI and PCNTL support built into PHP.
  *
- * @see      http://www.php.net/manual/en/book.pcntl.php
- * @see      http://php.net/manual/en/features.commandline.php
- * @since    1.0
+ * @see    http://www.php.net/manual/en/book.pcntl.php
+ * @see    http://php.net/manual/en/features.commandline.php
+ * @since  1.0
  */
 abstract class Daemon extends Cli
 {

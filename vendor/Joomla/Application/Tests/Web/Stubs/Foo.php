@@ -7,7 +7,7 @@
 /**
  * Test stub controller.
  *
- * @since    1.0
+ * @since  1.0
  */
 class MyTestControllerFoo extends \Joomla\Controller\Base
 {

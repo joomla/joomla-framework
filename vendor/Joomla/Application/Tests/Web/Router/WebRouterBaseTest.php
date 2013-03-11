@@ -9,7 +9,7 @@ use Joomla\Input\Input;
 /**
  * Test class for JApplicationWebRouterBase.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JApplicationWebRouterBaseTest extends TestCase
 {

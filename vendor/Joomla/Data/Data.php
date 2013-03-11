@@ -163,10 +163,10 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	/**
 	 * Dumps the data properties into a stdClass object, recursively if appropriate.
 	 *
-	 * @param   integer           $depth   The maximum depth of recursion (default = 3).
-	 *                                     For example, a depth of 0 will return a stdClass with all the properties in native
-	 *                                     form. A depth of 1 will recurse into the first level of properties only.
-	 * @param   SplObjectStorage  $dumped  An array of already serialized objects that is used to avoid infinite loops.
+	 * @param   integer            $depth   The maximum depth of recursion (default = 3).
+	 *                                      For example, a depth of 0 will return a stdClass with all the properties in native
+	 *                                      form. A depth of 1 will recurse into the first level of properties only.
+	 * @param   \SplObjectStorage  $dumped  An array of already serialized objects that is used to avoid infinite loops.
 	 *
 	 * @return  stdClass  The data properties as a simple PHP stdClass object.
 	 *
@@ -229,9 +229,9 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 * If recursion is set, this method will dump any object implementing JDumpable (like JData and JDataSet); it will
 	 * convert a Date object to a string; and it will convert a Registry to an object.
 	 *
-	 * @param   string            $property  The name of the data property.
-	 * @param   integer           $depth     The current depth of recursion (a value of 0 will ignore recursion).
-	 * @param   SplObjectStorage  $dumped    An array of already serialized objects that is used to avoid infinite loops.
+	 * @param   string             $property  The name of the data property.
+	 * @param   integer            $depth     The current depth of recursion (a value of 0 will ignore recursion).
+	 * @param   \SplObjectStorage  $dumped    An array of already serialized objects that is used to avoid infinite loops.
 	 *
 	 * @return  mixed  The value of the dumped property.
 	 *

@@ -50,8 +50,8 @@ abstract class Cipher_Mcrypt implements Cipher
 	/**
 	 * Method to decrypt a data string.
 	 *
-	 * @param   string     $data  The encrypted string to decrypt.
-	 * @param   JCryptKey  $key   The key object to use for decryption.
+	 * @param   string  $data  The encrypted string to decrypt.
+	 * @param   Key     $key   The key object to use for decryption.
 	 *
 	 * @return  string  The decrypted data string.
 	 *

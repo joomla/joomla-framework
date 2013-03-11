@@ -15,7 +15,7 @@ require_once __DIR__ . '/Stubs/ConcreteBase.php';
 /**
  * Test class for Joomla\Application\Base.
  *
- * @since    1.0
+ * @since  1.0
  */
 class BaseTest extends \PHPUnit_Framework_TestCase
 {

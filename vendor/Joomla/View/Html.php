@@ -35,8 +35,8 @@ abstract class Html extends Base
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   Model             $model  The model object.
-	 * @param   SplPriorityQueue  $paths  The paths queue.
+	 * @param   Model              $model  The model object.
+	 * @param   \SplPriorityQueue  $paths  The paths queue.
 	 *
 	 * @since   1.0
 	 */
@@ -171,7 +171,7 @@ abstract class Html extends Base
 	/**
 	 * Method to set the view paths.
 	 *
-	 * @param   SplPriorityQueue  $paths  The paths queue.
+	 * @param   \SplPriorityQueue  $paths  The paths queue.
 	 *
 	 * @return  Html  Method supports chaining.
 	 *

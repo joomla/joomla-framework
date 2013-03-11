@@ -7,7 +7,7 @@
 /**
  * Test class for JApplicationWebRouterRest.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JApplicationWebRouterRestTest extends TestCase
 {

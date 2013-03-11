@@ -6,7 +6,6 @@
 
 namespace Joomla\Application;
 
-use Joomla\Factory;
 use Joomla\Uri\Uri;
 use Joomla\Date\Date;
 use Joomla\Input\Input;
@@ -16,7 +15,7 @@ use Joomla\Registry\Registry;
 /**
  * Base class for a Joomla! Web application.
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Web extends Base
 {

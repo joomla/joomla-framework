@@ -16,7 +16,7 @@ include_once __DIR__ . '/Stubs/ConcreteCli.php';
 /**
  * Test class for Joomla\Application\Cli.
  *
- * @since    1.0
+ * @since  1.0
  */
 class CliTest extends \PHPUnit_Framework_TestCase
 {

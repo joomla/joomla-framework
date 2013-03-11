@@ -23,7 +23,7 @@ namespace Joomla\Application\Web;
  * @property-read  array    $detection       An array of flags determining whether or not a detection routine has been run.
  * @property-read  boolean  $robot           True if the web client is a robot
  *
- * @since    1.0
+ * @since  1.0
  */
 class Client
 {

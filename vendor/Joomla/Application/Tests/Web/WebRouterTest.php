@@ -11,7 +11,7 @@ require_once __DIR__ . '/Stubs/Foo.php';
 /**
  * Test class for JApplicationWebRouter.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JApplicationWebRouterTest extends TestCase
 {

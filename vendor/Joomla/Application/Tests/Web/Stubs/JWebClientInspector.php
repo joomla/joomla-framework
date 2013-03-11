@@ -7,7 +7,7 @@
 /**
  * JWebClientInspector
  *
- * @since    1.0
+ * @since  1.0
  */
 class JWebClientInspector extends Joomla\Application\Web\Client
 {

@@ -35,7 +35,7 @@ abstract class Base
 	/**
 	 * Class constructor.
 	 *
-	 * @param   InputCli  $input   An optional argument to provide dependency injection for the application's
+	 * @param   Input     $input   An optional argument to provide dependency injection for the application's
 	 *                             input object.  If the argument is a InputCli object that object will become
 	 *                             the application's input object, otherwise a default input object is created.
 	 * @param   Registry  $config  An optional argument to provide dependency injection for the application's
@@ -95,7 +95,7 @@ abstract class Base
 	/**
 	 * Sets the configuration for the application.
 	 *
-	 * @param   Registry  $data  A registry object holding the configuration.
+	 * @param   Registry  $config  A registry object holding the configuration.
 	 *
 	 * @return  Base  Returns itself to support chaining.
 	 *

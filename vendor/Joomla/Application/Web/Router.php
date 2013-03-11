@@ -13,7 +13,7 @@ use Joomla\Application\Web;
 /**
  * Class to define an abstract Web application router.
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Router
 {

@@ -9,7 +9,7 @@ require_once __DIR__ . '/Stubs/JWebClientInspector.php';
 /**
  * Test class for Joomla\Application\Web\Client.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JApplicationWebClientTest extends PHPUnit_Framework_TestCase
 {
