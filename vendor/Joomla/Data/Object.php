@@ -10,15 +10,15 @@ use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 
 /**
- * JData is a class that is used to store data but allowing you to access the data
+ * Data\Object is a class that is used to store data but allowing you to access the data
  * by mimicking the way PHP handles class properties.
  *
  * @since  1.0
  */
-class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countable
+class Object implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countable
 {
 	/**
-	 * The data properties.
+	 * The data object properties.
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -58,7 +58,7 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 *
 	 * @return  mixed  The value of the data property, or null if the data property does not exist.
 	 *
-	 * @see     JData::getProperty()
+	 * @see     Data::getProperty()
 	 * @since   1.0
 	 */
 	public function __get($property)
@@ -90,7 +90,7 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 *
 	 * @return  void
 	 *
-	 * @see     JData::setProperty()
+	 * @see     Data::setProperty()
 	 * @since   1.0
 	 */
 	public function __set($property, $value)
@@ -118,7 +118,7 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 * @param   mixed    $properties   An associative array of properties or an object.
 	 * @param   boolean  $updateNulls  True to bind null values, false to ignore null values.
 	 *
-	 * @return  JData  Returns itself to allow chaining.
+	 * @return  Data  Returns itself to allow chaining.
 	 *
 	 * @since   1.0
 	 * @throws  InvalidArgumentException
@@ -226,7 +226,7 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	/**
 	 * Dumps a data property.
 	 *
-	 * If recursion is set, this method will dump any object implementing JDumpable (like JData and JDataSet); it will
+	 * If recursion is set, this method will dump any object implementing Data\Dumpable (like Data\Object and Data\Set); it will
 	 * convert a Date object to a string; and it will convert a Registry to an object.
 	 *
 	 * @param   string             $property  The name of the data property.
@@ -275,7 +275,7 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 *
 	 * @return  mixed  The value of the data property.
 	 *
-	 * @see     JData::__get()
+	 * @see     Data::__get()
 	 * @since   1.0
 	 */
 	protected function getProperty($property)
@@ -296,7 +296,7 @@ class Data implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countabl
 	 *
 	 * @return  mixed  The value of the data property.
 	 *
-	 * @see     JData::__set()
+	 * @see     Data::__set()
 	 * @since   1.0
 	 */
 	protected function setProperty($property, $value)

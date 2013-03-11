@@ -29,7 +29,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the __construct method.
+	 * Tests the Joomla\Data\Set::__construct method.
 	 *
 	 * @return  void
 	 *
@@ -41,7 +41,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 		$this->assertEmpty(Helper::getValue(new Data\Set, 'objects'), 'New list should have no objects.');
 
 		$input = array(
-			'key' => new Data\Data(array('foo' => 'bar'))
+			'key' => new Data\Object(array('foo' => 'bar'))
 		);
 		$new = new Data\Set($input);
 
@@ -49,7 +49,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the __construct method with an array that does not contain Data objects.
+	 * Tests the Joomla\Data\Set::__construct method with an array that does not contain Data objects.
 	 *
 	 * @return  void
 	 *
@@ -63,7 +63,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the __construct method with scalar input.
+	 * Tests the Joomla\Data\Set::__construct method with scalar input.
 	 *
 	 * @return  void
 	 *
@@ -77,7 +77,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the __call method.
+	 * Tests the Joomla\Data\Set::__call method.
 	 *
 	 * @return  void
 	 *
@@ -93,7 +93,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the __get method.
+	 * Tests the Joomla\Data\Set::__get method.
 	 *
 	 * @return  void
 	 *
@@ -109,7 +109,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the __isset method.
+	 * Tests the Joomla\Data\Set::__isset method.
 	 *
 	 * @return  void
 	 *
@@ -124,7 +124,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the __set method.
+	 * Tests the Joomla\Data\Set::__set method.
 	 *
 	 * @return  void
 	 *
@@ -142,7 +142,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the __unset method.
+	 * Tests the Joomla\Data\Set::__unset method.
 	 *
 	 * @return  void
 	 *
@@ -157,7 +157,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the count method.
+	 * Tests the Joomla\Data\Set::count method.
 	 *
 	 * @return  void
 	 *
@@ -170,7 +170,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the clear method.
+	 * Tests the Joomla\Data\Set::clear method.
 	 *
 	 * @return  void
 	 *
@@ -185,7 +185,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the current method.
+	 * Tests the Joomla\Data\Set::current method.
 	 *
 	 * @return  void
 	 *
@@ -201,16 +201,16 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 			$this->equalTo($object)
 		);
 
-		$new = new Data\Set(array('foo' => new Data\Data));
+		$new = new Data\Set(array('foo' => new Data\Object));
 
 		$this->assertThat(
 			$new->current(),
-			$this->equalTo(new Data\Data)
+			$this->equalTo(new Data\Object)
 		);
 	}
 
 	/**
-	 * Tests the dump method.
+	 * Tests the Joomla\Data\Set::dump method.
 	 *
 	 * @return  void
 	 *
@@ -232,7 +232,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the jsonSerialize method.
+	 * Tests the Joomla\Data\Set::jsonSerialize method.
 	 *
 	 * @return  void
 	 *
@@ -254,7 +254,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the key method.
+	 * Tests the Joomla\Data\Set::key method.
 	 *
 	 * @return  void
 	 *
@@ -267,7 +267,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the keys method.
+	 * Tests the Joomla\Data\Set::keys method.
 	 *
 	 * @return  void
 	 *
@@ -277,14 +277,14 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	public function testKeys()
 	{
 		$instance = new Data\Set;
-		$instance['key1'] = new Data\Data;
-		$instance['key2'] = new Data\Data;
+		$instance['key1'] = new Data\Object;
+		$instance['key2'] = new Data\Object;
 
 		$this->assertEquals(array('key1', 'key2'), $instance->keys());
 	}
 
 	/**
-	 * Tests the next method.
+	 * Tests the Joomla\Data\Set::next method.
 	 *
 	 * @return  void
 	 *
@@ -307,7 +307,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the offsetExists method.
+	 * Tests the Joomla\Data\Set::offsetExists method.
 	 *
 	 * @return  void
 	 *
@@ -322,7 +322,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the offsetGet method.
+	 * Tests the Joomla\Data\Set::offsetGet method.
 	 *
 	 * @return  void
 	 *
@@ -337,7 +337,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the offsetSet method.
+	 * Tests the Joomla\Data\Set::offsetSet method.
 	 *
 	 * @return  void
 	 *
@@ -346,20 +346,20 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetSet()
 	{
-		$this->instance->offsetSet(0, new Data\Data);
+		$this->instance->offsetSet(0, new Data\Object);
 		$objects = Helper::getValue($this->instance, 'objects');
 
-		$this->assertEquals(new Data\Data, $objects[0], 'Checks explicit use of offsetSet.');
+		$this->assertEquals(new Data\Object, $objects[0], 'Checks explicit use of offsetSet.');
 
-		$this->instance[] = new Data\Data;
-		$this->assertInstanceOf('Joomla\Data\Data', $this->instance[1], 'Checks the array push equivalent with [].');
+		$this->instance[] = new Data\Object;
+		$this->assertInstanceOf('Joomla\Data\Object', $this->instance[1], 'Checks the array push equivalent with [].');
 
-		$this->instance['foo'] = new Data\Data;
-		$this->assertInstanceOf('Joomla\Data\Data', $this->instance['foo'], 'Checks implicit usage of offsetSet.');
+		$this->instance['foo'] = new Data\Object;
+		$this->assertInstanceOf('Joomla\Data\Object', $this->instance['foo'], 'Checks implicit usage of offsetSet.');
 	}
 
 	/**
-	 * Tests the offsetSet method for an expected exception
+	 * Tests the Joomla\Data\Set::offsetSet method for an expected exception
 	 *
 	 * @return  void
 	 *
@@ -374,7 +374,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the offsetUnset method.
+	 * Tests the Joomla\Data\Set::offsetUnset method.
 	 *
 	 * @return  void
 	 *
@@ -390,7 +390,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the offsetRewind method.
+	 * Tests the Joomla\Data\Set::offsetRewind method.
 	 *
 	 * @return  void
 	 *
@@ -409,7 +409,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the valid method.
+	 * Tests the Joomla\Data\Set::valid method.
 	 *
 	 * @return  void
 	 *
@@ -465,7 +465,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 
 		// Tests single item list.
 		$this->instance->clear();
-		$this->instance['1'] = new Data\Data;
+		$this->instance['1'] = new Data\Object;
 		$runs = 0;
 
 		foreach ($this->instance as $key => $object)
@@ -476,10 +476,10 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $runs);
 
 		// Exhaustively testing unsetting within a foreach.
-		$this->instance['2'] = new Data\Data;
-		$this->instance['3'] = new Data\Data;
-		$this->instance['4'] = new Data\Data;
-		$this->instance['5'] = new Data\Data;
+		$this->instance['2'] = new Data\Object;
+		$this->instance['3'] = new Data\Object;
+		$this->instance['4'] = new Data\Object;
+		$this->instance['5'] = new Data\Object;
 
 		$runs = 0;
 
