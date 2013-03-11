@@ -13,7 +13,7 @@ use RuntimeException;
 /**
  * Class to manipulate an image.
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Filter
 {

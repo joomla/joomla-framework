@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests;
 /**
  * Class to expose protected properties and methods in JDatabasePostgresqlExporter for testing purposes
  *
- * @since    1.0
+ * @since  1.0
  */
 class ExporterPostgresqlInspector extends \Joomla\Database\Exporter\Postgresql
 {

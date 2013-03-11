@@ -10,13 +10,11 @@ use Joomla\Factory;
 use Joomla\Log\Log;
 use Joomla\Client\Ftp;
 use Joomla\Client\Helper as ClientHelper;
-use RuntimeException;
-use UnexpectedValueException;
 
 /**
  * A Folder handling class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Folder
 {
@@ -52,18 +50,18 @@ abstract class Folder
 
 		if (!self::exists($src))
 		{
-			throw new RuntimeException('Source folder not found', -1);
+			throw new \RuntimeException('Source folder not found', -1);
 		}
 
 		if (self::exists($dest) && !$force)
 		{
-			throw new RuntimeException('Destination folder not found', -1);
+			throw new \RuntimeException('Destination folder not found', -1);
 		}
 
 		// Make sure the destination exists
 		if (!self::create($dest))
 		{
-			throw new RuntimeException('Cannot create destination folder', -1);
+			throw new \RuntimeException('Cannot create destination folder', -1);
 		}
 
 		// If we're using ftp and don't have streams enabled
@@ -74,7 +72,7 @@ abstract class Folder
 
 			if (!($dh = @opendir($src)))
 			{
-				throw new RuntimeException('Cannot open source folder', -1);
+				throw new \RuntimeException('Cannot open source folder', -1);
 			}
 
 			// Walk through the directory copying files and recursing into folders.
@@ -103,7 +101,7 @@ abstract class Folder
 
 						if (!$ftp->store($sfid, $dfid))
 						{
-							throw new RuntimeException('Copy file failed', -1);
+							throw new \RuntimeException('Copy file failed', -1);
 						}
 						break;
 				}
@@ -113,7 +111,7 @@ abstract class Folder
 		{
 			if (!($dh = @opendir($src)))
 			{
-				throw new RuntimeException('Cannot open source folder', -1);
+				throw new \RuntimeException('Cannot open source folder', -1);
 			}
 
 			// Walk through the directory copying files and recursing into folders.
@@ -143,14 +141,14 @@ abstract class Folder
 
 							if (!$stream->copy($sfid, $dfid))
 							{
-								throw new RuntimeException('Cannot copy file: ' . $stream->getError(), -1);
+								throw new \RuntimeException('Cannot copy file: ' . $stream->getError(), -1);
 							}
 						}
 						else
 						{
 							if (!@copy($sfid, $dfid))
 							{
-								throw new RuntimeException('Copy file failed', -1);
+								throw new \RuntimeException('Copy file failed', -1);
 							}
 						}
 						break;
@@ -315,9 +313,9 @@ abstract class Folder
 			// Check to make sure the path valid and clean
 			$path = Path::clean($path);
 		}
-		catch (UnexpectedValueException $e)
+		catch (\UnexpectedValueException $e)
 		{
-			throw new UnexpectedValueException($e);
+			throw new \UnexpectedValueException($e);
 		}
 
 		// Is this really a folder?

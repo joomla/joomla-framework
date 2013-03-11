@@ -9,9 +9,7 @@ use Joomla\Form\Rule;
 /**
  * Test class for JForm.
  *
- * @since    1.0
- *
- * @return void
+ * @since  1.0
  */
 class FormRuleTest extends PHPUnit_Framework_TestCase
 {

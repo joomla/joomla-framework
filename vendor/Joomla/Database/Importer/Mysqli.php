@@ -12,7 +12,7 @@ use Joomla\Database\Driver\Mysqli as DriverMysqli;
 /**
  * MySQLi import driver.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Mysqli extends Importer
 {

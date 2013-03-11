@@ -13,7 +13,7 @@ use Joomla\Uri\Uri;
 /**
  * Test class for Joomla\Http\Http.
  *
- * @since    1.0
+ * @since  1.0
  */
 class HttpTest extends \PHPUnit_Framework_TestCase
 {

@@ -11,7 +11,7 @@ use Joomla\Archive\Zip as ArchiveZip;
 /**
  * Inspector for the JApplicationBase class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ZipInspector extends ArchiveZip
 {

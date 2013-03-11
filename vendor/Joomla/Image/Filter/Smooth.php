@@ -12,7 +12,7 @@ use InvalidArgumentException;
 /**
  * Image Filter class adjust the smoothness of an image.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Smooth extends Filter
 {

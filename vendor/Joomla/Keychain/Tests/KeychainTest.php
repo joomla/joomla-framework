@@ -11,7 +11,7 @@ use Joomla\Keychain\Keychain;
 /**
  * Tests for the Joomla Platform Keychain Class
  *
- * @since    1.0
+ * @since  1.0
  */
 class KeychainTest extends \PHPUnit_Framework_TestCase
 {
@@ -154,10 +154,9 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Load a keychain file we just created
 	 *
+	 * @return  void
+	 *
 	 * @depends  testSaveKeychain
-	 *
-	 * @return   void
-	 *
 	 * @since    1.0
 	 */
 	public function testLoadKeychain()
@@ -176,10 +175,9 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Delete a value from the keychain
 	 *
+	 * @return  void
+	 *
 	 * @depends  testSaveKeychain
-	 *
-	 * @return   void
-	 *
 	 * @since    1.0
 	 */
 	public function testDeleteValue()

@@ -11,7 +11,7 @@ use Joomla\Client\Ldap;
 /**
  * Test class for Ldap.
  *
- * @since    1.0
+ * @since  1.0
  */
 class LdapTest extends \PHPUnit_Framework_TestCase
 {

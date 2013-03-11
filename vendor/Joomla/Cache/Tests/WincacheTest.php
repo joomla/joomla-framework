@@ -11,7 +11,7 @@ use Joomla\Cache;
 /**
  * Tests for the Joomla\Cache\Wincache class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class WincacheTest extends \PHPUnit_Framework_TestCase
 {

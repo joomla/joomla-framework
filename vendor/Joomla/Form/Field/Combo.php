@@ -13,7 +13,7 @@ use Joomla\Language\Text;
  * Form Field class for the Joomla Platform.
  * Implements a combo box field.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_Combo extends Field_List
 {

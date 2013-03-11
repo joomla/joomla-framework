@@ -13,7 +13,7 @@ require_once __DIR__ . '/Stubs/DatabaseModel.php';
 /**
  * Tests for the Joomla\Model\Database class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class DatabaseTest extends \PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,7 @@ namespace Joomla\Crypt;
 /**
  * JCrypt cipher for Blowfish encryption, decryption and key generation.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Cipher_Blowfish extends Cipher_Mcrypt
 {

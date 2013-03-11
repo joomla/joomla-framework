@@ -12,7 +12,7 @@ use InvalidArgumentException;
 /**
  * Image Filter class adjust the contrast of an image.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Contrast extends Filter
 {

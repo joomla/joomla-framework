@@ -11,7 +11,7 @@ use Joomla\String\String;
 /**
  * ArrayHelper is an array utility class for doing all sorts of odds and ends with arrays.
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class ArrayHelper
 {

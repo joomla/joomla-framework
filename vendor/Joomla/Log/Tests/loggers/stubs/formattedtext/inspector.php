@@ -11,7 +11,7 @@
 /**
  * JLogLoggerFormattedTextInspector class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JLogLoggerFormattedTextInspector extends Joomla\Log\Logger\Formattedtext
 {

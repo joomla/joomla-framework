@@ -8,12 +8,11 @@ namespace Joomla\Model;
 
 use Joomla\Database\Driver;
 use Joomla\Registry\Registry;
-use Joomla\Factory;
 
 /**
  * Joomla Platform Database Model Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Database extends Base
 {

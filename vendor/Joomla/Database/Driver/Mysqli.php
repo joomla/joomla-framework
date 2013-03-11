@@ -12,8 +12,8 @@ use Psr\Log;
 /**
  * MySQLi database driver
  *
- * @see      http://php.net/manual/en/book.mysqli.php
- * @since    1.0
+ * @see    http://php.net/manual/en/book.mysqli.php
+ * @since  1.0
  */
 class Mysqli extends Driver
 {

@@ -12,7 +12,7 @@ namespace Joomla\Profiler;
  * it holds (time and memory) are relative to the values
  * of the first marked point in that profiler.
  *
- * @since    1.0
+ * @since  1.0
  */
 interface ProfilePointInterface
 {

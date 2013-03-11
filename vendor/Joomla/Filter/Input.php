@@ -12,7 +12,7 @@ namespace Joomla\Filter;
  * Forked from the php input filter library by: Daniel Morris <dan@rootcube.com>
  * Original Contributors: Gianpaolo Racca, Ghislain Picard, Marco Wandschneider, Chris Tobin and Andrew Eddie.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Input
 {
@@ -708,7 +708,7 @@ class Input
 	 *
 	 * @return  string  Filtered string
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 */
 	protected function escapeAttributeValues($source)
 	{

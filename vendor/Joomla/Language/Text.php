@@ -11,7 +11,7 @@ use Joomla\Factory;
 /**
  * Text handling class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Text
 {

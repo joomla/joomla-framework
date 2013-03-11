@@ -9,7 +9,7 @@ use Joomla\Form\Rule\Equals as RuleEquals;
 /**
  * Test class for JForm.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormRuleEqualsTest extends PHPUnit_Framework_TestCase
 {

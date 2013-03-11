@@ -7,16 +7,16 @@
 /**
  * Test class for JForm.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldCheckboxesTest extends TestCase
 {
 	/**
 	 * Sets up dependencies for the test.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	protected function setUp()
 	{
@@ -25,9 +25,9 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with no value and no checked attribute.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGetInputNoValueNoChecked()
 	{
@@ -71,9 +71,9 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with one value selected and no checked attribute.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGetInputValueNoChecked()
 	{
@@ -119,9 +119,9 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with one value that is an array and no checked attribute.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGetInputValueArrayNoChecked()
 	{
@@ -166,9 +166,9 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method  with no value and one value in checked.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGetInputNoValueOneChecked()
 	{
@@ -212,9 +212,9 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with no value and two values in the checked element.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGetInputNoValueTwoChecked()
 	{
@@ -259,9 +259,9 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with one value and a different checked value.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGetInputValueChecked()
 	{
@@ -306,9 +306,9 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getInput method with multiple values, no checked.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGetInputValuesNoChecked()
 	{
@@ -352,9 +352,9 @@ class JFormFieldCheckboxesTest extends TestCase
 	/**
 	 * Test the getOptions method.
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGetOptions()
 	{

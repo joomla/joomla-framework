@@ -6,10 +6,6 @@
 
 namespace Joomla\Filesystem;
 
-use Exception;
-use Iterator;
-use UnexpectedValueException;
-
 if (!defined('JPATH_ROOT'))
 {
 	// Define a string constant for the root directory of the file system in native format
@@ -19,7 +15,7 @@ if (!defined('JPATH_ROOT'))
 /**
  * A Path handling class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Path
 {
@@ -166,14 +162,14 @@ class Path
 	{
 		if (strpos($path, '..') !== false)
 		{
-			throw new Exception('JPath::check Use of relative paths not permitted', 20);
+			throw new \Exception('JPath::check Use of relative paths not permitted', 20);
 		}
 
 		$path = self::clean($path);
 
 		if ((JPATH_ROOT != '') && strpos($path, self::clean(JPATH_ROOT)) !== 0)
 		{
-			throw new Exception('JPath::check Snooping out of bounds @ ' . $path, 20);
+			throw new \Exception('JPath::check Snooping out of bounds @ ' . $path, 20);
 		}
 
 		return $path;
@@ -194,7 +190,7 @@ class Path
 	{
 		if (!is_string($path))
 		{
-			throw new UnexpectedValueException('JPath::clean $path is not a string.');
+			throw new \UnexpectedValueException('JPath::clean $path is not a string.');
 		}
 
 		$path = trim($path);
@@ -272,7 +268,7 @@ class Path
 	public static function find($paths, $file)
 	{
 		// Force to array
-		if (!is_array($paths) && !($paths instanceof Iterator))
+		if (!is_array($paths) && !($paths instanceof \Iterator))
 		{
 			settype($paths, 'array');
 		}

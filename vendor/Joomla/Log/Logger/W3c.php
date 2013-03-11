@@ -14,7 +14,7 @@ use Joomla\Log\Logger\Formattedtext;
  * This class is designed to build log files based on the W3c specification
  * at: http://www.w3.org/TR/WD-logfile.html
  *
- * @since    1.0
+ * @since  1.0
  */
 class W3c extends Formattedtext
 {

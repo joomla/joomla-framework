@@ -11,7 +11,7 @@ use Joomla\Registry\Registry;
 /**
  * WinCache cache driver for the Joomla Framework.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Wincache extends Cache
 {

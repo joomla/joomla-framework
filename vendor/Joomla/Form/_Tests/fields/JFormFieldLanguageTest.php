@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldLanguage.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldLanguageTest extends TestCaseDatabase
 {

@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldGroupedList.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldGroupedListTest extends TestCase
 {

@@ -11,7 +11,7 @@ use Joomla\Cache\Cache;
 /**
  * Tests for the Joomla\Cache\Cache class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ConcreteCache extends Cache
 {

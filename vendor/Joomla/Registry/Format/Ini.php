@@ -8,12 +8,11 @@ namespace Joomla\Registry\Format;
 
 use Joomla\Registry\Format;
 use stdClass;
-use Joomla\Utilities\ArrayHelper;
 
 /**
  * INI format handler for Registry.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Ini extends Format
 {

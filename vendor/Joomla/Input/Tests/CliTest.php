@@ -7,7 +7,7 @@
 /**
  * Test class for JInput.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JInputCLITest extends PHPUnit_Framework_TestCase
 {

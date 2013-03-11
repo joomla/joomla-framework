@@ -14,7 +14,7 @@ use Joomla\Test\WebInspector;
 /**
  * Test case for JGoogle.
  *
- * @since    1.0
+ * @since  1.0
  */
 class GoogleTestCase extends PHPUnit_Framework_TestCase
 {

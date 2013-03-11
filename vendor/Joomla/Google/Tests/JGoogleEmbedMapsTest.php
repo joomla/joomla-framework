@@ -10,7 +10,7 @@ use Joomla\Registry\Registry;
 /**
  * Test class for JGoogle.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JGoogleEmbedMapsTest extends PHPUnit_Framework_TestCase
 {

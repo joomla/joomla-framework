@@ -12,8 +12,8 @@ use Joomla\Html\Html;
  * Color Form Field class for the Joomla Platform.
  * This implementation is designed to be compatible with HTML5's <input type="color">
  *
- * @link     http://www.w3.org/TR/html-markup/input.color.html
- * @since    1.0
+ * @link   http://www.w3.org/TR/html-markup/input.color.html
+ * @since  1.0
  */
 class Field_Color extends Field
 {

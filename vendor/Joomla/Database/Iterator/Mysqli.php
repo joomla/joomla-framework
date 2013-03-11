@@ -11,7 +11,7 @@ use Joomla\Database\DatabaseIterator;
 /**
  * MySQLi database iterator.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Mysqli extends DatabaseIterator
 {

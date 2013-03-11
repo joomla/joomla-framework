@@ -9,7 +9,7 @@ namespace Joomla\Database\Query;
 /**
  * SQLite Query Building Class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Sqlite extends Pdo implements Preparable, Limitable
 {

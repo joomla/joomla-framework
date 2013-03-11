@@ -12,7 +12,7 @@ use Joomla\Language\Text;
  * Form Field class for the Joomla Platform.
  * Provides spacer markup to be used in form layouts.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_Spacer extends Field
 {

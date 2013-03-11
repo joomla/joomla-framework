@@ -13,7 +13,7 @@ require_once __DIR__ . '/stubs/JGithubObjectMock.php';
 /**
  * Test class for Joomla\Github\Object.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JGithubObjectTest extends \PHPUnit_Framework_TestCase
 {

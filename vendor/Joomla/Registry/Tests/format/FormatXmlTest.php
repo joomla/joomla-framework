@@ -9,7 +9,7 @@ use Joomla\Registry\Format;
 /**
  * Test class for Xml.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 {

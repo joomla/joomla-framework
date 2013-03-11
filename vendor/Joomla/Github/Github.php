@@ -23,7 +23,7 @@ use Joomla\Registry\Registry;
  * @property-read  Hooks       $hooks       GitHub API object for hooks.
  * @property-read  Meta        $meta        GitHub API object for meta.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Github
 {

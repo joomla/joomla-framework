@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 /**
  * Test class for Joomla\Github\Gists.
  *
- * @since    1.0
+ * @since  1.0
  */
 class GistsTest extends \PHPUnit_Framework_TestCase
 {

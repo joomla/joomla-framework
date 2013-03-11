@@ -11,7 +11,7 @@ use Joomla\Image\Filter;
 /**
  * Image Filter class inspector for testing purposes.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Inspector extends Filter
 {

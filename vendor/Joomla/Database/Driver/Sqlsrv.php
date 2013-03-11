@@ -12,8 +12,8 @@ use Joomla\Database\Driver;
 /**
  * SQL Server database driver
  *
- * @see      http://msdn.microsoft.com/en-us/library/cc296152(SQL.90).aspx
- * @since    1.0
+ * @see    http://msdn.microsoft.com/en-us/library/cc296152(SQL.90).aspx
+ * @since  1.0
  */
 class Sqlsrv extends Driver
 {

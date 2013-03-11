@@ -18,7 +18,7 @@ use Joomla\Factory;
  * table are based on the Syslog style of log output. This is designed to allow quick and
  * easy searching.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Database extends Logger
 {

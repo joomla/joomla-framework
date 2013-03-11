@@ -11,7 +11,7 @@ use Joomla\Image\Filter;
 /**
  * Image Filter class to negate the colors of an image.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Negate extends Filter
 {

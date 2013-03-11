@@ -11,7 +11,7 @@ use Joomla\String\Normalise;
 /**
  * NormaliseTest
  *
- * @since    1.0
+ * @since  1.0
  */
 class NormaliseTest extends \PHPUnit_Framework_TestCase
 {

@@ -13,8 +13,8 @@ use Exception;
 /**
  * Database session storage handler for PHP
  *
- * @see         http://www.php.net/manual/en/function.session-set-save-handler.php
- * @since    1.0
+ * @see    http://www.php.net/manual/en/function.session-set-save-handler.php
+ * @since  1.0
  */
 class Database extends Storage
 {

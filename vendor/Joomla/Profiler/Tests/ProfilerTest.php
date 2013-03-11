@@ -15,7 +15,7 @@ use Joomla\Test\Helper;
 /**
  * Test class for Joomla\Profiler\Profiler.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ProfilerTest extends \PHPUnit_Framework_TestCase
 {

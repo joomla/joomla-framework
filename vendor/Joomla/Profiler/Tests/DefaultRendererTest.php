@@ -13,7 +13,7 @@ use Joomla\Profiler\Profiler;
 /**
  * Tests for the DefaultRenderer class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class DefaultRendererTest extends \PHPUnit_Framework_TestCase
 {

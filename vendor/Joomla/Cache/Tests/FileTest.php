@@ -11,7 +11,7 @@ use Joomla\Cache;
 /**
  * Tests for the Joomla\Cache\Cache class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class FileTest extends \PHPUnit_Framework_TestCase
 {

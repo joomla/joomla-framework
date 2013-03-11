@@ -12,7 +12,7 @@ use Joomla\Crypt\Cipher_Rijndael256;
 /**
  * Test class for JCryptCipherRijndael256.
  *
- * @since    1.0
+ * @since  1.0
  */
 class CipherRijndael256Test extends \PHPUnit_Framework_TestCase
 {

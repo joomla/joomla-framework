@@ -9,8 +9,8 @@ namespace Joomla\Database\Driver;
 /**
  * Oracle database driver
  *
- * @see      http://php.net/pdo
- * @since    1.0
+ * @see    http://php.net/pdo
+ * @since  1.0
  */
 class Oracle extends Pdo
 {

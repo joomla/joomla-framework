@@ -12,7 +12,7 @@ use Joomla\Log\Entry;
 /**
  * Joomla Echo logger class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Echoo extends Logger
 {

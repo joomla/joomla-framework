@@ -11,7 +11,7 @@ require_once __DIR__ . '/Stubs/Concrete.php';
 /**
  * Tests for the Joomla\Cache\Cache class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class CacheTest extends \PHPUnit_Framework_TestCase
 {

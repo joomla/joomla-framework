@@ -11,8 +11,8 @@ use Sqlite3;
 /**
  * SQLite database driver
  *
- * @see      http://php.net/pdo
- * @since    1.0
+ * @see    http://php.net/pdo
+ * @since  1.0
  */
 class Sqlite extends Pdo
 {

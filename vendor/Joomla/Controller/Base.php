@@ -12,11 +12,11 @@ use Joomla\Application;
 /**
  * Joomla Platform Base Controller Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Base implements Controller
 {
-  /**
+	/**
 	 * The application object.
 	 *
 	 * @var    Application\Base

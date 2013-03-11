@@ -11,7 +11,7 @@ require_once __DIR__ . '/QueryInspector.php';
 /**
  * Test class for \Joomla\Database\Query.
  *
- * @since    1.0
+ * @since  1.0
  */
 class QueryTest extends \PHPUnit_Framework_TestCase
 {

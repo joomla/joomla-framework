@@ -9,7 +9,7 @@ namespace Joomla\Database;
 /**
  * Joomla Platform Database Importer Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Importer
 {

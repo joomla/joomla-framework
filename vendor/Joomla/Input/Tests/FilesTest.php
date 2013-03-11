@@ -9,7 +9,7 @@ use Joomla\Input\Files;
 /**
  * Test class for JInputFiles.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JInputFilesTest extends PHPUnit_Framework_TestCase
 {

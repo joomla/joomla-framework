@@ -15,7 +15,7 @@ use SimpleXMLElement;
 /**
  * Form Rule class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Email extends Rule
 {

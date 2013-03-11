@@ -12,7 +12,7 @@ use Joomla\Database\Driver\Postgresql as DriverPostrgresql;
 /**
  * PostgreSQL export driver.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Postgresql extends Exporter
 {

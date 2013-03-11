@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldSessionHandler.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldSessionHandlerTest extends TestCase
 {

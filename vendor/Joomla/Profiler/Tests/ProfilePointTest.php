@@ -12,7 +12,7 @@ use Joomla\Test\Helper;
 /**
  * Tests for the ProfilePoint class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ProfilePointTest extends \PHPUnit_Framework_TestCase
 {

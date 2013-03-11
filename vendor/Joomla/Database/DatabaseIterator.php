@@ -6,15 +6,12 @@
 
 namespace Joomla\Database;
 
-use Countable;
-use Iterator;
-
 /**
  * Joomla Platform Database Driver Class
  *
- * @since    1.0
+ * @since  1.0
  */
-abstract class DatabaseIterator implements Countable, Iterator
+abstract class DatabaseIterator implements \Countable, \Iterator
 {
 	/**
 	 * The database cursor.
@@ -77,7 +74,7 @@ abstract class DatabaseIterator implements Countable, Iterator
 	{
 		if (!class_exists($class))
 		{
-			throw new InvalidArgumentException(sprintf('new %s(*%s*, cursor)', get_class($this), gettype($class)));
+			throw new \InvalidArgumentException(sprintf('new %s(*%s*, cursor)', get_class($this), gettype($class)));
 		}
 
 		$this->cursor = $cursor;

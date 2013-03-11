@@ -6,14 +6,11 @@
 
 namespace Joomla\Filesystem;
 
-use RuntimeException;
-
 /**
  * A Unified Diff Format Patcher class
  *
- *
- * @link     http://sourceforge.net/projects/phppatcher/ This has been derived from the PhpPatcher version 0.1.1 written by Giuseppe Mazzotta
- * @since    1.0
+ * @link   http://sourceforge.net/projects/phppatcher/ This has been derived from the PhpPatcher version 0.1.1 written by Giuseppe Mazzotta
+ * @since  1.0
  */
 class Patcher
 {
@@ -157,7 +154,7 @@ class Patcher
 				// If no modifications were found, throw an exception
 				if (!$done)
 				{
-					throw new RuntimeException('Invalid Diff');
+					throw new \RuntimeException('Invalid Diff');
 				}
 			}
 		}
@@ -296,13 +293,13 @@ class Patcher
 
 			if ($line === false)
 			{
-				throw new RuntimeException('Unexpected EOF');
+				throw new \RuntimeException('Unexpected EOF');
 			}
 
 			// Search the destination file
 			if (!preg_match(self::DST_FILE, $line, $m))
 			{
-				throw new RuntimeException('Invalid Diff file');
+				throw new \RuntimeException('Invalid Diff file');
 			}
 
 			// Set the destination file
@@ -311,7 +308,7 @@ class Patcher
 			// Advance to the next line
 			if (next($lines) === false)
 			{
-				throw new RuntimeException('Unexpected EOF');
+				throw new \RuntimeException('Unexpected EOF');
 			}
 
 			return true;
@@ -363,7 +360,7 @@ class Patcher
 
 			if (next($lines) === false)
 			{
-				throw new RuntimeException('Unexpected EOF');
+				throw new \RuntimeException('Unexpected EOF');
 			}
 
 			return true;
@@ -416,7 +413,7 @@ class Patcher
 			{
 				if ($src_left == 0)
 				{
-					throw new RuntimeException('Unexpected remove line at line ' . key($lines));
+					throw new \RuntimeException('Unexpected remove line at line ' . key($lines));
 				}
 
 				$source[] = substr($line, 1);
@@ -426,7 +423,7 @@ class Patcher
 			{
 				if ($dst_left == 0)
 				{
-					throw new RuntimeException('Unexpected add line at line ' . key($lines));
+					throw new \RuntimeException('Unexpected add line at line ' . key($lines));
 				}
 
 				$destin[] = substr($line, 1);
@@ -450,7 +447,7 @@ class Patcher
 
 					if (!isset($src_lines))
 					{
-						throw new RuntimeException('Unexisting source file: ' . $src);
+						throw new \RuntimeException('Unexisting source file: ' . $src);
 					}
 				}
 
@@ -465,7 +462,7 @@ class Patcher
 						{
 							if ($src_lines[$l] != $source[$l - $src_line])
 							{
-								throw new RuntimeException(sprintf('Failed source verification of file %1$s at line %2$s', $src, $l));
+								throw new \RuntimeException(sprintf('Failed source verification of file %1$s at line %2$s', $src, $l));
 							}
 						}
 
@@ -489,7 +486,7 @@ class Patcher
 		}
 		while ($line !== false);
 
-		throw new RuntimeException('Unexpected EOF');
+		throw new \RuntimeException('Unexpected EOF');
 	}
 
 	/**

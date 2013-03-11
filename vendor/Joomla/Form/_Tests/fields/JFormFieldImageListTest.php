@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldImageList.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldImageListTest extends TestCase
 {

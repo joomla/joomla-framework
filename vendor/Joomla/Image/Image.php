@@ -15,7 +15,7 @@ use stdClass;
 /**
  * Class to manipulate an image.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Image
 {

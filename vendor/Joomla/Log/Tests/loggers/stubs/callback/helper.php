@@ -11,7 +11,7 @@
 /**
  * Helper class for JLogLoggerCallbackTest
  *
- * @since    1.0
+ * @since  1.0
  */
 class JLogLoggerCallbackTestHelper
 {

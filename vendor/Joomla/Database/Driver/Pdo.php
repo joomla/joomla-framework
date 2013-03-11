@@ -14,8 +14,8 @@ use Joomla\Database\Query\Preparable;
 /**
  * Joomla Platform PDO Database Driver Class
  *
- * @see      http://php.net/pdo
- * @since    1.0
+ * @see    http://php.net/pdo
+ * @since  1.0
  */
 abstract class Pdo extends Driver
 {

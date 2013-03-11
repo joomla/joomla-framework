@@ -11,10 +11,10 @@ use Psr\Log;
 /**
  * Joomla Platform Database Driver Class
  *
- * @since    1.0
+ * @since  1.0
  *
- * @method      string  q()   q($text, $escape = true)  Alias for quote method
- * @method      string  qn()  qn($name, $as = null)     Alias for quoteName method
+ * @method  string  q()   q($text, $escape = true)  Alias for quote method
+ * @method  string  qn()  qn($name, $as = null)     Alias for quoteName method
  */
 abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 {
@@ -35,107 +35,144 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	public $name;
 
 	/**
-	 * @var    resource  The database connection resource.
+	 * The database connection resource.
+	 *
+	 * @var    resource
 	 * @since  1.0
 	 */
 	protected $connection;
 
 	/**
-	 * @var    integer  The number of SQL statements executed by the database driver.
+	 * The number of SQL statements executed by the database driver.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $count = 0;
 
 	/**
-	 * @var    resource  The database connection cursor from the last query.
+	 * The database connection cursor from the last query.
+	 *
+	 * @var    resource
 	 * @since  1.0
 	 */
 	protected $cursor;
 
 	/**
-	 * @var    boolean  The database driver debugging state.
+	 * The database driver debugging state.
+	 *
+	 * @var    boolean
 	 * @since  1.0
 	 */
 	protected $debug = false;
 
 	/**
-	 * @var    integer  The affected row limit for the current SQL statement.
+	 * The affected row limit for the current SQL statement.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $limit = 0;
 
 	/**
-	 * @var    string  The character(s) used to quote SQL statement names such as table names or field names,
-	 *                 etc.  The child classes should define this as necessary.  If a single character string the
-	 *                 same character is used for both sides of the quoted name, else the first character will be
-	 *                 used for the opening quote and the second for the closing quote.
+	 * The character(s) used to quote SQL statement names such as table names or field names,
+	 * etc.
+	 *
+	 * The child classes should define this as necessary.  If a single character string the
+	 * same character is used for both sides of the quoted name, else the first character will be
+	 * used for the opening quote and the second for the closing quote.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $nameQuote;
 
 	/**
-	 * @var    string  The null or zero representation of a timestamp for the database driver.  This should be
-	 *                 defined in child classes to hold the appropriate value for the engine.
+	 * The null or zero representation of a timestamp for the database driver.
+	 *
+	 * This should be defined in child classes to hold the appropriate value for the engine.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $nullDate;
 
 	/**
-	 * @var    integer  The affected row offset to apply for the current SQL statement.
+	 * The affected row offset to apply for the current SQL statement.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $offset = 0;
 
 	/**
-	 * @var    array  Passed in upon instantiation and saved.
+	 * Passed in upon instantiation and saved.
+	 *
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    mixed  The current SQL statement to execute.
+	 * The current SQL statement to execute.
+	 *
+	 * @var    mixed
 	 * @since  1.0
 	 */
 	protected $sql;
 
 	/**
-	 * @var    string  The common database table prefix.
+	 * The common database table prefix.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $tablePrefix;
 
 	/**
-	 * @var    boolean  True if the database engine supports UTF-8 character encoding.
+	 * True if the database engine supports UTF-8 character encoding.
+	 *
+	 * @var    boolean
 	 * @since  1.0
 	 */
 	protected $utf = true;
 
 	/**
-	 * @var         integer  The database error number
-	 * @since    1.0
+	 * The database error number.
+	 *
+	 * @var    integer
+	 * @since  1.0
 	 */
 	protected $errorNum = 0;
 
 	/**
-	 * @var         string  The database error message
-	 * @since    1.0
+	 * The database error message.
+	 *
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $errorMsg;
 
 	/**
-	 * @var    array  JDatabaseDriver instances container.
+	 * JDatabaseDriver instances container.
+	 *
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected static $instances = array();
 
 	/**
-	 * @var    string  The minimum supported database version.
+	 * The minimum supported database version.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected static $dbMinimum;
 
 	/**
-	 * @var    integer  The depth of the current transaction.
+	 * The depth of the current transaction.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $transactionDepth = 0;
@@ -1467,7 +1504,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	/**
 	 * Sets a logger.
 	 *
-	 * @param   Log\LoggerInterface $logger
+	 * @param   Log\LoggerInterface  $logger  A PSR-3 compliant logger.
 	 *
 	 * @return  Driver  Returns itself to allow chaining.
 	 */

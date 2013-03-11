@@ -10,9 +10,9 @@ namespace Joomla\Form;
  * Form Field class for the Joomla Platform.
  * Provides and input field for e-mail addresses
  *
- * @link     http://www.w3.org/TR/html-markup/input.email.html#input.email
- * @see      JFormRuleEmail
- * @since    1.0
+ * @link   http://www.w3.org/TR/html-markup/input.email.html#input.email
+ * @see    JFormRuleEmail
+ * @since  1.0
  */
 class Field_Email extends Field
 {

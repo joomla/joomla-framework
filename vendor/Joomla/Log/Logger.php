@@ -12,7 +12,7 @@ namespace Joomla\Log;
  * This class is used to be the basis of logger classes to allow for defined functions
  * to exist regardless of the child class.
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Logger
 {

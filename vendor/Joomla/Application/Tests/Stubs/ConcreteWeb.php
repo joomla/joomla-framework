@@ -11,7 +11,7 @@ use Joomla\Application\Web;
 /**
  * Concrete stub for the Joomla\Application\Web class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ConcreteWeb extends Web
 {

@@ -9,7 +9,7 @@ use Joomla\Input\Input;
 /**
  * Inspector class for the JInput library.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JInputInspector extends Input
 {

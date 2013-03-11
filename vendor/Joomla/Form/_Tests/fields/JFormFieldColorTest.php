@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldColor.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldColorTest extends TestCase
 {

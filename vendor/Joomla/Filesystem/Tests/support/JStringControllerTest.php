@@ -9,7 +9,7 @@ use Joomla\Filesystem\Support\StringController;
 /**
  * Test class for StringController.
  *
- * @since    1.0
+ * @since  1.0
  */
 class StringControllerTest extends PHPUnit_Framework_TestCase
 {

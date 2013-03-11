@@ -9,7 +9,7 @@ namespace Joomla\Crypt;
 /**
  * JCrypt cipher for Simple encryption, decryption and key generation.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Cipher_Simple implements Cipher
 {

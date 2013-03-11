@@ -11,7 +11,7 @@ use Joomla\Application\Base;
 /**
  * Concrete stub for the Joomla\Application\Base class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ConcreteBase extends Base
 {

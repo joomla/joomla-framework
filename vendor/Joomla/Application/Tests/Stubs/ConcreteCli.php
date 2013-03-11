@@ -11,7 +11,7 @@ use Joomla\Application\Cli;
 /**
  * Concrete stub for the Joomla\Application\Cli class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ConcreteCli extends Cli
 {

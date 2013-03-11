@@ -16,7 +16,7 @@ use Countable;
 /**
  * Implementation of ProfilerInterface.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Profiler implements ProfilerInterface, IteratorAggregate, Countable
 {

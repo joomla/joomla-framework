@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldSQL.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldSQLTest extends TestCaseDatabase
 {

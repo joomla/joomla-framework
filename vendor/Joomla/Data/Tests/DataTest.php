@@ -17,7 +17,7 @@ require_once __DIR__ . '/Stubs/capitaliser.php';
 /**
  * Tests for the JData class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class DataTest extends \PHPUnit_Framework_TestCase
 {

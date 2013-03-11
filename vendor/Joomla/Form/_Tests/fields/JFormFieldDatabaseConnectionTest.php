@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldDatabaseConnection.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldDatabaseConnectionTest extends TestCase
 {

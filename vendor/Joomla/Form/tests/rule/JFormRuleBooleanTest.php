@@ -9,7 +9,7 @@ use Joomla\Form\Rule\Boolean as RuleBoolean;
 /**
  * Test class for JForm.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormRuleBooleanTest extends PHPUnit_Framework_TestCase
 {

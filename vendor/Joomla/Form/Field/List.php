@@ -13,7 +13,7 @@ use Joomla\Language\Text;
  * Form Field class for the Joomla Platform.
  * Supports a generic list of options.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_List extends Field
 {

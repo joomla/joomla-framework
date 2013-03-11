@@ -11,7 +11,7 @@ use Joomla\Cache;
 /**
  * Tests for the Joomla\Cache\Memcached class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class MemcachedTest extends \PHPUnit_Framework_TestCase
 {

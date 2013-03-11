@@ -9,8 +9,8 @@ namespace Joomla\Language;
 /**
  * Class to transliterate strings
  *
- * @since    1.0
- * @note        Port of phputf8's utf8_accents_to_ascii()
+ * @since  1.0
+ * @note   Port of phputf8's utf8_accents_to_ascii()
  */
 class Transliterate
 {

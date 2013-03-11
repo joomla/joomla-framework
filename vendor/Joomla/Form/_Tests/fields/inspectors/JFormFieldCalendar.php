@@ -7,7 +7,7 @@
 /**
  * JFormFieldCalendarInspector
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldCalendarInspector extends JFormFieldCalendar
 {

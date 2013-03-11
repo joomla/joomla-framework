@@ -9,7 +9,7 @@ use Joomla\Language\Stemmer;
 /**
  * Test class for JLanguageStemmer.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JLanguageStemmerTest extends PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,7 @@ require_once __DIR__ . '/case/GoogleTestCase.php';
 /**
  * Test class for JGoogleDataAdsense.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JGoogleDataAdsenseTest extends GoogleTestCase
 {

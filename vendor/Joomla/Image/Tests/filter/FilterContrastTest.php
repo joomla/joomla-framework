@@ -9,7 +9,7 @@ use Joomla\Image\Filter\Contrast as FilterContrast;
 /**
  * Test class for JImage.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JImageFilterContrastTest extends PHPUnit_Framework_TestCase
 {

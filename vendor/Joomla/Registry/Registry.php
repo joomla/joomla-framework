@@ -11,7 +11,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Registry class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Registry implements \JsonSerializable
 {

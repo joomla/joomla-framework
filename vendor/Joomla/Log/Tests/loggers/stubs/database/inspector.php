@@ -11,7 +11,7 @@
 /**
  * JLogLoggerDatabaseInspector class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JLogLoggerDatabaseInspector extends Joomla\Log\Logger\Database
 {

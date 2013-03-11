@@ -16,7 +16,7 @@ use Countable;
  *
  * This is an abstracted input class used to manage retrieving data from the application environment.
  *
- * @since    1.0
+ * @since  1.0
  *
  * @property-read    Input   $get
  * @property-read    Input   $post

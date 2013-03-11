@@ -11,7 +11,7 @@ use Joomla\Data;
 /**
  * Derived JDataSet class for testing.
  *
- * @since    1.0
+ * @since  1.0
  *
  * @method      launch() launch(string $status)
  */

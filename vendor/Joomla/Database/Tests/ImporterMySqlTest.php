@@ -11,7 +11,7 @@ require_once __DIR__ . '/ImporterMySqlInspector.php';
 /**
  * Tests the JDatabaseMySqlExporter class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 {
@@ -605,10 +605,9 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 * @param   string  $expected  The expected result from the getColumnSQL method.
 	 * @param   string  $message   The error message to display if the result does not match the expected value.
 	 *
-	 * @internal param \SimpleXmlElement $xml The database field as an object.
 	 * @return  void
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
 	 * @dataProvider dataGetColumnSQL
 	 */
@@ -748,10 +747,9 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 * @param   string  $expected  The expected result from the getKeySQL method.
 	 * @param   string  $message   The error message to display if the result does not match the expected value.
 	 *
-	 * @internal param \SimpleXmlElement $xml The database key as an object.
 	 * @return  void
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 *
 	 * @dataProvider dataGetKeySQL
 	 */

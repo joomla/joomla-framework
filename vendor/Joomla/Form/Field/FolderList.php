@@ -13,7 +13,7 @@ use Joomla\Filesystem\Folder;
 /**
  * Supports an HTML select list of folder
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_FolderList extends Field_List
 {

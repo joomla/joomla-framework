@@ -14,8 +14,8 @@ use Joomla\Language\Text;
  * Displays options as a list of check boxes.
  * Multiselect may be forced to be true.
  *
- * @see      JFormFieldCheckbox
- * @since    1.0
+ * @see    JFormFieldCheckbox
+ * @since  1.0
  */
 class Field_Checkboxes extends Field
 {

@@ -11,7 +11,7 @@ use Joomla\Crypt\Crypt;
 /**
  * Test class for JCrypt.
  *
- * @since    1.0
+ * @since  1.0
  */
 class CryptTest extends \PHPUnit_Framework_TestCase
 {

@@ -12,7 +12,7 @@ namespace Joomla\Database\Query;
  * to retrieve the stored bounded variables on demand prior to
  * query execution.
  *
- * @since    1.0
+ * @since  1.0
  */
 interface Preparable
 {

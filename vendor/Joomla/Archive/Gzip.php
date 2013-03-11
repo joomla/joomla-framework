@@ -18,7 +18,7 @@ use Joomla\Filesystem\File;
  * @contributor  Michael Slusarz <slusarz@horde.org>
  * @contributor  Michael Cochrane <mike@graftonhall.co.nz>
  *
- * @since    1.0
+ * @since  1.0
  */
 class Gzip implements Extractable
 {

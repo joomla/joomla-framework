@@ -12,7 +12,7 @@ use Joomla\Test\Helper;
 /**
  * Inspector for the Joomla\Application\Daemon class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ConcreteDaemon extends Daemon
 {

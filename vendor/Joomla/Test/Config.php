@@ -9,7 +9,7 @@ namespace Joomla\Test;
 /**
  * Test stub configuration class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Config
 {

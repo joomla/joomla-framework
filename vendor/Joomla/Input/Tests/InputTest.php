@@ -10,7 +10,7 @@ use Joomla\Input\Cookie;
 /**
  * Test class for Input.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JInputTest extends PHPUnit_Framework_TestCase
 {

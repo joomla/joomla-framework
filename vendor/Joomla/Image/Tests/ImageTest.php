@@ -12,7 +12,7 @@ use Joomla\Image\Image;
 /**
  * Test class for Image.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ImageTest extends PHPUnit_Framework_TestCase
 {

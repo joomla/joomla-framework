@@ -9,7 +9,7 @@ use Joomla\Input\Cli;
 /**
  * Inspector classes for the JInputCLI library.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JInputCliInspector extends Cli
 {

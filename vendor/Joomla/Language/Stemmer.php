@@ -11,7 +11,7 @@ use RuntimeException;
 /**
  * Stemmer base class.
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Stemmer
 {

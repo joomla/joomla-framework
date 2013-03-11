@@ -14,7 +14,7 @@ use Joomla\Filesystem\Folder;
 /**
  * An Archive handling class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Archive
 {

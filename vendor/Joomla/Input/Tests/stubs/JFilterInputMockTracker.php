@@ -7,7 +7,7 @@
 /**
  * JFilterInputMockTracker test class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFilterInputMockTracker
 {

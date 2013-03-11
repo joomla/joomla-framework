@@ -9,7 +9,7 @@ namespace Joomla\Controller;
 /**
  * Joomla Platform Controller Interface
  *
- * @since    1.0
+ * @since  1.0
  */
 interface Controller extends \Serializable
 {

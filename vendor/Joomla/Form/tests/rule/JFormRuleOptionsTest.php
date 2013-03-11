@@ -9,7 +9,7 @@ use Joomla\Form\Rule\Options as RuleOptions;
 /**
  * Test class for JForm.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormRuleOptionsTest extends PHPUnit_Framework_TestCase
 {

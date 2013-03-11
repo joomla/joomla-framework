@@ -9,7 +9,7 @@ use Joomla\Language\Stemmer\Porteren;
 /**
  * Test class for Porteren.
  *
- * @since    1.0
+ * @since  1.0
  */
 class PorterenTest extends PHPUnit_Framework_TestCase
 {

@@ -11,7 +11,7 @@ use Joomla\Test\Helper;
 /**
  * Test class for JDatabasePostgresqlQuery.
  *
- * @since    1.0
+ * @since  1.0
  */
 class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 {

@@ -14,7 +14,7 @@ use UnexpectedValueException;
  * Form Field class for the Joomla Platform.
  * Provides a grouped list select field.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_GroupedList extends Field
 {

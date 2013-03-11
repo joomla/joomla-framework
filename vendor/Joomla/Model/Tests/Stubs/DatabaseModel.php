@@ -11,7 +11,7 @@ use Joomla\Model;
 /**
  * Concrete class extending JModelDatabase.
  *
- * @since    1.0
+ * @since  1.0
  */
 class DatabaseModel extends Model\Database
 {

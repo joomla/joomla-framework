@@ -11,13 +11,13 @@ use Joomla\Controller\Base;
 /**
  * Joomla Platform Capitaliser Object Class
  *
- * @since    1.0
+ * @since  1.0
  */
 
 /**
  * Concrete class extending JControllerBase.
  *
- * @since    1.0
+ * @since  1.0
  */
 class BaseController extends Base
 {

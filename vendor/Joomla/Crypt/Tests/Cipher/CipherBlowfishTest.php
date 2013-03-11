@@ -12,7 +12,7 @@ use Joomla\Crypt\Cipher_Blowfish;
 /**
  * Test class for JCryptCipherBlowfish.
  *
- * @since    1.0
+ * @since  1.0
  */
 class CipherBlowfishTest extends \PHPUnit_Framework_TestCase
 {

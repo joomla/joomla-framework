@@ -11,7 +11,7 @@ use Joomla\Data;
 /**
  * Derived JData class for testing.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JDataBuran extends Data\Data
 {

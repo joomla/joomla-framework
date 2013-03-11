@@ -11,7 +11,7 @@ use Joomla\Data;
 /**
  * Joomla Platform Capitaliser Object Class
  *
- * @since    1.0
+ * @since  1.0
  */
 class JDataCapitaliser extends Data\Data
 {

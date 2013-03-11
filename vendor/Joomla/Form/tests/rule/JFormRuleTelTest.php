@@ -9,7 +9,7 @@ use Joomla\Form\Rule\Tel as RuleTel;
 /**
  * Test class for JForm.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormRuleTelTest extends PHPUnit_Framework_TestCase
 {

@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Platform Base Application Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Base
 {

@@ -14,7 +14,7 @@ use Joomla\Log\Entry;
 /**
  * JLogInspector class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JLogInspector extends Log
 {

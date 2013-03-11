@@ -11,7 +11,7 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Framework Base Model Class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Base implements Model
 {

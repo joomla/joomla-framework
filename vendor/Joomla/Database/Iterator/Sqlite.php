@@ -9,7 +9,7 @@ namespace Joomla\Database\Iterator;
 /**
  * SQLite database iterator.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Sqlite extends Pdo
 {

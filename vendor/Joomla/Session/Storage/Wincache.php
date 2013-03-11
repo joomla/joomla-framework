@@ -12,7 +12,7 @@ use RuntimeException;
 /**
  * WINCACHE session storage handler for PHP
  *
- * @since    1.0
+ * @since  1.0
  */
 class Wincache extends Storage
 {

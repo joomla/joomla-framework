@@ -12,7 +12,7 @@ use Joomla\Model\Model;
 /**
  * Joomla Platform HTML View Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Html extends Base
 {

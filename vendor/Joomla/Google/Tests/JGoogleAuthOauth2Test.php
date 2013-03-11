@@ -13,7 +13,7 @@ use Joomla\Test\WebInspector;
 /**
  * Test class for JGoogleAuthOauth2Test .
  *
- * @since    1.0
+ * @since  1.0
  */
 class JGoogleAuthOauth2Test extends PHPUnit_Framework_TestCase
 {

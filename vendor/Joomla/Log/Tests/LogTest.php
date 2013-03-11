@@ -12,7 +12,7 @@ use Joomla\Log\Entry;
 /**
  * Test class for JLog.
  *
- * @since    1.0
+ * @since  1.0
  */
 class LogTest extends PHPUnit_Framework_TestCase
 {

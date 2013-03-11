@@ -9,7 +9,7 @@ namespace Joomla\Cache;
 /**
  * Runtime cache only driver for the Joomla Framework.
  *
- * @since    1.0
+ * @since  1.0
  */
 class None extends Cache
 {

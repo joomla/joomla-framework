@@ -37,7 +37,7 @@ jimport('phputf8.strcasecmp');
  * Wraps the phputf8 library
  * All functions assume the validity of utf-8 strings.
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class String
 {

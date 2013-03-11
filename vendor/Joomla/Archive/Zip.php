@@ -30,7 +30,7 @@ use Joomla\Filesystem\Folder;
  * @contributor  Michael Slusarz <slusarz@horde.org>
  * @contributor  Michael Cochrane <mike@graftonhall.co.nz>
  *
- * @since    1.0
+ * @since  1.0
  */
 class Zip implements Extractable
 {

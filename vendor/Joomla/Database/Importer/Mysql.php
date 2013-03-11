@@ -11,7 +11,7 @@ use Joomla\Database\Driver\Mysql as DriverMysql;
 /**
  * MySQL import driver.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Mysql extends Mysqli
 {

@@ -9,7 +9,7 @@ use Joomla\Image\Filter\Edgedetect as FilterEdgedetect;
 /**
  * Test class for JImage.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JImageFilterEdgedetectTest extends PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,7 @@ namespace Joomla\Data;
 /**
  * An interface to define if an object is dumpable.
  *
- * @since    1.0
+ * @since  1.0
  */
 interface Dumpable
 {

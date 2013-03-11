@@ -49,7 +49,7 @@ if (!defined('FTP_NATIVE'))
 /**
  * FTP client class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Ftp
 {

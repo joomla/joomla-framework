@@ -11,7 +11,7 @@ use Joomla\Client\Ftp;
 /**
  * Test class for Ftp.
  *
- * @since    1.0
+ * @since  1.0
  */
 class FtpTest extends \PHPUnit_Framework_TestCase
 {

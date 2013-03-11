@@ -9,7 +9,7 @@ use Joomla\Image\Image;
 /**
  * Inspector for the JImage class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JImageInspector extends Image
 {

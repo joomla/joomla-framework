@@ -9,7 +9,7 @@ namespace Joomla\Crypt;
 /**
  * JCrypt cipher for Triple DES encryption, decryption and key generation.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Cipher_3DES extends Cipher_Mcrypt
 {

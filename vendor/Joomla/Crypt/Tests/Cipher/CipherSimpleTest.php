@@ -12,7 +12,7 @@ use Joomla\Crypt\Cipher_Simple;
 /**
  * Test class for JCryptCipherSimple.
  *
- * @since    1.0
+ * @since  1.0
  */
 class CipherSimpleTest extends \PHPUnit_Framework_TestCase
 {

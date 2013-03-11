@@ -9,7 +9,7 @@ namespace Joomla\Crypt;
 /**
  * JCrypt cipher interface.
  *
- * @since    1.0
+ * @since  1.0
  */
 interface Cipher
 {

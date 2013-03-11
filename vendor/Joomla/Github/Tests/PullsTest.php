@@ -9,7 +9,7 @@ use Joomla\Registry\Registry;
 /**
  * Test class for JGithubPulls.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JGithubPullsTest extends PHPUnit_Framework_TestCase
 {

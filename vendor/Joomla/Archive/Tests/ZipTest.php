@@ -13,7 +13,7 @@ require_once __DIR__ . '/ZipInspector.php';
 /**
  * Test class for Joomla\Archive\Zip.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ArchiveZipTest extends \PHPUnit_Framework_TestCase
 {

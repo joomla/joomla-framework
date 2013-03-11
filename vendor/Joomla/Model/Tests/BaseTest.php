@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 /**
  * Tests for the Joomla\Model\Base class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class BaseTest extends \PHPUnit_Framework_TestCase
 {

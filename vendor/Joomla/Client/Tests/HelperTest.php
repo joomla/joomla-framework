@@ -11,7 +11,7 @@ use Joomla\Client\Helper;
 /**
  * Test class for Helper.
  *
- * @since    1.0
+ * @since  1.0
  */
 class HelperTest extends \PHPUnit_Framework_TestCase
 {

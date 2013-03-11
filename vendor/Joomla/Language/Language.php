@@ -20,7 +20,7 @@ define('_QQ_', '"');
 /**
  * Languages/translation handler class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Language
 {

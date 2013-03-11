@@ -16,7 +16,7 @@ require_once __DIR__ . '/Stubs/vostok.php';
 /**
  * Tests for the Joomla\Data\Set class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class DataSetTest extends \PHPUnit_Framework_TestCase
 {
@@ -449,7 +449,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @coversNothing  Integration test.
-	 * @since    1.0
+	 * @since          1.0
 	 */
 	public function test_foreach()
 	{

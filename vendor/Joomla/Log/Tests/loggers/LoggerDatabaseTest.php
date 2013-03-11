@@ -13,7 +13,7 @@ use Joomla\Log\Logger\Database as LoggerDatabase;
 /**
  * Test class for LoggerDatabase.
  *
- * @since    1.0
+ * @since  1.0
  */
 class LoggerDatabaseTest extends TestCaseDatabase
 {

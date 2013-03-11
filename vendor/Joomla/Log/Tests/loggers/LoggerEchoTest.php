@@ -11,7 +11,7 @@ use Joomla\Log\Logger\Echoo as LoggerEcho;
 /**
  * Test class for JLogLoggerEcho.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 {

@@ -11,7 +11,7 @@ require_once __DIR__ . '/ImporterPostgresqlInspector.php';
 /**
  * Test the JDatabaseImporterPostgresql class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ImporterPostgresqlTest extends \PHPUnit_Framework_TestCase
 {

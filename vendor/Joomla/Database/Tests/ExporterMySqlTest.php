@@ -11,7 +11,7 @@ require_once __DIR__ . '/ExporterMySqlInspector.php';
 /**
  * Tests the JDatabaseExporterMySql class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ExporterMySqlTest extends \PHPUnit_Framework_TestCase
 {

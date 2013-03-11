@@ -7,7 +7,7 @@
 /**
  * Test class for JSession.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JSessionTest extends TestCase
 {

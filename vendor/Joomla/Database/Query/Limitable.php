@@ -8,11 +8,12 @@ namespace Joomla\Database\Query;
 
 /**
  * Joomla Database Query Limitable Interface.
+ *
  * Adds bind/unbind methods as well as a getBounded() method
  * to retrieve the stored bounded variables on demand prior to
  * query execution.
  *
- * @since    1.0
+ * @since  1.0
  */
 interface Limitable
 {

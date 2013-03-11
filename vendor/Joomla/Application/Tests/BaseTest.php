@@ -139,7 +139,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('car', $instance->get('goo', 'car'), 'Checks an unknown configuration setting returns the default.');
 	}
 
-
 	/**
 	 * Tests the set method.
 	 *

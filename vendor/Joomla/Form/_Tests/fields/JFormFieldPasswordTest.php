@@ -7,7 +7,7 @@
 /**
  * Test class for JForm.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldPasswordTest extends TestCase
 {

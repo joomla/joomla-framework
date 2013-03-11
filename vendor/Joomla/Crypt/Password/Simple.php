@@ -11,7 +11,7 @@ use Joomla\Crypt\Password;
 /**
  * Joomla Platform Password Crypter
  *
- * @since    1.0
+ * @since  1.0
  */
 class Simple implements Password
 {

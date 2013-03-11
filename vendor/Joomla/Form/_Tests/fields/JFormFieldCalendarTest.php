@@ -10,7 +10,7 @@ require_once __DIR__ . '/inspectors/JFormFieldCalendar.php';
 /**
  * Test class for JForm.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldCalendarTest extends TestCase
 {

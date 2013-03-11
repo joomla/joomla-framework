@@ -7,7 +7,7 @@
 /**
  * Test class for JDatabaseSQLSrv.
  *
- * @since    1.0
+ * @since  1.0
  */
 class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 {

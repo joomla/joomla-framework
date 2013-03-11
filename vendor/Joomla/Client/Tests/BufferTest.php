@@ -11,7 +11,7 @@ use Joomla\Client\Buffer;
 /**
  * Test class for JBuffer.
  *
- * @since    1.0
+ * @since  1.0
  */
 class BufferTest extends \PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,7 @@ namespace Joomla\Database\Query;
 /**
  * Oracle Query Building Class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Oracle extends Pdo implements Preparable, Limitable
 {

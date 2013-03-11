@@ -6,14 +6,12 @@
 
 namespace Joomla\Filesystem;
 
-use DirectoryIterator;
-
 /**
  * File system helper
  *
  * Holds support functions for the filesystem, particularly the stream
  *
- * @since    1.0
+ * @since  1.0
  */
 class Helper
 {
@@ -261,7 +259,7 @@ class Helper
 
 		if (!$streams)
 		{
-			$files = new DirectoryIterator(__DIR__ . '/Stream');
+			$files = new \DirectoryIterator(__DIR__ . '/Stream');
 
 			foreach ($files as $file)
 			{

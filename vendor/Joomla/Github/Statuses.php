@@ -12,7 +12,7 @@ use DomainException;
 /**
  * GitHub API References class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Statuses extends Object
 {

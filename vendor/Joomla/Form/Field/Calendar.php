@@ -9,7 +9,6 @@ namespace Joomla\Form;
 
 use Joomla\Factory;
 use Joomla\Html\Html;
-use DateTimeZone;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -17,7 +16,7 @@ use DateTimeZone;
  * Provides a pop up date picker linked to a button.
  * Optionally may be filtered to use user's or server's time zone.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_Calendar extends Field
 {
@@ -93,7 +92,7 @@ class Field_Calendar extends Field
 				{
 					// Get a date object based on the correct timezone.
 					$date = Factory::getDate($this->value, 'UTC');
-					$date->setTimezone(new DateTimeZone($config->get('offset')));
+					$date->setTimezone(new \DateTimeZone($config->get('offset')));
 
 					// Transform the date string.
 					$this->value = $date->format('Y-m-d H:i:s', true, false);
@@ -106,7 +105,7 @@ class Field_Calendar extends Field
 				{
 					// Get a date object based on the correct timezone.
 					$date = Factory::getDate($this->value, 'UTC');
-					$date->setTimezone(new DateTimeZone($user->getParam('timezone', $config->get('offset'))));
+					$date->setTimezone(new \DateTimeZone($user->getParam('timezone', $config->get('offset'))));
 
 					// Transform the date string.
 					$this->value = $date->format('Y-m-d H:i:s', true, false);

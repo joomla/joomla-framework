@@ -14,7 +14,7 @@ use Joomla\Filter\Input as FilterInput;
  * This class decodes a JSON string from the raw request data and makes it available via
  * the standard JInput interface.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Json extends Input
 {

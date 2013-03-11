@@ -8,8 +8,8 @@
  * JsonSerializable interface. This file should only be loaded on PHP < 5.4
  * It allows us to implement it in classes without requiring PHP 5.4
  *
- * @link     http://www.php.net/manual/en/jsonserializable.jsonserialize.php
- * @since    1.0
+ * @link   http://www.php.net/manual/en/jsonserializable.jsonserialize.php
+ * @since  1.0
  */
 interface JsonSerializable
 {

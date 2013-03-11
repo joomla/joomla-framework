@@ -26,7 +26,7 @@ use JVersion;
 /**
  * Joomla Platform Factory class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Factory
 {

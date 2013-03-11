@@ -11,7 +11,7 @@ use Joomla\Registry\Registry;
 /**
  * Joomla! Caching Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Cache
 {

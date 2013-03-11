@@ -9,7 +9,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * ArrayHelperTest
  *
- * @since    1.0
+ * @since  1.0
  */
 class ArrayHelperTest extends PHPUnit_Framework_TestCase
 {

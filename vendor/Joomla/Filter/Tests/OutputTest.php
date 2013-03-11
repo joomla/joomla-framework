@@ -11,7 +11,7 @@ use Joomla\Filter\Output;
 /**
  * FilterTestObject
  *
- * @since    1.0
+ * @since  1.0
  */
 class FilterTestObject
 {
@@ -36,7 +36,7 @@ class FilterTestObject
 /**
  * Test class for Filter\Output
  *
- * @since    1.0
+ * @since  1.0
  */
 class FilterOutputTest extends \PHPUnit_Framework_TestCase
 {
