@@ -6,9 +6,8 @@
 
 namespace Joomla\Model\Tests;
 
+use Joomla\Model\Base;
 use Joomla\Registry\Registry;
-
-require_once __DIR__ . '/Stubs/BaseModel.php';
 
 /**
  * Tests for the Joomla\Model\Base class.
@@ -36,26 +35,8 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(new Registry, $this->instance->getState(), 'Checks default state.');
 
 		$state = new Registry(array('foo' => 'bar'));
-		$class = new BaseModel($state);
+		$class = new Base($state);
 		$this->assertEquals($state, $class->getState(), 'Checks state injection.');
-	}
-
-	/**
-	 * Tests the getState method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Model\Base::getState
-	 * @since   1.0
-	 */
-	public function testGetState()
-	{
-		// Reset the state property to a known value.
-		$prop = new \ReflectionProperty($this->instance, 'state');
-		$prop->setAccessible(true);
-		$prop->setValue($this->instance, 'foo');
-
-		$this->assertEquals('foo', $this->instance->getState());
 	}
 
 	/**
@@ -63,6 +44,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Model\Base::getState
 	 * @covers  Joomla\Model\Base::setState
 	 * @since   1.0
 	 */
@@ -74,22 +56,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the loadState method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Model\Base::loadState
-	 * @since   1.0
-	 */
-	public function testLoadState()
-	{
-		$method = new \ReflectionMethod($this->instance, 'loadState');
-		$method->setAccessible(true);
-
-		$this->assertInstanceOf('Joomla\Registry\Registry', $method->invoke($this->instance));
-	}
-
-	/**
 	 * Setup the tests.
 	 *
 	 * @return  void
@@ -98,6 +64,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->instance = new BaseModel;
+		$this->instance = new Base;
 	}
 }

@@ -7,7 +7,6 @@
 namespace Joomla\Model\Tests;
 
 use Joomla\Database\Tests\Mock as DatabaseMock;
-use Joomla\Test\Helper;
 
 require_once __DIR__ . '/Stubs/DatabaseModel.php';
 
@@ -38,26 +37,11 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the getDb method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Model\Database::getDb
-	 * @since   1.0
-	 */
-	public function testGetDb()
-	{
-		// Reset the db property to a known value.
-		Helper::setValue($this->instance, 'db', 'foo');
-
-		$this->assertEquals('foo', $this->instance->getDb());
-	}
-
-	/**
 	 * Tests the setDb method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Model\Database::getDb
 	 * @covers  Joomla\Model\Database::setDb
 	 * @since   1.0
 	 */
@@ -66,20 +50,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 		$db = DatabaseMock\Driver::create($this);
 		$this->instance->setDb($db);
 
-		$this->assertAttributeSame($db, 'db', $this->instance);
-	}
-
-	/**
-	 * Tests the loadDb method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Model\Database::loadDb
-	 * @since   1.0
-	 */
-	public function testLoadDb()
-	{
-		$this->markTestIncomplete();
+		$this->assertSame($db, $this->instance->getDb());
 	}
 
 	/**
@@ -93,6 +64,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->instance = new DatabaseModel(null, DatabaseMock\Driver::create($this));
+		$this->instance = new DatabaseModel(DatabaseMock\Driver::create($this));
 	}
 }
