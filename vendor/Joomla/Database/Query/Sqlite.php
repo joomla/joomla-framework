@@ -6,8 +6,6 @@
 
 namespace Joomla\Database\Query;
 
-use stdClass;
-
 /**
  * SQLite Query Building Class.
  *
@@ -70,7 +68,7 @@ class Sqlite extends Pdo implements Preparable, Limitable
 			return $this;
 		}
 
-		$obj = new stdClass;
+		$obj = new \stdClass;
 
 		$obj->value = &$value;
 		$obj->dataType = $dataType;

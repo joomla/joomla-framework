@@ -7,7 +7,7 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/log": "dev-master"
+        "psr/log": "~1.0"
     },
     "target-dir": "Joomla/Database",
     "autoload": {

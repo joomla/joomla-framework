@@ -8,8 +8,6 @@ namespace Joomla\Database\Importer;
 
 use Joomla\Database\Importer;
 use Joomla\Database\Driver\Postgresql as DriverPostgresql;
-use Exception;
-use SimpleXMLElement;
 
 /**
  * PostgreSQL import driver.
@@ -31,13 +29,13 @@ class Postgresql extends Importer
 		// Check if the db connector has been set.
 		if (!($this->db instanceof DriverPostgresql))
 		{
-			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;
@@ -53,7 +51,7 @@ class Postgresql extends Importer
 	 *
 	 * @since   1.0
 	 */
-	protected function getAddColumnSQL($table, SimpleXMLElement $field)
+	protected function getAddColumnSQL($table, \SimpleXMLElement $field)
 	{
 		$sql = 'ALTER TABLE ' . $this->db->quoteName($table) . ' ADD COLUMN ' . $this->getColumnSQL($field);
 
@@ -340,7 +338,7 @@ class Postgresql extends Importer
 	 *
 	 * @since   1.0
 	 */
-	protected function getChangeColumnSQL($table, SimpleXMLElement $field)
+	protected function getChangeColumnSQL($table, \SimpleXMLElement $field)
 	{
 		$sql = 'ALTER TABLE ' . $this->db->quoteName($table) . ' ALTER COLUMN ' . $this->db->quoteName((string) $field['Field']) . ' '
 			. $this->getAlterColumnSQL($table, $field);
@@ -506,7 +504,7 @@ class Postgresql extends Importer
 
 		foreach ($keys as $key)
 		{
-			if ($key instanceof SimpleXMLElement)
+			if ($key instanceof \SimpleXMLElement)
 			{
 				$kName = (string) $key['Index'];
 			}
@@ -543,7 +541,7 @@ class Postgresql extends Importer
 
 		foreach ($sequences as $seq)
 		{
-			if ($seq instanceof SimpleXMLElement)
+			if ($seq instanceof \SimpleXMLElement)
 			{
 				$sName = (string) $seq['Name'];
 			}

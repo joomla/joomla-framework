@@ -6,8 +6,6 @@
 
 namespace Joomla\Database;
 
-use RuntimeException;
-
 /**
  * Query Building Class.
  *
@@ -619,7 +617,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->getDateFormat();
@@ -687,7 +685,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->escape($text, $extra);
@@ -751,7 +749,7 @@ abstract class Query
 			{
 				if (is_null($subQueryAlias))
 				{
-					throw new RuntimeException('JLIB_DATABASE_ERROR_NULL_SUBQUERY_ALIAS');
+					throw new \RuntimeException('JLIB_DATABASE_ERROR_NULL_SUBQUERY_ALIAS');
 				}
 
 				$tables = '( ' . (string) $tables . ' ) AS ' . $this->quoteName($subQueryAlias);
@@ -1051,7 +1049,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		$result = $this->db->getNullDate($quoted);
@@ -1135,7 +1133,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->quote($text, $escape);
@@ -1168,7 +1166,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->quoteName($name, $as);

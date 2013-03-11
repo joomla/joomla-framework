@@ -8,7 +8,6 @@ namespace Joomla\Database\Exporter;
 
 use Joomla\Database\Exporter;
 use Joomla\Database\Driver\Mysqli as DriverMysqli;
-use Exception;
 
 /**
  * MySQLi export driver.
@@ -98,13 +97,13 @@ class Mysqli extends Exporter
 		// Check if the db connector has been set.
 		if (!($this->db instanceof DriverMysqli))
 		{
-			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;

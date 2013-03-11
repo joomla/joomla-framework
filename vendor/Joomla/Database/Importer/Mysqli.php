@@ -8,8 +8,6 @@ namespace Joomla\Database\Importer;
 
 use Joomla\Database\Importer;
 use Joomla\Database\Driver\Mysqli as DriverMysqli;
-use Exception;
-use SimpleXMLElement;
 
 /**
  * MySQLi import driver.
@@ -31,13 +29,13 @@ class Mysqli extends Importer
 		// Check if the db connector has been set.
 		if (!($this->db instanceof DriverMysqli))
 		{
-			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;
@@ -53,7 +51,7 @@ class Mysqli extends Importer
 	 *
 	 * @since   1.0
 	 */
-	protected function getAddColumnSQL($table, SimpleXMLElement $field)
+	protected function getAddColumnSQL($table, \SimpleXMLElement $field)
 	{
 		$sql = 'ALTER TABLE ' . $this->db->quoteName($table) . ' ADD COLUMN ' . $this->getColumnSQL($field);
 
@@ -236,7 +234,7 @@ class Mysqli extends Importer
 	 *
 	 * @since   1.0
 	 */
-	protected function getChangeColumnSQL($table, SimpleXMLElement $field)
+	protected function getChangeColumnSQL($table, \SimpleXMLElement $field)
 	{
 		$sql = 'ALTER TABLE ' . $this->db->quoteName($table) . ' CHANGE COLUMN ' . $this->db->quoteName((string) $field['Field']) . ' '
 			. $this->getColumnSQL($field);
@@ -349,7 +347,7 @@ class Mysqli extends Importer
 
 		foreach ($keys as $key)
 		{
-			if ($key instanceof SimpleXMLElement)
+			if ($key instanceof \SimpleXMLElement)
 			{
 				$kName = (string) $key['Key_name'];
 			}

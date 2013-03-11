@@ -6,14 +6,10 @@
 
 namespace Joomla\Database\Driver;
 
-use Joomla\Log\Log;
+use Psr\Log;
 use Joomla\Database\Driver;
 use Joomla\Database\Query\Limitable;
 use Joomla\Database\Query\Preparable;
-use PDOException;
-use PDOStatement;
-use ReflectionClass;
-use RuntimeException;
 
 /**
  * Joomla Platform PDO Database Driver Class
@@ -116,7 +112,7 @@ abstract class Pdo extends Driver
 		// Make sure the PDO extension for PHP is installed and enabled.
 		if (!self::isSupported())
 		{
-			throw new RuntimeException('PDO Extension is not available.', 1);
+			throw new \RuntimeException('PDO Extension is not available.', 1);
 		}
 
 		// Initialize the connection string variable:
@@ -297,9 +293,9 @@ abstract class Pdo extends Driver
 				$this->options['driverOptions']
 			);
 		}
-		catch (PDOException $e)
+		catch (\PDOException $e)
 		{
-			throw new RuntimeException('Could not connect to PDO' . ': ' . $e->getMessage(), 2, $e);
+			throw new \RuntimeException('Could not connect to PDO' . ': ' . $e->getMessage(), 2, $e);
 		}
 	}
 
@@ -364,8 +360,12 @@ abstract class Pdo extends Driver
 
 		if (!is_object($this->connection))
 		{
-			Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
-			throw new RuntimeException($this->errorMsg, $this->errorNum);
+			$this->log(
+				Log\LogLevel::ERROR,
+				'Database query failed (error #{code}): {message}',
+				array('code' => $this->errorNum, 'message' => $this->errorMsg)
+			);
+			throw new \RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -386,7 +386,11 @@ abstract class Pdo extends Driver
 			// Add the query to the object queue.
 			$this->log[] = $sql;
 
-			Log::add($sql, Log::DEBUG, 'databasequery');
+			$this->log(
+				Log\LogLevel::DEBUG,
+				'{sql}',
+				array('sql' => $sql, 'category' => 'databasequery')
+			);
 		}
 
 		// Reset the error values.
@@ -396,7 +400,7 @@ abstract class Pdo extends Driver
 		// Execute the query.
 		$this->executed = false;
 
-		if ($this->prepared instanceof PDOStatement)
+		if ($this->prepared instanceof \PDOStatement)
 		{
 			// Bind the variables:
 			if ($this->sql instanceof Preparable)
@@ -428,7 +432,7 @@ abstract class Pdo extends Driver
 					$this->connection = null;
 					$this->connect();
 				}
-				catch (RuntimeException $e)
+				catch (\RuntimeException $e)
 				// If connect fails, ignore that exception and throw the normal exception.
 				{
 					// Get the error number and message.
@@ -436,8 +440,12 @@ abstract class Pdo extends Driver
 					$this->errorMsg = (string) 'SQL: ' . implode(", ", $this->connection->errorInfo());
 
 					// Throw the normal query exception.
-					Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-					throw new RuntimeException($this->errorMsg, $this->errorNum);
+					$this->log(
+						Log\LogLevel::ERROR,
+						'Database query failed (error #{code}): {message}',
+						array('code' => $this->errorNum, 'message' => $this->errorMsg)
+					);
+					throw new \RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -451,8 +459,12 @@ abstract class Pdo extends Driver
 				$this->errorMsg = $errorMsg;
 
 				// Throw the normal query exception.
-				Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-				throw new RuntimeException($this->errorMsg, $this->errorNum);
+				$this->log(
+					Log\LogLevel::ERROR,
+					'Database query failed (error #{code}): {message}',
+					array('code' => $this->errorNum, 'message' => $this->errorMsg)
+				);
+				throw new \RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
 
@@ -559,7 +571,7 @@ abstract class Pdo extends Driver
 			$this->setQuery($this->getConnectedQuery());
 			$status = (bool) $this->loadResult();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		// If we catch an exception here, we must not be connected.
 		{
 			$status = false;
@@ -587,7 +599,7 @@ abstract class Pdo extends Driver
 	{
 		$this->connect();
 
-		if ($this->prepared instanceof PDOStatement)
+		if ($this->prepared instanceof \PDOStatement)
 		{
 			return $this->prepared->rowCount();
 		}
@@ -610,11 +622,11 @@ abstract class Pdo extends Driver
 	{
 		$this->connect();
 
-		if ($cursor instanceof PDOStatement)
+		if ($cursor instanceof \PDOStatement)
 		{
 			return $cursor->rowCount();
 		}
-		elseif ($this->prepared instanceof PDOStatement)
+		elseif ($this->prepared instanceof \PDOStatement)
 		{
 			return $this->prepared->rowCount();
 		}
@@ -784,12 +796,12 @@ abstract class Pdo extends Driver
 	 */
 	protected function fetchArray($cursor = null)
 	{
-		if (!empty($cursor) && $cursor instanceof PDOStatement)
+		if (!empty($cursor) && $cursor instanceof \PDOStatement)
 		{
 			return $cursor->fetch(\PDO::FETCH_NUM);
 		}
 
-		if ($this->prepared instanceof PDOStatement)
+		if ($this->prepared instanceof \PDOStatement)
 		{
 			return $this->prepared->fetch(\PDO::FETCH_NUM);
 		}
@@ -806,12 +818,12 @@ abstract class Pdo extends Driver
 	 */
 	protected function fetchAssoc($cursor = null)
 	{
-		if (!empty($cursor) && $cursor instanceof PDOStatement)
+		if (!empty($cursor) && $cursor instanceof \PDOStatement)
 		{
 			return $cursor->fetch(\PDO::FETCH_ASSOC);
 		}
 
-		if ($this->prepared instanceof PDOStatement)
+		if ($this->prepared instanceof \PDOStatement)
 		{
 			return $this->prepared->fetch(\PDO::FETCH_ASSOC);
 		}
@@ -829,12 +841,12 @@ abstract class Pdo extends Driver
 	 */
 	protected function fetchObject($cursor = null, $class = '\\stdClass')
 	{
-		if (!empty($cursor) && $cursor instanceof PDOStatement)
+		if (!empty($cursor) && $cursor instanceof \PDOStatement)
 		{
 			return $cursor->fetchObject($class);
 		}
 
-		if ($this->prepared instanceof PDOStatement)
+		if ($this->prepared instanceof \PDOStatement)
 		{
 			return $this->prepared->fetchObject($class);
 		}
@@ -853,13 +865,13 @@ abstract class Pdo extends Driver
 	{
 		$this->executed = false;
 
-		if ($cursor instanceof PDOStatement)
+		if ($cursor instanceof \PDOStatement)
 		{
 			$cursor->closeCursor();
 			$cursor = null;
 		}
 
-		if ($this->prepared instanceof PDOStatement)
+		if ($this->prepared instanceof \PDOStatement)
 		{
 			$this->prepared->closeCursor();
 			$this->prepared = null;
@@ -888,7 +900,9 @@ abstract class Pdo extends Driver
 		}
 
 		// Get the next row from the result set as an object of type $class.
-		if ($row = $this->fetchAssoc())
+		$row = $this->fetchAssoc();
+
+		if ($row)
 		{
 			return $row;
 		}
@@ -910,7 +924,7 @@ abstract class Pdo extends Driver
 	{
 		$serializedProperties = array();
 
-		$reflect = new ReflectionClass($this);
+		$reflect = new \ReflectionClass($this);
 
 		// Get properties of the current class
 		$properties = $reflect->getProperties();

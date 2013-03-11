@@ -6,9 +6,7 @@
 
 namespace Joomla\Database;
 
-use Joomla\Log\Log;
-use RuntimeException;
-use DirectoryIterator;
+use Psr\Log;
 
 /**
  * Joomla Platform Database Driver Class
@@ -18,7 +16,7 @@ use DirectoryIterator;
  * @method      string  q()   q($text, $escape = true)  Alias for quote method
  * @method      string  qn()  qn($name, $as = null)     Alias for quoteName method
  */
-abstract class Driver implements DatabaseInterface
+abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 {
 	/**
 	 * The name of the database.
@@ -65,12 +63,6 @@ abstract class Driver implements DatabaseInterface
 	 * @since  1.0
 	 */
 	protected $limit = 0;
-
-	/**
-	 * @var    array  The log of executed SQL statements by the database driver.
-	 * @since  1.0
-	 */
-	protected $log = array();
 
 	/**
 	 * @var    string  The character(s) used to quote SQL statement names such as table names or field names,
@@ -149,6 +141,14 @@ abstract class Driver implements DatabaseInterface
 	protected $transactionDepth = 0;
 
 	/**
+	 * A logger.
+	 *
+	 * @var    Log\LoggerInterface
+	 * @since  1.0
+	 */
+	private $logger;
+
+	/**
 	 * Get a list of available database connectors.  The list will only be populated with connectors that both
 	 * the class exists and the static test method returns true.  This gives us the ability to have a multitude
 	 * of connector classes that are self-aware as to whether or not they are able to be used on a given system.
@@ -162,7 +162,7 @@ abstract class Driver implements DatabaseInterface
 		$connectors = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new DirectoryIterator(__DIR__ . '/Driver');
+		$iterator = new \DirectoryIterator(__DIR__ . '/Driver');
 
 		foreach ($iterator as $file)
 		{
@@ -230,7 +230,7 @@ abstract class Driver implements DatabaseInterface
 			// If the class still doesn't exist we have nothing left to do but throw an exception.  We did our best.
 			if (!class_exists($class))
 			{
-				throw new RuntimeException(sprintf('Unable to load Database Driver: %s', $options['driver']));
+				throw new \RuntimeException(sprintf('Unable to load Database Driver: %s', $options['driver']));
 			}
 
 			// Create our new JDatabaseDriver connector based on the options given.
@@ -238,9 +238,9 @@ abstract class Driver implements DatabaseInterface
 			{
 				$instance = new $class($options);
 			}
-			catch (RuntimeException $e)
+			catch (\RuntimeException $e)
 			{
-				throw new RuntimeException(sprintf('Unable to connect to the Database: %s', $e->getMessage()));
+				throw new \RuntimeException(sprintf('Unable to connect to the Database: %s', $e->getMessage()));
 			}
 
 			// Set the new connector to the global instances based on signature.
@@ -352,7 +352,6 @@ abstract class Driver implements DatabaseInterface
 		$this->tablePrefix = (isset($options['prefix'])) ? $options['prefix'] : 'jos_';
 		$this->count = 0;
 		$this->errorNum = 0;
-		$this->log = array();
 
 		// Set class options.
 		$this->options = $options;
@@ -524,18 +523,6 @@ abstract class Driver implements DatabaseInterface
 	}
 
 	/**
-	 * Get the database driver SQL statement log.
-	 *
-	 * @return  array  SQL statements executed by the database driver.
-	 *
-	 * @since   1.0
-	 */
-	public function getLog()
-	{
-		return $this->log;
-	}
-
-	/**
 	 * Get the minimum supported database version.
 	 *
 	 * @return  string  The minimum version number for the database driver.
@@ -599,7 +586,7 @@ abstract class Driver implements DatabaseInterface
 		if (!class_exists($class))
 		{
 			// If it doesn't exist we are at an impasse so throw an exception.
-			throw new RuntimeException('Database Exporter not found.');
+			throw new \RuntimeException('Database Exporter not found.');
 		}
 
 		$o = new $class;
@@ -625,7 +612,7 @@ abstract class Driver implements DatabaseInterface
 		if (!class_exists($class))
 		{
 			// If it doesn't exist we are at an impasse so throw an exception.
-			throw new RuntimeException('Database Importer not found');
+			throw new \RuntimeException('Database Importer not found');
 		}
 
 		$o = new $class;
@@ -655,7 +642,7 @@ abstract class Driver implements DatabaseInterface
 			if (!class_exists($class))
 			{
 				// If it doesn't exist we are at an impasse so throw an exception.
-				throw new RuntimeException('Database Query Class not found.');
+				throw new \RuntimeException('Database Query Class not found.');
 			}
 
 			return new $class($this);
@@ -686,7 +673,7 @@ abstract class Driver implements DatabaseInterface
 		if (!class_exists($iteratorClass))
 		{
 			// If it doesn't exist we are at an impasse so throw an exception.
-			throw new RuntimeException(sprintf('class *%s* is not defined', $iteratorClass));
+			throw new \RuntimeException(sprintf('class *%s* is not defined', $iteratorClass));
 		}
 
 		// Return a new iterator
@@ -866,7 +853,9 @@ abstract class Driver implements DatabaseInterface
 		}
 
 		// Get the first row from the result set as an associative array.
-		if ($array = $this->fetchAssoc($cursor))
+		$array = $this->fetchAssoc($cursor);
+
+		if ($array)
 		{
 			$ret = $array;
 		}
@@ -985,7 +974,9 @@ abstract class Driver implements DatabaseInterface
 		}
 
 		// Get the first row from the result set as an object of type $class.
-		if ($object = $this->fetchObject($cursor, $class))
+		$object = $this->fetchObject($cursor, $class);
+
+		if ($object)
 		{
 			$ret = $object;
 		}
@@ -1063,7 +1054,9 @@ abstract class Driver implements DatabaseInterface
 		}
 
 		// Get the first row from the result set as an array.
-		if ($row = $this->fetchArray($cursor))
+		$row = $this->fetchArray($cursor);
+
+		if ($row)
 		{
 			$ret = $row[0];
 		}
@@ -1096,7 +1089,9 @@ abstract class Driver implements DatabaseInterface
 		}
 
 		// Get the first row from the result set as an array.
-		if ($row = $this->fetchArray($cursor))
+		$row = $this->fetchArray($cursor);
+
+		if ($row)
 		{
 			$ret = $row;
 		}
@@ -1150,6 +1145,27 @@ abstract class Driver implements DatabaseInterface
 		$this->freeResult($cursor);
 
 		return $array;
+	}
+
+	/**
+	 * Logs a message.
+	 *
+	 * @param   string  $level    The level for the log. Use constants belonging to Psr\Log\LogLevel.
+	 * @param   string  $message  The message.
+	 * @param   array   $context  Additional context.
+	 *
+	 * @return  Driver  Returns itself to allow chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function log($level, $message, array $context = array())
+	{
+		if ($this->logger)
+		{
+			$this->logger->log($level, $message, $context);
+		}
+
+		return $this;
 	}
 
 	/**
@@ -1444,6 +1460,20 @@ abstract class Driver implements DatabaseInterface
 		$this->sql = $query;
 		$this->limit = (int) max(0, $limit);
 		$this->offset = (int) max(0, $offset);
+
+		return $this;
+	}
+
+	/**
+	 * Sets a logger.
+	 *
+	 * @param   Log\LoggerInterface $logger
+	 *
+	 * @return  Driver  Returns itself to allow chaining.
+	 */
+	public function setLogger(Log\LoggerInterface $logger)
+	{
+		$this->logger = $logger;
 
 		return $this;
 	}

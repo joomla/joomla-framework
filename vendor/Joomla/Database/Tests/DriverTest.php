@@ -7,6 +7,8 @@
 namespace Joomla\Database\Tests;
 
 use Joomla\Test\Helper;
+use Psr\Log;
+use Joomla\Utilities\ArrayHelper;
 
 require_once __DIR__ . '/Stubs/nosqldriver.php';
 
@@ -23,6 +25,34 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	 * @since  1.0
 	 */
 	protected $instance;
+
+	/**
+	 * A store to track if logging is working.
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $logs;
+
+	/**
+	 * Mocks the log method to track if logging is working.
+	 *
+	 * @param   Log\LogLevel  $level    The level.
+	 * @param   string        $message  The message.
+	 * @param   array         $context  The context.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function mockLog($level, $message, $context)
+	{
+		$this->logs[] = array(
+			'level' => $level,
+			'message' => $message,
+			'context' => $context,
+		);
+	}
 
 	/**
 	 * Test for the Joomla\Database\Driver::__call method.
@@ -197,18 +227,6 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Tests the Joomla\Database\Driver::getLog method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testGetLog()
-	{
-		$this->assertEquals(array(), $this->instance->getLog());
-	}
-
-	/**
 	 * Tests the Joomla\Database\Driver::getPrefix method.
 	 *
 	 * @return  void
@@ -252,6 +270,39 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 			$this->equalTo('12.1'),
 			'getMinimum should return a string with the minimum supported database version number'
 		);
+	}
+
+	/**
+	 * Tests the Driver::log method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Database\Driver::log
+	 * @covers  Joomla\Database\Driver::setLogger
+	 * @since   1.0
+	 */
+	public function testLog()
+	{
+		$this->logs = array();
+
+		$mockLogger = $this->getMock('Psr\Log\AbstractLogger', array('log'), array(), '', false);
+		$mockLogger->expects($this->any())
+			->method('log')
+			->will($this->returnCallback(array($this, 'mockLog')));
+
+		$this->instance->log(Log\LogLevel::DEBUG, 'Debug', array('sql' => true));
+
+		$this->assertEmpty($this->logs, 'Logger not set up yet.');
+
+		// Set the logger and try again.
+
+		$this->instance->setLogger($mockLogger);
+
+		$this->instance->log(Log\LogLevel::DEBUG, 'Debug', array('sql' => true));
+
+		$this->assertEquals(Log\LogLevel::DEBUG, $this->logs[0]['level']);
+		$this->assertEquals('Debug', $this->logs[0]['message']);
+		$this->assertEquals(array('sql' => true), $this->logs[0]['context']);
 	}
 
 	/**
