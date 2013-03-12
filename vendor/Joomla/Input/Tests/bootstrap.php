@@ -16,3 +16,6 @@ else
 {
 	include_once __DIR__ . '/../../../../tests/bootstrap.php';
 }
+
+// Start output buffering to hold headers for testing. Not ideal, I know.
+ob_start();
