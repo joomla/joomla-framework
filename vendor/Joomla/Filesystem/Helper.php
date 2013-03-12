@@ -263,8 +263,6 @@ class Helper
 
 			foreach ($files as $file)
 			{
-				$filename = $file->getFilename();
-
 				// Only load for php files.
 				if (!$file->isFile() || $file->getExtension() != 'php')
 				{

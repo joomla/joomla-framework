@@ -211,7 +211,6 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 
 			foreach ($iterator as $file)
 			{
-				$fileName = $file->getFilename();
 				$baseName = $file->getBasename('.php');
 
 				// Only load for php files.
