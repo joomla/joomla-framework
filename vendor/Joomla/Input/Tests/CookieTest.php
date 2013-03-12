@@ -34,12 +34,19 @@ class CookieTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSet()
 	{
-		$this->instance->set('foo', 'bar');
+		if (headers_sent())
+		{
+			$this->markTestSkipped();
+		}
+		else
+		{
+			$this->instance->set('foo', 'bar');
 
-		$data = Helper::getValue($this->instance, 'data');
+			$data = Helper::getValue($this->instance, 'data');
 
-		$this->assertTrue(array_key_exists('foo', $data));
-		$this->assertTrue(in_array('bar', $data));
+			$this->assertTrue(array_key_exists('foo', $data));
+			$this->assertTrue(in_array('bar', $data));
+		}
 	}
 
 	/**
