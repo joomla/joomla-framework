@@ -528,7 +528,7 @@ class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
 			'Tests the left-right quotes on an object.'
 		);
 
-// 		TestReflection::setValue($this->db, 'nameQuote', '/');
+// 		Helper::setValue($this->db, 'nameQuote', '/');
 
 		$refl = new \ReflectionClass($this->instance);
 		$property = $refl->getProperty('nameQuote');

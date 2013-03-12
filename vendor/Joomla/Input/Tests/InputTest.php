@@ -6,6 +6,7 @@
 
 use Joomla\Input\Input;
 use Joomla\Input\Cookie;
+use Joomla\Test\Helper;
 
 /**
  * Test class for Input.
@@ -350,12 +351,12 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	public function testSerialize()
 	{
 		// Load the inputs so that the static $loaded is set to true.
-		TestReflection::invoke($this->class, 'loadAllInputs');
+		Helper::invoke($this->class, 'loadAllInputs');
 
 		// Adjust the values so they are easier to handle.
-		TestReflection::setValue($this->class, 'inputs', array('server' => 'remove', 'env' => 'remove', 'request' => 'keep'));
-		TestReflection::setValue($this->class, 'options', 'options');
-		TestReflection::setValue($this->class, 'data', 'data');
+		Helper::setValue($this->class, 'inputs', array('server' => 'remove', 'env' => 'remove', 'request' => 'keep'));
+		Helper::setValue($this->class, 'options', 'options');
+		Helper::setValue($this->class, 'data', 'data');
 
 		$this->assertThat(
 			$this->class->serialize(),

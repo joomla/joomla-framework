@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Test\Helper;
+
 /**
  * Test class for JSession.
  *
@@ -119,7 +121,7 @@ class JSessionTest extends TestCase
 	public function testGetState()
 	{
 		$this->assertEquals(
-			TestReflection::getValue($this->object, '_state'),
+			Helper::getValue($this->object, '_state'),
 			$this->object->getState(),
 			'Session state should be the same'
 		);
@@ -135,7 +137,7 @@ class JSessionTest extends TestCase
 	public function testGetExpire()
 	{
 		$this->assertEquals(
-			TestReflection::getValue($this->object, '_expire'),
+			Helper::getValue($this->object, '_expire'),
 			$this->object->getExpire(),
 			'Session expire time should be the same'
 		);

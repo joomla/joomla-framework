@@ -5,6 +5,7 @@
  */
 
 use Joomla\Input\Input;
+use Joomla\Test\Helper;
 
 /**
  * Test class for JApplicationWebRouterBase.
@@ -155,7 +156,7 @@ class JApplicationWebRouterBaseTest extends TestCase
 		}
 
 		// Execute the route parsing.
-		$actual = TestReflection::invoke($this->instance, 'parseRoute', $r);
+		$actual = Helper::invoke($this->instance, 'parseRoute', $r);
 
 		// Test the assertions.
 		$this->assertEquals($c, $actual, 'Incorrect controller name found.');

@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Test\Helper;
+
 /**
  * Test class for JForm.
  *
@@ -52,9 +54,9 @@ class JFormFieldCheckboxesTest extends TestCase
 			<option value="red">red</option>
 			<option value="blue">blue</option>
 			</field>');
-		TestReflection::setValue($formFieldCheckboxes, 'element', $element);
-		TestReflection::setValue($formFieldCheckboxes, 'id', 'myTestId');
-		TestReflection::setValue($formFieldCheckboxes, 'name', 'myTestName');
+		Helper::setValue($formFieldCheckboxes, 'element', $element);
+		Helper::setValue($formFieldCheckboxes, 'id', 'myTestId');
+		Helper::setValue($formFieldCheckboxes, 'name', 'myTestName');
 
 		$expected = '<fieldset id="myTestId" class="checkboxes"><ul>' .
 			'<li><input type="checkbox" id="myTestId0" name="myTestName" value="red"/><label for="myTestId0">red</label></li>' .
@@ -63,7 +65,7 @@ class JFormFieldCheckboxesTest extends TestCase
 
 		$this->assertEquals(
 			$expected,
-			TestReflection::invoke($formFieldCheckboxes, 'getInput'),
+			Helper::invoke($formFieldCheckboxes, 'getInput'),
 			'The field with no value and no checked values did not produce the right html'
 		);
 	}
@@ -98,10 +100,10 @@ class JFormFieldCheckboxesTest extends TestCase
 			<option value="red">red</option>
 			<option value="blue">blue</option>
 			</field>');
-		TestReflection::setValue($formFieldCheckboxes, 'element', $element);
-		TestReflection::setValue($formFieldCheckboxes, 'id', 'myTestId');
-		TestReflection::setValue($formFieldCheckboxes, 'value', 'red');
-		TestReflection::setValue($formFieldCheckboxes, 'name', 'myTestName');
+		Helper::setValue($formFieldCheckboxes, 'element', $element);
+		Helper::setValue($formFieldCheckboxes, 'id', 'myTestId');
+		Helper::setValue($formFieldCheckboxes, 'value', 'red');
+		Helper::setValue($formFieldCheckboxes, 'name', 'myTestName');
 
 		$expected = '<fieldset id="myTestId" class="checkboxes"><ul>' .
 			'<li><input type="checkbox" id="myTestId0" name="myTestName" value="red" checked="checked"/>' .
@@ -111,7 +113,7 @@ class JFormFieldCheckboxesTest extends TestCase
 
 		$this->assertEquals(
 			$expected,
-			TestReflection::invoke($formFieldCheckboxes, 'getInput'),
+			Helper::invoke($formFieldCheckboxes, 'getInput'),
 			'The field with one value did not produce the right html'
 		);
 	}
@@ -147,10 +149,10 @@ class JFormFieldCheckboxesTest extends TestCase
 			<option value="blue">blue</option>
 			</field>');
 		$valuearray = array('red');
-		TestReflection::setValue($formFieldCheckboxes, 'element', $element);
-		TestReflection::setValue($formFieldCheckboxes, 'id', 'myTestId');
-		TestReflection::setValue($formFieldCheckboxes, 'value', $valuearray);
-		TestReflection::setValue($formFieldCheckboxes, 'name', 'myTestName');
+		Helper::setValue($formFieldCheckboxes, 'element', $element);
+		Helper::setValue($formFieldCheckboxes, 'id', 'myTestId');
+		Helper::setValue($formFieldCheckboxes, 'value', $valuearray);
+		Helper::setValue($formFieldCheckboxes, 'name', 'myTestName');
 
 		$fieldsetString = '<fieldset id="myTestId" class="checkboxes"><ul>' .
 			'<li><input type="checkbox" id="myTestId0" name="myTestName" value="red" checked="checked"/><label for="myTestId0">red</label></li>' .
@@ -158,7 +160,7 @@ class JFormFieldCheckboxesTest extends TestCase
 
 		$this->assertEquals(
 			$fieldsetString,
-			TestReflection::invoke($formFieldCheckboxes, 'getInput'),
+			Helper::invoke($formFieldCheckboxes, 'getInput'),
 			'The field with one value did not produce the right html'
 		);
 	}
@@ -193,9 +195,9 @@ class JFormFieldCheckboxesTest extends TestCase
 			<option value="red">red</option>
 			<option value="blue">blue</option>
 			</field>');
-		TestReflection::setValue($formFieldCheckboxes, 'element', $element);
-		TestReflection::setValue($formFieldCheckboxes, 'id', 'myTestId');
-		TestReflection::setValue($formFieldCheckboxes, 'name', 'myTestName');
+		Helper::setValue($formFieldCheckboxes, 'element', $element);
+		Helper::setValue($formFieldCheckboxes, 'id', 'myTestId');
+		Helper::setValue($formFieldCheckboxes, 'name', 'myTestName');
 
 		$expected = '<fieldset id="myTestId" class="checkboxes"><ul>' .
 			'<li><input type="checkbox" id="myTestId0" name="myTestName" value="red"/><label for="myTestId0">red</label></li>' .
@@ -204,7 +206,7 @@ class JFormFieldCheckboxesTest extends TestCase
 
 		$this->assertEquals(
 			$expected,
-			TestReflection::invoke($formFieldCheckboxes, 'getInput'),
+			Helper::invoke($formFieldCheckboxes, 'getInput'),
 			'The field with no values and one value in the checked element did not produce the right html'
 		);
 	}
@@ -239,10 +241,10 @@ class JFormFieldCheckboxesTest extends TestCase
 			<option value="red">red</option>
 			<option value="blue">blue</option>
 			</field>');
-		TestReflection::setValue($formFieldCheckboxes, 'element', $element);
-		TestReflection::setValue($formFieldCheckboxes, 'id', 'myTestId');
-		TestReflection::setValue($formFieldCheckboxes, 'name', 'myTestName');
-		TestReflection::setValue($formFieldCheckboxes, 'value', '""');
+		Helper::setValue($formFieldCheckboxes, 'element', $element);
+		Helper::setValue($formFieldCheckboxes, 'id', 'myTestId');
+		Helper::setValue($formFieldCheckboxes, 'name', 'myTestName');
+		Helper::setValue($formFieldCheckboxes, 'value', '""');
 
 		$expected = '<fieldset id="myTestId" class="checkboxes"><ul>' .
 			'<li><input type="checkbox" id="myTestId0" name="myTestName" value="red"/><label for="myTestId0">red</label></li>' .
@@ -251,7 +253,7 @@ class JFormFieldCheckboxesTest extends TestCase
 
 		$this->assertEquals(
 			$expected,
-			TestReflection::invoke($formFieldCheckboxes, 'getInput'),
+			Helper::invoke($formFieldCheckboxes, 'getInput'),
 			'The field with no values and two items in the checked element did not produce the right html'
 		);
 	}
@@ -286,10 +288,10 @@ class JFormFieldCheckboxesTest extends TestCase
 			<option value="red">red</option>
 			<option value="blue">blue</option>
 			</field>');
-		TestReflection::setValue($formFieldCheckboxes, 'element', $element);
-		TestReflection::setValue($formFieldCheckboxes, 'id', 'myTestId');
-		TestReflection::setValue($formFieldCheckboxes, 'value', 'red');
-		TestReflection::setValue($formFieldCheckboxes, 'name', 'myTestName');
+		Helper::setValue($formFieldCheckboxes, 'element', $element);
+		Helper::setValue($formFieldCheckboxes, 'id', 'myTestId');
+		Helper::setValue($formFieldCheckboxes, 'value', 'red');
+		Helper::setValue($formFieldCheckboxes, 'name', 'myTestName');
 
 		$expected = '<fieldset id="myTestId" class="checkboxes"><ul><li>' .
 			'<input type="checkbox" id="myTestId0" name="myTestName" value="red" checked="checked"/>' .
@@ -298,7 +300,7 @@ class JFormFieldCheckboxesTest extends TestCase
 
 		$this->assertEquals(
 			$expected,
-			TestReflection::invoke($formFieldCheckboxes, 'getInput'),
+			Helper::invoke($formFieldCheckboxes, 'getInput'),
 			'The field with one value and a different value in the checked element did not produce the right html'
 		);
 	}
@@ -333,10 +335,10 @@ class JFormFieldCheckboxesTest extends TestCase
 			<option value="red">red</option>
 			<option value="blue">blue</option>
 			</field>');
-		TestReflection::setValue($formFieldCheckboxes, 'element', $element);
-		TestReflection::setValue($formFieldCheckboxes, 'id', 'myTestId');
-		TestReflection::setValue($formFieldCheckboxes, 'value', 'yellow,green');
-		TestReflection::setValue($formFieldCheckboxes, 'name', 'myTestName');
+		Helper::setValue($formFieldCheckboxes, 'element', $element);
+		Helper::setValue($formFieldCheckboxes, 'id', 'myTestId');
+		Helper::setValue($formFieldCheckboxes, 'value', 'yellow,green');
+		Helper::setValue($formFieldCheckboxes, 'name', 'myTestName');
 
 		$expected = '<fieldset id="myTestId" class="checkboxes"><ul><li>' .
 			'<input type="checkbox" id="myTestId0" name="myTestName" value="red"/><label for="myTestId0">red</label></li><li>' .
@@ -344,7 +346,7 @@ class JFormFieldCheckboxesTest extends TestCase
 
 		$this->assertEquals(
 			$expected,
-			TestReflection::invoke($formFieldCheckboxes, 'getInput'),
+			Helper::invoke($formFieldCheckboxes, 'getInput'),
 			'The field with two values did not produce the right html'
 		);
 	}
@@ -377,7 +379,7 @@ class JFormFieldCheckboxesTest extends TestCase
 		$optionsExpected = array($option1, $option2);
 
 		// Test with two values checked, no checked element
-		TestReflection::setValue(
+		Helper::setValue(
 			$formFieldCheckboxes, 'element', simplexml_load_string(
 			'<field name="color" type="checkboxes">
 			<option value="yellow">yellow</option>
@@ -387,7 +389,7 @@ class JFormFieldCheckboxesTest extends TestCase
 
 		$this->assertEquals(
 			$optionsExpected,
-			TestReflection::invoke($formFieldCheckboxes, 'getOptions'),
+			Helper::invoke($formFieldCheckboxes, 'getOptions'),
 			'The field with two values did not produce the right options'
 		);
 	}

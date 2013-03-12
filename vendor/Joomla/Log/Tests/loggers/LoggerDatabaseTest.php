@@ -9,6 +9,7 @@ require_once __DIR__ . '/stubs/database/inspector.php';
 use Joomla\Log\Log;
 use Joomla\Log\Entry;
 use Joomla\Log\Logger\Database as LoggerDatabase;
+use Joomla\Test\Helper;
 
 /**
  * Test class for LoggerDatabase.
@@ -88,7 +89,7 @@ class LoggerDatabaseTest extends TestCaseDatabase
 			'db_prefix' => 'jos_'
 		);
 		$logger = new LoggerDatabase($config);
-		TestReflection::setValue($logger, 'dbo', JFactory::$database);
+		Helper::setValue($logger, 'dbo', JFactory::$database);
 
 		// Get the expected database from XML.
 		$expected = $this->createXMLDataSet(__DIR__ . '/stubs/database/S01E01.xml');

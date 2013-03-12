@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Test\Helper;
+
 require_once __DIR__ . '/Stubs/Bar.php';
 require_once __DIR__ . '/Stubs/Baz.php';
 require_once __DIR__ . '/Stubs/Foo.php';
@@ -74,7 +76,7 @@ class JApplicationWebRouterTest extends TestCase
 	public function testFetchControllerWithMissingClass()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = TestReflection::invoke($this->instance, 'fetchController', 'goober');
+		$controller = Helper::invoke($this->instance, 'fetchController', 'goober');
 	}
 
 	/**
@@ -88,7 +90,7 @@ class JApplicationWebRouterTest extends TestCase
 	public function testFetchControllerWithNonController()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = TestReflection::invoke($this->instance, 'fetchController', 'MyTestControllerBaz');
+		$controller = Helper::invoke($this->instance, 'fetchController', 'MyTestControllerBaz');
 	}
 
 	/**
@@ -101,8 +103,8 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	public function testFetchControllerWithPrefixSet()
 	{
-		TestReflection::setValue($this->instance, 'controllerPrefix', 'MyTestController');
-		$controller = TestReflection::invoke($this->instance, 'fetchController', 'foo');
+		Helper::setValue($this->instance, 'controllerPrefix', 'MyTestController');
+		$controller = Helper::invoke($this->instance, 'fetchController', 'foo');
 	}
 
 	/**
@@ -116,7 +118,7 @@ class JApplicationWebRouterTest extends TestCase
 	public function testFetchControllerWithoutPrefixSetThoughNecessary()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = TestReflection::invoke($this->instance, 'fetchController', 'foo');
+		$controller = Helper::invoke($this->instance, 'fetchController', 'foo');
 	}
 
 	/**
@@ -129,7 +131,7 @@ class JApplicationWebRouterTest extends TestCase
 	 */
 	public function testFetchControllerWithoutPrefixSet()
 	{
-		$controller = TestReflection::invoke($this->instance, 'fetchController', 'TControllerBar');
+		$controller = Helper::invoke($this->instance, 'fetchController', 'TControllerBar');
 	}
 
 	/**
