@@ -14,23 +14,6 @@ namespace Joomla\Cache;
 class None extends Cache
 {
 	/**
-	 * Method to add a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function add($key, $value, $ttl)
-	{
-		return null;
-	}
-
-	/**
 	 * Method to determine whether a storage entry has been set for a key.
 	 *
 	 * @param   string  $key  The storage entry identifier.
@@ -54,7 +37,7 @@ class None extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function fetch($key)
+	protected function doGet($key)
 	{
 		return null;
 	}
@@ -69,7 +52,7 @@ class None extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function delete($key)
+	protected function doDelete($key)
 	{
 		return null;
 	}
@@ -86,7 +69,7 @@ class None extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function set($key, $value, $ttl)
+	protected function doSet($key, $value, $ttl = null)
 	{
 		return null;
 	}

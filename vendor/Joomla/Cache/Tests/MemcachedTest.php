@@ -22,53 +22,40 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the add method.
+	 * Tests the Joomla\Cache\Memcached::doDelete method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::add
+	 * @covers  Joomla\Cache\Memcached::doDelete
 	 * @since   1.0
 	 */
-	public function testAdd()
+	public function testDoDelete()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the delete method.
+	 * Tests the Joomla\Cache\Memcached::doGet method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::delete
+	 * @covers  Joomla\Cache\Memcached::doGet
 	 * @since   1.0
 	 */
-	public function testDelete()
+	public function testDoGet()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the fetch method.
+	 * Tests the Joomla\Cache\Memcached::doSet method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::fetch
+	 * @covers  Joomla\Cache\Memcached::doSet
 	 * @since   1.0
 	 */
-	public function testFetch()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the set method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Memcached::set
-	 * @since   1.0
-	 */
-	public function testSet()
+	public function testDoSet()
 	{
 		$this->markTestIncomplete();
 	}

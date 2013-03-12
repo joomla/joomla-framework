@@ -16,12 +16,6 @@ use Joomla\Registry\Registry;
 abstract class Cache
 {
 	/**
-	 * @var    array  An array of key/value pairs to be used as a runtime cache.
-	 * @since  1.0
-	 */
-	static protected $runtime = array();
-
-	/**
 	 * @var    Registry  The options for the cache object.
 	 * @since  1.0
 	 */
@@ -41,40 +35,45 @@ abstract class Cache
 		$this->options = $options ? $options : new Registry;
 
 		$this->options->def('ttl', 900);
-		$this->options->def('runtime', true);
+	}
+
+	/**
+	 * Delete a cached data entry by id.
+	 *
+	 * @param   string  $cacheId  The cache data id.
+	 *
+	 * @return  Cache  This object for method chaining.
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function delete($cacheId)
+	{
+		$this->doDelete($cacheId);
+
+		return $this;
 	}
 
 	/**
 	 * Get cached data by id.  If the cached data has expired then the cached data will be removed
 	 * and false will be returned.
 	 *
-	 * @param   string   $cacheId       The cache data id.
-	 * @param   boolean  $checkRuntime  True to check runtime cache first.
+	 * @param   string  $cacheId  The cache data id.
 	 *
 	 * @return  mixed  Cached data string if it exists.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function get($cacheId, $checkRuntime = true)
+	public function get($cacheId)
 	{
-		if ($checkRuntime && isset(self::$runtime[$cacheId]) && $this->options->get('runtime'))
-		{
-			return self::$runtime[$cacheId];
-		}
-
-		$data = $this->fetch($cacheId);
-
-		if ($this->options->get('runtime'))
-		{
-			self::$runtime[$cacheId] = $data;
-		}
+		$data = $this->doGet($cacheId);
 
 		return $data;
 	}
 
 	/**
-	 * Get an option from the JCache instance.
+	 * Get an option from the Cache instance.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
@@ -88,34 +87,12 @@ abstract class Cache
 	}
 
 	/**
-	 * Remove a cached data entry by id.
-	 *
-	 * @param   string  $cacheId  The cache data id.
-	 *
-	 * @return  JCache  This object for method chaining.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function remove($cacheId)
-	{
-		$this->delete($cacheId);
-
-		if ($this->options->get('runtime'))
-		{
-			unset(self::$runtime[$cacheId]);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Set an option for the JCache instance.
+	 * Set an option for the Cache instance.
 	 *
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JCache  This object for method chaining.
+	 * @return  Cache  This object for method chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -129,46 +106,32 @@ abstract class Cache
 	/**
 	 * Store the cached data by id.
 	 *
-	 * @param   string  $cacheId  The cache data id
-	 * @param   mixed   $data     The data to store
+	 * @param   string   $cacheId  The cache data id
+	 * @param   mixed    $data     The data to store
+	 * @param   integer  $ttl      The number of seconds before the stored data expires.
 	 *
-	 * @return  JCache  This object for method chaining.
+	 * @return  Cache  This object for method chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function store($cacheId, $data)
+	public function set($cacheId, $data, $ttl = null)
 	{
-		if ($this->exists($cacheId))
-		{
-			$this->set($cacheId, $data, $this->options->get('ttl'));
-		}
-		else
-		{
-			$this->add($cacheId, $data, $this->options->get('ttl'));
-		}
-
-		if ($this->options->get('runtime'))
-		{
-			self::$runtime[$cacheId] = $data;
-		}
+		$this->doSet($cacheId, $data, $ttl ?: $this->options->get('ttl'));
 
 		return $this;
 	}
 
 	/**
-	 * Method to add a storage entry.
+	 * Method to determine whether a storage entry has been set for a key.
 	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
+	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	abstract protected function add($key, $value, $ttl);
+	abstract protected function exists($key);
 
 	/**
 	 * Method to remove a storage entry for a key.
@@ -180,7 +143,7 @@ abstract class Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	abstract protected function delete($key);
+	abstract protected function doDelete($key);
 
 	/**
 	 * Method to get a storage entry value from a key.
@@ -192,7 +155,7 @@ abstract class Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	abstract protected function fetch($key);
+	abstract protected function doGet($key);
 
 	/**
 	 * Method to set a value for a storage entry.
@@ -206,5 +169,5 @@ abstract class Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	abstract protected function set($key, $value, $ttl);
+	abstract protected function doSet($key, $value, $ttl = null);
 }

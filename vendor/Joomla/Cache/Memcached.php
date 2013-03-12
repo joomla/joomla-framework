@@ -16,7 +16,7 @@ use Joomla\Registry\Registry;
 class Memcached extends Cache
 {
 	/**
-	 * @var    Memcached  The memcached driver.
+	 * @var    \Memcached  The memcached driver.
 	 * @since  1.0
 	 */
 	private $driver;
@@ -36,30 +36,6 @@ class Memcached extends Cache
 		if (!extension_loaded('memcached') || !class_exists('\\Memcached'))
 		{
 			throw new \RuntimeException('Memcached not supported.');
-		}
-	}
-
-	/**
-	 * Method to add a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function add($key, $value, $ttl)
-	{
-		$this->_connect();
-
-		$this->driver->add($key, $value, $ttl);
-
-		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS)
-		{
-			throw new \RuntimeException(sprintf('Unable to add cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 		}
 	}
 
@@ -91,7 +67,7 @@ class Memcached extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function fetch($key)
+	protected function doGet($key)
 	{
 		$this->_connect();
 
@@ -123,11 +99,11 @@ class Memcached extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function delete($key)
+	protected function doDelete($key)
 	{
 		$this->_connect();
 
-		$this->driver->delete($key);
+		$this->driver->doDelete($key);
 
 		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
 		{
@@ -147,7 +123,7 @@ class Memcached extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function set($key, $value, $ttl)
+	protected function doSet($key, $value, $ttl = null)
 	{
 		$this->_connect();
 

@@ -22,53 +22,40 @@ class WincacheTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the add method.
+	 * Tests the Joomla\Cache\Wincache::doDelete method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::add
+	 * @covers  Joomla\Cache\Wincache::doDelete
 	 * @since   1.0
 	 */
-	public function testAdd()
+	public function testDoDelete()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the delete method.
+	 * Tests the Joomla\Cache\Wincache::doGet method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::delete
+	 * @covers  Joomla\Cache\Wincache::doGet
 	 * @since   1.0
 	 */
-	public function testDelete()
+	public function testDoGet()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the fetch method.
+	 * Tests the Joomla\Cache\Wincache::doSet method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::fetch
+	 * @covers  Joomla\Cache\Wincache::doSet
 	 * @since   1.0
 	 */
-	public function testFetch()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the set method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Wincache::set
-	 * @since   1.0
-	 */
-	public function testSet()
+	public function testDoSet()
 	{
 		$this->markTestIncomplete();
 	}

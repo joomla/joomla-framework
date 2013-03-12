@@ -11,6 +11,11 @@ use Joomla\Registry\Registry;
 /**
  * Filesystem cache driver for the Joomla Platform.
  *
+ * Supported options:
+ * - ttl (integer)          : The default number of seconds for the cache life.
+ * - file.locking (boolean) :
+ * - file.path              : The path for cache files.
+ *
  * @since  1.0
  */
 class File extends Cache
@@ -28,46 +33,7 @@ class File extends Cache
 		parent::__construct($options);
 
 		$this->options->def('file.locking', true);
-
-		if (!is_dir($this->options->get('file.path')))
-		{
-			throw new \RuntimeException(sprintf('The base cache path `%s` does not exist.', $this->options->get('file.path')));
-		}
-		elseif (!is_writable($this->options->get('file.path')))
-		{
-			throw new \RuntimeException(sprintf('The base cache path `%s` is not writable.', $this->options->get('file.path')));
-		}
-	}
-
-	/**
-	 * Method to add a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  RuntimeException
-	 */
-	protected function add($key, $value, $ttl)
-	{
-		if ($this->exists($key))
-		{
-			throw new \RuntimeException(sprintf('Unable to add cache entry for %s. Entry already exists.', $key));
-		}
-
-		$success = (bool) file_put_contents(
-			$this->_fetchStreamUri($key),
-			serialize($value),
-			($this->options->get('file.locking') ? LOCK_EX : null)
-		);
-
-		if (!$success)
-		{
-			throw new \RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
-		}
+		$this->checkFilePath($this->options->get('file.path'));
 	}
 
 	/**
@@ -81,7 +47,7 @@ class File extends Cache
 	 */
 	protected function exists($key)
 	{
-		return is_file($this->_fetchStreamUri($key));
+		return is_file($this->fetchStreamUri($key));
 	}
 
 	/**
@@ -92,16 +58,16 @@ class File extends Cache
 	 * @return  mixed
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
-	protected function fetch($key)
+	protected function doGet($key)
 	{
 		// If the cached data has expired remove it and return.
-		if ($this->exists($key) && $this->_isExpired($key))
+		if ($this->exists($key) && $this->isExpired($key))
 		{
 			try
 			{
-				$this->delete($key);
+				$this->doDelete($key);
 			}
 			catch (\RuntimeException $e)
 			{
@@ -116,7 +82,7 @@ class File extends Cache
 			return;
 		}
 
-		$resource = @fopen($this->_fetchStreamUri($key), 'rb');
+		$resource = @fopen($this->fetchStreamUri($key), 'rb');
 
 		if (!$resource)
 		{
@@ -150,11 +116,11 @@ class File extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
-	protected function delete($key)
+	protected function doDelete($key)
 	{
-		$success = (bool) unlink($this->_fetchStreamUri($key));
+		$success = (bool) @unlink($this->fetchStreamUri($key));
 
 		if (!$success)
 		{
@@ -172,12 +138,20 @@ class File extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
-	protected function set($key, $value, $ttl)
+	protected function doSet($key, $value, $ttl = null)
 	{
+		$fileName = $this->fetchStreamUri($key);
+		$filePath = pathinfo($fileName, PATHINFO_DIRNAME);
+
+		if (!is_dir($filePath))
+		{
+			mkdir($filePath, 0770, true);
+		}
+
 		$success = (bool) file_put_contents(
-			$this->_fetchStreamUri($key),
+			$fileName,
 			serialize($value),
 			($this->options->get('file.locking') ? LOCK_EX : null)
 		);
@@ -189,6 +163,28 @@ class File extends Cache
 	}
 
 	/**
+	 * Check that the file path is a directory and writable.
+	 *
+	 * @param   string  $filePath  A file path.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException if the file path is invalid.
+	 */
+	private function checkFilePath($filePath)
+	{
+		if (!is_dir($filePath))
+		{
+			throw new \RuntimeException(sprintf('The base cache path `%s` does not exist.', $filePath));
+		}
+		elseif (!is_writable($filePath))
+		{
+			throw new \RuntimeException(sprintf('The base cache path `%s` is not writable.', $filePath));
+		}
+	}
+
+	/**
 	 * Get the full stream URI for the cache entry.
 	 *
 	 * @param   string  $key  The storage entry identifier.
@@ -196,10 +192,19 @@ class File extends Cache
 	 * @return  string  The full stream URI for the cache entry.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException if the cache path is invalid.
 	 */
-	private function _fetchStreamUri($key)
+	private function fetchStreamUri($key)
 	{
-		return $this->options->get('file.path') . '/' . $key;
+		$filePath = $this->options->get('file.path');
+		$this->checkFilePath($filePath);
+
+		return sprintf(
+			'%s/~%s/%s.data',
+			$filePath,
+			substr(hash('md5', $key), 0, 4),
+			hash('sha1', $key)
+		);
 	}
 
 	/**
@@ -211,10 +216,10 @@ class File extends Cache
 	 *
 	 * @since   1.0
 	 */
-	private function _isExpired($key)
+	private function isExpired($key)
 	{
 		// Check to see if the cached data has expired.
-		if (filemtime($this->_fetchStreamUri($key)) < (time() - $this->options->get('ttl')))
+		if (filemtime($this->fetchStreamUri($key)) < (time() - $this->options->get('ttl')))
 		{
 			return true;
 		}

@@ -7,6 +7,8 @@
 namespace Joomla\Cache\Tests;
 
 use Joomla\Cache;
+use Joomla\Registry\Registry;
+use Joomla\Test\Helper;
 
 /**
  * Tests for the Joomla\Cache\Cache class.
@@ -22,53 +24,77 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the add method.
+	 * Tests the Joomla\Cache\File::doDelete method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\File::add
+	 * @covers  Joomla\Cache\File::doDelete
 	 * @since   1.0
 	 */
-	public function testAdd()
+	public function testDoDelete()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the delete method.
+	 * Tests the Joomla\Cache\File::doGet method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\File::delete
 	 * @since   1.0
 	 */
-	public function testDelete()
+	public function testDoGet()
 	{
-		$this->markTestIncomplete();
+		$this->assertNull($this->instance->get('foo'), 'Checks an unknown key.');
 	}
 
 	/**
-	 * Tests the fetch method.
+	 * Tests the Joomla\Cache\File::doSet method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\File::fetch
+	 * @covers  Joomla\Cache\File::doSet
+	 * @covers  Joomla\Cache\File::doGet
+	 * @covers  Joomla\Cache\File::doDelete
 	 * @since   1.0
 	 */
-	public function testFetch()
+	public function testDoSet()
 	{
-		$this->markTestIncomplete();
+		$fileName = Helper::invoke($this->instance, 'fetchStreamUri', 'foo');
+
+		$this->assertFalse(file_exists($fileName));
+
+		$this->instance->set('foo', 'bar');
+		$this->assertTrue(file_exists($fileName), 'Checks the cache file was created.');
+
+		$this->assertEquals('bar', $this->instance->get('foo'), 'Checks we got the cached value back.');
+
+		$this->instance->delete('foo');
+		$this->assertNull($this->instance->get('foo'), 'Checks for the delete.');
 	}
 
 	/**
-	 * Tests the set method.
+	 * Tests the Joomla\Cache\File::fetchStreamUri method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\File::set
+	 * @covers  Joomla\Cache\File::fetchStreamUri
 	 * @since   1.0
 	 */
-	public function testSet()
+	public function testFetchStreamUri()
+	{
+		$fileName = Helper::invoke($this->instance, 'fetchStreamUri', 'test');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\File::isExpired method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\File::isExpired
+	 * @since   1.0
+	 */
+	public function testIsExpired()
 	{
 		$this->markTestIncomplete();
 	}
@@ -84,13 +110,34 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		try
+		// Clean up the test folder.
+		$this->tearDown();
+
+		$options = new Registry;
+		$options->set('file.path', __DIR__ . '/Stubs');
+
+		$this->instance = new Cache\File($options);
+	}
+
+	/**
+	 * Teardown the test.
+	 */
+	protected function tearDown()
+	{
+		foreach (new \DirectoryIterator(__DIR__ . '/Stubs/') as $dir)
 		{
-			$this->instance = new Cache\File;
-		}
-		catch (\Exception $e)
-		{
-			$this->markTestSkipped();
+			if ($dir->isDir() && strpos($dir->getFilename(), '~') === 0)
+			{
+				foreach (new \DirectoryIterator($dir->getRealPath()) as $file)
+				{
+					if ($file->isFile())
+					{
+						unlink($file->getRealPath());
+					}
+				}
+
+				rmdir($dir->getRealPath());
+			}
 		}
 	}
 }

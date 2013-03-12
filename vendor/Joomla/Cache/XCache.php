@@ -34,27 +34,6 @@ class XCache extends Cache
 	}
 
 	/**
-	 * Method to add a storage entry.  XCache doesn't have a separate add function so we'll just
-	 * use the set function instead.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function add($key, $value, $ttl)
-	{
-		if (!\xcache_set($key, $value, $ttl))
-		{
-			throw new \RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
-		}
-	}
-
-	/**
 	 * Method to determine whether a storage entry has been set for a key.
 	 *
 	 * @param   string  $key  The storage entry identifier.
@@ -77,7 +56,7 @@ class XCache extends Cache
 	 *
 	 * @since   1.0
 	 */
-	protected function fetch($key)
+	protected function doGet($key)
 	{
 		return \xcache_get($key);
 	}
@@ -92,7 +71,7 @@ class XCache extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function delete($key)
+	protected function doDelete($key)
 	{
 		if (!\xcache_unset($key))
 		{
@@ -112,7 +91,7 @@ class XCache extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function set($key, $value, $ttl)
+	protected function doSet($key, $value, $ttl = null)
 	{
 		if (!\xcache_set($key, $value, $ttl))
 		{

@@ -6,32 +6,20 @@
 
 namespace Joomla\Cache;
 
-use Joomla\Registry\Registry;
-
 /**
- * APC cache driver for the Joomla Platform.
+ * Runtime memory cache driver.
  *
  * @since  1.0
  */
-class Apc extends Cache
+class Runtime extends Cache
 {
 	/**
-	 * Constructor.
+	 * The runtime cache storage array.
 	 *
-	 * @param   Registry  $options  Caching options object.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
+	 * @var    array
+	 * @since  1.0
 	 */
-	public function __construct(Registry $options = null)
-	{
-		parent::__construct($options);
-
-		if (!extension_loaded('apc') || !is_callable('apc_fetch'))
-		{
-			throw new \RuntimeException('APC not supported.');
-		}
-	}
+	private static $store;
 
 	/**
 	 * Method to determine whether a storage entry has been set for a key.
@@ -44,7 +32,7 @@ class Apc extends Cache
 	 */
 	protected function exists($key)
 	{
-		return \apc_exists($key);
+		return isset(self::$store[$key]);
 	}
 
 	/**
@@ -59,16 +47,7 @@ class Apc extends Cache
 	 */
 	protected function doGet($key)
 	{
-		$success = true;
-
-		$data = apc_fetch($key, $success);
-
-		if (!$success)
-		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.', $key));
-		}
-
-		return $data;
+		return isset(self::$store[$key]) ? self::$store[$key] : null;
 	}
 
 	/**
@@ -83,10 +62,7 @@ class Apc extends Cache
 	 */
 	protected function doDelete($key)
 	{
-		if (!apc_delete($key))
-		{
-			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
-		}
+		unset(self::$store[$key]);
 	}
 
 	/**
@@ -103,9 +79,6 @@ class Apc extends Cache
 	 */
 	protected function doSet($key, $value, $ttl = null)
 	{
-		if (!apc_store($key, $value, $ttl))
-		{
-			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
-		}
+		self::$store[$key] = $value;
 	}
 }

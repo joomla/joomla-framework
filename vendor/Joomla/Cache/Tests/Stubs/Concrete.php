@@ -16,19 +16,22 @@ use Joomla\Cache\Cache;
 class ConcreteCache extends Cache
 {
 	/**
-	 * Method to add a storage entry.
+	 * @var unknown
+	 */
+	public $do;
+
+	/**
+	 * Method to determine whether a storage entry has been set for a key.
 	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
+	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
 	 */
-	protected function add($key, $value, $ttl)
+	protected function exists($key)
 	{
+		return false;
 	}
 
 	/**
@@ -39,10 +42,11 @@ class ConcreteCache extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	*/
-	protected function delete($key)
+	protected function doDelete($key)
 	{
+		$this->do = 'doDelete-' . $key;
 	}
 
 	/**
@@ -53,10 +57,11 @@ class ConcreteCache extends Cache
 	 * @return  mixed
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	*/
-	protected function fetch($key)
+	protected function doGet($key)
 	{
+		$this->do = 'doGet-' . $key;
 	}
 
 	/**
@@ -69,9 +74,10 @@ class ConcreteCache extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	*/
-	protected function set($key, $value, $ttl)
+	protected function doSet($key, $value, $ttl = null)
 	{
+		$this->do = "doSet-$key-$value-" . (int) $ttl;
 	}
 }

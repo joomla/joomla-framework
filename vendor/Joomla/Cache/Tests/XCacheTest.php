@@ -22,53 +22,40 @@ class XCacheTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the add method.
+	 * Tests the Joomla\Cache\XCache::doDelete method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::add
+	 * @covers  Joomla\Cache\XCache::doDelete
 	 * @since   1.0
 	 */
-	public function testAdd()
+	public function testDoDelete()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the delete method.
+	 * Tests the Joomla\Cache\XCache::doGet method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::delete
+	 * @covers  Joomla\Cache\XCache::doGet
 	 * @since   1.0
 	 */
-	public function testDelete()
+	public function testDoGet()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the fetch method.
+	 * Tests the Joomla\Cache\XCache::doSet method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::fetch
+	 * @covers  Joomla\Cache\XCache::doSet
 	 * @since   1.0
 	 */
-	public function testFetch()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the set method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\XCache::set
-	 * @since   1.0
-	 */
-	public function testSet()
+	public function testDoSet()
 	{
 		$this->markTestIncomplete();
 	}
