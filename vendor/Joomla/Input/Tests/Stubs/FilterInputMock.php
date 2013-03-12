@@ -4,12 +4,14 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input\Tests;
+
 /**
- * JFilterInputMockTracker test class.
+ * FilterInputMockTracker test class.
  *
  * @since  1.0
  */
-class JFilterInputMockTracker
+class FilterInputMock
 {
 	public $calls = array();
 

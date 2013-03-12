@@ -6,13 +6,13 @@
 
 namespace Joomla\Input;
 
-use Joomla\Filter\Input as FilterInput;
+use Joomla\Filter;
 
 /**
  * Joomla! Input JSON Class
  *
  * This class decodes a JSON string from the raw request data and makes it available via
- * the standard JInput interface.
+ * the standard Input interface.
  *
  * @since  1.0
  */
@@ -40,7 +40,7 @@ class Json extends Input
 		}
 		else
 		{
-			$this->filter = FilterInput::getInstance();
+			$this->filter = Filter\Input::getInstance();
 		}
 
 		if (is_null($source))

@@ -6,14 +6,14 @@
 
 namespace Joomla\Input\Tests;
 
-use Joomla\Input\Files;
+use Joomla\Input\Json;
 
 /**
- * Test class for JInputFiles.
+ * Test class for Joomla\Input\Json.
  *
  * @since  1.0
  */
-class FilesTest extends \PHPUnit_Framework_TestCase
+class JsonTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Files
@@ -22,27 +22,27 @@ class FilesTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Test the Joomla\Input\Files::get method.
+	 * Test the Joomla\Input\Json::__construct method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Input\Files::get
+	 * @covers  Joomla\Input\Json::__construct
 	 * @since   1.0
 	 */
-	public function testGet()
+	public function test__construct()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Test the Joomla\Input\Files::set method.
+	 * Test the Joomla\Input\Json::getRaw method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Input\Files::set
+	 * @covers  Joomla\Input\Json::getRaw
 	 * @since   1.0
 	 */
-	public function testSet()
+	public function testgetRaw()
 	{
 		$this->markTestIncomplete();
 	}
@@ -50,7 +50,7 @@ class FilesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Sets up the fixture.
 	 *
-	 * @return void
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -58,6 +58,6 @@ class FilesTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->instance = new Files;
+		$this->instance = new Json;
 	}
 }
