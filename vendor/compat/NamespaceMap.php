@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'JFactory' => 'Joomla\\Factory',
 	'JFormField' => 'Joomla\\Form\\Field',
 	'JFormFieldCacheHandler' => 'Joomla\\Form\\Field_CacheHandler',
 	'JFormFieldCalendar' => 'Joomla\\Form\\Field_Calendar',
@@ -32,17 +31,6 @@ return array(
 	'JFormFieldUrl' => 'Joomla\\Form\\Field_Url',
 	'JForm' => 'Joomla\\Form\\Form',
 	'JFormHelper' => 'Joomla\\Form\\Helper',
-	'JGithubAccount' => 'Joomla\\Github\\Account',
-	'JGithubCommits' => 'Joomla\\Github\\Commits',
-	'JGithubForks' => 'Joomla\\Github\\Forks',
-	'JGithubGists' => 'Joomla\\Github\\Gists',
-	'JGithubHooks' => 'Joomla\\Github\\Hooks',
-	'JGithubIssues' => 'Joomla\\Github\\Issues',
-	'JGithubMilestones' => 'Joomla\\Github\\Milestones',
-	'JGithubObject' => 'Joomla\\Github\\Object',
-	'JGithubPulls' => 'Joomla\\Github\\Pulls',
-	'JGithubRefs' => 'Joomla\\Github\\Refs',
-	'JGithubStatuses' => 'Joomla\\Github\\Statuses',
 	'JGoogleData' => 'Joomla\\Google\\Data',
 	'JGoogleDataAdsense' => 'Joomla\\Google\\Data\\Adsense',
 	'JGoogleDataCalendar' => 'Joomla\\Google\\Data\\Calendar',

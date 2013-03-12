@@ -5,16 +5,17 @@
  */
 
 use Joomla\Registry\Registry;
+use Joomla\Github\Statuses;
 
 /**
- * Test class for JGithubGists.
+ * Test class for Joomla\Github\Statuses.
  *
  * @since  1.0
  */
-class JGithubStatusesTest extends PHPUnit_Framework_TestCase
+class StatusesTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the GitHub object.
+	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -26,7 +27,7 @@ class JGithubStatusesTest extends PHPUnit_Framework_TestCase
 	protected $client;
 
 	/**
-	 * @var    JGithubGists  Object under test.
+	 * @var    Joomla\Github\Statuses  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -58,7 +59,7 @@ class JGithubStatusesTest extends PHPUnit_Framework_TestCase
 		$this->options = new Registry;
 		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
-		$this->object = new JGithubStatuses($this->options, $this->client);
+		$this->object = new Statuses($this->options, $this->client);
 	}
 
 	/**
