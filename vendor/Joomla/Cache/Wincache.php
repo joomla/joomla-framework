@@ -50,23 +50,22 @@ class Wincache extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  mixed
+	 * @return  CacheItemInterface
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function get($key)
 	{
+		$item = new Item($key);
 		$success = true;
+		$value = wincache_ucache_get($key, $success);
 
-		$data = \wincache_ucache_get($key, $success);
-
-		if (!$success)
+		if ($success)
 		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.', $key));
+			$item->setValue($value);
 		}
 
-		return $data;
+		return $item;
 	}
 
 	/**
@@ -80,7 +79,7 @@ class Wincache extends Cache
 	 */
 	public function remove($key)
 	{
-		return \wincache_ucache_delete($key);
+		return wincache_ucache_delete($key);
 	}
 
 	/**
@@ -96,7 +95,7 @@ class Wincache extends Cache
 	 */
 	public function set($key, $value, $ttl = null)
 	{
-		return \wincache_ucache_set($key, $value, $ttl);
+		return wincache_ucache_set($key, $value, $ttl);
 	}
 
 	/**
@@ -110,6 +109,6 @@ class Wincache extends Cache
 	 */
 	protected function exists($key)
 	{
-		return \wincache_ucache_exists($key);
+		return wincache_ucache_exists($key);
 	}
 }

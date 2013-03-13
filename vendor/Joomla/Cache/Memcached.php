@@ -57,31 +57,23 @@ class Memcached extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  mixed
+	 * @return  CacheItemInterface
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function get($key)
 	{
 		$this->connect();
-
-		$data = $this->driver->get($key);
-
+		$value = $this->driver->get($key);
 		$code = $this->driver->getResultCode();
+		$item = new Item($key);
 
 		if ($code === \Memcached::RES_SUCCESS)
 		{
-			return $data;
+			$item->setValue($value);
 		}
-		elseif ($code === \Memcached::RES_NOTFOUND)
-		{
-			return null;
-		}
-		else
-		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
-		}
+
+		return $item;
 	}
 
 	/**

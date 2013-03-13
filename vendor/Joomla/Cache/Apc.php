@@ -51,23 +51,51 @@ class Apc extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  mixed
+	 * @return  CacheItemInterface
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
 	public function get($key)
 	{
-		$success = true;
+		$success = false;
+		$value = apc_fetch($key, $success);
+		$item = new Item($key);
 
-		$data = apc_fetch($key, $success);
-
-		if (!$success)
+		if ($success)
 		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.', $key));
+			$item->setValue($value);
 		}
 
-		return $data;
+		return $item;
+	}
+
+	/**
+	 * Obtain multiple CacheItems by their unique keys.
+	 *
+	 * @param   array  $keys  A list of keys that can obtained in a single operation.
+	 *
+	 * @return  array  An associative array of CacheItem objects keyed on the cache key.
+	 *
+	 * @since   1.0
+	 */
+	public function getMultiple($keys)
+	{
+		$items = array();
+		$success = false;
+		$values = apc_fetch($keys, $success);
+
+		if ($success && is_array($values))
+		{
+			foreach ($values as $key => $value)
+			{
+				// @todo - identify the value when a cache item is not found.
+				$items[$key] = new Item($key);
+				$items[$key]->setValue($value);
+			}
+		}
+
+		return $items;
 	}
 
 	/**
@@ -81,7 +109,7 @@ class Apc extends Cache
 	 */
 	public function remove($key)
 	{
-		return \apc_delete($key);
+		return apc_delete($key);
 	}
 
 	/**
@@ -97,7 +125,7 @@ class Apc extends Cache
 	 */
 	public function set($key, $value, $ttl = null)
 	{
-		return \apc_store($key, $value, $ttl);
+		return apc_store($key, $value, $ttl ?: $this->options->get('ttl'));
 	}
 
 	/**
@@ -111,6 +139,6 @@ class Apc extends Cache
 	 */
 	protected function exists($key)
 	{
-		return \apc_exists($key);
+		return apc_exists($key);
 	}
 }

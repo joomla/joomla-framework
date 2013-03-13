@@ -22,6 +22,25 @@ class XCacheTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
+	 * Tests for the correct Psr\Cache return values.
+	 *
+	 * @return  void
+	 *
+	 * @coversNothing
+	 * @since   1.0
+	 */
+	public function testPsrCache()
+	{
+		$this->assertInternalType('boolean', $this->instance->clear(), 'Checking clear.');
+		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $this->instance->get('foo'), 'Checking get.');
+		$this->assertInternalType('array', $this->instance->getMultiple(array('foo')), 'Checking getMultiple.');
+		$this->assertInternalType('boolean', $this->instance->remove('foo'), 'Checking remove.');
+		$this->assertInternalType('array', $this->instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
+		$this->assertInternalType('boolean', $this->instance->set('for', 'bar'), 'Checking set.');
+		$this->assertInternalType('boolean', $this->instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
+	}
+
+	/**
 	 * Tests the Joomla\Cache\XCache::clear method.
 	 *
 	 * @return  void

@@ -61,7 +61,7 @@ abstract class Cache implements CacheInterface
 	abstract public function get($key);
 
 	/**
-	 * Obtain multiple CacheItems by their unique keys
+	 * Obtain multiple CacheItems by their unique keys.
 	 *
 	 * @param   array  $keys  A list of keys that can obtained in a single operation.
 	 *
@@ -107,7 +107,7 @@ abstract class Cache implements CacheInterface
 	abstract public function remove($key);
 
 	/**
-	 * Remove multiple cache items in a single operation
+	 * Remove multiple cache items in a single operation.
 	 *
 	 * @param   array  $keys  The array of keys to be removed.
 	 *

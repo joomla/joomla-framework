@@ -50,13 +50,20 @@ class XCache extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  mixed
+	 * @return  CacheItemInterface
 	 *
 	 * @since   1.0
 	 */
 	public function get($key)
 	{
-		return \xcache_get($key);
+		$item = new Item($key);
+
+		if ($this->exists($key))
+		{
+			$item->setValue(xcache_get($key));
+		}
+
+		return $item;
 	}
 
 	/**
@@ -70,7 +77,7 @@ class XCache extends Cache
 	 */
 	public function remove($key)
 	{
-		return \xcache_unset($key);
+		return xcache_unset($key);
 	}
 
 	/**
@@ -86,7 +93,7 @@ class XCache extends Cache
 	 */
 	public function set($key, $value, $ttl = null)
 	{
-		return \xcache_set($key, $value, $ttl);
+		return xcache_set($key, $value, $ttl);
 	}
 
 	/**
@@ -100,6 +107,6 @@ class XCache extends Cache
 	 */
 	protected function exists($key)
 	{
-		return \xcache_isset($key);
+		return xcache_isset($key);
 	}
 }
