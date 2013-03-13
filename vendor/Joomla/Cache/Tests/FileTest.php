@@ -18,53 +18,107 @@ use Joomla\Test\Helper;
 class FileTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Cache\Cache
+	 * @var    Cache\File
 	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Cache\File::doDelete method.
+	 * Tests for the correct Psr\Cache return values.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\File::doDelete
+	 * @coversNothing
 	 * @since   1.0
 	 */
-	public function testDoDelete()
+	public function testPsrCache()
+	{
+		$this->assertInternalType('boolean', $this->instance->clear(), 'Checking clear.');
+		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $this->instance->get('foo'), 'Checking get.');
+		$this->assertInternalType('array', $this->instance->getMultiple(array('foo')), 'Checking getMultiple.');
+		$this->assertInternalType('boolean', $this->instance->remove('foo'), 'Checking remove.');
+		$this->assertInternalType('array', $this->instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
+		$this->assertInternalType('boolean', $this->instance->set('for', 'bar'), 'Checking set.');
+		$this->assertInternalType('boolean', $this->instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\File::clear method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\File::clear
+	 * @since   1.0
+	 */
+	public function testClear()
+	{
+		$this->instance->set('foo', 'bar');
+		$this->instance->set('goo', 'car');
+
+		$this->instance->clear();
+
+		$this->assertFalse($this->instance->get('foo')->isHit());
+		$this->assertFalse($this->instance->get('goo')->isHit());
+	}
+
+	/**
+	 * Tests the Joomla\Cache\File::get method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\File::get
+	 * @since   1.0
+	 */
+	public function testGet()
+	{
+		$this->assertFalse($this->instance->get('foo')->isHit(), 'Checks an unknown key.');
+
+		$this->instance->setOption('ttl', 1);
+		$this->instance->set('foo', 'bar', 1);
+		sleep(2);
+		$this->assertNull($this->instance->get('foo')->getValue(), 'The key should have been deleted.');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\File::exists method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\File::exists
+	 * @since   1.0
+	 */
+	public function testExists()
+	{
+		$this->assertFalse(Helper::invoke($this->instance, 'exists', 'foo'));
+		$this->instance->set('foo', 'bar');
+		$this->assertTrue(Helper::invoke($this->instance, 'exists', 'foo'));
+	}
+
+	/**
+	 * Tests the Joomla\Cache\File::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\File::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\File::doGet method.
+	 * Tests the Joomla\Cache\File::set method.
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 */
-	public function testDoGet()
-	{
-		$this->assertNull($this->instance->get('foo'), 'Checks an unknown key.');
-
-		$this->instance->setOption('ttl', 1);
-		$this->instance->set('foo', 'bar', 1);
-		sleep(2);
-		$this->assertNull($this->instance->get('foo'), 'The key should have been deleted.');
-	}
-
-	/**
-	 * Tests the Joomla\Cache\File::doSet method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\File::doSet
-	 * @covers  Joomla\Cache\File::doGet
-	 * @covers  Joomla\Cache\File::doDelete
+	 * @covers  Joomla\Cache\File::set
+	 * @covers  Joomla\Cache\File::get
+	 * @covers  Joomla\Cache\File::remove
 	 * @since   1.0
 	 * @todo    Custom ttl is not working in set yet.
 	 */
-	public function testDoSet()
+	public function testSet()
 	{
 		$fileName = Helper::invoke($this->instance, 'fetchStreamUri', 'foo');
 
@@ -73,10 +127,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
 		$this->instance->set('foo', 'bar');
 		$this->assertTrue(file_exists($fileName), 'Checks the cache file was created.');
 
-		$this->assertEquals('bar', $this->instance->get('foo'), 'Checks we got the cached value back.');
+		$this->assertEquals('bar', $this->instance->get('foo')->getValue(), 'Checks we got the cached value back.');
 
-		$this->instance->delete('foo');
-		$this->assertNull($this->instance->get('foo'), 'Checks for the delete.');
+		$this->instance->remove('foo');
+		$this->assertNull($this->instance->get('foo')->getValue(), 'Checks for the delete.');
 	}
 
 	/**
@@ -170,29 +224,34 @@ class FileTest extends \PHPUnit_Framework_TestCase
 		$this->tearDown();
 
 		$options = new Registry;
-		$options->set('file.path', __DIR__ . '/Stubs');
+		$options->set('file.path', __DIR__ . '/tmp');
 
 		$this->instance = new Cache\File($options);
 	}
 
 	/**
 	 * Teardown the test.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
-		foreach (new \DirectoryIterator(__DIR__ . '/Stubs/') as $dir)
-		{
-			if ($dir->isDir() && strpos($dir->getFilename(), '~') === 0)
-			{
-				foreach (new \DirectoryIterator($dir->getRealPath()) as $file)
-				{
-					if ($file->isFile())
-					{
-						unlink($file->getRealPath());
-					}
-				}
+		$iterator = new \RecursiveIteratorIterator(
+			new \RecursiveDirectoryIterator(__DIR__ . '/tmp/'),
+			\RecursiveIteratorIterator::CHILD_FIRST
+		);
 
-				rmdir($dir->getRealPath());
+		foreach ($iterator as $file)
+		{
+			if ($file->isFile() && $file->getExtension() == 'data')
+			{
+				unlink($file->getRealPath());
+			}
+			elseif ($file->isDir() && strpos($file->getFilename(), '~') === 0)
+			{
+				rmdir($file->getRealPath());
 			}
 		}
 	}

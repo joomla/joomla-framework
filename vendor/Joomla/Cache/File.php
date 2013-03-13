@@ -7,6 +7,7 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Filesystem cache driver for the Joomla Platform.
@@ -37,17 +38,33 @@ class File extends Cache
 	}
 
 	/**
-	 * Method to determine whether a storage entry has been set for a key.
+	 * This will wipe out the entire cache's keys....
 	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  boolean
+	 * @return  boolean  The result of the clear operation.
 	 *
 	 * @since   1.0
 	 */
-	protected function exists($key)
+	public function clear()
 	{
-		return is_file($this->fetchStreamUri($key));
+		$filePath = $this->options->get('file.path');
+		$this->checkFilePath($filePath);
+
+		$iterator = new \RegexIterator(
+			new \RecursiveIteratorIterator(
+				new \RecursiveDirectoryIterator($filePath)
+			),
+			'/\.data$/i'
+		);
+
+		foreach ($iterator as $name => $file)
+		{
+			if ($file->isFile())
+			{
+				@unlink($file->getRealPath());
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -60,26 +77,26 @@ class File extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function doGet($key)
+	public function get($key)
 	{
 		// If the cached data has expired remove it and return.
 		if ($this->exists($key) && $this->isExpired($key))
 		{
 			try
 			{
-				$this->doDelete($key);
+				$this->remove($key);
 			}
 			catch (\RuntimeException $e)
 			{
 				throw new \RuntimeException(sprintf('Unable to clean expired cache entry for %s.', $key), null, $e);
 			}
 
-			return;
+			return new Item($key);;
 		}
 
 		if (!$this->exists($key))
 		{
-			return;
+			return new Item($key);;
 		}
 
 		$resource = @fopen($this->fetchStreamUri($key), 'rb');
@@ -105,7 +122,10 @@ class File extends Cache
 
 		fclose($resource);
 
-		return unserialize($data);
+		$item = new Item($key);
+		$item->setValue(unserialize($data));
+
+		return $item;
 	}
 
 	/**
@@ -116,16 +136,10 @@ class File extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function doDelete($key)
+	public function remove($key)
 	{
-		$success = (bool) @unlink($this->fetchStreamUri($key));
-
-		if (!$success)
-		{
-			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
-		}
+		return (bool) @unlink($this->fetchStreamUri($key));
 	}
 
 	/**
@@ -135,12 +149,11 @@ class File extends Cache
 	 * @param   mixed    $value  The data to be stored.
 	 * @param   integer  $ttl    The number of seconds before the stored data expires.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function doSet($key, $value, $ttl = null)
+	public function set($key, $value, $ttl = null)
 	{
 		$fileName = $this->fetchStreamUri($key);
 		$filePath = pathinfo($fileName, PATHINFO_DIRNAME);
@@ -156,10 +169,21 @@ class File extends Cache
 			($this->options->get('file.locking') ? LOCK_EX : null)
 		);
 
-		if (!$success)
-		{
-			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $value));
-		}
+		return $success;
+	}
+
+	/**
+	 * Method to determine whether a storage entry has been set for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	protected function exists($key)
+	{
+		return is_file($this->fetchStreamUri($key));
 	}
 
 	/**

@@ -16,46 +16,91 @@ use Joomla\Cache;
 class MemcachedTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Cache\Cache
+	 * @var    Cache\Memcached
 	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Cache\Memcached::doDelete method.
+	 * Tests for the correct Psr\Cache return values.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::doDelete
+	 * @coversNothing
 	 * @since   1.0
 	 */
-	public function testDoDelete()
+	public function testPsrCache()
+	{
+		$this->assertInternalType('boolean', $this->instance->clear(), 'Checking clear.');
+		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $this->instance->get('foo'), 'Checking get.');
+		$this->assertInternalType('array', $this->instance->getMultiple(array('foo')), 'Checking getMultiple.');
+		$this->assertInternalType('boolean', $this->instance->remove('foo'), 'Checking remove.');
+		$this->assertInternalType('array', $this->instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
+		$this->assertInternalType('boolean', $this->instance->set('for', 'bar'), 'Checking set.');
+		$this->assertInternalType('boolean', $this->instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Memcached::clear method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Memcached::clear
+	 * @since   1.0
+	 */
+	public function testClear()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Memcached::doGet method.
+	 * Tests the Joomla\Cache\Memcached::exists method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::doGet
+	 * @covers  Joomla\Cache\Memcached::exists
 	 * @since   1.0
 	 */
-	public function testDoGet()
+	public function testExists()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Memcached::doSet method.
+	 * Tests the Joomla\Cache\Memcached::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::doSet
+	 * @covers  Joomla\Cache\Memcached::get
 	 * @since   1.0
 	 */
-	public function testDoSet()
+	public function testGet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Memcached::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Memcached::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Memcached::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Memcached::set
+	 * @since   1.0
+	 */
+	public function testSet()
 	{
 		$this->markTestIncomplete();
 	}

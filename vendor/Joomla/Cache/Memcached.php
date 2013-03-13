@@ -7,6 +7,7 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Memcached cache driver for the Joomla Framework.
@@ -40,6 +41,87 @@ class Memcached extends Cache
 	}
 
 	/**
+	 * This will wipe out the entire cache's keys
+	 *
+	 * @return  boolean  The result of the clear operation.
+	 *
+	 * @since   1.0
+	 */
+	public function clear()
+	{
+		return $this->driver->flush();
+	}
+
+	/**
+	 * Method to get a storage entry value from a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  CacheItemInterface
+	 *
+	 * @since   1.0
+	 */
+	public function get($key)
+	{
+		$this->connect();
+		$value = $this->driver->get($key);
+		$code = $this->driver->getResultCode();
+		$item = new Item($key);
+
+		if ($code === \Memcached::RES_SUCCESS)
+		{
+			$item->setValue($value);
+		}
+
+		return $item;
+	}
+
+	/**
+	 * Method to remove a storage entry for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	public function remove($key)
+	{
+		$this->connect();
+
+		$this->driver->delete($key);
+
+		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
+		{
+// 			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Method to set a value for a storage entry.
+	 *
+	 * @param   string   $key    The storage entry identifier.
+	 * @param   mixed    $value  The data to be stored.
+	 * @param   integer  $ttl    The number of seconds before the stored data expires.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	public function set($key, $value, $ttl = null)
+	{
+		$this->connect();
+
+		$this->driver->set($key, $value, $ttl);
+
+		return (bool) ($this->driver->getResultCode() == \Memcached::RES_SUCCESS);
+// 			throw new \RuntimeException(sprintf('Unable to set cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
+	}
+
+	/**
 	 * Method to determine whether a storage entry has been set for a key.
 	 *
 	 * @param   string  $key  The storage entry identifier.
@@ -50,89 +132,11 @@ class Memcached extends Cache
 	 */
 	protected function exists($key)
 	{
-		$this->_connect();
+		$this->connect();
 
 		$this->driver->get($key);
 
 		return ($this->driver->getResultCode() != \Memcached::RES_NOTFOUND);
-	}
-
-	/**
-	 * Method to get a storage entry value from a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function doGet($key)
-	{
-		$this->_connect();
-
-		$data = $this->driver->get($key);
-
-		$code = $this->driver->getResultCode();
-
-		if ($code === \Memcached::RES_SUCCESS)
-		{
-			return $data;
-		}
-		elseif ($code === \Memcached::RES_NOTFOUND)
-		{
-			return null;
-		}
-		else
-		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
-		}
-	}
-
-	/**
-	 * Method to remove a storage entry for a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function doDelete($key)
-	{
-		$this->_connect();
-
-		$this->driver->doDelete($key);
-
-		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
-		{
-			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
-		}
-	}
-
-	/**
-	 * Method to set a value for a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function doSet($key, $value, $ttl = null)
-	{
-		$this->_connect();
-
-		$this->driver->set($key, $value, $ttl);
-
-		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS)
-		{
-			throw new \RuntimeException(sprintf('Unable to set cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
-		}
 	}
 
 	/**
@@ -142,7 +146,7 @@ class Memcached extends Cache
 	 *
 	 * @since   1.0
 	 */
-	private function _connect()
+	private function connect()
 	{
 		// We want to only create the driver once.
 		if (isset($this->driver))

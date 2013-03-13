@@ -22,40 +22,85 @@ class ApcTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Cache\Apc::doDelete method.
+	 * Tests for the correct Psr\Cache return values.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Apc::doDelete
+	 * @coversNothing
 	 * @since   1.0
 	 */
-	public function testDoDelete()
+	public function testPsrCache()
+	{
+		$this->assertInternalType('boolean', $this->instance->clear(), 'Checking clear.');
+		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $this->instance->get('foo'), 'Checking get.');
+		$this->assertInternalType('array', $this->instance->getMultiple(array('foo')), 'Checking getMultiple.');
+		$this->assertInternalType('boolean', $this->instance->remove('foo'), 'Checking remove.');
+		$this->assertInternalType('array', $this->instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
+		$this->assertInternalType('boolean', $this->instance->set('for', 'bar'), 'Checking set.');
+		$this->assertInternalType('boolean', $this->instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Apc::clear method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Apc::clear
+	 * @since   1.0
+	 */
+	public function testClear()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Apc::doGet method.
+	 * Tests the Joomla\Cache\Apc::exists method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Apc::doGet
+	 * @covers  Joomla\Cache\Apc::exists
 	 * @since   1.0
 	 */
-	public function testDoGet()
+	public function testExists()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Apc::doSet method.
+	 * Tests the Joomla\Cache\Apc::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Apc::doSet
+	 * @covers  Joomla\Cache\Apc::get
 	 * @since   1.0
 	 */
-	public function testDoSet()
+	public function testGet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Apc::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Apc::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Apc::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Apc::set
+	 * @since   1.0
+	 */
+	public function testSet()
 	{
 		$this->markTestIncomplete();
 	}

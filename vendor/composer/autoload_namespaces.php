@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Psr\\Cache\\' => $vendorDir . '/psr/cache/',
     'Psr\\Log\\' => $vendorDir . '/psr/log/',
     'Joomla' => $baseDir . '/vendor/',
 );
