@@ -7,6 +7,7 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * APC cache driver for the Joomla Platform.
@@ -34,17 +35,15 @@ class Apc extends Cache
 	}
 
 	/**
-	 * Method to determine whether a storage entry has been set for a key.
+	 * This will wipe out the entire cache's keys
 	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  boolean
+	 * @return  boolean  The result of the clear operation.
 	 *
 	 * @since   1.0
 	 */
-	protected function exists($key)
+	public function clear()
 	{
-		return \apc_exists($key);
+		return apc_clear_cache('user');
 	}
 
 	/**
@@ -57,7 +56,7 @@ class Apc extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function doGet($key)
+	public function get($key)
 	{
 		$success = true;
 
@@ -79,14 +78,10 @@ class Apc extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function doDelete($key)
+	public function remove($key)
 	{
-		if (!apc_delete($key))
-		{
-			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
-		}
+		return \apc_delete($key);
 	}
 
 	/**
@@ -96,16 +91,26 @@ class Apc extends Cache
 	 * @param   mixed    $value  The data to be stored.
 	 * @param   integer  $ttl    The number of seconds before the stored data expires.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function doSet($key, $value, $ttl = null)
+	public function set($key, $value, $ttl = null)
 	{
-		if (!apc_store($key, $value, $ttl))
-		{
-			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
-		}
+		return \apc_store($key, $value, $ttl);
+	}
+
+	/**
+	 * Method to determine whether a storage entry has been set for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	protected function exists($key)
+	{
+		return \apc_exists($key);
 	}
 }

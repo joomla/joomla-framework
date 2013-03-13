@@ -16,46 +16,72 @@ use Joomla\Cache;
 class MemcachedTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Cache\Cache
+	 * @var    Cache\Memcached
 	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Cache\Memcached::doDelete method.
+	 * Tests the Joomla\Cache\Memcached::clear method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::doDelete
+	 * @covers  Joomla\Cache\Memcached::clear
 	 * @since   1.0
 	 */
-	public function testDoDelete()
+	public function testClear()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Memcached::doGet method.
+	 * Tests the Joomla\Cache\Memcached::exists method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::doGet
+	 * @covers  Joomla\Cache\Memcached::exists
 	 * @since   1.0
 	 */
-	public function testDoGet()
+	public function testExists()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Memcached::doSet method.
+	 * Tests the Joomla\Cache\Memcached::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Memcached::doSet
+	 * @covers  Joomla\Cache\Memcached::get
 	 * @since   1.0
 	 */
-	public function testDoSet()
+	public function testGet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Memcached::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Memcached::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Memcached::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Memcached::set
+	 * @since   1.0
+	 */
+	public function testSet()
 	{
 		$this->markTestIncomplete();
 	}

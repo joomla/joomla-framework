@@ -7,13 +7,15 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheInterface;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Joomla! Caching Class
  *
  * @since  1.0
  */
-abstract class Cache
+abstract class Cache implements CacheInterface
 {
 	/**
 	 * @var    Registry  The options for the cache object.
@@ -38,38 +40,45 @@ abstract class Cache
 	}
 
 	/**
-	 * Delete a cached data entry by id.
+	 * This will wipe out the entire cache's keys
 	 *
-	 * @param   string  $cacheId  The cache data id.
-	 *
-	 * @return  Cache  This object for method chaining.
+	 * @return  boolean  The result of the clear operation.
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	public function delete($cacheId)
-	{
-		$this->doDelete($cacheId);
-
-		return $this;
-	}
+	abstract public function clear();
 
 	/**
 	 * Get cached data by id.  If the cached data has expired then the cached data will be removed
 	 * and false will be returned.
 	 *
-	 * @param   string  $cacheId  The cache data id.
+	 * @param   string  $key  The cache data id.
 	 *
-	 * @return  mixed  Cached data string if it exists.
+	 * @return  CacheItemInterface  Cached data string if it exists.
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	public function get($cacheId)
-	{
-		$data = $this->doGet($cacheId);
+	abstract public function get($key);
 
-		return $data;
+	/**
+	 * Obtain multiple CacheItems by their unique keys
+	 *
+	 * @param   array  $keys  A list of keys that can obtained in a single operation.
+	 *
+	 * @return  array  An associative array of CacheItem objects keyed on the cache key.
+	 *
+	 * @since   1.0
+	 */
+	public function getMultiple($keys)
+	{
+		$result = array();
+
+		foreach ($keys as $key)
+		{
+			$result[$key] = $this->get($key);
+		}
+
+		return $result;
 	}
 
 	/**
@@ -84,6 +93,74 @@ abstract class Cache
 	public function getOption($key)
 	{
 		return $this->options->get($key);
+	}
+
+	/**
+	 * Delete a cached data entry by id.
+	 *
+	 * @param   string  $key  The cache data id.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	abstract public function remove($key);
+
+	/**
+	 * Remove multiple cache items in a single operation
+	 *
+	 * @param   array  $keys  The array of keys to be removed.
+	 *
+	 * @return  array  An associative array of 'key' => result, elements. Each array row has the key being deleted
+	 *                 and the result of that operation. The result will be a boolean of true or false
+	 *                 representing if the cache item was removed or not
+	 *
+	 * @since   1.0
+	 */
+	public function removeMultiple($keys)
+	{
+		$result = array();
+
+		foreach ($keys as $key)
+		{
+			$result[$key] = $this->remove($key);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Store the cached data by id.
+	 *
+	 * @param   string   $key  The cache data id
+	 * @param   mixed    $data     The data to store
+	 * @param   integer  $ttl      The number of seconds before the stored data expires.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	abstract public function set($key, $data, $ttl = null);
+
+	/**
+	 * Persisting a set of key => value pairs in the cache, with an optional TTL.
+	 *
+	 * @param   array         $items  An array of key => value pairs for a multiple-set operation.
+	 * @param   null|integer  $ttl    Optional. The TTL value of this item. If no value is sent and the driver supports TTL
+	 *                                then the library may set a default value for it or let the driver take care of that.
+	 *
+	 * @return  boolean  The result of the multiple-set operation.
+	 *
+	 * @since   1.0
+	 */
+	public function setMultiple($items, $ttl = null)
+	{
+		foreach ($items as $key => $value)
+		{
+			$this->set($key, $value, $ttl);
+		}
+
+		return true;
 	}
 
 	/**
@@ -104,25 +181,6 @@ abstract class Cache
 	}
 
 	/**
-	 * Store the cached data by id.
-	 *
-	 * @param   string   $cacheId  The cache data id
-	 * @param   mixed    $data     The data to store
-	 * @param   integer  $ttl      The number of seconds before the stored data expires.
-	 *
-	 * @return  Cache  This object for method chaining.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function set($cacheId, $data, $ttl = null)
-	{
-		$this->doSet($cacheId, $data, $ttl ?: $this->options->get('ttl'));
-
-		return $this;
-	}
-
-	/**
 	 * Method to determine whether a storage entry has been set for a key.
 	 *
 	 * @param   string  $key  The storage entry identifier.
@@ -132,42 +190,4 @@ abstract class Cache
 	 * @since   1.0
 	 */
 	abstract protected function exists($key);
-
-	/**
-	 * Method to remove a storage entry for a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	abstract protected function doDelete($key);
-
-	/**
-	 * Method to get a storage entry value from a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	abstract protected function doGet($key);
-
-	/**
-	 * Method to set a value for a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	abstract protected function doSet($key, $value, $ttl = null);
 }

@@ -22,40 +22,66 @@ class ApcTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Cache\Apc::doDelete method.
+	 * Tests the Joomla\Cache\Apc::clear method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Apc::doDelete
+	 * @covers  Joomla\Cache\Apc::clear
 	 * @since   1.0
 	 */
-	public function testDoDelete()
+	public function testClear()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Apc::doGet method.
+	 * Tests the Joomla\Cache\Apc::exists method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Apc::doGet
+	 * @covers  Joomla\Cache\Apc::exists
 	 * @since   1.0
 	 */
-	public function testDoGet()
+	public function testExists()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Apc::doSet method.
+	 * Tests the Joomla\Cache\Apc::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Apc::doSet
+	 * @covers  Joomla\Cache\Apc::get
 	 * @since   1.0
 	 */
-	public function testDoSet()
+	public function testGet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Apc::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Apc::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Apc::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Apc::set
+	 * @since   1.0
+	 */
+	public function testSet()
 	{
 		$this->markTestIncomplete();
 	}

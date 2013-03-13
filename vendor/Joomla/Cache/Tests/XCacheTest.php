@@ -16,46 +16,72 @@ use Joomla\Cache;
 class XCacheTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Cache\XCache
+	 * @var    Cache\XCache
 	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Cache\XCache::doDelete method.
+	 * Tests the Joomla\Cache\XCache::clear method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::doDelete
+	 * @covers  Joomla\Cache\XCache::clear
 	 * @since   1.0
 	 */
-	public function testDoDelete()
+	public function testClear()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\XCache::doGet method.
+	 * Tests the Joomla\Cache\XCache::exists method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::doGet
+	 * @covers  Joomla\Cache\XCache::exists
 	 * @since   1.0
 	 */
-	public function testDoGet()
+	public function testExists()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\XCache::doSet method.
+	 * Tests the Joomla\Cache\XCache::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::doSet
+	 * @covers  Joomla\Cache\XCache::get
 	 * @since   1.0
 	 */
-	public function testDoSet()
+	public function testGet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\XCache::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\XCache::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\XCache::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\XCache::set
+	 * @since   1.0
+	 */
+	public function testSet()
 	{
 		$this->markTestIncomplete();
 	}

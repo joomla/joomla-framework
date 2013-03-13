@@ -16,46 +16,72 @@ use Joomla\Cache;
 class WincacheTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Cache\Wincache
+	 * @var    Cache\Wincache
 	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Cache\Wincache::doDelete method.
+	 * Tests the Joomla\Cache\Wincache::clear method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::doDelete
+	 * @covers  Joomla\Cache\Wincache::clear
 	 * @since   1.0
 	 */
-	public function testDoDelete()
+	public function testClear()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Wincache::doGet method.
+	 * Tests the Joomla\Cache\Wincache::exists method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::doGet
+	 * @covers  Joomla\Cache\Wincache::exists
 	 * @since   1.0
 	 */
-	public function testDoGet()
+	public function testExists()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Wincache::doSet method.
+	 * Tests the Joomla\Cache\Wincache::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::doSet
+	 * @covers  Joomla\Cache\Wincache::get
 	 * @since   1.0
 	 */
-	public function testDoSet()
+	public function testGet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Wincache::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Wincache::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Wincache::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Wincache::set
+	 * @since   1.0
+	 */
+	public function testSet()
 	{
 		$this->markTestIncomplete();
 	}

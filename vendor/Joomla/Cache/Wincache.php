@@ -7,6 +7,7 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * WinCache cache driver for the Joomla Framework.
@@ -34,17 +35,14 @@ class Wincache extends Cache
 	}
 
 	/**
-	 * Method to determine whether a storage entry has been set for a key.
+	 * This will wipe out the entire cache's keys
 	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  boolean
+	 * @return  boolean  The result of the clear operation.
 	 *
 	 * @since   1.0
 	 */
-	protected function exists($key)
+	public function clear()
 	{
-		return \wincache_ucache_exists($key);
 	}
 
 	/**
@@ -57,7 +55,7 @@ class Wincache extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function doGet($key)
+	public function get($key)
 	{
 		$success = true;
 
@@ -76,17 +74,13 @@ class Wincache extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function doDelete($key)
+	public function remove($key)
 	{
-		if (!\wincache_ucache_delete($key))
-		{
-			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
-		}
+		return \wincache_ucache_delete($key);
 	}
 
 	/**
@@ -96,16 +90,26 @@ class Wincache extends Cache
 	 * @param   mixed    $value  The data to be stored.
 	 * @param   integer  $ttl    The number of seconds before the stored data expires.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function doSet($key, $value, $ttl = null)
+	public function set($key, $value, $ttl = null)
 	{
-		if (!\wincache_ucache_set($key, $value, $ttl))
-		{
-			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
-		}
+		return \wincache_ucache_set($key, $value, $ttl);
+	}
+
+	/**
+	 * Method to determine whether a storage entry has been set for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	protected function exists($key)
+	{
+		return \wincache_ucache_exists($key);
 	}
 }
