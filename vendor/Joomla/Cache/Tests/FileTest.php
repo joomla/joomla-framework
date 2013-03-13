@@ -46,6 +46,11 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	public function testDoGet()
 	{
 		$this->assertNull($this->instance->get('foo'), 'Checks an unknown key.');
+
+		$this->instance->setOption('ttl', 1);
+		$this->instance->set('foo', 'bar', 1);
+		sleep(2);
+		$this->assertNull($this->instance->get('foo'), 'The key should have been deleted.');
 	}
 
 	/**
@@ -57,6 +62,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	 * @covers  Joomla\Cache\File::doGet
 	 * @covers  Joomla\Cache\File::doDelete
 	 * @since   1.0
+	 * @todo    Custom ttl is not working in set yet.
 	 */
 	public function testDoSet()
 	{
@@ -71,6 +77,49 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
 		$this->instance->delete('foo');
 		$this->assertNull($this->instance->get('foo'), 'Checks for the delete.');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\File::checkFilePath method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\File::checkFilePath
+	 * @since   1.0
+	 */
+	public function testCheckFilePath()
+	{
+		$this->assertTrue(Helper::invoke($this->instance, 'checkFilePath', __DIR__));
+	}
+
+	/**
+	 * Tests the Joomla\Cache\File::checkFilePath method for a known exception.
+	 *
+	 * @return  void
+	 *
+	 * @covers             Joomla\Cache\File::checkFilePath
+	 * @expectedException  \RuntimeException
+	 * @since              1.0
+	 */
+	public function testCheckFilePath_exception1()
+	{
+		// Invalid path
+		Helper::invoke($this->instance, 'checkFilePath', 'foo123');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\File::checkFilePath method for a known exception.
+	 *
+	 * @return  void
+	 *
+	 * @covers             Joomla\Cache\File::checkFilePath
+	 * @expectedException  \RuntimeException
+	 * @since              1.0
+	 */
+	public function testCheckFilePath_exception2()
+	{
+		// Check for an unwritable folder.
+		$this->markTestIncomplete();
 	}
 
 	/**
@@ -96,7 +145,14 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIsExpired()
 	{
-		$this->markTestIncomplete();
+		$this->instance->setOption('ttl', 1);
+		$this->instance->set('foo', 'bar');
+		sleep(2);
+		$this->assertTrue(Helper::invoke($this->instance, 'isExpired', 'foo'), 'Should be expired.');
+
+		$this->instance->setOption('ttl', 900);
+		$this->instance->set('foo', 'bar');
+		$this->assertFalse(Helper::invoke($this->instance, 'isExpired', 'foo'), 'Should not be expired.');
 	}
 
 	/**

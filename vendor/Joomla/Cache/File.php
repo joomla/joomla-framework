@@ -167,7 +167,7 @@ class File extends Cache
 	 *
 	 * @param   string  $filePath  A file path.
 	 *
-	 * @return  void
+	 * @return  boolean  The method will always return true, if it returns.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException if the file path is invalid.
@@ -182,6 +182,8 @@ class File extends Cache
 		{
 			throw new \RuntimeException(sprintf('The base cache path `%s` is not writable.', $filePath));
 		}
+
+		return true;
 	}
 
 	/**
