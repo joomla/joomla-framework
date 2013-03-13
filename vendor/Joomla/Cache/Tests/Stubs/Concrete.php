@@ -7,6 +7,8 @@
 namespace Joomla\Cache\Tests;
 
 use Joomla\Cache\Cache;
+use Joomla\Cache\Item;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Tests for the Joomla\Cache\Cache class.
@@ -16,9 +18,62 @@ use Joomla\Cache\Cache;
 class ConcreteCache extends Cache
 {
 	/**
-	 * @var unknown
+	 * This will wipe out the entire cache's keys
+	 *
+	 * @return  boolean  The result of the clear operation.
+	 *
+	 * @since   1.0
 	 */
-	public $do;
+	public function clear()
+	{
+		$this->do .= 'doClear';
+
+		return true;
+	}
+
+	/**
+	 * Method to get a storage entry value from a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  CacheItemInterface
+	 *
+	 * @since   1.0
+	*/
+	public function get($key)
+	{
+		return new Item($key);
+	}
+
+	/**
+	 * Method to remove a storage entry for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	*/
+	public function remove($key)
+	{
+		return true;
+	}
+
+	/**
+	 * Method to set a value for a storage entry.
+	 *
+	 * @param   string   $key    The storage entry identifier.
+	 * @param   mixed    $value  The data to be stored.
+	 * @param   integer  $ttl    The number of seconds before the stored data expires.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	*/
+	public function set($key, $value, $ttl = null)
+	{
+		return true;
+	}
 
 	/**
 	 * Method to determine whether a storage entry has been set for a key.
@@ -32,52 +87,5 @@ class ConcreteCache extends Cache
 	protected function exists($key)
 	{
 		return false;
-	}
-
-	/**
-	 * Method to remove a storage entry for a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	*/
-	protected function doDelete($key)
-	{
-		$this->do = 'doDelete-' . $key;
-	}
-
-	/**
-	 * Method to get a storage entry value from a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	*/
-	protected function doGet($key)
-	{
-		$this->do = 'doGet-' . $key;
-	}
-
-	/**
-	 * Method to set a value for a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	*/
-	protected function doSet($key, $value, $ttl = null)
-	{
-		$this->do = "doSet-$key-$value-" . (int) $ttl;
 	}
 }

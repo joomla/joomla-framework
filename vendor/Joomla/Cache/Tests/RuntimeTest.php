@@ -17,56 +17,53 @@ use Joomla\Test\Helper;
 class RuntimeTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Cache\Runtime
+	 * @var    Cache\Runtime
 	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Cache\Runtime::doDelete method.
+	 * Tests for the correct Psr\Cache return values.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Runtime::doDelete
+	 * @coversNothing
 	 * @since   1.0
 	 */
-	public function testDoDelete()
+	public function testPsrCache()
 	{
-		$this->instance->set('foo', 'bar');
-		$this->assertEquals('bar', $this->instance->get('foo'));
-
-		$this->instance->delete('foo');
-		$this->assertNull($this->instance->get('foo'));
+		$this->assertInternalType('boolean', $this->instance->clear(), 'Checking clear.');
+		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $this->instance->get('foo'), 'Checking get.');
+		$this->assertInternalType('array', $this->instance->getMultiple(array('foo')), 'Checking getMultiple.');
+		$this->assertInternalType('boolean', $this->instance->remove('foo'), 'Checking remove.');
+		$this->assertInternalType('array', $this->instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
+		$this->assertInternalType('boolean', $this->instance->set('for', 'bar'), 'Checking set.');
+		$this->assertInternalType('boolean', $this->instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
 	}
 
 	/**
-	 * Tests the Joomla\Cache\Runtime::doGet method.
+	 * Tests the Joomla\Cache\Runtime::clear method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Runtime::doGet
+	 * @covers  Joomla\Cache\Runtime::clear
 	 * @since   1.0
 	 */
-	public function testDoGet()
+	public function testClear()
 	{
-		$this->assertNull($this->instance->get('foo'));
+		$this->instance->setMultiple(
+			array(
+				'foo' => 'bar',
+				'goo' => 'car',
+			)
+		);
+		$this->assertEquals('bar', $this->instance->get('foo')->getValue(), 'Checks first item was set.');
+		$this->assertEquals('car', $this->instance->get('goo')->getValue(), 'Checks second item was set.');
 
-		$this->instance->set('foo', 'bar');
-		$this->assertEquals('bar', $this->instance->get('foo'));
-	}
+		$this->instance->clear();
 
-	/**
-	 * Tests the Joomla\Cache\Runtime::doSet method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Runtime::doSet
-	 * @since   1.0
-	 */
-	public function testDoSet()
-	{
-		$this->instance->set('foo', 'bar');
-		$this->assertEquals('bar', $this->instance->get('foo'));
+		$this->assertNull($this->instance->get('foo')->getValue(), 'Checks first item was cleared.');
+		$this->assertNull($this->instance->get('goo')->getValue(), 'Checks second item was cleared.');
 	}
 
 	/**
@@ -85,6 +82,55 @@ class RuntimeTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the Joomla\Cache\Runtime::get method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Runtime::get
+	 * @since   1.0
+	 */
+	public function testGet()
+	{
+		$item = $this->instance->get('foo');
+		$this->assertNull($item->getValue());
+		$this->assertFalse($item->isHit());
+
+		$this->instance->set('foo', 'bar');
+		$this->assertEquals('bar', $this->instance->get('foo')->getValue());
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Runtime::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Runtime::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->instance->set('foo', 'bar');
+		$this->assertEquals('bar', $this->instance->get('foo')->getValue());
+
+		$this->instance->remove('foo');
+		$this->assertNull($this->instance->get('foo')->getValue());
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Runtime::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Runtime::set
+	 * @since   1.0
+	 */
+	public function testSet()
+	{
+		$this->instance->set('foo', 'bar');
+		$this->assertEquals('bar', $this->instance->get('foo')->getValue());
+	}
+
+	/**
 	 * Setup the tests.
 	 *
 	 * @return  void
@@ -99,6 +145,7 @@ class RuntimeTest extends \PHPUnit_Framework_TestCase
 		{
 			$this->instance = new Cache\Runtime;
 
+			// Clear the internal store.
 			Helper::setValue($this->instance, 'store', array());
 		}
 		catch (\Exception $e)

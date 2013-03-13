@@ -7,6 +7,7 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * APC cache driver for the Joomla Platform.
@@ -34,17 +35,15 @@ class Apc extends Cache
 	}
 
 	/**
-	 * Method to determine whether a storage entry has been set for a key.
+	 * This will wipe out the entire cache's keys
 	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  boolean
+	 * @return  boolean  The result of the clear operation.
 	 *
 	 * @since   1.0
 	 */
-	protected function exists($key)
+	public function clear()
 	{
-		return \apc_exists($key);
+		return apc_clear_cache('user');
 	}
 
 	/**
@@ -52,23 +51,51 @@ class Apc extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  mixed
+	 * @return  CacheItemInterface
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function doGet($key)
+	public function get($key)
 	{
-		$success = true;
+		$success = false;
+		$value = apc_fetch($key, $success);
+		$item = new Item($key);
 
-		$data = apc_fetch($key, $success);
-
-		if (!$success)
+		if ($success)
 		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.', $key));
+			$item->setValue($value);
 		}
 
-		return $data;
+		return $item;
+	}
+
+	/**
+	 * Obtain multiple CacheItems by their unique keys.
+	 *
+	 * @param   array  $keys  A list of keys that can obtained in a single operation.
+	 *
+	 * @return  array  An associative array of CacheItem objects keyed on the cache key.
+	 *
+	 * @since   1.0
+	 */
+	public function getMultiple($keys)
+	{
+		$items = array();
+		$success = false;
+		$values = apc_fetch($keys, $success);
+
+		if ($success && is_array($values))
+		{
+			foreach ($values as $key => $value)
+			{
+				// @todo - identify the value when a cache item is not found.
+				$items[$key] = new Item($key);
+				$items[$key]->setValue($value);
+			}
+		}
+
+		return $items;
 	}
 
 	/**
@@ -79,14 +106,10 @@ class Apc extends Cache
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function doDelete($key)
+	public function remove($key)
 	{
-		if (!apc_delete($key))
-		{
-			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
-		}
+		return apc_delete($key);
 	}
 
 	/**
@@ -96,16 +119,26 @@ class Apc extends Cache
 	 * @param   mixed    $value  The data to be stored.
 	 * @param   integer  $ttl    The number of seconds before the stored data expires.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function doSet($key, $value, $ttl = null)
+	public function set($key, $value, $ttl = null)
 	{
-		if (!apc_store($key, $value, $ttl))
-		{
-			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $key));
-		}
+		return apc_store($key, $value, $ttl ?: $this->options->get('ttl'));
+	}
+
+	/**
+	 * Method to determine whether a storage entry has been set for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	protected function exists($key)
+	{
+		return apc_exists($key);
 	}
 }
