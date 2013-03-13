@@ -7,6 +7,7 @@
 namespace Joomla\Input\Tests;
 
 use Joomla\Input\Cookie;
+use Joomla\Test\Helper;
 
 /**
  * Test class for JInputCookie.
@@ -26,12 +27,26 @@ class CookieTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
+	 * @todo    Figure out out to tests w/o ob_start() in bootstrap. setcookie() prevents this.
+	 *
 	 * @covers  Joomla\Input\Cookie::set
 	 * @since   1.0
 	 */
 	public function testSet()
 	{
-		$this->markTestIncomplete();
+		if (headers_sent())
+		{
+			$this->markTestSkipped();
+		}
+		else
+		{
+			$this->instance->set('foo', 'bar');
+
+			$data = Helper::getValue($this->instance, 'data');
+
+			$this->assertTrue(array_key_exists('foo', $data));
+			$this->assertTrue(in_array('bar', $data));
+		}
 	}
 
 	/**
