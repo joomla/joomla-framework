@@ -4,15 +4,16 @@ This cache package complies with the `Psr\Cache` standard.
 
 ## Options and General Usage
 
-Each of the cache storage types supports the following options:
+Following option as available across a cache storage types:
 
 * ttl - Time to live.
 
 ```
 use Joomla\Cache;
 
-$options = new Registry;
-$options->set('ttl', 900);
+$options = array(
+	'ttl' => 900,
+);
 
 $cache = new Cache\Runtime($options);
 
@@ -58,18 +59,19 @@ The **File** cache allows the following additional options:
 * file.path - the path where the cache files are to be stored.
 * file.locking
 
-```
+```php
 use Joomla\Cache;
 
-$options = new Registry;
-$options->set('file.path', __DIR__ . '/cache');
+$options = array(
+	'file.path' => __DIR__ . '/cache',
+);
 
 $cache = new Cache\File($options);
 ```
 
 ### Memcached
 
-```
+```php
 use Joomla\Cache;
 
 $cache = new Cache\Memcached;
@@ -77,7 +79,7 @@ $cache = new Cache\Memcached;
 
 ### None
 
-```
+```php
 use Joomla\Cache;
 
 $cache = new Cache\None;
@@ -85,7 +87,7 @@ $cache = new Cache\None;
 
 ### Runtime
 
-```
+```php
 use Joomla\Cache;
 
 $cache = new Cache\Runtime;
@@ -93,7 +95,7 @@ $cache = new Cache\Runtime;
 
 ### Wincache
 
-```
+```php
 use Joomla\Cache;
 
 $cache = new Cache\Wincache;
@@ -101,8 +103,75 @@ $cache = new Cache\Wincache;
 
 ### XCache
 
-```
+```php
 use Joomla\Cache;
 
 $cache = new Cache\XCache;
 ```
+
+## Test Mocking
+
+The `Cache` package provide a **PHPUnit** helper to mock a `Cache\Cache` object or an `Cache\Item` object. You can include your own optional overrides in the test class for the following methods:
+
+* `Cache\Cache::get`: Add a method called `mockCacheGet` to your test class. If omitted, the helper will return a default mock for the `Cache\Item` class.
+* `Cache\Item::getValue`: Add a method called `mockCacheItemGetValue` to your test class. If omitted, the mock `Cache\Item` will return `"value"` when this method is called.
+* `Cache\Item::isHit`: Add a method called `mockCacheItemIsHit` to your test class. If omitted, the mock `Cache\Item` will return `false` when this method is called.
+
+```php
+use Joomla\Cache\Tests\Mocker as CacheMocker;
+
+class FactoryTest extends \PHPUnit_Framework_TestCase
+{
+	private $instance;
+	
+	//
+	// The following mocking methods are optional.
+	//
+
+	/**
+	 * Callback to mock the Cache\Item::getValue method.
+	 *
+	 * @return  string
+	 */
+	public function mockCacheItemGetValue()
+	{
+		// This is the default handling.
+		// You can override this method to provide a custom return value.
+		return 'value';
+	}
+
+	/**
+	 * Callback to mock the Cache\Item::isHit method.
+	 *
+	 * @return  boolean
+	 */
+	public function mockCacheItemIsHit()
+	{
+		// This is the default handling.
+		// You can override this method to provide a custom return value.
+		return false;
+	}
+
+	/**
+	 * Callback to mock the Cache\Cache::get method.
+	 *
+	 * @param   string  $text  The input text.
+	 *
+	 * @return  string
+	 */
+	public function mockCacheGet($key)
+	{
+		// This is the default handling.
+		// You can override this method to provide a custom return value.
+		return $this->createMockItem();
+	}
+
+	protected function setUp()
+	{
+		parent::setUp();
+
+		$mocker = new CacheMocker($this);
+
+		$this->instance = new SomeClass($mocker->createMockCache());
+	}
+}
