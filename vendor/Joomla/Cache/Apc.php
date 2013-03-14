@@ -125,7 +125,7 @@ class Apc extends Cache
 	 */
 	public function set($key, $value, $ttl = null)
 	{
-		return apc_store($key, $value, $ttl ?: $this->options->get('ttl'));
+		return apc_store($key, $value, $ttl ?: $this->options['ttl']);
 	}
 
 	/**
