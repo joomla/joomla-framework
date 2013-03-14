@@ -15,7 +15,7 @@ use Joomla\Test\Helper;
 class RegistryTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the Registry::__clone method.
+	 * Test the Joomla\Registry\Registry::__clone method.
 	 *
 	 * @return  void
 	 *
@@ -41,7 +41,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::__toString method.
+	 * Test the Joomla\Registry\Registry::__toString method.
 	 *
 	 * @return  void
 	 *
@@ -63,7 +63,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::jsonSerialize method.
+	 * Test the Joomla\Registry\Registry::jsonSerialize method.
 	 *
 	 * @return  void
 	 *
@@ -113,7 +113,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::def method.
+	 * Test the Joomla\Registry\Registry::def method.
 	 *
 	 * @return  void
 	 *
@@ -138,7 +138,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tet the Registry::bindData method.
+	 * Tet the Joomla\Registry\Registry::bindData method.
 	 *
 	 * @return  void
 	 *
@@ -180,7 +180,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::exists method.
+	 * Test the Joomla\Registry\Registry::exists method.
 	 *
 	 * @return  void
 	 *
@@ -226,7 +226,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::get method
+	 * Test the Joomla\Registry\Registry::get method
 	 *
 	 * @return  void
 	 *
@@ -242,7 +242,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::getInstance method.
+	 * Test the Joomla\Registry\Registry::getInstance method.
 	 *
 	 * @return  void
 	 *
@@ -279,7 +279,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::loadArray method.
+	 * Test the Joomla\Registry\Registry::loadArray method.
 	 *
 	 * @return  void
 	 *
@@ -305,7 +305,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::loadFile method.
+	 * Test the Joomla\Registry\Registry::loadFile method.
 	 *
 	 * @return  void
 	 *
@@ -352,7 +352,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::loadString() method.
+	 * Test the Joomla\Registry\Registry::loadString() method.
 	 *
 	 * @return  void
 	 *
@@ -405,7 +405,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::loadObject method.
+	 * Test the Joomla\Registry\Registry::loadObject method.
 	 *
 	 * @return  void
 	 *
@@ -439,7 +439,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::merge method.
+	 * Test the Joomla\Registry\Registry::merge method.
 	 *
 	 * @return  void
 	 *
@@ -502,7 +502,77 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::set method.
+	 * Test the Joomla\Registry\Registry::offsetExists method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Registry\Registry::offsetExists
+	 * @since   1.0
+	 */
+	public function testOffsetExists()
+	{
+		$instance = new Registry;
+
+		$this->assertTrue(empty($instance['foo.bar']));
+
+		$instance->set('foo.bar', 'value');
+
+		$this->assertTrue(isset($instance['foo.bar']), 'Checks a known offset by isset.');
+		$this->assertFalse(isset($instance['goo.car']), 'Checks an uknown offset.');
+	}
+
+	/**
+	 * Test the Joomla\Registry\Registry::offsetGet method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Registry\Registry::offsetGet
+	 * @since   1.0
+	 */
+	public function testOffsetGet()
+	{
+		$instance = new Registry;
+		$instance->set('foo.bar', 'value');
+
+		$this->assertEquals('value', $instance['foo.bar'], 'Checks a known offset.');
+		$this->assertNull($instance['goo.car'], 'Checks a unknown offset.');
+	}
+
+	/**
+	 * Test the Joomla\Registry\Registry::offsetSet method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Registry\Registry::offsetSet
+	 * @since   1.0
+	 */
+	public function testOffsetSet()
+	{
+		$instance = new Registry;
+
+		$instance['foo.bar'] = 'value';
+		$this->assertEquals('value', $instance->get('foo.bar'), 'Checks the set.');
+	}
+
+	/**
+	 * Test the Joomla\Registry\Registry::offsetUnset method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Registry\Registry::offsetUnset
+	 * @since   1.0
+	 */
+	public function testOffsetUnset()
+	{
+		$instance = new Registry;
+		$instance->set('foo.bar', 'value');
+
+		unset($instance['foo.bar']);
+		$this->assertFalse(isset($instance['foo.bar']));
+	}
+
+	/**
+	 * Test the Joomla\Registry\Registry::set method.
 	 *
 	 * @return  void
 	 *
@@ -522,7 +592,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::toArray method.
+	 * Test the Joomla\Registry\Registry::toArray method.
 	 *
 	 * @return  void
 	 *
@@ -550,7 +620,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::toObject method.
+	 * Test the Joomla\Registry\Registry::toObject method.
 	 *
 	 * @return  void
 	 *
@@ -578,7 +648,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Registry::toString method.
+	 * Test the Joomla\Registry\Registry::toString method.
 	 *
 	 * @return  void
 	 *

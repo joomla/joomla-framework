@@ -10,6 +10,9 @@
          "joomla/compat": "dev-master",
          "joomla/utilities": "dev-master"
     },
+    "require-dev": {
+         "joomla/test": "dev-master"
+    },
     "target-dir": "Joomla/Registry",
     "autoload": {
     	"psr-0": {
