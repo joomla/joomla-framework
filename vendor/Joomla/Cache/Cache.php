@@ -26,22 +26,26 @@ abstract class Cache implements CacheInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Caching options object.
+	 * @param   mixed  $options  An options array, or an object that implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(\ArrayAccess $options = null)
+	public function __construct($options = array())
 	{
-		// Set the options object.
-		if ($options instanceof \ArrayAccess)
+		if ($options instanceof \ArrayAccess || is_array($options))
 		{
+			// Set a default ttl if none is set in the options.
+			if (!isset($options['ttl']))
+			{
+				$options['ttl'] = 900;
+			}
+
 			$this->options = $options;
 		}
 		else
 		{
-			$this->options = new \ArrayObject;
-			$this->options['ttl'] = 900;
+			throw new \RuntimeException(sprintf('%s requires an options array or an object that implements \\ArrayAccess', __CLASS__));
 		}
 	}
 

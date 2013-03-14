@@ -24,7 +24,7 @@ class XCache extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $options = null)
+	public function __construct($options = null)
 	{
 		parent::__construct($options);
 

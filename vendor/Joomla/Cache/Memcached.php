@@ -25,12 +25,12 @@ class Memcached extends Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Caching options object.
+	 * @param   mixed  $options  An options array, or an object that implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $options = null)
+	public function __construct($options = null)
 	{
 		parent::__construct($options);
 
