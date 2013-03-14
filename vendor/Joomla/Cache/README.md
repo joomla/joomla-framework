@@ -4,15 +4,16 @@ This cache package complies with the `Psr\Cache` standard.
 
 ## Options and General Usage
 
-Each of the cache storage types supports the following options:
+Following option as available across a cache storage types:
 
 * ttl - Time to live.
 
 ```
 use Joomla\Cache;
 
-$options = new Registry;
-$options->set('ttl', 900);
+$options = array(
+	'ttl' => 900,
+);
 
 $cache = new Cache\Runtime($options);
 

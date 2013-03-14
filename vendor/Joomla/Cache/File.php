@@ -33,8 +33,12 @@ class File extends Cache
 	{
 		parent::__construct($options);
 
-		$this->options->def('file.locking', true);
-		$this->checkFilePath($this->options->get('file.path'));
+		if (!isset($this->options['file.locking']))
+		{
+			$this->options['file.locking'] = true;
+		}
+
+		$this->checkFilePath($this->options['file.path']);
 	}
 
 	/**
@@ -46,7 +50,7 @@ class File extends Cache
 	 */
 	public function clear()
 	{
-		$filePath = $this->options->get('file.path');
+		$filePath = $this->options['file.path'];
 		$this->checkFilePath($filePath);
 
 		$iterator = new \RegexIterator(
@@ -72,7 +76,7 @@ class File extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  mixed
+	 * @return  CacheItemInterface
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -107,7 +111,7 @@ class File extends Cache
 		}
 
 		// If locking is enabled get a shared lock for reading on the resource.
-		if ($this->options->get('file.locking') && !flock($resource, LOCK_SH))
+		if ($this->options['file.locking'] && !flock($resource, LOCK_SH))
 		{
 			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot obtain a lock.', $key));
 		}
@@ -115,7 +119,7 @@ class File extends Cache
 		$data = stream_get_contents($resource);
 
 		// If locking is enabled release the lock on the resource.
-		if ($this->options->get('file.locking') && !flock($resource, LOCK_UN))
+		if ($this->options['file.locking'] && !flock($resource, LOCK_UN))
 		{
 			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot release the lock.', $key));
 		}
@@ -166,7 +170,7 @@ class File extends Cache
 		$success = (bool) file_put_contents(
 			$fileName,
 			serialize($value),
-			($this->options->get('file.locking') ? LOCK_EX : null)
+			($this->options['file.locking'] ? LOCK_EX : null)
 		);
 
 		return $success;
@@ -222,7 +226,7 @@ class File extends Cache
 	 */
 	private function fetchStreamUri($key)
 	{
-		$filePath = $this->options->get('file.path');
+		$filePath = $this->options['file.path'];
 		$this->checkFilePath($filePath);
 
 		return sprintf(
@@ -245,7 +249,7 @@ class File extends Cache
 	private function isExpired($key)
 	{
 		// Check to see if the cached data has expired.
-		if (filemtime($this->fetchStreamUri($key)) < (time() - $this->options->get('ttl')))
+		if (filemtime($this->fetchStreamUri($key)) < (time() - $this->options['ttl']))
 		{
 			return true;
 		}

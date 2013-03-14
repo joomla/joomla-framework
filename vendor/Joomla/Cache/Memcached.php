@@ -154,7 +154,7 @@ class Memcached extends Cache
 			return;
 		}
 
-		$pool = $this->options->get('memcache.pool');
+		$pool = $this->options['memcache.pool'];
 
 		if ($pool)
 		{
@@ -165,14 +165,14 @@ class Memcached extends Cache
 			$this->driver = new \Memcached;
 		}
 
-		$this->driver->setOption(\Memcached::OPT_COMPRESSION, $this->options->get('memcache.compress', false));
+		$this->driver->setOption(\Memcached::OPT_COMPRESSION, $this->options['memcache.compress'] ?: false);
 		$this->driver->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
 		$serverList = $this->driver->getServerList();
 
 		// If we are using a persistent pool we don't want to add the servers again.
 		if (empty($serverList))
 		{
-			$servers = $this->options->get('memcache.servers', array());
+			$servers = $this->options['memcache.servers'] ?: array();
 
 			foreach ($servers as $server)
 			{

@@ -18,7 +18,7 @@ use Psr\Cache\CacheItemInterface;
 abstract class Cache implements CacheInterface
 {
 	/**
-	 * @var    Registry  The options for the cache object.
+	 * @var    ArrayAccess  The options for the cache object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -31,12 +31,18 @@ abstract class Cache implements CacheInterface
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $options = null)
+	public function __construct(\ArrayAccess $options = null)
 	{
 		// Set the options object.
-		$this->options = $options ? $options : new Registry;
-
-		$this->options->def('ttl', 900);
+		if ($options instanceof \ArrayAccess)
+		{
+			$this->options = $options;
+		}
+		else
+		{
+			$this->options = new \ArrayObject;
+			$this->options['ttl'] = 900;
+		}
 	}
 
 	/**
@@ -92,7 +98,7 @@ abstract class Cache implements CacheInterface
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return $this->options[$key];
 	}
 
 	/**
@@ -175,7 +181,7 @@ abstract class Cache implements CacheInterface
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}
