@@ -394,13 +394,17 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	{
 		$result = null;
 
-		// Explode the registry path into an array
-		$nodes = explode('.', $path);
+		/**
+		 * Explode the registry path into an array and remove empty
+		 * nodes that occur as a result of a double dot. ex: joomla..test
+		 * Finally, re-key the array so they are sequential.
+		 */
+		$nodes = array_values(array_filter(explode('.', $path), 'strlen'));
 
 		if ($nodes)
 		{
 			// Initialize the current node to be the registry root.
-			$node = $this->data;
+			$node = $this->data;			
 
 			// Traverse the registry to find the correct node for the result.
 			for ($i = 0, $n = count($nodes) - 1; $i < $n; $i++)
