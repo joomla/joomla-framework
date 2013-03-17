@@ -89,42 +89,6 @@ class CliTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Cli::getInstance method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testGetInstance()
-	{
-		$this->assertInstanceOf(
-			'\\Joomla\\Application\\Tests\\ConcreteCli',
-			Cli::getInstance('Joomla\Application\Tests\ConcreteCli'),
-			'Tests that getInstance will instantiate a valid child class of Joomla\Application\Cli.'
-		);
-
-		Helper::setValue('Joomla\\Application\\Cli', 'instance', 'foo');
-
-		$this->assertEquals('foo', Cli::getInstance('ConcreteCli'), 'Tests that singleton value is returned.');
-	}
-
-	/**
-	 * Tests the Joomla\Application\Cli::getInstance method for an expected exception
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 *
-	 * @expectedException  RuntimeException
-	 */
-	public function testGetInstanceException()
-	{
-		Helper::setValue('Joomla\Application\Cli', 'instance', null);
-
-		Cli::getInstance('Foo');
-	}
-
-	/**
 	 * Setup for testing.
 	 *
 	 * @return  void

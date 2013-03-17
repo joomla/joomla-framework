@@ -111,36 +111,6 @@ abstract class Web extends Base
 	}
 
 	/**
-	 * Returns a reference to the global Web object, only creating it if it doesn't already exist.
-	 *
-	 * This method must be invoked as: $web = Web::getInstance();
-	 *
-	 * @param   string  $name  The name (optional) of the Web class to instantiate.
-	 *
-	 * @return  Web
-	 *
-	 * @since   1.0
-	 * @throws  RuntimeException
-	 */
-	public static function getInstance($name = null)
-	{
-		// Only create the object if it doesn't exist.
-		if (empty(self::$instance))
-		{
-			if (class_exists($name) && (is_subclass_of($name, __CLASS__)))
-			{
-				self::$instance = new $name;
-			}
-			else
-			{
-				throw new \RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
-			}
-		}
-
-		return self::$instance;
-	}
-
-	/**
 	 * Execute the application.
 	 *
 	 * @return  void

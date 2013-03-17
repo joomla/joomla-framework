@@ -56,36 +56,6 @@ abstract class Cli extends Base
 	}
 
 	/**
-	 * Returns a reference to the global Cli object, only creating it if it doesn't already exist.
-	 *
-	 * This method must be invoked as: $cli = Cli::getInstance();
-	 *
-	 * @param   string  $name  The name (optional) of the Cli class to instantiate.
-	 *
-	 * @return  Cli
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public static function getInstance($name = null)
-	{
-		// Only create the object if it doesn't exist.
-		if (empty(self::$instance))
-		{
-			if (class_exists($name) && (is_subclass_of($name, __CLASS__)))
-			{
-				self::$instance = new $name;
-			}
-			else
-			{
-				throw new \RuntimeException(sprintf('Could not instantiate %s as an instance of %s.', $name, __CLASS__));
-			}
-		}
-
-		return self::$instance;
-	}
-
-	/**
 	 * Write a string to standard output.
 	 *
 	 * @param   string   $text  The text to display.

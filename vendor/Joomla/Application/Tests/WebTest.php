@@ -710,46 +710,6 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::getInstance method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testGetInstance()
-	{
-		$this->assertInstanceOf(
-			'\Joomla\Application\Web',
-			Web::getInstance('Joomla\Application\Tests\ConcreteWeb'),
-			'Tests that getInstance will instantiate a valid child class of Joomla\Application\Web.'
-		);
-
-		Helper::setValue('Joomla\Application\Tests\ConcreteWeb', 'instance', 'foo');
-
-		$this->assertThat(
-			Web::getInstance('ConcreteWeb'),
-			$this->equalTo('foo'),
-			'Tests that singleton value is returned.'
-		);
-	}
-
-	/**
-	 * Tests the Joomla\Application\Web::getInstance method for an expected exception
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 *
-	 * @expectedException  RuntimeException
-	 */
-	public function testGetInstanceException()
-	{
-		Helper::setValue($this->instance, 'instance', null);
-
-		Web::getInstance('Foo');
-	}
-
-	/**
 	 * Tests the Joomla\Application\Web::loadSystemUris method.
 	 *
 	 * @return  void
