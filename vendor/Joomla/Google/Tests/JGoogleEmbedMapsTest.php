@@ -4,6 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Google\Embed\Maps as EmbedMaps;
 use Joomla\Uri\Uri;
 use Joomla\Registry\Registry;
 
@@ -25,12 +26,12 @@ class JGoogleEmbedMapsTest extends PHPUnit_Framework_TestCase
 	protected $uri;
 
 	/**
-	 * @var    JHttp  Mock client object.
+	 * @var    Joomla\Http\Http  Mock client object.
 	 */
 	protected $http;
 
 	/**
-	 * @var    JGoogle  Object under test.
+	 * @var    EmbedMaps  Object under test.
 	 */
 	protected $object;
 
@@ -49,7 +50,7 @@ class JGoogleEmbedMapsTest extends PHPUnit_Framework_TestCase
 
 		$this->http = $this->getMock('Joomla\\Http\\Http', array('get'), array($this->options));
 		$this->uri = new Uri;
-		$this->object = new JGoogleEmbedMaps($this->options, $this->uri, $this->http);
+		$this->object = new EmbedMaps($this->options, $this->uri, $this->http);
 	}
 
 	/**

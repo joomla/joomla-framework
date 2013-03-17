@@ -73,7 +73,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	{
 		$this->assertThat(
 			$this->object->activities,
-			$this->isInstanceOf('JGoogleDataPlusActivities')
+			$this->isInstanceOf('Joomla\Google\Data\Plus\Activities')
 		);
 	}
 
@@ -88,7 +88,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	{
 		$this->assertThat(
 			$this->object->comments,
-			$this->isInstanceOf('JGoogleDataPlusComments')
+			$this->isInstanceOf('Joomla\Google\Data\Plus\Comments')
 		);
 	}
 

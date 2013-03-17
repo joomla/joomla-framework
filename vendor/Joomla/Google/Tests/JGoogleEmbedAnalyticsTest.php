@@ -4,11 +4,12 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Google\Embed\Analytics as EmbedAnalytics;
 use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
- * Test class for JGoogle.
+ * Test class for Joomla\Google\Embed\Analaytics.
  *
  * @since  1.0
  */
@@ -25,7 +26,7 @@ class JGoogleEmbedAnalyticsTest extends PHPUnit_Framework_TestCase
 	protected $uri;
 
 	/**
-	 * @var    JGoogle  Object under test.
+	 * @var    EmbedAnalytics  Object under test.
 	 */
 	protected $object;
 
@@ -43,7 +44,7 @@ class JGoogleEmbedAnalyticsTest extends PHPUnit_Framework_TestCase
 		$this->options = new Registry;
 
 		$this->uri = new Uri;
-		$this->object = new JGoogleEmbedAnalytics($this->options, $this->uri);
+		$this->object = new EmbedAnalytics($this->options, $this->uri);
 	}
 
 	/**

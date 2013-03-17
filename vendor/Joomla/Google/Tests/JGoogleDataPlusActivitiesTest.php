@@ -6,15 +6,17 @@
 
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
+use Joomla\Google\Data\Plus\Activities as DataPlusActivities;
+
 /**
- * Test class for JGoogleDataPlusActivities.
+ * Test class for Joomla\Google\Data\Plus\Activities.
  *
  * @since  1.0
  */
-class JGoogleDataPlusActivitiesTest extends GoogleTestCase
+class DataPlusActivitiesTest extends GoogleTestCase
 {
 	/**
-	 * @var    JGoogleDataPlusActivities  Object under test.
+	 * @var    DataPlusActivities  Object under test.
 	 */
 	protected $object;
 
@@ -41,7 +43,7 @@ class JGoogleDataPlusActivitiesTest extends GoogleTestCase
 	{
 		parent::setUp();
 
-		$this->object = new JGoogleDataPlusActivities($this->options, $this->auth);
+		$this->object = new DataPlusActivities($this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
