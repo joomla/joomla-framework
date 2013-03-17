@@ -6,7 +6,7 @@
 
 namespace Joomla\Form;
 
-use Joomla\Html\Html;
+use Joomla\Form\Html\Select as HtmlSelect;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Folder;
 
@@ -53,12 +53,12 @@ class Field_FolderList extends Field_List
 		// Prepend some default options based on field attributes.
 		if (!$hideNone)
 		{
-			$options[] = Html::_('select.option', '-1', Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
+			$options[] = HtmlSelect::option('-1', Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
 
 		if (!$hideDefault)
 		{
-			$options[] = Html::_('select.option', '', Text::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
+			$options[] = HtmlSelect::option('', Text::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
 
 		// Get a list of folders in the search path with the given filter.
@@ -78,7 +78,7 @@ class Field_FolderList extends Field_List
 					}
 				}
 
-				$options[] = Html::_('select.option', $folder, $folder);
+				$options[] = HtmlSelect::option($folder, $folder);
 			}
 		}
 

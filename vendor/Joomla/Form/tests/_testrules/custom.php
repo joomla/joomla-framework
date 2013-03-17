@@ -9,7 +9,7 @@
  *
  * @since  1.0
  */
-class JFormRuleCustom extends JFormRule
+class JFormRuleCustom extends Joomla\Form\Rule
 {
 	/**
 	 * The regular expression to use in testing a form field value.

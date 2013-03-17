@@ -4,6 +4,11 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Language\Text;
+use Joomla\Factory;
+use Joomla\Form\Form;
+use Joomla\Form\Rule;
+
 /**
  * Test class for JForm.
  *
@@ -52,7 +57,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Tests the JForm::addFieldPath method.
+	 * Tests the Form::addFieldPath method.
 	 *
 	 * This method is used to add additional lookup paths for field helpers.
 	 *
@@ -61,7 +66,7 @@ class JFormTest extends TestCase
 	public function testAddFieldPath()
 	{
 		// Check the default behaviour.
-		$paths = JForm::addFieldPath();
+		$paths = Form::addFieldPath();
 
 		// The default path is the class file folder/forms
 		// use of realpath to ensure test works for on all platforms
@@ -74,8 +79,8 @@ class JFormTest extends TestCase
 		);
 
 		// Test adding a custom folder.
-		JForm::addFieldPath(__DIR__);
-		$paths = JForm::addFieldPath();
+		Form::addFieldPath(__DIR__);
+		$paths = Form::addFieldPath();
 
 		$this->assertThat(
 			in_array(__DIR__, $paths),
@@ -85,7 +90,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Tests the JForm::addFormPath method.
+	 * Tests the Form::addFormPath method.
 	 *
 	 * This method is used to add additional lookup paths for form XML files.
 	 *
@@ -94,7 +99,7 @@ class JFormTest extends TestCase
 	public function testAddFormPath()
 	{
 		// Check the default behaviour.
-		$paths = JForm::addFormPath();
+		$paths = Form::addFormPath();
 
 		// The default path is the class file folder/forms
 		// use of realpath to ensure test works for on all platforms
@@ -107,8 +112,8 @@ class JFormTest extends TestCase
 		);
 
 		// Test adding a custom folder.
-		JForm::addFormPath(__DIR__);
-		$paths = JForm::addFormPath();
+		Form::addFormPath(__DIR__);
+		$paths = Form::addFormPath();
 
 		$this->assertThat(
 			in_array(__DIR__, $paths),
@@ -118,7 +123,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Tests the JForm::addRulePath method.
+	 * Tests the Form::addRulePath method.
 	 *
 	 * This method is used to add additional lookup paths for form XML files.
 	 *
@@ -127,7 +132,7 @@ class JFormTest extends TestCase
 	public function testAddRulePath()
 	{
 		// Check the default behaviour.
-		$paths = JForm::addRulePath();
+		$paths = Form::addRulePath();
 
 		// The default path is the class file folder/rules
 		// use of realpath to ensure test works for on all platforms
@@ -140,8 +145,8 @@ class JFormTest extends TestCase
 		);
 
 		// Test adding a custom folder.
-		JForm::addRulePath(__DIR__);
-		$paths = JForm::addRulePath();
+		Form::addRulePath(__DIR__);
+		$paths = Form::addRulePath();
 
 		$this->assertThat(
 			in_array(__DIR__, $paths),
@@ -151,7 +156,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::addNode method.
+	 * Test the Form::addNode method.
 	 *
 	 * @return void
 	 */
@@ -179,7 +184,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Tests the JForm::bind method.
+	 * Tests the Form::bind method.
 	 *
 	 * This method is used to load data into the JForm object.
 	 *
@@ -249,7 +254,7 @@ class JFormTest extends TestCase
 		$form = new JFormInspector('form1');
 
 		$this->assertThat(
-			($form instanceof JForm),
+			($form instanceof Form),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' The JForm constuctor should return a JForm object.'
 		);
@@ -281,7 +286,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::filter method.
+	 * Test for Form::filter method.
 	 *
 	 * @return void
 	 */
@@ -342,7 +347,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::filterField method.
+	 * Test for Form::filterField method.
 	 *
 	 * @return void
 	 */
@@ -518,13 +523,13 @@ class JFormTest extends TestCase
 			$mockSession->expects($this->once())->method('get')->will(
 				$this->returnValue($user)
 			);
-			JFactory::$session = $mockSession;
+			Factory::$session = $mockSession;
 			// Adjust the timezone offset to a known value.
-			$config = JFactory::getConfig();
+			$config = Factory::getConfig();
 			$config->setValue('config.offset', 10);
 
-			// TODO: Mock JFactory and JUser
-			$user = JFactory::getUser();
+			// TODO: Mock Factory and JUser
+			$user = Factory::getUser();
 			$user->setParam('timezone', 5);
 
 			$form = new JForm;
@@ -550,7 +555,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::findField method.
+	 * Test the Form::findField method.
 	 *
 	 * @return void
 	 */
@@ -614,7 +619,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Tests the JForm::findFieldsByFieldset method.
+	 * Tests the Form::findFieldsByFieldset method.
 	 *
 	 * @return void
 	 */
@@ -653,7 +658,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::findFieldsByGroup method.
+	 * Test the Form::findFieldsByGroup method.
 	 *
 	 * @return void
 	 */
@@ -716,7 +721,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::findGroup method.
+	 * Test the Form::findGroup method.
 	 *
 	 * @return void
 	 */
@@ -758,7 +763,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getErrors method.
+	 * Test for Form::getErrors method.
 	 *
 	 * @return void
 	 */
@@ -798,7 +803,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::getField method.
+	 * Test the Form::getField method.
 	 *
 	 * @return void
 	 */
@@ -903,7 +908,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getFieldAttribute method.
+	 * Test for Form::getFieldAttribute method.
 	 *
 	 * @return void
 	 */
@@ -947,13 +952,13 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::getFormControl method.
+	 * Test the Form::getFormControl method.
 	 *
 	 * @return void
 	 */
 	public function testGetFormControl()
 	{
-		$form = new JForm('form8ion');
+		$form = new Form('form8ion');
 
 		$this->assertThat(
 			$form->getFormControl(),
@@ -961,7 +966,7 @@ class JFormTest extends TestCase
 			'Line:' . __LINE__ . ' A form control that has not been specified should return nothing.'
 		);
 
-		$form = new JForm('form8ion', array('control' => 'jform'));
+		$form = new Form('form8ion', array('control' => 'jform'));
 
 		$this->assertThat(
 			$form->getFormControl(),
@@ -971,7 +976,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getInstance.
+	 * Test for Form::getInstance.
 	 *
 	 * @return void
 	 */
@@ -981,7 +986,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getGroup method.
+	 * Test for Form::getGroup method.
 	 *
 	 * @return void
 	 */
@@ -1031,7 +1036,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getInput method.
+	 * Test for Form::getInput method.
 	 *
 	 * @return void
 	 */
@@ -1056,9 +1061,9 @@ class JFormTest extends TestCase
 			$this->equalTo(
 				'<fieldset id="params_show_title" class="radio">' .
 					'<input type="radio" id="params_show_title0" name="params[show_title]" value="1"/>' .
-					'<label for="params_show_title0">' . JText::_('JYes') . '</label>' .
+					'<label for="params_show_title0">' . Text::_('JYes') . '</label>' .
 					'<input type="radio" id="params_show_title1" name="params[show_title]" value="0" checked="checked"/>' .
-					'<label for="params_show_title1">' . JText::_('JNo') . '</label>' .
+					'<label for="params_show_title1">' . Text::_('JNo') . '</label>' .
 					'</fieldset>'
 			),
 			'Line:' . __LINE__ . ' The method should return a radio list.'
@@ -1096,7 +1101,7 @@ class JFormTest extends TestCase
 			' The method should return a simple input text field whose value is untranslated since the DEFAULT_KEY does not exist in the language.'
 		);
 
-		$lang = JFactory::getLanguage();
+		$lang = Factory::getLanguage();
 		$debug = $lang->setDebug(true);
 		$this->assertThat(
 			$form->getInput('translate_default'),
@@ -1118,7 +1123,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getLabel method.
+	 * Test for Form::getLabel method.
 	 *
 	 * @return void
 	 */
@@ -1143,13 +1148,13 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::getName method.
+	 * Test the Form::getName method.
 	 *
 	 * @return void
 	 */
 	public function testGetName()
 	{
-		$form = new JForm('form1');
+		$form = new Form('form1');
 
 		$this->assertThat(
 			$form->getName(),
@@ -1159,7 +1164,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getValue method.
+	 * Test for Form::getValue method.
 	 *
 	 * @return void
 	 */
@@ -1191,7 +1196,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getFieldset method.
+	 * Test for Form::getFieldset method.
 	 *
 	 * @return void
 	 */
@@ -1220,7 +1225,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::getFieldsets method.
+	 * Test for Form::getFieldsets method.
 	 *
 	 * @return void
 	 */
@@ -1283,7 +1288,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::load method.
+	 * Test the Form::load method.
 	 *
 	 * This method can load an XML data object, or parse an XML string.
 	 *
@@ -1377,7 +1382,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::load method for cases of unexpected or bad input.
+	 * Test the Form::load method for cases of unexpected or bad input.
 	 *
 	 * This method can load an XML data object, or parse an XML string.
 	 *
@@ -1435,7 +1440,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::load method for XPath data.
+	 * Test the Form::load method for XPath data.
 	 *
 	 * This method can load an XML data object, or parse an XML string.
 	 *
@@ -1466,7 +1471,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::loadField method.
+	 * Test for Form::loadField method.
 	 *
 	 * @return void
 	 */
@@ -1495,7 +1500,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::loadFieldType method.
+	 * Test the Form::loadFieldType method.
 	 *
 	 * @return void
 	 */
@@ -1514,7 +1519,7 @@ class JFormTest extends TestCase
 		);
 
 		// Add custom path.
-		JForm::addFieldPath(__DIR__ . '/_testfields');
+		Form::addFieldPath(__DIR__ . '/_testfields');
 
 		$this->assertThat(
 			(JFormInspector::loadFieldType('test') instanceof JFormFieldTest),
@@ -1542,9 +1547,9 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::loadFile method.
+	 * Test the Form::loadFile method.
 	 *
-	 * This method loads a file and passes the string to the JForm::load method.
+	 * This method loads a file and passes the string to the Form::load method.
 	 *
 	 * @return void
 	 */
@@ -1583,7 +1588,7 @@ class JFormTest extends TestCase
 		// Testing loading a file by file name.
 
 		$form = new JFormInspector('form1');
-		JForm::addFormPath(__DIR__);
+		Form::addFormPath(__DIR__);
 
 		$this->assertThat(
 			$form->loadFile('example'),
@@ -1599,7 +1604,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::loadRuleType method.
+	 * Test for Form::loadRuleType method.
 	 *
 	 * @return void
 	 */
@@ -1617,10 +1622,10 @@ class JFormTest extends TestCase
 
 		// Test loading a custom rule.
 
-		JForm::addRulePath(__DIR__ . '/_testrules');
+		Form::addRulePath(__DIR__ . '/_testrules');
 
 		$this->assertThat(
-			($form->loadRuleType('custom') instanceof JFormRule),
+			($form->loadRuleType('custom') instanceof Rule),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Loading a known rule should return a rule object.'
 		);
@@ -1628,50 +1633,44 @@ class JFormTest extends TestCase
 		// Test all the stock rules load.
 
 		$this->assertThat(
-			($form->loadRuleType('boolean') instanceof JFormRule),
+			($form->loadRuleType('boolean') instanceof Rule),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Loading the boolean rule should return a rule object.'
 		);
 
 		$this->assertThat(
-			($form->loadRuleType('email') instanceof JFormRule),
+			($form->loadRuleType('email') instanceof Rule),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Loading the email rule should return a rule object.'
 		);
 
 		$this->assertThat(
-			($form->loadRuleType('equals') instanceof JFormRule),
+			($form->loadRuleType('equals') instanceof Rule),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Loading the equals rule should return a rule object.'
 		);
 
 		$this->assertThat(
-			($form->loadRuleType('username') instanceof JFormRule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading the username rule should return a rule object.'
-		);
-
-		$this->assertThat(
-			($form->loadRuleType('options') instanceof JFormRule),
+			($form->loadRuleType('options') instanceof Rule),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Loading the options rule should return a rule object.'
 		);
 
 		$this->assertThat(
-			($form->loadRuleType('color') instanceof JFormRule),
+			($form->loadRuleType('color') instanceof Rule),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Loading the color rule should return a rule object.'
 		);
 
 		$this->assertThat(
-			($form->loadRuleType('tel') instanceof JFormRule),
+			($form->loadRuleType('tel') instanceof Rule),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Loading the tel rule should return a rule object.'
 		);
 	}
 
 	/**
-	 * Test the JForm::mergeNode method.
+	 * Test the Form::mergeNode method.
 	 *
 	 * @return void
 	 */
@@ -1699,7 +1698,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test the JForm::mergeNode method.
+	 * Test the Form::mergeNode method.
 	 *
 	 * @return void
 	 */
@@ -1738,7 +1737,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::removeField method.
+	 * Test for Form::removeField method.
 	 *
 	 * @return void
 	 */
@@ -1778,7 +1777,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::removeGroup method.
+	 * Test for Form::removeGroup method.
 	 *
 	 * @return void
 	 */
@@ -1806,7 +1805,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::setField method.
+	 * Test for Form::setField method.
 	 *
 	 * @return void
 	 */
@@ -1893,7 +1892,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::setField method.
+	 * Test for Form::setField method.
 	 *
 	 * @return void
 	 */
@@ -1944,7 +1943,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::setFieldAttribute method.
+	 * Test for Form::setFieldAttribute method.
 	 *
 	 * @return void
 	 */
@@ -1984,7 +1983,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::setFields method.
+	 * Test for Form::setFields method.
 	 *
 	 * @return void
 	 */
@@ -2027,7 +2026,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::setValue method.
+	 * Test for Form::setValue method.
 	 *
 	 * @return void
 	 */
@@ -2077,7 +2076,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::syncPaths method.
+	 * Test for Form::syncPaths method.
 	 *
 	 * @return void
 	 */
@@ -2091,9 +2090,9 @@ class JFormTest extends TestCase
 			'Line:' . __LINE__ . ' XML string should load successfully.'
 		);
 
-		$fieldPaths = JForm::addFieldPath();
-		$formPaths = JForm::addFormPath();
-		$rulePaths = JForm::addRulePath();
+		$fieldPaths = Form::addFieldPath();
+		$formPaths = Form::addFormPath();
+		$rulePaths = Form::addRulePath();
 
 		$this->assertThat(
 			in_array(JPATH_ROOT . '/field1', $fieldPaths),
@@ -2151,7 +2150,7 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::validate method.
+	 * Test for Form::validate method.
 	 *
 	 * @return void
 	 */
@@ -2209,11 +2208,11 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::validateField method.
+	 * Test for Form::validateField method.
 	 *
 	 * return   void
 	 *
-	 * @covers  JForm::validateField
+	 * @covers  Form::validateField
 	 * @since   1.0
 	 *
 	 * @return void
@@ -2273,11 +2272,11 @@ class JFormTest extends TestCase
 	}
 
 	/**
-	 * Test for JForm::validateField method for missing rule exception.
+	 * Test for Form::validateField method for missing rule exception.
 	 *
 	 * return   void
 	 *
-	 * @covers  JForm::validateField
+	 * @covers  Form::validateField
 	 * @since   1.0
 	 *
 	 * @expectedException  UnexpectedValueException

@@ -9,7 +9,7 @@
  *
  * @since  1.0
  */
-class JFormFieldTest extends JFormField
+class JFormFieldTest extends Joomla\Form\Field
 {
 	/**
 	 * The field type.

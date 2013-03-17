@@ -35,13 +35,13 @@ class JFormFieldCheckboxesTest extends TestCase
 	{
 		$formFieldCheckboxes = $this->getMock('JFormFieldCheckboxes', array('getOptions'));
 
-		$option1 = new JObject;
-		$option1->set('value', 'red');
-		$option1->set('text', 'red');
+		$option1 = new stdClass;
+		$option1->value = 'red';
+		$option1->text = 'red';
 
-		$option2 = new JObject;
-		$option2->set('value', 'blue');
-		$option2->set('text', 'blue');
+		$option2 = new stdClass;
+		$option2->value = 'blue';
+		$option2->text = 'blue';
 
 		$optionsReturn = array($option1, $option2);
 		$formFieldCheckboxes->expects($this->any())
@@ -81,13 +81,13 @@ class JFormFieldCheckboxesTest extends TestCase
 	{
 		$formFieldCheckboxes = $this->getMock('JFormFieldCheckboxes', array('getOptions'));
 
-		$option1 = new JObject;
-		$option1->set('value', 'red');
-		$option1->set('text', 'red');
+		$option1 = new stdClass;
+		$option1->value = 'red';
+		$option1->text = 'red';
 
-		$option2 = new JObject;
-		$option2->set('value', 'blue');
-		$option2->set('text', 'blue');
+		$option2 = new stdClass;
+		$option2->value = 'blue';
+		$option2->text = 'blue';
 
 		$optionsReturn = array($option1, $option2);
 		$formFieldCheckboxes->expects($this->any())
@@ -129,13 +129,13 @@ class JFormFieldCheckboxesTest extends TestCase
 	{
 		$formFieldCheckboxes = $this->getMock('JFormFieldCheckboxes', array('getOptions'));
 
-		$option1 = new JObject;
-		$option1->set('value', 'red');
-		$option1->set('text', 'red');
+		$option1 = new stdClass;
+		$option1->value = 'red';
+		$option1->text = 'red';
 
-		$option2 = new JObject;
-		$option2->set('value', 'blue');
-		$option2->set('text', 'blue');
+		$option2 = new stdClass;
+		$option2->value = 'blue';
+		$option2->text = 'blue';
 
 		$optionsReturn = array($option1, $option2);
 		$formFieldCheckboxes->expects($this->any())
@@ -176,13 +176,13 @@ class JFormFieldCheckboxesTest extends TestCase
 	{
 		$formFieldCheckboxes = $this->getMock('JFormFieldCheckboxes', array('getOptions'));
 
-		$option1 = new JObject;
-		$option1->set('value', 'red');
-		$option1->set('text', 'red');
+		$option1 = new stdClass;
+		$option1->value = 'red';
+		$option1->text = 'red';
 
-		$option2 = new JObject;
-		$option2->set('value', 'blue');
-		$option2->set('text', 'blue');
+		$option2 = new stdClass;
+		$option2->value = 'blue';
+		$option2->text = 'blue';
 
 		$optionsReturn = array($option1, $option2);
 		$formFieldCheckboxes->expects($this->any())
@@ -222,13 +222,13 @@ class JFormFieldCheckboxesTest extends TestCase
 	{
 		$formFieldCheckboxes = $this->getMock('JFormFieldCheckboxes', array('getOptions'));
 
-		$option1 = new JObject;
-		$option1->set('value', 'red');
-		$option1->set('text', 'red');
+		$option1 = new stdClass;
+		$option1->value = 'red';
+		$option1->text = 'red';
 
-		$option2 = new JObject;
-		$option2->set('value', 'blue');
-		$option2->set('text', 'blue');
+		$option2 = new stdClass;
+		$option2->value = 'blue';
+		$option2->text = 'blue';
 
 		$optionsReturn = array($option1, $option2);
 		$formFieldCheckboxes->expects($this->any())
@@ -269,13 +269,13 @@ class JFormFieldCheckboxesTest extends TestCase
 	{
 		$formFieldCheckboxes = $this->getMock('JFormFieldCheckboxes', array('getOptions'));
 
-		$option1 = new JObject;
-		$option1->set('value', 'red');
-		$option1->set('text', 'red');
+		$option1 = new stdClass;
+		$option1->value = 'red';
+		$option1->text = 'red';
 
-		$option2 = new JObject;
-		$option2->set('value', 'blue');
-		$option2->set('text', 'blue');
+		$option2 = new stdClass;
+		$option2->value = 'blue';
+		$option2->text = 'blue';
 
 		$optionsReturn = array($option1, $option2);
 		$formFieldCheckboxes->expects($this->any())
@@ -316,13 +316,13 @@ class JFormFieldCheckboxesTest extends TestCase
 	{
 		$formFieldCheckboxes = $this->getMock('JFormFieldCheckboxes', array('getOptions'));
 
-		$option1 = new JObject;
-		$option1->set('value', 'red');
-		$option1->set('text', 'red');
+		$option1 = new stdClass;
+		$option1->value = 'red';
+		$option1->text = 'red';
 
-		$option2 = new JObject;
-		$option2->set('value', 'blue');
-		$option2->set('text', 'blue');
+		$option2 = new stdClass;
+		$option2->value = 'blue';
+		$option2->text = 'blue';
 
 		$optionsReturn = array($option1, $option2);
 		$formFieldCheckboxes->expects($this->any())

@@ -9,7 +9,7 @@
  *
  * @since  1.0
  */
-class FooFormFieldBar extends JFormField
+class FooFormFieldBar extends Joomla\Form\Field
 {
 	/**
 	 * Method to get the field input.

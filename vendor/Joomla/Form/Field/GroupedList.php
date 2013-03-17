@@ -6,7 +6,7 @@
 
 namespace Joomla\Form;
 
-use Joomla\Html\Html;
+use Joomla\Form\Html\Select as HtmlSelect;
 use Joomla\Language\Text;
 use UnexpectedValueException;
 
@@ -52,8 +52,7 @@ class Field_GroupedList extends Field
 					}
 
 					// Create a new option object based on the <option /> element.
-					$tmp = Html::_(
-						'select.option', ($element['value']) ? (string) $element['value'] : trim((string) $element),
+					$tmp = HtmlSelect::option(($element['value']) ? (string) $element['value'] : trim((string) $element),
 						Text::alt(trim((string) $element), preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)), 'value', 'text',
 						((string) $element['disabled'] == 'true')
 					);
@@ -92,8 +91,7 @@ class Field_GroupedList extends Field
 						}
 
 						// Create a new option object based on the <option /> element.
-						$tmp = Html::_(
-							'select.option', ($option['value']) ? (string) $option['value'] : Text::_(trim((string) $option)),
+						$tmp = HtmlSelect::option(($option['value']) ? (string) $option['value'] : Text::_(trim((string) $option)),
 							Text::_(trim((string) $option)), 'value', 'text', ((string) $option['disabled'] == 'true')
 						);
 
@@ -152,8 +150,7 @@ class Field_GroupedList extends Field
 		// Create a read-only list (no name) with a hidden input to store the value.
 		if ((string) $this->element['readonly'] == 'true')
 		{
-			$html[] = Html::_(
-				'select.groupedlist', $groups, null,
+			$html[] = HtmlSelect::groupedlist($groups, null,
 				array(
 					'list.attr' => $attr, 'id' => $this->id, 'list.select' => $this->value, 'group.items' => null, 'option.key.toHtml' => false,
 					'option.text.toHtml' => false
@@ -164,8 +161,7 @@ class Field_GroupedList extends Field
 		else
 		// Create a regular list.
 		{
-			$html[] = Html::_(
-				'select.groupedlist', $groups, $this->name,
+			$html[] = HtmlSelect::groupedlist($groups, $this->name,
 				array(
 					'list.attr' => $attr, 'id' => $this->id, 'list.select' => $this->value, 'group.items' => null, 'option.key.toHtml' => false,
 					'option.text.toHtml' => false

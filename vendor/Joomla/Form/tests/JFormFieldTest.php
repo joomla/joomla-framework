@@ -4,6 +4,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Form\Form;
+use Joomla\Form\Helper;
+
 /**
  * Test class for JFormField.
  *
@@ -42,7 +45,7 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testConstruct()
 	{
-		$form = new JForm('form1');
+		$form = new Form('form1');
 
 		$this->assertThat(
 			$form->load(JFormDataHelper::$loadFieldDocument),
@@ -53,7 +56,7 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 		$field = new JFormFieldInspector($form);
 
 		$this->assertThat(
-			$field instanceof JFormField,
+			$field instanceof Joomla\Form\Field,
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' The JFormField constuctor should return a JFormField object.'
 		);
@@ -65,9 +68,9 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Add custom path.
-		JForm::addFieldPath(__DIR__ . '/_testfields');
+		Form::addFieldPath(__DIR__ . '/_testfields');
 
-		JFormHelper::loadFieldType('foo.bar');
+		Helper::loadFieldType('foo.bar');
 		$field = new FooFormFieldBar($form);
 		$this->assertEquals(
 			$field->type,
@@ -75,7 +78,7 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 			'Line:' . __LINE__ . ' The field type should have been guessed by the constructor.'
 		);
 
-		JFormHelper::loadFieldType('foo');
+		Helper::loadFieldType('foo');
 		$field = new JFormFieldFoo($form);
 		$this->assertEquals(
 			$field->type,
@@ -83,7 +86,7 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 			'Line:' . __LINE__ . ' The field type should have been guessed by the constructor.'
 		);
 
-		JFormHelper::loadFieldType('modal_foo');
+		Helper::loadFieldType('modal_foo');
 		$field = new JFormFieldModal_Foo($form);
 		$this->assertEquals(
 			$field->type,

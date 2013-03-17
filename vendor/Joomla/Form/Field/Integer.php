@@ -6,7 +6,7 @@
 
 namespace Joomla\Form;
 
-use Joomla\Html\Html;
+use Joomla\Form\Html\Select as HtmlSelect;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -61,7 +61,7 @@ class Field_Integer extends Field_List
 			// Build the options array backwards.
 			for ($i = $first; $i >= $last; $i += $step)
 			{
-				$options[] = Html::_('select.option', $i);
+				$options[] = HtmlSelect::option($i);
 			}
 		}
 		else
@@ -69,7 +69,7 @@ class Field_Integer extends Field_List
 			// Build the options array.
 			for ($i = $first; $i <= $last; $i += $step)
 			{
-				$options[] = Html::_('select.option', $i);
+				$options[] = HtmlSelect::option($i);
 			}
 		}
 

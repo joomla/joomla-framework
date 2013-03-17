@@ -1,8 +1,6 @@
 <?php
 
 return array(
-	'JFormField' => 'Joomla\\Form\\Field',
-	'JFormFieldCacheHandler' => 'Joomla\\Form\\Field_CacheHandler',
 	'JFormFieldCalendar' => 'Joomla\\Form\\Field_Calendar',
 	'JFormFieldCheckbox' => 'Joomla\\Form\\Field_Checkbox',
 	'JFormFieldCheckboxes' => 'Joomla\\Form\\Field_Checkboxes',
@@ -29,8 +27,15 @@ return array(
 	'JFormFieldTextarea' => 'Joomla\\Form\\Field_Textarea',
 	'JFormFieldTimezone' => 'Joomla\\Form\\Field_Timezone',
 	'JFormFieldUrl' => 'Joomla\\Form\\Field_Url',
-	'JForm' => 'Joomla\\Form\\Form',
-	'JFormHelper' => 'Joomla\\Form\\Helper',
+	'JFormRule' => 'Joomla\\Form\\Rule',
+	'JFormRuleBoolean' => 'Joomla\\Form\\Rule\\Boolean',
+	'JFormRuleColor' => 'Joomla\\Form\\Rule\\Color',
+	'JFormRuleEmail' => 'Joomla\\Form\\Rule\\Email',
+	'JFormRuleEquals' => 'Joomla\\Form\\Rule\\Equals',
+	'JFormRuleOptions' => 'Joomla\\Form\\Rule\\Options',
+	'JFormRuleRules' => 'Joomla\\Form\\Rule\\Rules',
+	'JFormRuleTel' => 'Joomla\\Form\\Rule\\Tel',
+	'JFormRuleUrl' => 'Joomla\\Form\\Rule\\Url',
 	'JGoogleData' => 'Joomla\\Google\\Data',
 	'JGoogleDataAdsense' => 'Joomla\\Google\\Data\\Adsense',
 	'JGoogleDataCalendar' => 'Joomla\\Google\\Data\\Calendar',

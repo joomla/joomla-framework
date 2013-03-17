@@ -6,7 +6,7 @@
 
 namespace Joomla\Form;
 
-use Joomla\Html\Html;
+use Joomla\Form\Html\Select as HtmlSelect;
 use Joomla\Language\Text;
 
 /**
@@ -59,13 +59,13 @@ class Field_List extends Field
 		// Create a read-only list (no name) with a hidden input to store the value.
 		if ((string) $this->element['readonly'] == 'true')
 		{
-			$html[] = Html::_('select.genericlist', $options, '', trim($attr), 'value', 'text', $this->value, $this->id);
+			$html[] = HtmlSelect::genericlist($options, '', trim($attr), 'value', 'text', $this->value, $this->id);
 			$html[] = '<input type="hidden" name="' . $this->name . '" value="' . $this->value . '"/>';
 		}
 		else
 		// Create a regular list.
 		{
-			$html[] = Html::_('select.genericlist', $options, $this->name, trim($attr), 'value', 'text', $this->value, $this->id);
+			$html[] = HtmlSelect::genericlist($options, $this->name, trim($attr), 'value', 'text', $this->value, $this->id);
 		}
 
 		return implode($html);
@@ -91,8 +91,7 @@ class Field_List extends Field
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = Html::_(
-				'select.option', (string) $option['value'],
+			$tmp = HtmlSelect::option((string) $option['value'],
 				Text::alt(trim((string) $option), preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)), 'value', 'text',
 				((string) $option['disabled'] == 'true')
 			);

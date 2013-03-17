@@ -9,7 +9,6 @@ namespace Joomla\Form;
 
 use Joomla\Factory;
 use Joomla\Filter\Input;
-use Joomla\Object\Object;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Path;
 use Joomla\Registry\Registry;
@@ -125,11 +124,6 @@ class Form
 			{
 				// Handle a Registry.
 				$data = $data->toArray();
-			}
-			elseif ($data instanceof Object)
-			{
-				// Handle a JObject.
-				$data = $data->getProperties();
 			}
 			else
 			{
