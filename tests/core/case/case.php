@@ -104,26 +104,9 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	public function getMockDatabase()
 	{
 		// Attempt to load the real class first.
-		class_exists('JDatabaseDriver');
+		class_exists('Joomla\Database\Driver');
 
 		return TestMockDatabaseDriver::create($this);
-	}
-
-	/**
-	 * Gets a mock dispatcher object.
-	 *
-	 * @param   boolean  $defaults  Add default register and trigger methods for testing.
-	 *
-	 * @return  JEventDispatcher
-	 *
-	 * @since   12.1
-	 */
-	public function getMockDispatcher($defaults = true)
-	{
-		// Attempt to load the real class first.
-		class_exists('JEventDispatcher');
-
-		return TestMockDispatcher::create($this, $defaults);
 	}
 
 	/**
@@ -136,7 +119,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	public function getMockLanguage()
 	{
 		// Attempt to load the real class first.
-		class_exists('JLanguage');
+		class_exists('Joomla\Language\Language');
 
 		return TestMockLanguage::create($this);
 	}
@@ -157,7 +140,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	public function getMockSession($options = array())
 	{
 		// Attempt to load the real class first.
-		class_exists('JSession');
+		class_exists('Joomla\Session\Session');
 
 		return TestMockSession::create($this, $options);
 	}
@@ -174,7 +157,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	public function getMockWeb($options = array())
 	{
 		// Attempt to load the real class first.
-		class_exists('JApplicationWeb');
+		class_exists('Joomla\Application\Web');
 
 		return TestMockApplicationWeb::create($this, $options);
 	}
