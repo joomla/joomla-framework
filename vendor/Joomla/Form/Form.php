@@ -1178,7 +1178,7 @@ class Form
 
 				$value = is_array($value) ? $value : array($value);
 
-				ArrayHelper::toInteger($value);
+				$value = ArrayHelper::toInteger($value);
 				$return = $value;
 				break;
 
