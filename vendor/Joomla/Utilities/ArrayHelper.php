@@ -13,58 +13,30 @@ use Joomla\String\String;
  *
  * @since  1.0
  */
-abstract class ArrayHelper
+final class ArrayHelper
 {
 	/**
-	 * Option to perform case-sensitive sorts.
-	 *
-	 * @var    mixed  Boolean or array of booleans.
-	 * @since  1.0
+	 * Private constructor to prevent instantiation of this class
 	 */
-	protected static $sortCase;
-
-	/**
-	 * Option to set the sort direction.
-	 *
-	 * @var    mixed  Integer or array of integers.
-	 * @since  1.0
-	 */
-	protected static $sortDirection;
-
-	/**
-	 * Option to set the object key to sort on.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected static $sortKey;
-
-	/**
-	 * Option to perform a language aware sort.
-	 *
-	 * @var    mixed  Boolean or array of booleans.
-	 * @since  1.0
-	 */
-	protected static $sortLocale;
+	private function __construct()
+	{
+	}
 
 	/**
 	 * Function to convert array to integer values
 	 *
-	 * @param   array  &$array   The source array to convert
+	 * @param   array  $array    The source array to convert
 	 * @param   mixed  $default  A default value (int|array) to assign if $array is not an array
 	 *
-	 * @return  void
+	 * @return  array The converted array
 	 *
 	 * @since   1.0
 	 */
-	public static function toInteger(&$array, $default = null)
+	public static function toInteger($array, $default = null)
 	{
 		if (is_array($array))
 		{
-			foreach ($array as $i => $v)
-			{
-				$array[$i] = (int) $v;
-			}
+			$array = array_map('intval', $array);
 		}
 		else
 		{
@@ -74,44 +46,40 @@ abstract class ArrayHelper
 			}
 			elseif (is_array($default))
 			{
-				self::toInteger($default, null);
-				$array = $default;
+				$array = self::toInteger($default, null);
 			}
 			else
 			{
 				$array = array((int) $default);
 			}
 		}
+
+		return $array;
 	}
 
 	/**
 	 * Utility function to map an array to a stdClass object.
 	 *
-	 * @param   array   &$array  The array to map.
-	 * @param   string  $class   Name of the class to create
+	 * @param   array   $array  The array to map.
+	 * @param   string  $class  Name of the class to create
 	 *
 	 * @return  object   The object mapped from the given array
 	 *
 	 * @since   1.0
 	 */
-	public static function toObject(&$array, $class = 'stdClass')
+	public static function toObject(array $array, $class = 'stdClass')
 	{
-		$obj = null;
+		$obj = new $class;
 
-		if (is_array($array))
+		foreach ($array as $k => $v)
 		{
-			$obj = new $class;
-
-			foreach ($array as $k => $v)
+			if (is_array($v))
 			{
-				if (is_array($v))
-				{
-					$obj->$k = self::toObject($v, $class);
-				}
-				else
-				{
-					$obj->$k = $v;
-				}
+				$obj->$k = self::toObject($v, $class);
+			}
+			else
+			{
+				$obj->$k = $v;
 			}
 		}
 
@@ -130,28 +98,25 @@ abstract class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function toString($array = null, $inner_glue = '=', $outer_glue = ' ', $keepOuterKey = false)
+	public static function toString(array $array, $inner_glue = '=', $outer_glue = ' ', $keepOuterKey = false)
 	{
 		$output = array();
 
-		if (is_array($array))
+		foreach ($array as $key => $item)
 		{
-			foreach ($array as $key => $item)
+			if (is_array($item))
 			{
-				if (is_array($item))
+				if ($keepOuterKey)
 				{
-					if ($keepOuterKey)
-					{
-						$output[] = $key;
-					}
+					$output[] = $key;
+				}
 
-					// This is value is an array, go and do it again!
-					$output[] = self::toString($item, $inner_glue, $outer_glue, $keepOuterKey);
-				}
-				else
-				{
-					$output[] = $key . $inner_glue . '"' . $item . '"';
-				}
+				// This is value is an array, go and do it again!
+				$output[] = self::toString($item, $inner_glue, $outer_glue, $keepOuterKey);
+			}
+			else
+			{
+				$output[] = $key . $inner_glue . '"' . $item . '"';
 			}
 		}
 
@@ -192,7 +157,7 @@ abstract class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	protected static function arrayFromObject($item, $recurse, $regex)
+	private static function arrayFromObject($item, $recurse, $regex)
 	{
 		if (is_object($item))
 		{
@@ -233,29 +198,26 @@ abstract class ArrayHelper
 	/**
 	 * Extracts a column from an array of arrays or objects
 	 *
-	 * @param   array   &$array  The source array
-	 * @param   string  $index   The index of the column or name of object property
+	 * @param   array   $array  The source array
+	 * @param   string  $index  The index of the column or name of object property
 	 *
 	 * @return  array  Column of values from the source array
 	 *
 	 * @since   1.0
 	 */
-	public static function getColumn(&$array, $index)
+	public static function getColumn(array $array, $index)
 	{
 		$result = array();
 
-		if (is_array($array))
+		foreach ($array as $item)
 		{
-			foreach ($array as &$item)
+			if (is_array($item) && isset($item[$index]))
 			{
-				if (is_array($item) && isset($item[$index]))
-				{
-					$result[] = $item[$index];
-				}
-				elseif (is_object($item) && isset($item->$index))
-				{
-					$result[] = $item->$index;
-				}
+				$result[] = $item[$index];
+			}
+			elseif (is_object($item) && isset($item->$index))
+			{
+				$result[] = $item->$index;
 			}
 		}
 
@@ -265,7 +227,7 @@ abstract class ArrayHelper
 	/**
 	 * Utility function to return a value from a named array or a specified default
 	 *
-	 * @param   array   &$array   A named array
+	 * @param   array   $array    A named array
 	 * @param   string  $name     The key to search for
 	 * @param   mixed   $default  The default value to give if no key found
 	 * @param   string  $type     Return type for the variable (INT, FLOAT, STRING, WORD, BOOLEAN, ARRAY)
@@ -274,7 +236,7 @@ abstract class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function getValue(&$array, $name, $default = null, $type = '')
+	public static function getValue(array $array, $name, $default = null, $type = '')
 	{
 		$result = null;
 
@@ -362,7 +324,7 @@ abstract class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function invert($array)
+	public static function invert(array $array)
 	{
 		$return = array();
 
@@ -421,7 +383,7 @@ abstract class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function pivot($source, $key = null)
+	public static function pivot(array $source, $key = null)
 	{
 		$result  = array();
 		$counter = array();
@@ -438,7 +400,7 @@ abstract class ArrayHelper
 				}
 
 				$resultKey   = $value[$key];
-				$resultValue = &$source[$index];
+				$resultValue = $source[$index];
 			}
 			elseif (is_object($value))
 			{
@@ -449,7 +411,7 @@ abstract class ArrayHelper
 				}
 
 				$resultKey   = $value->$key;
-				$resultValue = &$source[$index];
+				$resultValue = $source[$index];
 			}
 			else
 			{
@@ -489,7 +451,7 @@ abstract class ArrayHelper
 	/**
 	 * Utility function to sort an array of objects on a given field
 	 *
-	 * @param   array  &$a             An array of objects
+	 * @param   array  $a              An array of objects
 	 * @param   mixed  $k              The key (string) or a array of key to sort on
 	 * @param   mixed  $direction      Direction (integer) or an array of direction to sort in [1 = Ascending] [-1 = Descending]
 	 * @param   mixed  $caseSensitive  Boolean or array of booleans to let sort occur case sensitive or insensitive
@@ -499,88 +461,70 @@ abstract class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function sortObjects(&$a, $k, $direction = 1, $caseSensitive = true, $locale = false)
+	public static function sortObjects(array $a, $k, $direction = 1, $caseSensitive = true, $locale = false)
 	{
 		if (!is_array($locale) || !is_array($locale[0]))
 		{
 			$locale = array($locale);
 		}
 
-		self::$sortCase      = (array) $caseSensitive;
-		self::$sortDirection = (array) $direction;
-		self::$sortKey       = (array) $k;
-		self::$sortLocale    = $locale;
+		$sortCase      = (array) $caseSensitive;
+		$sortDirection = (array) $direction;
+		$key       = (array) $k;
+		$sortLocale    = $locale;
 
-		usort($a, array(__CLASS__, 'objectSort'));
+		usort(
+			$a, function($a, $b) use($sortCase, $sortDirection, $key, $sortLocale) {
 
-		self::$sortCase      = null;
-		self::$sortDirection = null;
-		self::$sortKey       = null;
-		self::$sortLocale    = null;
+				for ($i = 0, $count = count($key); $i < $count; $i++)
+				{
+					if (isset($sortDirection[$i]))
+					{
+						$direction = $sortDirection[$i];
+					}
+
+					if (isset($sortCase[$i]))
+					{
+						$caseSensitive = $sortCase[$i];
+					}
+
+					if (isset($sortLocale[$i]))
+					{
+						$locale = $sortLocale[$i];
+					}
+
+					$va = $a->$key[$i];
+					$vb = $b->$key[$i];
+
+					if ((is_bool($va) || is_numeric($va)) && (is_bool($vb) || is_numeric($vb)))
+					{
+						$cmp = $va - $vb;
+					}
+					elseif ($caseSensitive)
+					{
+						$cmp = String::strcmp($va, $vb, $locale);
+					}
+					else
+					{
+						$cmp = String::strcasecmp($va, $vb, $locale);
+					}
+
+					if ($cmp > 0)
+					{
+						return $direction;
+					}
+
+					if ($cmp < 0)
+					{
+						return -$direction;
+					}
+				}
+
+				return 0;
+			}
+		);
 
 		return $a;
-	}
-
-	/**
-	 * Callback function for sorting an array of objects on a key
-	 *
-	 * @param   array  &$a  An array of objects
-	 * @param   array  &$b  An array of objects
-	 *
-	 * @return  integer  Comparison status
-	 *
-	 * @see     ArrayHelper::sortObjects()
-	 * @since   1.0
-	 */
-	protected static function objectSort(&$a, &$b)
-	{
-		$key = self::$sortKey;
-
-		for ($i = 0, $count = count($key); $i < $count; $i++)
-		{
-			if (isset(self::$sortDirection[$i]))
-			{
-				$direction = self::$sortDirection[$i];
-			}
-
-			if (isset(self::$sortCase[$i]))
-			{
-				$caseSensitive = self::$sortCase[$i];
-			}
-
-			if (isset(self::$sortLocale[$i]))
-			{
-				$locale = self::$sortLocale[$i];
-			}
-
-			$va = $a->$key[$i];
-			$vb = $b->$key[$i];
-
-			if ((is_bool($va) || is_numeric($va)) && (is_bool($vb) || is_numeric($vb)))
-			{
-				$cmp = $va - $vb;
-			}
-			elseif ($caseSensitive)
-			{
-				$cmp = String::strcmp($va, $vb, $locale);
-			}
-			else
-			{
-				$cmp = String::strcasecmp($va, $vb, $locale);
-			}
-
-			if ($cmp > 0)
-			{
-				return $direction;
-			}
-
-			if ($cmp < 0)
-			{
-				return -$direction;
-			}
-		}
-
-		return 0;
 	}
 
 	/**
@@ -593,25 +537,39 @@ abstract class ArrayHelper
 	 * @see     http://php.net/manual/en/function.array-unique.php
 	 * @since   1.0
 	 */
-	public static function arrayUnique($myArray)
+	public static function arrayUnique(array $array)
 	{
-		if (!is_array($myArray))
+		$array = array_map('serialize', $array);
+		$array = array_unique($array);
+		$array = array_map('unserialize', $array);
+
+		return $array;
+	}
+
+	/**
+	 * An improved array_search that allows for partial matching
+	 * of strings values in associative arrays.
+	 *
+	 * @param   string   $needle         The text to search for within the array.
+	 * @param   array    $haystack       Associative array to search in to find $needle.
+	 * @param   boolean  $caseSensitive  True to search case sensitive, false otherwise.
+	 *
+	 * @return  mixed    Returns the matching array $key if found, otherwise false.
+	 *
+	 * @since   1.0
+	 */
+	public static function arraySearch($needle, array $haystack, $caseSensitive = true)
+	{
+		foreach ($haystack as $key => $value)
 		{
-			return $myArray;
+			$searchFunc = ($caseSensitive) ? 'strpos' : 'stripos';
+
+			if ($searchFunc($value, $needle) === 0)
+			{
+				return $key;
+			}
 		}
 
-		foreach ($myArray as &$myvalue)
-		{
-			$myvalue = serialize($myvalue);
-		}
-
-		$myArray = array_unique($myArray);
-
-		foreach ($myArray as &$myvalue)
-		{
-			$myvalue = unserialize($myvalue);
-		}
-
-		return $myArray;
+		return false;
 	}
 }

@@ -10,8 +10,8 @@ $input = array(
     "height" => "200xxx",
     "length" => "10.3"
 );
-ArrayHelper::toInteger($input);
-var_dump($input);
+$result = ArrayHelper::toInteger($input);
+var_dump($result);
 ```
 Result:
 ```

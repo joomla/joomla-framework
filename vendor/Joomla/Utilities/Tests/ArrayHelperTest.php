@@ -38,11 +38,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 					array(2, 2, 3, array(4)),
 					array(3, 2, 3, array(4)),
 				),
-			),
-			'Passing a non-array with return it back' => array(
-				'foo',
-				'foo'
-			),
+			)
 		);
 	}
 
@@ -1591,10 +1587,10 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToInteger($input, $default, $expect, $message)
 	{
-		ArrayHelper::toInteger($input, $default);
+		$result = ArrayHelper::toInteger($input, $default);
 		$this->assertEquals(
 			$expect,
-			$input,
+			$result,
 			$message
 		);
 	}
@@ -1651,5 +1647,19 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 		}
 
 		$this->assertEquals($expect, $output, $message);
+	}
+
+	public function testArraySearch()
+	{
+		$array = array(
+			'name' => 'Foo',
+			'email' => 'foobar@example.com'
+		);
+
+		// Search case sensitive.
+		$this->assertEquals('name', ArrayHelper::arraySearch('Foo', $array));
+
+		// Search case insenitive.
+		$this->assertEquals('email', ArrayHelper::arraySearch('FOOBAR', $array, false));
 	}
 }
