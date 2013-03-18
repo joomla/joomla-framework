@@ -11,7 +11,7 @@ use Joomla\View;
 /**
  * Concrete class extending JViewBase.
  *
- * @since    1.0
+ * @since  1.0
  */
 class BaseView extends View\Base
 {

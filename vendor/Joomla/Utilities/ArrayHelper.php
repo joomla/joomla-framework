@@ -11,7 +11,7 @@ use Joomla\String\String;
 /**
  * ArrayHelper is an array utility class for doing all sorts of odds and ends with arrays.
  *
- * @since    1.0
+ * @since  1.0
  */
 final class ArrayHelper
 {
@@ -357,13 +357,16 @@ final class ArrayHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function isAssociative(array $array)
+	public static function isAssociative($array)
 	{
-		foreach (array_keys($array) as $k => $v)
+		if (is_array($array))
 		{
-			if ($k !== $v)
+			foreach (array_keys($array) as $k => $v)
 			{
-				return true;
+				if ($k !== $v)
+				{
+					return true;
+				}
 			}
 		}
 
@@ -534,17 +537,39 @@ final class ArrayHelper
 	 * @see     http://php.net/manual/en/function.array-unique.php
 	 * @since   1.0
 	 */
-	public static function arrayUnique($myArray)
+	public static function arrayUnique(array $array)
 	{
-		if (!is_array($myArray))
+		$array = array_map('serialize', $array);
+		$array = array_unique($array);
+		$array = array_map('unserialize', $array);
+
+		return $array;
+	}
+
+	/**
+	 * An improved array_search that allows for partial matching
+	 * of strings values in associative arrays.
+	 *
+	 * @param   string   $needle         The text to search for within the array.
+	 * @param   array    $haystack       Associative array to search in to find $needle.
+	 * @param   boolean  $caseSensitive  True to search case sensitive, false otherwise.
+	 *
+	 * @return  mixed    Returns the matching array $key if found, otherwise false.
+	 *
+	 * @since   1.0
+	 */
+	public static function arraySearch($needle, array $haystack, $caseSensitive = true)
+	{
+		foreach ($haystack as $key => $value)
 		{
-			return $myArray;
+			$searchFunc = ($caseSensitive) ? 'strpos' : 'stripos';
+
+			if ($searchFunc($value, $needle) === 0)
+			{
+				return $key;
+			}
 		}
 
-		$myArray = array_map('serialize', $myArray);
-		$myArray = array_unique($myArray);
-		$myArray = array_map('unserialize', $myArray);
-
-		return $myArray;
+		return false;
 	}
 }

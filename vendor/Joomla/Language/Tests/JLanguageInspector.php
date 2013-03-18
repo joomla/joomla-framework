@@ -7,7 +7,7 @@
 /**
  * Inspector for the JLanguage class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JLanguageInspector extends Joomla\Language\Language
 {

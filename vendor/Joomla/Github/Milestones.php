@@ -11,7 +11,7 @@ use DomainException;
 /**
  * GitHub API Milestones class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Milestones extends Object
 {

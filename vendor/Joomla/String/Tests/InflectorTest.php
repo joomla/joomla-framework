@@ -12,8 +12,8 @@ use Joomla\Test\Helper;
 /**
  * Test for the Inflector class.
  *
- * @link     http://en.wikipedia.org/wiki/English_plural
- * @since    1.0
+ * @link   http://en.wikipedia.org/wiki/English_plural
+ * @since  1.0
  */
 class InflectorTest extends \PHPUnit_Framework_TestCase
 {

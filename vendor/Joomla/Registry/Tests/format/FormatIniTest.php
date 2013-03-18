@@ -9,7 +9,7 @@ use Joomla\Registry\Format;
 /**
  * Test class for Ini.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JRegistryFormatINITest extends PHPUnit_Framework_TestCase
 {

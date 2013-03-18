@@ -27,6 +27,9 @@ if (!defined('IS_UNIX'))
 	define('IS_UNIX', (IS_WIN === false) ? true : false);
 }
 
+// Include the composer autoloader.
+require_once __DIR__ . '/autoload.php';
+
 // Import the library loader if necessary. Don't try to autoload it yet.
 if (!class_exists('JLoader', false))
 {

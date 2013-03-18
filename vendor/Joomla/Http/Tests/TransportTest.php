@@ -11,7 +11,7 @@ use Joomla\Uri\Uri;
 /**
  * Test class for Joomla\Http\Transport instances.
  *
- * @since    1.0
+ * @since  1.0
  */
 class TransportTest extends \PHPUnit_Framework_TestCase
 {

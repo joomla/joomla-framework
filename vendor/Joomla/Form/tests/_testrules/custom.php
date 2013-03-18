@@ -7,23 +7,23 @@
 /**
  * Form Rule class for the Joomla Framework.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JFormRuleCustom extends JFormRule
+class JFormRuleCustom extends Joomla\Form\Rule
 {
 	/**
 	 * The regular expression to use in testing a form field value.
 	 *
-	 * @var        string
-	 * @since    1.0
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $regex = '^custom';
 
 	/**
 	 * The regular expression modifiers to use when testing a form field value.
 	 *
-	 * @var        string
-	 * @since    1.0
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $modifiers = 'i';
 }

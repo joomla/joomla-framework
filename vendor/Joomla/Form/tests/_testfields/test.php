@@ -7,9 +7,9 @@
 /**
  * Form Field class for the Joomla Framework.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JFormFieldTest extends JFormField
+class JFormFieldTest extends Joomla\Form\Field
 {
 	/**
 	 * The field type.

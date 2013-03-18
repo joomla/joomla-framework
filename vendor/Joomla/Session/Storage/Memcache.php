@@ -13,7 +13,7 @@ use RuntimeException;
 /**
  * Memcache session storage handler for PHP
  *
- * @since    1.0
+ * @since  1.0
  */
 class Memcache extends Storage
 {

@@ -6,13 +6,10 @@
 
 namespace Joomla\Database;
 
-use stdClass;
-use Exception;
-
 /**
  * Joomla Platform Database Exporter Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Exporter
 {
@@ -65,7 +62,7 @@ abstract class Exporter
 	 */
 	public function __construct()
 	{
-		$this->options = new stdClass;
+		$this->options = new \stdClass;
 
 		$this->cache = array('columns' => array(), 'keys' => array());
 
@@ -173,7 +170,7 @@ abstract class Exporter
 		}
 		else
 		{
-			throw new Exception('JPLATFORM_ERROR_INPUT_REQUIRES_STRING_OR_ARRAY');
+			throw new \Exception('JPLATFORM_ERROR_INPUT_REQUIRES_STRING_OR_ARRAY');
 		}
 
 		return $this;

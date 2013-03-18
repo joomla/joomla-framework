@@ -11,9 +11,9 @@ namespace Joomla\Form;
  * Single check box field.
  * This is a boolean field with null for false and the specified option for true
  *
- * @link     http://www.w3.org/TR/html-markup/input.checkbox.html#input.checkbox
- * @see      JFormFieldCheckboxes
- * @since    1.0
+ * @link   http://www.w3.org/TR/html-markup/input.checkbox.html#input.checkbox
+ * @see    JFormFieldCheckboxes
+ * @since  1.0
  */
 class Field_Checkbox extends Field
 {

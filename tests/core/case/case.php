@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Factory;
+
 /**
  * Abstract test case class for unit testing.
  *
@@ -15,7 +17,7 @@
 abstract class TestCase extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    array  Various JFactory static instances stashed away to be restored later.
+	 * @var    array  Various Factory static instances stashed away to be restored later.
 	 * @since  12.1
 	 */
 	private $_stashedFactoryState = array(
@@ -102,26 +104,9 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	public function getMockDatabase()
 	{
 		// Attempt to load the real class first.
-		class_exists('JDatabaseDriver');
+		class_exists('Joomla\Database\Driver');
 
 		return TestMockDatabaseDriver::create($this);
-	}
-
-	/**
-	 * Gets a mock dispatcher object.
-	 *
-	 * @param   boolean  $defaults  Add default register and trigger methods for testing.
-	 *
-	 * @return  JEventDispatcher
-	 *
-	 * @since   12.1
-	 */
-	public function getMockDispatcher($defaults = true)
-	{
-		// Attempt to load the real class first.
-		class_exists('JEventDispatcher');
-
-		return TestMockDispatcher::create($this, $defaults);
 	}
 
 	/**
@@ -134,7 +119,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	public function getMockLanguage()
 	{
 		// Attempt to load the real class first.
-		class_exists('JLanguage');
+		class_exists('Joomla\Language\Language');
 
 		return TestMockLanguage::create($this);
 	}
@@ -155,7 +140,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	public function getMockSession($options = array())
 	{
 		// Attempt to load the real class first.
-		class_exists('JSession');
+		class_exists('Joomla\Session\Session');
 
 		return TestMockSession::create($this, $options);
 	}
@@ -172,7 +157,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	public function getMockWeb($options = array())
 	{
 		// Attempt to load the real class first.
-		class_exists('JApplicationWeb');
+		class_exists('Joomla\Application\Web');
 
 		return TestMockApplicationWeb::create($this, $options);
 	}
@@ -186,12 +171,12 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	 */
 	protected function restoreFactoryState()
 	{
-		JFactory::$application = $this->_stashedFactoryState['application'];
-		JFactory::$config = $this->_stashedFactoryState['config'];
-		JFactory::$dates = $this->_stashedFactoryState['dates'];
-		JFactory::$session = $this->_stashedFactoryState['session'];
-		JFactory::$language = $this->_stashedFactoryState['language'];
-		JFactory::$database = $this->_stashedFactoryState['database'];
+		Factory::$application = $this->_stashedFactoryState['application'];
+		Factory::$config = $this->_stashedFactoryState['config'];
+		Factory::$dates = $this->_stashedFactoryState['dates'];
+		Factory::$session = $this->_stashedFactoryState['session'];
+		Factory::$language = $this->_stashedFactoryState['language'];
+		Factory::$database = $this->_stashedFactoryState['database'];
 	}
 
 	/**
@@ -203,12 +188,12 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 	 */
 	protected function saveFactoryState()
 	{
-		$this->_stashedFactoryState['application'] = JFactory::$application;
-		$this->_stashedFactoryState['config'] = JFactory::$config;
-		$this->_stashedFactoryState['dates'] = JFactory::$dates;
-		$this->_stashedFactoryState['session'] = JFactory::$session;
-		$this->_stashedFactoryState['language'] = JFactory::$language;
-		$this->_stashedFactoryState['database'] = JFactory::$database;
+		$this->_stashedFactoryState['application'] = Factory::$application;
+		$this->_stashedFactoryState['config'] = Factory::$config;
+		$this->_stashedFactoryState['dates'] = Factory::$dates;
+		$this->_stashedFactoryState['session'] = Factory::$session;
+		$this->_stashedFactoryState['language'] = Factory::$language;
+		$this->_stashedFactoryState['database'] = Factory::$database;
 	}
 
 	/**

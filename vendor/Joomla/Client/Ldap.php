@@ -9,7 +9,7 @@ namespace Joomla\Client;
 /**
  * LDAP client class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Ldap
 {
@@ -268,7 +268,7 @@ class Ldap
 	 *
 	 * @return  array  Search results
 	 *
-	 * @since    1.0
+	 * @since  1.0
 	 */
 	public function simple_search($search)
 	{

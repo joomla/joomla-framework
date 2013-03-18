@@ -6,14 +6,10 @@
 
 namespace Joomla\Database;
 
-use RuntimeException;
-use SimpleXMLElement;
-use stdClass;
-
 /**
  * Joomla Platform Database Importer Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Importer
 {
@@ -64,7 +60,7 @@ abstract class Importer
 	 */
 	public function __construct()
 	{
-		$this->options = new stdClass;
+		$this->options = new \stdClass;
 
 		$this->cache = array('columns' => array(), 'keys' => array());
 
@@ -169,13 +165,13 @@ abstract class Importer
 		$prefix = $this->db->getPrefix();
 		$tables = $this->db->getTableList();
 
-		if ($this->from instanceof SimpleXMLElement)
+		if ($this->from instanceof \SimpleXMLElement)
 		{
 			$xml = $this->from;
 		}
 		else
 		{
-			$xml = new SimpleXMLElement($this->from);
+			$xml = new \SimpleXMLElement($this->from);
 		}
 
 		// Get all the table definitions.
@@ -201,7 +197,7 @@ abstract class Importer
 						{
 							$this->db->execute();
 						}
-						catch (RuntimeException $e)
+						catch (\RuntimeException $e)
 						{
 							$this->addLog('Fail: ' . $this->db->getQuery());
 							throw $e;
@@ -221,7 +217,7 @@ abstract class Importer
 				{
 					$this->db->execute();
 				}
-				catch (RuntimeException $e)
+				catch (\RuntimeException $e)
 				{
 					$this->addLog('Fail: ' . $this->db->getQuery());
 					throw $e;

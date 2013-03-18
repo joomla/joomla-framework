@@ -14,7 +14,7 @@ require_once __DIR__ . '/stubs/thtml.php';
 /**
  * Tests for the Joomla\View\Html class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class HtmlTest extends \PHPUnit_Framework_TestCase
 {

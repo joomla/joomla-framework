@@ -9,7 +9,6 @@ namespace Joomla\Form;
 
 use Joomla\Factory;
 use Joomla\Filter\Input;
-use Joomla\Object\Object;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Path;
 use Joomla\Registry\Registry;
@@ -27,9 +26,9 @@ use UnexpectedValueException;
  * It uses XML definitions to construct form fields and a variety of field and rule classes to
  * render and validate the form.
  *
- * @link     http://www.w3.org/TR/html4/interact/forms.html
- * @link     http://www.w3.org/TR/html5/forms.html
- * @since    1.0
+ * @link   http://www.w3.org/TR/html4/interact/forms.html
+ * @link   http://www.w3.org/TR/html5/forms.html
+ * @since  1.0
  */
 class Form
 {
@@ -125,11 +124,6 @@ class Form
 			{
 				// Handle a Registry.
 				$data = $data->toArray();
-			}
-			elseif ($data instanceof Object)
-			{
-				// Handle a JObject.
-				$data = $data->getProperties();
 			}
 			else
 			{

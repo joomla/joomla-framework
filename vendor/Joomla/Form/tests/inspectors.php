@@ -7,9 +7,9 @@
 /**
  * JFormInspector class.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JFormInspector extends JForm
+class JFormInspector extends Joomla\Form\Form
 {
 	/**
 	 * Test...
@@ -202,9 +202,9 @@ class JFormInspector extends JForm
 /**
  * JFormFieldInspector class.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JFormFieldInspector extends JFormField
+class JFormFieldInspector extends Joomla\Form\Field
 {
 	/**
 	 * Test...

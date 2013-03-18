@@ -14,7 +14,7 @@ use Joomla\Client\Helper as ClientHelper;
 /**
  * A File handling class
  *
- * @since    1.0
+ * @since  1.0
  */
 class File
 {

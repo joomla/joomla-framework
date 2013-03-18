@@ -7,61 +7,84 @@
 namespace Joomla\Cache\Tests;
 
 use Joomla\Cache;
+use Joomla\Test\Helper;
 
 /**
  * Tests for the Joomla\Cache\None class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class NoneTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Cache\None
+	 * @var    Cache\None
 	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
-	 * Tests the add method.
+	 * Tests for the correct Psr\Cache return values.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\None::add
+	 * @coversNothing
 	 * @since   1.0
 	 */
-	public function testAdd()
+	public function testPsrCache()
 	{
-		$this->markTestIncomplete();
+		$this->assertInternalType('boolean', $this->instance->clear(), 'Checking clear.');
+		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $this->instance->get('foo'), 'Checking get.');
+		$this->assertInternalType('array', $this->instance->getMultiple(array('foo')), 'Checking getMultiple.');
+		$this->assertInternalType('boolean', $this->instance->remove('foo'), 'Checking remove.');
+		$this->assertInternalType('array', $this->instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
+		$this->assertInternalType('boolean', $this->instance->set('for', 'bar'), 'Checking set.');
+		$this->assertInternalType('boolean', $this->instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
 	}
 
 	/**
-	 * Tests the delete method.
+	 * Tests the Joomla\Cache\None::clear method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\None::delete
+	 * @covers  Joomla\Cache\None::clear
 	 * @since   1.0
 	 */
-	public function testDelete()
+	public function testClear()
 	{
-		$this->markTestIncomplete();
+		$this->instance->clear();
 	}
 
 	/**
-	 * Tests the fetch method.
+	 * Tests the Joomla\Cache\None::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\None::fetch
+	 * @covers  Joomla\Cache\None::get
 	 * @since   1.0
 	 */
-	public function testFetch()
+	public function testGet()
 	{
-		$this->markTestIncomplete();
+		$this->instance->set('foo', 'bar');
+		$item = $this->instance->get('foo');
+		$this->assertNull($item->getValue());
+		$this->assertFalse($item->isHit());
 	}
 
 	/**
-	 * Tests the set method.
+	 * Tests the Joomla\Cache\None::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\None::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->instance->remove('foo');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\None::set method.
 	 *
 	 * @return  void
 	 *
@@ -70,7 +93,25 @@ class NoneTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSet()
 	{
-		$this->markTestIncomplete();
+		$this->instance->set('foo', 'bar');
+		$item = $this->instance->get('foo');
+		$this->assertNull($item->getValue());
+		$this->assertFalse($item->isHit());
+	}
+
+	/**
+	 * Tests the Joomla\Cache\None::exists method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\None::exists
+	 * @since   1.0
+	 */
+	public function testExists()
+	{
+		$this->assertFalse(Helper::invoke($this->instance, 'exists', 'foo'));
+		$this->instance->set('foo', 'bar');
+		$this->assertFalse(Helper::invoke($this->instance, 'exists', 'foo'));
 	}
 
 	/**

@@ -7,10 +7,10 @@
 namespace Joomla\Data;
 
 /**
- * JDataSet is a collection class that allows the developer to operate on a set of JData objects as if they were in a
+ * Data\Set is a collection class that allows the developer to operate on a set of Data\Object objects as if they were in a
  * typical PHP array.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 {
@@ -33,10 +33,10 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	/**
 	 * The class constructor.
 	 *
-	 * @param   array  $objects  An array of JData objects to bind to the data set.
+	 * @param   array  $objects  An array of Data\Object objects to bind to the data set.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if an object is not an instance of JData.
+	 * @throws  InvalidArgumentException if an object is not an instance of Data\Object.
 	 */
 	public function __construct(array $objects = array())
 	{
@@ -88,7 +88,7 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	 * Example: $array = $dataSet->foo;
 	 *
 	 * This will return a column of the values of the 'foo' property in all the objects
-	 * (or values determined by custom property setters in the individual JData's).
+	 * (or values determined by custom property setters in the individual Data\Object's).
 	 * The result array will contain an entry for each object in the list (compared to __call which may not).
 	 * The keys of the objects and the result array are maintained.
 	 *
@@ -143,7 +143,7 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	 * Example: $objectList->foo = 'bar';
 	 *
 	 * This will set the 'foo' property to 'bar' in all of the objects
-	 * (or a value determined by custom property setters in the JData).
+	 * (or a value determined by custom property setters in the Data\Object).
 	 *
 	 * @param   string  $property  The name of the property.
 	 * @param   mixed   $value     The value to give the data property.
@@ -165,7 +165,7 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * Example: unset($objectList->foo);
 	 *
-	 * This will unset all of the 'foo' properties in the list of JData's.
+	 * This will unset all of the 'foo' properties in the list of Data\Object's.
 	 *
 	 * @param   string  $property  The name of the property.
 	 *
@@ -197,7 +197,7 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	/**
 	 * Clears the objects in the data set.
 	 *
-	 * @return  JDataSet  Returns itself to allow chaining.
+	 * @return  Set  Returns itself to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -212,7 +212,7 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	/**
 	 * Get the current data object in the set.
 	 *
-	 * @return  JData  The current object, or false if the array is empty or the pointer is beyond the end of the elements.
+	 * @return  Object  The current object, or false if the array is empty or the pointer is beyond the end of the elements.
 	 *
 	 * @since   1.0
 	 */
@@ -224,14 +224,14 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	/**
 	 * Dumps the data object in the set, recursively if appropriate.
 	 *
-	 * @param   integer           $depth   The maximum depth of recursion (default = 3).
-	 *                                     For example, a depth of 0 will return a stdClass with all the properties in native
-	 *                                     form. A depth of 1 will recurse into the first level of properties only.
-	 * @param   SplObjectStorage  $dumped  An array of already serialized objects that is used to avoid infinite loops.
+	 * @param   integer            $depth   The maximum depth of recursion (default = 3).
+	 *                                      For example, a depth of 0 will return a stdClass with all the properties in native
+	 *                                      form. A depth of 1 will recurse into the first level of properties only.
+	 * @param   \SplObjectStorage  $dumped  An array of already serialized objects that is used to avoid infinite loops.
 	 *
 	 * @return  array  An associative array of the date objects in the set, dumped as a simple PHP stdClass object.
 	 *
-	 * @see     JData::dump()
+	 * @see     Joomla\Data\Object::dump()
 	 * @since   1.0
 	 */
 	public function dump($depth = 3, \SplObjectStorage $dumped = null)
@@ -375,7 +375,7 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @param   mixed  $offset  The object offset.
 	 *
-	 * @return  JData  The object if it exists, null otherwise.
+	 * @return  Object  The object if it exists, null otherwise.
 	 *
 	 * @since   1.0
 	 */
@@ -387,18 +387,17 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	/**
 	 * Sets an offset in the iterator.
 	 *
-	 * @param   mixed  $offset  The object offset.
-	 * @param   JData  $object  The object object.
+	 * @param   mixed   $offset  The object offset.
+	 * @param   Object  $object  The object object.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if an object is not an instance of JData.
+	 * @throws  InvalidArgumentException if an object is not an instance of Data\Object.
 	 */
 	public function offsetSet($offset, $object)
 	{
-		// Check if the object is a JData object.
-		if (!($object instanceof Data))
+		if (!($object instanceof Object))
 		{
 			throw new \InvalidArgumentException(sprintf('%s("%s", *%s*)', __METHOD__, $offset, gettype($object)));
 		}
@@ -494,7 +493,7 @@ class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if an object is not an instance of JData.
+	 * @throws  InvalidArgumentException if an object is not an instance of Data\Object.
 	 */
 	private function _initialise(array $input = array())
 	{

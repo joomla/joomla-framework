@@ -11,7 +11,7 @@ namespace Joomla\Crypt;
  *
  * @property-read  string  $type  The key type.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Key
 {

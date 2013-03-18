@@ -7,9 +7,9 @@
 /**
  * Form Field class for the Joomla Framework.
  *
- * @since    1.0
+ * @since  1.0
  */
-class FooFormFieldModal_Bar extends JFormField
+class FooFormFieldModal_Bar extends Joomla\Form\Field
 {
 	/**
 	 * Method to get the field input.

@@ -11,8 +11,8 @@ use Joomla\Session\Storage;
 /**
  * Default PHP configured session handler for Joomla!
  *
- * @see      http://www.php.net/manual/en/function.session-set-save-handler.php
- * @since    1.0
+ * @see    http://www.php.net/manual/en/function.session-set-save-handler.php
+ * @since  1.0
  */
 class None extends Storage
 {

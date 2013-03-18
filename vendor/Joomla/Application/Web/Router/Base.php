@@ -13,7 +13,7 @@ use InvalidArgumentException;
 /**
  * Basic Web application router class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Base extends Router
 {

@@ -11,9 +11,9 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Framework Base Model Class
  *
- * @since    1.0
+ * @since  1.0
  */
-abstract class Base implements Model
+class Base implements Model
 {
 	/**
 	 * The model state.
@@ -32,8 +32,7 @@ abstract class Base implements Model
 	 */
 	public function __construct(Registry $state = null)
 	{
-		// Setup the model.
-		$this->state = isset($state) ? $state : $this->loadState();
+		$this->state = ($state instanceof Registry) ? $state : new Registry;
 	}
 
 	/**
@@ -60,17 +59,5 @@ abstract class Base implements Model
 	public function setState(Registry $state)
 	{
 		$this->state = $state;
-	}
-
-	/**
-	 * Load the model state.
-	 *
-	 * @return  Registry  The state object.
-	 *
-	 * @since   1.0
-	 */
-	protected function loadState()
-	{
-		return new Registry;
 	}
 }

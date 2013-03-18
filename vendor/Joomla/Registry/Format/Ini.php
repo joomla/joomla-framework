@@ -12,15 +12,21 @@ use stdClass;
 /**
  * INI format handler for Registry.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Ini extends Format
 {
+	/**
+	 * A cache used by stringToobject.
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
 	protected static $cache = array();
 
 	/**
 	 * Converts an object into an INI formatted string
-	 * -	Unfortunately, there is no way to have ini values nested further than two
+	 * - Unfortunately, there is no way to have ini values nested further than two
 	 * levels deep.  Therefore we will only go through the first two levels of
 	 * the object.
 	 *
@@ -66,7 +72,7 @@ class Ini extends Format
 	 * Parse an INI formatted string and convert it into an object.
 	 *
 	 * @param   string  $data     INI formatted string to convert.
-	 * @param   mixed   $options  An array of options used by the formatter, or a boolean setting to process sections.
+	 * @param   array   $options  An array of options used by the formatter, or a boolean setting to process sections.
 	 *
 	 * @return  object   Data object.
 	 *

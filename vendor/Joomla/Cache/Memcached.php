@@ -7,16 +7,17 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Memcached cache driver for the Joomla Framework.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Memcached extends Cache
 {
 	/**
-	 * @var    Memcached  The memcached driver.
+	 * @var    \Memcached  The memcached driver.
 	 * @since  1.0
 	 */
 	private $driver;
@@ -24,12 +25,12 @@ class Memcached extends Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Caching options object.
+	 * @param   mixed  $options  An options array, or an object that implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $options = null)
+	public function __construct($options = null)
 	{
 		parent::__construct($options);
 
@@ -40,27 +41,84 @@ class Memcached extends Cache
 	}
 
 	/**
-	 * Method to add a storage entry.
+	 * This will wipe out the entire cache's keys
+	 *
+	 * @return  boolean  The result of the clear operation.
+	 *
+	 * @since   1.0
+	 */
+	public function clear()
+	{
+		return $this->driver->flush();
+	}
+
+	/**
+	 * Method to get a storage entry value from a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  CacheItemInterface
+	 *
+	 * @since   1.0
+	 */
+	public function get($key)
+	{
+		$this->connect();
+		$value = $this->driver->get($key);
+		$code = $this->driver->getResultCode();
+		$item = new Item($key);
+
+		if ($code === \Memcached::RES_SUCCESS)
+		{
+			$item->setValue($value);
+		}
+
+		return $item;
+	}
+
+	/**
+	 * Method to remove a storage entry for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	public function remove($key)
+	{
+		$this->connect();
+
+		$this->driver->delete($key);
+
+		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
+		{
+// 			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Method to set a value for a storage entry.
 	 *
 	 * @param   string   $key    The storage entry identifier.
 	 * @param   mixed    $value  The data to be stored.
 	 * @param   integer  $ttl    The number of seconds before the stored data expires.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	protected function add($key, $value, $ttl)
+	public function set($key, $value, $ttl = null)
 	{
-		$this->_connect();
+		$this->connect();
 
-		$this->driver->add($key, $value, $ttl);
+		$this->driver->set($key, $value, $ttl);
 
-		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS)
-		{
-			throw new \RuntimeException(sprintf('Unable to add cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
-		}
+		return (bool) ($this->driver->getResultCode() == \Memcached::RES_SUCCESS);
+// 			throw new \RuntimeException(sprintf('Unable to set cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 	}
 
 	/**
@@ -74,89 +132,11 @@ class Memcached extends Cache
 	 */
 	protected function exists($key)
 	{
-		$this->_connect();
+		$this->connect();
 
 		$this->driver->get($key);
 
 		return ($this->driver->getResultCode() != \Memcached::RES_NOTFOUND);
-	}
-
-	/**
-	 * Method to get a storage entry value from a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function fetch($key)
-	{
-		$this->_connect();
-
-		$data = $this->driver->get($key);
-
-		$code = $this->driver->getResultCode();
-
-		if ($code === \Memcached::RES_SUCCESS)
-		{
-			return $data;
-		}
-		elseif ($code === \Memcached::RES_NOTFOUND)
-		{
-			return null;
-		}
-		else
-		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
-		}
-	}
-
-	/**
-	 * Method to remove a storage entry for a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function delete($key)
-	{
-		$this->_connect();
-
-		$this->driver->delete($key);
-
-		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
-		{
-			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
-		}
-	}
-
-	/**
-	 * Method to set a value for a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function set($key, $value, $ttl)
-	{
-		$this->_connect();
-
-		$this->driver->set($key, $value, $ttl);
-
-		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS)
-		{
-			throw new \RuntimeException(sprintf('Unable to set cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
-		}
 	}
 
 	/**
@@ -166,7 +146,7 @@ class Memcached extends Cache
 	 *
 	 * @since   1.0
 	 */
-	private function _connect()
+	private function connect()
 	{
 		// We want to only create the driver once.
 		if (isset($this->driver))
@@ -174,7 +154,7 @@ class Memcached extends Cache
 			return;
 		}
 
-		$pool = $this->options->get('memcache.pool');
+		$pool = $this->options['memcache.pool'];
 
 		if ($pool)
 		{
@@ -185,14 +165,14 @@ class Memcached extends Cache
 			$this->driver = new \Memcached;
 		}
 
-		$this->driver->setOption(\Memcached::OPT_COMPRESSION, $this->options->get('memcache.compress', false));
+		$this->driver->setOption(\Memcached::OPT_COMPRESSION, $this->options['memcache.compress'] ?: false);
 		$this->driver->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
 		$serverList = $this->driver->getServerList();
 
 		// If we are using a persistent pool we don't want to add the servers again.
 		if (empty($serverList))
 		{
-			$servers = $this->options->get('memcache.servers', array());
+			$servers = $this->options['memcache.servers'] ?: array();
 
 			foreach ($servers as $server)
 			{

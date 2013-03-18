@@ -9,7 +9,7 @@ use Joomla\Language\Helper as LanguageHelper;
 /**
  * Test class for LanguageHelper.
  *
- * @since    1.0
+ * @since  1.0
  */
 class LanguageHelperTest extends PHPUnit_Framework_TestCase
 {

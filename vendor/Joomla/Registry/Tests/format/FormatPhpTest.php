@@ -9,7 +9,7 @@ use Joomla\Registry\Format;
 /**
  * Test class for Php.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JRegistryFormatPHPTest extends PHPUnit_Framework_TestCase
 {

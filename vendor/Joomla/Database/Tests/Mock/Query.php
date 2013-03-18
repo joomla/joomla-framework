@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests\Mock;
 /**
  * Class to mock JDatabaseQuery.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Query extends \Joomla\Database\Query
 {

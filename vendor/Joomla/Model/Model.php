@@ -11,7 +11,7 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Platform Model Interface
  *
- * @since    1.0
+ * @since  1.0
  */
 interface Model
 {

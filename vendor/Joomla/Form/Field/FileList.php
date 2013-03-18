@@ -6,7 +6,7 @@
 
 namespace Joomla\Form;
 
-use Joomla\Html\Html;
+use Joomla\Form\Html\Select as HtmlSelect;
 use Joomla\Language\Text;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
@@ -14,7 +14,7 @@ use Joomla\Filesystem\Folder;
 /**
  * Supports an HTML select list of files
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_FileList extends Field_List
 {
@@ -58,12 +58,12 @@ class Field_FileList extends Field_List
 		// Prepend some default options based on field attributes.
 		if (!$hideNone)
 		{
-			$options[] = Html::_('select.option', '-1', Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
+			$options[] = HtmlSelect::option('-1', Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
 
 		if (!$hideDefault)
 		{
-			$options[] = Html::_('select.option', '', Text::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
+			$options[] = HtmlSelect::option('', Text::alt('JOPTION_USE_DEFAULT', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)));
 		}
 
 		// Get a list of files in the search path with the given filter.
@@ -89,7 +89,7 @@ class Field_FileList extends Field_List
 					$file = File::stripExt($file);
 				}
 
-				$options[] = Html::_('select.option', $file, $file);
+				$options[] = HtmlSelect::option($file, $file);
 			}
 		}
 

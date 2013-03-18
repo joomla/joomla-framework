@@ -6,14 +6,14 @@
 
 namespace Joomla\Data\Tests;
 
-use Joomla\Data;
+use Joomla\Data\Object;
 
 /**
- * Derived JData class for testing.
+ * Derived Data\Object class for testing.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JDataBuran extends Data\Data
+class JDataBuran extends Object
 {
 	public $rocket = false;
 
@@ -22,7 +22,7 @@ class JDataBuran extends Data\Data
 	 *
 	 * @param   string  $value  The test value.
 	 *
-	 * @return  JData  Chainable.
+	 * @return  Object  Chainable.
 	 *
 	 * @since   1.0
 	 */

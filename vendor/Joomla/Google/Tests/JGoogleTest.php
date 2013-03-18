@@ -6,12 +6,14 @@
 
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
+use Joomla\Google\Google;
+
 /**
- * Test class for JGoogle.
+ * Test class for Google.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JGoogleTest extends GoogleTestCase
+class GoogleTest extends GoogleTestCase
 {
 	/**
 	 * @var    JGoogle  Object under test.
@@ -29,14 +31,14 @@ class JGoogleTest extends GoogleTestCase
 	{
 		parent::setUp();
 
-		$this->object = new JGoogle($this->options, $this->auth);
+		$this->object = new Google($this->options, $this->auth);
 	}
 
 	/**
 	 * Tests the magic __get method - data
 	 *
-	 * @group	JGoogle
-	 * @return void
+	 * @group   Google
+	 * @return  void
 	 */
 	public function test__GetData()
 	{
@@ -44,19 +46,19 @@ class JGoogleTest extends GoogleTestCase
 		$this->options->set('redirecturi', 'http://j.aaronschmitz.com/web/calendar-test');
 		$this->assertThat(
 			$this->object->data('Plus'),
-			$this->isInstanceOf('JGoogleDataPlus')
+			$this->isInstanceOf('Joomla\Google\Data\Plus')
 		);
 		$this->assertThat(
 			$this->object->data('Picasa'),
-			$this->isInstanceOf('JGoogleDataPicasa')
+			$this->isInstanceOf('Joomla\Google\Data\Picasa')
 		);
 		$this->assertThat(
 			$this->object->data('Adsense'),
-			$this->isInstanceOf('JGoogleDataAdsense')
+			$this->isInstanceOf('Joomla\Google\Data\Adsense')
 		);
 		$this->assertThat(
 			$this->object->data('Calendar'),
-			$this->isInstanceOf('JGoogleDataCalendar')
+			$this->isInstanceOf('Joomla\Google\Data\Calendar')
 		);
 		$this->assertNull($this->object->data('NotAClass'));
 	}
@@ -71,11 +73,11 @@ class JGoogleTest extends GoogleTestCase
 	{
 		$this->assertThat(
 			$this->object->embed('Maps'),
-			$this->isInstanceOf('JGoogleEmbedMaps')
+			$this->isInstanceOf('Joomla\Google\Embed\Maps')
 		);
 		$this->assertThat(
 			$this->object->embed('Analytics'),
-			$this->isInstanceOf('JGoogleEmbedAnalytics')
+			$this->isInstanceOf('Joomla\Google\Embed\Analytics')
 		);
 		$this->assertNull($this->object->embed('NotAClass'));
 	}

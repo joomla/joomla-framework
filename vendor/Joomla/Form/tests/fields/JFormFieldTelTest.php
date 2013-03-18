@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldTel.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldTelTest extends PHPUnit_Framework_TestCase
 {

@@ -13,7 +13,7 @@ use stdClass;
 /**
  * XML format handler for Registry.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Xml extends Format
 {

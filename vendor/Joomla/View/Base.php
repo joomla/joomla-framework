@@ -11,7 +11,7 @@ use Joomla\Model\Model;
 /**
  * Joomla Platform Base View Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Base implements View
 {

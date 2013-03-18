@@ -8,12 +8,11 @@ namespace Joomla\Database\Exporter;
 
 use Joomla\Database\Exporter;
 use Joomla\Database\Driver\Postgresql as DriverPostrgresql;
-use Exception;
 
 /**
  * PostgreSQL export driver.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Postgresql extends Exporter
 {
@@ -112,13 +111,13 @@ class Postgresql extends Exporter
 		// Check if the db connector has been set.
 		if (!($this->db instanceof DriverPostrgresql))
 		{
-			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;

@@ -12,9 +12,9 @@ use Joomla\Html\Html;
  * Form Field class for the Joomla Platform.
  * Text field for passwords
  *
- * @link     http://www.w3.org/TR/html-markup/input.password.html#input.password
- * @note     Two password fields may be validated as matching using JFormRuleEquals
- * @since    1.0
+ * @link   http://www.w3.org/TR/html-markup/input.password.html#input.password
+ * @note   Two password fields may be validated as matching using JFormRuleEquals
+ * @since  1.0
  */
 class Field_Password extends Field
 {

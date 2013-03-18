@@ -5,16 +5,17 @@
  */
 
 use Joomla\Registry\Registry;
+use Joomla\Github\Hooks;
 
 /**
- * Test class for JGithubHooks.
+ * Test class for Joomla\Github\Hooks.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JGithubHooksTest extends PHPUnit_Framework_TestCase
+class HooksTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the GitHub object.
+	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -26,7 +27,7 @@ class JGithubHooksTest extends PHPUnit_Framework_TestCase
 	protected $client;
 
 	/**
-	 * @var    JGithubHooks  Object under test.
+	 * @var    Joomla\Github\Hooks  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -58,7 +59,7 @@ class JGithubHooksTest extends PHPUnit_Framework_TestCase
 		$this->options = new Registry;
 		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
-		$this->object = new JGithubHooks($this->options, $this->client);
+		$this->object = new Hooks($this->options, $this->client);
 	}
 
 	/**

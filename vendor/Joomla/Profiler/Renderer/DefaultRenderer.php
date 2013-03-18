@@ -12,7 +12,7 @@ use Joomla\Profiler\ProfilerInterface;
 /**
  * Default profiler renderer.
  *
- * @since    1.0
+ * @since  1.0
  */
 class DefaultRenderer implements ProfilerRendererInterface
 {

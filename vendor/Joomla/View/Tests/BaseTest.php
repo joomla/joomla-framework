@@ -13,7 +13,7 @@ require_once __DIR__ . '/stubs/tbase.php';
 /**
  * Tests for the Joomla\View\Base class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class BaseTest extends \PHPUnit_Framework_TestCase
 {

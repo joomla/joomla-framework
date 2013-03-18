@@ -15,7 +15,7 @@ use Joomla\Filesystem\Path;
  * Provides a storage for filesystem's paths where JForm's entities reside and methods for creating those entities.
  * Also stores objects with entities' prototypes for further reusing.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Helper
 {

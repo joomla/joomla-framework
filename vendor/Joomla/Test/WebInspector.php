@@ -11,7 +11,7 @@ use Joomla\Application\Web;
 /**
  * Inspector for the Joomla\Application\Web class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class WebInspector extends Web
 {

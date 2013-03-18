@@ -11,7 +11,7 @@ use Joomla\Date\Date;
 /**
  * Test class for JLogEntry.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JLogEntryTest extends PHPUnit_Framework_TestCase
 {

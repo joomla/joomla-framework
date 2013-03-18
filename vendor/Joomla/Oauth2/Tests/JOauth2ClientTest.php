@@ -13,7 +13,7 @@ use Joomla\Test\WebInspector;
 /**
  * Test class for Client.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ClientTest extends PHPUnit_Framework_TestCase
 {

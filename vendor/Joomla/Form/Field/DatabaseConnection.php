@@ -14,8 +14,8 @@ use Joomla\Database\Driver;
  * Provides a list of available database connections, optionally limiting to
  * a given list.
  *
- * @see      JDatabaseDriver
- * @since    1.0
+ * @see    JDatabaseDriver
+ * @since  1.0
  */
 class Field_DatabaseConnection extends Field_List
 {

@@ -6,16 +6,17 @@
 
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
+use Joomla\Github\Issues;
 
 /**
- * Test class for JGithubIssues.
+ * Test class for Joomla\Github\Issues.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JGithubIssuesTest extends PHPUnit_Framework_TestCase
+class IssuesTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the GitHub object.
+	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -27,7 +28,7 @@ class JGithubIssuesTest extends PHPUnit_Framework_TestCase
 	protected $client;
 
 	/**
-	 * @var    JGithubIssues  Object under test.
+	 * @var    Joomla\Github\Issues  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -59,7 +60,7 @@ class JGithubIssuesTest extends PHPUnit_Framework_TestCase
 		$this->options = new Registry;
 		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
-		$this->object = new JGithubIssues($this->options, $this->client);
+		$this->object = new Issues($this->options, $this->client);
 	}
 
 	/**

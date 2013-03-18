@@ -11,7 +11,7 @@ use Joomla\Registry\Registry;
 /**
  * Keychain Class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Keychain extends Registry
 {

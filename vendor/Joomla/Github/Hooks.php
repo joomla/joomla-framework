@@ -12,7 +12,7 @@ use RuntimeException;
 /**
  * GitHub API Hooks class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Hooks extends Object
 {

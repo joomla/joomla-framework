@@ -5,16 +5,17 @@
  */
 
 use Joomla\Registry\Registry;
+use Joomla\Github\Milestones;
 
 /**
- * Test class for JGithubPulls.
+ * Test class for Joomla\Github\Milestones.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
+class MilestonesTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the GitHub object.
+	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -26,7 +27,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 	protected $client;
 
 	/**
-	 * @var    JGithubPulls  Object under test.
+	 * @var    Joomla\Github\Milestones  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -58,7 +59,7 @@ class JGithubMilestonesTest extends PHPUnit_Framework_TestCase
 		$this->options = new Registry;
 		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
-		$this->object = new JGithubMilestones($this->options, $this->client);
+		$this->object = new Milestones($this->options, $this->client);
 	}
 
 	/**

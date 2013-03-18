@@ -11,7 +11,7 @@ use Joomla\Image\Filter;
 /**
  * Image Filter class to make an image appear "sketchy".
  *
- * @since    1.0
+ * @since  1.0
  */
 class Sketchy extends Filter
 {

@@ -11,7 +11,7 @@ use Joomla\View;
 /**
  * Concrete class extending JViewHtml.
  *
- * @since    1.0
+ * @since  1.0
  */
 class HtmlView extends View\Html
 {

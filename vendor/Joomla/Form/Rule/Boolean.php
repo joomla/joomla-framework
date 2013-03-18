@@ -11,7 +11,7 @@ use Joomla\Form\Rule;
 /**
  * Form Rule class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Boolean extends Rule
 {

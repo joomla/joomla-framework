@@ -5,11 +5,12 @@
  */
 
 use Joomla\Image\Filter\Brightness as FilterBrightness;
+use Joomla\Test\Helper;
 
 /**
  * Test class for JImage.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JImageFilterTest extends PHPUnit_Framework_TestCase
 {
@@ -72,6 +73,6 @@ class JImageFilterTest extends PHPUnit_Framework_TestCase
 
 		$filter = new FilterBrightness($imageHandle);
 
-		$this->assertEquals(TestReflection::getValue($filter, 'handle'), $imageHandle);
+		$this->assertEquals(Helper::getValue($filter, 'handle'), $imageHandle);
 	}
 }

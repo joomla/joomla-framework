@@ -23,28 +23,32 @@ You can store the private key in a code repository but you **MUST NOT** commit t
 
 ### Classes
 
-#### JKeychain
+#### `Keychain\Keychain`
 
 ##### Construction
 
-The JKeychain class extends Registry. There are no changes to the constructor's argument list so optional initialisation with data can be done in the normal way.
+The `Keychain` class extends `Registry`. There are no changes to the constructor's argument list so optional initialisation with data can be done in the normal way.
 
 ```php
-// Create a keychain.
-$keychain1 = new JKeychain;
+use Joomla\Keychain\Keychain;
 
-$keychain2 = new JKeychain(array('username' => 'foo', 'password' => 'bar'));
+// Create a keychain.
+$keychain1 = new Keychain;
+
+$keychain2 = new Keychain(array('username' => 'foo', 'password' => 'bar'));
 ```
 
 ##### Usage
 
-A JKeychain object operates in the same way as a Registry object. What JKeychain provides is a way to load data from, and store data to an encrypted data source.
+A `Keychain` object operates in the same way as a Registry object. What `Keychain` provides is a way to load data from, and store data to an encrypted data source.
 
 When using this class, the private and public keys must already exist on the server. The third required element is the passphrase file and the following example shows how to create it.
 
 ```php
+use Joomla\Keychain\Keychain;
+
 // Create a keychain object.
-$keychain = new JKeychain;
+$keychain = new Keychain;
 
 // The passphrase/passowrd should not be stored in any code repository.
 $passPhrase = 'the Pass Phrase';
@@ -62,8 +66,10 @@ The passphrase file will generally be created using the Keychain Management Util
 Likewise, initial data is probably already created in a keychain data file (again, using the Keychain Management Utility and the `create` command). The following example shows how to load the keychain data:
 
 ```php
+use Joomla\Keychain\Keychain;
+
 // Create a keychain object.
-$keychain = new JKeychain;
+$keychain = new Keychain;
 
 $keychainFile = '/etc/project/config/keychain.dat';
 $passPhrasePath = '/etc/project/config/keychain.passphrase';

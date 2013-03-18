@@ -11,7 +11,7 @@ use Joomla\Registry\Format;
 /**
  * PHP class format handler for Registry
  *
- * @since    1.0
+ * @since  1.0
  */
 class Php extends Format
 {

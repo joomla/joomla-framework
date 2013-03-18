@@ -10,10 +10,10 @@ namespace Joomla\Form;
  * Form Field class for the Joomla Platform.
  * Supports a text field telephone numbers.
  *
- * @link     http://www.w3.org/TR/html-markup/input.tel.html
- * @see      JFormRuleTel for telephone number validation
- * @see      JHtmlTel for rendering of telephone numbers
- * @since    1.0
+ * @link   http://www.w3.org/TR/html-markup/input.tel.html
+ * @see    JFormRuleTel for telephone number validation
+ * @see    JHtmlTel for rendering of telephone numbers
+ * @since  1.0
  */
 class Field_Tel extends Field_Text
 {

@@ -12,7 +12,7 @@ use Joomla\Filesystem\File;
 /**
  * Bzip2 format adapter for the JArchive class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Bzip2 implements Extractable
 {

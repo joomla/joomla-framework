@@ -14,7 +14,7 @@ use Joomla\Uri\Uri;
 /**
  * HTTP transport class for using sockets directly.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Socket implements Transport
 {

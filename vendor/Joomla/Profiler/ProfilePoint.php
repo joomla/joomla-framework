@@ -9,7 +9,7 @@ namespace Joomla\Profiler;
 /**
  * Implementation of ProfilePointInterface.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ProfilePoint implements ProfilePointInterface
 {

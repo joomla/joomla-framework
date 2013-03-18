@@ -9,7 +9,7 @@ namespace Joomla\Profiler;
 /**
  * Interface for profiler renderers.
  *
- * @since    1.0
+ * @since  1.0
  */
 interface ProfilerRendererInterface
 {

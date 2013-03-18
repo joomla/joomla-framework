@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests;
 /**
  * Tests the JDatabaseMySqlExporter class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ExporterMysqliTest extends \PHPUnit_Framework_TestCase
 {

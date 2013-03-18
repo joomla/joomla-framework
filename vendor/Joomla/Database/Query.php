@@ -6,141 +6,181 @@
 
 namespace Joomla\Database;
 
-use RuntimeException;
-
 /**
  * Query Building Class.
  *
- * @since    1.0
+ * @since  1.0
  *
- * @method      string  q()   q($text, $escape = true)  Alias for quote method
- * @method      string  qn()  qs($name, $as = null)     Alias for quoteName method
- * @method      string  e()   e($text, $extra = false)  Alias for escape method
+ * @method  string  q()   q($text, $escape = true)  Alias for quote method
+ * @method  string  qn()  qs($name, $as = null)     Alias for quoteName method
+ * @method  string  e()   e($text, $extra = false)  Alias for escape method
  */
 abstract class Query
 {
 	/**
-	 * @var    Driver  The database driver.
+	 * The database driver.
+	 *
+	 * @var    Driver
 	 * @since  1.0
 	 */
 	protected $db = null;
 
 	/**
-	 * @var    string  The SQL query (if a direct query string was provided).
+	 * The SQL query (if a direct query string was provided).
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $sql = null;
 
 	/**
-	 * @var    string  The query type.
+	 * The query type.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $type = '';
 
 	/**
-	 * @var    Query\Element  The query element for a generic query (type = null).
+	 * The query element for a generic query (type = null).
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $element = null;
 
 	/**
-	 * @var    Query\Element  The select element.
+	 * The select element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $select = null;
 
 	/**
-	 * @var    Query\Element  The delete element.
+	 * The delete element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $delete = null;
 
 	/**
-	 * @var    Query\Element  The update element.
+	 * The update element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $update = null;
 
 	/**
-	 * @var    Query\Element  The insert element.
+	 * The insert element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $insert = null;
 
 	/**
-	 * @var    Query\Element  The from element.
+	 * The from element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $from = null;
 
 	/**
-	 * @var    Query\Element  The join element.
+	 * The join element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $join = null;
 
 	/**
-	 * @var    Query\Element  The set element.
+	 * The set element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $set = null;
 
 	/**
-	 * @var    Query\Element  The where element.
+	 * The where element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $where = null;
 
 	/**
-	 * @var    Query\Element  The group by element.
+	 * The group by element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $group = null;
 
 	/**
-	 * @var    Query\Element  The having element.
+	 * The having element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $having = null;
 
 	/**
-	 * @var    Query\Element  The column list for an INSERT statement.
+	 * The column list for an INSERT statement.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $columns = null;
 
 	/**
-	 * @var    Query\Element  The values list for an INSERT statement.
+	 * The values list for an INSERT statement.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $values = null;
 
 	/**
-	 * @var    Query\Element  The order element.
+	 * The order element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $order = null;
 
 	/**
-	 * @var    object  The auto increment insert field element.
+	 * The auto increment insert field element.
+	 *
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $autoIncrementField = null;
 
 	/**
-	 * @var    Query\Element  The call element.
+	 * The call element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $call = null;
 
 	/**
-	 * @var    Query\Element  The exec element.
+	 * The exec element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $exec = null;
 
 	/**
-	 * @var    Query\Element  The union element.
+	 * The union element.
+	 *
+	 * @var    Query\Element
 	 * @since  1.0
 	 */
 	protected $union = null;
@@ -619,7 +659,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->getDateFormat();
@@ -687,7 +727,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->escape($text, $extra);
@@ -751,7 +791,7 @@ abstract class Query
 			{
 				if (is_null($subQueryAlias))
 				{
-					throw new RuntimeException('JLIB_DATABASE_ERROR_NULL_SUBQUERY_ALIAS');
+					throw new \RuntimeException('JLIB_DATABASE_ERROR_NULL_SUBQUERY_ALIAS');
 				}
 
 				$tables = '( ' . (string) $tables . ' ) AS ' . $this->quoteName($subQueryAlias);
@@ -1051,7 +1091,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		$result = $this->db->getNullDate($quoted);
@@ -1135,7 +1175,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->quote($text, $escape);
@@ -1168,7 +1208,7 @@ abstract class Query
 	{
 		if (!($this->db instanceof Driver))
 		{
-			throw new RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
+			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
 
 		return $this->db->quoteName($name, $as);

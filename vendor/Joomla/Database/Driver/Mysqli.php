@@ -6,15 +6,14 @@
 
 namespace Joomla\Database\Driver;
 
-use Joomla\Log\Log;
 use Joomla\Database\Driver;
-use RuntimeException;
+use Psr\Log;
 
 /**
  * MySQLi database driver
  *
- * @see      http://php.net/manual/en/book.mysqli.php
- * @since    1.0
+ * @see    http://php.net/manual/en/book.mysqli.php
+ * @since  1.0
  */
 class Mysqli extends Driver
 {
@@ -133,7 +132,7 @@ class Mysqli extends Driver
 		// Make sure the MySQLi extension for PHP is installed and enabled.
 		if (!function_exists('mysqli_connect'))
 		{
-			throw new RuntimeException('The MySQL adapter mysqli is not available');
+			throw new \RuntimeException('The MySQL adapter mysqli is not available');
 		}
 
 		$this->connection = @mysqli_connect(
@@ -143,7 +142,7 @@ class Mysqli extends Driver
 		// Attempt to connect to the server.
 		if (!$this->connection)
 		{
-			throw new RuntimeException('Could not connect to MySQL.');
+			throw new \RuntimeException('Could not connect to MySQL.');
 		}
 
 		// Set sql_mode to non_strict mode
@@ -473,8 +472,12 @@ class Mysqli extends Driver
 
 		if (!is_object($this->connection))
 		{
-			Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
-			throw new RuntimeException($this->errorMsg, $this->errorNum);
+			$this->log(
+				Log\LogLevel::ERROR,
+				'Database query failed (error #{code}): {message}',
+				array('code' => $this->errorNum, 'message' => $this->errorMsg)
+			);
+			throw new \RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -494,7 +497,11 @@ class Mysqli extends Driver
 			// Add the query to the object queue.
 			$this->log[] = $sql;
 
-			Log::add($sql, Log::DEBUG, 'databasequery');
+			$this->log(
+				Log\LogLevel::DEBUG,
+				'{sql}',
+				array('sql' => $sql, 'category' => 'databasequery')
+			);
 		}
 
 		// Reset the error values.
@@ -519,11 +526,15 @@ class Mysqli extends Driver
 					$this->connection = null;
 					$this->connect();
 				}
-				catch (RuntimeException $e)
+				catch (\RuntimeException $e)
 				// If connect fails, ignore that exception and throw the normal exception.
 				{
-					Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-					throw new RuntimeException($this->errorMsg, $this->errorNum);
+					$this->log(
+						Log\LogLevel::ERROR,
+						'Database query failed (error #{code}): {message}',
+						array('code' => $this->errorNum, 'message' => $this->errorMsg)
+					);
+					throw new \RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -532,8 +543,12 @@ class Mysqli extends Driver
 			else
 			// The server was not disconnected.
 			{
-				Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-				throw new RuntimeException($this->errorMsg, $this->errorNum);
+				$this->log(
+					Log\LogLevel::ERROR,
+					'Database query failed (error #{code}): {message}',
+					array('code' => $this->errorNum, 'message' => $this->errorMsg)
+				);
+				throw new \RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
 
@@ -581,7 +596,7 @@ class Mysqli extends Driver
 
 		if (!mysqli_select_db($this->connection, $database))
 		{
-			throw new RuntimeException('Could not connect to database.');
+			throw new \RuntimeException('Could not connect to database.');
 		}
 
 		return true;

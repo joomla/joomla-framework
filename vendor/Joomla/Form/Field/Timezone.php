@@ -8,12 +8,11 @@ namespace Joomla\Form;
 
 use Joomla\Factory;
 use Joomla\Html\Html;
-use DateTimeZone;
 
 /**
  * Form Field class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_Timezone extends Field_GroupedList
 {
@@ -55,7 +54,7 @@ class Field_Timezone extends Field_GroupedList
 		}
 
 		// Get the list of time zones from the server.
-		$zones = DateTimeZone::listIdentifiers();
+		$zones = \DateTimeZone::listIdentifiers();
 
 		// Build the group lists.
 		foreach ($zones as $zone)

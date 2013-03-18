@@ -6,12 +6,14 @@
 
 namespace Joomla\Cache\Tests;
 
+use Joomla\Test\Helper;
+
 require_once __DIR__ . '/Stubs/Concrete.php';
 
 /**
  * Tests for the Joomla\Cache\Cache class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class CacheTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +24,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the __construct method.
+	 * Tests the Joomla\Cache\Cache::__construct method.
 	 *
 	 * @return  void
 	 *
@@ -31,72 +33,67 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$this->markTestIncomplete();
+		// This checks the default ttl and also that the options registry was initialised.
+		$this->assertEquals('900', $this->instance->getOption('ttl'));
 	}
 
 	/**
-	 * Tests the get method.
+	 * Tests the Joomla\Cache\Cache::getMultiple method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Cache::get
+	 * @covers  Joomla\Cache\Cache::getMultiple
 	 * @since   1.0
 	 */
-	public function testGet()
+	public function testGetMultiple()
 	{
-		$this->markTestIncomplete();
+		$result = $this->instance->getMultiple(array('foo', 'goo'));
+		$this->assertArrayHasKey('foo', $result, 'Checks the return array (1).');
+		$this->assertArrayHasKey('goo', $result, 'Checks the return array (2).');
+		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $result['foo'], 'Checks the return type.');
 	}
 
 	/**
-	 * Tests the getOption method.
+	 * Tests the Joomla\Cache\Cache::removeMultiple method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Cache::removeMultiple
+	 * @since   1.0
+	 */
+	public function testRemoveMultiple()
+	{
+		$result = $this->instance->removeMultiple(array('foo', 'goo'));
+		$this->assertEquals(array('foo' => true, 'goo' => true), $result);
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Cache::setOption method.
 	 *
 	 * @return  void
 	 *
 	 * @covers  Joomla\Cache\Cache::getOption
-	 * @since   1.0
-	 */
-	public function testGetOption()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the remove method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Cache::remove
-	 * @since   1.0
-	 */
-	public function testrRemove()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the setOption method.
-	 *
-	 * @return  void
-	 *
 	 * @covers  Joomla\Cache\Cache::setOption
 	 * @since   1.0
 	 */
 	public function testSetOption()
 	{
-		$this->markTestIncomplete();
+		$this->assertSame($this->instance, $this->instance->setOption('foo', 'bar'), 'Checks chaining');
+		$this->assertEquals('bar', $this->instance->getOption('foo'));
 	}
 
 	/**
-	 * Tests the store method.
+	 * Tests the Joomla\Cache\Cache::setMultiple method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Cache::store
+	 * @covers  Joomla\Cache\Cache::setMultiple
 	 * @since   1.0
 	 */
-	public function teststore()
+	public function testSetMultiple()
 	{
-		$this->markTestIncomplete();
+		$result = $this->instance->setMultiple(array('foo' => 'bar', 'goo' => 'car'), 50);
+		$this->assertTrue($result);
 	}
 
 	/**

@@ -9,7 +9,7 @@ namespace Joomla\Crypt;
 /**
  * Joomla Platform Password Hashing Interface
  *
- * @since    1.0
+ * @since  1.0
  */
 interface Password
 {

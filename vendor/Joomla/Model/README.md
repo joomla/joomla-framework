@@ -14,14 +14,11 @@
 #### Construction
 
 The contructor for a new `Model\Base` object takes an optional `Registry` object that
-defines the state of the model. If omitted, the contructor defers to the
-protected `loadState` method. This method can be overriden in a derived
-class and takes the place of the `populateState` method used in the legacy
-model class.
+defines the state of the model. If omitted, an empty `Registry` object will be assigned automatically.
 
 #### Usage
 
-The `Model\Base` class is abstract so cannot be used directly. All
+The `Model\Base` class can be instantiated directly if required. All
 requirements of the interface are already satisfied by the base class.
 
 ```php
@@ -57,11 +54,7 @@ class MyModel extends Base
 
 #### Construction
 
-`Model\Database` is extended from `Model\Base` and the contructor takes an
-optional `Database\Driver` object and an optional `Registry` object (the
-same one that `JModelBase` uses). If the database object is omitted, the
-contructor defers to the protected `loadDb` method which loads the
-database object from the platform factory.
+`Model\Database` is extended from `Model\Base` and the contructor takes a required `Database\Driver` object and an optional `Registry` object.
 
 #### Usage
 
@@ -73,6 +66,7 @@ forms a base for any model that needs to interact with a database.
 namespace MyApp
 
 use Joomla\Model;
+use Joomla\Database;
 
 /**
  * My custom database model.
@@ -108,7 +102,8 @@ class MyDatabaseModel extends Model\Database
 
 try
 {
-	$model = new MyDatabaseModel;
+	$driver = Database\Factory::getInstance()->getDriver('mysqli');
+	$model = new MyDatabaseModel($driver);
 	$count = $model->getCount();
 }
 catch (RuntimeException $e)

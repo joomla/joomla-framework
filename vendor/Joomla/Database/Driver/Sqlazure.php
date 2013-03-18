@@ -9,8 +9,8 @@ namespace Joomla\Database\Driver;
 /**
  * SQL Server database driver
  *
- * @see      http://msdn.microsoft.com/en-us/library/ee336279.aspx
- * @since    1.0
+ * @see    http://msdn.microsoft.com/en-us/library/ee336279.aspx
+ * @since  1.0
  */
 class Sqlazure extends Sqlsrv
 {

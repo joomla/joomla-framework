@@ -14,7 +14,7 @@ use Joomla\Filesystem\Support\StringController;
  * This class allows you to use a PHP string in the same way that
  * you would normally use a regular stream wrapper
  *
- * @since    1.0
+ * @since  1.0
  */
 class String
 {

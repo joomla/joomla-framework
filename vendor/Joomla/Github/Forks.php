@@ -9,7 +9,7 @@ namespace Joomla\Github;
 /**
  * GitHub API Forks class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Forks extends Object
 {

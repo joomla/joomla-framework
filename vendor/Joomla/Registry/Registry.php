@@ -11,9 +11,9 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Registry class
  *
- * @since    1.0
+ * @since  1.0
  */
-class Registry implements \JsonSerializable
+class Registry implements \JsonSerializable, \ArrayAccess
 {
 	/**
 	 * Registry Object
@@ -324,6 +324,63 @@ class Registry implements \JsonSerializable
 	}
 
 	/**
+	 * Checks whether an offset exists in the iterator.
+	 *
+	 * @param   mixed  $offset  The array offset.
+	 *
+	 * @return  boolean  True if the offset exists, false otherwise.
+	 *
+	 * @since   1.0
+	 */
+	public function offsetExists($offset)
+	{
+		return (boolean) ($this->get($offset) !== null);
+	}
+
+	/**
+	 * Gets an offset in the iterator.
+	 *
+	 * @param   mixed  $offset  The array offset.
+	 *
+	 * @return  mixed  The array value if it exists, null otherwise.
+	 *
+	 * @since   1.0
+	 */
+	public function offsetGet($offset)
+	{
+		return $this->get($offset);
+	}
+
+	/**
+	 * Sets an offset in the iterator.
+	 *
+	 * @param   mixed  $offset  The array offset.
+	 * @param   mixed  $value   The array value.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function offsetSet($offset, $value)
+	{
+		$this->set($offset, $value);
+	}
+
+	/**
+	 * Unsets an offset in the iterator.
+	 *
+	 * @param   mixed  $offset  The array offset.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function offsetUnset($offset)
+	{
+		$this->set($offset, null);
+	}
+
+	/**
 	 * Set a registry value.
 	 *
 	 * @param   string  $path   Registry Path (e.g. joomla.content.showauthor)
@@ -337,8 +394,12 @@ class Registry implements \JsonSerializable
 	{
 		$result = null;
 
-		// Explode the registry path into an array
-		$nodes = explode('.', $path);
+		/**
+		 * Explode the registry path into an array and remove empty
+		 * nodes that occur as a result of a double dot. ex: joomla..test
+		 * Finally, re-key the array so they are sequential.
+		 */
+		$nodes = array_values(array_filter(explode('.', $path), 'strlen'));
 
 		if ($nodes)
 		{

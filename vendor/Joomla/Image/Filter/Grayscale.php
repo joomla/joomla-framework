@@ -11,7 +11,7 @@ use Joomla\Image\Filter;
 /**
  * Image Filter class to transform an image to grayscale.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Grayscale extends Filter
 {

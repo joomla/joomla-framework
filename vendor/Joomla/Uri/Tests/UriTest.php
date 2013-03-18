@@ -11,7 +11,7 @@ use Joomla\Uri\Uri;
 /**
  * Tests for the Joomla\Uri\Uri class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class UriTest extends \PHPUnit_Framework_TestCase
 {

@@ -2,6 +2,7 @@ git subsplit init git@github.com:joomla/joomla-framework.git
 git subsplit publish "
 	vendor/Joomla/Application:git@github.com:joomla/joomla-framework-application.git
 	vendor/Joomla/Archive:git@github.com:joomla/joomla-framework-archive.git
+	vendor/Joomla/Cache:git@github.com:joomla/joomla-framework-cache.git
 	vendor/Joomla/Client:git@github.com:joomla/joomla-framework-client.git
 	vendor/Joomla/Compat:git@github.com:joomla/joomla-framework-compat.git
 	vendor/Joomla/Controller:git@github.com:joomla/joomla-framework-controller.git

@@ -11,7 +11,7 @@ use Joomla\Database\Query;
 /**
  * PDO Query Building Class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Pdo extends Query
 {

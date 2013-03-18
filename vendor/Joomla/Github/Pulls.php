@@ -12,7 +12,7 @@ use DomainException;
 /**
  * GitHub API Pull Requests class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Pulls extends Object
 {

@@ -7,7 +7,7 @@
 /**
  * Test class for JForm.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldTextTest extends PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,7 @@ namespace Joomla\Database;
 /**
  * Joomla Platform Database Interface
  *
- * @since    1.0
+ * @since  1.0
  */
 interface DatabaseInterface
 {

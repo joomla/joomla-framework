@@ -13,7 +13,7 @@ use Joomla\Filesystem\Folder;
 /**
  * Test class for Joomla\Language\Language.
  *
- * @since    1.0
+ * @since  1.0
  */
 class LanguageTest extends PHPUnit_Framework_TestCase
 {

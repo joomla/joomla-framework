@@ -12,7 +12,7 @@ use RuntimeException;
 /**
  * XCache session storage handler
  *
- * @since    1.0
+ * @since  1.0
  */
 class Xcache extends Storage
 {

@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 /**
  * Test class for Joomla\Github\Forks.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ForksTest extends \PHPUnit_Framework_TestCase
 {

@@ -12,7 +12,7 @@ use Joomla\String\String;
 /**
  * JFilterOutput
  *
- * @since    1.0
+ * @since  1.0
  */
 class Output
 {

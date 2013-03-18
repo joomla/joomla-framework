@@ -9,7 +9,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * ArrayHelperTest
  *
- * @since    1.0
+ * @since  1.0
  */
 class ArrayHelperTest extends PHPUnit_Framework_TestCase
 {
@@ -38,11 +38,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 					array(2, 2, 3, array(4)),
 					array(3, 2, 3, array(4)),
 				),
-			),
-			'Passing a non-array with return it back' => array(
-				'foo',
-				'foo'
-			),
+			)
 		);
 	}
 
@@ -1651,5 +1647,19 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 		}
 
 		$this->assertEquals($expect, $output, $message);
+	}
+
+	public function testArraySearch()
+	{
+		$array = array(
+			'name' => 'Foo',
+			'email' => 'foobar@example.com'
+		);
+
+		// Search case sensitive.
+		$this->assertEquals('name', ArrayHelper::arraySearch('Foo', $array));
+
+		// Search case insenitive.
+		$this->assertEquals('email', ArrayHelper::arraySearch('FOOBAR', $array, false));
 	}
 }

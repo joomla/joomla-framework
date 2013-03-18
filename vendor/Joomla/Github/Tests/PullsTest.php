@@ -5,16 +5,17 @@
  */
 
 use Joomla\Registry\Registry;
+use Joomla\Github\Pulls;
 
 /**
- * Test class for JGithubPulls.
+ * Test class for Joomla\Github\Pulls.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JGithubPullsTest extends PHPUnit_Framework_TestCase
+class PullsTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the GitHub object.
+	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -26,7 +27,7 @@ class JGithubPullsTest extends PHPUnit_Framework_TestCase
 	protected $client;
 
 	/**
-	 * @var    JGithubPulls  Object under test.
+	 * @var    Joomla\Github\Pulls  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -58,7 +59,7 @@ class JGithubPullsTest extends PHPUnit_Framework_TestCase
 		$this->options = new Registry;
 		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 
-		$this->object = new JGithubPulls($this->options, $this->client);
+		$this->object = new Pulls($this->options, $this->client);
 	}
 
 	/**

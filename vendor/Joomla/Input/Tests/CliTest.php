@@ -4,160 +4,161 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input\Tests;
+
+use Joomla\Input\Cli;
+
+require_once __DIR__ . '/Stubs/FilterInputMock.php';
+
 /**
  * Test class for JInput.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JInputCLITest extends PHPUnit_Framework_TestCase
+class CliTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 */
-	protected $inspector;
-
-	/**
-	 * Setup for testing.
+	 * Test the Joomla\Input\Cli::get method.
 	 *
-	 * @return void
-	 */
-	protected function setUp()
-	{
-		parent::setUp();
-
-		include_once __DIR__ . '/stubs/JInputCliInspector.php';
-		include_once __DIR__ . '/stubs/JFilterInputMock.php';
-	}
-
-	/**
-	 * Test the JInput::get method.
+	 * @return  void
 	 *
-	 * @return void
+	 * @covers  Joomla\Input\Cli::get
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
 		$_SERVER['argv'] = array('/dev/null', '--foo=bar', '-ab', 'blah');
-		$this->inspector = new JInputCLIInspector(null, array('filter' => new JFilterInputMock));
+		$instance = new Cli(null, array('filter' => new FilterInputMock));
 
 		$this->assertThat(
-			$this->inspector->get('foo'),
+			$instance->get('foo'),
 			$this->identicalTo('bar'),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->get('a'),
+			$instance->get('a'),
 			$this->identicalTo(true),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->get('b'),
+			$instance->get('b'),
 			$this->identicalTo(true),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->args,
+			$instance->args,
 			$this->equalTo(array('blah')),
 			'Line: ' . __LINE__ . '.'
 		);
 	}
 
 	/**
-	 * Test the JInput::get method.
+	 * Test the Joomla\Input\Cli::get method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @covers  Joomla\Input\Cli::get
+	 * @since   1.0
 	 */
 	public function testParseLongArguments()
 	{
 		$_SERVER['argv'] = array('/dev/null', '--ab', 'cd', '--ef', '--gh=bam');
-		$this->inspector = new JInputCLIInspector(null, array('filter' => new JFilterInputMock));
+		$instance = new Cli(null, array('filter' => new FilterInputMock));
 
 		$this->assertThat(
-			$this->inspector->get('ab'),
+			$instance->get('ab'),
 			$this->identicalTo('cd'),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->get('ef'),
+			$instance->get('ef'),
 			$this->identicalTo(true),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->get('gh'),
+			$instance->get('gh'),
 			$this->identicalTo('bam'),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->args,
+			$instance->args,
 			$this->equalTo(array()),
 			'Line: ' . __LINE__ . '.'
 		);
 	}
 
 	/**
-	 * Test the JInput::get method.
+	 * Test the Joomla\Input\Cli::get method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @covers  Joomla\Input\Cli::get
+	 * @since   1.0
 	 */
 	public function testParseShortArguments()
 	{
 		$_SERVER['argv'] = array('/dev/null', '-ab', '-c', '-e', 'f', 'foobar', 'ghijk');
-		$this->inspector = new JInputCLIInspector(null, array('filter' => new JFilterInputMock));
+		$instance = new Cli(null, array('filter' => new FilterInputMock));
 
 		$this->assertThat(
-			$this->inspector->get('a'),
+			$instance->get('a'),
 			$this->identicalTo(true),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->get('b'),
+			$instance->get('b'),
 			$this->identicalTo(true),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->get('c'),
+			$instance->get('c'),
 			$this->identicalTo(true),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->get('e'),
+			$instance->get('e'),
 			$this->identicalTo('f'),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		$this->assertThat(
-			$this->inspector->args,
+			$instance->args,
 			$this->equalTo(array('foobar', 'ghijk')),
 			'Line: ' . __LINE__ . '.'
 		);
 	}
 
 	/**
-	 * Test the JInput::get method.
+	 * Test the Joomla\Input\Cli::get method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @covers  Joomla\Input\Cli::get
+	 * @since   1.0
 	 */
 	public function testGetFromServer()
 	{
-		$this->inspector = new JInputCLIInspector(null, array('filter' => new JFilterInputMock));
+		$instance = new Cli(null, array('filter' => new FilterInputMock));
 
 		// Check the object type.
 		$this->assertInstanceOf(
 			'Joomla\\Input\\Input',
-			$this->inspector->server,
+			$instance->server,
 			'Line: ' . __LINE__ . '.'
 		);
 
 		// Test the get method.
 		$this->assertThat(
-			$this->inspector->server->get('PHP_SELF'),
+			$instance->server->get('PHP_SELF'),
 			$this->identicalTo($_SERVER['PHP_SELF']),
 			'Line: ' . __LINE__ . '.'
 		);

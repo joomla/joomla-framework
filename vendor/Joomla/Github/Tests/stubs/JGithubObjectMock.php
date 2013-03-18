@@ -11,7 +11,7 @@ use Joomla\Github\Object;
 /**
  * JGithubObjectMock class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ObjectMock extends Object
 {

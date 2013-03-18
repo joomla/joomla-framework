@@ -9,7 +9,7 @@ namespace Joomla\Registry;
 /**
  * Abstract Format for Registry
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Format
 {

@@ -12,12 +12,12 @@ use Joomla\Registry\Registry;
 /**
  * Test class for Joomla\Github\Account.
  *
- * @since    1.0
+ * @since  1.0
  */
 class AccountTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the GitHub object.
+	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;

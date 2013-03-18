@@ -16,7 +16,7 @@ use InvalidArgumentException;
 /**
  * Google Adsense data class for the Joomla Platform.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Adsense extends Data
 {

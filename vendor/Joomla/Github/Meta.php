@@ -9,7 +9,7 @@ namespace Joomla\Github;
 /**
  * GitHub API Meta class for the Joomla Framework.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Meta extends Object
 {

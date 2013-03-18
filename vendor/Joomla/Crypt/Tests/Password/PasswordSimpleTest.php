@@ -13,7 +13,7 @@ use Joomla\Test\Helper;
 /**
  * Test class for JCryptPasswordSimple.
  *
- * @since    1.0
+ * @since  1.0
  */
 class PasswordSimpleTest extends \PHPUnit_Framework_TestCase
 {
@@ -72,7 +72,7 @@ class PasswordSimpleTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  createExceptionData
 	 *
-	 * @since    1.0
+	 * @since  1.0
 	 */
 	public function testCreateException($password, $type, $salt, $expected, $cost)
 	{

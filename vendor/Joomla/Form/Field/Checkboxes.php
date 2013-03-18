@@ -6,7 +6,7 @@
 
 namespace Joomla\Form;
 
-use Joomla\Html\Html;
+use Joomla\Form\Html\Select as HtmlSelect;
 use Joomla\Language\Text;
 
 /**
@@ -14,8 +14,8 @@ use Joomla\Language\Text;
  * Displays options as a list of check boxes.
  * Multiselect may be forced to be true.
  *
- * @see      JFormFieldCheckbox
- * @since    1.0
+ * @see    JFormFieldCheckbox
+ * @since  1.0
  */
 class Field_Checkboxes extends Field
 {
@@ -114,8 +114,7 @@ class Field_Checkboxes extends Field
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = Html::_(
-				'select.option', (string) $option['value'], trim((string) $option), 'value', 'text',
+			$tmp = HtmlSelect::option((string) $option['value'], trim((string) $option), 'value', 'text',
 				((string) $option['disabled'] == 'true')
 			);
 

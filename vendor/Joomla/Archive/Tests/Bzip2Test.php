@@ -11,8 +11,7 @@ use Joomla\Archive\Bzip2 as ArchiveBzip2;
 /**
  * Test class for Joomla\Archive\Bzip2.
  *
- *
- * @since    1.0
+ * @since  1.0
  */
 class ArchiveBzip2Test extends \PHPUnit_Framework_TestCase
 {

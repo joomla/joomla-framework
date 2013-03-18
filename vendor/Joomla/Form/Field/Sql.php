@@ -12,7 +12,7 @@ use Joomla\Html\Html;
 /**
  * Supports an custom SQL select list
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_SQL extends Field_List
 {

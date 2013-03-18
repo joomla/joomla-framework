@@ -19,7 +19,7 @@ use Joomla\Filesystem\Folder;
  * @contributor  Michael Slusarz <slusarz@horde.org>
  * @contributor  Michael Cochrane <mike@graftonhall.co.nz>
  *
- * @since    1.0
+ * @since  1.0
  */
 class Tar implements Extractable
 {
@@ -135,7 +135,7 @@ class Tar implements Extractable
 	 * 'type'  --  File type
 	 * </pre>
 	 *
-	 * @since    1.0
+	 * @since  1.0
 	 */
 	protected function _getTarInfo(& $data)
 	{

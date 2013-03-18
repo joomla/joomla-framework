@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests;
 /**
  * Class to expose protected properties and methods in JDatabaseMySqlExporter for testing purposes.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ExporterMySqlInspector extends \Joomla\Database\Exporter\Mysql
 {
@@ -114,7 +114,7 @@ class ExporterMySqlInspector extends \Joomla\Database\Exporter\Mysql
 	 *
 	 * @return  boolean
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 */
 	public function withStructure($setting = true)
 	{

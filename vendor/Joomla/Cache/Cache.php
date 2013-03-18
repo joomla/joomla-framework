@@ -7,22 +7,18 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheInterface;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Joomla! Caching Class
  *
- * @since    1.0
+ * @since  1.0
  */
-abstract class Cache
+abstract class Cache implements CacheInterface
 {
 	/**
-	 * @var    array  An array of key/value pairs to be used as a runtime cache.
-	 * @since  1.0
-	 */
-	static protected $runtime = array();
-
-	/**
-	 * @var    Registry  The options for the cache object.
+	 * @var    ArrayAccess  The options for the cache object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -30,51 +26,73 @@ abstract class Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Caching options object.
+	 * @param   mixed  $options  An options array, or an object that implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $options = null)
+	public function __construct($options = array())
 	{
-		// Set the options object.
-		$this->options = $options ? $options : new Registry;
+		if ($options instanceof \ArrayAccess || is_array($options))
+		{
+			// Set a default ttl if none is set in the options.
+			if (!isset($options['ttl']))
+			{
+				$options['ttl'] = 900;
+			}
 
-		$this->options->def('ttl', 900);
-		$this->options->def('runtime', true);
+			$this->options = $options;
+		}
+		else
+		{
+			throw new \RuntimeException(sprintf('%s requires an options array or an object that implements \\ArrayAccess', __CLASS__));
+		}
 	}
+
+	/**
+	 * This will wipe out the entire cache's keys
+	 *
+	 * @return  boolean  The result of the clear operation.
+	 *
+	 * @since   1.0
+	 */
+	abstract public function clear();
 
 	/**
 	 * Get cached data by id.  If the cached data has expired then the cached data will be removed
 	 * and false will be returned.
 	 *
-	 * @param   string   $cacheId       The cache data id.
-	 * @param   boolean  $checkRuntime  True to check runtime cache first.
+	 * @param   string  $key  The cache data id.
 	 *
-	 * @return  mixed  Cached data string if it exists.
+	 * @return  CacheItemInterface  Cached data string if it exists.
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	public function get($cacheId, $checkRuntime = true)
+	abstract public function get($key);
+
+	/**
+	 * Obtain multiple CacheItems by their unique keys.
+	 *
+	 * @param   array  $keys  A list of keys that can obtained in a single operation.
+	 *
+	 * @return  array  An associative array of CacheItem objects keyed on the cache key.
+	 *
+	 * @since   1.0
+	 */
+	public function getMultiple($keys)
 	{
-		if ($checkRuntime && isset(self::$runtime[$cacheId]) && $this->options->get('runtime'))
+		$result = array();
+
+		foreach ($keys as $key)
 		{
-			return self::$runtime[$cacheId];
+			$result[$key] = $this->get($key);
 		}
 
-		$data = $this->fetch($cacheId);
-
-		if ($this->options->get('runtime'))
-		{
-			self::$runtime[$cacheId] = $data;
-		}
-
-		return $data;
+		return $result;
 	}
 
 	/**
-	 * Get an option from the JCache instance.
+	 * Get an option from the Cache instance.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
@@ -84,127 +102,102 @@ abstract class Cache
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return $this->options[$key];
 	}
 
 	/**
-	 * Remove a cached data entry by id.
+	 * Delete a cached data entry by id.
 	 *
-	 * @param   string  $cacheId  The cache data id.
+	 * @param   string  $key  The cache data id.
 	 *
-	 * @return  JCache  This object for method chaining.
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	public function remove($cacheId)
-	{
-		$this->delete($cacheId);
+	abstract public function remove($key);
 
-		if ($this->options->get('runtime'))
+	/**
+	 * Remove multiple cache items in a single operation.
+	 *
+	 * @param   array  $keys  The array of keys to be removed.
+	 *
+	 * @return  array  An associative array of 'key' => result, elements. Each array row has the key being deleted
+	 *                 and the result of that operation. The result will be a boolean of true or false
+	 *                 representing if the cache item was removed or not
+	 *
+	 * @since   1.0
+	 */
+	public function removeMultiple($keys)
+	{
+		$result = array();
+
+		foreach ($keys as $key)
 		{
-			unset(self::$runtime[$cacheId]);
+			$result[$key] = $this->remove($key);
 		}
 
-		return $this;
-	}
-
-	/**
-	 * Set an option for the JCache instance.
-	 *
-	 * @param   string  $key    The name of the option to set.
-	 * @param   mixed   $value  The option value to set.
-	 *
-	 * @return  JCache  This object for method chaining.
-	 *
-	 * @since   1.0
-	 */
-	public function setOption($key, $value)
-	{
-		$this->options->set($key, $value);
-
-		return $this;
+		return $result;
 	}
 
 	/**
 	 * Store the cached data by id.
 	 *
-	 * @param   string  $cacheId  The cache data id
-	 * @param   mixed   $data     The data to store
+	 * @param   string   $key  The cache data id
+	 * @param   mixed    $data     The data to store
+	 * @param   integer  $ttl      The number of seconds before the stored data expires.
 	 *
-	 * @return  JCache  This object for method chaining.
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	public function store($cacheId, $data)
+	abstract public function set($key, $data, $ttl = null);
+
+	/**
+	 * Persisting a set of key => value pairs in the cache, with an optional TTL.
+	 *
+	 * @param   array         $items  An array of key => value pairs for a multiple-set operation.
+	 * @param   null|integer  $ttl    Optional. The TTL value of this item. If no value is sent and the driver supports TTL
+	 *                                then the library may set a default value for it or let the driver take care of that.
+	 *
+	 * @return  boolean  The result of the multiple-set operation.
+	 *
+	 * @since   1.0
+	 */
+	public function setMultiple($items, $ttl = null)
 	{
-		if ($this->exists($cacheId))
+		foreach ($items as $key => $value)
 		{
-			$this->set($cacheId, $data, $this->options->get('ttl'));
-		}
-		else
-		{
-			$this->add($cacheId, $data, $this->options->get('ttl'));
+			$this->set($key, $value, $ttl);
 		}
 
-		if ($this->options->get('runtime'))
-		{
-			self::$runtime[$cacheId] = $data;
-		}
+		return true;
+	}
+
+	/**
+	 * Set an option for the Cache instance.
+	 *
+	 * @param   string  $key    The name of the option to set.
+	 * @param   mixed   $value  The option value to set.
+	 *
+	 * @return  Cache  This object for method chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setOption($key, $value)
+	{
+		$this->options[$key] = $value;
 
 		return $this;
 	}
 
 	/**
-	 * Method to add a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	abstract protected function add($key, $value, $ttl);
-
-	/**
-	 * Method to remove a storage entry for a key.
+	 * Method to determine whether a storage entry has been set for a key.
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	abstract protected function delete($key);
-
-	/**
-	 * Method to get a storage entry value from a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	abstract protected function fetch($key);
-
-	/**
-	 * Method to set a value for a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	abstract protected function set($key, $value, $ttl);
+	abstract protected function exists($key);
 }

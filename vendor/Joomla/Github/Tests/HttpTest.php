@@ -10,7 +10,7 @@ use Joomla\Registry\Registry;
 /**
  * Test class for JGithub.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JGithubHttpTest extends PHPUnit_Framework_TestCase
 {

@@ -11,7 +11,7 @@ use Joomla\Database\Query;
 /**
  * Query Building Class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Sqlsrv extends Query
 {

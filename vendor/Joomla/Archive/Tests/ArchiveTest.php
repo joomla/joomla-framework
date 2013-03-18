@@ -16,7 +16,7 @@ use Joomla\Factory;
 /**
  * Test class for Joomla\Archive\Archive.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ArchiveTest extends \PHPUnit_Framework_TestCase
 {

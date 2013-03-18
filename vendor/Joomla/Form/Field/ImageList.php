@@ -9,7 +9,7 @@ namespace Joomla\Form;
 /**
  * Supports an HTML select list of image
  *
- * @since    1.0
+ * @since  1.0
  */
 class Field_ImageList extends Field_FileList
 {

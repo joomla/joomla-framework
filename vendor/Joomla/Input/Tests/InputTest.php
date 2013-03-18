@@ -4,28 +4,35 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input\Tests;
+
 use Joomla\Input\Input;
 use Joomla\Input\Cookie;
+use Joomla\Test\Helper;
+
+require_once __DIR__ . '/Stubs/FilterInputMock.php';
 
 /**
  * Test class for Input.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JInputTest extends PHPUnit_Framework_TestCase
+class InputTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * The test class.
 	 *
-	 * @var  Input
+	 * @var    Input
+	 * @since  1.0
 	 */
-	protected $class;
+	private $instance;
 
 	/**
-	 * Test the Input::__construct method.
+	 * Test the Joomla\Input\Input::__construct method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::__construct
 	 * @since   1.0
 	 */
 	public function test__construct()
@@ -34,10 +41,11 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::__get method.
+	 * Test the Joomla\Input\Input::__call method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::__call
 	 * @since   1.0
 	 */
 	public function test__call()
@@ -46,10 +54,11 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::__get method.
+	 * Test the Joomla\Input\Input::__get method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::__get
 	 * @since   1.0
 	 */
 	public function test__get()
@@ -58,13 +67,13 @@ class JInputTest extends PHPUnit_Framework_TestCase
 
 		// Test the get method.
 		$this->assertThat(
-			$this->class->post->get('foo'),
+			$this->instance->post->get('foo'),
 			$this->equalTo('bar'),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		// Test the set method.
-		$this->class->post->set('foo', 'notbar');
+		$this->instance->post->set('foo', 'notbar');
 		$this->assertThat(
 			$_POST['foo'],
 			$this->equalTo('bar'),
@@ -75,35 +84,37 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::count method.
+	 * Test the Joomla\Input\Input::count method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::count
 	 * @since   1.0
 	 */
 	public function testCount()
 	{
 		$this->assertEquals(
 			count($_REQUEST),
-			count($this->class)
+			count($this->instance)
 		);
 
 		$this->assertEquals(
 			count($_POST),
-			count($this->class->post)
+			count($this->instance->post)
 		);
 
 		$this->assertEquals(
 			count($_GET),
-			count($this->class->get)
+			count($this->instance->get)
 		);
 	}
 
 	/**
-	 * Test the Input::get method.
+	 * Test the Joomla\Input\Input::get method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::get
 	 * @since   1.0
 	 */
 	public function testGet()
@@ -112,7 +123,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 
 		// Test the get method.
 		$this->assertThat(
-			$this->class->get('foo'),
+			$this->instance->get('foo'),
 			$this->equalTo('bar'),
 			'Line: ' . __LINE__ . '.'
 		);
@@ -121,31 +132,32 @@ class JInputTest extends PHPUnit_Framework_TestCase
 
 		// Test the get method.
 		$this->assertThat(
-			$this->class->get->get('foo'),
+			$this->instance->get->get('foo'),
 			$this->equalTo('bar2'),
 			'Line: ' . __LINE__ . '.'
 		);
 
 		// Test the get method.
 		$this->assertThat(
-			$this->class->get('default_value', 'default'),
+			$this->instance->get('default_value', 'default'),
 			$this->equalTo('default'),
 			'Line: ' . __LINE__ . '.'
 		);
 	}
 
 	/**
-	 * Test the Input::def method.
+	 * Test the Joomla\Input\Input::def method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::def
 	 * @since   1.0
 	 */
 	public function testDef()
 	{
 		$_REQUEST['foo'] = 'bar';
 
-		$this->class->def('foo', 'nope');
+		$this->instance->def('foo', 'nope');
 
 		$this->assertThat(
 			$_REQUEST['foo'],
@@ -153,7 +165,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 			'Line: ' . __LINE__ . '.'
 		);
 
-		$this->class->def('Joomla', 'is great');
+		$this->instance->def('Joomla', 'is great');
 
 		$this->assertThat(
 			$_REQUEST['Joomla'],
@@ -163,16 +175,17 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::set method.
+	 * Test the Joomla\Input\Input::set method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::set
 	 * @since   1.0
 	 */
 	public function testSet()
 	{
 		$_REQUEST['foo'] = 'bar2';
-		$this->class->set('foo', 'bar');
+		$this->instance->set('foo', 'bar');
 
 		$this->assertThat(
 			$_REQUEST['foo'],
@@ -182,15 +195,16 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::get method.
+	 * Test the Joomla\Input\Input::get method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::get
 	 * @since   1.0
 	 */
 	public function testGetArray()
 	{
-		$filterMock = new JFilterInputMockTracker;
+		$filterMock = new FilterInputMock;
 
 		$array = array(
 			'var1' => 'value1',
@@ -230,15 +244,16 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::get method using a nested data set.
+	 * Test the Joomla\Input\Input::get method using a nested data set.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::get
 	 * @since   1.0
 	 */
 	public function testGetArrayNested()
 	{
-		$filterMock = new JFilterInputMockTracker;
+		$filterMock = new FilterInputMock;
 
 		$array = array(
 			'var2' => 34,
@@ -280,10 +295,11 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::getArray method without specified variables.
+	 * Test the Joomla\Input\Input::getArray method without specified variables.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::getArray
 	 * @since   1.0
 	 */
 	public function testGetArrayWithoutSpecifiedVariables()
@@ -303,17 +319,18 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::get method.
+	 * Test the Joomla\Input\Input::get method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::get
 	 * @since   1.0
 	 */
 	public function testGetFromCookie()
 	{
 		// Check the object type.
 		$this->assertThat(
-			$this->class->cookie instanceof Cookie,
+			$this->instance->cookie instanceof Cookie,
 			$this->isTrue(),
 			'Line: ' . __LINE__ . '.'
 		);
@@ -322,17 +339,18 @@ class JInputTest extends PHPUnit_Framework_TestCase
 
 		// Test the get method.
 		$this->assertThat(
-			$this->class->cookie->get('foo'),
+			$this->instance->cookie->get('foo'),
 			$this->equalTo('bar'),
 			'Line: ' . __LINE__ . '.'
 		);
 	}
 
 	/**
-	 * Test the Input::getMethod method.
+	 * Test the Joomla\Input\Input::getMethod method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::getMethod
 	 * @since   1.0
 	 */
 	public function testGetMethod()
@@ -341,33 +359,35 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Input::serialize method.
+	 * Test the Joomla\Input\Input::serialize method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::serialize
 	 * @since   1.0
 	 */
 	public function testSerialize()
 	{
 		// Load the inputs so that the static $loaded is set to true.
-		TestReflection::invoke($this->class, 'loadAllInputs');
+		Helper::invoke($this->instance, 'loadAllInputs');
 
 		// Adjust the values so they are easier to handle.
-		TestReflection::setValue($this->class, 'inputs', array('server' => 'remove', 'env' => 'remove', 'request' => 'keep'));
-		TestReflection::setValue($this->class, 'options', 'options');
-		TestReflection::setValue($this->class, 'data', 'data');
+		Helper::setValue($this->instance, 'inputs', array('server' => 'remove', 'env' => 'remove', 'request' => 'keep'));
+		Helper::setValue($this->instance, 'options', 'options');
+		Helper::setValue($this->instance, 'data', 'data');
 
 		$this->assertThat(
-			$this->class->serialize(),
+			$this->instance->serialize(),
 			$this->equalTo('a:3:{i:0;s:7:"options";i:1;s:4:"data";i:2;a:1:{s:7:"request";s:4:"keep";}}')
 		);
 	}
 
 	/**
-	 * Test the Input::unserialize method.
+	 * Test the Joomla\Input\Input::unserialize method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::unserialize
 	 * @since   1.0
 	 */
 	public function testUnserialize()
@@ -380,10 +400,11 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	 */
 
 	/**
-	 * Test the Input::loadAllInputs method.
+	 * Test the Joomla\Input\Input::loadAllInputs method.
 	 *
 	 * @return  void
 	 *
+	 * @covers  Joomla\Input\Input::loadAllInputs
 	 * @since   1.0
 	 */
 	public function testLoadAllInputs()
@@ -402,11 +423,7 @@ class JInputTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		include_once __DIR__ . '/stubs/JInputInspector.php';
-		include_once __DIR__ . '/stubs/JFilterInputMock.php';
-		include_once __DIR__ . '/stubs/JFilterInputMockTracker.php';
-
 		$array = null;
-		$this->class = new JInputInspector($array, array('filter' => new JFilterInputMock));
+		$this->instance = new Input($array, array('filter' => new FilterInputMock));
 	}
 }

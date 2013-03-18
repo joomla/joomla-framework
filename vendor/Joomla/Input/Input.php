@@ -6,17 +6,14 @@
 
 namespace Joomla\Input;
 
-
-use Joomla\Filter\Input as FilterInput;
-use Serializable;
-use Countable;
+use Joomla\Filter;
 
 /**
  * Joomla! Input Base Class
  *
  * This is an abstracted input class used to manage retrieving data from the application environment.
  *
- * @since    1.0
+ * @since  1.0
  *
  * @property-read    Input   $get
  * @property-read    Input   $post
@@ -38,7 +35,7 @@ use Countable;
  * @method      string   getPath()      getPath($name, $default = null)
  * @method      string   getUsername()  getUsername($name, $default = null)
  */
-class Input implements Serializable, Countable
+class Input implements \Serializable, \Countable
 {
 	/**
 	 * Options array for the JInput instance.
@@ -88,7 +85,7 @@ class Input implements Serializable, Countable
 		}
 		else
 		{
-			$this->filter = FilterInput::getInstance();
+			$this->filter = Filter\Input::getInstance();
 		}
 
 		if (is_null($source))
@@ -347,7 +344,7 @@ class Input implements Serializable, Countable
 		}
 		else
 		{
-			$this->filter = FilterInput::getInstance();
+			$this->filter = Filter\Input::getInstance();
 		}
 	}
 

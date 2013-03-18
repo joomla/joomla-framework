@@ -9,7 +9,7 @@ namespace Joomla\Google;
 /**
  * Google authentication class abstract
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Auth
 {

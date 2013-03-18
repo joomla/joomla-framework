@@ -7,7 +7,7 @@
 /**
  * Data for JForm tests.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormDataHelper
 {

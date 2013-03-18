@@ -11,7 +11,7 @@ use Joomla\Filter\Input as FilterInput;
 /**
  * Joomla! Input CLI Class
  *
- * @since    1.0
+ * @since  1.0
  */
 class Cli extends Input
 {

@@ -4,60 +4,60 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Input\Tests;
+
 use Joomla\Input\Files;
 
 /**
  * Test class for JInputFiles.
  *
- * @since    1.0
+ * @since  1.0
  */
-class JInputFilesTest extends PHPUnit_Framework_TestCase
+class FilesTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var Files
+	 * @var    Files
+	 * @since  1.0
 	 */
-	protected $object;
+	private $instance;
 
 	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
+	 * Test the Joomla\Input\Files::get method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Input\Files::get
+	 * @since   1.0
+	 */
+	public function testGet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Test the Joomla\Input\Files::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Input\Files::set
+	 * @since   1.0
+	 */
+	public function testSet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Sets up the fixture.
 	 *
 	 * @return void
+	 *
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
 		parent::setUp();
 
-		$this->object = new Files;
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testGet().
-	 *
-	 * @return void
-	 */
-	public function testGet()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testSet().
-	 *
-	 * @return void
-	 */
-	public function testSet()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->instance = new Files;
 	}
 }

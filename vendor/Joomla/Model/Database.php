@@ -8,12 +8,11 @@ namespace Joomla\Model;
 
 use Joomla\Database\Driver;
 use Joomla\Registry\Registry;
-use Joomla\Factory;
 
 /**
  * Joomla Platform Database Model Class
  *
- * @since    1.0
+ * @since  1.0
  */
 abstract class Database extends Base
 {
@@ -28,17 +27,16 @@ abstract class Database extends Base
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   Registry  $state  The model state.
 	 * @param   Driver    $db     The database adpater.
+	 * @param   Registry  $state  The model state.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $state = null, Driver $db = null)
+	public function __construct(Driver $db, Registry $state = null)
 	{
-		parent::__construct($state);
+		$this->db = $db;
 
-		// Setup the model.
-		$this->db = isset($db) ? $db : $this->loadDb();
+		parent::__construct($state);
 	}
 
 	/**
@@ -65,17 +63,5 @@ abstract class Database extends Base
 	public function setDb(Driver $db)
 	{
 		$this->db = $db;
-	}
-
-	/**
-	 * Load the database driver.
-	 *
-	 * @return  Driver  The database driver.
-	 *
-	 * @since   1.0
-	 */
-	protected function loadDb()
-	{
-		return Factory::getDbo();
 	}
 }

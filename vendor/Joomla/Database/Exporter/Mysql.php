@@ -7,12 +7,11 @@
 namespace Joomla\Database\Exporter;
 
 use Joomla\Database\Driver\Mysql as DriverMysql;
-use Exception;
 
 /**
  * MySQL export driver.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Mysql extends Mysqli
 {
@@ -29,13 +28,13 @@ class Mysql extends Mysqli
 		// Check if the db connector has been set.
 		if (!($this->db instanceof DriverMysql))
 		{
-			throw new Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
 		}
 
 		return $this;

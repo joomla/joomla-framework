@@ -7,67 +7,173 @@
 namespace Joomla\Cache;
 
 use Joomla\Registry\Registry;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Filesystem cache driver for the Joomla Platform.
  *
- * @since    1.0
+ * Supported options:
+ * - ttl (integer)          : The default number of seconds for the cache life.
+ * - file.locking (boolean) :
+ * - file.path              : The path for cache files.
+ *
+ * @since  1.0
  */
 class File extends Cache
 {
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Caching options object.
+	 * @param   mixed  $options  An options array, or an object that implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $options = null)
+	public function __construct($options = null)
 	{
 		parent::__construct($options);
 
-		$this->options->def('file.locking', true);
+		if (!isset($this->options['file.locking']))
+		{
+			$this->options['file.locking'] = true;
+		}
 
-		if (!is_dir($this->options->get('file.path')))
-		{
-			throw new \RuntimeException(sprintf('The base cache path `%s` does not exist.', $this->options->get('file.path')));
-		}
-		elseif (!is_writable($this->options->get('file.path')))
-		{
-			throw new \RuntimeException(sprintf('The base cache path `%s` is not writable.', $this->options->get('file.path')));
-		}
+		$this->checkFilePath($this->options['file.path']);
 	}
 
 	/**
-	 * Method to add a storage entry.
+	 * This will wipe out the entire cache's keys....
+	 *
+	 * @return  boolean  The result of the clear operation.
+	 *
+	 * @since   1.0
+	 */
+	public function clear()
+	{
+		$filePath = $this->options['file.path'];
+		$this->checkFilePath($filePath);
+
+		$iterator = new \RegexIterator(
+			new \RecursiveIteratorIterator(
+				new \RecursiveDirectoryIterator($filePath)
+			),
+			'/\.data$/i'
+		);
+
+		foreach ($iterator as $name => $file)
+		{
+			if ($file->isFile())
+			{
+				@unlink($file->getRealPath());
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Method to get a storage entry value from a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  CacheItemInterface
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function get($key)
+	{
+		// If the cached data has expired remove it and return.
+		if ($this->exists($key) && $this->isExpired($key))
+		{
+			try
+			{
+				$this->remove($key);
+			}
+			catch (\RuntimeException $e)
+			{
+				throw new \RuntimeException(sprintf('Unable to clean expired cache entry for %s.', $key), null, $e);
+			}
+
+			return new Item($key);;
+		}
+
+		if (!$this->exists($key))
+		{
+			return new Item($key);;
+		}
+
+		$resource = @fopen($this->fetchStreamUri($key), 'rb');
+
+		if (!$resource)
+		{
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot open the resource.', $key));
+		}
+
+		// If locking is enabled get a shared lock for reading on the resource.
+		if ($this->options['file.locking'] && !flock($resource, LOCK_SH))
+		{
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot obtain a lock.', $key));
+		}
+
+		$data = stream_get_contents($resource);
+
+		// If locking is enabled release the lock on the resource.
+		if ($this->options['file.locking'] && !flock($resource, LOCK_UN))
+		{
+			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot release the lock.', $key));
+		}
+
+		fclose($resource);
+
+		$item = new Item($key);
+		$item->setValue(unserialize($data));
+
+		return $item;
+	}
+
+	/**
+	 * Method to remove a storage entry for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function remove($key)
+	{
+		return (bool) @unlink($this->fetchStreamUri($key));
+	}
+
+	/**
+	 * Method to set a value for a storage entry.
 	 *
 	 * @param   string   $key    The storage entry identifier.
 	 * @param   mixed    $value  The data to be stored.
 	 * @param   integer  $ttl    The number of seconds before the stored data expires.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
 	 */
-	protected function add($key, $value, $ttl)
+	public function set($key, $value, $ttl = null)
 	{
-		if ($this->exists($key))
+		$fileName = $this->fetchStreamUri($key);
+		$filePath = pathinfo($fileName, PATHINFO_DIRNAME);
+
+		if (!is_dir($filePath))
 		{
-			throw new \RuntimeException(sprintf('Unable to add cache entry for %s. Entry already exists.', $key));
+			mkdir($filePath, 0770, true);
 		}
 
 		$success = (bool) file_put_contents(
-			$this->_fetchStreamUri($key),
+			$fileName,
 			serialize($value),
-			($this->options->get('file.locking') ? LOCK_EX : null)
+			($this->options['file.locking'] ? LOCK_EX : null)
 		);
 
-		if (!$success)
-		{
-			throw new \RuntimeException(sprintf('Unable to add cache entry for %s.', $key));
-		}
+		return $success;
 	}
 
 	/**
@@ -81,111 +187,31 @@ class File extends Cache
 	 */
 	protected function exists($key)
 	{
-		return is_file($this->_fetchStreamUri($key));
+		return is_file($this->fetchStreamUri($key));
 	}
 
 	/**
-	 * Method to get a storage entry value from a key.
+	 * Check that the file path is a directory and writable.
 	 *
-	 * @param   string  $key  The storage entry identifier.
+	 * @param   string  $filePath  A file path.
 	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  RuntimeException
-	 */
-	protected function fetch($key)
-	{
-		// If the cached data has expired remove it and return.
-		if ($this->exists($key) && $this->_isExpired($key))
-		{
-			try
-			{
-				$this->delete($key);
-			}
-			catch (\RuntimeException $e)
-			{
-				throw new \RuntimeException(sprintf('Unable to clean expired cache entry for %s.', $key), null, $e);
-			}
-
-			return;
-		}
-
-		if (!$this->exists($key))
-		{
-			return;
-		}
-
-		$resource = @fopen($this->_fetchStreamUri($key), 'rb');
-
-		if (!$resource)
-		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot open the resource.', $key));
-		}
-
-		// If locking is enabled get a shared lock for reading on the resource.
-		if ($this->options->get('file.locking') && !flock($resource, LOCK_SH))
-		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot obtain a lock.', $key));
-		}
-
-		$data = stream_get_contents($resource);
-
-		// If locking is enabled release the lock on the resource.
-		if ($this->options->get('file.locking') && !flock($resource, LOCK_UN))
-		{
-			throw new \RuntimeException(sprintf('Unable to fetch cache entry for %s.  Connot release the lock.', $key));
-		}
-
-		fclose($resource);
-
-		return unserialize($data);
-	}
-
-	/**
-	 * Method to remove a storage entry for a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  void
+	 * @return  boolean  The method will always return true, if it returns.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException if the file path is invalid.
 	 */
-	protected function delete($key)
+	private function checkFilePath($filePath)
 	{
-		$success = (bool) unlink($this->_fetchStreamUri($key));
-
-		if (!$success)
+		if (!is_dir($filePath))
 		{
-			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s.', $key));
+			throw new \RuntimeException(sprintf('The base cache path `%s` does not exist.', $filePath));
 		}
-	}
-
-	/**
-	 * Method to set a value for a storage entry.
-	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  RuntimeException
-	 */
-	protected function set($key, $value, $ttl)
-	{
-		$success = (bool) file_put_contents(
-			$this->_fetchStreamUri($key),
-			serialize($value),
-			($this->options->get('file.locking') ? LOCK_EX : null)
-		);
-
-		if (!$success)
+		elseif (!is_writable($filePath))
 		{
-			throw new \RuntimeException(sprintf('Unable to set cache entry for %s.', $value));
+			throw new \RuntimeException(sprintf('The base cache path `%s` is not writable.', $filePath));
 		}
+
+		return true;
 	}
 
 	/**
@@ -196,10 +222,19 @@ class File extends Cache
 	 * @return  string  The full stream URI for the cache entry.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException if the cache path is invalid.
 	 */
-	private function _fetchStreamUri($key)
+	private function fetchStreamUri($key)
 	{
-		return $this->options->get('file.path') . '/' . $key;
+		$filePath = $this->options['file.path'];
+		$this->checkFilePath($filePath);
+
+		return sprintf(
+			'%s/~%s/%s.data',
+			$filePath,
+			substr(hash('md5', $key), 0, 4),
+			hash('sha1', $key)
+		);
 	}
 
 	/**
@@ -211,10 +246,10 @@ class File extends Cache
 	 *
 	 * @since   1.0
 	 */
-	private function _isExpired($key)
+	private function isExpired($key)
 	{
 		// Check to see if the cached data has expired.
-		if (filemtime($this->_fetchStreamUri($key)) < (time() - $this->options->get('ttl')))
+		if (filemtime($this->fetchStreamUri($key)) < (time() - $this->options['ttl']))
 		{
 			return true;
 		}

@@ -17,7 +17,7 @@ use RuntimeException;
  * or plain Formattedtext) and finally MySQL offers the most features (e.g. rapid searching)
  * but will incur a performance hit due to INSERT being issued.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Log
 {

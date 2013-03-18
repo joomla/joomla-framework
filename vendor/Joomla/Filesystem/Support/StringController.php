@@ -9,7 +9,7 @@ namespace Joomla\Filesystem\Support;
 /**
  * String Controller
  *
- * @since    1.0
+ * @since  1.0
  */
 class StringController
 {

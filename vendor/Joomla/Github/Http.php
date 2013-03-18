@@ -13,7 +13,7 @@ use Joomla\Registry\Registry;
 /**
  * HTTP client class for connecting to a GitHub instance.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Http extends BaseHttp
 {

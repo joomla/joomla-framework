@@ -11,7 +11,7 @@ use Joomla\Registry\Registry;
 /**
  * HTTP factory class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Factory
 {

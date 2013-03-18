@@ -14,7 +14,7 @@ use Joomla\Registry\Registry;
  * @property-read  Data   $data    Google API object for data.
  * @property-read  Embed  $embed   Google API object for embed generation.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Google
 {

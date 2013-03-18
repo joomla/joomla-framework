@@ -10,9 +10,9 @@ namespace Joomla\Form;
  * Form Field class for the Joomla Platform.
  * Supports a URL text field
  *
- * @link     http://www.w3.org/TR/html-markup/input.url.html#input.url
- * @see      JFormRuleUrl for validation of full urls
- * @since    1.0
+ * @link   http://www.w3.org/TR/html-markup/input.url.html#input.url
+ * @see    JFormRuleUrl for validation of full urls
+ * @since  1.0
  */
 class Field_Url extends Field_Text
 {

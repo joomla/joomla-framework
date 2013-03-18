@@ -9,7 +9,7 @@ use Joomla\Filesystem\Stream\String as StreamString;
 /**
  * Test class for StreamString.
  *
- * @since    1.0
+ * @since  1.0
  */
 class StreamStringTest extends PHPUnit_Framework_TestCase
 {

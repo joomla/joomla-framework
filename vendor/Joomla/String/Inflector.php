@@ -14,7 +14,7 @@ use InvalidArgumentException;
  *
  * The Inflector transforms words
  *
- * @since    1.0
+ * @since  1.0
  */
 class Inflector
 {

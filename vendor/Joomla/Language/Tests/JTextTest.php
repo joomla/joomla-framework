@@ -9,7 +9,7 @@ use Joomla\Language\Text;
 /**
  * Test class for JText.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JTextTest extends PHPUnit_Framework_TestCase
 {

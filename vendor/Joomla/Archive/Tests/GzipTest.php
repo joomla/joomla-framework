@@ -11,8 +11,7 @@ use Joomla\Archive\Gzip as ArchiveGzip;
 /**
  * Test class for Joomla\Archive\Gzip.
  *
- *
- * @since    1.0
+ * @since  1.0
  */
 class ArchiveGzipTest extends \PHPUnit_Framework_TestCase
 {

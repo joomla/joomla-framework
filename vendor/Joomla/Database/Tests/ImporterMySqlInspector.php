@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests;
 /**
  * Class to expose protected properties and methods in JDatabaseMySqlExporter for testing purposes.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ImporterMySqlInspector extends \Joomla\Database\Importer\Mysql
 {
@@ -137,7 +137,7 @@ class ImporterMySqlInspector extends \Joomla\Database\Importer\Mysql
 	 *
 	 * @return  string
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 */
 	public function getDropKeySQL($table, $name)
 	{

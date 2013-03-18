@@ -9,7 +9,7 @@ namespace Joomla\Model\Tests\Mock;
 /**
  * Mock class for \Joomla\Model\Base.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Model
 {

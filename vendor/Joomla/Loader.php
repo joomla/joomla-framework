@@ -11,6 +11,6 @@ namespace Joomla;
 /**
  * Static class to handle loading of libraries.
  *
- * @since    13.1
+ * @since  1.0
  */
 abstract class Loader extends \JLoader {}

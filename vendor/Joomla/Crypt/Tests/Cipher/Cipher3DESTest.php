@@ -12,7 +12,7 @@ use Joomla\Crypt\Cipher_3DES;
 /**
  * Test class for JCryptCipher3DES.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Cipher3DESTest extends \PHPUnit_Framework_TestCase
 {

@@ -12,7 +12,7 @@ use Joomla\Uri\Uri;
 /**
  * HTTP client class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Http
 {

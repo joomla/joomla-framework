@@ -7,42 +7,28 @@
 namespace Joomla\Cache\Tests;
 
 use Joomla\Cache\Cache;
+use Joomla\Cache\Item;
+use Psr\Cache\CacheItemInterface;
 
 /**
  * Tests for the Joomla\Cache\Cache class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class ConcreteCache extends Cache
 {
 	/**
-	 * Method to add a storage entry.
+	 * This will wipe out the entire cache's keys
 	 *
-	 * @param   string   $key    The storage entry identifier.
-	 * @param   mixed    $value  The data to be stored.
-	 * @param   integer  $ttl    The number of seconds before the stored data expires.
-	 *
-	 * @return  void
+	 * @return  boolean  The result of the clear operation.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
 	 */
-	protected function add($key, $value, $ttl)
+	public function clear()
 	{
-	}
+		$this->do .= 'doClear';
 
-	/**
-	 * Method to remove a storage entry for a key.
-	 *
-	 * @param   string  $key  The storage entry identifier.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  RuntimeException
-	*/
-	protected function delete($key)
-	{
+		return true;
 	}
 
 	/**
@@ -50,13 +36,27 @@ class ConcreteCache extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  mixed
+	 * @return  CacheItemInterface
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
 	*/
-	protected function fetch($key)
+	public function get($key)
 	{
+		return new Item($key);
+	}
+
+	/**
+	 * Method to remove a storage entry for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	*/
+	public function remove($key)
+	{
+		return true;
 	}
 
 	/**
@@ -66,12 +66,26 @@ class ConcreteCache extends Cache
 	 * @param   mixed    $value  The data to be stored.
 	 * @param   integer  $ttl    The number of seconds before the stored data expires.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
 	*/
-	protected function set($key, $value, $ttl)
+	public function set($key, $value, $ttl = null)
 	{
+		return true;
+	}
+
+	/**
+	 * Method to determine whether a storage entry has been set for a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	protected function exists($key)
+	{
+		return false;
 	}
 }

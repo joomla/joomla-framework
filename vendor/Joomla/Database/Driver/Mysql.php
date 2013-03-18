@@ -6,14 +6,13 @@
 
 namespace Joomla\Database\Driver;
 
-use Joomla\Log\Log;
-use RuntimeException;
+use Psr\Log;
 
 /**
  * MySQL database driver
  *
- * @see      http://dev.mysql.com/doc/
- * @since    1.0
+ * @see    http://dev.mysql.com/doc/
+ * @since  1.0
  */
 class Mysql extends Mysqli
 {
@@ -76,13 +75,13 @@ class Mysql extends Mysqli
 		// Make sure the MySQL extension for PHP is installed and enabled.
 		if (!function_exists('mysql_connect'))
 		{
-			throw new RuntimeException('Could not connect to MySQL.');
+			throw new \RuntimeException('Could not connect to MySQL.');
 		}
 
 		// Attempt to connect to the server.
 		if (!($this->connection = @ mysql_connect($this->options['host'], $this->options['user'], $this->options['password'], true)))
 		{
-			throw new RuntimeException('Could not connect to MySQL.');
+			throw new \RuntimeException('Could not connect to MySQL.');
 		}
 
 		// Set sql_mode to non_strict mode
@@ -238,8 +237,12 @@ class Mysql extends Mysqli
 
 		if (!is_resource($this->connection))
 		{
-			Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'database');
-			throw new RuntimeException($this->errorMsg, $this->errorNum);
+			$this->log(
+				Log\LogLevel::ERROR,
+				'Database query failed (error #{code}): {message}',
+				array('code' => $this->errorNum, 'message' => $this->errorMsg)
+			);
+			throw new \RuntimeException($this->errorMsg, $this->errorNum);
 		}
 
 		// Take a local copy so that we don't modify the original query and cause issues later
@@ -259,7 +262,11 @@ class Mysql extends Mysqli
 			// Add the query to the object queue.
 			$this->log[] = $sql;
 
-			Log::add($sql, Log::DEBUG, 'databasequery');
+			$this->log(
+				Log\LogLevel::DEBUG,
+				'{sql}',
+				array('sql' => $sql, 'category' => 'databasequery')
+			);
 		}
 
 		// Reset the error values.
@@ -281,7 +288,7 @@ class Mysql extends Mysqli
 					$this->connection = null;
 					$this->connect();
 				}
-				catch (RuntimeException $e)
+				catch (\RuntimeException $e)
 				// If connect fails, ignore that exception and throw the normal exception.
 				{
 					// Get the error number and message.
@@ -289,8 +296,12 @@ class Mysql extends Mysqli
 					$this->errorMsg = (string) mysql_error($this->connection) . ' SQL=' . $sql;
 
 					// Throw the normal query exception.
-					Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-					throw new RuntimeException($this->errorMsg, $this->errorNum);
+					$this->log(
+						Log\LogLevel::ERROR,
+						'Database query failed (error #{code}): {message}',
+						array('code' => $this->errorNum, 'message' => $this->errorMsg)
+					);
+					throw new \RuntimeException($this->errorMsg, $this->errorNum);
 				}
 
 				// Since we were able to reconnect, run the query again.
@@ -304,8 +315,12 @@ class Mysql extends Mysqli
 				$this->errorMsg = (string) mysql_error($this->connection) . ' SQL=' . $sql;
 
 				// Throw the normal query exception.
-				Log::add(sprintf('Database query failed (error # %s): %s', $this->errorNum, $this->errorMsg), Log::ERROR, 'databasequery');
-				throw new RuntimeException($this->errorMsg, $this->errorNum);
+				$this->log(
+					Log\LogLevel::ERROR,
+					'Database query failed (error #{code}): {message}',
+					array('code' => $this->errorNum, 'message' => $this->errorMsg)
+				);
+				throw new \RuntimeException($this->errorMsg, $this->errorNum);
 			}
 		}
 
@@ -333,7 +348,7 @@ class Mysql extends Mysqli
 
 		if (!mysql_select_db($database, $this->connection))
 		{
-			throw new RuntimeException('Could not connect to database');
+			throw new \RuntimeException('Could not connect to database');
 		}
 
 		return true;

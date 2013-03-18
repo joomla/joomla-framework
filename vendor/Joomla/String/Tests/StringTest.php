@@ -11,7 +11,7 @@ use Joomla\String\String;
 /**
  * Test class for String.
  *
- * @since    1.0
+ * @since  1.0
  */
 class StringTest extends \PHPUnit_Framework_TestCase
 {

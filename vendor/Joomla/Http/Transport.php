@@ -12,7 +12,7 @@ use Joomla\Uri\Uri;
 /**
  * HTTP transport class interface.
  *
- * @since    1.0
+ * @since  1.0
  */
 interface Transport
 {

@@ -12,7 +12,7 @@ use Joomla\Filter\Output;
 /**
  * Test class for Filter\Input
  *
- * @since    1.0
+ * @since  1.0
  */
 class FilterInputTest extends \PHPUnit_Framework_TestCase
 {

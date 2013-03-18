@@ -6,12 +6,10 @@
 
 namespace Joomla\Database\Query;
 
-use stdClass;
-
 /**
  * Oracle Query Building Class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Oracle extends Pdo implements Preparable, Limitable
 {
@@ -70,7 +68,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 			return $this;
 		}
 
-		$obj = new stdClass;
+		$obj = new \stdClass;
 
 		$obj->value = &$value;
 		$obj->dataType = $dataType;

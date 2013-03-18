@@ -11,57 +11,89 @@ use Joomla\Cache;
 /**
  * Tests for the Joomla\Cache\Wincache class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class WincacheTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Cache\Wincache
+	 * @var    Cache\Wincache
 	 * @since  1.0
 	 */
 	private $instance;
 
 	/**
-	 * Tests the add method.
+	 * Tests for the correct Psr\Cache return values.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::add
+	 * @coversNothing
 	 * @since   1.0
 	 */
-	public function testAdd()
+	public function testPsrCache()
+	{
+		$this->assertInternalType('boolean', $this->instance->clear(), 'Checking clear.');
+		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $this->instance->get('foo'), 'Checking get.');
+		$this->assertInternalType('array', $this->instance->getMultiple(array('foo')), 'Checking getMultiple.');
+		$this->assertInternalType('boolean', $this->instance->remove('foo'), 'Checking remove.');
+		$this->assertInternalType('array', $this->instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
+		$this->assertInternalType('boolean', $this->instance->set('for', 'bar'), 'Checking set.');
+		$this->assertInternalType('boolean', $this->instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Wincache::clear method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Wincache::clear
+	 * @since   1.0
+	 */
+	public function testClear()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the delete method.
+	 * Tests the Joomla\Cache\Wincache::exists method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::delete
+	 * @covers  Joomla\Cache\Wincache::exists
 	 * @since   1.0
 	 */
-	public function testDelete()
+	public function testExists()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the fetch method.
+	 * Tests the Joomla\Cache\Wincache::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\Wincache::fetch
+	 * @covers  Joomla\Cache\Wincache::get
 	 * @since   1.0
 	 */
-	public function testFetch()
+	public function testGet()
 	{
 		$this->markTestIncomplete();
 	}
 
 	/**
-	 * Tests the set method.
+	 * Tests the Joomla\Cache\Wincache::remove method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Wincache::remove
+	 * @since   1.0
+	 */
+	public function testRemove()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Wincache::set method.
 	 *
 	 * @return  void
 	 *

@@ -9,7 +9,7 @@ require_once __DIR__ . '/case/GoogleTestCase.php';
 /**
  * Test class for JGoogleDataPlus.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JGoogleDataPlusTest extends GoogleTestCase
 {
@@ -73,7 +73,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	{
 		$this->assertThat(
 			$this->object->activities,
-			$this->isInstanceOf('JGoogleDataPlusActivities')
+			$this->isInstanceOf('Joomla\Google\Data\Plus\Activities')
 		);
 	}
 
@@ -88,7 +88,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	{
 		$this->assertThat(
 			$this->object->comments,
-			$this->isInstanceOf('JGoogleDataPlusComments')
+			$this->isInstanceOf('Joomla\Google\Data\Plus\Comments')
 		);
 	}
 

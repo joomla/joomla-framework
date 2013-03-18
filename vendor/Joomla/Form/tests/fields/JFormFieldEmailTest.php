@@ -7,7 +7,7 @@
 /**
  * Test class for JFormFieldEMail.
  *
- * @since    1.0
+ * @since  1.0
  */
 class JFormFieldEMailTest extends PHPUnit_Framework_TestCase
 {

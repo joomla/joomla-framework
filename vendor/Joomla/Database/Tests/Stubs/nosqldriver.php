@@ -11,7 +11,7 @@ use Joomla\Database\Driver;
 /**
  * Test class JDatabase.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Nosql extends Driver
 {

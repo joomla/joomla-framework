@@ -15,7 +15,7 @@ use SimpleXMLElement;
  * Form Rule class for the Joomla Platform.
  * Requires the value entered be one of the options in a field of type="list"
  *
- * @since    1.0
+ * @since  1.0
  */
 class Options extends Rule
 {

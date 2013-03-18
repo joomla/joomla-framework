@@ -11,7 +11,7 @@ use Joomla\Registry\Format;
 /**
  * JSON format handler for Registry.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Json extends Format
 {

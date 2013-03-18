@@ -9,7 +9,7 @@ namespace Joomla\Http;
 /**
  * HTTP response data object class.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Response
 {

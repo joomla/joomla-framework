@@ -15,7 +15,7 @@ use Joomla\Language\Stemmer;
  * This class was adapted from one written by Richard Heyes.
  * See copyright and link information above.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Porteren extends Stemmer
 {
