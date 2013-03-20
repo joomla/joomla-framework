@@ -7,3 +7,4 @@ php:
 before_script:
   - pyrus channel-discover pear.phpunit.de
   - pyrus install --force phpunit/DbUnit
+  - composer install --dev
