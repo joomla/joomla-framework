@@ -139,7 +139,7 @@ abstract class Router
 		$class = $this->controllerPrefix . ucfirst($name);
 
 		// If the controller class does not exist panic.
-		if (!class_exists($class) || !is_subclass_of($class, '\\Joomla\\Controller\\Controller'))
+		if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
 		{
 			throw new \RuntimeException(sprintf('Unable to locate controller `%s`.', $class), 404);
 		}
