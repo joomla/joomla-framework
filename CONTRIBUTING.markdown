@@ -4,6 +4,7 @@ Pull requests are merged via Github, you can find the documentation about how to
 
 All contributions are welcome to be submitted for review for inclusion in the Joomla Framework, but before they will be accepted, we ask that you follow these simple steps:
 
+* [Joomla Contributor Agreement](#joomla-contributor-agreement)
 * [Coding standards](#coding-standards)
 * [Unit Testing](#unit-testing)
 * [Documentation](#documentation)
@@ -15,6 +16,15 @@ Also be receptive to feedback about your additions or changes to the Framework. 
 If you need some ideas about what you can do, you will find tasks on the [Issues](https://github.com/joomla/joomla-framework/issues) list. All tasks are allocated to a milestone, usually representing a quarter of the calendar year. The milestones should be used as a guide to when various tasks should be done, but there is generally no problem doing tasks out of order (providing there are no dependancy problems). 
 
 All tasks are labelled into broad groups. For example, the [backlog](https://github.com/joomla/joomla-framework/issues?labels=backlog&page=1&state=open) label shows all the tasks that need to be competed to "catch up" on work that was missed out in previous versions of the Framework.
+
+## Joomla Contributor Agreement
+
+Ideally, everybody who contributes to the Joomla Framework, or any other Open Source Matters supported project for that matter, should sign a [Joomla Contributor Agreement](http://developer.joomla.org/contributor-agreements.htm) (JCA). 
+
+But, we are aware that some contributors will not want to take the extra effort, especially for one-time contributors of modest amounts of code.  As a compromise, the Joomla Project requires a JCA from anybody who makes a significant contribution to Joomla or any other OSM project.  "Significant" is, of course, a judgment call.  As a general guideline, if you as an individual have contributed or intend to contribute over 100 lines of code to the Joomla Framework, we need a JCA. 
+
+If you are contributing as an employee of a company (that is, the work you are contributing was done on company time) then we need a JCA with your company no matter how small the contribution is. 
+
 
 ## Coding standards
 
