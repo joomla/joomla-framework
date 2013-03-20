@@ -9,7 +9,7 @@ namespace Joomla\Http\Tests;
 use Joomla\Uri\Uri;
 
 /**
- * Test class for Joomla\Http\Transport instances.
+ * Test class for Joomla\Http\TransportInterface instances.
  *
  * @since  1.0
  */
@@ -22,7 +22,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-\	 * @var    string  The URL string for the HTTP stub.
+	 * @var    string  The URL string for the HTTP stub.
 	 * @since  1.0
 	 */
 	protected $stubUrl;
@@ -39,7 +39,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->options = $this->getMock('Joomla\Registry\Registry', array('get', 'set'));
+		$this->options = $this->getMock('Joomla\\Registry\\Registry', array('get', 'set'));
 
 		if (!defined('JTEST_HTTP_STUB') && getenv('JTEST_HTTP_STUB') == '')
 		{
@@ -61,9 +61,9 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	public function transportProvider()
 	{
 		return array(
-			'stream' => array('\\Joomla\\Http\\Transport\\Stream'),
-			'curl' => array('\\Joomla\\Http\\Transport\\Curl'),
-			'socket' => array('\\Joomla\\Http\\Transport\\Socket')
+			'stream' => array('Joomla\\Http\\Transport\\Stream'),
+			'curl' => array('Joomla\\Http\\Transport\\Curl'),
+			'socket' => array('Joomla\\Http\\Transport\\Socket')
 		);
 	}
 
@@ -76,7 +76,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since      1.0
 	 * @dataProvider  transportProvider
-\	 */
+	 */
 	public function testRequestGet($transportClass)
 	{
 		$transport = new $transportClass($this->options);

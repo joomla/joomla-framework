@@ -14,7 +14,7 @@ use Joomla\Uri\Uri;
  *
  * @since  1.0
  */
-interface Transport
+interface TransportInterface
 {
 	/**
 	 * Constructor.

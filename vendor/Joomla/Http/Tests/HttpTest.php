@@ -48,7 +48,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		static $classNumber = 1;
-		$this->options = $this->getMock('Joomla\Registry\Registry', array('get', 'set'));
+		$this->options = $this->getMock('Joomla\\Registry\\Registry', array('get', 'set'));
 		$this->transport = $this->getMock(
 			'Joomla\Http\Transport\Stream',
 			array('request'),

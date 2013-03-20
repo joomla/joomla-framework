@@ -7,7 +7,7 @@
 namespace Joomla\Http\Transport;
 
 use Joomla\Registry\Registry;
-use Joomla\Http\Transport;
+use Joomla\Http\TransportInterface;
 use Joomla\Http\Response;
 use Joomla\Uri\Uri;
 
@@ -16,7 +16,7 @@ use Joomla\Uri\Uri;
  *
  * @since  1.0
  */
-class Curl implements Transport
+class Curl implements TransportInterface
 {
 	/**
 	 * @var    Registry  The client options.

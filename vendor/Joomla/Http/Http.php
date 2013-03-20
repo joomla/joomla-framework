@@ -37,7 +37,7 @@ class Http
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Transport $transport = null)
+	public function __construct(Registry $options = null, TransportInterface $transport = null)
 	{
 		$this->options   = isset($options) ? $options : new Registry;
 		$this->transport = isset($transport) ? $transport : Factory::getAvailableDriver($this->options);

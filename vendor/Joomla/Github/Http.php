@@ -7,7 +7,7 @@
 namespace Joomla\Github;
 
 use Joomla\Http\Http as BaseHttp;
-use Joomla\Http\Transport;
+use Joomla\Http\TransportInterface;
 use Joomla\Registry\Registry;
 
 /**
@@ -43,7 +43,7 @@ class Http extends BaseHttp
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Transport $transport = null)
+	public function __construct(Registry $options = null, TransportInterface $transport = null)
 	{
 		// Call the JHttp constructor to setup the object.
 		parent::__construct($options, $transport);

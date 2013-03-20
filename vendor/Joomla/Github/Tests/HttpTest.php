@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class JGithubHttpTest extends PHPUnit_Framework_TestCase
+class JGithubHttpTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
@@ -45,7 +45,7 @@ class JGithubHttpTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->transport = $this->getMock('Joomla\Http\Transport\Stream', array('request'), array($this->options), 'CustomTransport', false);
+		$this->transport = $this->getMock('Joomla\\Http\\Transport\\Stream', array('request'), array($this->options), 'CustomTransport', false);
 
 		$this->object = new Http($this->options, $this->transport);
 	}
