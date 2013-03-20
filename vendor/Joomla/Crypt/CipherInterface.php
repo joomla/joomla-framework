@@ -11,7 +11,7 @@ namespace Joomla\Crypt;
  *
  * @since  1.0
  */
-interface Cipher
+interface CipherInterface
 {
 	/**
 	 * Method to decrypt a data string.

@@ -43,7 +43,7 @@ class CryptTest extends \PHPUnit_Framework_TestCase
 	public function test__construct()
 	{
 		$this->assertAttributeEquals(null, 'key', $this->object);
-		$this->assertAttributeInstanceOf('\\Joomla\\Crypt\\Cipher', 'cipher', $this->object);
+		$this->assertAttributeInstanceOf('Joomla\\Crypt\\CipherInterface', 'cipher', $this->object);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class CryptTest extends \PHPUnit_Framework_TestCase
 	{
 		$key = $this->object->generateKey();
 
-		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
+		$this->assertInstanceOf('Joomla\\Crypt\\Key', $key);
 	}
 
 	/**
@@ -101,7 +101,7 @@ class CryptTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetKey()
 	{
-		$keyMock = $this->getMock('\\Joomla\\Crypt\\Key', array(), array('simple'));
+		$keyMock = $this->getMock('Joomla\\Crypt\\Key', array(), array('simple'));
 
 		$this->object->setKey($keyMock);
 

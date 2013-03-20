@@ -140,7 +140,7 @@ class Cipher3DESTest extends \PHPUnit_Framework_TestCase
 		$key = $this->cipher->generateKey();
 
 		// Assert that the key is the correct type.
-		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
+		$this->assertInstanceOf('Joomla\\Crypt\\Key', $key);
 
 		// Assert that the private key is 24 bytes long.
 		$this->assertEquals(24, strlen($key->private));

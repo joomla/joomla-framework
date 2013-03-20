@@ -11,7 +11,7 @@ namespace Joomla\Crypt;
  *
  * @since  1.0
  */
-abstract class Cipher_Mcrypt implements Cipher
+abstract class Cipher_Mcrypt implements CipherInterface
 {
 	/**
 	 * @var    integer  The mcrypt cipher constant.

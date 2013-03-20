@@ -11,7 +11,7 @@ namespace Joomla\Crypt;
  *
  * @since  1.0
  */
-class Cipher_Simple implements Cipher
+class Cipher_Simple implements CipherInterface
 {
 	/**
 	 * Method to decrypt a data string.

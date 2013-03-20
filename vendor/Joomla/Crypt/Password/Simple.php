@@ -6,14 +6,14 @@
 
 namespace Joomla\Crypt\Password;
 
-use Joomla\Crypt\Password;
+use Joomla\Crypt\PasswordInterface;
 
 /**
  * Joomla Platform Password Crypter
  *
  * @since  1.0
  */
-class Simple implements Password
+class Simple implements PasswordInterface
 {
 	/**
 	 * @var    integer  The cost parameter for hashing algorithms.
@@ -47,7 +47,7 @@ class Simple implements Password
 		switch ($type)
 		{
 			case '$2a$':
-			case Password::BLOWFISH:
+			case PasswordInterface::BLOWFISH:
 				$salt = $this->getSalt(22);
 
 				if (version_compare(PHP_VERSION, '5.3.7') >= 0)
@@ -63,14 +63,14 @@ class Simple implements Password
 
 			return crypt($password, $salt);
 
-			case Password::MD5:
+			case PasswordInterface::MD5:
 				$salt = $this->getSalt(12);
 
 				$salt = '$1$' . $salt;
 
 			return crypt($password, $salt);
 
-			case Password::JOOMLA:
+			case PasswordInterface::JOOMLA:
 				$salt = $this->getSalt(32);
 
 			return md5($password . $salt) . ':' . $salt;

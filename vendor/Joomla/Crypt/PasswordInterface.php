@@ -11,7 +11,7 @@ namespace Joomla\Crypt;
  *
  * @since  1.0
  */
-interface Password
+interface PasswordInterface
 {
 	const BLOWFISH = '$2y$';
 

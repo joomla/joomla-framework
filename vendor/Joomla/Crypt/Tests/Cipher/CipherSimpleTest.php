@@ -134,7 +134,7 @@ class CipherSimpleTest extends \PHPUnit_Framework_TestCase
 		$key = $this->cipher->generateKey();
 
 		// Assert that the key is the correct type.
-		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
+		$this->assertInstanceOf('Joomla\\Crypt\\Key', $key);
 
 		// Assert the public and private keys are the same.
 		$this->assertEquals($key->public, $key->private);

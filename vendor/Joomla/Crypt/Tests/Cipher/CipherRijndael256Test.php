@@ -140,7 +140,7 @@ class CipherRijndael256Test extends \PHPUnit_Framework_TestCase
 		$key = $this->cipher->generateKey();
 
 		// Assert that the key is the correct type.
-		$this->assertInstanceOf('\\Joomla\\Crypt\\Key', $key);
+		$this->assertInstanceOf('Joomla\\Crypt\\Key', $key);
 
 		// Assert that the private key is 32 bytes long.
 		$this->assertEquals(32, strlen($key->private));
