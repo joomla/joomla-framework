@@ -33,7 +33,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertAttributeInstanceOf('Joomla\\Model\\Model', 'model', $this->instance);
+		$this->assertAttributeInstanceOf('Joomla\\Model\\ModelInterface', 'model', $this->instance);
 	}
 
 	/**

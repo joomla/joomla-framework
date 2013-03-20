@@ -6,14 +6,14 @@
 
 namespace Joomla\View;
 
-use Joomla\Model\Model;
+use Joomla\Model\ModelInterface;
 
 /**
  * Joomla Platform Base View Class
  *
  * @since  1.0
  */
-abstract class Base implements View
+abstract class Base implements ViewInterface
 {
 	/**
 	 * The model object.
@@ -30,7 +30,7 @@ abstract class Base implements View
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Model $model)
+	public function __construct(ModelInterface $model)
 	{
 		// Setup dependencies.
 		$this->model = $model;

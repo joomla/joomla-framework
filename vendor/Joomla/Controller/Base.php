@@ -14,7 +14,7 @@ use Joomla\Application;
  *
  * @since  1.0
  */
-abstract class Base implements Controller
+abstract class Base implements ControllerInterface
 {
 	/**
 	 * The application object.

@@ -11,7 +11,7 @@ namespace Joomla\Controller;
  *
  * @since  1.0
  */
-interface Controller extends \Serializable
+interface ControllerInterface extends \Serializable
 {
 	/**
 	 * Execute the controller.

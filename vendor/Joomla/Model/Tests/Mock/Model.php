@@ -33,7 +33,7 @@ class Model
 
 		// Create the mock.
 		$mockObject = $test->getMock(
-			'Joomla\\Model\\Model',
+			'Joomla\\Model\\ModelInterface',
 			$methods,
 			// Constructor arguments.
 			array(),

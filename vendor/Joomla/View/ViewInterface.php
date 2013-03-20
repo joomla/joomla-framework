@@ -11,7 +11,7 @@ namespace Joomla\View;
  *
  * @since  1.0
  */
-interface View
+interface ViewInterface
 {
 	/**
 	 * Method to escape output.

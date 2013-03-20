@@ -13,7 +13,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-interface Model
+interface ModelInterface
 {
 	/**
 	 * Get the model state.

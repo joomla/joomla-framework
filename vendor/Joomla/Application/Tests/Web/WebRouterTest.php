@@ -104,7 +104,7 @@ class JApplicationWebRouterTest extends TestCase
 	public function testFetchControllerWithPrefixSet()
 	{
 		Helper::setValue($this->instance, 'controllerPrefix', 'MyTestController');
-		$controller = Helper::invoke($this->instance, 'fetchController', 'foo');
+		$controller = Helper::invoke($this->instance, 'fetchController', 'Foo');
 	}
 
 	/**

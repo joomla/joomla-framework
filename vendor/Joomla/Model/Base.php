@@ -13,7 +13,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class Base implements Model
+class Base implements ModelInterface
 {
 	/**
 	 * The model state.

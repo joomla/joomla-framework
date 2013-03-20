@@ -7,7 +7,7 @@
 namespace Joomla\View;
 
 use Joomla\Filesystem\Path;
-use Joomla\Model\Model;
+use Joomla\Model\ModelInterface;
 
 /**
  * Joomla Platform HTML View Class
@@ -40,7 +40,7 @@ abstract class Html extends Base
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Model $model, \SplPriorityQueue $paths = null)
+	public function __construct(ModelInterface $model, \SplPriorityQueue $paths = null)
 	{
 		parent::__construct($model);
 
