@@ -21,7 +21,7 @@ use Joomla\Filesystem\Folder;
  *
  * @since  1.0
  */
-class Tar implements Extractable
+class Tar implements ExtractableInterface
 {
 	/**
 	 * Tar file types.

@@ -11,7 +11,7 @@ namespace Joomla\Archive;
  *
  * @since  1.0
  */
-interface Extractable
+interface ExtractableInterface
 {
 	/**
 	 * Extract a compressed file to a given path

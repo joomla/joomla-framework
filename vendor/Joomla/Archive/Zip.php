@@ -32,7 +32,7 @@ use Joomla\Filesystem\Folder;
  *
  * @since  1.0
  */
-class Zip implements Extractable
+class Zip implements ExtractableInterface
 {
 	/**
 	 * ZIP compression methods.

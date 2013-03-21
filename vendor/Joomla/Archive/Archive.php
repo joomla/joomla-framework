@@ -172,7 +172,7 @@ class Archive
 	 *
 	 * @param   string  $type  The type of adapter (bzip2|gzip|tar|zip).
 	 *
-	 * @return  JArchiveExtractable  Adapter for the requested type
+	 * @return  Joomla\Archive\ExtractableInterface  Adapter for the requested type
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -182,7 +182,7 @@ class Archive
 		if (!isset(self::$adapters[$type]))
 		{
 			// Try to load the adapter object
-			$class = '\\Joomla\\Archive\\' . ucfirst($type);
+			$class = 'Joomla\\Archive\\' . ucfirst($type);
 
 			if (!class_exists($class))
 			{

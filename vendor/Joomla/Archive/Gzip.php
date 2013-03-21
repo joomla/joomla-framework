@@ -20,7 +20,7 @@ use Joomla\Filesystem\File;
  *
  * @since  1.0
  */
-class Gzip implements Extractable
+class Gzip implements ExtractableInterface
 {
 	/**
 	 * Gzip file flags.

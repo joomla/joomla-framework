@@ -14,7 +14,7 @@ use Joomla\Filesystem\File;
  *
  * @since  1.0
  */
-class Bzip2 implements Extractable
+class Bzip2 implements ExtractableInterface
 {
 	/**
 	 * Bzip2 file data buffer
