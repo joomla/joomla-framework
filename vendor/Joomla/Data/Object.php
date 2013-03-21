@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class Object implements Dumpable, \IteratorAggregate, \JsonSerializable, \Countable
+class Object implements DumpableInterface, \IteratorAggregate, \JsonSerializable, \Countable
 {
 	/**
 	 * The data object properties.
@@ -244,7 +244,7 @@ class Object implements Dumpable, \IteratorAggregate, \JsonSerializable, \Counta
 		if ($depth > 0)
 		{
 			// Check if the object is also an dumpable object.
-			if ($value instanceof Dumpable)
+			if ($value instanceof DumpableInterface)
 			{
 				// Do not dump the property if it has already been dumped.
 				if (!$dumped->contains($value))

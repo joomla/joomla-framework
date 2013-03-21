@@ -12,7 +12,7 @@ namespace Joomla\Data;
  *
  * @since  1.0
  */
-class Set implements Dumpable, \ArrayAccess, \Countable, \Iterator
+class Set implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 {
 	/**
 	 * The current position of the iterator.

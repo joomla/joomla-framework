@@ -11,7 +11,7 @@ namespace Joomla\Data;
  *
  * @since  1.0
  */
-interface Dumpable
+interface DumpableInterface
 {
 	/**
 	 * Dumps the object properties into a stdClass object, recursively if appropriate.

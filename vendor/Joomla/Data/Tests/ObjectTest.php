@@ -314,18 +314,18 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($dump->registry, (object) array('key' => 'value'));
 		$this->assertInstanceOf('stdClass', $dump->Object->level2);
 		$this->assertInstanceOf('stdClass', $dump->Object->level2->level3);
-		$this->assertInstanceOf('Joomla\Data\Object', $dump->Object->level2->level3->level4);
+		$this->assertInstanceOf('Joomla\\Data\\Object', $dump->Object->level2->level3->level4);
 
 		$dump = $this->instance->dump(0);
-		$this->assertInstanceOf('Joomla\Date\Date', $dump->date);
-		$this->assertInstanceOf('Joomla\Registry\Registry', $dump->registry);
-		$this->assertInstanceOf('Joomla\Data\Object', $dump->Object);
+		$this->assertInstanceOf('Joomla\\Date\\Date', $dump->date);
+		$this->assertInstanceOf('Joomla\\Registry\\Registry', $dump->registry);
+		$this->assertInstanceOf('Joomla\\Data\\Object', $dump->Object);
 
 		$dump = $this->instance->dump(1);
 		$this->assertEquals($dump->date, '2012-01-01 00:00:00');
 		$this->assertEquals($dump->registry, (object) array('key' => 'value'));
 		$this->assertInstanceOf('stdClass', $dump->Object);
-		$this->assertInstanceOf('Joomla\Data\Object', $dump->Object->level2);
+		$this->assertInstanceOf('Joomla\\Data\\Object', $dump->Object->level2);
 	}
 
 	/**
