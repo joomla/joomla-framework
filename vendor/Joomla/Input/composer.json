@@ -6,7 +6,11 @@
     "homepage": "https://github.com/joomla/joomla-framework-input",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10"
+        "php": ">=5.3.10",
+        "joomla/filter": "dev-master"
+    },
+    "require-dev": {
+    	"joomla/test": "dev-master"
     },
     "target-dir": "Joomla/Input",
     "autoload": {
