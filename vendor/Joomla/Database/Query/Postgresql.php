@@ -13,7 +13,7 @@ use Joomla\Database\Query;
  *
  * @since  1.0
  */
-class Postgresql extends Query implements Limitable
+class Postgresql extends Query implements LimitableInterface
 {
 	/**
 	 * @var    object  The FOR UPDATE element used in "FOR UPDATE"  lock

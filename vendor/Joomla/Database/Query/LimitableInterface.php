@@ -7,7 +7,7 @@
 namespace Joomla\Database\Query;
 
 /**
- * Joomla Database Query Limitable Interface.
+ * Joomla Database Query LimitableInterface.
  *
  * Adds bind/unbind methods as well as a getBounded() method
  * to retrieve the stored bounded variables on demand prior to
@@ -15,14 +15,14 @@ namespace Joomla\Database\Query;
  *
  * @since  1.0
  */
-interface Limitable
+interface LimitableInterface
 {
 	/**
 	 * Method to modify a query already in string format with the needed
 	 * additions to make the query limited to a particular number of
 	 * results, or start at a particular offset. This method is used
 	 * automatically by the __toString() method if it detects that the
-	 * query implements the Limitable interface.
+	 * query implements the LimitableInterface.
 	 *
 	 * @param   string   $query   The query in string format
 	 * @param   integer  $limit   The limit for the result set
@@ -44,7 +44,7 @@ interface Limitable
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return  Limitable  Returns this object to allow chaining.
+	 * @return  LimitableInterface  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */

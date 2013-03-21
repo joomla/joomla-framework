@@ -11,7 +11,7 @@ namespace Joomla\Database\Query;
  *
  * @since  1.0
  */
-class Oracle extends Pdo implements Preparable, Limitable
+class Oracle extends Pdo implements PreparableInterface, LimitableInterface
 {
 	/**
 	 * @var    integer
@@ -134,7 +134,7 @@ class Oracle extends Pdo implements Preparable, Limitable
 	 * additions to make the query limited to a particular number of
 	 * results, or start at a particular offset. This method is used
 	 * automatically by the __toString() method if it detects that the
-	 * query implements the Limitable interface.
+	 * query implements the LimitableInterface.
 	 *
 	 * @param   string   $query   The query in string format
 	 * @param   integer  $limit   The limit for the result set

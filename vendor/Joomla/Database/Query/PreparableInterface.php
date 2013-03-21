@@ -14,7 +14,7 @@ namespace Joomla\Database\Query;
  *
  * @since  1.0
  */
-interface Preparable
+interface PreparableInterface
 {
 	/**
 	 * Method to add a variable to an internal array that will be bound to a prepared SQL statement before query execution. Also

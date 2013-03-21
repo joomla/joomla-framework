@@ -8,8 +8,8 @@ namespace Joomla\Database\Driver;
 
 use Psr\Log;
 use Joomla\Database\Driver;
-use Joomla\Database\Query\Limitable;
-use Joomla\Database\Query\Preparable;
+use Joomla\Database\Query\LimitableInterface;
+use Joomla\Database\Query\PreparableInterface;
 
 /**
  * Joomla Platform PDO Database Driver Class
@@ -403,7 +403,7 @@ abstract class Pdo extends Driver
 		if ($this->prepared instanceof \PDOStatement)
 		{
 			// Bind the variables:
-			if ($this->sql instanceof Preparable)
+			if ($this->sql instanceof PreparableInterface)
 			{
 				$bounded =& $this->sql->getBounded();
 
@@ -692,7 +692,7 @@ abstract class Pdo extends Driver
 			$query = $this->getQuery(true)->setQuery($query);
 		}
 
-		if ($query instanceof Limitable && !is_null($offset) && !is_null($limit))
+		if ($query instanceof LimitableInterface && !is_null($offset) && !is_null($limit))
 		{
 			$query->setLimit($limit, $offset);
 		}

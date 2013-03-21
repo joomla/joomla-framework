@@ -369,7 +369,7 @@ abstract class Query
 				break;
 		}
 
-		if ($this instanceof Query\Limitable)
+		if ($this instanceof Query\LimitableInterface)
 		{
 			$query = $this->processLimit($query, $this->limit, $this->offset);
 		}

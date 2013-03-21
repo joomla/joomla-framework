@@ -13,7 +13,7 @@ use Joomla\Database\Query;
  *
  * @since  1.0
  */
-class Mysqli extends Query implements Limitable
+class Mysqli extends Query implements LimitableInterface
 {
 	/**
 	 * @var    interger  The offset for the result set.
