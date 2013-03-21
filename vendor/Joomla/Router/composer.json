@@ -1,0 +1,22 @@
+{
+    "name": "joomla/router",
+    "type": "joomla-package",
+    "description": "Joomla Router Package",
+    "keywords": ["joomla", "framework", "router"],
+    "homepage": "https://github.com/joomla/joomla-framework-router",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+    	"joomla/controller": "dev-master",
+    	"joomla/input": "dev-master"
+    },
+    "require-dev": {
+    	"joomla/test": "dev-master"
+    },
+    "target-dir": "Joomla/Router",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Router": ""
+    	}
+    }
+}

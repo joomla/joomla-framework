@@ -4,33 +4,71 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Application\Web\Router;
+namespace Joomla\Router;
 
-
-use Joomla\Application\Web\Router;
-use InvalidArgumentException;
+use Joomla\Controller\ControllerInterface;
+use Joomla\Input;
 
 /**
- * Basic Web application router class for the Joomla Platform.
+ * A path router.
  *
  * @since  1.0
  */
-class Base extends Router
+class Router
 {
 	/**
-	 * @var    array  An array of rules, each rule being an associative array('regex'=> $regex, 'vars' => $vars, 'controller' => $controller)
-	 *                for routing the request.
+	 * Controller class name prefix for creating controller objects by name.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $controllerPrefix;
+
+	/**
+	 * The default page controller name for an empty route.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $default;
+
+	/**
+	 * An input object from which to derive the route.
+	 *
+	 * @var    Input
+	 * @since  1.0
+	 */
+	protected $input;
+
+	/**
+	 * An array of rules, each rule being an associative array('regex'=> $regex, 'vars' => $vars, 'controller' => $controller)
+	 * for routing the request.
+	 *
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected $maps = array();
 
 	/**
-	 * Add a route map to the router.  If the pattern already exists it will be overwritten.
+	 * Constructor.
+	 *
+	 * @param   Input  $input  An optional input object from which to derive the route.  If none
+	 *                         is given than the input from the application object will be used.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct(Input\Input $input = null)
+	{
+		$this->input = ($input === null) ? new Input\Input : $input;
+	}
+
+	/**
+	 * Add a route map to the router. If the pattern already exists it will be overwritten.
 	 *
 	 * @param   string  $pattern     The route pattern to use for matching.
 	 * @param   string  $controller  The controller name to map to the given pattern.
 	 *
-	 * @return  JApplicationWebRouter  This object for method chaining.
+	 * @return  Router  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -97,11 +135,11 @@ class Base extends Router
 	}
 
 	/**
-	 * Add a route map to the router.  If the pattern already exists it will be overwritten.
+	 * Add an array of route maps to the router.  If the pattern already exists it will be overwritten.
 	 *
 	 * @param   array  $maps  A list of route maps to add to the router as $pattern => $controller.
 	 *
-	 * @return  JApplicationWebRouter  This object for method chaining.
+	 * @return  Router  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -116,6 +154,85 @@ class Base extends Router
 	}
 
 	/**
+	 * Find and execute the appropriate controller based on a given route.
+	 *
+	 * @param   string  $route  The route string for which to find and execute a controller.
+	 *
+	 * @return  ControllerInterface
+	 *
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
+	 * @throws  \RuntimeException
+	 */
+	public function getController($route)
+	{
+		// Get the controller name based on the route patterns and requested route.
+		$name = $this->parseRoute($route);
+
+		// Get the controller object by name.
+		return $this->fetchController($name);
+	}
+
+	/**
+	 * Set the controller name prefix.
+	 *
+	 * @param   string  $prefix  Controller class name prefix for creating controller objects by name.
+	 *
+	 * @return  Router  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setControllerPrefix($prefix)
+	{
+		$this->controllerPrefix	= (string) $prefix;
+
+		return $this;
+	}
+
+	/**
+	 * Set the default controller name.
+	 *
+	 * @param   string  $name  The default page controller name for an empty route.
+	 *
+	 * @return  Router  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setDefaultController($name)
+	{
+		$this->default = (string) $name;
+
+		return $this;
+	}
+
+	/**
+	 * Get a JController object for a given name.
+	 *
+	 * @param   string  $name  The controller name (excluding prefix) for which to fetch and instance.
+	 *
+	 * @return  ControllerInterface
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	protected function fetchController($name)
+	{
+		// Derive the controller class name.
+		$class = $this->controllerPrefix . ucfirst($name);
+
+		// If the controller class does not exist panic.
+		if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
+		{
+			throw new \RuntimeException(sprintf('Unable to locate controller `%s`.', $class), 404);
+		}
+
+		// Instantiate the controller.
+		$controller = new $class($this->input);
+
+		return $controller;
+	}
+
+	/**
 	 * Parse the given route and return the name of a controller mapped to the given route.
 	 *
 	 * @param   string  $route  The route string for which to find and execute a controller.
@@ -123,7 +240,7 @@ class Base extends Router
 	 * @return  string  The controller name for the given route excluding prefix.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	protected function parseRoute($route)
 	{
@@ -168,7 +285,7 @@ class Base extends Router
 		// We were unable to find a route match for the request.  Panic.
 		if (!$controller)
 		{
-			throw new InvalidArgumentException(sprintf('Unable to handle request for route `%s`.', $route), 404);
+			throw new \InvalidArgumentException(sprintf('Unable to handle request for route `%s`.', $route), 404);
 		}
 
 		return $controller;
