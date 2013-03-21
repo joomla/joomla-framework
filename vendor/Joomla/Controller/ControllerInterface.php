@@ -6,6 +6,9 @@
 
 namespace Joomla\Controller;
 
+use Joomla\Application;
+use Joomla\Input;
+
 /**
  * Joomla Platform Controller Interface
  *
@@ -21,15 +24,15 @@ interface ControllerInterface extends \Serializable
 	 *                   the controller to run has not been satisfied.
 	 *
 	 * @since   1.0
-	 * @throws  LogicException
-	 * @throws  RuntimeException
+	 * @throws  \LogicException
+	 * @throws  \RuntimeException
 	 */
 	public function execute();
 
 	/**
 	 * Get the application object.
 	 *
-	 * @return  \Joomla\Application\Base  The application object.
+	 * @return  Application\Base  The application object.
 	 *
 	 * @since   1.0
 	 */
@@ -38,9 +41,31 @@ interface ControllerInterface extends \Serializable
 	/**
 	 * Get the input object.
 	 *
-	 * @return  \Joomla\Input\Input  The input object.
+	 * @return  Input\Input  The input object.
 	 *
 	 * @since   1.0
 	 */
 	public function getInput();
+
+	/**
+	 * Set the application object.
+	 *
+	 * @param   Application\Base  $app  The application object.
+	 *
+	 * @return  ControllerInterface  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setApplication(Application\Base $app);
+
+	/**
+	 * Set the input object.
+	 *
+	 * @param   Input\Input  $input  The input object.
+	 *
+	 * @return  ControllerInterface  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setInput(Input\Input $input);
 }
