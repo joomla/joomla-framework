@@ -1,55 +1,59 @@
-## The Input Package
+# The Input Package
 
-This package comprises of four classes, `JInput`and three sub-classes extended from it: `JInputCli`, `JInputCookie` and `JInputFiles`. It replaces the role of the now deprecated `JRequest` class. An input object is generally owned by the application and explicitly added to an application class as a public property, such as can be found in `JApplicationWeb`, `JApplicationCli` and `JApplicationDaemon`. 
+This package comprises of four classes, `Input\Input`and three sub-classes extended from it: `Input\Cli`, `Input\Cookie` and `Input\Files`. It replaces the role of the now deprecated `JRequest` class. An input object is generally owned by the application and explicitly added to an application class as a public property, such as can be found in `Application\Web`, `Application\Cli` and `Application\Daemon`. 
 
 The intent of this package is to abstract out the input source to allow code to be reused in different applications and in different contexts through dependency injection. For example, a controller could inspect the request variables directly using `JRequest`. But suppose there is a requirement to add a web service that carries input as a JSON payload. Instead of writing a second controller to handle the different input source, it would be much easier to inject an  input object, that is tailored for the type of input source, into the controller.
 
-Using a `JInput` object through dependency injection also makes code easier to test. Writing unit tests for code that relies on `JRequest` is problematic to say the least.
+Using a `Input\Input` object through dependency injection also makes code easier to test. Writing unit tests for code that relies on `JRequest` is problematic to say the least.
 
 All classes in this package are supported by the auto-loader so can be invoked at any time. 
 
-### JInput
+## Input\Input
 
-#### Construction
+### Construction
 
-Unlike its predecessor `JRequest` which is used statically, the `JInput`
+Unlike its predecessor `JRequest` which is used staticallly, the `Input\Input`
 class is meant to be used as an instantiated concrete class. Among other
 things, this makes testing of the class, and the classes that are
 coupled to it, easier, but also means the developer has a lot more
 flexibility since this allows for dependency injection.
 
 The constructor takes two optional array arguments. The first is the
-source data which defaults to the superglobal `$_REQUEST` if omitted or
+source data which defaults to **a copy of** the superglobal `$_REQUEST` if omitted or
 `null`. The second is a general options array for which "filter" is the
-only option key currently supported. If omitted, `JInput` will just use
-the default instance of `JFilterInput`.
+only option key currently supported. If omitted, `Input\Input` will just use
+the default instance of `Filter\Input`.
 
 ```php
+use Joomla\Input;
+
 // Default construction (data comes from $_REQUEST).
-$input = new JInput;
+$input = new Input\Input;
 
 // Construction with data injection.
-$input = new JInput(array('foo' => 'bar');
+$input = new Input\Input(array('foo' => 'bar');
 
 // Construction with a custom filter.
 $filter = JFilterInput::getInstance(/* custom settings */);
-$input = new JInput(null, $filter);
+$input = new Input\Input(null, $filter);
 ```
 
-#### Usage
+### Usage
 
-The most common usage of the `JInput` class will be through the get method
-which is roughly equivalent to the `JRequest::getVar` method. The get
+The most common usage of the `Input\Input` class will be through the get method
+which is roughly equivalent to the old `JRequest::getVar` method. The `get`
 method takes three arguments: a key name, a default value and a filter
 name (defaulting to "cmd" if omitted). The filter name is any valid
-filter type that the `JFilterInput` class, or the custom class provided in
+filter type that the `Filter\Input` class, or the custom class provided in
 the constructor, supports.
 
 The set method is also equivalent to `JRequest::setVar` as is the
 getMethod method.
 
 ```php
-$input = new Jinput;
+use Joomla\Input;
+
+$input = new Input\Input;
 
 // Get the "foo" variable from the request.
 $foo = $input->get('foo');
@@ -86,7 +90,7 @@ The filter types available when using JFilterInput are:
 * PATH - Matches legal characters for a path.
 * USERNAME - Strips a select set of characters from the source (\\x00, -, \\x1F, \\x7F, \<, \>, ", ', %, &).
 
-If no filter type is specified, the default handling of `JFilterInput` is
+If no filter type is specified, the default handling of `Filter\Input` is
 to return an aggressively cleaned and trimmed string, stripped of any
 HTML or encoded characters.
 
@@ -94,7 +98,7 @@ Additionally, magic getters are available as shortcuts to specific
 filter types.
 
 ```php
-$input = new JInput;
+$input = new Input\Input;
 
 // Apply the "INT" filter type.
 $id = $input->getInt('id');
@@ -111,15 +115,15 @@ $foo = $input->getFoo('foo');
 
 The class also supports a magic get method that allows you shortcut
 access to other superglobals such as `$_POST`, etc, but returning them
-as a `JInput` object.
+as a `Input\Input` object.
 
 ```php
-$input = new JInput;
+$input = new Input\Input;
 
 // Get the $_POST superglobal.
 $post = $input->post;
 
-// Access a server setting as if it's a JInput object.
+// Access a server setting as if it's a Input\Input object.
 if ($input->server->get('SERVER_ADDR'))
 {
 	// Do something with the IP address.
@@ -129,26 +133,26 @@ if ($input->server->get('SERVER_ADDR'))
 $host = $input->env->get('HOSTNAME');
 ```
 
-#### Serialization
+### Serialization
 
-The `JInput` class implements the `Serializable` interface so that it can be
+The `Input\Input` class implements the `Serializable` interface so that it can be
 safely serialized and unserialized. Note that when serializing the "ENV"
 and "SERVER" inputs are removed from the class as they may conflict or
 inappropriately overwrite settings during unserialization. This allows
-for `JInput` objects to be safely used with cached data.
+for `Input\Input` objects to be safely used with cached data.
 
-### JInputCli
+## Input\Cli
 
-The JInputCli class is extended from `JInput` but is tailored to work with
+The Input\Cli class is extended from `Input\Input` but is tailored to work with
 command line input. Once again the get method is used to get values of
 command line variables in short name format (one or more individual
 characters following a single dash) or long format (a variable name
 followed by two dashes). Additional arguments can be found be accessing
 the args property of the input object.
 
-An instance of `JInputCli` will rarely be instantiated directly. Instead,
+An instance of `Input\Cli` will rarely be instantiated directly. Instead,
 it would be used implicitly as a part of an application built from
-`JAppcliationCli` as shown in the following example.
+`Application\Cli` as shown in the following example.
 
 ```php
 #!/usr/bin/php
@@ -205,13 +209,13 @@ bool(false)
 array(1) {[0] => string(3) "bar"}
 ```
 
-### JInputCookie
+## Input\Cookie
 
-> Can you help improve this section of the manual?
+> Can you help improve this section of the README?
 
-### JInputFiles
+## Input\Files
 
-The `JInputFiles` class provides a way to handle file attachments as payloads of POSTed forms. Consider the following form which is assumed to handle an array of files to be attached (through some JavaScript behavior):
+The `Input\Files` class provides a way to handle file attachments as payloads of POSTed forms. Consider the following form which is assumed to handle an array of files to be attached (through some JavaScript behavior):
 
 ```html
 <form method="POST" action="/files" enctype="multipart/form-data">
@@ -224,8 +228,8 @@ The `JInputFiles` class provides a way to handle file attachments as payloads of
 Access the files from the request could be done as follows:
 
 ```php
-// By default, a new JInputFiles will inspect $_FILES.
-$input = new JInputFiles;
+// By default, a new Input\Files will inspect $_FILES.
+$input = new Input\Files;
 $files = $input->get('attachments');
 
 echo 'Inspecting $_FILES:';
@@ -281,4 +285,4 @@ array
 
 Unlike the PHP `$_FILES` supergobal, this array is very easier to parse. The example above assumes two files were submitted, but only one was specified. The 'blank' file contains an error code (see [PHP file upload errors](http://php.net/manual/en/features.file-upload.errors.php)).
 
-The `set` method is disabled in `JInputFiles`. However, 
+The `set` method is disabled in `Input\Files`. However, 

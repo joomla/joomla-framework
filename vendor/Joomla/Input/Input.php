@@ -72,8 +72,9 @@ class Input implements \Serializable, \Countable
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $source   Source data (Optional, default is $_REQUEST)
-	 * @param   array  $options  Array of configuration parameters (Optional)
+	 * @param   array  $source   Optional source data. If omitted, a copy of the server variable '_REQUEST' is used.
+	 * @param   array  $options  An optional associative array of configuration parameters:
+	 *                           filter: An instance of Filter\Input. If omitted, a default filter is initialised.
 	 *
 	 * @since   1.0
 	 */
@@ -90,7 +91,7 @@ class Input implements \Serializable, \Countable
 
 		if (is_null($source))
 		{
-			$this->data = &$_REQUEST;
+			$this->data = $_REQUEST;
 		}
 		else
 		{
