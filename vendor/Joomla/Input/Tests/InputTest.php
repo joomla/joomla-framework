@@ -121,9 +121,11 @@ class InputTest extends \PHPUnit_Framework_TestCase
 	{
 		$_REQUEST['foo'] = 'bar';
 
+		$instance = new Input;
+
 		// Test the get method.
 		$this->assertThat(
-			$this->instance->get('foo'),
+			$instance->get('foo'),
 			$this->equalTo('bar'),
 			'Line: ' . __LINE__ . '.'
 		);
@@ -132,14 +134,14 @@ class InputTest extends \PHPUnit_Framework_TestCase
 
 		// Test the get method.
 		$this->assertThat(
-			$this->instance->get->get('foo'),
+			$instance->get->get('foo'),
 			$this->equalTo('bar2'),
-			'Line: ' . __LINE__ . '.'
+			'Checks first use of new super-global.'
 		);
 
 		// Test the get method.
 		$this->assertThat(
-			$this->instance->get('default_value', 'default'),
+			$instance->get('default_value', 'default'),
 			$this->equalTo('default'),
 			'Line: ' . __LINE__ . '.'
 		);
@@ -167,11 +169,7 @@ class InputTest extends \PHPUnit_Framework_TestCase
 
 		$this->instance->def('Joomla', 'is great');
 
-		$this->assertThat(
-			$_REQUEST['Joomla'],
-			$this->equalTo('is great'),
-			'Line: ' . __LINE__ . '.'
-		);
+		$this->assertArrayNotHasKey('Joomla', $_REQUEST, 'Checks super-global was not modified.');
 	}
 
 	/**
@@ -189,7 +187,7 @@ class InputTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			$_REQUEST['foo'],
-			$this->equalTo('bar'),
+			$this->equalTo('bar2'),
 			'Line: ' . __LINE__ . '.'
 		);
 	}
