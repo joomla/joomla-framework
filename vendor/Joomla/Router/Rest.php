@@ -4,17 +4,14 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Application\Web\Router;
-
-
-use RuntimeException;
+namespace Joomla\Router;
 
 /**
  * RESTful Web application router class for the Joomla Platform.
  *
  * @since  1.0
  */
-class Rest extends Base
+class Rest extends Router
 {
 	/**
 	 * @var     boolean  A boolean allowing to pass _method as parameter in POST requests
@@ -38,29 +35,15 @@ class Rest extends Base
 	);
 
 	/**
-	 * Find and execute the appropriate controller based on a given route.
+	 * Get the property to allow or not method in POST request
 	 *
-	 * @param   string  $route  The route string for which to find and execute a controller.
-	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
-	 * @throws  RuntimeException
 	 */
-	public function execute($route)
+	public function isMethodInPostRequest()
 	{
-		// Get the controller name based on the route patterns and requested route.
-		$name = $this->parseRoute($route);
-
-		// Append the HTTP method based suffix.
-		$name .= $this->fetchControllerSuffix();
-
-		// Get the controller object by name.
-		$controller = $this->fetchController($name);
-
-		// Execute the controller.
-		$controller->execute();
+		return $this->methodInPostRequest;
 	}
 
 	/**
@@ -69,7 +52,7 @@ class Rest extends Base
 	 * @param   string  $method  The HTTP method for which to set the class suffix.
 	 * @param   string  $suffix  The class suffix to use when fetching the controller name for a given request.
 	 *
-	 * @return  JApplicationWebRouter  This object for method chaining.
+	 * @return  Router  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -95,31 +78,19 @@ class Rest extends Base
 	}
 
 	/**
-	 * Get the property to allow or not method in POST request
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function isMethodInPostRequest()
-	{
-		return $this->methodInPostRequest;
-	}
-
-	/**
 	 * Get the controller class suffix string.
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function fetchControllerSuffix()
 	{
 		// Validate that we have a map to handle the given HTTP method.
 		if (!isset($this->suffixMap[$this->input->getMethod()]))
 		{
-			throw new RuntimeException(sprintf('Unable to support the HTTP method `%s`.', $this->input->getMethod()), 404);
+			throw new \RuntimeException(sprintf('Unable to support the HTTP method `%s`.', $this->input->getMethod()), 404);
 		}
 
 		// Check if request method is POST
@@ -136,5 +107,25 @@ class Rest extends Base
 		}
 
 		return ucfirst($this->suffixMap[$this->input->getMethod()]);
+	}
+
+	/**
+	 * Parse the given route and return the name of a controller mapped to the given route.
+	 *
+	 * @param   string  $route  The route string for which to find and execute a controller.
+	 *
+	 * @return  string  The controller name for the given route excluding prefix.
+	 *
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
+	 */
+	protected function parseRoute($route)
+	{
+		$name = parent::parseRoute($route);
+
+		// Append the HTTP method based suffix.
+		$name .= $this->fetchControllerSuffix();
+
+		return $name;
 	}
 }
