@@ -176,6 +176,37 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the Joomla\Application\Base::setLogger and getLogger methods.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Application\Base::setLogger
+	 * @covers  Joomla\Application\Base::getLogger
+	 * @since   1.0
+	 */
+	public function testSetLogger()
+	{
+		$mockLogger = $this->getMock('Psr\Log\AbstractLogger', array('log'), array(), '', false);
+
+		$this->assertSame($this->instance, $this->instance->setLogger($mockLogger), 'Checks chainging.');
+		$this->assertSame($mockLogger, $this->instance->getLogger(), 'Checks the get method.');
+	}
+
+	/**
+	 * Tests the Joomla\Application\Base::getLogger for an expected exception.
+	 *
+	 * @return  void
+	 *
+	 * @covers             Joomla\Application\Base::getLogger
+	 * @expectedException  UnexpectedValueException
+	 * @since              1.0
+	 */
+	public function testGetLogger_exception()
+	{
+		$this->instance->getLogger();
+	}
+
+	/**
 	 * Setup for testing.
 	 *
 	 * @return  void

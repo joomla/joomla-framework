@@ -8,13 +8,15 @@ namespace Joomla\Application;
 
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Joomla Platform Base Application Class
  *
  * @since  1.0
  */
-abstract class Base
+abstract class Base implements LoggerAwareInterface
 {
 	/**
 	 * The application configuration object.
@@ -33,6 +35,14 @@ abstract class Base
 	public $input = null;
 
 	/**
+	 * A logger.
+	 *
+	 * @var    LoggerInterface
+	 * @since  1.0
+	 */
+	private $logger;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   Input     $input   An optional argument to provide dependency injection for the application's
@@ -48,6 +58,8 @@ abstract class Base
 	{
 		$this->input = $input instanceof Input ? $input : new Input;
 		$this->config = $config instanceof Registry ? $config : new Registry;
+
+		$this->initialise();
 	}
 
 	/**
@@ -93,22 +105,6 @@ abstract class Base
 	}
 
 	/**
-	 * Sets the configuration for the application.
-	 *
-	 * @param   Registry  $config  A registry object holding the configuration.
-	 *
-	 * @return  Base  Returns itself to support chaining.
-	 *
-	 * @since   1.0
-	 */
-	public function setConfiguration(Registry $config)
-	{
-		$this->config = $config;
-
-		return $this;
-	}
-
-	/**
 	 * Returns a property of the object or the default value if the property is not set.
 	 *
 	 * @param   string  $key      The name of the property.
@@ -121,6 +117,38 @@ abstract class Base
 	public function get($key, $default = null)
 	{
 		return $this->config->get($key, $default);
+	}
+
+	/**
+	 * Get the logger.
+	 *
+	 * @return  LoggerInterface
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
+	 */
+	public function getLogger()
+	{
+		if ($this->logger)
+		{
+			return $this->logger;
+		}
+
+		throw new \UnexpectedValueException('Logger not set in ' . __CLASS__);
+	}
+
+	/**
+	 * Custom initialisation method.
+	 *
+	 * Called at the end of the Base::__construct method. This is for developers to inject initialisation code for their application classes.
+	 *
+	 * @return  void
+	 *
+	 * @codeCoverageIgnore
+	 * @since   1.0
+	 */
+	protected function initialise()
+	{
 	}
 
 	/**
@@ -139,5 +167,37 @@ abstract class Base
 		$this->config->set($key, $value);
 
 		return $previous;
+	}
+
+	/**
+	 * Sets the configuration for the application.
+	 *
+	 * @param   Registry  $config  A registry object holding the configuration.
+	 *
+	 * @return  Base  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setConfiguration(Registry $config)
+	{
+		$this->config = $config;
+
+		return $this;
+	}
+
+	/**
+	 * Set the logger.
+	 *
+	 * @param   LoggerInterface  $logger  The logger.
+	 *
+	 * @return  Base  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+
+		return $this;
 	}
 }
