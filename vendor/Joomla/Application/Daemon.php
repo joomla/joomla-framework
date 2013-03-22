@@ -9,7 +9,6 @@ namespace Joomla\Application;
 use Joomla\Filesystem\Folder;
 use Joomla\Registry\Registry;
 use Joomla\Input\Cli as InputCli;
-use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerAwareInterface;
 
 /**
@@ -88,12 +87,6 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 	 * @since  1.0
 	 */
 	protected $running = false;
-
-	/**
-	 * @var    LoggerInterface
-	 * @since  1.0
-	 */
-	protected $logger = null;
 
 	/**
 	 * Class constructor.
@@ -768,9 +761,9 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 			if (!defined($signal) || !is_int(constant($signal)) || (constant($signal) === 0))
 			{
 				// Define the signal to avoid notices.
-				if ($this->logger)
+				if ($this->hasLogger())
 				{
-					$this->logger->debug('Signal "' . $signal . '" not defined. Defining it as null.');
+					$this->getLogger()->debug('Signal "' . $signal . '" not defined. Defining it as null.');
 				}
 				define($signal, null);
 
@@ -781,9 +774,9 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 			// Attach the signal handler for the signal.
 			if (!$this->pcntlSignal(constant($signal), array('JApplicationDaemon', 'signal')))
 			{
-				if ($this->logger)
+				if ($this->hasLogger())
 				{
-					$this->logger->emergency(sprintf('Unable to reroute signal handler: %s', $signal));
+					$this->getLogger()->emergency(sprintf('Unable to reroute signal handler: %s', $signal));
 				}
 
 				return false;
@@ -791,20 +784,6 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 		}
 
 		return true;
-	}
-
-	/**
-     * Sets a logger instance on the object
-     *
-     * @param    LoggerInterface  $logger  A PSR-3 compliant logger.
-	 *
-     * @return   void
-     *
-     * @since   1.0
-     */
-	public function setLogger(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
 	}
 
 	/**
@@ -832,9 +811,9 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 		// If we aren't already daemonized then just kill the application.
 		if (!$this->running && !$this->isActive())
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->info('Process was not daemonized yet, just halting current process');
+				$this->getLogger()->info('Process was not daemonized yet, just halting current process');
 			}
 			$this->close();
 		}

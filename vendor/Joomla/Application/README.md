@@ -27,6 +27,11 @@ class MyApplication extends Base
 		// Call the parent constructor last of all.
 		parent::__construct($input, $config);
 	}
+	
+	protected function doExecute()
+	{
+		// Do stuff.
+	}
 
 	/**
 	 * Custom initialisation for my application.
@@ -89,3 +94,32 @@ class MyApplication extends Base
 }
 
 ```
+
+The logger variable is private so you must use the `getLogger` method to access it. If a logger has not been initialised, the `getLogger` method will throw an exception.
+
+To check if the logger has been set, use the `hasLogger` method. This will return `true` if the logger has been set.
+
+Consider the following example:
+
+```
+use Joomla\Application\Base;
+
+class MyApplication extends Base
+{
+	protected function doExecute()
+	{
+		// Do stuff.
+		
+		// In this case, we always want the logger set.
+		$this->getLogger()->logInfo('Performed this {task}', array('task' => $task));
+		
+		// Or, in this case logging is optional, so we check if the logger is set first.
+		if ($this->get('debug') && $this->hasLogger())
+		{
+			$this->getLogger()->logDebug('Performed {task}', array('task' => $task));
+		}
+	}
+}
+```
+
+

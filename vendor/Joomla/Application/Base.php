@@ -129,12 +129,24 @@ abstract class Base implements LoggerAwareInterface
 	 */
 	public function getLogger()
 	{
-		if ($this->logger)
+		if ($this->hasLogger())
 		{
 			return $this->logger;
 		}
 
 		throw new \UnexpectedValueException('Logger not set in ' . __CLASS__);
+	}
+
+	/**
+	 * Checks if a logger is available.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	public function hasLogger()
+	{
+		return ($this->logger instanceof LoggerInterface);
 	}
 
 	/**
