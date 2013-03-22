@@ -69,7 +69,11 @@ class Output
 	{
 		$regex = 'href="([^"]*(&(amp;){0})[^"]*)*?"';
 
-		return preg_replace_callback("#$regex#i", array('Joomla\\Filter\\Output', 'ampReplaceCallback'), $input);
+		return preg_replace_callback("#$regex#i", function($m) {
+			$rx = '&(?!amp;)';
+
+			return preg_replace('#' . $rx . '#', '&amp;', $m[0]);
+		}, $input);
 	}
 
 	/**
@@ -157,22 +161,6 @@ class Output
 		$text = str_replace('*--*', '&&', $text);
 
 		return $text;
-	}
-
-	/**
-	 * Callback method for replacing & with &amp; in a string
-	 *
-	 * @param   string  $m  String to process
-	 *
-	 * @return  string  Replaced string
-	 *
-	 * @since   1.0
-	 */
-	public static function ampReplaceCallback($m)
-	{
-		$rx = '&(?!amp;)';
-
-		return preg_replace('#' . $rx . '#', '&amp;', $m[0]);
 	}
 
 	/**
