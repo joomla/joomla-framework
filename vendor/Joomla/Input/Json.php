@@ -40,7 +40,7 @@ class Json extends Input
 		}
 		else
 		{
-			$this->filter = Filter\Input::getInstance();
+			$this->filter = new Filter\Input;
 		}
 
 		if (is_null($source))

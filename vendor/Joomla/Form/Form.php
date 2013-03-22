@@ -8,7 +8,7 @@ namespace Joomla\Form;
 
 
 use Joomla\Factory;
-use Joomla\Filter\Input;
+use Joomla\Filter;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Path;
 use Joomla\Registry\Registry;
@@ -1184,7 +1184,8 @@ class Form
 
 			// Filter safe HTML.
 			case 'SAFEHTML':
-				$return = Input::getInstance(null, null, 1, 1)->clean($value, 'string');
+				$filterInput = new Filter\Input(null, null, 1, 1);
+				$return = $filterInput->clean($value, 'string');
 				break;
 
 			// Convert a date to UTC based on the server timezone offset.
@@ -1228,7 +1229,8 @@ class Form
 					return;
 				}
 
-				$value = Input::getInstance()->clean($value, 'html');
+				$filterInput = new Filter\Input;
+				$value = $filterInput->clean($value, 'html');
 				$value = trim($value);
 
 				// Check for a protocol
@@ -1363,7 +1365,8 @@ class Form
 				else
 				// Filter using Input. All HTML code is filtered by default.
 				{
-					$return = Input::getInstance()->clean($value, $filter);
+					$filterInput = new Filter\Input;
+					$return = $filterInput->clean($value, $filter);
 				}
 				break;
 		}

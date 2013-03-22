@@ -6,7 +6,7 @@
 
 namespace Joomla\Input;
 
-use Joomla\Filter\Input as FilterInput;
+use Joomla\Filter;
 
 /**
  * Joomla! Input Files Class
@@ -40,7 +40,7 @@ class Files extends Input
 		}
 		else
 		{
-			$this->filter = FilterInput::getInstance();
+			$this->filter = new Filter\Input;
 		}
 
 		// Set the data source.

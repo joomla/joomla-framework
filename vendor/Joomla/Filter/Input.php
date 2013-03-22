@@ -135,31 +135,6 @@ class Input
 	}
 
 	/**
-	 * Returns an input filter object, only creating it if it doesn't already exist.
-	 *
-	 * @param   array    $tagsArray   List of user-defined tags
-	 * @param   array    $attrArray   List of user-defined attributes
-	 * @param   integer  $tagsMethod  WhiteList method = 0, BlackList method = 1
-	 * @param   integer  $attrMethod  WhiteList method = 0, BlackList method = 1
-	 * @param   integer  $xssAuto     Only auto clean essentials = 0, Allow clean blacklisted tags/attr = 1
-	 *
-	 * @return  Input  The Input object.
-	 *
-	 * @since   1.0
-	 */
-	public static function &getInstance($tagsArray = array(), $attrArray = array(), $tagsMethod = 0, $attrMethod = 0, $xssAuto = 1)
-	{
-		$sig = md5(serialize(array($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto)));
-
-		if (empty(self::$instances[$sig]))
-		{
-			self::$instances[$sig] = new self($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto);
-		}
-
-		return self::$instances[$sig];
-	}
-
-	/**
 	 * Method to be called by another php script. Processes for XSS and
 	 * specified bad code.
 	 *

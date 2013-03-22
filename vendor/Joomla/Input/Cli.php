@@ -6,7 +6,7 @@
 
 namespace Joomla\Input;
 
-use Joomla\Filter\Input as FilterInput;
+use Joomla\Filter;
 
 /**
  * Joomla! Input CLI Class
@@ -48,7 +48,7 @@ class Cli extends Input
 		}
 		else
 		{
-			$this->filter = FilterInput::getInstance();
+			$this->filter = new Filter\Input;
 		}
 
 		// Get the command line options
@@ -100,7 +100,7 @@ class Cli extends Input
 		}
 		else
 		{
-			$this->filter = FilterInput::getInstance();
+			$this->filter = new Filter\Input;
 		}
 	}
 
