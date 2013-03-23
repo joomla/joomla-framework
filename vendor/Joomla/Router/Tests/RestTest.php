@@ -4,17 +4,22 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Router\Tests;
+
+use Joomla\Router\Rest;
 use Joomla\Test\Helper;
+
+require_once __DIR__ . '/Stubs/GooGet.php';
 
 /**
  * Test class for JApplicationWebRouterRest.
  *
  * @since  1.0
  */
-class JApplicationWebRouterRestTest extends TestCase
+class RestTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Joomla\Application\Web\Router\Rest  The object to be tested.
+	 * @var    Joomla\Router\Rest  The object to be tested.
 	 * @since  1.0
 	 */
 	private $instance;
@@ -26,44 +31,13 @@ class JApplicationWebRouterRestTest extends TestCase
 	private $requestMethod;
 
 	/**
-	 * Tests the setHttpMethodSuffix method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Application\Web\Router\Rest::setHttpMethodSuffix
-	 * @since   1.0
-	 */
-	public function testSetHttpMethodSuffix()
-	{
-		$this->instance->setHttpMethodSuffix('FOO', 'Bar');
-		$s = Helper::getValue($this->instance, 'suffixMap');
-		$this->assertEquals('Bar', $s['FOO']);
-	}
-
-	/**
-	 * Tests the fetchControllerSuffix method if the suffix map is missing.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Application\Web\Router\Rest::fetchControllerSuffix
-	 * @since   1.0
-	 */
-	public function testFetchControllerSuffixWithMissingSuffixMap()
-	{
-		$_SERVER['REQUEST_METHOD'] = 'FOOBAR';
-
-		$this->setExpectedException('RuntimeException');
-		$suffix = Helper::invoke($this->instance, 'fetchControllerSuffix');
-	}
-
-	/**
 	 * Provides test data for testing fetch controller sufix
 	 *
 	 * @return  array
 	 *
 	 * @since   1.0
 	 */
-	public function seedFetchControllerSuffixData()
+	public function seedTestFetchControllerSuffix()
 	{
 		// Input, Expected
 		return array(
@@ -106,7 +80,37 @@ class JApplicationWebRouterRestTest extends TestCase
 	}
 
 	/**
-	 * Tests the fetchControllerSuffix method.
+	 * Provides test data for the testParseRoute method.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public static function seedTestParseRoute()
+	{
+		// Method, Route, ControllerName, InputData
+		return array(
+			array('GET', 'articles/4', 'GooGet', array()),
+		);
+	}
+
+	/**
+	 * Tests the Joomla\Router\Rest::setHttpMethodSuffix method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Router\Rest::setHttpMethodSuffix
+	 * @since   1.0
+	 */
+	public function testSetHttpMethodSuffix()
+	{
+		$this->instance->setHttpMethodSuffix('FOO', 'Bar');
+		$s = Helper::getValue($this->instance, 'suffixMap');
+		$this->assertEquals('Bar', $s['FOO']);
+	}
+
+	/**
+	 * Tests the Joomla\Router\Rest::fetchControllerSuffix method.
 	 *
 	 * @param   string   $input        Input string to test.
 	 * @param   string   $expected     Expected fetched string.
@@ -116,9 +120,9 @@ class JApplicationWebRouterRestTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers        Joomla\Application\Web\Router\Rest::fetchControllerSuffix
-	 * @dataProvider  seedFetchControllerSuffixData
-	 * @since      1.0
+	 * @covers        Joomla\Router\Rest::fetchControllerSuffix
+	 * @dataProvider  seedTestFetchControllerSuffix
+	 * @since         1.0
 	 */
 	public function testFetchControllerSuffix($input, $expected, $method, $exception, $allowMethod=false)
 	{
@@ -144,12 +148,28 @@ class JApplicationWebRouterRestTest extends TestCase
 	}
 
 	/**
-	 * Tests the setMethodInPostRequest and isMethodInPostRequest.
+	 * Tests the Joomla\Router\Rest::fetchControllerSuffix method if the suffix map is missing.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Web\Router\Rest::setMethodInPostRequest
-	 * @covers  Joomla\Application\Web\Router\Rest::isMethodInPostRequest
+	 * @covers  Joomla\Router\Rest::fetchControllerSuffix
+	 * @since   1.0
+	 */
+	public function testFetchControllerSuffixWithMissingSuffixMap()
+	{
+		$_SERVER['REQUEST_METHOD'] = 'FOOBAR';
+
+		$this->setExpectedException('RuntimeException');
+		$suffix = Helper::invoke($this->instance, 'fetchControllerSuffix');
+	}
+
+	/**
+	 * Tests the Joomla\Router\Rest::setMethodInPostRequest and isMethodInPostRequest.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Router\Rest::setMethodInPostRequest
+	 * @covers  Joomla\Router\Rest::isMethodInPostRequest
 	 * @since   1.0
 	 */
 	public function testMethodInPostRequest()
@@ -167,6 +187,46 @@ class JApplicationWebRouterRestTest extends TestCase
 	}
 
 	/**
+	 * Tests the Joomla\Router\Router::parseRoute method.
+	 *
+	 * @param   string       $m  The request method.
+	 * @param   string       $r  The route to parse.
+	 * @param   string|null  $c  The expected controller name or null if an exception is expected.
+	 * @param   array        $i  The expected input object data.
+	 *
+	 * @return  void
+	 *
+	 * @covers        Joomla\Router\Rest::parseRoute
+	 * @dataProvider  seedTestParseRoute
+	 * @since         1.0
+	 */
+	public function testParseRoute($m, $r, $c, $i)
+	{
+		// Set reuqest method
+		$_SERVER['REQUEST_METHOD'] = $m;
+
+		// Setup the router maps.
+		$this->instance->setControllerPrefix('\Joomla\Router\Tests\Stubs\\')
+			->addMaps(
+				array(
+					'articles/:article_id' => 'Goo',
+				)
+			);
+
+		// If we should expect an exception set that up.
+		if (is_null($c))
+		{
+			$this->setExpectedException('InvalidArgumentException');
+		}
+
+		// Execute the route parsing.
+		$actual = Helper::invoke($this->instance, 'parseRoute', $r);
+
+		// Test the assertions.
+		$this->assertEquals($c, $actual, 'Incorrect controller name found.');
+	}
+
+	/**
 	 * Prepares the environment before running a test.
 	 *
 	 * @return  void
@@ -177,7 +237,7 @@ class JApplicationWebRouterRestTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->instance = new Joomla\Application\Web\Router\Rest($this->getMockWeb());
+		$this->instance = new Rest;
 		$this->requestMethod = @$_SERVER['REQUEST_METHOD'];
 	}
 
