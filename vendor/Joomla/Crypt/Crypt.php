@@ -29,8 +29,8 @@ class Crypt
 	 * Object Constructor takes an optional key to be used for encryption/decryption. If no key is given then the
 	 * secret word from the configuration object is used.
 	 *
-	 * @param   Cipher  $cipher  The encryption cipher object.
-	 * @param   Key     $key     The encryption key[/pair)].
+	 * @param   CipherInterface  $cipher  The encryption cipher object.
+	 * @param   Key              $key     The encryption key[/pair)].
 	 *
 	 * @since   1.0
 	 */
@@ -113,8 +113,9 @@ class Crypt
 	public static function genRandomBytes($length = 16)
 	{
 		$sslStr = '';
+
 		/*
-		 * if a secure randomness generator exists and we don't
+		 * If a secure randomness generator exists and we don't
 		 * have a buggy PHP version use it.
 		 */
 		if (function_exists('openssl_random_pseudo_bytes')

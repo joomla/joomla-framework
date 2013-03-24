@@ -27,7 +27,7 @@ abstract class Html extends Base
 	/**
 	 * The paths queue.
 	 *
-	 * @var    SplPriorityQueue
+	 * @var    \SplPriorityQueue
 	 * @since  1.0
 	 */
 	protected $paths;
@@ -35,7 +35,7 @@ abstract class Html extends Base
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   Model              $model  The model object.
+	 * @param   ModelInterface     $model  The model object.
 	 * @param   \SplPriorityQueue  $paths  The paths queue.
 	 *
 	 * @since   1.0
@@ -67,7 +67,7 @@ abstract class Html extends Base
 	 *
 	 * @return  string  The escaped output.
 	 *
-	 * @see     View::escape()
+	 * @see     ViewInterface::escape()
 	 * @since   1.0
 	 */
 	public function escape($output)
@@ -112,7 +112,7 @@ abstract class Html extends Base
 	/**
 	 * Method to get the view paths.
 	 *
-	 * @return  SplPriorityQueue  The paths queue.
+	 * @return  \SplPriorityQueue  The paths queue.
 	 *
 	 * @since   1.0
 	 */
@@ -127,7 +127,7 @@ abstract class Html extends Base
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function render()
 	{
@@ -187,7 +187,7 @@ abstract class Html extends Base
 	/**
 	 * Method to load the paths queue.
 	 *
-	 * @return  SplPriorityQueue  The paths queue.
+	 * @return  \SplPriorityQueue  The paths queue.
 	 *
 	 * @since   1.0
 	 */

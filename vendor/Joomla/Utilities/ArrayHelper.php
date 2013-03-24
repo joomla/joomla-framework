@@ -470,12 +470,12 @@ final class ArrayHelper
 
 		$sortCase      = (array) $caseSensitive;
 		$sortDirection = (array) $direction;
-		$key       = (array) $k;
+		$key           = (array) $k;
 		$sortLocale    = $locale;
 
 		usort(
-			$a, function($a, $b) use($sortCase, $sortDirection, $key, $sortLocale) {
-
+			$a, function($a, $b) use($sortCase, $sortDirection, $key, $sortLocale)
+			{
 				for ($i = 0, $count = count($key); $i < $count; $i++)
 				{
 					if (isset($sortDirection[$i]))
@@ -530,7 +530,7 @@ final class ArrayHelper
 	/**
 	 * Multidimensional array safe unique test
 	 *
-	 * @param   array  $myArray  The array to make unique.
+	 * @param   array  $array  The array to make unique.
 	 *
 	 * @return  array
 	 *

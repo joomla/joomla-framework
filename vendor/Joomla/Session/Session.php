@@ -12,9 +12,6 @@ use Joomla\Application\Route;
 use Joomla\Event\Dispatcher;
 use Joomla\Input\Input;
 use Joomla\Factory;
-use DirectoryIterator;
-use IteratorAggregate;
-use ArrayIterator;
 
 /**
  * Class for managing HTTP sessions
@@ -26,7 +23,7 @@ use ArrayIterator;
  *
  * @since  1.0
  */
-class Session implements IteratorAggregate
+class Session implements \IteratorAggregate
 {
 	/**
 	 * Internal state.
@@ -62,7 +59,7 @@ class Session implements IteratorAggregate
 	 * - fix_browser
 	 * - fix_adress
 	 *
-	 * @var array
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected $security = array('fix_browser');
@@ -77,19 +74,23 @@ class Session implements IteratorAggregate
 	protected $force_ssl = false;
 
 	/**
-	 * @var    Session  JSession instances container.
+	 * Session instances container.
+	 *
+	 * @var    Session
 	 * @since  1.0
 	 */
 	protected static $instance;
 
 	/**
+	 * The type of storage for the session.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
 	protected $storeName;
 
 	/**
-	 * Holds the JInput object
+	 * Holds the Input object
 	 *
 	 * @var    Input
 	 * @since  1.0
@@ -97,7 +98,7 @@ class Session implements IteratorAggregate
 	private $input = null;
 
 	/**
-	 * Holds the event dispatcher object
+	 * Holds the Dispatcher object
 	 *
 	 * @var    Dispatcher
 	 * @since  1.0
@@ -151,16 +152,9 @@ class Session implements IteratorAggregate
 	 */
 	public function __get($name)
 	{
-		if ($name === 'storeName')
+		if ($name === 'storeName' || $name === 'state' || $name === 'expire')
 		{
 			return $this->$name;
-		}
-
-		if ($name === 'state' || $name === 'expire')
-		{
-			$property = '_' . $name;
-
-			return $this->$property;
 		}
 	}
 
@@ -289,19 +283,19 @@ class Session implements IteratorAggregate
 	/**
 	 * Retrieve an external iterator.
 	 *
-	 * @return  ArrayIterator  Return an ArrayIterator of $_SESSION.
+	 * @return  \ArrayIterator  Return an ArrayIterator of $_SESSION.
 	 *
 	 * @since   1.0
 	 */
 	public function getIterator()
 	{
-		return new ArrayIterator($_SESSION);
+		return new \ArrayIterator($_SESSION);
 	}
 
 	/**
 	 * Checks for a form token in the request.
 	 *
-	 * Use in conjunction with JHtml::_('form.token') or JSession::getFormToken.
+	 * Use in conjunction with Joomla\Session\Session::getFormToken.
 	 *
 	 * @param   string  $method  The request method in which to look for the token key.
 	 *
@@ -382,7 +376,7 @@ class Session implements IteratorAggregate
 		$connectors = array();
 
 		// Get an iterator and loop trough the driver classes.
-		$iterator = new DirectoryIterator(__DIR__ . '/Storage');
+		$iterator = new \DirectoryIterator(__DIR__ . '/Storage');
 
 		foreach ($iterator as $file)
 		{

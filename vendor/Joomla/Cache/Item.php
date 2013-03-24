@@ -8,6 +8,11 @@ namespace Joomla\Cache;
 
 use Psr\Cache\CacheItemInterface;
 
+/**
+ * Cache item instance for the Joomla Framework.
+ *
+ * @since  1.0
+ */
 class Item implements CacheItemInterface
 {
 	/**

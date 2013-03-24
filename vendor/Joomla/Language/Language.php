@@ -7,10 +7,6 @@
 namespace Joomla\Language;
 
 use Joomla\String\String;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use SplFileObject;
-use RuntimeException;
 
 /**
  * Allows for quoting in language .ini files.
@@ -24,6 +20,12 @@ define('_QQ_', '"');
  */
 class Language
 {
+	/**
+	 * Language instance container
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
 	protected static $languages = array();
 
 	/**
@@ -773,7 +775,7 @@ class Language
 	 *
 	 * @return  boolean  True if new strings have been added to the language
 	 *
-	 * @see     JLanguage::load()
+	 * @see     Language::load()
 	 * @since   1.0
 	 */
 	protected function loadLanguage($filename, $extension = 'unknown')
@@ -856,7 +858,7 @@ class Language
 			$errors = array();
 
 			// Open the file as a stream.
-			$file = new SplFileObject($filename);
+			$file = new \SplFileObject($filename);
 
 			foreach ($file as $lineNumber => $line)
 			{
@@ -916,7 +918,7 @@ class Language
 	}
 
 	/**
-	 * Determine who called JLanguage or JText.
+	 * Determine who called Language or Text.
 	 *
 	 * @return  array  Caller information.
 	 *
@@ -942,7 +944,7 @@ class Language
 			$class = @ $step['class'];
 
 			// We're looking for something outside of language.php
-			if ($class != 'JLanguage' && $class != 'JText')
+			if ($class != '\\Joomla\\Language\\Language' && $class != '\\Joomla\\Language\\Text')
 			{
 				$info['function'] = @ $step['function'];
 				$info['class'] = $class;
@@ -1272,7 +1274,7 @@ class Language
 	{
 		$languages = array();
 
-		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+		$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir));
 
 		foreach ($iterator as $file)
 		{
@@ -1296,7 +1298,7 @@ class Language
 
 				$languages = array_merge($languages, $langs);
 			}
-			catch (RuntimeException $e)
+			catch (\RuntimeException $e)
 			{
 			}
 		}
@@ -1312,13 +1314,13 @@ class Language
 	 * @return  array  Array holding the found metadata as a key => value pair.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public static function parseXMLLanguageFile($path)
 	{
 		if (!is_readable($path))
 		{
-			throw new RuntimeException('File not found or not readable');
+			throw new \RuntimeException('File not found or not readable');
 		}
 
 		// Try to load the file

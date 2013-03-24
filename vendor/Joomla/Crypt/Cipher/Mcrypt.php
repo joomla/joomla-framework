@@ -56,6 +56,7 @@ abstract class Cipher_Mcrypt implements CipherInterface
 	 * @return  string  The decrypted data string.
 	 *
 	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function decrypt($data, Key $key)
 	{
@@ -74,12 +75,13 @@ abstract class Cipher_Mcrypt implements CipherInterface
 	/**
 	 * Method to encrypt a data string.
 	 *
-	 * @param   string     $data  The data string to encrypt.
-	 * @param   JCryptKey  $key   The key object to use for encryption.
+	 * @param   string  $data  The data string to encrypt.
+	 * @param   Key     $key   The key object to use for encryption.
 	 *
 	 * @return  string  The encrypted data string.
 	 *
 	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function encrypt($data, Key $key)
 	{
@@ -100,7 +102,7 @@ abstract class Cipher_Mcrypt implements CipherInterface
 	 *
 	 * @param   array  $options  Key generation options.
 	 *
-	 * @return  JCryptKey
+	 * @return  Key
 	 *
 	 * @since   1.0
 	 */

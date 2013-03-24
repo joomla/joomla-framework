@@ -41,7 +41,7 @@ class Factory
 	 * @param   Registry  $options  Option for creating http transport object
 	 * @param   mixed     $default  Adapter (string) or queue of adapters (array) to use
 	 *
-	 * @return  Transport  Interface sub-class
+	 * @return  TransportInterface  Interface sub-class
 	 *
 	 * @since   1.0
 	 */

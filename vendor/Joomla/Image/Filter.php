@@ -23,7 +23,7 @@ abstract class Filter implements LoggerAwareInterface
 	protected $handle;
 
 	/**
-	 * @var    LoggerInterface
+	 * @var    LoggerInterface  Logger object
 	 * @since  1.0
 	 */
 	protected $logger = null;
@@ -34,8 +34,8 @@ abstract class Filter implements LoggerAwareInterface
 	 * @param   resource  $handle  The image resource on which to apply the filter.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
-	 * @throws  RuntimeException
+	 * @throws  \InvalidArgumentException
+	 * @throws  \RuntimeException
 	 */
 	public function __construct($handle)
 	{
@@ -68,9 +68,9 @@ abstract class Filter implements LoggerAwareInterface
 	/**
      * Sets a logger instance on the object
      *
-     * @param    LoggerInterface  $logger  A PSR-3 compliant logger.
+     * @param   LoggerInterface  $logger  A PSR-3 compliant logger.
 	 *
-     * @return   void
+     * @return  void
      *
      * @since   1.0
      */

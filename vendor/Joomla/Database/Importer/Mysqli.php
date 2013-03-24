@@ -22,7 +22,7 @@ class Mysqli extends Importer
 	 * @return  Mysqli  Method supports chaining.
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error is encountered.
+	 * @throws  \Exception if an error is encountered.
 	 */
 	public function check()
 	{
@@ -44,8 +44,8 @@ class Mysqli extends Importer
 	/**
 	 * Get the SQL syntax to add a column.
 	 *
-	 * @param   string            $table  The table name.
-	 * @param   SimpleXMLElement  $field  The XML field definition.
+	 * @param   string             $table  The table name.
+	 * @param   \SimpleXMLElement  $field  The XML field definition.
 	 *
 	 * @return  string
 	 *
@@ -78,7 +78,7 @@ class Mysqli extends Importer
 	/**
 	 * Get alters for table if there is a difference.
 	 *
-	 * @param   SimpleXMLElement  $structure  The XML structure pf the table.
+	 * @param   \SimpleXMLElement  $structure  The XML structure pf the table.
 	 *
 	 * @return  array
 	 *
@@ -227,8 +227,8 @@ class Mysqli extends Importer
 	/**
 	 * Get the syntax to alter a column.
 	 *
-	 * @param   string            $table  The name of the database table to alter.
-	 * @param   SimpleXMLElement  $field  The XML definition for the field.
+	 * @param   string             $table  The name of the database table to alter.
+	 * @param   \SimpleXMLElement  $field  The XML definition for the field.
 	 *
 	 * @return  string
 	 *
@@ -245,7 +245,7 @@ class Mysqli extends Importer
 	/**
 	 * Get the SQL syntax for a single column that would be included in a table create or alter statement.
 	 *
-	 * @param   SimpleXMLElement  $field  The XML field definition.
+	 * @param   \SimpleXMLElement  $field  The XML field definition.
 	 *
 	 * @return  string
 	 *
@@ -338,7 +338,6 @@ class Mysqli extends Importer
 	 * @return  array  The lookup array. array({key name} => array(object, ...))
 	 *
 	 * @since   1.0
-	 * @throws  Exception
 	 */
 	protected function getKeyLookup($keys)
 	{

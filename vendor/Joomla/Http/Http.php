@@ -23,7 +23,7 @@ class Http
 	protected $options;
 
 	/**
-	 * @var    Transport  The HTTP transport object to use in sending HTTP requests.
+	 * @var    TransportInterface  The HTTP transport object to use in sending HTTP requests.
 	 * @since  1.0
 	 */
 	protected $transport;
@@ -31,9 +31,9 @@ class Http
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry   $options    Client options object. If the registry contains any headers.* elements,
-	 *                                 these will be added to the request headers.
-	 * @param   Transport  $transport  The HTTP transport object.
+	 * @param   Registry            $options    Client options object. If the registry contains any headers.* elements,
+	 *                                          these will be added to the request headers.
+	 * @param   TransportInterface  $transport  The HTTP transport object.
 	 *
 	 * @since   1.0
 	 */

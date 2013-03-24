@@ -31,36 +31,48 @@ use JVersion;
 abstract class Factory
 {
 	/**
+	 * Application object instance
+	 *
 	 * @var    JApplication
 	 * @since  1.0
 	 */
 	public static $application = null;
 
 	/**
+	 * Configuration object instance
+	 *
 	 * @var    JConfig
 	 * @since  1.0
 	 */
 	public static $config = null;
 
 	/**
+	 * Date object array
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	public static $dates = array();
 
 	/**
+	 * Session object instance
+	 *
 	 * @var    Session
 	 * @since  1.0
 	 */
 	public static $session = null;
 
 	/**
+	 * Language object instance
+	 *
 	 * @var    Language
 	 * @since  1.0
 	 */
 	public static $language = null;
 
 	/**
+	 * Driver object instance
+	 *
 	 * @var    Driver
 	 * @since  1.0
 	 */
@@ -359,7 +371,7 @@ abstract class Factory
 	 *
 	 * @return  Language object
 	 *
-	 * @see     JLanguage
+	 * @see     Language
 	 * @since   1.0
 	 */
 	protected static function createLanguage()
@@ -382,7 +394,7 @@ abstract class Factory
 	 *
 	 * @return  Stream
 	 *
-	 * @see Stream
+	 * @see     Stream
 	 * @since   1.0
 	 */
 	public static function getStream($use_prefix = true, $use_network = true, $ua = null, $uamask = false)

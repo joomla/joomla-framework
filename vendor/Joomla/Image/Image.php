@@ -9,11 +9,6 @@ namespace Joomla\Image;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerAwareInterface;
 
-use InvalidArgumentException;
-use RuntimeException;
-use LogicException;
-use stdClass;
-
 /**
  * Class to manipulate an image.
  *
@@ -64,7 +59,7 @@ class Image implements LoggerAwareInterface
 	protected static $formats = array();
 
 	/**
-	 * @var    LoggerInterface
+	 * @var    LoggerInterface  Logger object
 	 * @since  1.0
 	 */
 	protected $logger = null;
@@ -75,7 +70,7 @@ class Image implements LoggerAwareInterface
 	 * @param   mixed  $source  Either a file path for a source image or a GD resource handler for an image.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function __construct($source = null)
 	{
@@ -83,7 +78,7 @@ class Image implements LoggerAwareInterface
 		if (!extension_loaded('gd'))
 		{
 			// @codeCoverageIgnoreStart
-			throw new RuntimeException('The GD extension for PHP is not available.');
+			throw new \RuntimeException('The GD extension for PHP is not available.');
 			// @codeCoverageIgnoreEnd
 		}
 
@@ -111,9 +106,9 @@ class Image implements LoggerAwareInterface
 	/**
      * Sets a logger instance on the object
      *
-     * @param    LoggerInterface  $logger  A PSR-3 compliant logger.
+     * @param   LoggerInterface  $logger  A PSR-3 compliant logger.
 	 *
-     * @return   void
+     * @return  void
      *
      * @since   1.0
      */
@@ -132,15 +127,15 @@ class Image implements LoggerAwareInterface
 	 * @return  \stdClass
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
-	 * @throws  RuntimeException
+	 * @throws  \InvalidArgumentException
+	 * @throws  \RuntimeException
 	 */
 	public static function getImageFileProperties($path)
 	{
 		// Make sure the file exists.
 		if (!file_exists($path))
 		{
-			throw new InvalidArgumentException('The image file does not exist.');
+			throw new \InvalidArgumentException('The image file does not exist.');
 		}
 
 		// Get the image file information.
@@ -149,7 +144,7 @@ class Image implements LoggerAwareInterface
 		if (!$info)
 		{
 			// @codeCoverageIgnoreStart
-			throw new RuntimeException('Unable to get properties for the image.');
+			throw new \RuntimeException('Unable to get properties for the image.');
 
 			// @codeCoverageIgnoreEnd
 		}
@@ -177,17 +172,16 @@ class Image implements LoggerAwareInterface
 	 *
 	 * @return  array
 	 *
-	 * @throws  LogicException
-	 * @throws  InvalidArgumentException
-	 *
-	 * @since 12.2
+	 * @since   1.0
+	 * @throws  \LogicException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function generateThumbs($thumbSizes, $creationMethod = self::SCALE_INSIDE)
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		// Accept a single thumbsize string as parameter
@@ -208,7 +202,7 @@ class Image implements LoggerAwareInterface
 
 				if (count($size) != 2)
 				{
-					throw new InvalidArgumentException('Invalid thumb size received: ' . $thumbSize);
+					throw new \InvalidArgumentException('Invalid thumb size received: ' . $thumbSize);
 				}
 
 				$thumbWidth  = $size[0];
@@ -243,17 +237,16 @@ class Image implements LoggerAwareInterface
 	 *
 	 * @return  array
 	 *
-	 * @throws  LogicException
-	 * @throws  InvalidArgumentException
-	 *
-	 * @since 12.2
+	 * @since   1.0
+	 * @throws  \LogicException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function createThumbs($thumbSizes, $creationMethod = self::SCALE_INSIDE, $thumbsFolder = null)
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		// No thumbFolder set -> we will create a thumbs folder in the current image folder
@@ -265,7 +258,7 @@ class Image implements LoggerAwareInterface
 		// Check destination
 		if (!is_dir($thumbsFolder) && (!is_dir(dirname($thumbsFolder)) || !@mkdir($thumbsFolder)))
 		{
-			throw new InvalidArgumentException('Folder does not exist and cannot be created: ' . $thumbsFolder);
+			throw new \InvalidArgumentException('Folder does not exist and cannot be created: ' . $thumbsFolder);
 		}
 
 		// Process thumbs
@@ -309,20 +302,20 @@ class Image implements LoggerAwareInterface
 	 * @param   mixed    $height     The height of the image section to crop in pixels or a percentage.
 	 * @param   integer  $left       The number of pixels from the left to start cropping.
 	 * @param   integer  $top        The number of pixels from the top to start cropping.
-	 * @param   bool     $createNew  If true the current image will be cloned, cropped and returned; else
+	 * @param   boolean  $createNew  If true the current image will be cloned, cropped and returned; else
 	 *                               the current image will be cropped and returned.
 	 *
 	 * @return  Image
 	 *
 	 * @since   1.0
-	 * @throws  LogicException
+	 * @throws  \LogicException
 	 */
 	public function crop($width, $height, $left = null, $top = null, $createNew = true)
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		// Sanitize width.
@@ -403,16 +396,15 @@ class Image implements LoggerAwareInterface
 	 * @return  Image
 	 *
 	 * @since   1.0
-	 * @see     JImageFilter
-	 * @throws  LogicException
-	 * @throws  RuntimeException
+	 * @see     Joomla\Image\Filter
+	 * @throws  \LogicException
 	 */
 	public function filter($type, array $options = array())
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		// Get the image filter instance.
@@ -430,14 +422,14 @@ class Image implements LoggerAwareInterface
 	 * @return  integer
 	 *
 	 * @since   1.0
-	 * @throws  LogicException
+	 * @throws  \LogicException
 	 */
 	public function getHeight()
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		return imagesy($this->handle);
@@ -449,14 +441,14 @@ class Image implements LoggerAwareInterface
 	 * @return  integer
 	 *
 	 * @since   1.0
-	 * @throws  LogicException
+	 * @throws  \LogicException
 	 */
 	public function getWidth()
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		return imagesx($this->handle);
@@ -467,7 +459,7 @@ class Image implements LoggerAwareInterface
 	 *
 	 * @return	string
 	 *
-	 * @since	11.3
+	 * @since	1.0
 	 */
 	public function getPath()
 	{
@@ -477,7 +469,7 @@ class Image implements LoggerAwareInterface
 	/**
 	 * Method to determine whether or not an image has been loaded into the object.
 	 *
-	 * @return  bool
+	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */
@@ -498,14 +490,14 @@ class Image implements LoggerAwareInterface
 	 * @return  bool
 	 *
 	 * @since   1.0
-	 * @throws  LogicException
+	 * @throws  \LogicException
 	 */
 	public function isTransparent()
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		return (imagecolortransparent($this->handle) >= 0);
@@ -519,8 +511,8 @@ class Image implements LoggerAwareInterface
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
-	 * @throws  RuntimeException
+	 * @throws  \InvalidArgumentException
+	 * @throws  \RuntimeException
 	 */
 	public function loadFile($path)
 	{
@@ -530,7 +522,7 @@ class Image implements LoggerAwareInterface
 		// Make sure the file exists.
 		if (!file_exists($path))
 		{
-			throw new InvalidArgumentException('The image file does not exist.');
+			throw new \InvalidArgumentException('The image file does not exist.');
 		}
 
 		// Get the image properties.
@@ -548,7 +540,7 @@ class Image implements LoggerAwareInterface
 					{
 						$this->logger->error('Attempting to load an image of unsupported type GIF.');
 					}
-					throw new RuntimeException('Attempting to load an image of unsupported type GIF.');
+					throw new \RuntimeException('Attempting to load an image of unsupported type GIF.');
 
 					// @codeCoverageIgnoreEnd
 				}
@@ -559,7 +551,7 @@ class Image implements LoggerAwareInterface
 				if (!is_resource($handle))
 				{
 					// @codeCoverageIgnoreStart
-					throw new RuntimeException('Unable to process GIF image.');
+					throw new \RuntimeException('Unable to process GIF image.');
 
 					// @codeCoverageIgnoreEnd
 				}
@@ -576,7 +568,7 @@ class Image implements LoggerAwareInterface
 					{
 						$this->logger->error('Attempting to load an image of unsupported type JPG.');
 					}
-					throw new RuntimeException('Attempting to load an image of unsupported type JPG.');
+					throw new \RuntimeException('Attempting to load an image of unsupported type JPG.');
 
 					// @codeCoverageIgnoreEnd
 				}
@@ -587,7 +579,7 @@ class Image implements LoggerAwareInterface
 				if (!is_resource($handle))
 				{
 					// @codeCoverageIgnoreStart
-					throw new RuntimeException('Unable to process JPG image.');
+					throw new \RuntimeException('Unable to process JPG image.');
 
 					// @codeCoverageIgnoreEnd
 				}
@@ -604,7 +596,7 @@ class Image implements LoggerAwareInterface
 					{
 						$this->logger->error('Attempting to load an image of unsupported type PNG.');
 					}
-					throw new RuntimeException('Attempting to load an image of unsupported type PNG.');
+					throw new \RuntimeException('Attempting to load an image of unsupported type PNG.');
 
 					// @codeCoverageIgnoreEnd
 				}
@@ -615,7 +607,7 @@ class Image implements LoggerAwareInterface
 				if (!is_resource($handle))
 				{
 					// @codeCoverageIgnoreStart
-					throw new RuntimeException('Unable to process PNG image.');
+					throw new \RuntimeException('Unable to process PNG image.');
 
 					// @codeCoverageIgnoreEnd
 				}
@@ -628,7 +620,7 @@ class Image implements LoggerAwareInterface
 				{
 					$this->logger->error('Attempting to load an image of unsupported type ' . $properties->mime);
 				}
-				throw new InvalidArgumentException('Attempting to load an image of unsupported type ' . $properties->mime);
+				throw new \InvalidArgumentException('Attempting to load an image of unsupported type ' . $properties->mime);
 				break;
 		}
 
@@ -641,21 +633,21 @@ class Image implements LoggerAwareInterface
 	 *
 	 * @param   mixed    $width        The width of the resized image in pixels or a percentage.
 	 * @param   mixed    $height       The height of the resized image in pixels or a percentage.
-	 * @param   bool     $createNew    If true the current image will be cloned, resized and returned; else
+	 * @param   boolean  $createNew    If true the current image will be cloned, resized and returned; else
 	 *                                 the current image will be resized and returned.
 	 * @param   integer  $scaleMethod  Which method to use for scaling
 	 *
 	 * @return  Image
 	 *
 	 * @since   1.0
-	 * @throws  LogicException
+	 * @throws  \LogicException
 	 */
 	public function resize($width, $height, $createNew = true, $scaleMethod = self::SCALE_INSIDE)
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		// Sanitize width.
@@ -718,20 +710,20 @@ class Image implements LoggerAwareInterface
 	 *
 	 * @param   mixed    $angle       The angle of rotation for the image
 	 * @param   integer  $background  The background color to use when areas are added due to rotation
-	 * @param   bool     $createNew   If true the current image will be cloned, rotated and returned; else
+	 * @param   boolean  $createNew   If true the current image will be cloned, rotated and returned; else
 	 *                                the current image will be rotated and returned.
 	 *
 	 * @return  Image
 	 *
 	 * @since   1.0
-	 * @throws  LogicException
+	 * @throws  \LogicException
 	 */
 	public function rotate($angle, $background = -1, $createNew = true)
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		// Sanitize input
@@ -783,14 +775,14 @@ class Image implements LoggerAwareInterface
 	 *
 	 * @see     http://www.php.net/manual/image.constants.php
 	 * @since   1.0
-	 * @throws  LogicException
+	 * @throws  \LogicException
 	 */
 	public function toFile($path, $type = IMAGETYPE_JPEG, array $options = array())
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
 		{
-			throw new LogicException('No valid image was loaded.');
+			throw new \LogicException('No valid image was loaded.');
 		}
 
 		switch ($type)
@@ -817,7 +809,7 @@ class Image implements LoggerAwareInterface
 	 * @return  Filter
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function getFilterInstance($type)
 	{
@@ -833,7 +825,7 @@ class Image implements LoggerAwareInterface
 			{
 				$this->logger->error('The ' . ucfirst($type) . ' image filter is not available.');
 			}
-			throw new RuntimeException('The ' . ucfirst($type) . ' image filter is not available.');
+			throw new \RuntimeException('The ' . ucfirst($type) . ' image filter is not available.');
 		}
 
 		// Instantiate the filter object.
@@ -847,7 +839,7 @@ class Image implements LoggerAwareInterface
 			{
 				$this->logger->error('The ' . ucfirst($type) . ' image filter is not valid.');
 			}
-			throw new RuntimeException('The ' . ucfirst($type) . ' image filter is not valid.');
+			throw new \RuntimeException('The ' . ucfirst($type) . ' image filter is not valid.');
 
 			// @codeCoverageIgnoreEnd
 		}
@@ -862,15 +854,15 @@ class Image implements LoggerAwareInterface
 	 * @param   integer  $height       The height of the resized image in pixels.
 	 * @param   integer  $scaleMethod  The method to use for scaling
 	 *
-	 * @return  stdClass
+	 * @return  \stdClass
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException  If width, height or both given as zero
+	 * @throws  \InvalidArgumentException  If width, height or both given as zero
 	 */
 	protected function prepareDimensions($width, $height, $scaleMethod)
 	{
 		// Instantiate variables.
-		$dimensions = new stdClass;
+		$dimensions = new \stdClass;
 
 		switch ($scaleMethod)
 		{
@@ -884,7 +876,7 @@ class Image implements LoggerAwareInterface
 				// Both $height or $width cannot be zero
 				if ($width == 0 || $height == 0)
 				{
-					throw new InvalidArgumentException(' Width or height cannot be zero with this scale method ');
+					throw new \InvalidArgumentException(' Width or height cannot be zero with this scale method ');
 				}
 
 				// If both $width and $height are not equals to zero
@@ -908,7 +900,7 @@ class Image implements LoggerAwareInterface
 				break;
 
 			default:
-				throw new InvalidArgumentException('Invalid scale method.');
+				throw new \InvalidArgumentException('Invalid scale method.');
 				break;
 		}
 
@@ -1009,7 +1001,8 @@ class Image implements LoggerAwareInterface
 	 * Method to call the destroy() method one last time
 	 * to free any memory when the object is unset
 	 *
-	 * @see  Image::destroy()
+	 * @see    Image::destroy()
+	 * @since  1.0
 	 */
 	public function __destruct()
 	{

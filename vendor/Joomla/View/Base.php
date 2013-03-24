@@ -18,7 +18,7 @@ abstract class Base implements ViewInterface
 	/**
 	 * The model object.
 	 *
-	 * @var    Model
+	 * @var    ModelInterface
 	 * @since  1.0
 	 */
 	protected $model;
@@ -26,7 +26,7 @@ abstract class Base implements ViewInterface
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   Model  $model  The model object.
+	 * @param   ModelInterface  $model  The model object.
 	 *
 	 * @since   1.0
 	 */
@@ -43,7 +43,7 @@ abstract class Base implements ViewInterface
 	 *
 	 * @return  string  The escaped output.
 	 *
-	 * @see     View::escape()
+	 * @see     ViewInterface::escape()
 	 * @since   1.0
 	 */
 	public function escape($output)

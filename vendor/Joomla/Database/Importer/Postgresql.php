@@ -19,10 +19,10 @@ class Postgresql extends Importer
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *
-	 * @return  JDatabaseImporterPostgresql  Method supports chaining.
+	 * @return  Postgresql  Method supports chaining.
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error is encountered.
+	 * @throws  \Exception if an error is encountered.
 	 */
 	public function check()
 	{
@@ -44,8 +44,8 @@ class Postgresql extends Importer
 	/**
 	 * Get the SQL syntax to add a column.
 	 *
-	 * @param   string            $table  The table name.
-	 * @param   SimpleXMLElement  $field  The XML field definition.
+	 * @param   string             $table  The table name.
+	 * @param   \SimpleXMLElement  $field  The XML field definition.
 	 *
 	 * @return  string
 	 *
@@ -61,7 +61,7 @@ class Postgresql extends Importer
 	/**
 	 * Get the SQL syntax to add an index.
 	 *
-	 * @param   SimpleXMLElement  $field  The XML index definition.
+	 * @param   \SimpleXMLElement  $field  The XML index definition.
 	 *
 	 * @return  string
 	 *
@@ -75,7 +75,7 @@ class Postgresql extends Importer
 	/**
 	 * Get alters for table if there is a difference.
 	 *
-	 * @param   SimpleXMLElement  $structure  The XML structure of the table.
+	 * @param   \SimpleXMLElement  $structure  The XML structure of the table.
 	 *
 	 * @return  array
 	 *
@@ -268,13 +268,13 @@ class Postgresql extends Importer
 	/**
 	 * Get the syntax to add a sequence.
 	 *
-	 * @param   SimpleXMLElement  $field  The XML definition for the sequence.
+	 * @param   \SimpleXMLElement  $field  The XML definition for the sequence.
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	protected function getAddSequenceSQL($field)
+	protected function getAddSequenceSQL(\SimpleXMLElement $field)
 	{
 		/* For older database version that doesn't support these fields use default values */
 		if (version_compare($this->db->getVersion(), '9.1.0') < 0)
@@ -300,13 +300,13 @@ class Postgresql extends Importer
 	/**
 	 * Get the syntax to alter a sequence.
 	 *
-	 * @param   SimpleXMLElement  $field  The XML definition for the sequence.
+	 * @param   \SimpleXMLElement  $field  The XML definition for the sequence.
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	protected function getChangeSequenceSQL($field)
+	protected function getChangeSequenceSQL(\SimpleXMLElement $field)
 	{
 		/* For older database version that doesn't support these fields use default values */
 		if (version_compare($this->db->getVersion(), '9.1.0') < 0)
@@ -331,8 +331,8 @@ class Postgresql extends Importer
 	/**
 	 * Get the syntax to alter a column.
 	 *
-	 * @param   string            $table  The name of the database table to alter.
-	 * @param   SimpleXMLElement  $field  The XML definition for the field.
+	 * @param   string             $table  The name of the database table to alter.
+	 * @param   \SimpleXMLElement  $field  The XML definition for the field.
 	 *
 	 * @return  string
 	 *
@@ -349,14 +349,14 @@ class Postgresql extends Importer
 	/**
 	 * Get the SQL syntax for a single column that would be included in a table create statement.
 	 *
-	 * @param   string            $table  The name of the database table to alter.
-	 * @param   SimpleXMLElement  $field  The XML field definition.
+	 * @param   string             $table  The name of the database table to alter.
+	 * @param   \SimpleXMLElement  $field  The XML field definition.
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	protected function getAlterColumnSQL($table, $field)
+	protected function getAlterColumnSQL($table, \SimpleXMLElement $field)
 	{
 		// TODO Incorporate into parent class and use $this.
 		$blobs = array('text', 'smalltext', 'mediumtext', 'largetext');
@@ -404,7 +404,7 @@ class Postgresql extends Importer
 	/**
 	 * Get the SQL syntax for a single column that would be included in a table create statement.
 	 *
-	 * @param   SimpleXMLElement  $field  The XML field definition.
+	 * @param   \SimpleXMLElement  $field  The XML field definition.
 	 *
 	 * @return  string
 	 *
@@ -532,7 +532,6 @@ class Postgresql extends Importer
 	 * @return  array  The lookup array. array({key name} => array(object, ...))
 	 *
 	 * @since   1.0
-	 * @throws  Exception
 	 */
 	protected function getSeqLookup($sequences)
 	{
