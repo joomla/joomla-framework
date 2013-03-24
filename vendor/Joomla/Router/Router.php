@@ -7,7 +7,7 @@
 namespace Joomla\Router;
 
 use Joomla\Controller\ControllerInterface;
-use Joomla\Input;
+use Joomla\Input\Input;
 
 /**
  * A path router.
@@ -57,9 +57,9 @@ class Router
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input\Input $input = null)
+	public function __construct(Input $input = null)
 	{
-		$this->input = ($input === null) ? new Input\Input : $input;
+		$this->input = ($input === null) ? new Input : $input;
 	}
 
 	/**
