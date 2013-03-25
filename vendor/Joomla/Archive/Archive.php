@@ -42,7 +42,7 @@ class Archive implements LoggerAwareInterface
 	 * @var    mixed  Array or object that implements \ArrayAccess
 	 * @since  1.0
 	 */
-	protected $options = array();
+	public $options = array();
 
 	/**
 	 * Create a new Archive object.
@@ -73,6 +73,7 @@ class Archive implements LoggerAwareInterface
 		$result = false;
 		$ext = pathinfo($archivename, PATHINFO_EXTENSION);
 		$filename = pathinfo($archivename, PATHINFO_FILENAME);
+		$path = pathinfo($archivename, PATHINFO_DIRNAME);
 
 		switch ($ext)
 		{
@@ -105,7 +106,7 @@ class Archive implements LoggerAwareInterface
 				else
 				{
 					Folder::create($path);
-					$result = File::copy($tmpfname, $path . '/' . $filename, null, 1);
+					$result = File::copy($tmpfname, $extractdir, null, 1);
 				}
 
 				@unlink($tmpfname);
@@ -133,7 +134,7 @@ class Archive implements LoggerAwareInterface
 				else
 				{
 					Folder::create($path);
-					$result = File::copy($tmpfname, $path . '/' . $filename, null, 1);
+					$result = File::copy($tmpfname, $extractdir, null, 1);
 				}
 
 				@unlink($tmpfname);
