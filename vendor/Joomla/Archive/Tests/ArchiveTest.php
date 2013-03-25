@@ -40,7 +40,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 			mkdir($this->outputPath, 0777);
 		}
 
-		$this->fixture = new Archive(array('tmp_path' => '/tmp'));
+		$this->fixture = new Archive;
 	}
 
 	/**

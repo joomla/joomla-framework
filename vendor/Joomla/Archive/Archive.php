@@ -43,6 +43,9 @@ class Archive
 	 */
 	public function __construct($options = array())
 	{
+		// Make sure we have a tmp directory.
+		isset($options['tmp_path']) or $options['tmp_path'] = realpath(sys_get_temp_dir());
+
 		$this->options = $options;
 	}
 	
@@ -147,7 +150,7 @@ class Archive
 	 * Method to override the provided adapter with your own implementation.
 	 *
 	 * @param   string  $type      Name of the adapter to set.
-	 * @param   object  $adapter   Class which implements ExtractableInterface.
+	 * @param   string  $class     FQCN of your class which implements ExtractableInterface.
 	 * @param   object  $override  True to force override the adapter type.
 	 *
 	 * @return  Archive  This object for chaining.
@@ -155,16 +158,16 @@ class Archive
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
 	 */
-	public function setAdapter($type, $adapter, $override = true)
+	public function setAdapter($type, $class, $override = true)
 	{
-		if (!($adapter instanceof ExtractableInterface))
+		if (!($class instanceof ExtractableInterface))
 		{
 			throw new \InvalidArgumentException(sprintf('The provided %s adapter %s must implement Joomla\\Archive\\ExtractableInterface', $type), 500);
 		}
 
 		if ($override || !isset($this->adapters[$type]))
 		{
-			$this->adapters[$type] = $value;
+			$this->adapters[$type] = new $class($this->options);
 		}
 
 		return $this;

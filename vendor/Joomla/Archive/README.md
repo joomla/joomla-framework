@@ -25,3 +25,32 @@ $archive = new Archive($options)
 
 $archive->extract(__DIR__ . '/archive.zip', __DIR__ . '/destination');
 ```
+
+## Overriding Adapters
+
+If you have a custom adapter you would like to use for extracting, this package allows you to override the defaults. Just implement `ExtractableInterface` when creating your adapter, and then use the `setAdapter` method to override.
+
+```php
+
+class MyZipAdapter implements \Joomla\Archive\ExtractableInterface
+{
+	public static function isSupported()
+	{
+		// Do you test
+		return true;
+	}
+
+	public function extract($archive, $destination)
+	{
+		// Your code
+	}
+}
+
+$archive = new Archive;
+
+// You need to pass the fully qualified class name.
+$archive->setAdapter('zip', '\\MyZipAdapter');
+
+// This will use your 
+$archive->extract('archive.zip', 'destination');
+```
