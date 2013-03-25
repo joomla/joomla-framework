@@ -18,7 +18,7 @@ use Joomla\Database\Query;
 class Mysqli extends Query implements LimitableInterface
 {
 	/**
-	 * @var    interger  The offset for the result set.
+	 * @var    integer  The offset for the result set.
 	 * @since  1.0
 	 */
 	protected $offset;
