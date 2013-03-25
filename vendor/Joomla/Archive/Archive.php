@@ -10,15 +10,13 @@ namespace Joomla\Archive;
 
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * An Archive handling class
  *
  * @since  1.0
  */
-class Archive implements LoggerAwareInterface
+class Archive
 {
 	/**
 	 * The array of instantiated archive adapters.
@@ -27,14 +25,6 @@ class Archive implements LoggerAwareInterface
 	 * @since  1.0
 	 */
 	protected $adapters = array();
-
-	/**
-	 * A logger.
-	 *
-	 * @var    LoggerInterface
-	 * @since  1.0
-	 */
-	private $logger;
 
 	/**
 	 * Holds the options array.
@@ -72,8 +62,8 @@ class Archive implements LoggerAwareInterface
 	{
 		$result = false;
 		$ext = pathinfo($archivename, PATHINFO_EXTENSION);
-		$filename = pathinfo($archivename, PATHINFO_FILENAME);
 		$path = pathinfo($archivename, PATHINFO_DIRNAME);
+		$filename = pathinfo($archivename, PATHINFO_FILENAME);
 
 		switch ($ext)
 		{
@@ -106,7 +96,7 @@ class Archive implements LoggerAwareInterface
 				else
 				{
 					Folder::create($path);
-					$result = File::copy($tmpfname, $extractdir, null, 1);
+					$result = File::copy($tmpfname, $extractdir, null, 0);
 				}
 
 				@unlink($tmpfname);
@@ -134,7 +124,7 @@ class Archive implements LoggerAwareInterface
 				else
 				{
 					Folder::create($path);
-					$result = File::copy($tmpfname, $extractdir, null, 1);
+					$result = File::copy($tmpfname, $extractdir, null, 0);
 				}
 
 				@unlink($tmpfname);
@@ -208,51 +198,5 @@ class Archive implements LoggerAwareInterface
 		}
 
 		return $this->adapters[$type];
-	}
-
-	/**
-	 * Get the logger.
-	 *
-	 * @return  LoggerInterface
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function getLogger()
-	{
-		if ($this->hasLogger())
-		{
-			return $this->logger;
-		}
-
-		throw new \UnexpectedValueException('Logger not set in ' . __CLASS__);
-	}
-
-	/**
-	 * Checks if a logger is available.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function hasLogger()
-	{
-		return ($this->logger instanceof LoggerInterface);
-	}
-
-	/**
-	 * Set the logger.
-	 *
-	 * @param   LoggerInterface  $logger  The logger.
-	 *
-	 * @return  Archive  This object to support chaining.
-	 *
-	 * @since   1.0
-	 */
-	public function setLogger(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
-
-		return $this;
 	}
 }
