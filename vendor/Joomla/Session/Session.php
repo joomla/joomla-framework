@@ -1,14 +1,13 @@
 <?php
 /**
+ * Part of the Joomla Framework Session Package
+ *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Session;
 
-
-// @todo dependency on legacy JApplication here
-use Joomla\Application\Route;
 use Joomla\Event\Dispatcher;
 use Joomla\Input\Input;
 use Joomla\Factory;
@@ -315,7 +314,7 @@ class Session implements \IteratorAggregate
 			if ($session->isNew())
 			{
 				// Redirect to login screen.
-				$app->redirect(Route::_('index.php'));
+				$app->redirect('index.php');
 				$app->close();
 			}
 			else

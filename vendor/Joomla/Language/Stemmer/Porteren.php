@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Framework Language Package
+ *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @copyright  Copyright (C) 2005 Richard Heyes (http://www.phpguru.org/). All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
