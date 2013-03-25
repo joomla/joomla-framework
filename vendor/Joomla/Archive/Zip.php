@@ -104,10 +104,10 @@ class Zip implements ExtractableInterface
 
 		foreach ($files as $file)
 		{
-			$this->_addToZIPFile($file, $contents, $ctrldir);
+			$this->addToZIPFile($file, $contents, $ctrldir);
 		}
 
-		return $this->_createZIPFile($contents, $ctrldir, $archive);
+		return $this->createZIPFile($contents, $ctrldir, $archive);
 	}
 
 	/**
@@ -212,7 +212,7 @@ class Zip implements ExtractableInterface
 			throw new \RuntimeException('Unable to read archive (zip)');
 		}
 
-		if (!$this->_readZipInfo($this->data))
+		if (!$this->readZipInfo($this->data))
 		{
 			throw new \RuntimeException('Get ZIP Information failed');
 		}
@@ -223,7 +223,7 @@ class Zip implements ExtractableInterface
 
 			if ($lastPathCharacter !== '/' && $lastPathCharacter !== '\\')
 			{
-				$buffer = $this->_getFileData($i);
+				$buffer = $this->getFileData($i);
 				$path = Path::clean($destination . '/' . $this->metadata[$i]['name']);
 
 				// Make sure the destination folder exists
@@ -320,7 +320,7 @@ class Zip implements ExtractableInterface
 	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
-	private function _readZipInfo(&$data)
+	private function readZipInfo(&$data)
 	{
 		$entries = array();
 
@@ -425,7 +425,7 @@ class Zip implements ExtractableInterface
 	 *
 	 * @since   1.0
 	 */
-	private function _getFileData($key)
+	private function getFileData($key)
 	{
 		if ($this->metadata[$key]['_method'] == 0x8)
 		{
@@ -459,7 +459,7 @@ class Zip implements ExtractableInterface
 	 *
 	 * @since   1.0
 	 */
-	protected function _unix2DOSTime($unixtime = null)
+	protected function unix2DOSTime($unixtime = null)
 	{
 		$timearray = (is_null($unixtime)) ? getdate() : getdate($unixtime);
 
@@ -490,7 +490,7 @@ class Zip implements ExtractableInterface
 	 *
 	 * @todo    Review and finish implementation
 	 */
-	private function _addToZIPFile(array &$file, array &$contents, array &$ctrldir)
+	private function addToZIPFile(array &$file, array &$contents, array &$ctrldir)
 	{
 		$data = &$file['data'];
 		$name = str_replace('\\', '/', $file['name']);
@@ -504,7 +504,7 @@ class Zip implements ExtractableInterface
 		}
 
 		// Get the hex time.
-		$dtime = dechex($this->_unix2DosTime($ftime));
+		$dtime = dechex($this->unix2DosTime($ftime));
 		$hexdtime = chr(hexdec($dtime[6] . $dtime[7])) . chr(hexdec($dtime[4] . $dtime[5])) . chr(hexdec($dtime[2] . $dtime[3]))
 			. chr(hexdec($dtime[0] . $dtime[1]));
 
@@ -601,7 +601,7 @@ class Zip implements ExtractableInterface
 	 *
 	 * @todo	Review and finish implementation
 	 */
-	private function _createZIPFile(array &$contents, array &$ctrlDir, $path)
+	private function createZIPFile(array &$contents, array &$ctrlDir, $path)
 	{
 		$data = implode('', $contents);
 		$dir = implode('', $ctrlDir);

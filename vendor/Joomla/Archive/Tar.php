@@ -82,7 +82,7 @@ class Tar implements ExtractableInterface
 			throw new \RuntimeException('Unable to read archive');
 		}
 
-		$this->_getTarInfo($this->data);
+		$this->getTarInfo($this->data);
 
 		for ($i = 0, $n = count($this->metadata); $i < $n; $i++)
 		{
@@ -139,7 +139,7 @@ class Tar implements ExtractableInterface
 	 *
 	 * @since  1.0
 	 */
-	protected function _getTarInfo(& $data)
+	protected function getTarInfo(& $data)
 	{
 		$position = 0;
 		$return_array = array();

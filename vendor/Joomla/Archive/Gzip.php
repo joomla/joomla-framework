@@ -70,7 +70,7 @@ class Gzip implements ExtractableInterface
 				throw new \RuntimeException('Unable to read archive');
 			}
 
-			$position = $this->_getFilePosition();
+			$position = $this->getFilePosition();
 			$buffer = gzinflate(substr($this->data, $position, strlen($this->data) - $position));
 
 			if (empty($buffer))
@@ -147,7 +147,7 @@ class Gzip implements ExtractableInterface
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function _getFilePosition()
+	public function getFilePosition()
 	{
 		// Gzipped file... unpack it first
 		$position = 0;

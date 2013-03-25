@@ -193,13 +193,13 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	public function testGetAdapter()
 	{
 		$zip = Archive::getAdapter('zip');
-		$this->assertInstanceOf('Joomla\Archive\Zip', $zip);
+		$this->assertInstanceOf('Joomla\\Archive\\Zip', $zip);
 		$bzip2 = Archive::getAdapter('bzip2');
-		$this->assertInstanceOf('Joomla\Archive\Bzip2', $bzip2);
+		$this->assertInstanceOf('Joomla\\Archive\\Bzip2', $bzip2);
 		$gzip = Archive::getAdapter('gzip');
-		$this->assertInstanceOf('Joomla\Archive\Gzip', $gzip);
+		$this->assertInstanceOf('Joomla\\Archive\\Gzip', $gzip);
 		$tar = Archive::getAdapter('tar');
-		$this->assertInstanceOf('Joomla\Archive\Tar', $tar);
+		$this->assertInstanceOf('Joomla\\Archive\\Tar', $tar);
 	}
 
 	/**

@@ -188,7 +188,7 @@ class Archive
 
 			if (!class_exists($class))
 			{
-				throw new \UnexpectedValueException('Unable to load archive', 500);
+				throw new \UnexpectedValueException(sprintf('Unable to load archive adapter %s.', $type) , 500);
 			}
 
 			self::$adapters[$type] = new $class;
