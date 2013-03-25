@@ -4,11 +4,11 @@ This is a simple package that contains forward compatibility classes and interfa
 
 ## JsonSerializable
 
-`JsonSerializable` is a PHP 5.4 interface that allows yout to specify what data to serialize to JSON when you `json_encode` an object that implements the interface.
+`JsonSerializable` is a PHP 5.4 interface that allows you to specify what data to serialize to JSON when you `json_encode` an object that implements the interface.
 
 ### Usage
 
-Since this is a PHP 5.4 interface, the `jsonSerialize()` method does not get called automatically when `json_encode`-ing an instance of the class. To work around this, simply call the `jsonSerialize()` method directly when passing it to `json_encode`. This is forward-compatible with PHP 5.4.
+Since this is a PHP 5.4 interface, the `jsonSerialize()` method does not get called automatically when `json_encode`-ing an instance of the class when used in 5.3. To work around this, simply call the `jsonSerialize()` method directly when passing it to `json_encode`. This is forward-compatible with PHP 5.4.
 
 ```php
 <?php
