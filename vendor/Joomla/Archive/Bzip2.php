@@ -27,27 +27,41 @@ class Bzip2 implements ExtractableInterface
 	private $data = null;
 
 	/**
+	 * Holds the options array.
+	 *
+	 * @var    mixed  Array or object that implements \ArrayAccess
+	 * @since  1.0
+	 */
+	protected $options = array();
+
+	/**
+	 * Create a new Archive object.
+	 *
+	 * @param  mixed  $options  An array of options or an object that implements \ArrayAccess
+	 *
+	 * @since  1.0
+	 */
+	public function __construct($options = array())
+	{
+		$this->options = $options;
+	}
+
+	/**
 	 * Extract a Bzip2 compressed file to a given path
 	 *
 	 * @param   string  $archive      Path to Bzip2 archive to extract
 	 * @param   string  $destination  Path to extract archive to
-	 * @param   array   $options      Extraction options [unused]
 	 *
 	 * @return  boolean  True if successful
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function extract($archive, $destination, array $options = array ())
+	public function extract($archive, $destination)
 	{
 		$this->data = null;
 
-		if (!extension_loaded('bz2'))
-		{
-			throw new \RuntimeException('The bz2 extension is not available.');
-		}
-
-		if (!isset($options['use_streams']) || $options['use_streams'] == false)
+		if (!isset($this->options['use_streams']) || $this->options['use_streams'] == false)
 		{
 			// Old style: read the whole file and then parse it
 			$this->data = file_get_contents($archive);

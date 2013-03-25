@@ -42,8 +42,16 @@ class Zip implements ExtractableInterface
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $methods = array(0x0 => 'None', 0x1 => 'Shrunk', 0x2 => 'Super Fast', 0x3 => 'Fast', 0x4 => 'Normal', 0x5 => 'Maximum', 0x6 => 'Imploded',
-		0x8 => 'Deflated');
+	private $methods = array(
+		0x0 => 'None',
+		0x1 => 'Shrunk',
+		0x2 => 'Super Fast',
+		0x3 => 'Fast',
+		0x4 => 'Normal',
+		0x5 => 'Maximum',
+		0x6 => 'Imploded',
+		0x8 => 'Deflated'
+	);
 
 	/**
 	 * Beginning of central directory record.
@@ -86,6 +94,26 @@ class Zip implements ExtractableInterface
 	private $metadata = null;
 
 	/**
+	 * Holds the options array.
+	 *
+	 * @var    mixed  Array or object that implements \ArrayAccess
+	 * @since  1.0
+	 */
+	protected $options = array();
+
+	/**
+	 * Create a new Archive object.
+	 *
+	 * @param  mixed  $options  An array of options or an object that implements \ArrayAccess
+	 *
+	 * @since  1.0
+	 */
+	public function __construct($options = array())
+	{
+		$this->options = $options;
+	}
+
+	/**
 	 * Create a ZIP compressed file from an array of file data.
 	 *
 	 * @param   string  $archive  Path to save archive.
@@ -115,14 +143,13 @@ class Zip implements ExtractableInterface
 	 *
 	 * @param   string  $archive      Path to ZIP archive to extract
 	 * @param   string  $destination  Path to extract archive into
-	 * @param   array   $options      Extraction options [unused]
 	 *
 	 * @return  boolean  True if successful
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function extract($archive, $destination, array $options = array())
+	public function extract($archive, $destination)
 	{
 		if (!is_file($archive))
 		{
@@ -199,11 +226,6 @@ class Zip implements ExtractableInterface
 	{
 		$this->data = null;
 		$this->metadata = null;
-
-		if (!extension_loaded('zlib'))
-		{
-			throw new \RuntimeException('Zlib not supported');
-		}
 
 		$this->data = file_get_contents($archive);
 
