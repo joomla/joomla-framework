@@ -59,18 +59,37 @@ class Tar implements ExtractableInterface
 	private $metadata = null;
 
 	/**
+	 * Holds the options array.
+	 *
+	 * @var    mixed  Array or object that implements \ArrayAccess
+	 * @since  1.0
+	 */
+	protected $options = array();
+
+	/**
+	 * Create a new Archive object.
+	 *
+	 * @param  mixed  $options  An array of options or an object that implements \ArrayAccess
+	 *
+	 * @since  1.0
+	 */
+	public function __construct($options = array())
+	{
+		$this->options = $options;
+	}
+
+	/**
 	 * Extract a ZIP compressed file to a given path
 	 *
 	 * @param   string  $archive      Path to ZIP archive to extract
 	 * @param   string  $destination  Path to extract archive into
-	 * @param   array   $options      Extraction options [unused]
 	 *
 	 * @return  boolean True if successful
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function extract($archive, $destination, array $options = array())
+	public function extract($archive, $destination)
 	{
 		$this->data = null;
 		$this->metadata = null;

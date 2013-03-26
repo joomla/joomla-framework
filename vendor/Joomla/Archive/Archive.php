@@ -8,8 +8,6 @@
 
 namespace Joomla\Archive;
 
-use Joomla\Factory;
-use Joomla\Filesystem\Path;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 
@@ -26,7 +24,31 @@ class Archive
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected static $adapters = array();
+	protected $adapters = array();
+
+	/**
+	 * Holds the options array.
+	 *
+	 * @var    mixed  Array or object that implements \ArrayAccess
+	 * @since  1.0
+	 */
+	public $options = array();
+
+	/**
+	 * Create a new Archive object.
+	 *
+	 * @param  mixed  $options  An array of options or an object that implements \ArrayAccess
+	 *
+	 * @since  1.0
+	 */
+	public function __construct($options = array())
+	{
+		// Make sure we have a tmp directory.
+		isset($options['tmp_path']) or $options['tmp_path'] = realpath(sys_get_temp_dir());
+
+		$this->options = $options;
+	}
+	
 
 	/**
 	 * Extract an archive file to a directory.
@@ -39,126 +61,81 @@ class Archive
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
 	 */
-	public static function extract($archivename, $extractdir)
+	public function extract($archivename, $extractdir)
 	{
-		$untar = false;
 		$result = false;
-		$ext = File::getExt(strtolower($archivename));
-
-		// Check if a tar is embedded...gzip/bzip2 can just be plain files!
-		if (File::getExt(File::stripExt(strtolower($archivename))) == 'tar')
-		{
-			$untar = true;
-		}
+		$ext = pathinfo($archivename, PATHINFO_EXTENSION);
+		$path = pathinfo($archivename, PATHINFO_DIRNAME);
+		$filename = pathinfo($archivename, PATHINFO_FILENAME);
 
 		switch ($ext)
 		{
 			case 'zip':
-				$adapter = self::getAdapter('zip');
-
-				if ($adapter)
-				{
-					$result = $adapter->extract($archivename, $extractdir);
-				}
+				$result = $this->getAdapter('zip')->extract($archivename, $extractdir);
 				break;
 
 			case 'tar':
-				$adapter = self::getAdapter('tar');
-
-				if ($adapter)
-				{
-					$result = $adapter->extract($archivename, $extractdir);
-				}
+				$result = $this->getAdapter('tar')->extract($archivename, $extractdir);
 				break;
 
 			case 'tgz':
-				// This format is a tarball gzip'd
-				$untar = true;
-
 			case 'gz':
 			case 'gzip':
 				// This may just be an individual file (e.g. sql script)
-				$adapter = self::getAdapter('gzip');
+				$tmpfname = $this->options['tmp_path'] . '/' . uniqid('gzip');
+				$gzresult = $this->getAdapter('gzip')->extract($archivename, $tmpfname);
 
-				if ($adapter)
+				if ($gzresult instanceof \Exception)
 				{
-					$config = Factory::getConfig();
-					$tmpfname = $config->get('tmp_path') . '/' . uniqid('gzip');
-					$gzresult = $adapter->extract($archivename, $tmpfname);
-
-					if ($gzresult instanceof \Exception)
-					{
-						@unlink($tmpfname);
-
-						return false;
-					}
-
-					if ($untar)
-					{
-						// Try to untar the file
-						$tadapter = self::getAdapter('tar');
-
-						if ($tadapter)
-						{
-							$result = $tadapter->extract($tmpfname, $extractdir);
-						}
-					}
-					else
-					{
-						$path = Path::clean($extractdir);
-						Folder::create($path);
-						$result = File::copy($tmpfname, $path . '/' . File::stripExt(basename(strtolower($archivename))), null, 1);
-					}
-
 					@unlink($tmpfname);
+
+					return false;
 				}
+
+				if ($ext === 'tgz' || stripos($filename, '.tar') !== false)
+				{
+					$result = $this->getAdapter('tar')->extract($tmpfname, $extractdir);
+				}
+				else
+				{
+					Folder::create($path);
+					$result = File::copy($tmpfname, $extractdir, null, 0);
+				}
+
+				@unlink($tmpfname);
+
 				break;
 
 			case 'tbz2':
-				// This format is a tarball bzip2'd
-				$untar = true;
-
 			case 'bz2':
 			case 'bzip2':
 				// This may just be an individual file (e.g. sql script)
-				$adapter = self::getAdapter('bzip2');
+				$tmpfname = $this->options['tmp_path'] . '/' . uniqid('bzip2');
+				$bzresult = $this->getAdapter('bzip2')->extract($archivename, $tmpfname);
 
-				if ($adapter)
+				if ($bzresult instanceof \Exception)
 				{
-					$config = Factory::getConfig();
-					$tmpfname = $config->get('tmp_path') . '/' . uniqid('bzip2');
-					$bzresult = $adapter->extract($archivename, $tmpfname);
-
-					if ($bzresult instanceof \Exception)
-					{
-						@unlink($tmpfname);
-
-						return false;
-					}
-
-					if ($untar)
-					{
-						// Try to untar the file
-						$tadapter = self::getAdapter('tar');
-
-						if ($tadapter)
-						{
-							$result = $tadapter->extract($tmpfname, $extractdir);
-						}
-					}
-					else
-					{
-						$path = Path::clean($extractdir);
-						Folder::create($path);
-						$result = File::copy($tmpfname, $path . '/' . File::stripExt(basename(strtolower($archivename))), null, 1);
-					}
-
 					@unlink($tmpfname);
+
+					return false;
 				}
+
+				if ($ext === 'tbz2' || stripos($filename, '.tar') !== false)
+				{
+					$result = $this->getAdapter('tar')->extract($tmpfname, $extractdir);
+				}
+				else
+				{
+					Folder::create($path);
+					$result = File::copy($tmpfname, $extractdir, null, 0);
+				}
+
+				@unlink($tmpfname);
+
 				break;
 
 			default:
-				throw new \InvalidArgumentException('Unknown Archive Type');
+				throw new \InvalidArgumentException(sprintf('Unknown archive type: %s', $ext));
 		}
 
 		if (!$result || $result instanceof \Exception)
@@ -167,6 +144,33 @@ class Archive
 		}
 
 		return true;
+	}
+
+	/**
+	 * Method to override the provided adapter with your own implementation.
+	 *
+	 * @param   string  $type      Name of the adapter to set.
+	 * @param   string  $class     FQCN of your class which implements ExtractableInterface.
+	 * @param   object  $override  True to force override the adapter type.
+	 *
+	 * @return  Archive  This object for chaining.
+	 *
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
+	 */
+	public function setAdapter($type, $class, $override = true)
+	{
+		if (!($class instanceof ExtractableInterface))
+		{
+			throw new \InvalidArgumentException(sprintf('The provided %s adapter %s must implement Joomla\\Archive\\ExtractableInterface', $type), 500);
+		}
+
+		if ($override || !isset($this->adapters[$type]))
+		{
+			$this->adapters[$type] = new $class($this->options);
+		}
+
+		return $this;
 	}
 
 	/**
@@ -179,21 +183,23 @@ class Archive
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
 	 */
-	public static function getAdapter($type)
+	public function getAdapter($type)
 	{
-		if (!isset(self::$adapters[$type]))
+		$type = strtolower($type);
+
+		if (!isset($this->adapters[$type]))
 		{
 			// Try to load the adapter object
 			$class = 'Joomla\\Archive\\' . ucfirst($type);
 
-			if (!class_exists($class))
+			if (!class_exists($class) || !$class::isSupported())
 			{
-				throw new \UnexpectedValueException(sprintf('Unable to load archive adapter %s.', $type) , 500);
+				throw new \UnexpectedValueException(sprintf('Archive adapter %s not found or supported.', $type), 500);
 			}
 
-			self::$adapters[$type] = new $class;
+			$this->adapters[$type] = new $class($this->options);
 		}
 
-		return self::$adapters[$type];
+		return $this->adapters[$type];
 	}
 }

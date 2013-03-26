@@ -11,7 +11,6 @@ use Joomla\Archive\Zip as ArchiveZip;
 use Joomla\Archive\Tar as ArchiveTar;
 use Joomla\Archive\Gzip as ArchiveGzip;
 use Joomla\Archive\Bzip2 as ArchiveBzip2;
-use Joomla\Factory;
 
 /**
  * Test class for Joomla\Archive\Archive.
@@ -20,7 +19,8 @@ use Joomla\Factory;
  */
 class ArchiveTest extends \PHPUnit_Framework_TestCase
 {
-	protected static $outputPath;
+	protected $fixture;
+	protected $outputPath;
 
 	/**
 	 * Sets up the fixture.
@@ -33,12 +33,14 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		self::$outputPath = __DIR__ . '/output';
+		$this->outputPath = __DIR__ . '/output';
 
-		if (!is_dir(self::$outputPath))
+		if (!is_dir($this->outputPath))
 		{
-			mkdir(self::$outputPath, 0777);
+			mkdir($this->outputPath, 0777);
 		}
+
+		$this->fixture = new Archive;
 	}
 
 	/**
@@ -50,7 +52,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExtractZip()
 	{
-		if (!is_dir(self::$outputPath))
+		if (!is_dir($this->outputPath))
 		{
 			$this->markTestSkipped("Couldn't create folder.");
 
@@ -64,12 +66,12 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		Archive::extract(__DIR__ . '/logo.zip', self::$outputPath);
-		$this->assertTrue(is_file(self::$outputPath . '/logo-zip.png'));
+		$this->fixture->extract(__DIR__ . '/logo.zip', $this->outputPath);
+		$this->assertTrue(is_file($this->outputPath . '/logo-zip.png'));
 
-		if (is_file(self::$outputPath . '/logo-zip.png'))
+		if (is_file($this->outputPath . '/logo-zip.png'))
 		{
-			unlink(self::$outputPath . '/logo-zip.png');
+			unlink($this->outputPath . '/logo-zip.png');
 		}
 	}
 
@@ -82,7 +84,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExtractTar()
 	{
-		if (!is_dir(self::$outputPath))
+		if (!is_dir($this->outputPath))
 		{
 			$this->markTestSkipped("Couldn't create folder.");
 
@@ -96,12 +98,12 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		Archive::extract(__DIR__ . '/logo.tar', self::$outputPath);
-		$this->assertTrue(is_file(self::$outputPath . '/logo-tar.png'));
+		$this->fixture->extract(__DIR__ . '/logo.tar', $this->outputPath);
+		$this->assertTrue(is_file($this->outputPath . '/logo-tar.png'));
 
-		if (is_file(self::$outputPath . '/logo-tar.png'))
+		if (is_file($this->outputPath . '/logo-tar.png'))
 		{
-			unlink(self::$outputPath . '/logo-tar.png');
+			unlink($this->outputPath . '/logo-tar.png');
 		}
 	}
 
@@ -114,14 +116,14 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExtractGzip()
 	{
-		if (!is_dir(self::$outputPath))
+		if (!is_dir($this->outputPath))
 		{
 			$this->markTestSkipped("Couldn't create folder.");
 
 			return;
 		}
 
-		if (!is_writable(self::$outputPath) || !is_writable(Factory::getConfig()->get('tmp_path')))
+		if (!is_writable($this->outputPath) || !is_writable($this->fixture->options['tmp_path']))
 		{
 			$this->markTestSkipped("Folder not writable.");
 
@@ -135,12 +137,12 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		Archive::extract(__DIR__ . '/logo.gz', self::$outputPath . '/logo-gz.png');
-		$this->assertTrue(is_file(self::$outputPath . '/logo-gz.png'));
+		$this->fixture->extract(__DIR__ . '/logo.gz', $this->outputPath . '/logo-gz.png');
+		$this->assertTrue(is_file($this->outputPath . '/logo-gz.png'));
 
-		if (is_file(self::$outputPath . '/logo-gz.png'))
+		if (is_file($this->outputPath . '/logo-gz.png'))
 		{
-			unlink(self::$outputPath . '/logo-gz.png');
+			unlink($this->outputPath . '/logo-gz.png');
 		}
 	}
 
@@ -153,14 +155,14 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExtractBzip2()
 	{
-		if (!is_dir(self::$outputPath))
+		if (!is_dir($this->outputPath))
 		{
 			$this->markTestSkipped("Couldn't create folder.");
 
 			return;
 		}
 
-		if (!is_writable(self::$outputPath) || !is_writable(Factory::getConfig()->get('tmp_path')))
+		if (!is_writable($this->outputPath) || !is_writable($this->fixture->options['tmp_path']))
 		{
 			$this->markTestSkipped("Folder not writable.");
 
@@ -174,12 +176,12 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		Archive::extract(__DIR__ . '/logo.bz2', self::$outputPath . '/logo-bz2.png');
-		$this->assertTrue(is_file(self::$outputPath . '/logo-bz2.png'));
+		$this->fixture->extract(__DIR__ . '/logo.bz2', $this->outputPath . '/logo-bz2.png');
+		$this->assertTrue(is_file($this->outputPath . '/logo-bz2.png'));
 
-		if (is_file(self::$outputPath . '/logo-bz2.png'))
+		if (is_file($this->outputPath . '/logo-bz2.png'))
 		{
-			unlink(self::$outputPath . '/logo-bz2.png');
+			unlink($this->outputPath . '/logo-bz2.png');
 		}
 	}
 
@@ -192,13 +194,13 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetAdapter()
 	{
-		$zip = Archive::getAdapter('zip');
+		$zip = $this->fixture->getAdapter('zip');
 		$this->assertInstanceOf('Joomla\\Archive\\Zip', $zip);
-		$bzip2 = Archive::getAdapter('bzip2');
+		$bzip2 = $this->fixture->getAdapter('bzip2');
 		$this->assertInstanceOf('Joomla\\Archive\\Bzip2', $bzip2);
-		$gzip = Archive::getAdapter('gzip');
+		$gzip = $this->fixture->getAdapter('gzip');
 		$this->assertInstanceOf('Joomla\\Archive\\Gzip', $gzip);
-		$tar = Archive::getAdapter('tar');
+		$tar = $this->fixture->getAdapter('tar');
 		$this->assertInstanceOf('Joomla\\Archive\\Tar', $tar);
 	}
 
@@ -212,6 +214,6 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetAdapterException()
 	{
-		$zip = Archive::getAdapter('unknown');
+		$zip = $this->fixture->getAdapter('unknown');
 	}
 }
