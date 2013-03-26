@@ -1,4 +1,4 @@
-git subsplit init git@github.com:joomla/joomla-framework.git
+git subsplit update
 git subsplit publish "
 	vendor/Joomla/Application:git@github.com:joomla/joomla-framework-application.git
 	vendor/Joomla/Archive:git@github.com:joomla/joomla-framework-archive.git
@@ -31,5 +31,4 @@ git subsplit publish "
 	vendor/Joomla/Uri:git@github.com:joomla/joomla-framework-uri.git
 	vendor/Joomla/Utilities:git@github.com:joomla/joomla-framework-utilities.git
 	vendor/Joomla/View:git@github.com:joomla/joomla-framework-view.git
-"
-rm -rf .subsplit
+" --heads="master staging"
