@@ -281,6 +281,10 @@ class Mysql extends Mysqli
 		// If an error occurred handle it.
 		if (!$this->cursor)
 		{
+			// Get the error number and message before we execute any more queries.
+			$errorNum = (int) mysql_errno($this->connection);
+			$errorMsg = (string) mysql_error($this->connection) . "\n-- SQL --\n" . $sql;
+
 			// Check if the server was disconnected.
 			if (!$this->connected())
 			{
@@ -313,8 +317,8 @@ class Mysql extends Mysqli
 			// The server was not disconnected.
 			{
 				// Get the error number and message.
-				$this->errorNum = (int) mysql_errno($this->connection);
-				$this->errorMsg = (string) mysql_error($this->connection) . ' SQL=' . $sql;
+				$this->errorNum = $errorNum;
+				$this->errorMsg = $errorMsg;
 
 				// Throw the normal query exception.
 				$this->log(

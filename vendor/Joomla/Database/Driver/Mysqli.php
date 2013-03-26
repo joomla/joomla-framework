@@ -517,7 +517,7 @@ class Mysqli extends Driver
 		if (!$this->cursor)
 		{
 			$this->errorNum = (int) mysqli_errno($this->connection);
-			$this->errorMsg = (string) mysqli_error($this->connection) . ' SQL=' . $sql;
+			$this->errorMsg = (string) mysqli_error($this->connection) . "\n-- SQL --\n" . $sql;
 
 			// Check if the server was disconnected.
 			if (!$this->connected())
