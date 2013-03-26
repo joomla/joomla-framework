@@ -26,7 +26,7 @@ interface ExtractableInterface
 	 *
 	 * @since   1.0
 	 */
-	public function extract($archive, $destination, array $options = array());
+	public function extract($archive, $destination);
 
 	/**
 	 * Tests whether this adapter can unpack files on this computer.
