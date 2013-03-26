@@ -109,7 +109,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 		// @codeCoverageIgnoreStart
 		if (!defined('SIGHUP'))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
 				$this->logger->error('The PCNTL extension for PHP is not available.');
 			}
@@ -119,7 +119,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 		// Verify that POSIX support for PHP is available.
 		if (!function_exists('posix_getpid'))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
 				$this->logger->error('The POSIX extension for PHP is not available.');
 			}
