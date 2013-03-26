@@ -13,7 +13,7 @@ use Joomla\Archive\Gzip as ArchiveGzip;
  *
  * @since  1.0
  */
-class ArchiveGzipTest extends \PHPUnit_Framework_TestCase
+class GzipTest extends \PHPUnit_Framework_TestCase
 {
 	protected static $outputPath;
 
@@ -75,7 +75,7 @@ class ArchiveGzipTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Archive\Gzip::extract
-	 * @covers  Joomla\Archive\Gzip::_getFilePosition
+	 * @covers  Joomla\Archive\Gzip::getFilePosition
 	 */
 	public function testExtractWithStreams()
 	{

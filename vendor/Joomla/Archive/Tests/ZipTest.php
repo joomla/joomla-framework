@@ -15,7 +15,7 @@ require_once __DIR__ . '/ZipInspector.php';
  *
  * @since  1.0
  */
-class ArchiveZipTest extends \PHPUnit_Framework_TestCase
+class ZipTest extends \PHPUnit_Framework_TestCase
 {
 	protected static $outputPath;
 
@@ -94,8 +94,8 @@ class ArchiveZipTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Archive\Zip::extractCustom
-	 * @covers  Joomla\Archive\Zip::_readZipInfo
-	 * @covers  Joomla\Archive\Zip::_getFileData
+	 * @covers  Joomla\Archive\Zip::readZipInfo
+	 * @covers  Joomla\Archive\Zip::getFileData
 	 */
 	public function testExtractCustom()
 	{

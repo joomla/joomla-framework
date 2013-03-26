@@ -1534,7 +1534,6 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider  seedTestSortObject
 	 * @covers        Joomla\Utilities\ArrayHelper::sortObjects
-	 * @covers        Joomla\Utilities\ArrayHelper::objectSort
 	 * @since         1.0
 	 */
 	public function testSortObjects($input, $key, $direction, $casesensitive, $locale, $expect, $message, $defaults)

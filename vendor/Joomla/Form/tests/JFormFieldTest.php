@@ -37,9 +37,9 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JFormField::__construct method
+	 * Tests the Joomla\Form\Field::__construct method
 	 *
-	 * @covers JFormField::__construct
+	 * @covers Joomla\Form\Field::__construct
 	 *
 	 * @return void
 	 */
@@ -96,7 +96,7 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JFormField::__get method
+	 * Tests the Joomla\Form\Field::__get method
 	 *
 	 * @return void
 	 */
@@ -106,9 +106,9 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JFormField::GetId method
+	 * Tests the Joomla\Form\Field::GetId method
 	 *
-	 * @covers JFormField::getId
+	 * @covers Joomla\Form\Field::getId
 	 *
 	 * @return void
 	 */
@@ -144,7 +144,7 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JFormField::getInput method
+	 * Tests the Joomla\Form\Field::getInput method
 	 *
 	 * @return void
 	 */
@@ -154,9 +154,9 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JFormField::getLabel method
+	 * Tests the Joomla\Form\Field::getLabel method
 	 *
-	 * @covers JFormField::getLabel
+	 * @covers Joomla\Form\Field::getLabel
 	 *
 	 * @return void
 	 */
@@ -226,9 +226,9 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JFormField::getTitle method
+	 * Tests the Joomla\Form\Field::getTitle method
 	 *
-	 * @covers JFormField::getTitle
+	 * @covers Joomla\Form\Field::getTitle
 	 *
 	 * @return void
 	 */
@@ -279,9 +279,9 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JFormField::setForm method
+	 * Tests the Joomla\Form\Field::setForm method
 	 *
-	 * @covers JFormField::setForm
+	 * @covers Joomla\Form\Field::setForm
 	 *
 	 * @return void
 	 */
@@ -301,9 +301,9 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test an invalid argument for the JFormField::setup method
+	 * Test an invalid argument for the Joomla\Form\Field::setup method
 	 *
-	 * @covers JFormField::setup
+	 * @covers Joomla\Form\Field::setup
 	 * @expectedException PHPUnit_Framework_Error
 	 *
 	 * @return void
@@ -322,10 +322,10 @@ class JFormFieldTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JFormField::setup method
+	 * Tests the Joomla\Form\Field::setup method
 	 *
-	 * @covers JFormField::setup
-	 * @covers JFormField::__get
+	 * @covers Joomla\Form\Field::setup
+	 * @covers Joomla\Form\Field::__get
 	 *
 	 * @return void
 	 */

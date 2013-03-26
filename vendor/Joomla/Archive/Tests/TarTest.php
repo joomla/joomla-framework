@@ -13,7 +13,7 @@ use Joomla\Archive\Tar as ArchiveTar;
  *
  * @since  1.0
  */
-class ArchiveTarTest extends \PHPUnit_Framework_TestCase
+class TarTest extends \PHPUnit_Framework_TestCase
 {
 	protected static $outputPath;
 
@@ -49,7 +49,7 @@ class ArchiveTarTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Archive\Tar::extract
-	 * @covers  Joomla\Archive\Tar::_getTarInfo
+	 * @covers  Joomla\Archive\Tar::getTarInfo
 	 */
 	public function testExtract()
 	{

@@ -2212,7 +2212,7 @@ class JFormTest extends TestCase
 	 *
 	 * return   void
 	 *
-	 * @covers  Form::validateField
+	 * @covers  Joomla\Form\Form::validateField
 	 * @since   1.0
 	 *
 	 * @return void
@@ -2276,7 +2276,7 @@ class JFormTest extends TestCase
 	 *
 	 * return   void
 	 *
-	 * @covers  Form::validateField
+	 * @covers  Joomla\Form\Form::validateField
 	 * @since   1.0
 	 *
 	 * @expectedException  UnexpectedValueException
