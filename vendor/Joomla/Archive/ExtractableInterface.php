@@ -20,7 +20,6 @@ interface ExtractableInterface
 	 *
 	 * @param   string  $archive      Path to archive to extract
 	 * @param   string  $destination  Path to extract archive to
-	 * @param   array   $options      Extraction options [may be unused]
 	 *
 	 * @return  boolean  True if successful
 	 *
