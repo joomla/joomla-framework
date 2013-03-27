@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
 use Joomla\Google\Embed\Analytics as EmbedAnalytics;
 use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
@@ -13,7 +15,7 @@ use Joomla\Uri\Uri;
  *
  * @since  1.0
  */
-class JGoogleEmbedAnalyticsTest extends PHPUnit_Framework_TestCase
+class JGoogleEmbedAnalyticsTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the JOAuth2Client object.
