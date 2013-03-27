@@ -307,11 +307,6 @@ abstract class AbstractUri implements UriInterface
 	 */
 	protected static function buildQuery(array $params)
 	{
-		if (count($params) == 0)
-		{
-			return false;
-		}
-
 		return urldecode(http_build_query($params, '', '&'));
 	}
 
