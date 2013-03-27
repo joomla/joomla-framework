@@ -101,7 +101,7 @@ To check if the logger has been set, use the `hasLogger` method. This will retur
 
 Consider the following example:
 
-```
+```php
 use Joomla\Application\Base;
 
 class MyApplication extends Base
@@ -122,4 +122,53 @@ class MyApplication extends Base
 }
 ```
 
+## Mocking the Application Package
 
+For more complicated mocking where you need to similate real behaviour, you can use the `Application\Tests\Mocker` class to create robust mock objects.
+
+There are three mocking methods available:
+
+1. `createMockBase` will create a mock for `Application\Base`.
+2. `createMockCli` will create a mock for `Application\Cli`.
+3. `createMockWeb` will create a mock for `Application\Web`.
+
+```php
+use Joomla\Application\Tests\Mocker as AppMocker;
+
+class MyTest extends \PHPUnit_Framework_TestCase
+{
+	private $instance;
+	
+	protected function setUp()
+	{
+		parent::setUp();
+
+		// Create the mock input object.
+		$appMocker = new AppMocker($this);
+		$mockApp = $appMocker->createMockWeb();		
+		// Create the test instance injecting the mock dependency.
+		$this->instance = new MyClass($mockApp);
+	}
+}
+```
+
+The `createMockWeb` method will return a mock with the following methods mocked to roughly simulate real behaviour albeit with reduced functionality:
+
+* `appendBody($content)`
+* `get($name [, $default])`
+* `getBody([$asArray])`
+* `getHeaders()`
+* `prependBody($content)`
+* `set($name, $value)`
+* `setBody($content)`
+* `setHeader($name, $value [, $replace])`
+
+You can provide customised implementations these methods by creating the following methods in your test class respectively:
+
+* `mockWebAppendBody`
+* `mockWebGet`
+* `mockWebGetBody`
+* `mockWebGetHeaders`
+* `mockWebSet`
+* `mockWebSetBody`
+* `mockWebSetHeader`
