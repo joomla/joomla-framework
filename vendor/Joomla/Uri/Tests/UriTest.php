@@ -33,13 +33,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		Uri::reset();
-
-		$_SERVER['HTTP_HOST'] = 'www.example.com:80';
-		$_SERVER['SCRIPT_NAME'] = '/joomla/index.php';
-		$_SERVER['PHP_SELF'] = '/joomla/index.php';
-		$_SERVER['REQUEST_URI'] = '/joomla/index.php?var=value 10';
-
 		$this->object = new Uri;
 	}
 
@@ -58,37 +51,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$this->object->__toString(),
 			$this->equalTo('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment')
-		);
-	}
-
-	/**
-	 * Test the getInstance method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @covers  Joomla\Uri\Uri::getInstance
-	 */
-	public function testGetInstance()
-	{
-		$return = Uri::getInstance('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
-		$this->assertThat(
-			$return,
-			$this->equalTo($this->object)
-		);
-
-		$this->object->parse('http://www.example.com:80/joomla/index.php?var=value 10');
-		$_SERVER['HTTP_HOST'] = 'www.example.com:80';
-		$_SERVER['SCRIPT_NAME'] = '/joomla/index.php';
-		$_SERVER['PHP_SELF'] = '/joomla/index.php';
-		$_SERVER['REQUEST_URI'] = '/joomla/index.php?var=value 10';
-
-		$return = Uri::getInstance();
-		$this->assertThat(
-			$return,
-			$this->equalTo($this->object)
 		);
 	}
 

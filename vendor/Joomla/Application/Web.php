@@ -294,7 +294,7 @@ abstract class Web extends Base
 		if (!preg_match('#^[a-z]+\://#i', $url))
 		{
 			// Get a JURI instance for the requested URI.
-			$uri = Uri::getInstance($this->get('uri.request'));
+			$uri = new Uri($this->get('uri.request'));
 
 			// Get a base URL to prepend from the requested URI.
 			$prefix = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
@@ -691,13 +691,13 @@ abstract class Web extends Base
 
 		if ($siteUri != '')
 		{
-			$uri = Uri::getInstance($siteUri);
+			$uri = new Uri($siteUri);
 		}
 		else
 		// No explicit base URI was set so we need to detect it.
 		{
 			// Start with the requested URI.
-			$uri = Uri::getInstance($this->get('uri.request'));
+			$uri = new Uri($this->get('uri.request'));
 
 			// If we are working from a CGI SAPI with the 'cgi.fix_pathinfo' directive disabled we use PHP_SELF.
 			if (strpos(php_sapi_name(), 'cgi') !== false && !ini_get('cgi.fix_pathinfo') && !empty($_SERVER['REQUEST_URI']))
