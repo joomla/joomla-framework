@@ -6,24 +6,16 @@
 
 namespace Joomla\Event;
 
-use BadMethodCallException;
 use Serializable;
 use ArrayAccess;
 use Countable;
 
 /**
- * Implementation of an immutable Event.
- * An immutable event cannot be modified after instanciation :
- *
- * - its propagation cannot be stopped
- * - its arguments cannot be modified
- *
- * You may want to use/extend this event when you want to ensure that
- * the listeners won't manipulate it.
+ * Implementation of EventInterface.
  *
  * @since  1.0
  */
-class ImmutableEvent implements EventInterface, ArrayAccess, Serializable, Countable
+abstract class AbstractEvent implements EventInterface, ArrayAccess, Serializable, Countable
 {
 	/**
 	 * The event name.
@@ -176,29 +168,6 @@ class ImmutableEvent implements EventInterface, ArrayAccess, Serializable, Count
 	}
 
 	/**
-	 * Set the value of an event argument.
-	 *
-	 * @param   string  $name   The argument name.
-	 * @param   mixed   $value  The argument value.
-	 *
-	 * @return  void
-	 *
-	 * @throws  BadMethodCallException
-	 *
-	 * @since   1.0
-	 */
-	public function offsetSet($name, $value)
-	{
-		throw new BadMethodCallException(
-			sprintf(
-				'Cannot set the argument %s of the immutable event %s.',
-				$name,
-				$this->name
-			)
-		);
-	}
-
-	/**
 	 * Tell if the given event argument exists.
 	 *
 	 * @param   string  $name  The argument name.
@@ -210,28 +179,6 @@ class ImmutableEvent implements EventInterface, ArrayAccess, Serializable, Count
 	public function offsetExists($name)
 	{
 		return $this->hasArgument($name);
-	}
-
-	/**
-	 * Remove an event argument.
-	 *
-	 * @param   string  $name  The argument name.
-	 *
-	 * @return  void
-	 *
-	 * @throws  BadMethodCallException
-	 *
-	 * @since   1.0
-	 */
-	public function offsetUnset($name)
-	{
-		throw new BadMethodCallException(
-			sprintf(
-				'Cannot remove the argument %s of the immutable event %s.',
-				$name,
-				$this->name
-			)
-		);
 	}
 
 	/**

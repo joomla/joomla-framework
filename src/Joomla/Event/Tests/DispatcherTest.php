@@ -9,7 +9,7 @@ namespace Joomla\Event\Tests;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Event\EventInterface;
-use Joomla\Event\ImmutableEvent;
+use Joomla\Event\EventImmutable;
 use Joomla\Event\Priority;
 use Joomla\Event\Tests\Stubs\EmptyListener;
 use Joomla\Event\Tests\Stubs\FirstListener;
@@ -47,7 +47,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($this->instance->hasEvent('onTest'));
 		$this->assertSame($event, $this->instance->getEvent('onTest'));
 
-		$immutableEvent = new ImmutableEvent('onAfterSomething');
+		$immutableEvent = new EventImmutable('onAfterSomething');
 		$this->instance->setEvent($immutableEvent);
 		$this->assertTrue($this->instance->hasEvent('onAfterSomething'));
 		$this->assertSame($immutableEvent, $this->instance->getEvent('onAfterSomething'));
@@ -60,7 +60,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the setEvent method.
+	 * Test the addEvent method.
 	 *
 	 * @return  void
 	 *
@@ -73,7 +73,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($this->instance->hasEvent('onTest'));
 		$this->assertSame($event, $this->instance->getEvent('onTest'));
 
-		$immutableEvent = new ImmutableEvent('onAfterSomething');
+		$immutableEvent = new EventImmutable('onAfterSomething');
 		$this->instance->addEvent($immutableEvent);
 		$this->assertTrue($this->instance->hasEvent('onAfterSomething'));
 		$this->assertSame($immutableEvent, $this->instance->getEvent('onAfterSomething'));
@@ -169,7 +169,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the getEvents method.
+	 * Test the clearEvents method.
 	 *
 	 * @return  void
 	 *
@@ -418,7 +418,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the getListenerPriority method.
+	 * Test the getListeners method.
 	 *
 	 * @return  void
 	 *

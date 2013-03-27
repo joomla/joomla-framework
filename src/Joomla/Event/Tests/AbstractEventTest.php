@@ -6,19 +6,19 @@
 
 namespace Joomla\Event\Tests;
 
-use Joomla\Event\ImmutableEvent;
+use Joomla\Event\AbstractEvent;
 
 /**
- * Tests for the ImmutableEvent class.
+ * Tests for the AbstractEvent class.
  *
  * @since  1.0
  */
-class ImmutableEventTest extends \PHPUnit_Framework_TestCase
+class AbstractEventTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Object under tests.
 	 *
-	 * @var    ImmutableEvent
+	 * @var    AbstractEvent
 	 *
 	 * @since  1.0
 	 */
@@ -62,7 +62,8 @@ class ImmutableEventTest extends \PHPUnit_Framework_TestCase
 			'array' => $array
 		);
 
-		$event = new ImmutableEvent('test', $arguments);
+		/** @var $event \Joomla\Event\AbstractEvent */
+		$event = $this->getMockForAbstractClass('Joomla\Event\AbstractEvent', array('test', $arguments));
 
 		$this->assertEquals('bar', $event->getArgument('string'));
 		$this->assertSame($object, $event->getArgument('object'));
@@ -80,7 +81,8 @@ class ImmutableEventTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertFalse($this->instance->hasArgument('non-existing'));
 
-		$event = new ImmutableEvent('test', array('foo' => 'bar'));
+		/** @var $event \Joomla\Event\AbstractEvent */
+		$event = $this->getMockForAbstractClass('Joomla\Event\AbstractEvent', array('test', array('foo' => 'bar')));
 
 		$this->assertTrue($event->hasArgument('foo'));
 	}
@@ -111,7 +113,8 @@ class ImmutableEventTest extends \PHPUnit_Framework_TestCase
 			'array' => $array
 		);
 
-		$event = new ImmutableEvent('test', $arguments);
+		/** @var $event \Joomla\Event\AbstractEvent */
+		$event = $this->getMockForAbstractClass('Joomla\Event\AbstractEvent', array('test', $arguments));
 
 		$this->assertSame($arguments, $event->getArguments());
 	}
@@ -140,9 +143,11 @@ class ImmutableEventTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertCount(0, $this->instance);
 
-		$event = new ImmutableEvent('test', array(
+		$event = $this->getMockForAbstractClass('Joomla\Event\AbstractEvent', array('test',
+				array(
 				'foo' => 'bar',
 				'test' => array('test')
+				)
 			)
 		);
 
@@ -173,27 +178,13 @@ class ImmutableEventTest extends \PHPUnit_Framework_TestCase
 			'array' => $array
 		);
 
-		$event = new ImmutableEvent('test', $arguments);
+		$event = $this->getMockForAbstractClass('Joomla\Event\AbstractEvent', array('test', $arguments));
 
 		$serialized = serialize($event);
 
 		$unserialized = unserialize($serialized);
 
 		$this->assertEquals($event, $unserialized);
-	}
-
-	/**
-	 * Test the offsetSet method.
-	 *
-	 * @expectedException  \BadMethodCallException
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetSet()
-	{
-		$this->instance['foo'] = 'bar';
 	}
 
 	/**
@@ -207,23 +198,9 @@ class ImmutableEventTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertFalse(isset($this->instance['foo']));
 
-		$event = new ImmutableEvent('test', array('foo' => 'bar'));
+		$event = $this->getMockForAbstractClass('Joomla\Event\AbstractEvent', array('test', array('foo' => 'bar')));
 
 		$this->assertTrue(isset($event['foo']));
-	}
-
-	/**
-	 * Test the offsetUnset method.
-	 *
-	 * @expectedException  \BadMethodCallException
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetUnSet()
-	{
-		unset($this->instance['foo']);
 	}
 
 	/**
@@ -252,7 +229,7 @@ class ImmutableEventTest extends \PHPUnit_Framework_TestCase
 			'array' => $array
 		);
 
-		$event = new ImmutableEvent('test', $arguments);
+		$event = $this->getMockForAbstractClass('Joomla\Event\AbstractEvent', array('test', $arguments));
 
 		$this->assertEquals('bar', $event['string']);
 		$this->assertSame($object, $event['object']);
@@ -270,6 +247,6 @@ class ImmutableEventTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->instance = new ImmutableEvent('test');
+		$this->instance = $this->getMockForAbstractClass('Joomla\Event\AbstractEvent', array('test'));
 	}
 }

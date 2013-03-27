@@ -334,10 +334,10 @@ It is useful when you don't want the listeners to manipulate it (they can only i
 <?php
 namespace MyApp;
 
-use Joomla\Event\ImmutableEvent;
+use Joomla\Event\EventImmutable;
 
 // Creating an immutable event called onSomething with an argument "foo" with value "bar"
-$event = new ImmutableEvent('onSomething', array('foo' => 'bar'));
+$event = new EventImmutable('onSomething', array('foo' => 'bar'));
 ```
 
 ## The Delegating Dispatcher

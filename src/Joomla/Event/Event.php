@@ -13,7 +13,7 @@ use InvalidArgumentException;
  *
  * @since  1.0
  */
-class Event extends ImmutableEvent
+class Event extends AbstractEvent
 {
 	/**
 	 * Add an event argument, only if it is not existing.
