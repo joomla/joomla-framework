@@ -8,8 +8,6 @@
 
 namespace Joomla\Uri;
 
-use Joomla\String\String;
-
 /**
  * Uri Class
  *
