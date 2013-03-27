@@ -16,15 +16,9 @@ if (!defined('JPATH_FRAMEWORK'))
 }
 
 // Detect the native operating system type.
-$os = strtoupper(substr(PHP_OS, 0, 3));
-
 if (!defined('IS_WIN'))
 {
-	define('IS_WIN', ($os === 'WIN') ? true : false);
-}
-if (!defined('IS_UNIX'))
-{
-	define('IS_UNIX', (IS_WIN === false) ? true : false);
+	define('IS_WIN', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? true : false);
 }
 
 // Include the composer autoloader.
