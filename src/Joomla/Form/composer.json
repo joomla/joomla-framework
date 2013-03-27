@@ -9,6 +9,7 @@
         "php": ">=5.3.10",
         "joomla/language": "dev-master",
         "joomla/string": "dev-master",
+        "joomla/uri": "dev-master",
         "joomla/filter": "dev-master",
         "joomla/filesystem": "dev-master",
         "joomla/registry": "dev-master",
