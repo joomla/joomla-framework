@@ -36,11 +36,4 @@ if (!class_exists('JLoader', false))
 	require_once JPATH_FRAMEWORK . '/loader.php';
 }
 
-// Setup the autoloaders.
 JLoader::setup();
-
-// Register classes for compatability with PHP 5.3
-if (version_compare(PHP_VERSION, '5.4.0', '<'))
-{
-	JLoader::register('JsonSerializable', JPATH_FRAMEWORK . '/Joomla/Compat/JsonSerializable.php');
-}
