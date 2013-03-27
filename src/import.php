@@ -16,15 +16,9 @@ if (!defined('JPATH_FRAMEWORK'))
 }
 
 // Detect the native operating system type.
-$os = strtoupper(substr(PHP_OS, 0, 3));
-
 if (!defined('IS_WIN'))
 {
-	define('IS_WIN', ($os === 'WIN') ? true : false);
-}
-if (!defined('IS_UNIX'))
-{
-	define('IS_UNIX', (IS_WIN === false) ? true : false);
+	define('IS_WIN', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? true : false);
 }
 
 // Include the composer autoloader.
@@ -36,11 +30,4 @@ if (!class_exists('JLoader', false))
 	require_once JPATH_FRAMEWORK . '/loader.php';
 }
 
-// Setup the autoloaders.
 JLoader::setup();
-
-// Register classes for compatability with PHP 5.3
-if (version_compare(PHP_VERSION, '5.4.0', '<'))
-{
-	JLoader::register('JsonSerializable', JPATH_FRAMEWORK . '/Joomla/Compat/JsonSerializable.php');
-}

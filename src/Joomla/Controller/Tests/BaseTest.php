@@ -18,7 +18,7 @@ require_once __DIR__ . '/Stubs/BaseController.php';
  *
  * @since  1.0
  */
-class BaseTest extends \TestCase
+class BaseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    \Joomla\Controller\Base
