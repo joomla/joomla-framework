@@ -113,6 +113,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 			{
 				$this->logger->error('The PCNTL extension for PHP is not available.');
 			}
+
 			throw new \RuntimeException('The PCNTL extension for PHP is not available.');
 		}
 
@@ -123,6 +124,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 			{
 				$this->logger->error('The POSIX extension for PHP is not available.');
 			}
+
 			throw new \RuntimeException('The POSIX extension for PHP is not available.');
 		}
 
@@ -169,6 +171,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 			{
 				$this->logger->emergency('Cannot find the application instance.');
 			}
+
 			throw new \RuntimeException('Cannot find the application instance.');
 		}
 
@@ -254,6 +257,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 		{
 			// No response so remove the process id file and log the situation.
 			@ unlink($pidFile);
+
 			if ($this->logger)
 			{
 				$this->logger->warning('The process found based on PID file was unresponsive.');
@@ -432,6 +436,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 		{
 			$this->logger->info('Stopping ' . $this->name);
 		}
+
 		$this->shutdown(true);
 	}
 
@@ -449,6 +454,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 		{
 			$this->logger->info('Stopping ' . $this->name);
 		}
+
 		$this->shutdown();
 	}
 
@@ -673,6 +679,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 			{
 				$this->logger->debug('Ending ' . $this->name . ' parent process');
 			}
+
 			$this->close();
 		}
 		else
@@ -767,6 +774,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 				{
 					$this->getLogger()->debug('Signal "' . $signal . '" not defined. Defining it as null.');
 				}
+
 				define($signal, null);
 
 				// Don't listen for signal.
@@ -817,6 +825,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 			{
 				$this->getLogger()->info('Process was not daemonized yet, just halting current process');
 			}
+
 			$this->close();
 		}
 
