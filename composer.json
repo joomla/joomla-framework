@@ -49,7 +49,7 @@
         "joomla/test": "self.version",
         "joomla/uri": "self.version",
         "joomla/utilities": "self.version",
-        "joomla/view": "self.version",
+        "joomla/view": "self.version"
     },
     "minimum-stability": "dev"
 }
