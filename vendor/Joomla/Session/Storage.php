@@ -67,7 +67,7 @@ abstract class Storage
 				else
 				{
 					// No attempt to die gracefully here, as it tries to close the non-existing session
-					jexit('Unable to load session storage class: ' . $name);
+					exit('Unable to load session storage class: ' . $name);
 				}
 			}
 

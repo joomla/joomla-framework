@@ -359,7 +359,7 @@ abstract class Factory
 			{
 				header('HTTP/1.1 500 Internal Server Error');
 			}
-			jexit('Database Error: ' . $e->getMessage());
+			exit('Database Error: ' . $e->getMessage());
 		}
 
 		$db->setDebug($debug);

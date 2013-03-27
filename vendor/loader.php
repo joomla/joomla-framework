@@ -14,20 +14,7 @@
  * @since    11.1
  */
 abstract class JLoader
-{
-	const LOWER_CASE = 1;
-	const NATURAL_CASE = 2;
-	const MIXED_CASE = 3;
-
-	/**
-	 * Holds the map of old class to their namespaced
-	 * counterparts if self::$compat = true.
-	 *
-	 * @var    array
-	 * @since  13.1
-	 */
-	protected static $nsMap = array();
-
+{	
 	/**
 	 * Container for already imported library paths.
 	 *
@@ -59,59 +46,6 @@ abstract class JLoader
 	 * @since  12.3
 	 */
 	protected static $namespaces = array();
-
-	/**
-	 * Method to discover classes of a given type in a given path.
-	 *
-	 * @param   string   $classPrefix  The class name prefix to use for discovery.
-	 * @param   string   $parentPath   Full path to the parent folder for the classes to discover.
-	 * @param   boolean  $force        True to overwrite the autoload path value for the class if it already exists.
-	 * @param   boolean  $recurse      Recurse through all child directories as well as the parent path.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 */
-	public static function discover($classPrefix, $parentPath, $force = true, $recurse = false)
-	{
-		try
-		{
-			if ($recurse)
-			{
-				$iterator = new RecursiveIteratorIterator(
-					new RecursiveDirectoryIterator($parentPath),
-					RecursiveIteratorIterator::SELF_FIRST
-				);
-			}
-			else
-			{
-				$iterator = new DirectoryIterator($parentPath);
-			}
-
-			foreach ($iterator as $file)
-			{
-				$fileName = $file->getFilename();
-
-				// Only load for php files.
-				// Note: DirectoryIterator::getExtension only available PHP >= 5.3.6
-				if ($file->isFile() && substr($fileName, strrpos($fileName, '.') + 1) == 'php')
-				{
-					// Get the class name and full path for each file.
-					$class = strtolower($classPrefix . preg_replace('#\.php$#', '', $fileName));
-
-					// Register the class with the autoloader if not already registered or the force flag is set.
-					if (empty(self::$classes[$class]) || $force)
-					{
-						self::register($class, $file->getPath() . '/' . $fileName);
-					}
-				}
-			}
-		}
-		catch (UnexpectedValueException $e)
-		{
-			// Exception will be thrown if the path is not a directory. Ignore it.
-		}
-	}
 
 	/**
 	 * Method to get the list of registered classes and their respective file paths for the autoloader.
@@ -235,161 +169,6 @@ abstract class JLoader
 	}
 
 	/**
-	 * Load a class based on namespace using the Lower Case strategy.
-	 * This loader might be used when the namespace is lower case or camel case
-	 * and the path lower case.
-	 *
-	 * @param   string  $class  The class (including namespace) to load.
-	 *
-	 * @return  boolean  True on success, false otherwise.
-	 *
-	 * @since   12.3
-	 */
-	public static function loadByNamespaceLowerCase($class)
-	{
-		// If the class already exists do nothing.
-		if (class_exists($class, false))
-		{
-			return true;
-		}
-
-		// Get the root namespace name.
-		$namespace = strstr($class, '\\', true);
-
-		// If we find the namespace in the stack.
-		if (isset(self::$namespaces[$namespace]))
-		{
-			// Remove the namespace name from the class.
-			$class = str_replace($namespace, '', $class);
-
-			// Create a lower case relative path.
-			$relativePath = strtolower(str_replace('\\', '/', $class));
-
-			// Iterate the registered root paths.
-			foreach (self::$namespaces[$namespace] as $rootPath)
-			{
-				// Create the full path.
-				$path = $rootPath . '/' . $relativePath . '.php';
-
-				// Include the file if it exists.
-				if (file_exists($path))
-				{
-					return (bool) include_once $path;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Load a class based on namespace using the Natural Case strategy.
-	 * This loader might be used when the namespace case matches the path case.
-	 *
-	 * @param   string  $class  The class (including namespace) to load.
-	 *
-	 * @return  boolean  True on success, false otherwise.
-	 *
-	 * @since   12.3
-	 */
-	public static function loadByNamespaceNaturalCase($class)
-	{
-		// If the class already exists do nothing.
-		if (class_exists($class, false))
-		{
-			return true;
-		}
-
-		// Get the root namespace name.
-		$namespace = strstr($class, '\\', true);
-
-		// If we find the namespace in the stack.
-		if (isset(self::$namespaces[$namespace]))
-		{
-			// Remove the namespace name from the class.
-			$class = str_replace($namespace, '', $class);
-
-			// Create a relative path.
-			$relativePath = str_replace('\\', '/', $class);
-
-			// Iterate the registered root paths.
-			foreach (self::$namespaces[$namespace] as $rootPath)
-			{
-				// Create the full path.
-				$path = $rootPath . '/' . $relativePath . '.php';
-
-				// Include the file if it exists.
-				if (file_exists($path))
-				{
-					return (bool) include_once $path;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Load a class based on namespace using the Mixed Case strategy.
-	 * This loader might be used when the namespace case matches the path case,
-	 * or when the namespace is camel case and the path lower case.
-	 *
-	 * @param   string  $class  The class (including namespace) to load.
-	 *
-	 * @return  boolean  True on success, false otherwise.
-	 *
-	 * @since   12.3
-	 */
-	public static function loadByNamespaceMixedCase($class)
-	{
-		// If the class already exists do nothing.
-		if (class_exists($class, false))
-		{
-			return true;
-		}
-
-		// Get the root namespace name.
-		$namespace = strstr($class, '\\', true);
-
-		// If we find the namespace in the stack.
-		if (isset(self::$namespaces[$namespace]))
-		{
-			// Remove the namespace name from the class.
-			$class = str_replace($namespace, '', $class);
-
-			// Create a relative path.
-			$relativePath = str_replace('\\', '/', $class);
-
-			// Create a relative lower case path.
-			$relativeLowPath = strtolower($relativePath);
-
-			// Iterate the registered root paths.
-			foreach (self::$namespaces[$namespace] as $rootPath)
-			{
-				// Create the full lower case path.
-				$lowerPath = $rootPath . '/' . $relativeLowPath . '.php';
-
-				// Include the file if it exists.
-				if (file_exists($lowerPath))
-				{
-					return (bool) include_once $lowerPath;
-				}
-
-				// Create the full natural case path.
-				$naturalPath = $rootPath . '/' . $relativePath . '.php';
-
-				// Include the file if it exists.
-				if (file_exists($naturalPath))
-				{
-					return (bool) include_once $naturalPath;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Directly register a class to the autoload list.
 	 *
 	 * @param   string   $class  The class name to register.
@@ -494,33 +273,18 @@ abstract class JLoader
 	 * This will allow people to register a class in a specific location and override platform libraries
 	 * as was previously possible.
 	 *
-	 * @param   integer  $caseStrategy      An option to define the class finding strategy for the namespace loader
-	 *                                      depending on the namespace and class path case.
-	 *                                      The possible values are :
-	 *                                      JLoader::LOWER_CASE : The namespace can be either lower case or camel case and the path lower case.
-	 *                                      JLoader::NATURAL_CASE : The namespace case matches the path case.
-	 *                                      JLoader::MIXED_CASE : It regroups option 1 and option 2.
-	 * @param   boolean  $enableNamespaces  True to enable PHP namespace based class autoloading.
-	 * @param   boolean  $enablePrefixes    True to enable prefix based class loading (needed to auto load the Joomla core).
 	 * @param   boolean  $enableClasses     True to enable class map based class loading (needed to auto load the Joomla core).
+	 * @param   boolean  $enablePrefixes    True to enable prefix based class loading (needed to auto load the Joomla core).
 	 *
 	 * @return  void
 	 *
 	 * @since   12.3
 	 */
-	public static function setup($caseStrategy = self::LOWER_CASE, $enableNamespaces = true, $enablePrefixes = true,
-		$enableClasses = true, $enableCompatLayer = true)
+	public static function setup($enableClasses = true, $enablePrefixes = true)
 	{
-
-		if ($enableCompatLayer)
-		{
-			self::$nsMap = include JPATH_PLATFORM . '/compat/NamespaceMap.php';
-
-			spl_autoload_register(array(__CLASS__, 'compatLayer'));
-		}
-
 		spl_autoload_register(array(__CLASS__, 'loadByPsr0'));
-		self::registerNamespace('Joomla', JPATH_PLATFORM);
+
+		self::registerNamespace('Joomla', __DIR__);
 
 		if ($enableClasses)
 		{
@@ -533,54 +297,6 @@ abstract class JLoader
 			// Register the prefix autoloader.
 			spl_autoload_register(array(__CLASS__, '_autoload'));
 		}
-
-		if ($enableNamespaces)
-		{
-			switch ($caseStrategy)
-			{
-				// Register the natural case namespace loader.
-				case self::NATURAL_CASE:
-					spl_autoload_register(array(__CLASS__, 'loadByNamespaceNaturalCase'));
-					break;
-
-				// Register the mixed case namespace loader.
-				case self::MIXED_CASE:
-					spl_autoload_register(array(__CLASS__, 'loadByNamespaceMixedCase'));
-					break;
-
-				// Default to the lower case namespace loader.
-				case self::LOWER_CASE:
-				default:
-					spl_autoload_register(array(__CLASS__, 'loadByNamespaceLowerCase'));
-					break;
-			}
-		}
-	}
-
-	/**
-	 * Method to alias the old style class name to the fully
-	 * qualified class name when the old style class is not found.
-	 *
-	 * @param   string  $class  The class name to autoload.
-	 *
-	 * @return  boolean  True on success, false otherwise.
-	 *
-	 * @since   13.1
-	 */
-	public static function compatLayer($class)
-	{
-		if (isset(self::$nsMap[$class]))
-		{
-			// Try to autoload the class, checking for existing old style overrides first.
-			if (!self::_autoload($class))
-			{
-				class_alias(self::$nsMap[$class], $class);
-			}
-
-			return true;
-		}
-
-		return false;
 	}
 
 	/**
@@ -695,23 +411,6 @@ abstract class JLoader
 
 		return false;
 	}
-}
-
-/**
- * Global application exit.
- *
- * This function provides a single exit point for the platform.
- *
- * @param   mixed  $message  Exit code or string. Defaults to zero.
- *
- * @return  void
- *
- * @codeCoverageIgnore
- * @since   11.1
- */
-function jexit($message = 0)
-{
-	exit($message);
 }
 
 /**

@@ -24,41 +24,17 @@ if (!defined('JPATH_TESTS'))
 {
 	define('JPATH_TESTS', realpath(__DIR__));
 }
-if (!defined('JPATH_PLATFORM'))
-{
-	define('JPATH_PLATFORM', realpath(dirname(JPATH_TESTS) . '/vendor'));
-}
 if (!defined('JPATH_BASE'))
 {
 	define('JPATH_BASE', realpath(JPATH_TESTS . '/tmp'));
 }
 if (!defined('JPATH_ROOT'))
 {
-	define('JPATH_ROOT', realpath(JPATH_BASE));
-}
-if (!defined('JPATH_CACHE'))
-{
-	define('JPATH_CACHE', JPATH_BASE . '/cache');
-}
-if (!defined('JPATH_CONFIGURATION'))
-{
-	define('JPATH_CONFIGURATION', JPATH_BASE);
-}
-if (!defined('JPATH_MANIFESTS'))
-{
-	define('JPATH_MANIFESTS', JPATH_BASE . '/manifests');
-}
-if (!defined('JPATH_PLUGINS'))
-{
-	define('JPATH_PLUGINS', JPATH_BASE . '/plugins');
-}
-if (!defined('JPATH_THEMES'))
-{
-	define('JPATH_THEMES', JPATH_BASE . '/themes');
+	define('JPATH_ROOT', JPATH_BASE);
 }
 
 // Import the platform.
-require_once JPATH_PLATFORM . '/import.php';
+require_once dirname(__DIR__) . '/vendor/import.php';
 
 // Register the core Joomla test classes.
 JLoader::registerPrefix('Test', __DIR__ . '/core');
@@ -66,10 +42,6 @@ JLoader::registerPrefix('Test', __DIR__ . '/core');
 /*
  * The following classes still depend on `JVersion` so we must load it until they are dealt with.
  *
- * JInstallerHelper
- * JUpdaterCollection
- * JUpdaterExtension
- * JUpdate
  * JFactory
  */
 require_once __DIR__ . '/version.php';
