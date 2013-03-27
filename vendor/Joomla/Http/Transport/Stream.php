@@ -11,7 +11,7 @@ namespace Joomla\Http\Transport;
 use Joomla\Registry\Registry;
 use Joomla\Http\TransportInterface;
 use Joomla\Http\Response;
-use Joomla\Uri\Uri;
+use Joomla\Uri\UriInterface;
 
 /**
  * HTTP transport class for using PHP streams.
@@ -54,19 +54,19 @@ class Stream implements TransportInterface
 	/**
 	 * Send a request to the server and return a JHttpResponse object with the response.
 	 *
-	 * @param   string   $method     The HTTP method for sending the request.
-	 * @param   Uri      $uri        The URI to the resource to request.
-	 * @param   mixed    $data       Either an associative array or a string to be sent with the request.
-	 * @param   array    $headers    An array of request headers to send with the request.
-	 * @param   integer  $timeout    Read timeout in seconds.
-	 * @param   string   $userAgent  The optional user agent string to send with the request.
+	 * @param   string        $method     The HTTP method for sending the request.
+	 * @param   UriInterface  $uri        The URI to the resource to request.
+	 * @param   mixed         $data       Either an associative array or a string to be sent with the request.
+	 * @param   array         $headers    An array of request headers to send with the request.
+	 * @param   integer       $timeout    Read timeout in seconds.
+	 * @param   string        $userAgent  The optional user agent string to send with the request.
 	 *
 	 * @return  Response
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function request($method, Uri $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
+	public function request($method, UriInterface $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
 		// Create the stream context options array with the required method offset.
 		$options = array('method' => strtoupper($method));

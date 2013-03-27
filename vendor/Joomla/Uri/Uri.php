@@ -18,7 +18,7 @@ use Joomla\String\String;
  *
  * @since  1.0
  */
-class Uri
+class Uri implements UriInterface
 {
 	/**
 	 * @var    string  Original URI
