@@ -11,7 +11,7 @@
 
 	<testsuites>
 		<testsuite name="Unit">
-			<directory>vendor/Joomla/*/Tests</directory>
+			<directory>src/Joomla/*/Tests</directory>
 		</testsuite>
 	</testsuites>
 
@@ -25,10 +25,10 @@
 	<filter>
 		<!--
 		<whitelist addUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">vendor/Joomla</directory>
+			<directory suffix=".php">src/Joomla</directory>
 			<exclude>
-				<directory suffix=".php">vendor/Joomla/*/Tests</directory>
-				<directory suffix=".php">vendor/Joomla/*/tests</directory>
+				<directory suffix=".php">src/Joomla/*/Tests</directory>
+				<directory suffix=".php">src/Joomla/*/tests</directory>
 			</exclude>
 		</whitelist>
 		-->

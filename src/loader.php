@@ -90,7 +90,7 @@ abstract class JLoader
 			$success = false;
 			$parts = explode('.', $key);
 			$class = array_pop($parts);
-			$base = (!empty($base)) ? $base : __DIR__;
+			$base = (!empty($base)) ? $base : dirname(__DIR__) . '/vendor';
 			$path = str_replace('.', DIRECTORY_SEPARATOR, $key);
 
 			// Handle special case for helper classes.

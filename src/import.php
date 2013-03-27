@@ -10,9 +10,9 @@
  */
 
 // Set the platform root path as a constant if necessary.
-if (!defined('JPATH_PLATFORM'))
+if (!defined('JPATH_FRAMEWORK'))
 {
-	define('JPATH_PLATFORM', __DIR__);
+	define('JPATH_FRAMEWORK', __DIR__);
 }
 
 // Detect the native operating system type.
@@ -28,12 +28,12 @@ if (!defined('IS_UNIX'))
 }
 
 // Include the composer autoloader.
-require_once __DIR__ . '/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 // Import the library loader if necessary. Don't try to autoload it yet.
 if (!class_exists('JLoader', false))
 {
-	require_once JPATH_PLATFORM . '/loader.php';
+	require_once JPATH_FRAMEWORK . '/loader.php';
 }
 
 // Setup the autoloaders.
@@ -42,5 +42,5 @@ JLoader::setup();
 // Register classes for compatability with PHP 5.3
 if (version_compare(PHP_VERSION, '5.4.0', '<'))
 {
-	JLoader::register('JsonSerializable', JPATH_PLATFORM . '/Joomla/Compat/JsonSerializable.php');
+	JLoader::register('JsonSerializable', JPATH_FRAMEWORK . '/Joomla/Compat/JsonSerializable.php');
 }

@@ -34,7 +34,7 @@ if (!defined('JPATH_ROOT'))
 }
 
 // Import the platform.
-require_once dirname(__DIR__) . '/vendor/import.php';
+require_once dirname(__DIR__) . '/src/import.php';
 
 // Register the core Joomla test classes.
 JLoader::registerPrefix('Test', __DIR__ . '/core');

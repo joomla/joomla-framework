@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'JsonSerializable' => $baseDir . '/vendor/Joomla/Compat/JsonSerializable.php',
+    'JsonSerializable' => $baseDir . '/src/Joomla/Compat/JsonSerializable.php',
 );

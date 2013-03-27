@@ -11,10 +11,10 @@
     },
     "autoload": {
         "psr-0": {
-            "Joomla": "vendor/"
+            "Joomla": "src/"
         },
         "classmap": [
-            "vendor/Joomla/Compat/JsonSerializable.php"
+            "src/Joomla/Compat/JsonSerializable.php"
         ]
     }
 }
