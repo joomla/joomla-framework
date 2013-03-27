@@ -13,6 +13,7 @@ require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
 
 use Joomla\Database\Driver as DatabaseDriver;
 use Joomla\Factory;
+use Joomla\Test\Helper as TestHelper;
 
 /**
  * Abstract test case class for database testing.
@@ -72,7 +73,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 			$pdo->exec(file_get_contents(JPATH_TESTS . '/schema/ddl.sql'));
 
 			// Set the PDO instance to the driver using reflection whizbangery.
-			TestReflection::setValue(self::$driver, 'connection', $pdo);
+			TestHelper::setValue(self::$driver, 'connection', $pdo);
 		}
 		catch (RuntimeException $e)
 		{
