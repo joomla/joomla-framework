@@ -8,8 +8,6 @@
 
 namespace Joomla\Uri;
 
-use Joomla\String\String;
-
 /**
  * Uri Class
  *
@@ -309,11 +307,6 @@ abstract class AbstractUri implements UriInterface
 	 */
 	protected static function buildQuery(array $params)
 	{
-		if (count($params) == 0)
-		{
-			return false;
-		}
-
 		return urldecode(http_build_query($params, '', '&'));
 	}
 
@@ -336,7 +329,7 @@ abstract class AbstractUri implements UriInterface
 		 * set method return value to true.
 		 */
 
-		$parts = String::parse_url($uri);
+		$parts = UriHelper::parse_url($uri);
 
 		$retval = ($parts) ? true : false;
 

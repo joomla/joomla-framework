@@ -10,6 +10,7 @@ namespace Joomla\Form\Rule;
 
 use Joomla\Form\Rule;
 use Joomla\String\String;
+use Joomla\Uri\UriHelper;
 use Joomla\Registry\Registry;
 use SimpleXMLElement;
 
@@ -47,7 +48,7 @@ class Url extends Rule
 			return true;
 		}
 
-		$urlParts = String::parse_url($value);
+		$urlParts = UriHelper::parse_url($value);
 
 		// See http://www.w3.org/Addressing/URL/url-spec.txt
 		// Use the full list or optionally specify a list of permitted schemes.

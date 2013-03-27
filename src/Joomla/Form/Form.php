@@ -11,6 +11,7 @@ namespace Joomla\Form;
 
 use Joomla\Factory;
 use Joomla\Filter;
+use Joomla\Date\Date;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Path;
 use Joomla\Registry\Registry;
@@ -1198,7 +1199,8 @@ class Form
 					$offset = Factory::getConfig()->get('offset');
 
 					// Return an SQL formatted datetime string in UTC.
-					$return = Factory::getDate($value, $offset)->toSql();
+					$date = new Date($value, new DateTimeZone($offset));
+					$return = $date->toSql();
 				}
 				else
 				{
@@ -1214,7 +1216,8 @@ class Form
 					$offset = Factory::getUser()->getParam('timezone', Factory::getConfig()->get('offset'));
 
 					// Return a MySQL formatted datetime string in UTC.
-					$return = Factory::getDate($value, $offset)->toSql();
+					$date = new Date($value, new DateTimeZone($offset));
+					$return = $date->toSql();
 				}
 				else
 				{
