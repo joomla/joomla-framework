@@ -333,8 +333,6 @@ abstract class Folder
 
 		if (!empty($files))
 		{
-			jimport('joomla.filesystem.file');
-
 			if (File::delete($files) !== true)
 			{
 				// File::delete throws an error
@@ -350,8 +348,6 @@ abstract class Folder
 			if (is_link($folder))
 			{
 				// Don't descend into linked directories, just delete the link.
-				jimport('joomla.filesystem.file');
-
 				if (File::delete($folder) !== true)
 				{
 					// File::delete throws an error
