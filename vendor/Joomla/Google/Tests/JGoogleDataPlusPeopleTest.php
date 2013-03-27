@@ -4,6 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
+use Joomla\Google\Data\Plus\People;
+
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
 /**
@@ -41,7 +45,7 @@ class JGoogleDataPlusPeopleTest extends GoogleTestCase
 	{
 		parent::setUp();
 
-		$this->object = new JGoogleDataPlusPeople($this->options, $this->auth);
+		$this->object = new People($this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
@@ -82,7 +86,7 @@ class JGoogleDataPlusPeopleTest extends GoogleTestCase
 		$id = '124346363456';
 		$fields = 'aboutMe,birthday';
 
-		$returnData = new stdClass;
+		$returnData = new \stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
@@ -121,7 +125,7 @@ class JGoogleDataPlusPeopleTest extends GoogleTestCase
 		$max = 5;
 		$token = 'EAoaAA';
 
-		$returnData = new stdClass;
+		$returnData = new \stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
@@ -161,7 +165,7 @@ class JGoogleDataPlusPeopleTest extends GoogleTestCase
 		$max = 5;
 		$token = 'EAoaAA';
 
-		$returnData = new stdClass;
+		$returnData = new \stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 

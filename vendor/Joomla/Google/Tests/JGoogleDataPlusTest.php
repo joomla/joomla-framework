@@ -4,6 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
+use Joomla\Google\Data\Plus;
+
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
 /**
@@ -29,7 +33,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	{
 		parent::setUp();
 
-		$this->object = new JGoogleDataPlus($this->options, $this->auth);
+		$this->object = new Plus($this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
@@ -58,7 +62,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	{
 		$this->assertThat(
 			$this->object->people,
-			$this->isInstanceOf('JGoogleDataPlusPeople')
+			$this->isInstanceOf('Joomla\\Google\\Data\\Plus\\People')
 		);
 	}
 
@@ -73,7 +77,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	{
 		$this->assertThat(
 			$this->object->activities,
-			$this->isInstanceOf('Joomla\Google\Data\Plus\Activities')
+			$this->isInstanceOf('Joomla\\Google\\Data\\Plus\\Activities')
 		);
 	}
 
@@ -88,7 +92,7 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	{
 		$this->assertThat(
 			$this->object->comments,
-			$this->isInstanceOf('Joomla\Google\Data\Plus\Comments')
+			$this->isInstanceOf('Joomla\\Google\\Data\\Plus\\Comments')
 		);
 	}
 

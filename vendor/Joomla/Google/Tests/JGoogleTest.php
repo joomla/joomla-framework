@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
 use Joomla\Google\Google;

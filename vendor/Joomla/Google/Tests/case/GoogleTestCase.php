@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
 use Joomla\Oauth2\Client;
 use Joomla\Google\Auth\Oauth2;
 use Joomla\Registry\Registry;
@@ -16,7 +18,7 @@ use Joomla\Test\WebInspector;
  *
  * @since  1.0
  */
-class GoogleTestCase extends PHPUnit_Framework_TestCase
+class GoogleTestCase extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the Client object.

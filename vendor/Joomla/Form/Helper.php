@@ -175,10 +175,19 @@ class Helper
 		}
 		else
 		{
-			$prefix = 'J';
+			$prefix = 'Joomla';
 		}
 
-		$class = String::ucfirst($prefix, '_') . 'Form' . String::ucfirst($entity, '_') . String::ucfirst($type, '_');
+		$class = ucfirst($prefix) . '\\Form\\' . ucfirst($entity);
+
+		if ($entity === 'field')
+		{
+			$class .= '_' . ucfirst($type);
+		}
+		else
+		{
+			$class .= '\\' . ucfirst($type);
+		}
 
 		if (class_exists($class))
 		{

@@ -4,6 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
+use Joomla\Google\Data\Picasa;
+
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
 /**
@@ -29,7 +33,7 @@ class JGoogleDataPicasaTest extends GoogleTestCase
 	{
 		parent::setUp();
 
-		$this->object = new JGoogleDataPicasa($this->options, $this->auth);
+		$this->object = new Picasa($this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
@@ -66,7 +70,7 @@ class JGoogleDataPicasaTest extends GoogleTestCase
 	 */
 	public function testListAlbums()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaAlbumlistCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaAlbumlistCallback'));
 		$results = $this->object->listAlbums('userID');
 
 		$this->assertEquals(count($results), 2);
@@ -89,7 +93,7 @@ class JGoogleDataPicasaTest extends GoogleTestCase
 	 */
 	public function testListAlbumsException()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaBadXmlCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaBadXmlCallback'));
 		$this->object->listAlbums();
 	}
 
@@ -101,7 +105,7 @@ class JGoogleDataPicasaTest extends GoogleTestCase
 	 */
 	public function testCreateAlbum()
 	{
-		$this->http->expects($this->once())->method('post')->will($this->returnCallback('dataPicasaAlbumCallback'));
+		$this->http->expects($this->once())->method('post')->will($this->returnCallback('Joomla\\Google\\Tests\\dataPicasaAlbumCallback'));
 		$result = $this->object->createAlbum('userID', 'New Title', 'private');
 		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Album');
 		$this->assertEquals($result->getTitle(), 'New Title');
@@ -115,7 +119,7 @@ class JGoogleDataPicasaTest extends GoogleTestCase
 	 */
 	public function testGetAlbum()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaAlbumCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaAlbumCallback'));
 		$result = $this->object->getAlbum('https://picasaweb.google.com/data/entry/api/user/12345678901234567890/albumid/0123456789012345678');
 		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Album');
 		$this->assertEquals($result->getTitle(), 'Album 2');
@@ -181,8 +185,8 @@ class JGoogleDataPicasaTest extends GoogleTestCase
 	 */
 	public function testExceptions()
 	{
-		$this->http->expects($this->atLeastOnce())->method('get')->will($this->returnCallback('picasaExceptionCallback'));
-		$this->http->expects($this->atLeastOnce())->method('post')->will($this->returnCallback('picasaDataExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('post')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaDataExceptionCallback'));
 
 		$functions['listAlbums'] = array('userID');
 		$functions['createAlbum'] = array('userID', 'New Title', 'private');
@@ -196,7 +200,7 @@ class JGoogleDataPicasaTest extends GoogleTestCase
 			{
 				call_user_func_array(array($this->object, $function), $params);
 			}
-			catch (UnexpectedValueException $e)
+			catch (\UnexpectedValueException $e)
 			{
 				$exception = true;
 				$this->assertEquals($e->getMessage(), 'Unexpected data received from Google: `BADDATA`.');
@@ -219,7 +223,7 @@ class JGoogleDataPicasaTest extends GoogleTestCase
  */
 function picasaAlbumCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'text/html');
@@ -242,9 +246,9 @@ function picasaAlbumCallback($url, array $headers = null, $timeout = null)
  */
 function dataPicasaAlbumCallback($url, $data, array $headers = null, $timeout = null)
 {
-	PHPUnit_Framework_TestCase::assertContains('<title>New Title</title>', $data);
+	\PHPUnit_Framework_TestCase::assertContains('<title>New Title</title>', $data);
 
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');
@@ -266,7 +270,7 @@ function dataPicasaAlbumCallback($url, $data, array $headers = null, $timeout = 
  */
 function picasaAlbumlistCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');
@@ -288,7 +292,7 @@ function picasaAlbumlistCallback($url, array $headers = null, $timeout = null)
  */
 function picasaExceptionCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');
@@ -311,7 +315,7 @@ function picasaExceptionCallback($url, array $headers = null, $timeout = null)
  */
 function picasaDataExceptionCallback($url, $data, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');
@@ -333,7 +337,7 @@ function picasaDataExceptionCallback($url, $data, array $headers = null, $timeou
  */
 function picasaBadXmlCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');

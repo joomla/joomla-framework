@@ -4,6 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
+use Joomla\Google\Data\Adsense;
+
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
 /**
@@ -29,7 +33,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	{
 		parent::setUp();
 
-		$this->object = new JGoogleDataAdsense($this->options, $this->auth);
+		$this->object = new Adsense($this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
@@ -66,7 +70,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testGetAccount()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->getAccount('accountID');
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2), 'nextPageToken' => '1234'));
 	}
@@ -79,7 +83,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testListAccounts()
 	{
-		$this->http->expects($this->exactly(2))->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->exactly(2))->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->listAccounts(array('option' => 'value', 'option2' => 'value2'), 2);
 		$this->assertEquals($result, array(1, 2, 1, 2));
 	}
@@ -92,7 +96,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testListClients()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->listClients('accountID', array('option' => 'value'));
 		$this->assertEquals($result, array('1' => 1, '2' => 2));
 	}
@@ -105,7 +109,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testGetUnit()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->getUnit('accountID', 'clientID', 'unitID');
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2), 'nextPageToken' => '1234'));
 	}
@@ -118,7 +122,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testListUnitChannels()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->listUnitChannels('accountID', 'clientID', 'unitID', array('option' => 'value'));
 		$this->assertEquals($result, array('1' => 1, '2' => 2));
 	}
@@ -131,7 +135,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testGetChannel()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->getChannel('accountID', 'clientID', 'channelID');
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2), 'nextPageToken' => '1234'));
 	}
@@ -144,7 +148,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testListChannels()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->listChannels('accountID', 'clientID', array('option' => 'value'));
 		$this->assertEquals($result, array('1' => 1, '2' => 2));
 	}
@@ -157,7 +161,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testListChannelUnits()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->listChannelUnits('accountID', 'clientID', 'channelID', array('option' => 'value'));
 		$this->assertEquals($result, array('1' => 1, '2' => 2));
 	}
@@ -170,7 +174,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testListUrlChannels()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonAdsenseCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseCallback'));
 		$result = $this->object->listUrlChannels('accountID', 'clientID', array('option' => 'value'));
 		$this->assertEquals($result, array('1' => 1, '2' => 2));
 	}
@@ -183,10 +187,10 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testGenerateReport()
 	{
-		$this->http->expects($this->exactly(4))->method('get')->will($this->returnCallback('jsonAdsenseReportCallback'));
-		$timezone = new DateTimeZone('Europe/London');
-		$start = new DateTime('now');
-		$end = new DateTime;
+		$this->http->expects($this->exactly(4))->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonAdsenseReportCallback'));
+		$timezone = new \DateTimeZone('Europe/London');
+		$start = new \DateTime('now');
+		$end = new \DateTime;
 		$end->setTimestamp(time() + 3600)->setTimeZone($timezone);
 
 		$result = $this->object->generateReport('accountID', time(), time() + 100000, array('option' => 'value'));
@@ -293,7 +297,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 	 */
 	public function testExceptions()
 	{
-		$this->http->expects($this->atLeastOnce())->method('get')->will($this->returnCallback('adsenseExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\adsenseExceptionCallback'));
 
 		$functions['getAccount'] = array('accountID');
 		$functions['listAccounts'] = array(array('option' => 'value'));
@@ -314,7 +318,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
 			{
 				call_user_func_array(array($this->object, $function), $params);
 			}
-			catch (UnexpectedValueException $e)
+			catch (\UnexpectedValueException $e)
 			{
 				$exception = true;
 				$this->assertEquals($e->getMessage(), 'Unexpected data received from Google: `BADDATA`.');
@@ -337,7 +341,7 @@ class JGoogleDataAdsenseTest extends GoogleTestCase
  */
 function jsonAdsenseCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/json');
@@ -359,7 +363,7 @@ function jsonAdsenseCallback($url, array $headers = null, $timeout = null)
  */
 function jsonAdsenseReportCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/json');
@@ -381,7 +385,7 @@ function jsonAdsenseReportCallback($url, array $headers = null, $timeout = null)
  */
 function adsenseExceptionCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/json');

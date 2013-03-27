@@ -4,6 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
+use Joomla\Google\Data\Picasa\Photo;
+
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
 /**
@@ -34,8 +38,8 @@ class JGoogleDataPicasaPhotoTest extends GoogleTestCase
 	{
 		parent::setUp();
 
-		$this->xml = new SimpleXMLElement(file_get_contents(__DIR__ . '/photo.txt'));
-		$this->object = new JGoogleDataPicasaPhoto($this->xml, $this->options, $this->auth);
+		$this->xml = new \SimpleXMLElement(file_get_contents(__DIR__ . '/photo.txt'));
+		$this->object = new Photo($this->xml, $this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
@@ -72,7 +76,7 @@ class JGoogleDataPicasaPhotoTest extends GoogleTestCase
 	 */
 	public function testDelete()
 	{
-		$this->http->expects($this->once())->method('delete')->will($this->returnCallback('emptyPicasaCallback'));
+		$this->http->expects($this->once())->method('delete')->will($this->returnCallback('Joomla\\Google\\Tests\\emptyPicasaCallback'));
 		$result = $this->object->delete();
 		$this->assertTrue($result);
 	}
@@ -261,7 +265,7 @@ class JGoogleDataPicasaPhotoTest extends GoogleTestCase
 	 */
 	public function testSave()
 	{
-		$this->http->expects($this->exactly(2))->method('put')->will($this->returnCallback('dataPicasaPhotoCallback'));
+		$this->http->expects($this->exactly(2))->method('put')->will($this->returnCallback('Joomla\\Google\\Tests\\dataPicasaPhotoCallback'));
 		$this->object->setTitle('New Title');
 		$this->object->save();
 		$this->object->save(true);
@@ -275,7 +279,7 @@ class JGoogleDataPicasaPhotoTest extends GoogleTestCase
 	 */
 	public function testRefresh()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('picasaPhotoCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaPhotoCallback'));
 		$result = $this->object->refresh();
 		$this->assertEquals(get_class($result), 'Joomla\\Google\\Data\\Picasa\\Photo');
 	}
@@ -340,9 +344,9 @@ class JGoogleDataPicasaPhotoTest extends GoogleTestCase
 	 */
 	public function testExceptions()
 	{
-		$this->http->expects($this->atLeastOnce())->method('get')->will($this->returnCallback('picasaExceptionCallback'));
-		$this->http->expects($this->atLeastOnce())->method('delete')->will($this->returnCallback('picasaExceptionCallback'));
-		$this->http->expects($this->atLeastOnce())->method('put')->will($this->returnCallback('picasaDataExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('delete')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('put')->will($this->returnCallback('Joomla\\Google\\Tests\\picasaDataExceptionCallback'));
 
 		$functions['delete'] = array();
 		$functions['save'] = array();
@@ -356,7 +360,7 @@ class JGoogleDataPicasaPhotoTest extends GoogleTestCase
 			{
 				call_user_func_array(array($this->object, $function), $params);
 			}
-			catch (UnexpectedValueException $e)
+			catch (\UnexpectedValueException $e)
 			{
 				$exception = true;
 				$this->assertEquals($e->getMessage(), 'Unexpected data received from Google: `BADDATA`.');
@@ -379,7 +383,7 @@ class JGoogleDataPicasaPhotoTest extends GoogleTestCase
  */
 function picasaPhotoCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');
@@ -402,9 +406,9 @@ function picasaPhotoCallback($url, array $headers = null, $timeout = null)
  */
 function dataPicasaPhotoCallback($url, $data, array $headers = null, $timeout = null)
 {
-	PHPUnit_Framework_TestCase::assertContains('<title>New Title</title>', $data);
+	\PHPUnit_Framework_TestCase::assertContains('<title>New Title</title>', $data);
 
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/atom+xml');

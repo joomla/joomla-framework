@@ -4,6 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Google\Tests;
+
+use Joomla\Google\Data\Calendar;
+
 require_once __DIR__ . '/case/GoogleTestCase.php';
 
 /**
@@ -29,7 +33,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	{
 		parent::setUp();
 
-		$this->object = new JGoogleDataCalendar($this->options, $this->auth);
+		$this->object = new Calendar($this->options, $this->auth);
 
 		$this->object->setOption('clientid', '01234567891011.apps.googleusercontent.com');
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
@@ -66,7 +70,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testRemoveCalendar()
 	{
-		$this->http->expects($this->once())->method('delete')->will($this->returnCallback('emptyCalendarCallback'));
+		$this->http->expects($this->once())->method('delete')->will($this->returnCallback('Joomla\\Google\\Tests\\emptyCalendarCallback'));
 		$result = $this->object->removeCalendar('calendarID');
 		$this->assertTrue($result);
 	}
@@ -79,7 +83,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testGetCalendar()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonCalendarCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonCalendarCallback'));
 		$result = $this->object->getCalendar('calendarID');
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2)));
 	}
@@ -92,7 +96,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testAddCalendar()
 	{
-		$this->http->expects($this->once())->method('post')->will($this->returnCallback('jsonDataCalendarCallback'));
+		$this->http->expects($this->once())->method('post')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonDataCalendarCallback'));
 		$result = $this->object->addCalendar('calendarID', array('option' => 'value'));
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2)));
 	}
@@ -105,7 +109,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testListCalendars()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonCalendarCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonCalendarCallback'));
 		$result = $this->object->listCalendars(array('option' => 'value'));
 		$this->assertEquals($result, array('1' => 1, '2' => 2));
 	}
@@ -118,7 +122,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testEditCalendarSettings()
 	{
-		$this->http->expects($this->once())->method('put')->will($this->returnCallback('jsonDataCalendarCallback'));
+		$this->http->expects($this->once())->method('put')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonDataCalendarCallback'));
 		$result = $this->object->editCalendarSettings('calendarID', array('option' => 'value'));
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2)));
 	}
@@ -131,7 +135,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testClearCalendar()
 	{
-		$this->http->expects($this->once())->method('post')->will($this->returnCallback('emptyDataCalendarCallback'));
+		$this->http->expects($this->once())->method('post')->will($this->returnCallback('Joomla\\Google\\Tests\\emptyDataCalendarCallback'));
 		$result = $this->object->clearCalendar('calendarID');
 		$this->assertTrue($result);
 	}
@@ -144,7 +148,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testDeleteCalendar()
 	{
-		$this->http->expects($this->once())->method('delete')->will($this->returnCallback('emptyCalendarCallback'));
+		$this->http->expects($this->once())->method('delete')->will($this->returnCallback('Joomla\\Google\\Tests\\emptyCalendarCallback'));
 		$result = $this->object->deleteCalendar('calendarID');
 		$this->assertTrue($result);
 	}
@@ -157,7 +161,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testCreateCalendar()
 	{
-		$this->http->expects($this->once())->method('post')->will($this->returnCallback('jsonDataCalendarCallback'));
+		$this->http->expects($this->once())->method('post')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonDataCalendarCallback'));
 		$result = $this->object->createCalendar('Title', array('option' => 'value'));
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2)));
 	}
@@ -170,7 +174,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testEditCalendar()
 	{
-		$this->http->expects($this->once())->method('put')->will($this->returnCallback('jsonDataCalendarCallback'));
+		$this->http->expects($this->once())->method('put')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonDataCalendarCallback'));
 		$result = $this->object->editCalendar('calendarID', array('option' => 'value'));
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2)));
 	}
@@ -183,7 +187,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testDeleteEvent()
 	{
-		$this->http->expects($this->once())->method('delete')->will($this->returnCallback('emptyCalendarCallback'));
+		$this->http->expects($this->once())->method('delete')->will($this->returnCallback('Joomla\\Google\\Tests\\emptyCalendarCallback'));
 		$result = $this->object->deleteEvent('calendarID', 'eventID');
 		$this->assertTrue($result);
 	}
@@ -196,7 +200,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testGetEvent()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonCalendarCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonCalendarCallback'));
 		$result = $this->object->getEvent('calendarID', 'eventID', array('option' => 'value'));
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2)));
 	}
@@ -209,10 +213,10 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testCreateEvent()
 	{
-		$this->http->expects($this->exactly(9))->method('post')->will($this->returnCallback('jsonDataCalendarCallback'));
-		$timezone = new DateTimeZone('Europe/London');
-		$start = new DateTime('now');
-		$end = new DateTime;
+		$this->http->expects($this->exactly(9))->method('post')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonDataCalendarCallback'));
+		$timezone = new \DateTimeZone('Europe/London');
+		$start = new \DateTime('now');
+		$end = new \DateTime;
 		$end->setTimestamp(time() + 3600)->setTimeZone($timezone);
 
 		$result = $this->object->createEvent('calendarID', time(), time() + 100000, array('option' => 'value'));
@@ -275,7 +279,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testListRecurrences()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonCalendarCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonCalendarCallback'));
 		$result = $this->object->listRecurrences('calendarID', 'eventID', array('option' => 'value'));
 		$this->assertEquals($result, array('1' => 1, '2' => 2));
 	}
@@ -288,7 +292,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testListEvents()
 	{
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('jsonCalendarCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonCalendarCallback'));
 		$result = $this->object->listEvents('calendarID', array('option' => 'value'));
 		$this->assertEquals($result, array('1' => 1, '2' => 2));
 	}
@@ -301,7 +305,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testMoveEvent()
 	{
-		$this->http->expects($this->once())->method('post')->will($this->returnCallback('jsonDataCalendarCallback'));
+		$this->http->expects($this->once())->method('post')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonDataCalendarCallback'));
 		$result = $this->object->moveEvent('calendarID', 'eventID', 'newCalendarID');
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2)));
 	}
@@ -314,7 +318,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testEditEvent()
 	{
-		$this->http->expects($this->once())->method('put')->will($this->returnCallback('jsonDataCalendarCallback'));
+		$this->http->expects($this->once())->method('put')->will($this->returnCallback('Joomla\\Google\\Tests\\jsonDataCalendarCallback'));
 		$result = $this->object->editEvent('calendarID', 'eventID', array('option' => 'value'));
 		$this->assertEquals($result, array('items' => array('1' => 1, '2' => 2)));
 	}
@@ -392,10 +396,10 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 	 */
 	public function testExceptions()
 	{
-		$this->http->expects($this->atLeastOnce())->method('get')->will($this->returnCallback('calendarExceptionCallback'));
-		$this->http->expects($this->atLeastOnce())->method('delete')->will($this->returnCallback('calendarExceptionCallback'));
-		$this->http->expects($this->atLeastOnce())->method('post')->will($this->returnCallback('calendarDataExceptionCallback'));
-		$this->http->expects($this->atLeastOnce())->method('put')->will($this->returnCallback('calendarDataExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('get')->will($this->returnCallback('Joomla\\Google\\Tests\\calendarExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('delete')->will($this->returnCallback('Joomla\\Google\\Tests\\calendarExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('post')->will($this->returnCallback('Joomla\\Google\\Tests\\calendarDataExceptionCallback'));
+		$this->http->expects($this->atLeastOnce())->method('put')->will($this->returnCallback('Joomla\\Google\\Tests\\calendarDataExceptionCallback'));
 
 		$functions['removeCalendar'] = array('calendarID');
 		$functions['getCalendar'] = array('calendarID');
@@ -422,7 +426,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
 			{
 				call_user_func_array(array($this->object, $function), $params);
 			}
-			catch (UnexpectedValueException $e)
+			catch (\UnexpectedValueException $e)
 			{
 				$exception = true;
 				$this->assertEquals($e->getMessage(), 'Unexpected data received from Google: `BADDATA`.');
@@ -446,7 +450,7 @@ class JGoogleDataCalendarTest extends GoogleTestCase
  */
 function jsonDataCalendarCallback($url, $data, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/json');
@@ -469,7 +473,7 @@ function jsonDataCalendarCallback($url, $data, array $headers = null, $timeout =
  */
 function emptyDataCalendarCallback($url, $data, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'text/html');
@@ -491,7 +495,7 @@ function emptyDataCalendarCallback($url, $data, array $headers = null, $timeout 
  */
 function jsonCalendarCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/json');
@@ -513,7 +517,7 @@ function jsonCalendarCallback($url, array $headers = null, $timeout = null)
  */
 function emptyCalendarCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'text/html');
@@ -535,7 +539,7 @@ function emptyCalendarCallback($url, array $headers = null, $timeout = null)
  */
 function calendarExceptionCallback($url, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/json');
@@ -558,7 +562,7 @@ function calendarExceptionCallback($url, array $headers = null, $timeout = null)
  */
 function calendarDataExceptionCallback($url, $data, array $headers = null, $timeout = null)
 {
-	$response = new stdClass;
+	$response = new \stdClass;
 
 	$response->code = 200;
 	$response->headers = array('Content-Type' => 'application/json');
