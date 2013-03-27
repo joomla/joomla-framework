@@ -13,6 +13,7 @@ require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
 
 use Joomla\Database\Driver as DatabaseDriver;
 use Joomla\Factory;
+use Joomla\Test\Helper as TestHelper;
 
 /**
  * Abstract test case class for database testing.
@@ -39,9 +40,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 * @since  12.1
 	 */
 	private $_stashedFactoryState = array(
-		'application' => null,
 		'config' => null,
-		'dates' => null,
 		'session' => null,
 		'language' => null,
 	);
@@ -72,7 +71,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 			$pdo->exec(file_get_contents(JPATH_TESTS . '/schema/ddl.sql'));
 
 			// Set the PDO instance to the driver using reflection whizbangery.
-			TestReflection::setValue(self::$driver, 'connection', $pdo);
+			TestHelper::setValue(self::$driver, 'connection', $pdo);
 		}
 		catch (RuntimeException $e)
 		{
@@ -157,21 +156,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	}
 
 	/**
-	 * Gets a mock application object.
-	 *
-	 * @return  JApplication
-	 *
-	 * @since   12.1
-	 */
-	public function getMockApplication()
-	{
-		// Attempt to load the real class first.
-		class_exists('JApplication');
-
-		return TestMockApplication::create($this);
-	}
-
-	/**
 	 * Gets a mock configuration object.
 	 *
 	 * @return  JConfig
@@ -196,21 +180,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 		class_exists('Joomla\\Database\\Driver');
 
 		return TestMockDatabaseDriver::create($this);
-	}
-
-	/**
-	 * Gets a mock document object.
-	 *
-	 * @return  JDocument
-	 *
-	 * @since   12.1
-	 */
-	public function getMockDocument()
-	{
-		// Attempt to load the real class first.
-		class_exists('JDocument');
-
-		return TestMockDocument::create($this);
 	}
 
 	/**
@@ -337,9 +306,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 */
 	protected function restoreFactoryState()
 	{
-		Factory::$application = $this->_stashedFactoryState['application'];
 		Factory::$config = $this->_stashedFactoryState['config'];
-		Factory::$dates = $this->_stashedFactoryState['dates'];
 		Factory::$session = $this->_stashedFactoryState['session'];
 		Factory::$language = $this->_stashedFactoryState['language'];
 	}
@@ -353,9 +320,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 */
 	protected function saveFactoryState()
 	{
-		$this->_stashedFactoryState['application'] = Factory::$application;
 		$this->_stashedFactoryState['config'] = Factory::$config;
-		$this->_stashedFactoryState['dates'] = Factory::$dates;
 		$this->_stashedFactoryState['session'] = Factory::$session;
 		$this->_stashedFactoryState['language'] = Factory::$language;
 	}

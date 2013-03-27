@@ -6,12 +6,12 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "ext-gd": "*",
         "psr/log": "~1.0"
     },
     "autoload": {
         "psr-0": {
-            "Joomla": "src/"
+            "Joomla": "src/",
+            "Psr": "vendor/psr/cache"
         },
         "classmap": [
             "src/Joomla/Compat/JsonSerializable.php"
