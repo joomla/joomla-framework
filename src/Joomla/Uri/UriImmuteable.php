@@ -8,8 +8,6 @@
 
 namespace Joomla\Uri;
 
-use Joomla\String\String;
-
 /**
  * Uri Class
  *
@@ -35,7 +33,7 @@ final class UriImmuteable extends AbstractUri
 	 */
 	final public function __set($name, $value)
 	{
-		throw new BadMethodCallException('This is an immuteable object');
+		throw new \BadMethodCallException('This is an immuteable object');
 	}
 
 	/**
@@ -47,9 +45,9 @@ final class UriImmuteable extends AbstractUri
 	 */
 	public function __construct($uri = null)
 	{
-		if (true === $this->constructed)
+		if ($this->constructed === true)
 		{
-			throw new BadMethodCallException('This is an immuteable object');
+			throw new \BadMethodCallException('This is an immuteable object');
 		}
 
 		$this->constructed = true;
