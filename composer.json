@@ -1,12 +1,12 @@
 {
-    "name": "joomla/joomla-framework",
-    "type": "library",
+    "name": "joomla/framework",
     "description": "The Joomla Framework is a platform for writing Web and command line applications in PHP.",
     "keywords": ["joomla","framework"],
     "homepage": "https://github.com/joomla/joomla-framework",
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
+        "ext-gd": "*",
         "psr/log": "~1.0"
     },
     "autoload": {
@@ -16,5 +16,40 @@
         "classmap": [
             "src/Joomla/Compat/JsonSerializable.php"
         ]
-    }
+    },
+    "replace": {
+        "joomla/application": "self.version",
+        "joomla/archive": "self.version",
+        "joomla/cache": "self.version",
+        "joomla/client": "self.version",
+        "joomla/compat": "self.version",
+        "joomla/controller": "self.version",
+        "joomla/crypt": "self.version",
+        "joomla/data": "self.version",
+        "joomla/database": "self.version",
+        "joomla/date": "self.version",
+        "joomla/filesystem": "self.version",
+        "joomla/filter": "self.version",
+        "joomla/form": "self.version",
+        "joomla/github": "self.version",
+        "joomla/google": "self.version",
+        "joomla/http": "self.version",
+        "joomla/image": "self.version",
+        "joomla/input": "self.version",
+        "joomla/keychain": "self.version",
+        "joomla/language": "self.version",
+        "joomla/log": "self.version",
+        "joomla/model": "self.version",
+        "joomla/oauth2": "self.version",
+        "joomla/profiler": "self.version",
+        "joomla/registry": "self.version",
+        "joomla/router": "self.version",
+        "joomla/session": "self.version",
+        "joomla/string": "self.version",
+        "joomla/test": "self.version",
+        "joomla/uri": "self.version",
+        "joomla/utilities": "self.version",
+        "joomla/view": "self.version",
+    },
+    "minimum-stability": "dev"
 }
