@@ -80,36 +80,6 @@ abstract class Factory
 	public static $database = null;
 
 	/**
-	 * Get a application object.
-	 *
-	 * Returns the global {@link JApplication} object, only creating it if it doesn't already exist.
-	 *
-	 * @param   mixed   $id      A client identifier or name.
-	 * @param   array   $config  An optional associative array of configuration settings.
-	 * @param   string  $prefix  Application prefix
-	 *
-	 * @return  JApplication object
-	 *
-	 * @see     JApplication
-	 * @since   1.0
-	 * @throws  Exception
-	 */
-	public static function getApplication($id = null, array $config = array(), $prefix = 'J')
-	{
-		if (!self::$application)
-		{
-			if (!$id)
-			{
-				throw new Exception('Application Instantiation Error', 500);
-			}
-
-			self::$application = JApplication::getInstance($id, $config, $prefix);
-		}
-
-		return self::$application;
-	}
-
-	/**
 	 * Get a configuration object
 	 *
 	 * Returns the global {@link Registry} object, only creating it if it doesn't already exist.
@@ -203,59 +173,6 @@ abstract class Factory
 		}
 
 		return self::$database;
-	}
-
-	/**
-	 * Return the {@link JDate} object
-	 *
-	 * @param   mixed  $time      The initial time for the JDate object
-	 * @param   mixed  $tzOffset  The timezone offset.
-	 *
-	 * @return  Date object
-	 *
-	 * @see     Date
-	 * @since   1.0
-	 */
-	public static function getDate($time = 'now', $tzOffset = null)
-	{
-		static $classname;
-		static $mainLocale;
-
-		$language = self::getLanguage();
-		$locale = $language->getTag();
-
-		if (!isset($classname) || $locale != $mainLocale)
-		{
-			// Store the locale for future reference
-			$mainLocale = $locale;
-
-			if ($mainLocale !== false)
-			{
-				$classname = str_replace('-', '_', $mainLocale) . 'Date';
-
-				if (!class_exists($classname))
-				{
-					// The class does not exist, default to JDate
-					$classname = 'Joomla\\Date\\Date';
-				}
-			}
-			else
-			{
-				// No tag, so default to Joomla\\Date\\Date
-				$classname = 'Joomla\\Date\\Date';
-			}
-		}
-
-		$key = $time . '-' . ($tzOffset instanceof \DateTimeZone ? $tzOffset->getName() : (string) $tzOffset);
-
-		if (!isset(self::$dates[$classname][$key]))
-		{
-			self::$dates[$classname][$key] = new $classname($time, $tzOffset);
-		}
-
-		$date = clone self::$dates[$classname][$key];
-
-		return $date;
 	}
 
 	/**
