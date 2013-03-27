@@ -264,7 +264,7 @@ array
       0 => int 16225
       1 => int 0
 
-Inspectiong $files:
+Inspecting $files:
 
 array
   0 => 
@@ -285,4 +285,50 @@ array
 
 Unlike the PHP `$_FILES` supergobal, this array is very easier to parse. The example above assumes two files were submitted, but only one was specified. The 'blank' file contains an error code (see [PHP file upload errors](http://php.net/manual/en/features.file-upload.errors.php)).
 
-The `set` method is disabled in `Input\Files`. However, 
+The `set` method is disabled in `Input\Files`.
+
+## Mocking the Input Package
+
+For simple cases where you only need to mock the `Input\Input` class, the following snippet can be used:
+
+```
+$mockInput = $this->getMock('Joomla\Input\Input');
+```
+
+For more complicated mocking where you need to similate input, you can use the `Input\Tests\Mocker` class to create robust mock objects.
+
+```php
+use Joomla\Input\Tests\Mocker as InputMocker;
+
+class MyTest extends \PHPUnit_Framework_TestCase
+{
+	private $instance;
+	
+	protected function setUp()
+	{
+		parent::setUp();
+
+		// Create the mock input object.
+		$inputMocker = new InputMocker($this);
+		$mockInput = $inputMocker->createMockInput();
+		
+		// Set up some mock values for the input class to return.
+		$mockInput->set('foo', 'bar');
+		
+		// Create the test instance injecting the mock dependency.
+		$this->instance = new MyClass($mockInput);
+	}
+}
+```
+
+The `createMockInput` method will return a mock with the following methods mocked to roughly simulate real behaviour albeit with reduced functionality:
+
+* `get($name [, $default, $fitler])`
+* `getInt($name [, $default])`
+* `set($name, $value)`
+
+You can provide customised implementations these methods by creating the following methods in your test class respectively:
+
+* `mockInputGet`
+* `mockInputGetInt`
+* `mockInputSet`
