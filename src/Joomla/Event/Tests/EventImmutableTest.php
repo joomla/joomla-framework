@@ -25,6 +25,37 @@ class EventImmutableTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
+	 * Test the constructor.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function test__construct()
+	{
+		$arguments = array('foo' => 'bar');
+		$event = new EventImmutable('test', $arguments);
+
+		$this->assertEquals('test', $event->getName());
+		$this->assertEquals($arguments, $event->getArguments());
+	}
+
+	/**
+	 * Test the constructor exception when calling it
+	 * on an already constructed object.
+	 *
+	 * @expectedException  \BadMethodCallException
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function test__constructException()
+	{
+		$this->instance->__construct('foo');
+	}
+
+	/**
 	 * Test the offsetSet method.
 	 *
 	 * @expectedException  \BadMethodCallException

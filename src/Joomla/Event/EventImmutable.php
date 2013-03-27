@@ -23,6 +23,38 @@ use BadMethodCallException;
 final class EventImmutable extends AbstractEvent
 {
 	/**
+	 * A flag to see if the constructor has been
+	 * already called.
+	 *
+	 * @var  boolean
+	 */
+	private $constructed = false;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param   string  $name       The event name.
+	 * @param   array   $arguments  The event arguments.
+	 *
+	 * @throws  BadMethodCallException
+	 *
+	 * @since   1.0
+	 */
+	public function __construct($name, array $arguments = array())
+	{
+		if ($this->constructed)
+		{
+			throw new BadMethodCallException(
+				sprintf('Cannot reconstruct the EventImmutable %s.', $this->name)
+			);
+		}
+
+		$this->constructed = true;
+
+		parent::__construct($name, $arguments);
+	}
+
+	/**
 	 * Set the value of an event argument.
 	 *
 	 * @param   string  $name   The argument name.
