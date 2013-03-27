@@ -1,4 +1,4 @@
-git subsplit update
+git subsplit init git@github.com:joomla/joomla-framework.git
 git subsplit publish "
 	src/Joomla/Application:git@github.com:joomla/joomla-framework-application.git
 	src/Joomla/Archive:git@github.com:joomla/joomla-framework-archive.git
@@ -32,3 +32,4 @@ git subsplit publish "
 	src/Joomla/Utilities:git@github.com:joomla/joomla-framework-utilities.git
 	src/Joomla/View:git@github.com:joomla/joomla-framework-view.git
 " --heads="master"
+rm -rf .subsplit/
