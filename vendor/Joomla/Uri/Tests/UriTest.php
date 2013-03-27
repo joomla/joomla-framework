@@ -33,7 +33,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new Uri;
+		$this->object = new Uri('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
 	}
 
 	/**
@@ -46,8 +46,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toString()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->__toString(),
 			$this->equalTo('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment')
@@ -61,23 +59,24 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 * @covers  Joomla\Uri\Uri::parse
+	 * @covers  Joomla\Uri\Uri::__construct
 	 */
-	public function testParse()
+	public function testConstruct()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value&amp;test=true#fragment');
+		$object = new Uri('http://someuser:somepass@www.example.com:80/path/file.html?var=value&amp;test=true#fragment');
 
 		$this->assertThat(
-			$this->object->getHost(),
+			$object->getHost(),
 			$this->equalTo('www.example.com')
 		);
 
 		$this->assertThat(
-			$this->object->getPath(),
+			$object->getPath(),
 			$this->equalTo('/path/file.html')
 		);
 
 		$this->assertThat(
-			$this->object->getScheme(),
+			$object->getScheme(),
 			$this->equalTo('http')
 		);
 	}
@@ -92,8 +91,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testToString()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->toString(),
 			$this->equalTo('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment')
@@ -125,10 +122,10 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetVar()
 	{
-		$this->object->setVar('somevar', 'somevalue');
+		$this->object->setVar('somevariable', 'somevalue');
 
 		$this->assertThat(
-			$this->object->getVar('somevar'),
+			$this->object->getVar('somevariable'),
 			$this->equalTo('somevalue')
 		);
 	}
@@ -143,10 +140,8 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testHasVar()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
-			$this->object->hasVar('somevar'),
+			$this->object->hasVar('somevariable'),
 			$this->equalTo(false)
 		);
 
@@ -166,8 +161,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetVar()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getVar('var'),
 			$this->equalTo('value')
@@ -194,8 +187,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDelVar()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getVar('var'),
 			$this->equalTo('value')
@@ -251,8 +242,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetQuery()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getQuery(),
 			$this->equalTo('var=value')
@@ -265,30 +254,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the buildQuery method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @covers  Joomla\Uri\Uri::buildQuery
-	 */
-	public function testBuildQuery()
-	{
-		$params = array(
-			'field' => array(
-				'price' => array(
-					'from' => 5,
-					'to' => 10,
-				),
-				'name' => 'foo'
-			),
-			'v' => 45);
-
-		$expected = 'field[price][from]=5&field[price][to]=10&field[name]=foo&v=45';
-		$this->assertEquals($expected, Uri::buildQuery($params));
-	}
-
-	/**
 	 * Test the getScheme method.
 	 *
 	 * @return  void
@@ -298,8 +263,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetScheme()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getScheme(),
 			$this->equalTo('http')
@@ -334,8 +297,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetUser()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getUser(),
 			$this->equalTo('someuser')
@@ -370,8 +331,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetPass()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getPass(),
 			$this->equalTo('somepass')
@@ -406,8 +365,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetHost()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getHost(),
 			$this->equalTo('www.example.com')
@@ -442,8 +399,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetPort()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getPort(),
 			$this->equalTo('80')
@@ -478,8 +433,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetPath()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getPath(),
 			$this->equalTo('/path/file.html')
@@ -514,8 +467,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetFragment()
 	{
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
-
 		$this->assertThat(
 			$this->object->getFragment(),
 			$this->equalTo('fragment')
@@ -550,17 +501,17 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIsSSL()
 	{
-		$this->object->parse('https://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
+		$object = new Uri('https://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
 
 		$this->assertThat(
-			$this->object->isSSL(),
+			$object->isSSL(),
 			$this->equalTo(true)
 		);
 
-		$this->object->parse('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
+		$object = new Uri('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
 
 		$this->assertThat(
-			$this->object->isSSL(),
+			$object->isSSL(),
 			$this->equalTo(false)
 		);
 	}

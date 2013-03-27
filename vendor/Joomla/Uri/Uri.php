@@ -117,7 +117,7 @@ class Uri implements UriInterface
 	 *
 	 * @since   1.0
 	 */
-	public function parse($uri)
+	protected function parse($uri)
 	{
 		// Set the original URI to fall back on
 		$this->uri = $uri;
