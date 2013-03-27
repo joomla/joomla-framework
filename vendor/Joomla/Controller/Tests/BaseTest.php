@@ -6,7 +6,7 @@
 
 namespace Joomla\Controller\Tests;
 
-use Joomla\Application\Tests\Mock as ApplicationMock;
+use Joomla\Application\Tests\Mocker as ApplicationMocker;
 use Joomla\Input\Input;
 use Joomla\Input\Cookie as InputCookie;
 use Joomla\Test\Helper;
@@ -45,12 +45,13 @@ class BaseTest extends \TestCase
 		$this->assertAttributeEmpty('app', $this->instance);
 
 		// New controller with dependancies
-		$app = ApplicationMock\Base::create($this);
-		$input = new InputCookie;
+		$appMocker = new ApplicationMocker($this);
+		$mockApp = $appMocker->createMockBase();
+		$mockInput = $this->getMock('Joomla\Input\Input');
 
-		$instance = new BaseController($input, $app);
-		$this->assertSame($input, $instance->getInput());
-		$this->assertSame($app, $instance->getApplication());
+		$instance = new BaseController($mockInput, $mockApp);
+		$this->assertSame($mockInput, $instance->getInput());
+		$this->assertSame($mockApp, $instance->getApplication());
 	}
 
 	/**
@@ -137,9 +138,11 @@ class BaseTest extends \TestCase
 	 */
 	public function testSetApplication()
 	{
-		$app = ApplicationMock\Base::create($this);
-		$this->instance->setApplication($app);
-		$this->assertSame($app, $this->instance->getApplication());
+		$appMocker = new ApplicationMocker($this);
+		$mockApp = $appMocker->createMockBase();
+
+		$this->instance->setApplication($mockApp);
+		$this->assertSame($mockApp, $this->instance->getApplication());
 	}
 
 	/**
