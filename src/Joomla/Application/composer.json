@@ -10,6 +10,7 @@
         "joomla/date": "dev-master",
         "joomla/input": "dev-master",
         "joomla/session": "dev-master",
+        "joomla/string": "dev-master",
         "joomla/registry": "dev-master",
         "joomla/uri": "dev-master",
         "joomla/filesystem": "dev-master",

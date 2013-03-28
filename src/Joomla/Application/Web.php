@@ -11,6 +11,7 @@ namespace Joomla\Application;
 use Joomla\Uri\Uri;
 use Joomla\Date\Date;
 use Joomla\Input\Input;
+use Joomla\String\String;
 use Joomla\Session\Session;
 use Joomla\Registry\Registry;
 
@@ -273,9 +274,6 @@ abstract class Web extends Base
 	 */
 	public function redirect($url, $moved = false)
 	{
-		// Import library dependencies.
-		jimport('phputf8.utils.ascii');
-
 		// Check for relative internal links.
 		if (preg_match('#^index\.php#', $url))
 		{
@@ -322,7 +320,7 @@ abstract class Web extends Base
 		else
 		{
 			// We have to use a JavaScript redirect here because MSIE doesn't play nice with utf-8 URLs.
-			if (($this->client->engine == Web\Client::TRIDENT) && !utf8_is_ascii($url))
+			if (($this->client->engine == Web\Client::TRIDENT) && !String::is_ascii($url))
 			{
 				$html = '<html><head>';
 				$html .= '<meta http-equiv="content-type" content="text/html; charset=' . $this->charSet . '" />';
