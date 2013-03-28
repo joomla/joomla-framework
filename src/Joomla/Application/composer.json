@@ -16,9 +16,11 @@
         "psr/log": "~1.0"
     },
     "require-dev": {
-    	"joomla/controller": "dev-master"
+        "joomla/controller": "dev-master",
+        "joomla/test": "dev-master"
     },
     "target-dir": "Joomla/Application",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Application": ""

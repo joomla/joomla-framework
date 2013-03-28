@@ -10,7 +10,11 @@
         "ext-gd": "*",
         "psr/log": "~1.0"
     },
+    "require-dev": {
+        "joomla/test": "dev-master"
+    },
     "target-dir": "Joomla/Image",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Image": ""

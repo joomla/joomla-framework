@@ -13,6 +13,7 @@
     	"joomla/filesystem": "dev-master"
     },
     "target-dir": "Joomla/Language",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Language": ""

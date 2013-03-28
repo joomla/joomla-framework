@@ -8,11 +8,17 @@
     "require": {
         "php": ">=5.3.10"
     },
+    "require-dev": {
+        "joomla/application": "dev-master",
+        "joomla/input": "dev-master",
+        "joomla/test": "dev-master"
+    },
     "suggest": {
     	"joomla/application": "dev-master",
     	"joomla/input": "dev-master"
     },
     "target-dir": "Joomla/Controller",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Controller": ""
