@@ -93,7 +93,7 @@ class Syslog extends Logger
 		$sysFacility = LOG_USER;
 
 		// If we have a facility passed in and we're not on Windows, reset it.
-		if (isset($this->options['sys_facility']) && !IS_WIN)
+		if (isset($this->options['sys_facility']) && !defined('PHP_WINDOWS_VERSION_MAJOR'))
 		{
 			$sysFacility = $this->options['sys_facility'];
 		}
