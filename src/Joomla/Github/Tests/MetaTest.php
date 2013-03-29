@@ -44,7 +44,7 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 	 * @var    string  Sample JSON string.
 	 * @since  1.0
 	 */
-	protected $sampleString = '{"hooks":["127.0.0.1/32","192.168.1.1/32"],"git":["127.0.0.1/32"]}';
+	protected $sampleString = '{"hooks":["127.0.0.1/32","192.168.1.1/32","10.10.1.1/27"],"git":["127.0.0.1/32"]}';
 
 	/**
 	 * @var    string  Sample JSON error message.
@@ -83,10 +83,9 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		$this->response->code = 200;
 		$this->response->body = $this->sampleString;
 
-		$decodedResponse = array(
-			'hooks' => array('127.0.0.1', '192.168.1.1'),
-			'git' => array('127.0.0.1')
-		);
+		$decodedResponse = new \stdClass;
+		$decodedResponse->hooks = array('127.0.0.1/32', '192.168.1.1/32', '10.10.1.1/27');
+		$decodedResponse->git   = array('127.0.0.1/32');
 
 		$this->client->expects($this->once())
 			->method('get')
