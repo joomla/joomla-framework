@@ -233,7 +233,7 @@ abstract class Folder
 			// If open_basedir is set we need to get the open_basedir that the path is in
 			if ($obd != null)
 			{
-				if (IS_WIN)
+				if (defined('PHP_WINDOWS_VERSION_MAJOR'))
 				{
 					$obdSeparator = ";";
 				}
