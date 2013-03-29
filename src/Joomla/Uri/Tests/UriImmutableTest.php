@@ -6,10 +6,10 @@
 
 namespace Joomla\Uri\Tests;
 
-use Joomla\Uri\UriImmuteable;
+use Joomla\Uri\UriImmutable;
 
 /**
- * Tests for the Joomla\Uri\UriImmuteable class.
+ * Tests for the Joomla\Uri\UriImmutable class.
  *
  * @since  1.0
  */
@@ -18,7 +18,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Object under test
 	 *
-	 * @var    UriImmuteable
+	 * @var    UriImmutable
 	 * @since  1.0
 	 */
 	protected $object;
@@ -33,7 +33,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new UriImmuteable('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
+		$this->object = new UriImmutable('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
 	}
 
 	/**
@@ -42,7 +42,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::__toString
+	 * @covers  Joomla\Uri\UriImmutable::__toString
 	 */
 	public function test__toString()
 	{
@@ -58,7 +58,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::toString
+	 * @covers  Joomla\Uri\UriImmutable::toString
 	 */
 	public function testToString()
 	{
@@ -74,7 +74,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::hasVar
+	 * @covers  Joomla\Uri\UriImmutable::hasVar
 	 */
 	public function testHasVar()
 	{
@@ -95,7 +95,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getVar
+	 * @covers  Joomla\Uri\UriImmutable::getVar
 	 */
 	public function testGetVar()
 	{
@@ -121,7 +121,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getQuery
+	 * @covers  Joomla\Uri\UriImmutable::getQuery
 	 */
 	public function testGetQuery()
 	{
@@ -142,7 +142,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getScheme
+	 * @covers  Joomla\Uri\UriImmutable::getScheme
 	 */
 	public function testGetScheme()
 	{
@@ -158,7 +158,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getUser
+	 * @covers  Joomla\Uri\UriImmutable::getUser
 	 */
 	public function testGetUser()
 	{
@@ -174,7 +174,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getPass
+	 * @covers  Joomla\Uri\UriImmutable::getPass
 	 */
 	public function testGetPass()
 	{
@@ -190,7 +190,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getHost
+	 * @covers  Joomla\Uri\UriImmutable::getHost
 	 */
 	public function testGetHost()
 	{
@@ -206,7 +206,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getPort
+	 * @covers  Joomla\Uri\UriImmutable::getPort
 	 */
 	public function testGetPort()
 	{
@@ -222,7 +222,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getPath
+	 * @covers  Joomla\Uri\UriImmutable::getPath
 	 */
 	public function testGetPath()
 	{
@@ -238,7 +238,7 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::getFragment
+	 * @covers  Joomla\Uri\UriImmutable::getFragment
 	 */
 	public function testGetFragment()
 	{
@@ -254,18 +254,18 @@ class UriImmuteableTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\UriImmuteable::isSSL
+	 * @covers  Joomla\Uri\UriImmutable::isSSL
 	 */
 	public function testIsSSL()
 	{
-		$this->object = new UriImmuteable('https://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
+		$this->object = new UriImmutable('https://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
 
 		$this->assertThat(
 			$this->object->isSSL(),
 			$this->equalTo(true)
 		);
 
-		$this->object = new UriImmuteable('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
+		$this->object = new UriImmutable('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
 
 		$this->assertThat(
 			$this->object->isSSL(),
