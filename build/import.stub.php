@@ -18,18 +18,6 @@ if (!defined('JPATH_PLATFORM'))
 	define('JPATH_PLATFORM', 'phar://' . __FILE__);
 }
 
-// Detect the native operating system type.
-$os = strtoupper(substr(PHP_OS, 0, 3));
-
-if (!defined('IS_WIN'))
-{
-	define('IS_WIN', ($os === 'WIN') ? true : false);
-}
-if (!defined('IS_UNIX'))
-{
-	define('IS_UNIX', (IS_WIN === false) ? true : false);
-}
-
 // Import the platform version library if necessary.
 if (!class_exists('JPlatform'))
 {

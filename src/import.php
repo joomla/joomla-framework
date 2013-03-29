@@ -15,12 +15,6 @@ if (!defined('JPATH_FRAMEWORK'))
 	define('JPATH_FRAMEWORK', __DIR__);
 }
 
-// Detect the native operating system type.
-if (!defined('IS_WIN'))
-{
-	define('IS_WIN', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? true : false);
-}
-
 // Include the composer autoloader.
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 

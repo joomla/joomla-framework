@@ -645,7 +645,7 @@ class Ftp
 		{
 			if (@ftp_site($this->conn, 'CHMOD ' . $mode . ' ' . $path) === false)
 			{
-				if (!IS_WIN)
+				if (!defined('PHP_WINDOWS_VERSION_MAJOR'))
 				{
 					Log::add(__METHOD__ . 'Bad response.', Log::WARNING, 'jerror');
 				}
@@ -659,7 +659,7 @@ class Ftp
 		// Send change mode command and verify success [must convert mode from octal]
 		if (!$this->_putCmd('SITE CHMOD ' . $mode . ' ' . $path, array(200, 250)))
 		{
-			if (!IS_WIN)
+			if (!defined('PHP_WINDOWS_VERSION_MAJOR'))
 			{
 				Log::add(
 					sprintf(
@@ -961,7 +961,7 @@ class Ftp
 		{
 			$os = 'UNIX';
 
-			if (IS_WIN)
+			if (defined('PHP_WINDOWS_VERSION_MAJOR'))
 			{
 				$os = 'WIN';
 			}
