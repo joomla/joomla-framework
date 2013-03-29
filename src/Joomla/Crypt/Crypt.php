@@ -117,11 +117,9 @@ class Crypt
 		$sslStr = '';
 
 		/*
-		 * If a secure randomness generator exists and we don't
-		 * have a buggy PHP version use it.
+		 * If a secure randomness generator exists use it.
 		 */
-		if (function_exists('openssl_random_pseudo_bytes')
-			&& (version_compare(PHP_VERSION, '5.3.4') >= 0 || IS_WIN))
+		if (function_exists('openssl_random_pseudo_bytes'))
 		{
 			$sslStr = openssl_random_pseudo_bytes($length, $strong);
 
@@ -145,8 +143,7 @@ class Crypt
 		$urandom = false;
 		$handle = null;
 
-		// This is PHP 5.3.3 and up
-		if (function_exists('stream_set_read_buffer') && @is_readable('/dev/urandom'))
+		if (@is_readable('/dev/urandom'))
 		{
 			$handle = @fopen('/dev/urandom', 'rb');
 
