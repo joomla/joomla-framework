@@ -11,8 +11,8 @@ namespace Joomla\Application;
 use Joomla\Uri\Uri;
 use Joomla\Input\Input;
 use Joomla\String\String;
-use Joomla\Session\Session;
 use Joomla\Registry\Registry;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Base class for a Joomla! Web application.
@@ -72,7 +72,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	/**
 	 * The application session object.
 	 *
-	 * @var    Session
+	 * @var    SessionInterface
 	 * @since  1.0
 	 */
 	private $session;
@@ -522,7 +522,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	/**
 	 * Method to get the application session object.
 	 *
-	 * @return  Session  The session object
+	 * @return  SessionInterface  The session object
 	 *
 	 * @since   1.0
 	 */
@@ -644,13 +644,13 @@ abstract class AbstractWebApplication extends AbstractApplication
 	/**
 	 * Sets the session for the application to use, if required.
 	 *
-	 * @param   Session  $session  A session object.
+	 * @param   SessionInterface  $session  A session object.
 	 *
 	 * @return  AbstractWebApplication  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function setSession(Session $session)
+	public function setSession(SessionInterface $session)
 	{
 		$this->session = $session;
 

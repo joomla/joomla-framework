@@ -41,7 +41,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 */
 	private $_stashedFactoryState = array(
 		'config' => null,
-		'session' => null,
 		'language' => null,
 	);
 
@@ -227,7 +226,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	protected function restoreFactoryState()
 	{
 		Factory::$config = $this->_stashedFactoryState['config'];
-		Factory::$session = $this->_stashedFactoryState['session'];
 		Factory::$language = $this->_stashedFactoryState['language'];
 	}
 
@@ -241,7 +239,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	protected function saveFactoryState()
 	{
 		$this->_stashedFactoryState['config'] = Factory::$config;
-		$this->_stashedFactoryState['session'] = Factory::$session;
 		$this->_stashedFactoryState['language'] = Factory::$language;
 	}
 

@@ -96,17 +96,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
-		Factory::$session = null;
-	}
-
-	/**
 	* Provides test data.
 	*
 	* @return array
@@ -170,6 +159,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 				$this->object->setOption('callback', 'TEST_URL');
 			}
 
+			// Get mock session
+			$mockSession = $this->getMock('Symfony\\Component\\HttpFoundation\\Session\\Session', array('get', 'set'));
+
+			$mockSession->expects($this->any())
+						->method('set');
+
+			$this->application->setSession($mockSession);
 			$this->object->authenticate();
 
 			$token = $this->object->getToken();
@@ -192,22 +188,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 			TestHelper::setValue($input, 'data', $data);
 
-			// Get mock session
-			$mockSession = $this->getMock('Joomla\\Session\\Session', array( '_start', 'get'));
-
 			if ($fail)
 			{
 				$mockSession->expects($this->at(0))
 							->method('get')
-							->with('key', null, 'oauth_token')
+							->with('oauth_token/key', null)
 							->will($this->returnValue('bad'));
 
 				$mockSession->expects($this->at(1))
 							->method('get')
-							->with('secret', null, 'oauth_token')
+							->with('oauth_token/secret', null)
 							->will($this->returnValue('session'));
-
-				Factory::$session = $mockSession;
 
 				$this->setExpectedException('DomainException');
 				$result = $this->object->authenticate();
@@ -215,15 +206,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 			$mockSession->expects($this->at(0))
 						->method('get')
-						->with('key', null, 'oauth_token')
+						->with('oauth_token/key', null)
 						->will($this->returnValue('token'));
 
 			$mockSession->expects($this->at(1))
 						->method('get')
-						->with('secret', null, 'oauth_token')
+						->with('oauth_token/secret', null)
 						->will($this->returnValue('secret'));
-
-			Factory::$session = $mockSession;
 
 			$returnData = new stdClass;
 			$returnData->code = 200;

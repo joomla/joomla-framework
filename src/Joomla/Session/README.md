@@ -1,5 +1,6 @@
 # The Session Package
 
+This package provides two session storages handlers implementing PHP's SessionHandlerInterface. Provided are session handlers for Xcache and APC.
 
 ## Installation via Composer
 

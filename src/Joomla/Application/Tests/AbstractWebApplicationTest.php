@@ -1239,7 +1239,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetSession()
 	{
-		$mockSession = $this->getMock('Joomla\Session\Session', array('test'), array(), '', false);
+		$mockSession = $this->getMock('Symfony\Component\HttpFoundation\Session\Session', array('test'), array(), '', false);
 
 		$this->assertSame($this->instance, $this->instance->setSession($mockSession), 'Checks chainging.');
 		$this->assertNull($this->instance->getSession()->test(), 'Checks the session was set with the new object.');

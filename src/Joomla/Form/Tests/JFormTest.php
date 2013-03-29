@@ -518,12 +518,6 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 		/**
 			include_once JPATH_BASE . '/libraries/joomla/user/user.php';
 
-			$user = new JUser;
-			$mockSession = $this->getMock('Joomla\\Session\\Session', array('_start', 'get'));
-			$mockSession->expects($this->once())->method('get')->will(
-				$this->returnValue($user)
-			);
-			Factory::$session = $mockSession;
 			// Adjust the timezone offset to a known value.
 			$config = Factory::getConfig();
 			$config->setValue('config.offset', 10);

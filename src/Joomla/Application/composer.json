@@ -8,11 +8,11 @@
     "require": {
         "php": ">=5.3.10",
         "joomla/input": "dev-master",
-        "joomla/session": "dev-master",
         "joomla/string": "dev-master",
         "joomla/registry": "dev-master",
         "joomla/uri": "dev-master",
         "joomla/filesystem": "dev-master",
+        "symfony/http-foundation": "2.2.*",
         "psr/log": "~1.0"
     },
     "require-dev": {

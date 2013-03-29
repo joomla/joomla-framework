@@ -4,18 +4,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Session\Storage\Apc as StorageApc;
-use Joomla\Session\Storage;
+use Joomla\Session\ApcSessionHandler;
 
 /**
- * Test class for JSessionStorageApc.
+ * Test class for ApcSessionHandler.
  *
  * @since  1.0
  */
-class JSessionStorageApcTest extends PHPUnit_Framework_TestCase
+class ApcSessionHandlerTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var JSessionStorageApc
+	 * @var ApcSessionHandler
 	 */
 	protected $object;
 
@@ -30,12 +29,12 @@ class JSessionStorageApcTest extends PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		// Skip these tests if APC isn't available.
-		if (!StorageAPC::isSupported())
+		if (!ApcSessionHandler::isSupported())
 		{
 			$this->markTestSkipped('APC storage is not enabled on this system.');
 		}
 
-		$this->object = Storage::getInstance('APC');
+		$this->object = new ApcSessionHandler;
 	}
 
 	/**
