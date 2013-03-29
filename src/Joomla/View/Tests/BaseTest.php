@@ -11,14 +11,14 @@ use Joomla\Model;
 require_once __DIR__ . '/stubs/tbase.php';
 
 /**
- * Tests for the Joomla\View\Base class.
+ * Tests for the Joomla\View\AbstractView class.
  *
  * @since  1.0
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class AbstractViewTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\View\Base
+	 * @var    \Joomla\View\AbstractView
 	 * @since  1.0
 	 */
 	private $instance;
@@ -28,7 +28,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Base::__construct
+	 * @covers  Joomla\View\AbstractView::__construct
 	 * @since   1.0
 	 */
 	public function test__construct()
@@ -41,7 +41,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Base::escape
+	 * @covers  Joomla\View\AbstractView::escape
 	 * @since   1.0
 	 */
 	public function testEscape()

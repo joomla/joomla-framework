@@ -11,11 +11,11 @@ namespace Joomla\View;
 use Joomla\Model\ModelInterface;
 
 /**
- * Joomla Platform Base View Class
+ * Joomla Platform Abstract View Class
  *
  * @since  1.0
  */
-abstract class Base implements ViewInterface
+abstract class AbstractView implements ViewInterface
 {
 	/**
 	 * The model object.
