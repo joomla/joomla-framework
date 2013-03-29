@@ -8,7 +8,6 @@
 
 namespace Joomla\Data;
 
-use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 
 /**
@@ -256,9 +255,9 @@ class Object implements DumpableInterface, \IteratorAggregate, \JsonSerializable
 			}
 
 			// Check if the object is a date.
-			if ($value instanceof Date)
+			if ($value instanceof \DateTime)
 			{
-				$value = (string) $value;
+				$value = $value->format('Y-m-d H:i:s');
 			}
 			elseif ($value instanceof Registry)
 			// Check if the object is a registry.

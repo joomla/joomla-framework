@@ -9,7 +9,6 @@
 namespace Joomla\Application;
 
 use Joomla\Uri\Uri;
-use Joomla\Date\Date;
 use Joomla\Input\Input;
 use Joomla\Session\Session;
 use Joomla\Registry\Registry;
@@ -40,7 +39,7 @@ abstract class Web extends Base
 	/**
 	 * The body modified date for response headers.
 	 *
-	 * @var    Date
+	 * @var    \DateTime
 	 * @since  1.0
 	 */
 	public $modifiedDate;
@@ -246,9 +245,10 @@ abstract class Web extends Base
 			$this->setHeader('Expires', gmdate('D, d M Y H:i:s', time() + 900) . ' GMT');
 
 			// Last modified.
-			if ($this->modifiedDate instanceof Date)
+			if ($this->modifiedDate instanceof \DateTime)
 			{
-				$this->setHeader('Last-Modified', $this->modifiedDate->format('D, d M Y H:i:s'));
+				$this->modifiedDate->setTimezone(new \DateTimeZone('UTC'));
+				$this->setHeader('Last-Modified', $this->modifiedDate->format('D, d M Y H:i:s') . ' GMT');
 			}
 		}
 

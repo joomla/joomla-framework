@@ -619,7 +619,7 @@ class Issues extends Object
 
 		if ($since)
 		{
-			$uri->setVar('since', $since->toISO8601());
+			$uri->setVar('since', $since->format(\DateTime::RFC3339));
 		}
 
 		// Send the request.

@@ -8,8 +8,10 @@
     "require": {
         "php": ">=5.3.10",
         "joomla/compat": "dev-master",
-        "joomla/date": "dev-master",
         "joomla/registry": "dev-master"
+    },
+    "require-dev": {
+        "joomla/date": "dev-master"
     },
     "target-dir": "Joomla/Data",
     "autoload": {
