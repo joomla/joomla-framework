@@ -8,22 +8,8 @@
 
 namespace Joomla\Application\Web;
 
-
 /**
  * Class to model a Web Client.
- *
- * @property-read  integer  $platform        The detected platform on which the web client runs.
- * @property-read  boolean  $mobile          True if the web client is a mobile device.
- * @property-read  integer  $engine          The detected rendering engine used by the web client.
- * @property-read  integer  $browser         The detected browser used by the web client.
- * @property-read  string   $browserVersion  The detected browser version used by the web client.
- * @property-read  array    $languages       The priority order detected accepted languages for the client.
- * @property-read  array    $encodings       The priority order detected accepted encodings for the client.
- * @property-read  string   $userAgent       The web client's user agent string.
- * @property-read  string   $acceptEncoding  The web client's accepted encoding string.
- * @property-read  string   $acceptLanguage  The web client's accepted languages string.
- * @property-read  array    $detection       An array of flags determining whether or not a detection routine has been run.
- * @property-read  boolean  $robot           True if the web client is a robot
  *
  * @since  1.0
  */
@@ -53,73 +39,97 @@ class Client
 	const ANDROIDTABLET = 22;
 
 	/**
-	 * @var    integer  The detected platform on which the web client runs.
+	 * The detected platform on which the web client runs.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $platform;
 
 	/**
-	 * @var    boolean  True if the web client is a mobile device.
+	 * True if the web client is a mobile device.
+	 *
+	 * @var    boolean
 	 * @since  1.0
 	 */
 	protected $mobile = false;
 
 	/**
-	 * @var    integer  The detected rendering engine used by the web client.
+	 * The detected rendering engine used by the web client.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $engine;
 
 	/**
-	 * @var    integer  The detected browser used by the web client.
+	 * The detected browser used by the web client.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $browser;
 
 	/**
-	 * @var    string  The detected browser version used by the web client.
+	 * The detected browser version used by the web client.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $browserVersion;
 
 	/**
-	 * @var    array  The priority order detected accepted languages for the client.
+	 * The priority order detected accepted languages for the client.
+	 *
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected $languages = array();
 
 	/**
-	 * @var    array  The priority order detected accepted encodings for the client.
+	 * The priority order detected accepted encodings for the client.
+	 *
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected $encodings = array();
 
 	/**
-	 * @var    string  The web client's user agent string.
+	 * The web client's user agent string.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $userAgent;
 
 	/**
-	 * @var    string  The web client's accepted encoding string.
+	 * The web client's accepted encoding string.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $acceptEncoding;
 
 	/**
-	 * @var    string  The web client's accepted languages string.
+	 * The web client's accepted languages string.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $acceptLanguage;
 
 	/**
-	 * @var    boolean  True if the web client is a robot.
+	 * True if the web client is a robot.
+	 *
+	 * @var    boolean
 	 * @since  1.0
 	 */
 	protected $robot = false;
 
 	/**
-	 * @var    array  An array of flags determining whether or not a detection routine has been run.
+	 * An array of flags determining whether or not a detection routine has been run.
+	 *
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected $detection = array();
@@ -167,68 +177,139 @@ class Client
 	}
 
 	/**
-	 * Magic method to get an object property's value by name.
+	 * Get the detected platform on which the web client runs.
 	 *
-	 * @param   string  $name  Name of the property for which to return a value.
-	 *
-	 * @return  mixed  The requested value if it exists.
+	 * @return  integer  The platform.
 	 *
 	 * @since   1.0
 	 */
-	public function __get($name)
+	public function getPlatform()
 	{
-		switch ($name)
+		if (empty($this->detection['platform']))
 		{
-			case 'mobile':
-			case 'platform':
-				if (empty($this->detection['platform']))
-				{
-					$this->detectPlatform($this->userAgent);
-				}
-				break;
-
-			case 'engine':
-				if (empty($this->detection['engine']))
-				{
-					$this->detectEngine($this->userAgent);
-				}
-				break;
-
-			case 'browser':
-			case 'browserVersion':
-				if (empty($this->detection['browser']))
-				{
-					$this->detectBrowser($this->userAgent);
-				}
-				break;
-
-			case 'languages':
-				if (empty($this->detection['acceptLanguage']))
-				{
-					$this->detectLanguage($this->acceptLanguage);
-				}
-				break;
-
-			case 'encodings':
-				if (empty($this->detection['acceptEncoding']))
-				{
-					$this->detectEncoding($this->acceptEncoding);
-				}
-				break;
-
-			case 'robot':
-				if (empty($this->detection['robot']))
-				{
-					$this->detectRobot($this->userAgent);
-				}
-				break;
+			$this->detectPlatform($this->userAgent);
 		}
 
-		// Return the property if it exists.
-		if (isset($this->$name))
+		return $this->platform;
+	}
+
+	/**
+	 * Tell if the web client is a mobile device.
+	 *
+	 * @return  boolean  True if it is a mobile, false otherwise.
+	 *
+	 * @since   1.0
+	 */
+	public function isMobile()
+	{
+		if (empty($this->detection['platform']))
 		{
-			return $this->$name;
+			$this->detectPlatform($this->userAgent);
 		}
+
+		return $this->mobile;
+	}
+
+	/**
+	 * Get the detected rendering engine used by the web client.
+	 *
+	 * @return  integer  The engine.
+	 *
+	 * @since   1.0
+	 */
+	public function getEngine()
+	{
+		if (empty($this->detection['engine']))
+		{
+			$this->detectEngine($this->userAgent);
+		}
+
+		return $this->engine;
+	}
+
+	/**
+	 * Get the detected browser used by the web client.
+	 *
+	 * @return  integer  The browser.
+	 *
+	 * @since   1.0
+	 */
+	public function getBrowser()
+	{
+		if (empty($this->detection['browser']))
+		{
+			$this->detectBrowser($this->userAgent);
+		}
+
+		return $this->browser;
+	}
+
+	/**
+	 * Get the detected browser version used by the web client.
+	 *
+	 * @return  string  The browser version.
+	 *
+	 * @since   1.0
+	 */
+	public function getBrowserVersion()
+	{
+		if (empty($this->detection['browser']))
+		{
+			$this->detectBrowser($this->userAgent);
+		}
+
+		return $this->browserVersion;
+	}
+
+	/**
+	 * Get the accepted languages for the client ordered according to his preferences.
+	 *
+	 * @return  array  The languages.
+	 *
+	 * @since   1.0
+	 */
+	public function getLanguages()
+	{
+		if (empty($this->detection['acceptLanguage']))
+		{
+			$this->detectLanguage($this->acceptLanguage);
+		}
+
+		return $this->languages;
+	}
+
+	/**
+	 * Get the priority order detected accepted encodings for the client.
+	 *
+	 * @return  array  The encodings.
+	 *
+	 * @since   1.0
+	 */
+	public function getEncodings()
+	{
+		if (empty($this->detection['acceptEncoding']))
+		{
+			$this->detectEncoding($this->acceptEncoding);
+		}
+
+		return $this->encodings;
+	}
+
+	/**
+	 * Tell if the client is a robot.
+	 *
+	 * @return  boolean  True if it is a robot, false otherwise.
+	 *
+	 * @since   1.0
+	 */
+	public function isRobot()
+	{
+		if (empty($this->detection['robot']))
+		{
+			$this->detectRobot($this->userAgent);
+		}
+
+		return $this->robot;
 	}
 
 	/**
@@ -242,6 +323,8 @@ class Client
 	 */
 	protected function detectBrowser($userAgent)
 	{
+		$patternBrowser = '';
+
 		// Attempt to detect the browser type.  Obviously we are only worried about major browsers.
 		if ((stripos($userAgent, 'MSIE') !== false) && (stripos($userAgent, 'Opera') === false))
 		{

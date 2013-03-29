@@ -62,14 +62,6 @@ abstract class Web extends Base
 	protected $response;
 
 	/**
-	 * The application instance.
-	 *
-	 * @var    Web
-	 * @since  1.0
-	 */
-	private static $instance;
-
-	/**
 	 * The application session object.
 	 *
 	 * @var    Session
@@ -160,7 +152,7 @@ abstract class Web extends Base
 		);
 
 		// Get the supported encoding.
-		$encodings = array_intersect($this->client->encodings, array_keys($supported));
+		$encodings = array_intersect($this->client->getEncodings(), array_keys($supported));
 
 		// If no supported encoding is detected do nothing and return.
 		if (empty($encodings))
@@ -322,7 +314,7 @@ abstract class Web extends Base
 		else
 		{
 			// We have to use a JavaScript redirect here because MSIE doesn't play nice with utf-8 URLs.
-			if (($this->client->engine == Web\Client::TRIDENT) && !utf8_is_ascii($url))
+			if (($this->client->getEngine() == Web\Client::TRIDENT) && !utf8_is_ascii($url))
 			{
 				$html = '<html><head>';
 				$html .= '<meta http-equiv="content-type" content="text/html; charset=' . $this->charSet . '" />';
