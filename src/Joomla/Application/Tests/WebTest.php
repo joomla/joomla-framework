@@ -331,13 +331,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'encodings' => array('gzip', 'deflate'),
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEncodings')
+			->will($this->returnValue(array('gzip', 'deflate')));
+
+		$this->instance->client = $client;
 
 		Helper::invoke($this->instance, 'compress');
 
@@ -387,13 +386,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'encodings' => array('deflate', 'gzip'),
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEncodings')
+			->will($this->returnValue(array('deflate', 'gzip')));
+
+		$this->instance->client = $client;
 
 		Helper::invoke($this->instance, 'compress');
 
@@ -446,13 +444,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'encodings' => array(),
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEncodings')
+			->will($this->returnValue(array()));
+
+		$this->instance->client = $client;
 
 		Helper::invoke($this->instance, 'compress');
 
@@ -500,13 +497,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'encodings' => array('gzip', 'deflate'),
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEncodings')
+			->will($this->returnValue(array('gzip', 'deflate')));
+
+		$this->instance->client = $client;
 
 		// Set the headers sent flag to true.
 		$this->instance->headersSent = true;
@@ -560,13 +556,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'encodings' => array('foo', 'bar'),
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEncodings')
+			->will($this->returnValue(array('foo', 'bar')));
+
+		$this->instance->client = $client;
 
 		Helper::invoke($this->instance, 'compress');
 
@@ -937,13 +932,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		$url = 'index.php';
 
 		// Inject the client information.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'engine' => WebClient::GECKO,
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEngine')
+			->will($this->returnValue(WebClient::GECKO));
+
+		$this->instance->client = $client;
 
 		// Inject the internal configuration.
 		$config = new Registry;
@@ -1010,13 +1004,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		$url = 'http://j.org/index.php?phi=Φ';
 
 		// Inject the client information.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'engine' => WebClient::TRIDENT,
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEngine')
+			->will($this->returnValue(WebClient::TRIDENT));
+
+		$this->instance->client = $client;
 
 		// Capture the output for this test.
 		ob_start();
@@ -1047,13 +1040,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		$url = 'http://j.org/index.php';
 
 		// Inject the client information.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'engine' => WebClient::GECKO,
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEngine')
+			->will($this->returnValue(WebClient::GECKO));
+
+		$this->instance->client = $client;
 
 		$this->instance->redirect($url, true);
 
@@ -1085,13 +1077,12 @@ class WebTest extends \PHPUnit_Framework_TestCase
 	public function testRedirectWithUrl($url, $base, $request, $expected)
 	{
 		// Inject the client information.
-		Helper::setValue(
-			$this->instance,
-			'client',
-			(object) array(
-				'engine' => WebClient::GECKO,
-			)
-		);
+		$client = $this->getMock('Joomla\Application\Web\Client');
+		$client->expects($this->once())
+			->method('getEngine')
+			->will($this->returnValue(WebClient::GECKO));
+
+		$this->instance->client = $client;
 
 		// Inject the internal configuration.
 		$config = new Registry;
