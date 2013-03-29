@@ -11,11 +11,11 @@ namespace Joomla\Uri;
 /**
  * Uri Class
  *
- * This is an immuteable version of the uri class.
+ * This is an immutable version of the uri class.
  *
  * @since  1.0
  */
-final class UriImmuteable extends AbstractUri
+final class UriImmutable extends AbstractUri
 {
 	/**
 	 * @var bool
@@ -31,9 +31,9 @@ final class UriImmuteable extends AbstractUri
 	 *
 	 * @since   1.0
 	 */
-	final public function __set($name, $value)
+	public function __set($name, $value)
 	{
-		throw new \BadMethodCallException('This is an immuteable object');
+		throw new \BadMethodCallException('This is an immutable object');
 	}
 
 	/**
@@ -47,7 +47,7 @@ final class UriImmuteable extends AbstractUri
 	{
 		if ($this->constructed === true)
 		{
-			throw new \BadMethodCallException('This is an immuteable object');
+			throw new \BadMethodCallException('This is an immutable object');
 		}
 
 		$this->constructed = true;
