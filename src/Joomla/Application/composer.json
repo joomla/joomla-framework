@@ -7,7 +7,6 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/date": "dev-master",
         "joomla/input": "dev-master",
         "joomla/session": "dev-master",
         "joomla/registry": "dev-master",
