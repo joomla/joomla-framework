@@ -12,11 +12,11 @@ use Joomla\Filesystem\Path;
 use Joomla\Model\ModelInterface;
 
 /**
- * Joomla Platform HTML View Class
+ * Joomla Framework HTML View Class
  *
  * @since  1.0
  */
-abstract class Html extends Base
+abstract class Html extends AbstractView
 {
 	/**
 	 * The view layout.
