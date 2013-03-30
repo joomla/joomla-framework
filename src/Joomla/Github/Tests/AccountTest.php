@@ -17,7 +17,7 @@ use Joomla\Registry\Registry;
 class AccountTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
+	 * @var    Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;

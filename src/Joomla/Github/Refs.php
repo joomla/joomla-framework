@@ -8,9 +8,6 @@
 
 namespace Joomla\Github;
 
-use stdClass;
-use DomainException;
-
 /**
  * GitHub API References class for the Joomla Platform.
  *
@@ -44,27 +41,17 @@ class Refs extends Object
 		);
 
 		// Send the request.
-		$response = $this->client->post($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 201)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), $data), 201);
 	}
 
 	/**
 	 * Method to update a reference.
 	 *
-	 * @param   string  $user   The name of the owner of the GitHub repository.
-	 * @param   string  $repo   The name of the GitHub repository.
-	 * @param   string  $ref    The reference to update.
-	 * @param   string  $sha    The SHA1 value to set the reference to.
-	 * @param   string  $force  Whether the update should be forced. Default to false.
+	 * @param   string   $user   The name of the owner of the GitHub repository.
+	 * @param   string   $repo   The name of the GitHub repository.
+	 * @param   string   $ref    The reference to update.
+	 * @param   string   $sha    The SHA1 value to set the reference to.
+	 * @param   boolean  $force  Whether the update should be forced. Default to false.
 	 *
 	 * @return  object
 	 *
@@ -76,9 +63,9 @@ class Refs extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/git/refs/' . $ref;
 
 		// Craete the data object.
-		$data = new stdClass;
+		$data = new \stdClass;
 
-		// If a title is set add it to the data object.
+		// If instructed, force the update.
 		if ($force)
 		{
 			$data->force = true;
@@ -90,17 +77,7 @@ class Refs extends Object
 		$data = json_encode($data);
 
 		// Send the request.
-		$response = $this->client->patch($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->patch($this->fetchUrl($path), $data), 200);
 	}
 
 	/**
@@ -120,17 +97,7 @@ class Refs extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/git/refs/' . $ref;
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
 	}
 
 	/**
@@ -152,16 +119,6 @@ class Refs extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/git/refs' . $namespace;
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path, $page, $limit));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
 	}
 }
