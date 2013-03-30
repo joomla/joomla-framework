@@ -6,6 +6,8 @@
 
 namespace Joomla\Database\Tests;
 
+use Joomla\Test\Helper;
+
 /**
  * Abstract test case class for database testing.
  *
@@ -14,7 +16,7 @@ namespace Joomla\Database\Tests;
 abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 {
 	/**
-	 * @var    JDatabaseDriver  The active database driver being used for the tests.
+	 * @var    \Joomla\Database\Driver  The active database driver being used for the tests.
 	 * @since  1.0
 	 */
 	protected static $driver;
@@ -45,7 +47,7 @@ abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 			$pdo->exec(file_get_contents(__DIR__ . '/Stubs/ddl.sql'));
 
 			// Set the PDO instance to the driver using reflection whizbangery.
-			\Joomla\Test\Helper::setValue(self::$driver, 'connection', $pdo);
+			Helper::setValue(self::$driver, 'connection', $pdo);
 		}
 		catch (\RuntimeException $e)
 		{
@@ -74,7 +76,7 @@ abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 	/**
 	 * Returns the default database connection for running the tests.
 	 *
-	 * @return  PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
+	 * @return  \PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
 	 *
 	 * @since   1.0
 	 */
@@ -91,21 +93,21 @@ abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 	}
 
 	/**
-	 * Gets the data set to be loaded into the database during setup
+	 * Gets the data set to be loaded into the database during setup.
 	 *
-	 * @return  xml dataset
+	 * @return  \PHPUnit_Extensions_Database_DataSet_XmlDataSet
 	 *
 	 * @since   1.0
 	 */
 	protected function getDataSet()
 	{
-		return $this->createXMLDataSet(JPATH_TESTS . '/suites/unit/stubs/empty.xml');
+		return $this->createXMLDataSet(__DIR__ . '/stubs/database.xml');
 	}
 
 	/**
 	 * Returns the database operation executed in test setup.
 	 *
-	 * @return  PHPUnit_Extensions_Database_Operation_DatabaseOperation
+	 * @return  \PHPUnit_Extensions_Database_Operation_Composite
 	 *
 	 * @since   1.0
 	 */
@@ -123,7 +125,7 @@ abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 	/**
 	 * Returns the database operation executed in test cleanup.
 	 *
-	 * @return  PHPUnit_Extensions_Database_Operation_DatabaseOperation
+	 * @return  \PHPUnit_Extensions_Database_Operation_IDatabaseOperation
 	 *
 	 * @since   1.0
 	 */

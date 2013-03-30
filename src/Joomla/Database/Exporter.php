@@ -85,7 +85,7 @@ abstract class Exporter
 	 * @return  string
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error is encountered.
+	 * @throws  \Exception if an error is encountered.
 	 */
 	public function __toString()
 	{
@@ -126,7 +126,7 @@ abstract class Exporter
 	 * @return  string  An XML string
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error occurs.
+	 * @throws  \Exception if an error occurs.
 	 */
 	abstract protected function buildXml();
 
@@ -136,7 +136,7 @@ abstract class Exporter
 	 * @return  array  An array of XML lines (strings).
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error occurs.
+	 * @throws  \Exception if an error occurs.
 	 */
 	abstract protected function buildXmlStructure();
 
@@ -146,7 +146,7 @@ abstract class Exporter
 	 * @return  Driver  Method supports chaining.
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error is encountered.
+	 * @throws  \Exception if an error is encountered.
 	 */
 	abstract public function check();
 
@@ -158,7 +158,7 @@ abstract class Exporter
 	 * @return  Exporter  Method supports chaining.
 	 *
 	 * @since   1.0
-	 * @throws  Exception if input is not a string or array.
+	 * @throws  \Exception if input is not a string or array.
 	 */
 	public function from($from)
 	{
@@ -202,7 +202,7 @@ abstract class Exporter
 	 *
 	 * @param   Driver  $db  The database connector.
 	 *
-	 * @return  Mysqli  Method supports chaining.
+	 * @return  Exporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */

@@ -23,7 +23,7 @@ class Mysql extends Mysqli
 	 * @return  Mysql  Method supports chaining.
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error is encountered.
+	 * @throws  \Exception if an error is encountered.
 	 */
 	public function check()
 	{

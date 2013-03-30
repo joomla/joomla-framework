@@ -1,24 +1,24 @@
 <?php
 /**
- * @package    Joomla.Test
- * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Tests;
+
 /**
- * Test class for JDatabasePostgresql.
+ * Test class for Joomla\Database\Driver\Postgresql.
  *
- * @package  Joomla\Framework\Test
- * @since    11.3
+ * @since  1.0
  */
-class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
+class DriverPostgresqlTest extends DatabasePostgresqlCase
 {
 	/**
 	 * Data for the testEscape test.
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function dataTestEscape()
 	{
@@ -36,7 +36,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function dataTestGetEscaped()
 	{
@@ -52,7 +52,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function dataTestTransactionRollback()
 	{
@@ -64,11 +64,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function dataGetCreateDbQuery()
 	{
-		$obj = new stdClass;
+		$obj = new \stdClass;
 		$obj->db_user = 'testName';
 		$obj->db_name = 'testDb';
 
@@ -80,7 +80,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function dataTestReplacePrefix()
 	{
@@ -104,7 +104,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function dataTestQuoteName()
 	{
@@ -143,23 +143,12 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Gets the data set to be loaded into the database during setup
-	 *
-	 * @return  xml dataset
-	 *
-	 * @since   11.1
-	 */
-	protected function getDataSet()
-	{
-		return $this->createXMLDataSet(__DIR__ . '/stubs/database.xml');
-	}
-
-	/**
 	 * Test destruct
 	 *
-	 * @todo Implement test__destruct().
+	 * @return  void
 	 *
-	 * @return   void
+	 * @since   1.0
+	 * @todo    Implement test__destruct().
 	 */
 	public function test__destruct()
 	{
@@ -170,15 +159,21 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	/**
 	 * Check if connected() method returns true.
 	 *
-	 * @return   void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testConnected()
 	{
-		$this->assertThat(self::$driver->connected(), $this->equalTo(true), 'Not connected to database');
+		$this->assertThat(
+			self::$driver->connected(),
+			$this->equalTo(true),
+			'Not connected to database'
+		);
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql escape method.
+	 * Tests the escape method.
 	 *
 	 * @param   string  $text    The string to be escaped.
 	 * @param   bool    $extra   Optional parameter to provide extra escaping.
@@ -186,12 +181,16 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since         1.0
 	 * @dataProvider  dataTestEscape
 	 */
 	public function testEscape($text, $extra, $result)
 	{
-		$this->assertThat(self::$driver->escape($text, $extra), $this->equalTo($result), 'The string was not escaped properly');
+		$this->assertThat(
+			self::$driver->escape($text, $extra),
+			$this->equalTo($result),
+			'The string was not escaped properly'
+		);
 	}
 
 	/**
@@ -199,7 +198,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetAffectedRows()
 	{
@@ -208,17 +207,17 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		$query->from('jos_dbtest');
 		self::$driver->setQuery($query);
 
-		$result = self::$driver->execute();
+		self::$driver->execute();
 
 		$this->assertThat(self::$driver->getAffectedRows(), $this->equalTo(4), __LINE__);
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql getCollation method.
+	 * Tests the getCollation method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetCollation()
 	{
@@ -226,11 +225,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql getNumRows method.
+	 * Tests the getNumRows method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetNumRows()
 	{
@@ -248,20 +247,25 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	/**
 	 * Test getTableCreate function
 	 *
-	 * @todo Implement testGetTableCreate().
+	 * @return  void
 	 *
-	 * @return   void
+	 * @since   1.0
 	 */
 	public function testGetTableCreate()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		$this->assertThat(
+			self::$driver->getTableCreate('jos_dbtest'),
+			$this->equalTo(''),
+			__LINE__
+		);
 	}
 
 	/**
 	 * Test getTableColumns function.
 	 *
-	 * @return   void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testGetTableColumns()
 	{
@@ -270,28 +274,28 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		$this->assertThat(self::$driver->getTableColumns('jos_dbtest'), $this->equalTo($tableCol), __LINE__);
 
 		/* not only type field */
-		$id = new stdClass;
+		$id = new \stdClass;
 		$id->column_name = 'id';
 		$id->type = 'integer';
 		$id->null = 'NO';
 		$id->Default = 'nextval(\'jos_dbtest_id_seq\'::regclass)';
 		$id->comments = '';
 
-		$title = new stdClass;
+		$title = new \stdClass;
 		$title->column_name = 'title';
 		$title->type = 'character varying(50)';
 		$title->null = 'NO';
 		$title->Default = null;
 		$title->comments = '';
 
-		$start_date = new stdClass;
+		$start_date = new \stdClass;
 		$start_date->column_name = 'start_date';
 		$start_date->type = 'timestamp without time zone';
 		$start_date->null = 'NO';
 		$start_date->Default = null;
 		$start_date->comments = '';
 
-		$description = new stdClass;
+		$description = new \stdClass;
 		$description->column_name = 'description';
 		$description->type = 'text';
 		$description->null = 'NO';
@@ -308,29 +312,31 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	/**
 	 * Test getTableKeys function.
 	 *
-	 * @return   void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testGetTableKeys()
 	{
-		$pkey = new stdClass;
+		$pkey = new \stdClass;
 		$pkey->idxName = 'jos_assets_pkey';
 		$pkey->isPrimary = 't';
 		$pkey->isUnique = 't';
 		$pkey->Query = 'ALTER TABLE jos_assets ADD PRIMARY KEY (id)';
 
-		$asset = new stdClass;
+		$asset = new \stdClass;
 		$asset->idxName = 'idx_asset_name';
 		$asset->isPrimary = 'f';
 		$asset->isUnique = 't';
 		$asset->Query = 'CREATE UNIQUE INDEX idx_asset_name ON jos_assets USING btree (name)';
 
-		$lftrgt = new stdClass;
+		$lftrgt = new \stdClass;
 		$lftrgt->idxName = 'jos_assets_idx_lft_rgt';
 		$lftrgt->isPrimary = 'f';
 		$lftrgt->isUnique = 'f';
 		$lftrgt->Query = 'CREATE INDEX jos_assets_idx_lft_rgt ON jos_assets USING btree (lft, rgt)';
 
-		$id = new stdClass;
+		$id = new \stdClass;
 		$id->idxName = 'jos_assets_idx_parent_id';
 		$id->isPrimary = 'f';
 		$id->isUnique = 'f';
@@ -342,11 +348,13 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	/**
 	 * Test getTableSequences function.
 	 *
-	 * @return   void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testGetTableSequences()
 	{
-		$seq = new stdClass;
+		$seq = new \stdClass;
 		$seq->sequence = 'jos_dbtest_id_seq';
 		$seq->schema = 'public';
 		$seq->table = 'jos_dbtest';
@@ -373,11 +381,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql getTableList method.
+	 * Tests the getTableList method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetTableList()
 	{
@@ -431,11 +439,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql getVersion method.
+	 * Tests the getVersion method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testGetVersion()
 	{
@@ -446,16 +454,16 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql insertId method.
+	 * Tests the insertId method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testInsertid()
 	{
 		self::$driver->setQuery('TRUNCATE TABLE "jos_dbtest"');
-		$result = self::$driver->execute();
+		self::$driver->execute();
 
 		/* increment the sequence automatically with INSERT INTO,
 		 * first insert to have a common starting point */
@@ -492,17 +500,15 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return   void
 	 *
-	 * @since    12.1
+	 * @since    1.0
 	 */
 	public function testInsertObject()
 	{
-		self::$driver->setQuery('ALTER SEQUENCE jos_dbtest_id_seq RESTART WITH 1');
-		$result = self::$driver->execute();
+		self::$driver->setQuery('ALTER SEQUENCE jos_dbtest_id_seq RESTART WITH 1')->execute();
 
-		self::$driver->setQuery('TRUNCATE TABLE "jos_dbtest"');
-		$result = self::$driver->execute();
+		self::$driver->setQuery('TRUNCATE TABLE "jos_dbtest"')->execute();
 
-		$tst = new JObject;
+		$tst = new \stdClass;
 		$tst->title = "PostgreSQL test insertObject";
 		$tst->start_date = '2012-04-07 15:00:00';
 		$tst->description = "Test insertObject";
@@ -522,7 +528,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		$this->assertThat($ret, $this->equalTo(true), __LINE__);
 
 		// Insert object retrieving the key
-		$tstK = new JObject;
+		$tstK = new \stdClass;
 		$tstK->title = "PostgreSQL test insertObject with key";
 		$tstK->start_date = '2012-04-07 15:00:00';
 		$tstK->description = "Test insertObject with key";
@@ -535,11 +541,13 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	/**
 	 * Test isSupported function.
 	 *
-	 * @return   void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(JDatabaseDriverPostgresql::isSupported(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Driver\Postgresql::isSupported(), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -547,7 +555,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadAssoc()
 	{
@@ -565,7 +573,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadAssocList()
 	{
@@ -578,7 +586,12 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		$this->assertThat(
 			$result,
 			$this->equalTo(
-				array(array('title' => 'Testing'), array('title' => 'Testing2'), array('title' => 'Testing3'), array('title' => 'Testing4'))
+				array(
+					array('title' => 'Testing'),
+					array('title' => 'Testing2'),
+					array('title' => 'Testing3'),
+					array('title' => 'Testing4')
+				)
 			),
 			__LINE__
 		);
@@ -589,7 +602,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadColumn()
 	{
@@ -607,7 +620,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadObject()
 	{
@@ -618,7 +631,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		self::$driver->setQuery($query);
 		$result = self::$driver->loadObject();
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 3;
 		$objCompare->title = 'Testing3';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -632,7 +645,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadObjectList()
 	{
@@ -645,7 +658,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 
 		$expected = array();
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 1;
 		$objCompare->title = 'Testing';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -653,7 +666,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 
 		$expected[] = clone $objCompare;
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 2;
 		$objCompare->title = 'Testing2';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -661,7 +674,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 
 		$expected[] = clone $objCompare;
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 3;
 		$objCompare->title = 'Testing3';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -669,7 +682,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 
 		$expected[] = clone $objCompare;
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 4;
 		$objCompare->title = 'Testing4';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -685,7 +698,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadResult()
 	{
@@ -705,7 +718,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadRow()
 	{
@@ -726,7 +739,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testLoadRowList()
 	{
@@ -743,11 +756,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Test the JDatabasePostgresql::query() method
+	 * Test the query method
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testQuery()
 	{
@@ -755,8 +768,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		$query = self::$driver->getQuery(true);
 		$query->delete();
 		$query->from('#__dbtest')->where('id=5');
-		self::$driver->setQuery($query);
-		$result = self::$driver->execute();
+		self::$driver->setQuery($query)->execute();
 
 		$query = self::$driver->getQuery(true);
 		$query->insert('#__dbtest')
@@ -777,9 +789,9 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 * @param   string  $asPart    String used for AS query part
 	 * @param   string  $expected  Expected string
 	 *
-	 * @return void
+	 * @return  void
 	 *
-	 * @since 11.3
+	 * @since        1.0
 	 * @dataProvider dataTestQuoteName
 	 */
 	public function testQuoteName($quoteMe, $asPart, $expected)
@@ -788,11 +800,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql select method.
+	 * Tests the select method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testSelect()
 	{
@@ -801,11 +813,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql sqlValue method.
+	 * Tests the sqlValue method.
 	 *
 	 * @return  void
 	 *
-	 * @since 12.2
+	 * @since   1.0
 	 */
 	public function testSqlValue()
 	{
@@ -825,7 +837,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		$values = array();
 
 		// Object containing fields of integer, character varying, timestamp and text type
-		$tst = new JObject;
+		$tst = new \stdClass;
 		$tst->id = '5';
 		$tst->charVar = "PostgreSQL test insertObject";
 		$tst->timeStamp = '2012-04-07 15:00:00';
@@ -864,19 +876,22 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 * Test Test method - there really isn't a lot to test here, but
 	 * this is present for the sake of completeness
 	 *
-	 * @return   void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testTest()
 	{
-		$this->assertThat(JDatabaseDriverPostgresql::test(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Driver\Postgresql::test(), $this->isTrue(), __LINE__);
 	}
 
 	/**
 	 * Test updateObject function.
 	 *
-	 * @todo Implement testUpdateObject().
-	 *
 	 * @return  void
+	 *
+	 * @since   1.0
+	 * @todo    Implement testUpdateObject().
 	 */
 	public function testUpdateObject()
 	{
@@ -885,11 +900,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql transactionCommit method.
+	 * Tests the transactionCommit method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testTransactionCommit()
 	{
@@ -899,8 +914,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 			->columns('id,title,start_date,description')
 			->values("6, 'testTitle','1970-01-01','testDescription'");
 
-		self::$driver->setQuery($queryIns);
-		$arr = self::$driver->execute();
+		self::$driver->setQuery($queryIns)->execute();
 
 		self::$driver->transactionCommit();
 
@@ -918,15 +932,14 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql transactionRollback method,
-	 * with and without savepoint.
+	 * Tests the transactionRollback method, with and without savepoint.
 	 *
 	 * @param   string  $toSavepoint  Savepoint name to rollback transaction to
 	 * @param   int     $tupleCount   Number of tuple found after insertion and rollback
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since        1.0
 	 * @dataProvider dataTestTransactionRollback
 	 */
 	public function testTransactionRollback($toSavepoint, $tupleCount)
@@ -938,8 +951,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		$queryIns->insert('#__dbtest')
 			->columns('id,title,start_date,description')
 			->values("7, 'testRollback','1970-01-01','testRollbackSp'");
-		self::$driver->setQuery($queryIns);
-		$arr = self::$driver->execute();
+		self::$driver->setQuery($queryIns)->execute();
 
 		/* create savepoint only if is passed by data provider */
 		if (!is_null($toSavepoint))
@@ -952,8 +964,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		$queryIns->insert('#__dbtest')
 			->columns('id,title,start_date,description')
 			->values("8, 'testRollback','1972-01-01','testRollbackSp'");
-		self::$driver->setQuery($queryIns);
-		$arr = self::$driver->execute();
+		self::$driver->setQuery($queryIns)->execute();
 
 		self::$driver->transactionRollback($toSavepoint);
 
@@ -979,11 +990,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql transactionStart method.
+	 * Tests the transactionStart method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testTransactionStart()
 	{
@@ -994,8 +1005,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 			->columns('id,title,start_date,description')
 			->values("6, 'testTitle','1970-01-01','testDescription'");
 
-		self::$driver->setQuery($queryIns);
-		$arr = self::$driver->execute();
+		self::$driver->setQuery($queryIns)->execute();
 
 		/* check if is present an exclusive lock, it means a transaction is running */
 		$queryCheck = self::$driver->getQuery(true);
@@ -1015,7 +1025,8 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	 *
 	 * @return  void
 	 *
-	 * @expectedException RuntimeException
+	 * @since             1.0
+	 * @expectedException \RuntimeException
 	 */
 	public function testReleaseTransactionSavepoint()
 	{
@@ -1027,7 +1038,7 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 		{
 			self::$driver->releaseTransactionSavepoint('pippo');
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			self::$driver->transactionRollback();
 			throw $e;
@@ -1035,11 +1046,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql renameTable method.
+	 * Tests the renameTable method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since   1.0
 	 */
 	public function testRenameTable()
 	{
@@ -1086,13 +1097,13 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	/**
 	 * Tests the JDatabasePostgresql replacePrefix method.
 	 *
-	 * @param   text  $stringToReplace  The string in which replace the prefix.
-	 * @param   text  $prefix           The prefix.
-	 * @param   text  $expected         The string expected.
+	 * @param   string  $stringToReplace  The string in which replace the prefix.
+	 * @param   string  $prefix           The prefix.
+	 * @param   string  $expected         The string expected.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.3
+	 * @since         1.0
 	 * @dataProvider  dataTestReplacePrefix
 	 */
 	public function testReplacePrefix($stringToReplace, $prefix, $expected)
@@ -1105,9 +1116,10 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	/**
 	 * Test for creation of transaction savepoint
 	 *
-	 * @todo Implement testTransactionSavepoint().
-	 *
 	 * @return  void
+	 *
+	 * @since   1.0
+	 * @todo    Implement testTransactionSavepoint().
 	 */
 	public function testTransactionSavepoint( /*$savepointName*/ )
 	{
@@ -1115,15 +1127,16 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql getCreateDbQuery method.
+	 * Tests the getCreateDbQuery method.
 	 *
-	 * @param   JObject  $options  JObject coming from "initialise" function to pass user
+	 * @param   \stdClass  $options  stdClass coming from "initialise" function to pass user
 	 * 									and database name to database driver.
-	 * @param   boolean  $utf      True if the database supports the UTF-8 character set.
+	 * @param   boolean    $utf      True if the database supports the UTF-8 character set.
 	 *
 	 * @return  void
 	 *
-	 * @dataProvider dataGetCreateDbQuery
+	 * @since         1.0
+	 * @dataProvider  dataGetCreateDbQuery
 	 */
 	public function testGetCreateDbQuery($options, $utf)
 	{
@@ -1140,9 +1153,11 @@ class JDatabasePostgresqlTest extends TestCaseDatabasePostgresql
 	}
 
 	/**
-	 * Tests the JDatabasePostgresql getAlterDbCharacterSet method.
+	 * Tests the getAlterDbCharacterSet method.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testGetAlterDbCharacterSet()
 	{
