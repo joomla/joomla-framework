@@ -4,19 +4,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Tests;
+
+use Joomla\Database\Driver\Sqlsrv;
+
 /**
- * Test class for JDatabaseSQLSrv.
+ * Test class for \Joomla\Database\Driver\Sqlsrv.
  *
  * @since  1.0
  */
-class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
+class DriverSqlsrvTest extends DatabaseSqlsrvCase
 {
-	/**
-	 * @var    JDatabaseSQLSrv
-	 * @since  1.0
-	 */
-	protected $object;
-
 	/**
 	 * Data for the testEscape test.
 	 *
@@ -33,57 +31,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Gets the data set to be loaded into the database during setup
-	 *
-	 * @return  xml dataset
-	 *
-	 * @since   1.0
-	 */
-	protected function getDataSet()
-	{
-		return $this->createXMLDataSet(__DIR__ . '/stubs/database.xml');
-	}
-
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
+	 * Tests the destructor
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 */
-	protected function setUp()
-	{
-		@include_once JPATH_TESTS . '/config_sqlsrv.php';
-
-		if (class_exists('JSqlSrvTestConfig'))
-		{
-			$config = new JSqlSrvTestConfig;
-		}
-		else
-		{
-			$this->markTestSkipped('There is no SQL Server test config file present.');
-		}
-
-		$this->object = JDatabaseDriver::getInstance(
-			array(
-				'driver' => $config->dbtype,
-				'database' => $config->db,
-				'host' => $config->host,
-				'user' => $config->user,
-				'password' => $config->password
-			)
-		);
-
-		parent::setUp();
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement test__destruct().
-	 *
-	 * @return void
+	 * @todo    Implement test__destruct().
 	 */
 	public function test__destruct()
 	{
@@ -92,11 +45,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Test the connected method.
 	 *
-	 * @todo Implement testConnected().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testConnected().
 	 */
 	public function testConnected()
 	{
@@ -105,7 +59,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Tests the JDatabaseSQLSrv dropTable method.
+	 * Tests the dropTable method.
 	 *
 	 * @return  void
 	 *
@@ -114,18 +68,19 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	public function testDropTable()
 	{
 		$this->assertThat(
-			$this->object->dropTable('#__bar', true),
+			self::$driver->dropTable('#__bar', true),
 			$this->isInstanceOf('JDatabaseDriverSqlsrv'),
 			'The table is dropped if present.'
 		);
 	}
 
 	/**
-	 * Test...
+	 * Tests the escape method
 	 *
-	 * @todo Implement testEscape().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testEscape().
 	 */
 	public function testEscape()
 	{
@@ -134,11 +89,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the getAffectedRows method
 	 *
-	 * @todo Implement testGetAffectedRows().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testGetAffectedRows().
 	 */
 	public function testGetAffectedRows()
 	{
@@ -147,11 +103,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the getCollation method
 	 *
-	 * @todo Implement testGetCollation().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testGetCollation().
 	 */
 	public function testGetCollation()
 	{
@@ -160,11 +117,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the getExporter method
 	 *
-	 * @todo Implement testGetExporter().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testGetExporter().
 	 */
 	public function testGetExporter()
 	{
@@ -173,11 +131,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the getImporter method
 	 *
-	 * @todo Implement testGetImporter().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testGetImporter().
 	 */
 	public function testGetImporter()
 	{
@@ -186,11 +145,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the getNumRows method
 	 *
-	 * @todo Implement testGetNumRows().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testGetNumRows().
 	 */
 	public function testGetNumRows()
 	{
@@ -199,7 +159,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Tests the JDatabaseSQLSrv getTableCreate method.
+	 * Tests the getTableCreate method.
 	 *
 	 * @return  void
 	 *
@@ -208,18 +168,19 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	public function testGetTableCreate()
 	{
 		$this->assertThat(
-			$this->object->getTableCreate('#__dbtest'),
+			self::$driver->getTableCreate('#__dbtest'),
 			$this->isType('string'),
 			'A blank string is returned since this is not supported on SQL Server.'
 		);
 	}
 
 	/**
-	 * Test...
+	 * Tests the getTableColumns method
 	 *
-	 * @todo Implement testGetTableColumns().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testGetTableColumns().
 	 */
 	public function testGetTableColumns()
 	{
@@ -228,7 +189,7 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Tests the JDatabaseSQLSrv getTableKeys method.
+	 * Tests the getTableKeys method.
 	 *
 	 * @return  void
 	 *
@@ -237,14 +198,14 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	public function testGetTableKeys()
 	{
 		$this->assertThat(
-			$this->object->getTableKeys('#__dbtest'),
+			self::$driver->getTableKeys('#__dbtest'),
 			$this->isType('array'),
 			'The list of keys for the table is returned in an array.'
 		);
 	}
 
 	/**
-	 * Tests the JDatabaseSQLSrv getTableList method.
+	 * Tests the getTableList method.
 	 *
 	 * @return  void
 	 *
@@ -253,14 +214,14 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	public function testGetTableList()
 	{
 		$this->assertThat(
-			$this->object->getTableList(),
+			self::$driver->getTableList(),
 			$this->isType('array'),
 			'The list of tables for the database is returned in an array.'
 		);
 	}
 
 	/**
-	 * Test getVersion method.
+	 * Tests the getVersion method.
 	 *
 	 * @return  void
 	 *
@@ -269,18 +230,19 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	public function testGetVersion()
 	{
 		$this->assertThat(
-			$this->object->getVersion(),
+			self::$driver->getVersion(),
 			$this->isType('string'),
 			'Line:' . __LINE__ . ' The getVersion method should return a string containing the driver version.'
 		);
 	}
 
 	/**
-	 * Test...
+	 * Tests the insertid method
 	 *
-	 * @todo Implement testInsertid().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testInsertid().
 	 */
 	public function testInsertid()
 	{
@@ -289,11 +251,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the loadAssoc method
 	 *
-	 * @todo Implement testLoadAssoc().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testLoadAssoc().
 	 */
 	public function testLoadAssoc()
 	{
@@ -302,11 +265,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the loadAssocList method
 	 *
-	 * @todo Implement testLoadAssocList().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testLoadAssocList().
 	 */
 	public function testLoadAssocList()
 	{
@@ -315,11 +279,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the loadColumn method
 	 *
-	 * @todo Implement testLoadColumn().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testLoadColumn().
 	 */
 	public function testLoadColumn()
 	{
@@ -328,11 +293,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the loadObject method
 	 *
-	 * @todo Implement testLoadObject().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testLoadObject().
 	 */
 	public function testLoadObject()
 	{
@@ -341,11 +307,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the loadObjectList method
 	 *
-	 * @todo Implement testLoadObjectList().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testLoadObjectList().
 	 */
 	public function testLoadObjectList()
 	{
@@ -354,11 +321,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the loadResult method
 	 *
-	 * @todo Implement testLoadResult().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testLoadResult().
 	 */
 	public function testLoadResult()
 	{
@@ -367,11 +335,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the loadRow method
 	 *
-	 * @todo Implement testLoadRow().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testLoadRow().
 	 */
 	public function testLoadRow()
 	{
@@ -380,11 +349,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the loadRowList method
 	 *
-	 * @todo Implement testLoadRowList().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testLoadRowList().
 	 */
 	public function testLoadRowList()
 	{
@@ -393,24 +363,26 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the execute method
 	 *
-	 * @todo Implement testQuery().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testExecute().
 	 */
-	public function testQuery()
+	public function testExecute()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
 	}
 
 	/**
-	 * Test...
+	 * Tests the select method
 	 *
-	 * @todo Implement testSelect().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testSelect().
 	 */
 	public function testSelect()
 	{
@@ -419,11 +391,12 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the setUTF method
 	 *
-	 * @todo Implement testSetUTF().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testSetUTF().
 	 */
 	public function testSetUTF()
 	{
@@ -432,26 +405,28 @@ class SQLSrvTest extends \Joomla\Database\Tests\DatabaseCase
 	}
 
 	/**
-	 * Test Test method - there really isn't a lot to test here, but
-	 * this is present for the sake of completeness
+	 * Tests the isSupported method
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testIsSupported()
 	{
 		$this->assertThat(
-			JDatabaseSqlsrv::isSupported(),
+			\Joomla\Database\Driver\Sqlsrv::isSupported(),
 			$this->isTrue(),
 			__LINE__
 		);
 	}
 
 	/**
-	 * Test...
+	 * Tests the updateObject method
 	 *
-	 * @todo Implement testUpdateObject().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @todo    Implement testUpdateObject().
 	 */
 	public function testUpdateObject()
 	{

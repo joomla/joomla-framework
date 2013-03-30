@@ -19,7 +19,7 @@ class QueryInspector extends \Joomla\Database\Query
 	 * @param   string  $property  The name of the class property.
 	 * @param   string  $value     The value of the class property.
 	 *
-	 * @return  void
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */

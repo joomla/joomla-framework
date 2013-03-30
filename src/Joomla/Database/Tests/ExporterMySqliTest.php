@@ -7,7 +7,7 @@
 namespace Joomla\Database\Tests;
 
 /**
- * Tests the JDatabaseMySqlExporter class.
+ * Tests the \Joomla\Database\Exporter\Mysqli class.
  *
  * @since  1.0
  */

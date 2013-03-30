@@ -1,34 +1,35 @@
 <?php
 /**
- * @package    Joomla.Test
- *
- * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
+
+namespace Joomla\Database\Tests;
+
+use Joomla\Factory;
 
 /**
  * Abstract test case class for MySQLi database testing.
  *
- * @package  Joomla.Test
- * @since    12.1
+ * @since  1.0
  */
-abstract class TestCaseDatabaseMysqli extends TestCaseDatabase
+abstract class DatabaseMysqliCase extends DatabaseCase
 {
 	/**
-	 * @var    JDatabaseDriver  The active database driver being used for the tests.
-	 * @since  12.1
+	 * @var    \Joomla\Database\Driver\Mysqli  The active database driver being used for the tests.
+	 * @since  1.0
 	 */
 	protected static $driver;
 
 	/**
-	 * @var    array  The JDatabaseDriver options for the connection.
-	 * @since  12.1
+	 * @var    array  The database driver options for the connection.
+	 * @since  1.0
 	 */
 	private static $_options = array('driver' => 'mysqli');
 
 	/**
-	 * @var    JDatabaseDriver  The saved database driver to be restored after these tests.
-	 * @since  12.1
+	 * @var    \Joomla\Database\Driver\Mysqli  The saved database driver to be restored after these tests.
+	 * @since  1.0
 	 */
 	private static $_stash;
 
@@ -39,7 +40,7 @@ abstract class TestCaseDatabaseMysqli extends TestCaseDatabase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function setUpBeforeClass()
 	{
@@ -87,22 +88,22 @@ abstract class TestCaseDatabaseMysqli extends TestCaseDatabase
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = JDatabaseDriver::getInstance(self::$_options);
+			self::$driver = \Joomla\Database\Driver::getInstance(self::$_options);
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			self::$driver = null;
 		}
 
 		// If for some reason an exception object was returned set our database object to null.
-		if (self::$driver instanceof Exception)
+		if (self::$driver instanceof \Exception)
 		{
 			self::$driver = null;
 		}
 
 		// Setup the factory pointer for the driver and stash the old one.
-		self::$_stash = JFactory::$database;
-		JFactory::$database = self::$driver;
+		self::$_stash = Factory::$database;
+		Factory::$database = self::$driver;
 	}
 
 	/**
@@ -110,20 +111,20 @@ abstract class TestCaseDatabaseMysqli extends TestCaseDatabase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function tearDownAfterClass()
 	{
-		JFactory::$database = self::$_stash;
+		Factory::$database = self::$_stash;
 		self::$driver = null;
 	}
 
 	/**
 	 * Returns the default database connection for running the tests.
 	 *
-	 * @return  PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
+	 * @return  \PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getConnection()
 	{
@@ -131,7 +132,7 @@ abstract class TestCaseDatabaseMysqli extends TestCaseDatabase
 		$dsn = 'mysql:host=' . self::$_options['host'] . ';dbname=' . self::$_options['database'];
 
 		// Create the PDO object from the DSN and options.
-		$pdo = new PDO($dsn, self::$_options['user'], self::$_options['password']);
+		$pdo = new \PDO($dsn, self::$_options['user'], self::$_options['password']);
 
 		return $this->createDefaultDBConnection($pdo, self::$_options['database']);
 	}
