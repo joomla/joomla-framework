@@ -75,7 +75,7 @@ class Gists extends Object
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @return  void
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */
@@ -93,7 +93,7 @@ class Gists extends Object
 	 *
 	 * @param   integer  $commentId  The id of the comment to delete.
 	 *
-	 * @return  void
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */
@@ -370,7 +370,7 @@ class Gists extends Object
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @return  void
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */
@@ -388,7 +388,7 @@ class Gists extends Object
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @return  void
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */

@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github\Tests;
+
 use Joomla\Registry\Registry;
 use Joomla\Github\Hooks;
 
@@ -12,22 +14,28 @@ use Joomla\Github\Hooks;
  *
  * @since  1.0
  */
-class HooksTest extends PHPUnit_Framework_TestCase
+class HooksTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
+	 * @var    Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    Joomla\Github\Http  Mock client object.
+	 * @var    \Joomla\Github\Http  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    Joomla\Github\Hooks  Object under test.
+	 * @var    \Joomla\Http\Response  Mock response object.
+	 * @since  1.0
+	 */
+	protected $response;
+
+	/**
+	 * @var    Hooks  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -58,6 +66,7 @@ class HooksTest extends PHPUnit_Framework_TestCase
 
 		$this->options = new Registry;
 		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
 		$this->object = new Hooks($this->options, $this->client);
 	}
@@ -71,11 +80,10 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCreate()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 201;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
 
-		$hook = new stdClass;
+		$hook = new \stdClass;
 		$hook->name = 'acunote';
 		$hook->config = array('token' => '123456789');
 		$hook->events = array('push', 'public');
@@ -84,7 +92,7 @@ class HooksTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/hooks', json_encode($hook))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->create('joomla', 'joomla-platform', 'acunote', array('token' => '123456789'), array('push', 'public')),
@@ -103,11 +111,10 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	{
 		$exception = false;
 
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
-		$hook = new stdClass;
+		$hook = new \stdClass;
 		$hook->name = 'acunote';
 		$hook->config = array('token' => '123456789');
 		$hook->events = array('push', 'public');
@@ -116,13 +123,13 @@ class HooksTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/hooks', json_encode($hook))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		try
 		{
 			$this->object->create('joomla', 'joomla-platform', 'acunote', array('token' => '123456789'), array('push', 'public'));
 		}
-		catch (DomainException $e)
+		catch (\DomainException $e)
 		{
 			$exception = true;
 
@@ -157,14 +164,13 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDelete()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 204;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('delete')
 			->with('/repos/joomla/joomla-platform/hooks/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->delete('joomla', 'joomla-platform', 42),
@@ -183,20 +189,19 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	{
 		$exception = false;
 
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('delete')
 			->with('/repos/joomla/joomla-platform/hooks/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		try
 		{
 			$this->object->delete('joomla', 'joomla-platform', 42);
 		}
-		catch (DomainException $e)
+		catch (\DomainException $e)
 		{
 			$exception = true;
 
@@ -217,11 +222,10 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEdit()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
-		$hook = new stdClass;
+		$hook = new \stdClass;
 		$hook->name = 'acunote';
 		$hook->config = array('token' => '123456789');
 		$hook->events = array('push', 'public');
@@ -232,7 +236,7 @@ class HooksTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/repos/joomla/joomla-platform/hooks/42', json_encode($hook))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'),
@@ -253,11 +257,10 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	{
 		$exception = false;
 
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
-		$hook = new stdClass;
+		$hook = new \stdClass;
 		$hook->name = 'acunote';
 		$hook->config = array('token' => '123456789');
 		$hook->events = array('push', 'public');
@@ -268,7 +271,7 @@ class HooksTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/repos/joomla/joomla-platform/hooks/42', json_encode($hook))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		try
 		{
@@ -276,7 +279,7 @@ class HooksTest extends PHPUnit_Framework_TestCase
 				array('push', 'public'), array('watch'), array('watch')
 			);
 		}
-		catch (DomainException $e)
+		catch (\DomainException $e)
 		{
 			$exception = true;
 
@@ -311,14 +314,13 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGet()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/hooks/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->get('joomla', 'joomla-platform', 42),
@@ -337,14 +339,13 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/hooks/42')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->get('joomla', 'joomla-platform', 42);
 	}
@@ -358,14 +359,13 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetList()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/hooks')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->getList('joomla', 'joomla-platform'),
@@ -384,14 +384,13 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetListFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/hooks')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->getList('joomla', 'joomla-platform');
 	}
@@ -405,14 +404,13 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testTest()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 204;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/hooks/42/test')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->test('joomla', 'joomla-platform', 42),
@@ -431,14 +429,13 @@ class HooksTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testTestFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/hooks/42/test')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->test('joomla', 'joomla-platform', 42);
 	}

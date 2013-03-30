@@ -8,9 +8,6 @@
 
 namespace Joomla\Github;
 
-use InvalidArgumentException;
-use DomainException;
-
 /**
  * GitHub API References class for the Joomla Platform.
  *
@@ -31,6 +28,7 @@ class Statuses extends Object
 	 * @return  object
 	 *
 	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function create($user, $repo, $sha, $state, $targetUrl = null, $description = null)
 	{
@@ -39,7 +37,7 @@ class Statuses extends Object
 
 		if (!in_array($state, array('pending', 'success', 'error', 'failure')))
 		{
-			throw new InvalidArgumentException('State must be one of pending, success, error or failure.');
+			throw new \InvalidArgumentException('State must be one of pending, success, error or failure.');
 		}
 
 		// Build the request data.
@@ -58,17 +56,7 @@ class Statuses extends Object
 		}
 
 		// Send the request.
-		$response = $this->client->post($this->fetchUrl($path), json_encode($data));
-
-		// Validate the response code.
-		if ($response->code != 201)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), json_encode($data)), 201);
 	}
 
 	/**
@@ -88,16 +76,6 @@ class Statuses extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/statuses/' . $sha;
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
 	}
 }
