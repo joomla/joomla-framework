@@ -140,5 +140,20 @@
 		</apply>
 	</target>
 
-	<target name="build" depends="clean,installdep,phpunit,parallelTasks,phpcb" />
+	<target name="composervalidate" description="Perform validation of composer.json files.">
+		<exec executable="composer" failonerror="true">
+			<arg value="validate" />
+		</exec>
+
+		<apply executable="composer" failonerror="true">
+			<arg value="validate" />
+
+			<fileset dir="${source}">
+				<include name="**/composer.json" />
+				<modified />
+			</fileset>
+		</apply>
+	</target>
+
+	<target name="build" depends="clean,composervalidate,installdep,phpunit,parallelTasks,phpcb" />
 </project>
