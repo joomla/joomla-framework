@@ -12,7 +12,7 @@ use Joomla\Form\Html\Select as HtmlSelect;
 use Joomla\Language\Text;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Displays options as a list of check boxes.
  * Multiselect may be forced to be true.
  *

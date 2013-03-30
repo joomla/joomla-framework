@@ -14,7 +14,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * Joomla Platform Base Application Class
+ * Joomla Framework Base Application Class
  *
  * @since  1.0
  */

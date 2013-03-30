@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 use Psr\Cache\CacheItemInterface;
 
 /**
- * Filesystem cache driver for the Joomla Platform.
+ * Filesystem cache driver for the Joomla Framework.
  *
  * Supported options:
  * - ttl (integer)          : The default number of seconds for the cache life.

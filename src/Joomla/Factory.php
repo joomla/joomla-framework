@@ -25,7 +25,7 @@ use JConfig;
 use JVersion;
 
 /**
- * Joomla Platform Factory class
+ * Joomla Framework Factory class
  *
  * @since  1.0
  */

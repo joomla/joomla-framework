@@ -15,7 +15,7 @@ use Joomla\Language\Text;
 use SimpleXMLElement;
 
 /**
- * Abstract Form Field class for the Joomla Platform.
+ * Abstract Form Field class for the Joomla Framework.
  *
  * @since  1.0
  */

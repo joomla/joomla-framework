@@ -16,7 +16,7 @@ use UnexpectedValueException;
 use InvalidArgumentException;
 
 /**
- * Google Calendar data class for the Joomla Platform.
+ * Google Calendar data class for the Joomla Framework.
  *
  * @since  1.0
  */

@@ -14,7 +14,7 @@ use Joomla\Database\Query\LimitableInterface;
 use Joomla\Database\Query\PreparableInterface;
 
 /**
- * Joomla Platform PDO Database Driver Class
+ * Joomla Framework PDO Database Driver Class
  *
  * @see    http://php.net/pdo
  * @since  1.0

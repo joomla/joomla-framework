@@ -9,7 +9,7 @@ namespace Joomla\Controller\Tests;
 use Joomla\Controller\Base;
 
 /**
- * Joomla Platform Capitaliser Object Class
+ * Joomla Framework Capitaliser Object Class
  *
  * @since  1.0
  */

@@ -8,7 +8,7 @@ an unstable state (i.e. all tests should pass at all times). In order to
 make the process of getting your code accepted it is helpful to run
 these tests locally to prevent any unexpected surprises.
 
-The Joomla Platform unit tests are developed for use with PHPUnit 3.6,
+The Joomla Framework unit tests are developed for use with PHPUnit 3.6,
 which is the latest stable version as of August 2011. Please see the
 [PHPUnit Manual](http://www.phpunit.de/manual/3.6/en/installation.html)
 for information on installing PHPUnit on your system.
@@ -50,7 +50,7 @@ following:
 -   Uncomment the php block and include the "JTEST\_HTTP\_STUB" const.
 
 -   The default file path for the const assumes that you have checked
-    out the Joomla Platform to the web root of your test environment
+    out the Joomla Framework to the web root of your test environment
     inside a folder named "joomla-platform". If this is not the case,
     you can change the path to suit your environment and, if need be,
     copy the file from its default location to be available within your
@@ -76,7 +76,7 @@ standards to ensure that the coding style in the source code is
 consistent. Ensuring that your code meets these standards will make the
 process of code contribution smoother.
 
-The Joomla Platform sniffer rules are written to be used with a tool
+The Joomla Framework sniffer rules are written to be used with a tool
 called PHP\_CodeSniffer. Please see the [PHP\_CodeSniffer Pear
 Page](http://pear.php.net/package/PHP_CodeSniffer) for information on
 installing PHP\_CodeSniffer on your system.

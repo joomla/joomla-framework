@@ -14,7 +14,7 @@ use stdClass;
 use DomainException;
 
 /**
- * GitHub API Issues class for the Joomla Platform.
+ * GitHub API Issues class for the Joomla Framework.
  *
  * @since  1.0
  */

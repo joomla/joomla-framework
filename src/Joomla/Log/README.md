@@ -2,7 +2,7 @@
 
 ### Introduction
 
-The Joomla Platform includes a Log package that allows for configurable,
+The Joomla Framework includes a Log package that allows for configurable,
 hook-driven logging to a variety of formats.
 
 The classes included in the Log package are `JLog`, `JLogEntry`,
@@ -70,7 +70,7 @@ will look something like this:
 
     #<?php die('Forbidden.'); ?>
     #Date: 2011-06-17 02:56:21 UTC
-    #Software: Joomla Platform 11.1 Stable [ Ember ] 01-Jun-2011 06:00 GMT
+    #Software: Joomla Framework 11.1 Stable [ Ember ] 01-Jun-2011 06:00 GMT
 
     #Fields: datetime   priority    category    message
     2011-06-17T03:06:44+00:00   INFO    -   Logged

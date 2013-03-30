@@ -12,7 +12,7 @@ use Joomla\Factory;
 use Joomla\Html\Html;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  *
  * @since  1.0
  */

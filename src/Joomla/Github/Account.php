@@ -9,7 +9,7 @@
 namespace Joomla\Github;
 
 /**
- * GitHub API Account class for the Joomla Platform.
+ * GitHub API Account class for the Joomla Framework.
  *
  * @since  1.0
  */

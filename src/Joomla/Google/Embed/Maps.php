@@ -17,7 +17,7 @@ use OutOfBoundsException;
 use UnexpectedValueException;
 
 /**
- * Google Maps embed class for the Joomla Platform.
+ * Google Maps embed class for the Joomla Framework.
  *
  * @since  1.0
  */

@@ -17,7 +17,7 @@ use RuntimeException;
 use UnexpectedValueException;
 
 /**
- * Google Picasa data class for the Joomla Platform.
+ * Google Picasa data class for the Joomla Framework.
  *
  * @since  1.0
  */

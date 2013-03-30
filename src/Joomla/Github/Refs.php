@@ -12,7 +12,7 @@ use stdClass;
 use DomainException;
 
 /**
- * GitHub API References class for the Joomla Platform.
+ * GitHub API References class for the Joomla Framework.
  *
  * @since  1.0
  */

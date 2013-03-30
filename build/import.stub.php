@@ -1,6 +1,6 @@
 <?php
 /**
- * Bootstrap file for the Joomla Platform.  This file becomes the PHAR stub when the platform is built
+ * Bootstrap file for the Joomla Framework.  This file becomes the PHAR stub when the platform is built
  * into a single deployable archive to be used in Joomla applications.
  *
  * @package    Joomla\Framework
@@ -30,16 +30,16 @@ if (!class_exists('JLoader'))
 	require_once JPATH_PLATFORM . '/loader.php';
 }
 
-// Make sure that the Joomla Platform has been successfully loaded.
+// Make sure that the Joomla Framework has been successfully loaded.
 if (!class_exists('JLoader'))
 {
-	throw new RuntimeException('Joomla Platform not loaded.');
+	throw new RuntimeException('Joomla Framework not loaded.');
 }
 
 // Setup the autoloaders.
 JLoader::setup();
 
-// Import the base Joomla Platform libraries.
+// Import the base Joomla Framework libraries.
 JLoader::import('joomla.factory');
 
 // Register classes for compatability with PHP 5.3

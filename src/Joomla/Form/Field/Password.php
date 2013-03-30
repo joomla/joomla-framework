@@ -11,7 +11,7 @@ namespace Joomla\Form;
 use Joomla\Html\Html;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Text field for passwords
  *
  * @link   http://www.w3.org/TR/html-markup/input.password.html#input.password

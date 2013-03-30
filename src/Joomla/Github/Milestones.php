@@ -11,7 +11,7 @@ namespace Joomla\Github;
 use DomainException;
 
 /**
- * GitHub API Milestones class for the Joomla Platform.
+ * GitHub API Milestones class for the Joomla Framework.
  *
  * @since  1.0
  */

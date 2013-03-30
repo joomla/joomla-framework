@@ -1,6 +1,6 @@
 <?php
 /**
- * Unit test runner bootstrap file for the Joomla Platform.
+ * Unit test runner bootstrap file for the Joomla Framework.
  *
  * @package    Joomla\Framework\Test
  *

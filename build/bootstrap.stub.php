@@ -1,6 +1,6 @@
 <?php
 /**
- * Unit test runner bootstrap file for the Joomla Platform.  This file becomes the PHAR stub
+ * Unit test runner bootstrap file for the Joomla Framework.  This file becomes the PHAR stub
  * when the platform and unit test classes are built into a single deployable archive to be
  * used in testing Joomla applications.
  *

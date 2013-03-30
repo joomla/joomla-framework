@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 /**
- * An example command line application built on the Joomla Platform.
+ * An example command line application built on the Joomla Framework.
  *
  * To run this example, adjust the executable path above to suite your operating system,
  * make this file executable and run the file.
@@ -22,9 +22,9 @@ define('JPATH_BASE', __DIR__);
 require realpath('../libraries/import.php');
 
 /**
- * Joomla Platform Changelog builder.
+ * Joomla Framework Changelog builder.
  *
- * This application builds the HTML version of the Joomla Platform change log from the Github API
+ * This application builds the HTML version of the Joomla Framework change log from the Github API
  * that is used in news annoucements.
  *
  * @package  Joomla.Examples
@@ -249,7 +249,7 @@ class Changelog extends JApplicationCli
 	public function help()
 	{
 		$this->out();
-		$this->out('Joomla Platform Changelog');
+		$this->out('Joomla Framework Changelog');
 		$this->out('-------------------------');
 		$this->out();
 		$this->out('Usage: ./changelog [-l]');
@@ -335,7 +335,7 @@ class Changelog extends JApplicationCli
 		<html>
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-				<title>Joomla Platform pull request log</title>
+				<title>Joomla Framework pull request log</title>
 				</head>
 			<body>';
 

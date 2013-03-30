@@ -267,7 +267,7 @@ abstract class JLoader
 	}
 
 	/**
-	 * Method to setup the autoloaders for the Joomla Platform.
+	 * Method to setup the autoloaders for the Joomla Framework.
 	 * Since the SPL autoloaders are called in a queue we will add our explicit
 	 * class-registration based loader first, then fall back on the autoloader based on conventions.
 	 * This will allow people to register a class in a specific location and override platform libraries

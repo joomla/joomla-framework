@@ -11,7 +11,7 @@ namespace Joomla\View;
 use Joomla\Model\ModelInterface;
 
 /**
- * Joomla Platform Base View Class
+ * Joomla Framework Base View Class
  *
  * @since  1.0
  */

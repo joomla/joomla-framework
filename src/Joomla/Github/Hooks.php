@@ -12,7 +12,7 @@ use DomainException;
 use RuntimeException;
 
 /**
- * GitHub API Hooks class for the Joomla Platform.
+ * GitHub API Hooks class for the Joomla Framework.
  *
  * @since  1.0
  */

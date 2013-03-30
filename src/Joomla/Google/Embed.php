@@ -12,7 +12,7 @@ use Joomla\Uri\Uri;
 use Joomla\Registry\Registry;
 
 /**
- * Google API object class for the Joomla Platform.
+ * Google API object class for the Joomla Framework.
  *
  * @since  1.0
  */
