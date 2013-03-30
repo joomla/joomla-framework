@@ -9,7 +9,7 @@
 namespace Joomla\View;
 
 /**
- * Joomla Platform View Interface
+ * Joomla Framework View Interface
  *
  * @since  1.0
  */

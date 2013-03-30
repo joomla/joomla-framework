@@ -13,7 +13,7 @@ use Joomla\View;
  *
  * @since  1.0
  */
-class BaseView extends View\Base
+class BaseView extends View\AbstractView
 {
 	/**
 	 * Method to render the view.
