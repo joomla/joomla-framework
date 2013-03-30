@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Github\Tests;
+
 use Joomla\Registry\Registry;
 use Joomla\Github\Milestones;
 
@@ -12,25 +14,31 @@ use Joomla\Github\Milestones;
  *
  * @since  1.0
  */
-class MilestonesTest extends PHPUnit_Framework_TestCase
+class MilestonesTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Joomla\Registry\Registry  Options for the GitHub object.
+	 * @var    Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    Joomla\Github\Http  Mock client object.
+	 * @var    \Joomla\Github\Http  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    Joomla\Github\Milestones  Object under test.
+	 * @var    Milestones  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
+
+	/**
+	 * @var    \Joomla\Http\Response  Mock response object.
+	 * @since  1.0
+	 */
+	protected $response;
 
 	/**
 	 * @var    string  Sample JSON string.
@@ -48,9 +56,9 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @access protected
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -58,40 +66,24 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 
 		$this->options = new Registry;
 		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
 		$this->object = new Milestones($this->options, $this->client);
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @param   string  $name  The method name.
-	 *
-	 * @return string
-	 */
-	protected function getMethod($name)
-	{
-		$class = new ReflectionClass('JGithubMilestones');
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-
-		return $method;
-	}
-
-	/**
 	 * Tests the create method
 	 *
-	 * @return void
+	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testCreate()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 201;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
 
-		$milestone = new stdClass;
+		$milestone = new \stdClass;
 		$milestone->title = 'My Milestone';
 		$milestone->state = 'open';
 		$milestone->description = 'This milestone is impossible';
@@ -100,7 +92,7 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/milestones', json_encode($milestone))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->create('joomla', 'joomla-platform', 'My Milestone', 'open', 'This milestone is impossible', '2012-12-25T20:09:31Z'),
@@ -111,19 +103,17 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the create method - failure
 	 *
+	 * @return  void
+	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
-	 *
-	 * @return void
-	 *
-	 * @since  1.0
 	 */
 	public function testCreateFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 501;
-		$returnData->body = $this->errorString;
+		$this->response->code = 501;
+		$this->response->body = $this->errorString;
 
-		$milestone = new stdClass;
+		$milestone = new \stdClass;
 		$milestone->title = 'My Milestone';
 		$milestone->state = 'open';
 		$milestone->description = 'This milestone is impossible';
@@ -132,7 +122,7 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/milestones', json_encode($milestone))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->create('joomla', 'joomla-platform', 'My Milestone', 'open', 'This milestone is impossible', '2012-12-25T20:09:31Z');
 	}
@@ -140,23 +130,22 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the edit method
 	 *
-	 * @return void
+	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testEdit()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
-		$milestone = new stdClass;
+		$milestone = new \stdClass;
 		$milestone->state = 'closed';
 
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/repos/joomla/joomla-platform/milestones/523', json_encode($milestone))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->edit('joomla', 'joomla-platform', 523, null, 'closed'),
@@ -167,17 +156,16 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the edit method with all parameters
 	 *
-	 * @return void
+	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testEditAllParameters()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
-		$milestone = new stdClass;
+		$milestone = new \stdClass;
 		$milestone->title = 'This is the revised title.';
 		$milestone->state = 'closed';
 		$milestone->description = 'This describes it perfectly.';
@@ -186,7 +174,7 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 		$this->client->expects($this->once())
 			->method('patch')
 			->with('/repos/joomla/joomla-platform/milestones/523', json_encode($milestone))
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->edit('joomla', 'joomla-platform', 523, 'This is the revised title.', 'closed', 'This describes it perfectly.',
@@ -198,25 +186,23 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the edit method - failure
 	 *
+	 * @return  void
+	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
-	 *
-	 * @return void
-	 *
-	 * @since  1.0
 	 */
 	public function testEditFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
-		$milestone = new stdClass;
+		$milestone = new \stdClass;
 		$milestone->state = 'closed';
 
 		$this->client->expects($this->once())
 		->method('patch')
 		->with('/repos/joomla/joomla-platform/milestones/523', json_encode($milestone))
-		->will($this->returnValue($returnData));
+		->will($this->returnValue($this->response));
 
 		$this->object->edit('joomla', 'joomla-platform', 523, null, 'closed');
 	}
@@ -224,20 +210,19 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the get method
 	 *
-	 * @return void
+	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/milestones/523')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->assertThat(
 			$this->object->get('joomla', 'joomla-platform', 523),
@@ -248,22 +233,20 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the get method - failure
 	 *
+	 * @return  void
+	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
-	 *
-	 * @return void
-	 *
-	 * @since  1.0
 	 */
 	public function testGetFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 			->method('get')
 			->with('/repos/joomla/joomla-platform/milestones/523')
-			->will($this->returnValue($returnData));
+			->will($this->returnValue($this->response));
 
 		$this->object->get('joomla', 'joomla-platform', 523);
 	}
@@ -271,20 +254,19 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the getList method
 	 *
-	 * @return void
+	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testGetList()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 		->method('get')
 		->with('/repos/joomla/joomla-platform/milestones?state=open&sort=due_date&direction=desc')
-		->will($this->returnValue($returnData));
+		->will($this->returnValue($this->response));
 
 		$this->assertThat(
 				$this->object->getList('joomla', 'joomla-platform'),
@@ -295,22 +277,20 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the getList method - failure
 	 *
+	 * @return  void
+	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
-	 *
-	 * @return void
-	 *
-	 * @since  1.0
 	 */
 	public function testGetListFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
+		$this->response->code = 500;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 		->method('get')
 		->with('/repos/joomla/joomla-platform/milestones?state=open&sort=due_date&direction=desc')
-		->will($this->returnValue($returnData));
+		->will($this->returnValue($this->response));
 
 		$this->object->getList('joomla', 'joomla-platform');
 	}
@@ -318,20 +298,19 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the delete method
 	 *
-	 * @return void
+	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testDelete()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 204;
-		$returnData->body = $this->sampleString;
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 		->method('delete')
 		->with('/repos/joomla/joomla-platform/milestones/254')
-		->will($this->returnValue($returnData));
+		->will($this->returnValue($this->response));
 
 		$this->object->delete('joomla', 'joomla-platform', 254);
 	}
@@ -339,22 +318,20 @@ class MilestonesTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests the delete method - failure
 	 *
+	 * @return  void
+	 *
+	 * @since              1.0
 	 * @expectedException  DomainException
-	 *
-	 * @return void
-	 *
-	 * @since  1.0
 	 */
 	public function testDeleteFailure()
 	{
-		$returnData = new stdClass;
-		$returnData->code = 504;
-		$returnData->body = $this->errorString;
+		$this->response->code = 504;
+		$this->response->body = $this->errorString;
 
 		$this->client->expects($this->once())
 		->method('delete')
 		->with('/repos/joomla/joomla-platform/milestones/254')
-		->will($this->returnValue($returnData));
+		->will($this->returnValue($this->response));
 
 		$this->object->delete('joomla', 'joomla-platform', 254);
 	}
