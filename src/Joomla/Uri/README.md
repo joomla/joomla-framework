@@ -25,7 +25,7 @@ The methods provided in the Uri class allow you to manipulate all aspects of a u
 // new uri object
 $uri = new Joomla\Uri\Uri;
 
-$uri->setHost('http:://localhost');
+$uri->setHost('http://localhost');
 $uri->setPort('8888');
 $uri->setUser('myUser');
 $uri->setPass('myPass');
@@ -33,7 +33,7 @@ $uri->setPass('myPass');
 echo $uri->__toString();
 ``` 
 This will output: 
-   myUser:myPass@http:://localhost:8888
+   myUser:myPass@http://localhost:8888
 
 If you wanted to add a specific filepath after the host you could use the `setPath()` method:
 
@@ -43,7 +43,7 @@ $uri->setPath('path/to/file.php');
 ```
 
 Which will output
-   myUser:myPass@http:://localhost:8888path/to/file.php
+   myUser:myPass@http://localhost:8888path/to/file.php
 
 Adding a URL query:
 ```
@@ -52,4 +52,4 @@ $uri->setQuery('foo=bar');
 ```
 
 Output:
-   myUser:myPass@http:://localhost:8888path/to/file.php?foo=bar
+   myUser:myPass@http://localhost:8888path/to/file.php?foo=bar
