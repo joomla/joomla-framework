@@ -651,31 +651,11 @@ class Input
 	 * @return  string  Plaintext string
 	 *
 	 * @since   1.0
+	 * @deprecated  This method will be removed once support for PHP 5.3 is discontinued.
 	 */
 	protected function decode($source)
 	{
-		static $ttr;
-
-		if (!is_array($ttr))
-		{
-			// Entity decode
-			$trans_tbl = get_html_translation_table(HTML_ENTITIES);
-
-			foreach ($trans_tbl as $k => $v)
-			{
-				$ttr[$v] = utf8_encode($k);
-			}
-		}
-
-		$source = strtr($source, $ttr);
-
-		// Convert decimal
-		$source = preg_replace('/&#(\d+);/me', "utf8_encode(chr(\\1))", $source); // decimal notation
-
-		// Convert hex
-		$source = preg_replace('/&#x([a-f0-9]+);/mei', "utf8_encode(chr(0x\\1))", $source); // hex notation
-
-		return $source;
+		return html_entity_decode($source, ENT_QUOTES, 'UTF-8');
 	}
 
 	/**
