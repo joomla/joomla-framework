@@ -70,7 +70,8 @@ abstract class DatabaseIterator implements \Countable, \Iterator
 	 * @param   string  $column  An option column to use as the iterator key.
 	 * @param   string  $class   The class of object that is returned.
 	 *
-	 * @throws  InvalidArgumentException
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function __construct($cursor, $column = null, $class = '\\stdClass')
 	{
@@ -104,8 +105,8 @@ abstract class DatabaseIterator implements \Countable, \Iterator
 	 *
 	 * @return  integer  The number of rows in the result set.
 	 *
-	 * @since   1.0
 	 * @see     Countable::count()
+	 * @since   1.0
 	 */
 	abstract public function count();
 

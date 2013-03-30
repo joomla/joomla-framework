@@ -24,7 +24,7 @@ class Mysqli extends Exporter
 	 * @return  string  An XML string
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error occurs.
+	 * @throws  \Exception if an error occurs.
 	 */
 	protected function buildXml()
 	{
@@ -48,7 +48,7 @@ class Mysqli extends Exporter
 	 * @return  array  An array of XML lines (strings).
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error occurs.
+	 * @throws  \Exception if an error occurs.
 	 */
 	protected function buildXmlStructure()
 	{

@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests;
 require_once __DIR__ . '/ExporterPostgresqlInspector.php';
 
 /**
- * Test the JDatabaseExporterPostgresql class.
+ * Test the \Joomla\Database\Exporter\Postgresql class.
  *
  * @since  1.0
  */

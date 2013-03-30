@@ -1,24 +1,24 @@
 <?php
 /**
- * @package    Joomla\Framework\Test
- * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Database\Tests;
+
 /**
- * Test class for JDatabaseMysql.
+ * Test class for Joomla\Database\Driver\Mysqli.
  *
- * @package  Joomla\Framework\Test
- * @since    11.1
+ * @since  1.0
  */
-class JDatabaseMysqlTest extends TestCaseDatabaseMysql
+class DriverMysqliTest extends DatabaseMysqliCase
 {
 	/**
 	 * Data for the testEscape test.
 	 *
 	 * @return  array
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function dataTestEscape()
 	{
@@ -29,11 +29,11 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	}
 
 	/**
-	 * Tests the __destruct method.
+	 * Test __destruct method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function test__destruct()
 	{
@@ -41,11 +41,11 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	}
 
 	/**
-	 * Tests the connected method.
+	 * Test connected method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testConnected()
 	{
@@ -57,11 +57,15 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testDropTable()
 	{
-		$this->assertThat(self::$driver->dropTable('#__bar', true), $this->isInstanceOf('JDatabaseDriverMysql'), 'The table is dropped if present.');
+		$this->assertThat(
+			self::$driver->dropTable('#__bar', true),
+			$this->isInstanceOf('\\Joomla\\Database\\Driver\\Mysqli'),
+			'The table is dropped if present.'
+		);
 	}
 
 	/**
@@ -74,11 +78,15 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 * @return  void
 	 *
 	 * @dataProvider  dataTestEscape
-	 * @since      11.4
+	 * @since         1.0
 	 */
 	public function testEscape($text, $extra, $expected)
 	{
-		$this->assertThat(self::$driver->escape($text, $extra), $this->equalTo($expected), 'The string was not escaped properly');
+		$this->assertThat(
+			self::$driver->escape($text, $extra),
+			$this->equalTo($expected),
+			'The string was not escaped properly'
+		);
 	}
 
 	/**
@@ -86,7 +94,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testGetAffectedRows()
 	{
@@ -95,21 +103,9 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 		$query->from('jos_dbtest');
 		self::$driver->setQuery($query);
 
-		$result = self::$driver->execute();
+		self::$driver->execute();
 
 		$this->assertThat(self::$driver->getAffectedRows(), $this->equalTo(4), __LINE__);
-	}
-
-	/**
-	 * Test getCollation method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 */
-	public function testGetCollation()
-	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 
 	/**
@@ -117,13 +113,13 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetExporter()
 	{
 		$this->assertThat(
 			self::$driver->getExporter(),
-			$this->isInstanceOf('JDatabaseExporterMysql'),
+			$this->isInstanceOf('\\Joomla\\Database\\Exporter\\Mysqli'),
 			'Line:' . __LINE__ . ' The getExporter method should return the correct exporter.'
 		);
 	}
@@ -133,13 +129,13 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetImporter()
 	{
 		$this->assertThat(
 			self::$driver->getImporter(),
-			$this->isInstanceOf('JDatabaseImporterMysql'),
+			$this->isInstanceOf('\\Joomla\\Database\\Importer\\Mysqli'),
 			'Line:' . __LINE__ . ' The getImporter method should return the correct importer.'
 		);
 	}
@@ -149,7 +145,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetNumRows()
 	{
@@ -161,7 +157,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetTableCreate()
 	{
@@ -173,23 +169,11 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	}
 
 	/**
-	 * Test getTableColumns method.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.4
-	 */
-	public function testGetTableColumns()
-	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
 	 * Tests the getTableKeys method.
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetTableKeys()
 	{
@@ -205,7 +189,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetTableList()
 	{
@@ -221,7 +205,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testGetVersion()
 	{
@@ -237,9 +221,21 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testInsertid()
+	{
+		$this->markTestIncomplete('This test has not been implemented yet.');
+	}
+
+	/**
+	 * Test insertObject method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testInsertObject()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
@@ -249,7 +245,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testLoadAssoc()
 	{
@@ -267,7 +263,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testLoadAssocList()
 	{
@@ -279,7 +275,14 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 
 		$this->assertThat(
 			$result,
-			$this->equalTo(array(array('title' => 'Testing'), array('title' => 'Testing2'), array('title' => 'Testing3'), array('title' => 'Testing4'))),
+			$this->equalTo(
+				array(
+					array('title' => 'Testing'),
+					array('title' => 'Testing2'),
+					array('title' => 'Testing3'),
+					array('title' => 'Testing4')
+				)
+			),
 			__LINE__
 		);
 	}
@@ -289,7 +292,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testLoadColumn()
 	{
@@ -307,7 +310,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testLoadObject()
 	{
@@ -318,7 +321,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 		self::$driver->setQuery($query);
 		$result = self::$driver->loadObject();
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 3;
 		$objCompare->title = 'Testing3';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -332,7 +335,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testLoadObjectList()
 	{
@@ -345,7 +348,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 
 		$expected = array();
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 1;
 		$objCompare->title = 'Testing';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -353,7 +356,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 
 		$expected[] = clone $objCompare;
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 2;
 		$objCompare->title = 'Testing2';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -361,7 +364,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 
 		$expected[] = clone $objCompare;
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 3;
 		$objCompare->title = 'Testing3';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -369,7 +372,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 
 		$expected[] = clone $objCompare;
 
-		$objCompare = new stdClass;
+		$objCompare = new \stdClass;
 		$objCompare->id = 4;
 		$objCompare->title = 'Testing4';
 		$objCompare->start_date = '1980-04-18 00:00:00';
@@ -385,7 +388,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testLoadResult()
 	{
@@ -398,7 +401,6 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 		$result = self::$driver->loadResult();
 
 		$this->assertThat($result, $this->equalTo(2), __LINE__);
-
 	}
 
 	/**
@@ -406,7 +408,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testLoadRow()
 	{
@@ -427,7 +429,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testLoadRowList()
 	{
@@ -444,11 +446,11 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	}
 
 	/**
-	 * Test the JDatabaseMysql::query() method
+	 * Test the query method
 	 *
 	 * @return  void
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function testQuery()
 	{
@@ -465,7 +467,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testSelect()
 	{
@@ -477,7 +479,7 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testSetUTF()
 	{
@@ -489,11 +491,11 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(JDatabaseDriverMysql::isSupported(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Driver\Mysqli::isSupported(), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -501,22 +503,10 @@ class JDatabaseMysqlTest extends TestCaseDatabaseMysql
 	 *
 	 * @return  void
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 */
 	public function testUpdateObject()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Gets the data set to be loaded into the database during setup.
-	 *
-	 * @return  PHPUnit_Extensions_Database_DataSet_XmlDataSet
-	 *
-	 * @since   11.1
-	 */
-	protected function getDataSet()
-	{
-		return $this->createXMLDataSet(__DIR__ . '/stubs/database.xml');
 	}
 }
