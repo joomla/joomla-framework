@@ -49,8 +49,8 @@ class IteratorSqlsrvTest extends DatabaseSqlsrvCase
 				2,
 				0,
 				array(
-					(object) array('title' => 'Testing'),
-					(object) array('title' => 'Testing2')
+					(object) array('title' => 'Testing', 'RowNumber' => '1'),
+					(object) array('title' => 'Testing2', 'RowNumber' => '2')
 				),
 				null
 			),
@@ -64,8 +64,8 @@ class IteratorSqlsrvTest extends DatabaseSqlsrvCase
 				20,
 				2,
 				array(
-					(object) array('title' => 'Testing3'),
-					(object) array('title' => 'Testing4')
+					(object) array('title' => 'Testing3', 'RowNumber' => '3'),
+					(object) array('title' => 'Testing4', 'RowNumber' => '4')
 				),
 				null
 			),
@@ -125,7 +125,7 @@ class IteratorSqlsrvTest extends DatabaseSqlsrvCase
 		{
 			$this->setExpectedException($exception);
 		}
-		self::$driver->setQuery(self::$driver->getQuery(true)->select($select)->from($from)->setLimit($limit, $offset));
+		self::$driver->setQuery(self::$driver->getQuery(true)->select($select)->from($from), $offset, $limit);
 		$iterator = self::$driver->getIterator($column, $class);
 
 		// Run the Iterator pattern
@@ -152,14 +152,14 @@ class IteratorSqlsrvTest extends DatabaseSqlsrvCase
 			__LINE__
 		);
 
-		self::$driver->setQuery(self::$driver->getQuery(true)->select('title')->from('#__dbtest')->setLimit(2));
+		self::$driver->setQuery(self::$driver->getQuery(true)->select('title')->from('#__dbtest'), 0, 2);
 		$this->assertThat(
 			count(self::$driver->getIterator()),
 			$this->equalTo(2),
 			__LINE__
 		);
 
-		self::$driver->setQuery(self::$driver->getQuery(true)->select('title')->from('#__dbtest')->setLimit(2, 3));
+		self::$driver->setQuery(self::$driver->getQuery(true)->select('title')->from('#__dbtest'), 3, 2);
 		$this->assertThat(
 			count(self::$driver->getIterator()),
 			$this->equalTo(1),
