@@ -25,8 +25,8 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	public function dataTestEscape()
 	{
 		return array(
-			array("'%_abc123", false, '\\\'%_abc123'),
-			array("'%_abc123", true, '\\\'\\%\_abc123'),
+			array("'%_abc123", false, "''%_abc123"),
+			array("'%_abc123", true, "''%[_]abc123"),
 		);
 	}
 
@@ -69,23 +69,30 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	{
 		$this->assertThat(
 			self::$driver->dropTable('#__bar', true),
-			$this->isInstanceOf('JDatabaseDriverSqlsrv'),
+			$this->isInstanceOf('\\Joomla\\Database\\Driver\\Sqlsrv'),
 			'The table is dropped if present.'
 		);
 	}
 
 	/**
-	 * Tests the escape method
+	 * Tests the escape method.
+	 *
+	 * @param   string   $text      The string to be escaped.
+	 * @param   boolean  $extra     Optional parameter to provide extra escaping.
+	 * @param   string   $expected  The expected result.
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
-	 * @todo    Implement testEscape().
+	 * @dataProvider  dataTestEscape
+	 * @since         1.0
 	 */
-	public function testEscape()
+	public function testEscape($text, $extra, $expected)
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		$this->assertThat(
+			self::$driver->escape($text, $extra),
+			$this->equalTo($expected),
+			'The string was not escaped properly'
+		);
 	}
 
 	/**
@@ -98,8 +105,14 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 */
 	public function testGetAffectedRows()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->delete();
+		$query->from('jos_dbtest');
+		self::$driver->setQuery($query);
+
+		self::$driver->execute();
+
+		$this->assertThat(self::$driver->getAffectedRows(), $this->equalTo(4), __LINE__);
 	}
 
 	/**
@@ -256,12 +269,16 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testLoadAssoc().
 	 */
 	public function testLoadAssoc()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->select('title');
+		$query->from('jos_dbtest');
+		self::$driver->setQuery($query);
+		$result = self::$driver->loadAssoc();
+
+		$this->assertThat($result, $this->equalTo(array('title' => 'Testing')), __LINE__);
 	}
 
 	/**
@@ -270,12 +287,27 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testLoadAssocList().
 	 */
 	public function testLoadAssocList()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->select('title');
+		$query->from('jos_dbtest');
+		self::$driver->setQuery($query);
+		$result = self::$driver->loadAssocList();
+
+		$this->assertThat(
+			$result,
+			$this->equalTo(
+				array(
+					array('title' => 'Testing'),
+					array('title' => 'Testing2'),
+					array('title' => 'Testing3'),
+					array('title' => 'Testing4')
+				)
+			),
+			__LINE__
+		);
 	}
 
 	/**
@@ -284,12 +316,16 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testLoadColumn().
 	 */
 	public function testLoadColumn()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->select('title');
+		$query->from('jos_dbtest');
+		self::$driver->setQuery($query);
+		$result = self::$driver->loadColumn();
+
+		$this->assertThat($result, $this->equalTo(array('Testing', 'Testing2', 'Testing3', 'Testing4')), __LINE__);
 	}
 
 	/**
@@ -298,12 +334,23 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testLoadObject().
 	 */
 	public function testLoadObject()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->select('*');
+		$query->from('jos_dbtest');
+		$query->where('description=' . self::$driver->quote('three'));
+		self::$driver->setQuery($query);
+		$result = self::$driver->loadObject();
+
+		$objCompare = new \stdClass;
+		$objCompare->id = 3;
+		$objCompare->title = 'Testing3';
+		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->description = 'three';
+
+		$this->assertThat($result, $this->equalTo($objCompare), __LINE__);
 	}
 
 	/**
@@ -312,12 +359,51 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testLoadObjectList().
 	 */
 	public function testLoadObjectList()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->select('*');
+		$query->from('jos_dbtest');
+		$query->order('id');
+		self::$driver->setQuery($query);
+		$result = self::$driver->loadObjectList();
+
+		$expected = array();
+
+		$objCompare = new \stdClass;
+		$objCompare->id = 1;
+		$objCompare->title = 'Testing';
+		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->description = 'one';
+
+		$expected[] = clone $objCompare;
+
+		$objCompare = new \stdClass;
+		$objCompare->id = 2;
+		$objCompare->title = 'Testing2';
+		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->description = 'one';
+
+		$expected[] = clone $objCompare;
+
+		$objCompare = new \stdClass;
+		$objCompare->id = 3;
+		$objCompare->title = 'Testing3';
+		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->description = 'three';
+
+		$expected[] = clone $objCompare;
+
+		$objCompare = new \stdClass;
+		$objCompare->id = 4;
+		$objCompare->title = 'Testing4';
+		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->description = 'four';
+
+		$expected[] = clone $objCompare;
+
+		$this->assertThat($result, $this->equalTo($expected), __LINE__);
 	}
 
 	/**
@@ -326,12 +412,18 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testLoadResult().
 	 */
 	public function testLoadResult()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->select('id');
+		$query->from('jos_dbtest');
+		$query->where('title=' . self::$driver->quote('Testing2'));
+
+		self::$driver->setQuery($query);
+		$result = self::$driver->loadResult();
+
+		$this->assertThat($result, $this->equalTo(2), __LINE__);
 	}
 
 	/**
@@ -340,12 +432,19 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testLoadRow().
 	 */
 	public function testLoadRow()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->select('*');
+		$query->from('jos_dbtest');
+		$query->where('description=' . self::$driver->quote('three'));
+		self::$driver->setQuery($query);
+		$result = self::$driver->loadRow();
+
+		$expected = array(3, 'Testing3', '1980-04-18 00:00:00.000', 'three');
+
+		$this->assertThat($result, $this->equalTo($expected), __LINE__);
 	}
 
 	/**
@@ -354,12 +453,19 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testLoadRowList().
 	 */
 	public function testLoadRowList()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		$query = self::$driver->getQuery(true);
+		$query->select('*');
+		$query->from('jos_dbtest');
+		$query->where('description=' . self::$driver->quote('one'));
+		self::$driver->setQuery($query);
+		$result = self::$driver->loadRowList();
+
+		$expected = array(array(1, 'Testing', '1980-04-18 00:00:00.000', 'one'), array(2, 'Testing2', '1980-04-18 00:00:00.000', 'one'));
+
+		$this->assertThat($result, $this->equalTo($expected), __LINE__);
 	}
 
 	/**
@@ -368,12 +474,12 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testExecute().
 	 */
 	public function testExecute()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestSkipped('PHPUnit does not support testing queries on SQL Server.');
+		self::$driver->setQuery("INSERT INTO [jos_dbtest] ([title],[start_date],[description]) VALUES ('testTitle','2013-04-01 00:00:00.000','description')");
+
+		$this->assertNotEquals(self::$driver->execute(), false, __LINE__);
 	}
 
 	/**

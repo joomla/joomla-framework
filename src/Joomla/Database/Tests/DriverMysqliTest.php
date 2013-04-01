@@ -446,20 +446,19 @@ class DriverMysqliTest extends DatabaseMysqliCase
 	}
 
 	/**
-	 * Test the query method
+	 * Test the execute method
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testQuery()
+	public function testExecute()
 	{
 		self::$driver->setQuery("REPLACE INTO `jos_dbtest` SET `id` = 5, `title` = 'testTitle'");
 
 		$this->assertThat(self::$driver->execute(), $this->isTrue(), __LINE__);
 
 		$this->assertThat(self::$driver->insertid(), $this->equalTo(5), __LINE__);
-
 	}
 
 	/**
