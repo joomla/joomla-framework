@@ -203,15 +203,15 @@ class Socket implements TransportInterface
 	/**
 	 * Method to connect to a server and get the resource.
 	 *
-	 * @param   Uri      $uri      The URI to connect with.
-	 * @param   integer  $timeout  Read timeout in seconds.
+	 * @param   UriInterface  $uri      The URI to connect with.
+	 * @param   integer       $timeout  Read timeout in seconds.
 	 *
 	 * @return  resource  Socket connection resource.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function connect(Uri $uri, $timeout = null)
+	protected function connect(UriInterface $uri, $timeout = null)
 	{
 		$errno = null;
 		$err = null;
