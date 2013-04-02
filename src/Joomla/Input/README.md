@@ -310,7 +310,7 @@ class MyTest extends \PHPUnit_Framework_TestCase
 
 		// Create the mock input object.
 		$inputMocker = new InputMocker($this);
-		$mockInput = $inputMocker->createMockInput();
+		$mockInput = $inputMocker->createInput();
 		
 		// Set up some mock values for the input class to return.
 		$mockInput->set('foo', 'bar');
@@ -321,7 +321,7 @@ class MyTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-The `createMockInput` method will return a mock with the following methods mocked to roughly simulate real behaviour albeit with reduced functionality:
+The `createInput` method will return a mock with the following methods mocked to roughly simulate real behaviour albeit with reduced functionality:
 
 * `get($name [, $default, $fitler])`
 * `getInt($name [, $default])`
