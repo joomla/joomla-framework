@@ -85,7 +85,7 @@ Multiple ways of auto loading classes, following different conventions are propo
 
 ### The Namespace Loader
 
-Since the release 12.3 of the Joomla Framework there is the possibility to auto classes within namespaces.
+Since the release 12.3 of the Joomla Platform there is the possibility to auto classes within namespaces.
 
 * A developer can register the full path to a top level (root) namespace where the loader can find classes (within this namespace).
 

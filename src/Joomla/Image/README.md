@@ -40,7 +40,7 @@ $image = new JImage();
 $image->loadFile(JPATH_SITE . '/path/to/image.png')->crop(600, 250)->toFile(JPATH_SITE . '/tmp/image.png');
 ```
 
-Since Framework version 12.3, there is a new `destroy()` method that get's called in appropriate places throughout the class which runs the `imagedestroy` function to free memory associated with an image handle. This method is called before each time an image handle is replaced (when `$createNew` is set to false) as well as in the class `__descruct` method as a final cleanup.
+Since Platform version 12.3, there is a new `destroy()` method that get's called in appropriate places throughout the class which runs the `imagedestroy` function to free memory associated with an image handle. This method is called before each time an image handle is replaced (when `$createNew` is set to false) as well as in the class `__descruct` method as a final cleanup.
 
 
 #### The `resize` method
