@@ -12,7 +12,7 @@ use stdClass;
 use Joomla\Language\Text;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Provides radio button inputs
  *
  * @link   http://www.w3.org/TR/html-markup/command.radio.html#command.radio

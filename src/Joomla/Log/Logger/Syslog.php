@@ -53,7 +53,7 @@ class Syslog extends Logger
 		// Ensure that we have an identity string for the Syslog entries.
 		if (empty($this->options['sys_ident']))
 		{
-			$this->options['sys_ident'] = 'Joomla Platform';
+			$this->options['sys_ident'] = 'Joomla Framework';
 		}
 
 		// If the option to add the process id to Syslog entries is set use it, otherwise default to true.

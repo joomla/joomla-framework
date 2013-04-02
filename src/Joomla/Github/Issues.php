@@ -12,7 +12,7 @@ use Joomla\Uri\Uri;
 use Joomla\Date\Date;
 
 /**
- * GitHub API Issues class for the Joomla Platform.
+ * GitHub API Issues class for the Joomla Framework.
  *
  * @since  1.0
  */

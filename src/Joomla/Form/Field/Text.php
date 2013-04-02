@@ -9,7 +9,7 @@
 namespace Joomla\Form;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Supports a one line text field.
  *
  * @link   http://www.w3.org/TR/html-markup/input.text.html#input.text

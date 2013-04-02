@@ -9,7 +9,7 @@
 namespace Joomla\Crypt;
 
 /**
- * Crypt is a Joomla Platform class for handling basic encryption/decryption of data.
+ * Crypt is a Joomla Framework class for handling basic encryption/decryption of data.
  *
  * @since  1.0
  */

@@ -9,7 +9,7 @@
 namespace Joomla\Form;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Provides a hidden field
  *
  * @link   http://www.w3.org/TR/html-markup/input.hidden.html#input.hidden

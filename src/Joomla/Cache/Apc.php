@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 use Psr\Cache\CacheItemInterface;
 
 /**
- * APC cache driver for the Joomla Platform.
+ * APC cache driver for the Joomla Framework.
  *
  * @since  1.0
  */

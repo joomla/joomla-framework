@@ -9,7 +9,7 @@
 namespace Joomla\Router;
 
 /**
- * RESTful Web application router class for the Joomla Platform.
+ * RESTful Web application router class for the Joomla Framework.
  *
  * @since  1.0
  */

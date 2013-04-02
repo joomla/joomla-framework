@@ -14,7 +14,7 @@ use Joomla\Registry\Registry;
 use SimpleXMLElement;
 
 /**
- * Form Rule class for the Joomla Platform.
+ * Form Rule class for the Joomla Framework.
  * Requires the value entered be one of the options in a field of type="list"
  *
  * @since  1.0

@@ -12,7 +12,7 @@ use Joomla\Language\Text;
 use Joomla\Database\Driver;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Provides a list of available database connections, optionally limiting to
  * a given list.
  *

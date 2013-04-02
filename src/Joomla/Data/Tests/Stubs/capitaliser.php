@@ -9,7 +9,7 @@ namespace Joomla\Data\Tests;
 use Joomla\Data\Object;
 
 /**
- * Joomla Platform Capitaliser Object Class
+ * Joomla Framework Capitaliser Object Class
  *
  * @since  1.0
  */

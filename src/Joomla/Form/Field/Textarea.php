@@ -9,7 +9,7 @@
 namespace Joomla\Form;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Supports a multi line area for entry of plain text
  *
  * @link   http://www.w3.org/TR/html-markup/textarea.html#textarea

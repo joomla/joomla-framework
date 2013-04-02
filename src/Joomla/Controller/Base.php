@@ -12,7 +12,7 @@ use Joomla\Input\Input;
 use Joomla\Application;
 
 /**
- * Joomla Platform Base Controller Class
+ * Joomla Framework Base Controller Class
  *
  * @since  1.0
  */

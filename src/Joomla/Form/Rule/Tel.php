@@ -14,7 +14,7 @@ use Joomla\Registry\Registry;
 use SimpleXMLElement;
 
 /**
- * Form Rule class for the Joomla Platform
+ * Form Rule class for the Joomla Framework
  *
  * @since  1.0
  */

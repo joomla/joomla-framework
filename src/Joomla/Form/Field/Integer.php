@@ -11,7 +11,7 @@ namespace Joomla\Form;
 use Joomla\Form\Html\Select as HtmlSelect;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Provides a select list of integers with specified first, last and step values.
  *
  * @since  1.0

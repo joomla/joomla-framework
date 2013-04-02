@@ -9,7 +9,7 @@
 namespace Joomla\String;
 
 /**
- * Joomla Platform String Normalise Class
+ * Joomla Framework String Normalise Class
  *
  * @since  1.0
  */

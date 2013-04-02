@@ -13,7 +13,7 @@ use Joomla\Language\Text;
 use UnexpectedValueException;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Provides a grouped list select field.
  *
  * @since  1.0

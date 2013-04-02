@@ -9,7 +9,7 @@
 namespace Joomla\Crypt;
 
 /**
- * Encryption key object for the Joomla Platform.
+ * Encryption key object for the Joomla Framework.
  *
  * @property-read  string  $type  The key type.
  *

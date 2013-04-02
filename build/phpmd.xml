@@ -7,7 +7,7 @@
          xsi:noNamespaceSchemaLocation="
                      http://pmd.sf.net/ruleset_xml_schema.xsd">
     <description>
-        Custom rule set for the Joomla Platform project.
+        Custom rule set for the Joomla Framework project.
     </description>
 
     <!-- Import the entire unused code rule set -->

@@ -290,7 +290,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 
 		// The application author name.  This string is used in generating startup scripts and has
 		// a maximum of 50 characters.
-		$tmp = (string) $this->config->get('author_name', 'Joomla Platform');
+		$tmp = (string) $this->config->get('author_name', 'Joomla Framework');
 		$this->config->set('author_name', (strlen($tmp) > 50) ? substr($tmp, 0, 50) : $tmp);
 
 		// The application author email.  This string is used in generating startup scripts.
@@ -302,7 +302,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 		$this->config->set('application_name', (string) preg_replace('/[^A-Z0-9_-]/i', '', $tmp));
 
 		// The application description.  This string is used in generating startup scripts.
-		$tmp = (string) $this->config->get('application_description', 'A generic Joomla Platform application.');
+		$tmp = (string) $this->config->get('application_description', 'A generic Joomla Framework application.');
 		$this->config->set('application_description', filter_var($tmp, FILTER_SANITIZE_STRING));
 
 		/*

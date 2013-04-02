@@ -13,7 +13,7 @@ use Joomla\Google\Data;
 use Joomla\Registry\Registry;
 
 /**
- * Google+ data class for the Joomla Platform.
+ * Google+ data class for the Joomla Framework.
  *
  * @since  1.0
  */

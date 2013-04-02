@@ -18,7 +18,7 @@ use RuntimeException;
 use Exception;
 
 /**
- * Joomla Platform class for interacting with an OAuth 2.0 server.
+ * Joomla Framework class for interacting with an OAuth 2.0 server.
  *
  * @since  1.0
  */

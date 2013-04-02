@@ -12,7 +12,7 @@ use Joomla\Application;
 use Joomla\Input;
 
 /**
- * Joomla Platform Controller Interface
+ * Joomla Framework Controller Interface
  *
  * @since  1.0
  */

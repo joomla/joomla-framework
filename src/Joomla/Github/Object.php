@@ -13,7 +13,7 @@ use Joomla\Uri\Uri;
 use Joomla\Registry\Registry;
 
 /**
- * GitHub API object class for the Joomla Platform.
+ * GitHub API object class for the Joomla Framework.
  *
  * @since  1.0
  */

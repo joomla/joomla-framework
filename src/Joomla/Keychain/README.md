@@ -149,7 +149,7 @@ Country Name (2 letter code) [AU]: US
 State or Province Name (full name) [Some-State]: New York
 Locality Name (eg, city) []: New York
 Organization Name (eg, company) [Internet Widgits Pty Ltd]: Open Source Matters, Inc.
-Organizational Unit Name (eg, section) []: Joomla! Platform
+Organizational Unit Name (eg, section) []: Joomla! Framework
 Common Name (eg, YOUR name) []: Joomla Credentials
 Email Address []: platform@joomla.org
 ```
