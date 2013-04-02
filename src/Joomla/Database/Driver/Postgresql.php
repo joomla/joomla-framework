@@ -49,14 +49,16 @@ class Postgresql extends Driver
 	/**
 	 * Operator used for concatenation
 	 *
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $concat_operator = '||';
 
 	/**
 	 * Query object returned by getQuery
 	 *
-	 * @var \Joomla\Database\Query\Postgresql
+	 * @var    \Joomla\Database\Query\Postgresql
+	 * @since  1.0
 	 */
 	protected $queryObject = null;
 
@@ -65,7 +67,7 @@ class Postgresql extends Driver
 	 *
 	 * @param   array  $options  List of options used to configure the connection
 	 *
-	 * @since	12.1
+	 * @since	1.0
 	 */
 	public function __construct( $options )
 	{
@@ -81,7 +83,7 @@ class Postgresql extends Driver
 	/**
 	 * Database object destructor
 	 *
-	 * @since 12.1
+	 * @since   1.0
 	 */
 	public function __destruct()
 	{
@@ -97,7 +99,7 @@ class Postgresql extends Driver
 	 * @return  void  Returns void if the database connected successfully.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function connect()
 	{
@@ -182,7 +184,7 @@ class Postgresql extends Driver
 	 *
 	 * @return	boolean
 	 *
-	 * @since	12.1
+	 * @since	1.0
 	 */
 	public function connected()
 	{
@@ -205,7 +207,7 @@ class Postgresql extends Driver
 	 * @return  boolean	true
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function dropTable($tableName, $ifExists = true)
 	{
@@ -220,9 +222,9 @@ class Postgresql extends Driver
 	/**
 	 * Get the number of affected rows for the previous executed SQL statement.
 	 *
-	 * @return int The number of affected rows in the previous operation
+	 * @return  integer  The number of affected rows in the previous operation
 	 *
-	 * @since 12.1
+	 * @since   1.0
 	 */
 	public function getAffectedRows()
 	{
@@ -237,7 +239,7 @@ class Postgresql extends Driver
 	 * @return  mixed  The collation in use by the database or boolean false if not supported.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getCollation()
 	{
@@ -258,7 +260,7 @@ class Postgresql extends Driver
 	 *
 	 * @since   1.0
 	 */
-	public function getNumRows( $cur = null )
+	public function getNumRows($cur = null)
 	{
 		$this->connect();
 
@@ -274,7 +276,7 @@ class Postgresql extends Driver
 	 * @return  \Joomla\Database\Query\Postgresql  The current query object or a new object extending the Query class.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getQuery($new = false, $asObj = false)
 	{
@@ -310,10 +312,10 @@ class Postgresql extends Driver
 	 *
 	 * @param   mixed  $tables  A table name or a list of table names.
 	 *
-	 * @return  char  An empty char because this function is not supported by PostgreSQL.
+	 * @return  string  An empty string because this function is not supported by PostgreSQL.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableCreate($tables)
 	{
@@ -329,7 +331,7 @@ class Postgresql extends Driver
 	 * @return  array  An array of fields for the database table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
 	{
@@ -402,7 +404,7 @@ class Postgresql extends Driver
 	 * @return  array  An array of the column specification for the table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableKeys($table)
 	{
@@ -440,7 +442,7 @@ class Postgresql extends Driver
 	 * @return  array  An array of all the tables in the database.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableList()
 	{
@@ -469,7 +471,7 @@ class Postgresql extends Driver
 	 * @return  array  An array of sequences specification for the table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableSequences($table)
 	{
@@ -592,7 +594,7 @@ class Postgresql extends Driver
 	 * @return  Postgresql  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function lockTable($tableName)
 	{
@@ -608,7 +610,7 @@ class Postgresql extends Driver
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -717,7 +719,7 @@ class Postgresql extends Driver
 	 * @return  Postgresql  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
 	{
@@ -791,6 +793,8 @@ class Postgresql extends Driver
 	 * @param   string  $database  Database name to select.
 	 *
 	 * @return  boolean  Always true
+	 *
+	 * @since   1.0
 	 */
 	public function select($database)
 	{
@@ -824,6 +828,8 @@ class Postgresql extends Driver
 	 */
 	public function sqlValue($columns, $field_name, $field_value)
 	{
+		$val = '';
+
 		switch ($columns[$field_name])
 		{
 			case 'boolean':
@@ -858,6 +864,8 @@ class Postgresql extends Driver
 					$field_value = $this->getNullDate();
 				}
 
+				$val = $this->quote($field_value);
+
 				break;
 
 			default:
@@ -876,7 +884,7 @@ class Postgresql extends Driver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
 	{
@@ -903,7 +911,7 @@ class Postgresql extends Driver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
 	{
@@ -936,7 +944,7 @@ class Postgresql extends Driver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
 	{
@@ -1028,7 +1036,7 @@ class Postgresql extends Driver
 	 * @return  boolean    True on success.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function insertObject($table, &$object, $key = null)
 	{
@@ -1110,7 +1118,9 @@ class Postgresql extends Driver
 	/**
 	 * Returns an array containing database's table list.
 	 *
-	 * @return	array	The database's table list.
+	 * @return  array  The database's table list.
+	 *
+	 * @since   1.0
 	 */
 	public function showTables()
 	{
@@ -1136,7 +1146,9 @@ class Postgresql extends Driver
 	 * @param   string  $substring  The string being sought
 	 * @param   string  $string     The string/column being searched
 	 *
-	 * @return int   The position of $substring in $string
+	 * @return  integer  The position of $substring in $string
+	 *
+	 * @since   1.0
 	 */
 	public function getStringPositionSQL($substring, $string)
 	{
@@ -1152,7 +1164,9 @@ class Postgresql extends Driver
 	/**
 	 * Generate a random value
 	 *
-	 * @return float The random generated number
+	 * @return  float  The random generated number
+	 *
+	 * @since   1.0
 	 */
 	public function getRandom()
 	{
@@ -1320,7 +1334,7 @@ class Postgresql extends Driver
 	 * @return  Postgresql  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function unlockTables()
 	{
@@ -1340,7 +1354,7 @@ class Postgresql extends Driver
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function updateObject($table, &$object, $key, $nulls = false)
 	{

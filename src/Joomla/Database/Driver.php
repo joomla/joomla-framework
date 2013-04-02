@@ -211,6 +211,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 			// Get an iterator and loop trough the driver classes.
 			$iterator = new \DirectoryIterator(__DIR__ . '/Driver');
 
+			/* @var  $file  \DirectoryIterator */
 			foreach ($iterator as $file)
 			{
 				$baseName = $file->getBasename('.php');
@@ -222,6 +223,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 				}
 
 				// Derive the class name from the type.
+				/* @var  $class  Driver */
 				$class = '\\Joomla\\Database\\Driver\\' . $baseName;
 
 				// If the class doesn't exist, or if it's not supported on this system, move on to the next type.
@@ -253,7 +255,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  Driver  A database object.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public static function getInstance($options = array())
 	{
@@ -277,7 +279,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 				throw new \RuntimeException(sprintf('Unable to load Database Driver: %s', $options['driver']));
 			}
 
-			// Create our new JDatabaseDriver connector based on the options given.
+			// Create our new Driver connector based on the options given.
 			try
 			{
 				$instance = new $class($options);
@@ -407,7 +409,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  void  Returns void if the database connected successfully.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function connect();
 
@@ -438,9 +440,9 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  Driver     Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
-	public abstract function dropTable($table, $ifExists = true);
+	abstract public function dropTable($table, $ifExists = true);
 
 	/**
 	 * Escapes a string for usage in an SQL statement.
@@ -619,7 +621,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  Exporter  An exporter object.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getExporter()
 	{
@@ -633,6 +635,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 			throw new \RuntimeException('Database Exporter not found.');
 		}
 
+		/* @var  $o  Exporter */
 		$o = new $class;
 		$o->setDbo($this);
 
@@ -645,7 +648,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  Importer  An importer object.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getImporter()
 	{
@@ -659,6 +662,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 			throw new \RuntimeException('Database Importer not found');
 		}
 
+		/* @var  $o  Importer */
 		$o = new $class;
 		$o->setDbo($this);
 
@@ -673,7 +677,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  Query  The current query object or a new object extending the Query class.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getQuery($new = false)
 	{
@@ -706,7 +710,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  DatabaseIterator  A new database iterator.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getIterator($column = null, $class = '\\stdClass')
 	{
@@ -733,7 +737,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  array  An array of fields by table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function getTableColumns($table, $typeOnly = true);
 
@@ -745,7 +749,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  array  A list of the create SQL for the tables.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function getTableCreate($tables);
 
@@ -757,7 +761,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  array  An array of keys for the table(s).
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function getTableKeys($tables);
 
@@ -767,7 +771,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  array  An array of all the tables in the database.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function getTableList();
 
@@ -811,7 +815,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  boolean    True on success.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function insertObject($table, &$object, $key = null)
 	{
@@ -882,7 +886,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed  The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadAssoc()
 	{
@@ -925,7 +929,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed   The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadAssocList($key = null, $column = null)
 	{
@@ -969,7 +973,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed    The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadColumn($offset = 0)
 	{
@@ -1003,7 +1007,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed   The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadObject($class = 'stdClass')
 	{
@@ -1044,7 +1048,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed   The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadObjectList($key = '', $class = 'stdClass')
 	{
@@ -1083,7 +1087,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed  The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadResult()
 	{
@@ -1118,7 +1122,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed  The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadRow()
 	{
@@ -1158,7 +1162,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed   The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadRowList($key = null)
 	{
@@ -1220,9 +1224,9 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  Driver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
-	public abstract function lockTable($tableName);
+	abstract public function lockTable($tableName);
 
 	/**
 	 * Quotes and optionally escapes a string to database requirements for use in database queries.
@@ -1232,7 +1236,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 *
 	 * @return  string  The quoted input string.
 	 *
-	 * @note    Accepting an array of strings was added in 12.3.
+	 * @note    Accepting an array of strings was added in Platform 12.3.
 	 * @since   1.0
 	 */
 	public function quote($text, $escape = true)
@@ -1455,9 +1459,9 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  Driver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
-	public abstract function renameTable($oldTable, $newTable, $backup = null, $prefix = null);
+	abstract public function renameTable($oldTable, $newTable, $backup = null, $prefix = null);
 
 	/**
 	 * Select a database for use.
@@ -1467,7 +1471,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  boolean  True if the database was successfully selected.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function select($database);
 
@@ -1539,7 +1543,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function transactionCommit($toSavepoint = false);
 
@@ -1551,7 +1555,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function transactionRollback($toSavepoint = false);
 
@@ -1563,7 +1567,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function transactionStart($asSavepoint = false);
 
@@ -1575,7 +1579,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function truncateTable($table)
 	{
@@ -1594,7 +1598,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function updateObject($table, &$object, $key, $nulls = false)
 	{
@@ -1672,7 +1676,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	abstract public function execute();
 
@@ -1682,7 +1686,7 @@ abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
 	 * @return  Driver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public abstract function unlockTables();
 }

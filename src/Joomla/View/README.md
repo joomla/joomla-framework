@@ -9,11 +9,11 @@
 
 ## Classes
 
-# `View\Base`
+# `View\AbstractView`
 
 ##### Construction
 
-The contructor for `View\Base` takes a mandatory `Model\Model` parameter.
+The contructor for `View\AbstractView` takes a mandatory `Model\Model` parameter.
 
 Note that `Model\Model` is an interface so the actual object passed does
 necessarily have to extend from `Model\Base` class. Given that, the view
@@ -23,7 +23,7 @@ take more explicit classes or interaces as required by the developer.
 
 ##### Usage
 
-The `View\Base` class is abstract so cannot be used directly. It forms a
+The `View\AbstractView` class is abstract so cannot be used directly. It forms a
 simple base for rendering any kind of data. The class already implements
 the escape method so only a render method need to be added. Views
 derived from this class would be used to support very simple cases, well
@@ -41,9 +41,9 @@ data types. This class does not support layouts.
  
 namespace myApp;
 
-use Joomla\View\Base;
+use Joomla\View\AbstractView;
 
-class MyView extends Base
+class MyView extends AbstractView
 {
 	/**
 	 * Render some data
@@ -78,7 +78,7 @@ catch (RuntimeException $e)
 
 ##### Construction
 
-`View\Html` is extended from `View\Base`. The constructor, in addition to
+`View\Html` is extended from `View\AbstractBase`. The constructor, in addition to
 the required model argument, take an optional `SplPriorityQueue` object
 that serves as a lookup for layouts. If omitted, the view defers to the
 protected loadPaths method.

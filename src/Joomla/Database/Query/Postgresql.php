@@ -99,16 +99,6 @@ class Postgresql extends Query implements LimitableInterface
 					$query .= (string) $this->order;
 				}
 
-				if ($this->limit)
-				{
-					$query .= (string) $this->limit;
-				}
-
-				if ($this->offset)
-				{
-					$query .= (string) $this->offset;
-				}
-
 				if ($this->forUpdate)
 				{
 					$query .= (string) $this->forUpdate;
@@ -187,6 +177,11 @@ class Postgresql extends Query implements LimitableInterface
 			default:
 				$query = parent::__toString();
 				break;
+		}
+
+		if ($this instanceof Query\LimitableInterface)
+		{
+			$query = $this->processLimit($query, $this->limit, $this->offset);
 		}
 
 		return $query;

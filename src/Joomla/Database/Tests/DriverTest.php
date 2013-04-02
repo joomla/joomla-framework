@@ -17,7 +17,7 @@ require_once __DIR__ . '/Stubs/nosqldriver.php';
  *
  * @since  1.0
  */
-class JDatabaseDriverTest extends \Joomla\Database\Tests\DatabaseCase
+class DriverTest extends DatabaseCase
 {
 	/**
 	 * @var    \Joomla\Database\Driver

@@ -8,9 +8,6 @@
 
 namespace Joomla\Github;
 
-use DomainException;
-use RuntimeException;
-
 /**
  * GitHub API Hooks class for the Joomla Framework.
  *
@@ -42,7 +39,7 @@ class Hooks extends Object
 	 * @return  object
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
+	 * @throws  \RuntimeException
 	 */
 	public function create($user, $repo, $name, array $config, array $events = array('push'), $active = true)
 	{
@@ -54,7 +51,7 @@ class Hooks extends Object
 		{
 			if (!in_array($event, $this->events))
 			{
-				throw new RuntimeException('Your events array contains an unauthorized event.');
+				throw new \RuntimeException('Your events array contains an unauthorized event.');
 			}
 		}
 
@@ -63,17 +60,7 @@ class Hooks extends Object
 		);
 
 		// Send the request.
-		$response = $this->client->post($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 201)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), $data), 201);
 	}
 
 	/**
@@ -86,7 +73,6 @@ class Hooks extends Object
 	 * @return  object
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
 	 */
 	public function delete($user, $repo, $id)
 	{
@@ -94,17 +80,7 @@ class Hooks extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/hooks/' . $id;
 
 		// Send the request.
-		$response = $this->client->delete($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 204)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->delete($this->fetchUrl($path)), 204);
 	}
 
 	/**
@@ -123,8 +99,7 @@ class Hooks extends Object
 	 * @return  object
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function edit($user, $repo, $id, $name, array $config, array $events = array('push'), array $addEvents = array(),
 		array $removeEvents = array(), $active = true)
@@ -134,7 +109,7 @@ class Hooks extends Object
 		{
 			if (!in_array($event, $this->events))
 			{
-				throw new RuntimeException('Your events array contains an unauthorized event.');
+				throw new \RuntimeException('Your events array contains an unauthorized event.');
 			}
 		}
 
@@ -142,7 +117,7 @@ class Hooks extends Object
 		{
 			if (!in_array($event, $this->events))
 			{
-				throw new RuntimeException('Your active_events array contains an unauthorized event.');
+				throw new \RuntimeException('Your active_events array contains an unauthorized event.');
 			}
 		}
 
@@ -150,7 +125,7 @@ class Hooks extends Object
 		{
 			if (!in_array($event, $this->events))
 			{
-				throw new RuntimeException('Your remove_events array contains an unauthorized event.');
+				throw new \RuntimeException('Your remove_events array contains an unauthorized event.');
 			}
 		}
 
@@ -168,17 +143,7 @@ class Hooks extends Object
 		);
 
 		// Send the request.
-		$response = $this->client->patch($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->patch($this->fetchUrl($path), $data), 200);
 	}
 
 	/**
@@ -191,7 +156,6 @@ class Hooks extends Object
 	 * @return  object
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
 	 */
 	public function get($user, $repo, $id)
 	{
@@ -199,17 +163,7 @@ class Hooks extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/hooks/' . $id;
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
 	}
 
 	/**
@@ -223,7 +177,6 @@ class Hooks extends Object
 	 * @return  object
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
 	 */
 	public function getList($user, $repo, $page = 0, $limit = 0)
 	{
@@ -231,17 +184,7 @@ class Hooks extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/hooks';
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
 	}
 
 	/**
@@ -254,7 +197,6 @@ class Hooks extends Object
 	 * @return  object
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
 	 */
 	public function test($user, $repo, $id)
 	{
@@ -262,16 +204,6 @@ class Hooks extends Object
 		$path = '/repos/' . $user . '/' . $repo . '/hooks/' . $id . '/test';
 
 		// Send the request.
-		$response = $this->client->post($this->fetchUrl($path), json_encode(''));
-
-		// Validate the response code.
-		if ($response->code != 204)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), json_encode('')), 204);
 	}
 }

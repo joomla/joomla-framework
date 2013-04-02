@@ -16,17 +16,38 @@ require_once __DIR__ . '/QueryInspector.php';
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var  JDatbabase  A mock of the JDatabase object for testing purposes.
+	 * A mock of the Driver object for testing purposes.
+	 *
+	 * @var    \Joomla\Database\Driver
+	 * @since  1.0
 	 */
 	protected $dbo;
 
 	/**
 	 * The instance of the object to test.
 	 *
-	 * @var    \Joomla\Database\Query
+	 * @var    QueryInspector
 	 * @since  1.0
 	 */
 	private $instance;
+
+	/**
+	 * Sets up the fixture.
+	 *
+	 * This method is called before a test is executed.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setUp()
+	{
+		parent::setUp();
+
+		$this->dbo = Mock\Driver::create($this);
+
+		$this->instance = new QueryInspector($this->dbo);
+	}
 
 	/**
 	 * Data for the testNullDate test.
@@ -120,7 +141,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringFrom_subquery()
 	{
-		$subq = new \Joomla\Database\Tests\QueryInspector($this->dbo);
+		$subq = new QueryInspector($this->dbo);
 		$subq->select('col2')->from('table')->where('a=1');
 
 		$this->instance->select('col')->from($subq, 'alias');
@@ -143,7 +164,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringInsert_subquery()
 	{
-		$subq = new \Joomla\Database\Tests\QueryInspector($this->dbo);
+		$subq = new QueryInspector($this->dbo);
 		$subq->select('col2')->where('a=1');
 
 		$this->instance->insert('table')->columns('col')->values($subq);
@@ -491,7 +512,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		// Test each clause.
 		foreach ($clauses as $clause)
 		{
-			$q = new \Joomla\Database\Tests\QueryInspector($this->dbo);
+			$q = new QueryInspector($this->dbo);
 
 			// Set the clauses
 			foreach ($clauses as $clause2)
@@ -951,8 +972,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testInnerJoin()
 	{
-		$q1 = new \Joomla\Database\Tests\QueryInspector($this->dbo);
-		$q2 = new \Joomla\Database\Tests\QueryInspector($this->dbo);
+		$q1 = new QueryInspector($this->dbo);
+		$q2 = new QueryInspector($this->dbo);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -1040,8 +1061,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testLeftJoin()
 	{
-		$q1 = new \Joomla\Database\Tests\QueryInspector($this->dbo);
-		$q2 = new \Joomla\Database\Tests\QueryInspector($this->dbo);
+		$q1 = new QueryInspector($this->dbo);
+		$q2 = new QueryInspector($this->dbo);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -1168,8 +1189,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOuterJoin()
 	{
-		$q1 = new \Joomla\Database\Tests\QueryInspector($this->dbo);
-		$q2 = new \Joomla\Database\Tests\QueryInspector($this->dbo);
+		$q1 = new QueryInspector($this->dbo);
+		$q2 = new QueryInspector($this->dbo);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -1266,8 +1287,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRightJoin()
 	{
-		$q1 = new \Joomla\Database\Tests\QueryInspector($this->dbo);
-		$q2 = new \Joomla\Database\Tests\QueryInspector($this->dbo);
+		$q1 = new QueryInspector($this->dbo);
+		$q2 = new QueryInspector($this->dbo);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -1547,7 +1568,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__clone_array()
 	{
-		$baseElement = new \Joomla\Database\Tests\QueryInspector(Mock\Driver::create($this));
+		$baseElement = new QueryInspector(Mock\Driver::create($this));
 
 		$baseElement->testArray = array();
 
@@ -1568,7 +1589,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__clone_object()
 	{
-		$baseElement = new \Joomla\Database\Tests\QueryInspector(Mock\Driver::create($this));
+		$baseElement = new QueryInspector(Mock\Driver::create($this));
 
 		$baseElement->testObject = new \stdClass;
 
@@ -1806,23 +1827,5 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 			$this->equalTo($expected),
 			'Line: ' . __LINE__ . '.'
 		);
-	}
-
-	/**
-	 * Sets up the fixture.
-	 *
-	 * This method is called before a test is executed.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function setUp()
-	{
-		parent::setUp();
-
-		$this->dbo = Mock\Driver::create($this);
-
-		$this->instance = new \Joomla\Database\Tests\QueryInspector($this->dbo);
 	}
 }

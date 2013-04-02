@@ -24,7 +24,7 @@ class Postgresql extends Exporter
 	 * @return  string  An XML string
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error occurs.
+	 * @throws  \Exception if an error occurs.
 	 */
 	protected function buildXml()
 	{
@@ -48,7 +48,7 @@ class Postgresql extends Exporter
 	 * @return  array  An array of XML lines (strings).
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error occurs.
+	 * @throws  \Exception if an error occurs.
 	 */
 	protected function buildXmlStructure()
 	{
@@ -106,7 +106,7 @@ class Postgresql extends Exporter
 	 * @return  Postgresql  Method supports chaining.
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error is encountered.
+	 * @throws  \Exception if an error is encountered.
 	 */
 	public function check()
 	{

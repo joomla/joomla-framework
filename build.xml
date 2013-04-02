@@ -27,6 +27,13 @@
 		<mkdir dir="${basedir}/build/pdepend" />
 	</target>
 
+	<target name="installdep" description="Install build dependencies using composer">
+		<exec executable="composer">
+			<arg value="update" />
+			<arg value="--dev" />
+		</exec>
+	</target>
+
 	<target name="phpunit" description="Run unit tests using PHPUnit and generates junit.xml and clover.xml">
 		<exec executable="phpunit${script-suffix}" />
 	</target>
@@ -133,5 +140,20 @@
 		</apply>
 	</target>
 
-	<target name="build" depends="clean,phpunit,parallelTasks,phpcb" />
+	<target name="composervalidate" description="Perform validation of composer.json files.">
+		<exec executable="composer" failonerror="true">
+			<arg value="validate" />
+		</exec>
+
+		<apply executable="composer" failonerror="true">
+			<arg value="validate" />
+
+			<fileset dir="${source}">
+				<include name="**/composer.json" />
+				<modified />
+			</fileset>
+		</apply>
+	</target>
+
+	<target name="build" depends="clean,composervalidate,installdep,phpunit,parallelTasks,phpcb" />
 </project>
