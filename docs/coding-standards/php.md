@@ -23,7 +23,7 @@ You should not enclose the filename in parentheses.
 
 ### E_STRICT Compatible PHP Code
 
-As of Joomla version 1.6 and for all versions of the Joomla Framework, adhering to object oriented programming practice as supported by PHP 5.3+ is required. Joomla is committed to progressively making the source code E_STRICT.
+Adhering to object oriented programming practice as supported by PHP 5.3+ is required. Joomla is committed to progressively making the source code E_STRICT.
 
 ## Global Variables
 
@@ -167,7 +167,7 @@ For example, do not include feature submissions like:
 
 Documentation headers for PHP and Javascript code in files, classes, class properties, methods and functions, called the docblocks, follow a convention similar to JavaDoc or phpDOC.
 
-These "DocBlocks" borrow from the PEAR standard but have some variations specific for Joomla and the Joomla Framework.
+These "DocBlocks" borrow from the PEAR standard but have some variations specific for the Joomla Framework.
 
 Whereas normal code indenting uses real tabs, all whitespace in a Docblock uses real spaces. This provides better readability in source code browsers. The minimum whitespace between any text elements, such as tags, variable types, variable names and tag descriptions, is two real spaces. Variable types and tag descriptions should be aligned according to the longest Docblock tag and type-plus-variable respectively.
 

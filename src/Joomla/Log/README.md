@@ -70,7 +70,7 @@ will look something like this:
 
     #<?php die('Forbidden.'); ?>
     #Date: 2011-06-17 02:56:21 UTC
-    #Software: Joomla Framework 11.1 Stable [ Ember ] 01-Jun-2011 06:00 GMT
+    #Software: Joomla Framework 01-Jun-2011 06:00 GMT
 
     #Fields: datetime   priority    category    message
     2011-06-17T03:06:44+00:00   INFO    -   Logged

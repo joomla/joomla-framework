@@ -19,7 +19,7 @@
 define('JPATH_BASE', __DIR__);
 
 // Bootstrap the application.
-require realpath('../libraries/import.php');
+require realpath('../vendor/autoload.php');
 
 /**
  * Joomla Framework Changelog builder.

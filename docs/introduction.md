@@ -7,13 +7,13 @@ This is the introduction to the Joomla Framework.
 ## Folder Structure
 
 The following outlines the purpose of the top-level folder structure of
-the Joomla Framework as found in the [GitHub repository](https://github.com/joomla/joomla-platform/ "Joomla Framework Github repository").
+the Joomla Framework as found in the [GitHub repository](https://github.com/joomla/joomla-framework/ "Joomla Framework Github repository").
 
 Folder     | Description
 ---------- | --------------------
 /build     | Contains information relevant for building code style reports about the platform. Output from various automated processes may also end up in this folder.
 /docs      | Contain developer manuals in Markdown format.
-/libraries | Contains all the server-side PHP code used in the Joomla Framework API.
+/src       | Contains all the server-side PHP code used in the Joomla Framework API.
 /media     | Contains any client-side resources used by the platform.
 /tests     | Contains all of the unit tests used for quality control.
 
