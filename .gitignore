@@ -6,6 +6,7 @@ composer.phar
 composer.lock
 /vendor/autoload.php
 /vendor/composer/
+/vendor/psr/
 
 # Test Related Files #
 phpunit.xml
