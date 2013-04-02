@@ -11,7 +11,7 @@ namespace Joomla\Crypt\Password;
 use Joomla\Crypt\PasswordInterface;
 
 /**
- * Joomla Platform Password Crypter
+ * Joomla Framework Password Crypter
  *
  * @since  1.0
  */

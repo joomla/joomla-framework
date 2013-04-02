@@ -9,7 +9,7 @@
 namespace Joomla\Database;
 
 /**
- * Joomla Platform Database Driver Class
+ * Joomla Framework Database Driver Class
  *
  * @since  1.0
  */

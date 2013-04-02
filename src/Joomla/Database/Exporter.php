@@ -9,7 +9,7 @@
 namespace Joomla\Database;
 
 /**
- * Joomla Platform Database Exporter Class
+ * Joomla Framework Database Exporter Class
  *
  * @since  1.0
  */

@@ -12,7 +12,7 @@ namespace Joomla\String;
 use InvalidArgumentException;
 
 /**
- * Joomla Platform String Inflector Class
+ * Joomla Framework String Inflector Class
  *
  * The Inflector transforms words
  *

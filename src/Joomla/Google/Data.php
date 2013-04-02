@@ -14,7 +14,7 @@ use SimpleXMLElement;
 use Exception;
 
 /**
- * Google API data class for the Joomla Platform.
+ * Google API data class for the Joomla Framework.
  *
  * @since  1.0
  */

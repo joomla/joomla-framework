@@ -11,7 +11,7 @@ namespace Joomla\Github;
 use Joomla\Registry\Registry;
 
 /**
- * Joomla Platform class for interacting with a GitHub server instance.
+ * Joomla Framework class for interacting with a GitHub server instance.
  *
  * @property-read  Gists       $gists       GitHub API object for gists.
  * @property-read  Issues      $issues      GitHub API object for issues.

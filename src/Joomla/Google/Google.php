@@ -11,7 +11,7 @@ namespace Joomla\Google;
 use Joomla\Registry\Registry;
 
 /**
- * Joomla Platform class for interacting with the Google APIs.
+ * Joomla Framework class for interacting with the Google APIs.
  *
  * @property-read  Data   $data    Google API object for data.
  * @property-read  Embed  $embed   Google API object for embed generation.

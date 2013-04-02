@@ -11,7 +11,7 @@ namespace Joomla\Model;
 use Joomla\Registry\Registry;
 
 /**
- * Joomla Platform Model Interface
+ * Joomla Framework Model Interface
  *
  * @since  1.0
  */

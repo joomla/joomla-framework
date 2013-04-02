@@ -11,7 +11,7 @@ namespace Joomla\Database;
 use Psr\Log;
 
 /**
- * Joomla Platform Database Driver Class
+ * Joomla Framework Database Driver Class
  *
  * @since  1.0
  *

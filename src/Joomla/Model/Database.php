@@ -12,7 +12,7 @@ use Joomla\Database\Driver;
 use Joomla\Registry\Registry;
 
 /**
- * Joomla Platform Database Model Class
+ * Joomla Framework Database Model Class
  *
  * @since  1.0
  */

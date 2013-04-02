@@ -9,7 +9,7 @@ namespace Joomla\Keychain\Tests;
 use Joomla\Keychain\Keychain;
 
 /**
- * Tests for the Joomla Platform Keychain Class
+ * Tests for the Joomla Framework Keychain Class
  *
  * @since  1.0
  */
@@ -48,7 +48,7 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test loading a file created in the CLI client (Joomla! Platform)
+	 * Test loading a file created in the CLI client (Joomla! Framework)
 	 *
 	 * @return  void
 	 *

@@ -8,9 +8,15 @@ an unstable state (i.e. all tests should pass at all times). In order to
 make the process of getting your code accepted it is helpful to run
 these tests locally to prevent any unexpected surprises.
 
+<<<<<<< HEAD
+The Joomla Framework unit tests are developed for use with PHPUnit 3.6,
+which is the latest stable version as of August 2011. Please see the
+[PHPUnit Manual](http://www.phpunit.de/manual/3.6/en/installation.html)
+=======
 The Joomla Framework unit tests are developed for use with PHPUnit 3.7,
 which is the latest stable version as of March 2013. Please see the
 [PHPUnit Manual](http://www.phpunit.de/manual/3.7/en/installation.html)
+>>>>>>> staging
 for information on installing PHPUnit on your system.
 
 ##### Configuring Your Environment: The Database
@@ -51,7 +57,11 @@ following:
 
 -   The default file path for the const assumes that you have checked
     out the Joomla Framework to the web root of your test environment
+<<<<<<< HEAD
+    inside a folder named "joomla-platform". If this is not the case,
+=======
     inside a folder named "joomla-framework". If this is not the case,
+>>>>>>> staging
     you can change the path to suit your environment and, if need be,
     copy the file from its default location to be available within your
     web environment.

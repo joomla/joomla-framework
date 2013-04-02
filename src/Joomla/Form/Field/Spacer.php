@@ -11,7 +11,7 @@ namespace Joomla\Form;
 use Joomla\Language\Text;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Provides spacer markup to be used in form layouts.
  *
  * @since  1.0

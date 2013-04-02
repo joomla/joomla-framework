@@ -9,7 +9,7 @@
 namespace Joomla\Github;
 
 /**
- * GitHub API Milestones class for the Joomla Platform.
+ * GitHub API Milestones class for the Joomla Framework.
  *
  * @since  1.0
  */

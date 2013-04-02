@@ -1,32 +1,32 @@
-# Joomla Platform Manual
+# Joomla Framework Manual
 
 ## Introduction
 
-This is the introduction to the Joomla Platform.
+This is the introduction to the Joomla Framework.
 
 ## Folder Structure
 
 The following outlines the purpose of the top-level folder structure of
-the Joomla Platform as found in the [GitHub repository](https://github.com/joomla/joomla-platform/ "Joomla Platform Github repository").
+the Joomla Framework as found in the [GitHub repository](https://github.com/joomla/joomla-framework/ "Joomla Framework Github repository").
 
 Folder     | Description
 ---------- | --------------------
 /build     | Contains information relevant for building code style reports about the platform. Output from various automated processes may also end up in this folder.
 /docs      | Contain developer manuals in Markdown format.
-/libraries | Contains all the server-side PHP code used in the Joomla Platform API.
+/src       | Contains all the server-side PHP code used in the Joomla Framework API.
 /media     | Contains any client-side resources used by the platform.
 /tests     | Contains all of the unit tests used for quality control.
 
 ## Bootstrapping
 
-Bootstrapping the Joomla Platform is done by including
+Bootstrapping the Joomla Framework is done by including
 `/libraries/import.php` in your application. This file will initiliase a
 number of constants if they are not already defined by the developer
 prior to including the import.php file:
 
 Name             | Description
 ---------------- | -----------------------
-JPATH\_PLATFORM  | The path to the Joomla Platform (where `loader.php` or `platform.php` is located, usually in the same folder as `import.php`).
+JPATH\_PLATFORM  | The path to the Joomla Framework (where `loader.php` or `platform.php` is located, usually in the same folder as `import.php`).
 IS\_WIN          | A boolean value, true if the platform is Microsoft Windows based.
 IS\_MAC          | A boolean value, true if the platform is Apple OSX based.
 IS\_UNIX         | A bollean value, true is the platform is some flavor or Unix, Linux or similar (but not Mac).
@@ -57,19 +57,19 @@ JLoader::setup();
 
 ### Using Phar
 
-The Joomla Platform can be packed into a Phar file (a PHP archive). This can allow a developer to ship an application with the Platform in a compressed format so that everything can 'just work' without downloading the Platform separately. In large bespoke projects it also provides a convenient way to update the Joomla Platform with a single file and also ensuring that development and production environments are all set up with the same version of the Platform.
+The Joomla Framework can be packed into a Phar file (a PHP archive). This can allow a developer to ship an application with the Framework in a compressed format so that everything can 'just work' without downloading the Framework separately. In large bespoke projects it also provides a convenient way to update the Joomla Framework with a single file and also ensuring that development and production environments are all set up with the same version of the Framework.
 
-To make a Phar of the Platform first download the Packager Tool from [https://github.com/LouisLandry/packager/downloads](https://github.com/LouisLandry/packager/downloads) and put the `joomla-packager.phar` file in your operating system's executable path. This is actually a standalone application with selected parts of the Joomla Platform included with it (it's one of those applications that uses itself to build itself).
+To make a Phar of the Framework first download the Packager Tool from [https://github.com/LouisLandry/packager/downloads](https://github.com/LouisLandry/packager/downloads) and put the `joomla-packager.phar` file in your operating system's executable path. This is actually a standalone application with selected parts of the Joomla Framework included with it (it's one of those applications that uses itself to build itself).
 
-To create the phar of the core Joomla Platform (without the legacy tree) go to the root folder of the Joomla Platform and execute `joomla-packager.phar`. This will build automatically detect the `packager.xml` configuration file and place the phar file in `build/joomla.phar`. You can then include this phar file in your application by using the following code:
+To create the phar of the core Joomla Framework (without the legacy tree) go to the root folder of the Joomla Framework and execute `joomla-packager.phar`. This will build automatically detect the `packager.xml` configuration file and place the phar file in `build/joomla.phar`. You can then include this phar file in your application by using the following code:
 
 ```php
 require_once 'path/to/joomla.phar';
 ```
 
-After this you can just start using the Platform API as required.
+After this you can just start using the Framework API as required.
 
-For advanced applications or projects that include their own unit test suite, the Platform and test framework can also be built into a phar by executing the following:
+For advanced applications or projects that include their own unit test suite, the Framework and test framework can also be built into a phar by executing the following:
 
 ```bash
 $ joomla-packager.phar -f packager.test.phar
@@ -77,7 +77,7 @@ $ joomla-packager.phar -f packager.test.phar
 
 ## Class Auto-loading
 
-`JLoader` is the mainstay of the Joomla Platform as it controls auto-loading of classes.
+`JLoader` is the mainstay of the Joomla Framework as it controls auto-loading of classes.
 
 It removes the need for the developer to include files by hand, or by using a fall to the `jimport` function.
 

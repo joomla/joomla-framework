@@ -9,7 +9,7 @@
 namespace Joomla\Form;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Supports a URL text field
  *
  * @link   http://www.w3.org/TR/html-markup/input.url.html#input.url

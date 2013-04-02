@@ -1,6 +1,6 @@
 ## Testing
 
-This document is about creating tests for the Joomla Platform.
+This document is about creating tests for the Joomla Framework.
 
 ## PHP Unit Tests
 
@@ -66,7 +66,7 @@ public function hidden()
 
 > **Note**
 >
-> Unit tests should always observe the Joomla Platform Coding Standards.
+> Unit tests should always observe the Joomla Framework Coding Standards.
 > Ensure the code is well formatted and that full DocBlocks are
 > provided. Most importantly, ensure the @since tag reflects the version
 > the test was added.

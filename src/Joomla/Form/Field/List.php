@@ -12,7 +12,7 @@ use Joomla\Form\Html\Select as HtmlSelect;
 use Joomla\Language\Text;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Supports a generic list of options.
  *
  * @since  1.0

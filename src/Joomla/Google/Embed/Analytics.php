@@ -12,7 +12,7 @@ use Joomla\Google\Embed;
 use UnexpectedValueException;
 
 /**
- * Google Analytics embed class for the Joomla Platform.
+ * Google Analytics embed class for the Joomla Framework.
  *
  * @since  1.0
  */

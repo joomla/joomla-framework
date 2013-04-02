@@ -1,7 +1,7 @@
 <?php
 /**
- * Bootstrap file for the Joomla Platform.  Including this file into your application will make Joomla
- * Platform libraries available for use.
+ * Bootstrap file for the Joomla Framework.  Including this file into your application will make Joomla
+ * Framework libraries available for use.
  *
  * @package    Joomla\Framework
  *

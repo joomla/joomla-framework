@@ -16,7 +16,7 @@ use UnexpectedValueException;
 use InvalidArgumentException;
 
 /**
- * Google Adsense data class for the Joomla Platform.
+ * Google Adsense data class for the Joomla Framework.
  *
  * @since  1.0
  */

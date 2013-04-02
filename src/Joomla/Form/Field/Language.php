@@ -12,7 +12,7 @@ use Joomla\Html\Html;
 use Joomla\Language\Helper as LanguageHelper;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Supports a list of installed application languages
  *
  * @see    JFormFieldContentLanguage for a select list of content languages.

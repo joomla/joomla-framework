@@ -23,7 +23,7 @@ use RuntimeException;
 use UnexpectedValueException;
 
 /**
- * Form Class for the Joomla Platform.
+ * Form Class for the Joomla Framework.
  *
  * This class implements a robust API for constructing, populating, filtering, and validating forms.
  * It uses XML definitions to construct form fields and a variety of field and rule classes to

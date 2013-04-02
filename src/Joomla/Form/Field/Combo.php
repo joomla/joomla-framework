@@ -12,7 +12,7 @@ use Joomla\Html\Html;
 use Joomla\Language\Text;
 
 /**
- * Form Field class for the Joomla Platform.
+ * Form Field class for the Joomla Framework.
  * Implements a combo box field.
  *
  * @since  1.0
