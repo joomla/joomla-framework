@@ -49,10 +49,15 @@ class Json extends Input
 		{
 			$this->raw  = file_get_contents('php://input');
 			$this->data = json_decode($this->raw, true);
+
+			if (!is_array($this->data))
+			{
+				$data = array();
+			}
 		}
 		else
 		{
-			$this->data = & $source;
+			$this->data = $source;
 		}
 
 		// Set the options for the class.

@@ -47,7 +47,7 @@ class Mocker
 	 *
 	 * @since   1.0
 	 */
-	public function createMockInput()
+	public function createInput()
 	{
 		// Collect all the relevant methods in JDatabase.
 		$methods = array(
@@ -83,6 +83,10 @@ class Mocker
 				'set' => array((is_callable(array($this->test, 'mockInputSet')) ? $this->test : $this), 'mockInputSet'),
 			)
 		);
+
+		$mockObject->get = $mockObject;
+		$mockObject->post = $mockObject;
+		$mockObject->request = $mockObject;
 
 		return $mockObject;
 	}
