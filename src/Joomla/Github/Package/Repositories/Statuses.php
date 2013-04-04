@@ -6,14 +6,18 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Github;
+namespace Joomla\Github\Package\Repositories;
+
+use Joomla\Github\Package;
 
 /**
  * GitHub API References class for the Joomla Framework.
  *
- * @since  1.0
+ * @documentation http://developer.github.com/v3/repos/statuses
+ *
+ * @since  ¿
  */
-class Statuses extends GithubObject
+class Statuses extends Package
 {
 	/**
 	 * Method to create a status.
@@ -25,10 +29,12 @@ class Statuses extends GithubObject
 	 * @param   string  $targetUrl    Optional target URL.
 	 * @param   string  $description  Optional description for the status.
 	 *
-	 * @return  object
+	 * @throws \InvalidArgumentException
+	 * @throws \DomainException
 	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
+	 * @since   12.3
+	 *
+	 * @return  object
 	 */
 	public function create($user, $repo, $sha, $state, $targetUrl = null, $description = null)
 	{
@@ -56,7 +62,10 @@ class Statuses extends GithubObject
 		}
 
 		// Send the request.
-		return $this->processResponse($this->client->post($this->fetchUrl($path), json_encode($data)), 201);
+		return $this->processResponse(
+			$this->client->post($this->fetchUrl($path), json_encode($data)),
+			201
+		);
 	}
 
 	/**
@@ -68,7 +77,7 @@ class Statuses extends GithubObject
 	 *
 	 * @return  array
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function getList($user, $repo, $sha)
 	{
@@ -76,6 +85,6 @@ class Statuses extends GithubObject
 		$path = '/repos/' . $user . '/' . $repo . '/statuses/' . $sha;
 
 		// Send the request.
-		return $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
+		return $this->processResponse($this->client->get($this->fetchUrl($path)));
 	}
 }

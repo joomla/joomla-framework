@@ -6,20 +6,24 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Github;
+namespace Joomla\Github\Package\Repositories;
+
+use Joomla\Github\Package;
 
 /**
  * GitHub API Hooks class for the Joomla Framework.
  *
- * @since  1.0
+ * @documentation http://developer.github.com/v3/repos/hooks
+ *
+ * @since  ¿
  */
-class Hooks extends GithubObject
+class Hooks extends Package
 {
 	/**
 	 * Array containing the allowed hook events
 	 *
 	 * @var    array
-	 * @since  1.0
+	 * @since  12.3
 	 */
 	protected $events = array(
 		'push', 'issues', 'issue_comment', 'commit_comment', 'pull_request', 'gollum', 'watch', 'download', 'fork', 'fork_apply',
@@ -38,10 +42,11 @@ class Hooks extends GithubObject
 	 *
 	 * @return  object
 	 *
-	 * @since   1.0
+	 * @since   12.3
+	 * @throws  \DomainException
 	 * @throws  \RuntimeException
 	 */
-	public function create($user, $repo, $name, array $config, array $events = array('push'), $active = true)
+	public function create($user, $repo, $name, $config, array $events = array('push'), $active = true)
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/hooks';
@@ -59,8 +64,10 @@ class Hooks extends GithubObject
 			array('name' => $name, 'config' => $config, 'events' => $events, 'active' => $active)
 		);
 
-		// Send the request.
-		return $this->processResponse($this->client->post($this->fetchUrl($path), $data), 201);
+		return $this->processResponse(
+			$this->client->post($this->fetchUrl($path), $data),
+			201
+		);
 	}
 
 	/**
@@ -72,15 +79,18 @@ class Hooks extends GithubObject
 	 *
 	 * @return  object
 	 *
-	 * @since   1.0
+	 * @since   12.3
+	 * @throws  \DomainException
 	 */
 	public function delete($user, $repo, $id)
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/hooks/' . $id;
 
-		// Send the request.
-		return $this->processResponse($this->client->delete($this->fetchUrl($path)), 204);
+		return $this->processResponse(
+			$this->client->delete($this->fetchUrl($path)),
+			204
+		);
 	}
 
 	/**
@@ -98,10 +108,11 @@ class Hooks extends GithubObject
 	 *
 	 * @return  object
 	 *
-	 * @since   1.0
+	 * @since   12.3
+	 * @throws  \DomainException
 	 * @throws  \RuntimeException
 	 */
-	public function edit($user, $repo, $id, $name, array $config, array $events = array('push'), array $addEvents = array(),
+	public function edit($user, $repo, $id, $name, $config, array $events = array('push'), array $addEvents = array(),
 		array $removeEvents = array(), $active = true)
 	{
 		// Check to ensure all events are in the allowed list
@@ -134,16 +145,17 @@ class Hooks extends GithubObject
 
 		$data = json_encode(
 			array(
-				'name' => $name,
-				'config' => $config,
-				'events' => $events,
-				'add_events' => $addEvents,
+				'name'          => $name,
+				'config'        => $config,
+				'events'        => $events,
+				'add_events'    => $addEvents,
 				'remove_events' => $removeEvents,
-				'active' => $active)
+				'active'        => $active)
 		);
 
-		// Send the request.
-		return $this->processResponse($this->client->patch($this->fetchUrl($path), $data), 200);
+		return $this->processResponse(
+			$this->client->patch($this->fetchUrl($path), $data)
+		);
 	}
 
 	/**
@@ -155,36 +167,38 @@ class Hooks extends GithubObject
 	 *
 	 * @return  object
 	 *
-	 * @since   1.0
+	 * @since   12.3
+	 * @throws  \DomainException
 	 */
 	public function get($user, $repo, $id)
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/hooks/' . $id;
 
-		// Send the request.
-		return $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
+		return $this->processResponse(
+			$this->client->get($this->fetchUrl($path))
+		);
 	}
 
 	/**
 	 * Method to list hooks for a repository.
 	 *
-	 * @param   string   $user   The name of the owner of the GitHub repository.
-	 * @param   string   $repo   The name of the GitHub repository.
-	 * @param   integer  $page   Page to request
-	 * @param   integer  $limit  Number of results to return per page
+	 * @param   string  $user  The name of the owner of the GitHub repository.
+	 * @param   string  $repo  The name of the GitHub repository.
 	 *
 	 * @return  object
 	 *
-	 * @since   1.0
+	 * @since   12.3
+	 * @throws  \DomainException
 	 */
-	public function getList($user, $repo, $page = 0, $limit = 0)
+	public function getList($user, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/hooks';
 
-		// Send the request.
-		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)), 200);
+		return $this->processResponse(
+			$this->client->get($this->fetchUrl($path))
+		);
 	}
 
 	/**
@@ -196,14 +210,17 @@ class Hooks extends GithubObject
 	 *
 	 * @return  object
 	 *
-	 * @since   1.0
+	 * @since   12.3
+	 * @throws  \DomainException
 	 */
 	public function test($user, $repo, $id)
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/hooks/' . $id . '/test';
 
-		// Send the request.
-		return $this->processResponse($this->client->post($this->fetchUrl($path), json_encode('')), 204);
+		return $this->processResponse(
+			$this->client->post($this->fetchUrl($path), json_encode('')),
+			204
+		);
 	}
 }

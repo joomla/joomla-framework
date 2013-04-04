@@ -13,17 +13,19 @@ use Joomla\Registry\Registry;
 /**
  * Joomla Framework class for interacting with a GitHub server instance.
  *
- * @property-read  Gists       $gists       GitHub API object for gists.
- * @property-read  Issues      $issues      GitHub API object for issues.
- * @property-read  Pulls       $pulls       GitHub API object for pulls.
- * @property-read  Refs        $refs        GitHub API object for references.
- * @property-read  Forks       $forks       GitHub API object for forks.
- * @property-read  Commits     $commits     GitHub API object for commits.
- * @property-read  Milestones  $milestones  GitHub API object for milestones.
- * @property-read  Statuses    $statuses    GitHub API object for statuses.
- * @property-read  Account     $account     GitHub API object for account references.
- * @property-read  Hooks       $hooks       GitHub API object for hooks.
- * @property-read  Meta        $meta        GitHub API object for meta.
+ * @property-read  Package\Activity       $activity       GitHub API object for the activity package.
+ * @property-read  Package\Authorization  $authorization  GitHub API object for the authorizations package.
+ * @property-read  Package\Data           $data           GitHub API object for the data package.
+ * @property-read  Package\Gists          $gists          GitHub API object for the gists package.
+ * @property-read  Package\Gitignore      $gitignore      GitHub API object for the gitignore package.
+ * @property-read  Package\Issues         $issues         GitHub API object for the issues package.
+ * @property-read  Package\Markdown       $markdown       GitHub API object for the the markdown package.
+ * @property-read  Package\Meta           $meta           GitHub API object for the meta package.
+ * @property-read  Package\Orgs           $orgs           GitHub API object for the the orgs package.
+ * @property-read  Package\Pulls          $pulls          GitHub API object for the pulls package.
+ * @property-read  Package\Repositories   $repositories   GitHub API object for the repositories package.
+ * @property-read  Package\Search         $search         GitHub API object for the search package.
+ * @property-read  Package\Users          $users          GitHub API object for the users package.
  *
  * @since  1.0
  */
@@ -40,72 +42,6 @@ class Github
 	 * @since  1.0
 	 */
 	protected $client;
-
-	/**
-	 * @var    Gists  GitHub API object for gists.
-	 * @since  1.0
-	 */
-	protected $gists;
-
-	/**
-	 * @var    Issues  GitHub API object for issues.
-	 * @since  1.0
-	 */
-	protected $issues;
-
-	/**
-	 * @var    Pulls  GitHub API object for pulls.
-	 * @since  1.0
-	 */
-	protected $pulls;
-
-	/**
-	 * @var    Refs  GitHub API object for referencess.
-	 * @since  1.0
-	 */
-	protected $refs;
-
-	/**
-	 * @var    Forks  GitHub API object for forks.
-	 * @since  1.0
-	 */
-	protected $forks;
-
-	/**
-	 * @var    Commits  GitHub API object for commits.
-	 * @since  1.0
-	 */
-	protected $commits;
-
-	/**
-	 * @var    Milestones  GitHub API object for milestones.
-	 * @since  1.0
-	 */
-	protected $milestones;
-
-	/**
-	 * @var    Statuses  GitHub API object for statuses.
-	 * @since  1.0
-	 */
-	protected $statuses;
-
-	/**
-	 * @var    Account  GitHub API object for account references.
-	 * @since  1.0
-	 */
-	protected $account;
-
-	/**
-	 * @var    Hooks  GitHub API object for hooks.
-	 * @since  1.0
-	 */
-	protected $hooks;
-
-	/**
-	 * @var    Meta  GitHub API object for meta.
-	 * @since  1.0
-	 */
-	protected $meta;
 
 	/**
 	 * Constructor.
@@ -136,11 +72,11 @@ class Github
 	 */
 	public function __get($name)
 	{
-		$class = '\\Joomla\\Github\\' . ucfirst($name);
+		$class = '\\Joomla\\Github\\Package\\' . ucfirst($name);
 
 		if (class_exists($class))
 		{
-			if ($this->$name == null)
+			if (false == isset($this->$name))
 			{
 				$this->$name = new $class($this->options, $this->client);
 			}

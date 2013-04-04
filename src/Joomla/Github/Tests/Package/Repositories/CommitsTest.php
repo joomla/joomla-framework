@@ -6,15 +6,15 @@
 
 namespace Joomla\Github\Tests;
 
-use Joomla\Github\Forks;
+use Joomla\Github\Package\Repositories\Commits;
 use Joomla\Registry\Registry;
 
 /**
- * Test class for Joomla\Github\Forks.
+ * Test class for Commits.
  *
- * @since  1.0
+ * @since  ¿
  */
-class ForksTest extends \PHPUnit_Framework_TestCase
+class CommitsTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
@@ -23,7 +23,7 @@ class ForksTest extends \PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    \Joomla\Github\Http  Mock client object.
+	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
@@ -35,20 +35,20 @@ class ForksTest extends \PHPUnit_Framework_TestCase
 	protected $response;
 
 	/**
-	 * @var    Forks  Object under test.
-	 * @since  1.0
+	 * @var    Commits  Object under test.
+	 * @since  12.1
 	 */
 	protected $object;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  1.0
+	 * @since  12.1
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  1.0
+	 * @since  12.1
 	 */
 	protected $errorString = '{"message": "Generic Error"}';
 
@@ -58,7 +58,7 @@ class ForksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.1
 	 */
 	protected function setUp()
 	{
@@ -68,63 +68,52 @@ class ForksTest extends \PHPUnit_Framework_TestCase
 		$this->client = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
-		$this->object = new Forks($this->options, $this->client);
+		$this->object = new Commits($this->options, $this->client);
 	}
 
 	/**
-	 * Tests the create method
+	 * Tests the getCommit method
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.1
 	 */
-	public function testCreate()
+	public function testGetCommit()
 	{
-		$this->response->code = 202;
+		$this->response->code = 200;
 		$this->response->body = $this->sampleString;
 
-		// Build the request data.
-		$data = json_encode(
-			array(
-				'org' => 'jenkins-jools'
-			)
-		);
-
 		$this->client->expects($this->once())
-			->method('post')
-			->with('/repos/joomla/joomla-platform/forks', $data)
+			->method('get')
+			->with('/repos/joomla/joomla-platform/commits/abc1234')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->create('joomla', 'joomla-platform', 'jenkins-jools'),
+			$this->object->get('joomla', 'joomla-platform', 'abc1234'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the create method - failure
+	 * Tests the getCommit method - failure
 	 *
 	 * @return  void
 	 *
-	 * @since              1.0
-	 * @expectedException  DomainException
+	 * @since   12.1
+	 *
+	 * @expectedException  \DomainException
 	 */
-	public function testCreateFailure()
+	public function testGetCommitFailure()
 	{
-		$this->response->code = 501;
+		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
-		// Build the request data.
-		$data = json_encode(
-			array()
-		);
-
 		$this->client->expects($this->once())
-			->method('post')
-			->with('/repos/joomla/joomla-platform/forks', $data)
+			->method('get')
+			->with('/repos/joomla/joomla-platform/commits/abc1234')
 			->will($this->returnValue($this->response));
 
-		$this->object->create('joomla', 'joomla-platform', '');
+		$this->object->get('joomla', 'joomla-platform', 'abc1234');
 	}
 
 	/**
@@ -132,7 +121,7 @@ class ForksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.1
 	 */
 	public function testGetList()
 	{
@@ -141,7 +130,7 @@ class ForksTest extends \PHPUnit_Framework_TestCase
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/repos/joomla/joomla-platform/forks')
+			->with('/repos/joomla/joomla-platform/commits')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
@@ -155,8 +144,9 @@ class ForksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since              1.0
-	 * @expectedException  DomainException
+	 * @since   12.1
+	 *
+	 * @expectedException  \DomainException
 	 */
 	public function testGetListFailure()
 	{
@@ -165,9 +155,32 @@ class ForksTest extends \PHPUnit_Framework_TestCase
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/repos/joomla/joomla-platform/forks')
+			->with('/repos/joomla/joomla-platform/commits')
 			->will($this->returnValue($this->response));
 
 		$this->object->getList('joomla', 'joomla-platform');
+	}
+
+	/**
+	 * Tests the Compare method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.1
+	 */
+	public function testCompare()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/repos/joomla/joomla-platform/compare/123abc...456def')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->compare('joomla', 'joomla-platform', '123abc', '456def'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
 	}
 }

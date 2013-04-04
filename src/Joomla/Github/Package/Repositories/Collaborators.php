@@ -1,0 +1,123 @@
+<?php
+/**
+ * @package    Joomla\Framework
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+namespace Joomla\Github\Package\Repositories;
+
+use Joomla\Github\Package;
+
+/**
+ * GitHub API Repositories Collaborators class for the Joomla Framework.
+ *
+ * @documentation http://developer.github.com/v3/repos/collaborators
+ *
+ * @since  ¿
+ */
+class Collaborators extends Package
+{
+	/**
+	 * List.
+	 *
+	 * When authenticating as an organization owner of an organization-owned repository, all organization
+	 * owners are included in the list of collaborators. Otherwise, only users with access to the repository
+	 * are returned in the collaborators list.
+	 *
+	 * @param   string  $owner  The name of the owner of the GitHub repository.
+	 * @param   string  $repo   The name of the GitHub repository.
+	 *
+	 * @since ¿
+	 *
+	 * @return object
+	 */
+	public function getList($owner, $repo)
+	{
+		// Build the request path.
+		$path = '/repos/' . $owner . '/' . $repo . '/collaborators';
+
+		return $this->processResponse(
+			$this->client->get($this->fetchUrl($path))
+		);
+	}
+
+	/**
+	 * Test if a user is a collaborator.
+	 *
+	 * @param   string  $owner  The name of the owner of the GitHub repository.
+	 * @param   string  $repo   The name of the GitHub repository.
+	 * @param   string  $user   The name of the GitHub user.
+	 *
+	 * @throws \UnexpectedValueException
+	 * @since ¿
+	 *
+	 * @return boolean
+	 */
+	public function get($owner, $repo, $user)
+	{
+		// Build the request path.
+		$path = '/repos/' . $owner . '/' . $repo . '/collaborators/' . $user;
+
+		$response = $this->client->get($this->fetchUrl($path));
+
+		switch ($response->code)
+		{
+			case '204';
+
+				return true;
+				break;
+			case '404';
+
+				return false;
+				break;
+			default;
+				throw new \UnexpectedValueException('Unexpected code: ' . $response->code);
+				break;
+		}
+	}
+
+	/**
+	 * Add collaborator.
+	 *
+	 * @param   string  $owner  The name of the owner of the GitHub repository.
+	 * @param   string  $repo   The name of the GitHub repository.
+	 * @param   string  $user   The name of the GitHub user.
+	 *
+	 * @since ¿
+	 *
+	 * @return object
+	 */
+	public function add($owner, $repo, $user)
+	{
+		// Build the request path.
+		$path = '/repos/' . $owner . '/' . $repo . '/collaborators/' . $user;
+
+		return $this->processResponse(
+			$this->client->put($this->fetchUrl($path), ''),
+			204
+		);
+	}
+
+	/**
+	 * Remove collaborator.
+	 *
+	 * @param   string  $owner  The name of the owner of the GitHub repository.
+	 * @param   string  $repo   The name of the GitHub repository.
+	 * @param   string  $user   The name of the GitHub user.
+	 *
+	 * @since ¿
+	 *
+	 * @return object
+	 */
+	public function remove($owner, $repo, $user)
+	{
+		// Build the request path.
+		$path = '/repos/' . $owner . '/' . $repo . '/collaborators/' . $user;
+
+		return $this->processResponse(
+			$this->client->delete($this->fetchUrl($path)),
+			204
+		);
+	}
+}

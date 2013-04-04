@@ -47,7 +47,7 @@ Once a Github object has been created, it is simple to use it to access
 Github:
 
 ```php
-$pullRequests = $github->pulls->getList('joomla', 'joomla-platform');
+$pullRequests = $github->pulls->getList('joomla', 'joomla-framework');
 ```
 
 This will retrieve a list of all open pull requests in the specified
