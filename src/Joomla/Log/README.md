@@ -38,6 +38,11 @@ more predefined constants in the `JLog` class. These are:
 * JLog::INFO
 * JLog::DEBUG
 
+For information on what situation to use each constant in see the PSR-3
+(Section 3) details here - https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md#3-psrlogloggerinterface
+where a detailed explanation can be found.
+
+
 A final constant, `JLog::ALL` is also available which corresponds to hex
 FFFF (16 bits). The other constants reserve the first eight bits for
 system use. This allows the developer the last eight bits, hex 100 to
