@@ -54,66 +54,6 @@ class GithubTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the magic __get method - gists
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function test__GetGists()
-	{
-		$this->assertThat(
-			$this->object->gists,
-			$this->isInstanceOf('Joomla\Github\Gists')
-		);
-	}
-
-	/**
-	 * Tests the magic __get method - issues
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function test__GetIssues()
-	{
-		$this->assertThat(
-			$this->object->issues,
-			$this->isInstanceOf('Joomla\Github\Issues')
-		);
-	}
-
-	/**
-	 * Tests the magic __get method - pulls
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function test__GetPulls()
-	{
-		$this->assertThat(
-			$this->object->pulls,
-			$this->isInstanceOf('Joomla\Github\Pulls')
-		);
-	}
-
-	/**
-	 * Tests the magic __get method - refs
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function test__GetRefs()
-	{
-		$this->assertThat(
-			$this->object->refs,
-			$this->isInstanceOf('Joomla\Github\Refs')
-		);
-	}
-
-	/**
 	 * Tests the magic __get method - forks
 	 *
 	 * @return  void
@@ -123,8 +63,8 @@ class GithubTest extends \PHPUnit_Framework_TestCase
 	public function test__GetForks()
 	{
 		$this->assertThat(
-			$this->object->forks,
-			$this->isInstanceOf('Joomla\Github\Forks')
+			$this->object->repositories->forks,
+			$this->isInstanceOf('Joomla\Github\Package\Repositories\Forks')
 		);
 	}
 
@@ -138,23 +78,8 @@ class GithubTest extends \PHPUnit_Framework_TestCase
 	public function test__GetCommits()
 	{
 		$this->assertThat(
-			$this->object->commits,
-			$this->isInstanceOf('Joomla\Github\Commits')
-		);
-	}
-
-	/**
-	 * Tests the magic __get method - milestones
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function test__GetMilestones()
-	{
-		$this->assertThat(
-			$this->object->milestones,
-			$this->isInstanceOf('Joomla\Github\Milestones')
+			$this->object->repositories->commits,
+			$this->isInstanceOf('Joomla\Github\Package\Repositories\Commits')
 		);
 	}
 
@@ -168,23 +93,8 @@ class GithubTest extends \PHPUnit_Framework_TestCase
 	public function test__GetStatuses()
 	{
 		$this->assertThat(
-			$this->object->statuses,
-			$this->isInstanceOf('Joomla\Github\Statuses')
-		);
-	}
-
-	/**
-	 * Tests the magic __get method - account
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function test__GetAccount()
-	{
-		$this->assertThat(
-			$this->object->account,
-			$this->isInstanceOf('Joomla\Github\Account')
+			$this->object->repositories->statuses,
+			$this->isInstanceOf('Joomla\Github\Package\Repositories\Statuses')
 		);
 	}
 
@@ -198,23 +108,8 @@ class GithubTest extends \PHPUnit_Framework_TestCase
 	public function test__GetHooks()
 	{
 		$this->assertThat(
-			$this->object->hooks,
-			$this->isInstanceOf('Joomla\Github\Hooks')
-		);
-	}
-
-	/**
-	 * Tests the magic __get method - meta
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function test__GetMeta()
-	{
-		$this->assertThat(
-			$this->object->meta,
-			$this->isInstanceOf('Joomla\Github\Meta')
+			$this->object->repositories->hooks,
+			$this->isInstanceOf('Joomla\Github\Package\Repositories\Hooks')
 		);
 	}
 

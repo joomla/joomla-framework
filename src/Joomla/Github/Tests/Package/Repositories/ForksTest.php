@@ -6,15 +6,15 @@
 
 namespace Joomla\Github\Tests;
 
+use Joomla\Github\Package\Repositories\Forks;
 use Joomla\Registry\Registry;
-use Joomla\Github\Statuses;
 
 /**
- * Test class for Joomla\Github\Statuses.
+ * Test class for Forks.
  *
  * @since  1.0
  */
-class StatusesTest extends \PHPUnit_Framework_TestCase
+class ForksTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
@@ -23,16 +23,10 @@ class StatusesTest extends \PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    \Joomla\Github\Http  Mock client object.
+	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
-
-	/**
-	 * @var    Statuses  Object under test.
-	 * @since  1.0
-	 */
-	protected $object;
 
 	/**
 	 * @var    \Joomla\Http\Response  Mock response object.
@@ -41,14 +35,20 @@ class StatusesTest extends \PHPUnit_Framework_TestCase
 	protected $response;
 
 	/**
+	 * @var    Forks  Object under test.
+	 * @since  11.4
+	 */
+	protected $object;
+
+	/**
 	 * @var    string  Sample JSON string.
-	 * @since  1.0
+	 * @since  11.4
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  1.0
+	 * @since  11.4
 	 */
 	protected $errorString = '{"message": "Generic Error"}';
 
@@ -56,56 +56,45 @@ class StatusesTest extends \PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @return  void
+	 * @access protected
 	 *
-	 * @since   1.0
+	 * @return void
 	 */
 	protected function setUp()
 	{
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
-		$this->object = new Statuses($this->options, $this->client);
+		$this->object = new Forks($this->options, $this->client);
 	}
 
 	/**
 	 * Tests the create method
 	 *
-	 * @return  void
-	 *
-	 * @since   1.0
+	 * @return void
 	 */
 	public function testCreate()
 	{
-		$this->response->code = 201;
+		$this->response->code = 202;
 		$this->response->body = $this->sampleString;
 
 		// Build the request data.
 		$data = json_encode(
 			array(
-				'state' => 'success',
-				'target_url' => 'http://example.com/my_url',
-				'description' => 'Success is the only option - failure is not.'
+				'org' => 'jenkins-jools'
 			)
 		);
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/repos/joomla/joomla-platform/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e', $data)
+			->with('/repos/joomla/joomla-platform/forks', $data)
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->create(
-				'joomla',
-				'joomla-platform',
-				'6dcb09b5b57875f334f61aebed695e2e4193db5e',
-				'success',
-				'http://example.com/my_url',
-				'Success is the only option - failure is not.'
-			),
+			$this->object->create('joomla', 'joomla-platform', 'jenkins-jools'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -113,37 +102,32 @@ class StatusesTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Tests the create method - failure
 	 *
-	 * @return  void
+	 * @expectedException  \DomainException
 	 *
-	 * @since              1.0
-	 * @expectedException  DomainException
+	 * @return void
 	 */
 	public function testCreateFailure()
 	{
-		$this->response->code = 501;
+		$this->response->code = 500;
 		$this->response->body = $this->errorString;
 
 		// Build the request data.
 		$data = json_encode(
-			array(
-				'state' => 'pending'
-			)
+			array()
 		);
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/repos/joomla/joomla-platform/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e', $data)
+			->with('/repos/joomla/joomla-platform/forks', $data)
 			->will($this->returnValue($this->response));
 
-		$this->object->create('joomla', 'joomla-platform', '6dcb09b5b57875f334f61aebed695e2e4193db5e', 'pending');
+		$this->object->create('joomla', 'joomla-platform', '');
 	}
 
 	/**
 	 * Tests the getList method
 	 *
-	 * @return  void
-	 *
-	 * @since   1.0
+	 * @return void
 	 */
 	public function testGetList()
 	{
@@ -152,22 +136,21 @@ class StatusesTest extends \PHPUnit_Framework_TestCase
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/repos/joomla/joomla-platform/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e')
+			->with('/repos/joomla/joomla-platform/forks')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->getList('joomla', 'joomla-platform', '6dcb09b5b57875f334f61aebed695e2e4193db5e'),
-			$this->equalTo(json_decode($this->sampleString))
+			$this->object->getList('joomla', 'joomla-platform'),
+			$this->equalTo(json_decode($this->response->body))
 		);
 	}
 
 	/**
 	 * Tests the getList method - failure
 	 *
-	 * @return  void
+	 * @expectedException  \DomainException
 	 *
-	 * @since              1.0
-	 * @expectedException  DomainException
+	 * @return void
 	 */
 	public function testGetListFailure()
 	{
@@ -176,9 +159,9 @@ class StatusesTest extends \PHPUnit_Framework_TestCase
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/repos/joomla/joomla-platform/statuses/6dcb09b5b57875f334f61aebed695e2e4193db5e')
+			->with('/repos/joomla/joomla-platform/forks')
 			->will($this->returnValue($this->response));
 
-		$this->object->getList('joomla', 'joomla-platform', '6dcb09b5b57875f334f61aebed695e2e4193db5e');
+		$this->object->getList('joomla', 'joomla-platform');
 	}
 }

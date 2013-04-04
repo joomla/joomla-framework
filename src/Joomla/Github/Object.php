@@ -32,6 +32,12 @@ abstract class Object
 	protected $client;
 
 	/**
+	 * @var string
+	 * @since ¿
+	 */
+	protected $package = '';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   Registry  $options  GitHub options object.
@@ -43,6 +49,9 @@ abstract class Object
 	{
 		$this->options = isset($options) ? $options : new Registry;
 		$this->client = isset($client) ? $client : new Http($this->options);
+
+		$this->package = get_class($this);
+		$this->package = substr($this->package, strrpos($this->package, '\\') + 1);
 	}
 
 	/**

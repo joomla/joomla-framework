@@ -6,11 +6,11 @@
 
 namespace Joomla\Github\Tests;
 
+use Joomla\Github\Package\Repositories\Hooks;
 use Joomla\Registry\Registry;
-use Joomla\Github\Hooks;
 
 /**
- * Test class for Joomla\Github\Hooks.
+ * Test class for Hooks.
  *
  * @since  1.0
  */
@@ -23,7 +23,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    \Joomla\Github\Http  Mock client object.
+	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
@@ -36,19 +36,19 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @var    Hooks  Object under test.
-	 * @since  1.0
+	 * @since  12.3
 	 */
 	protected $object;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  1.0
+	 * @since  12.3
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  1.0
+	 * @since  12.3
 	 */
 	protected $errorString = '{"message": "Generic Error"}';
 
@@ -58,14 +58,14 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	protected function setUp()
 	{
 		parent::setUp();
 
 		$this->options = new Registry;
-		$this->client = $this->getMock('Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
 		$this->object = new Hooks($this->options, $this->client);
@@ -76,7 +76,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testCreate()
 	{
@@ -105,7 +105,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testCreateFailure()
 	{
@@ -146,9 +146,9 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 *
-	 * @expectedException  RuntimeException
+	 * @expectedException  \RuntimeException
 	 */
 	public function testCreateUnauthorisedEvent()
 	{
@@ -160,7 +160,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testDelete()
 	{
@@ -183,7 +183,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testDeleteFailure()
 	{
@@ -218,7 +218,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testEdit()
 	{
@@ -251,7 +251,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testEditFailure()
 	{
@@ -296,13 +296,41 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 *
-	 * @expectedException  RuntimeException
+	 * @expectedException  |RuntimeException
 	 */
 	public function testEditUnauthorisedEvent()
 	{
-		$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'), array('push', 'faker'));
+		$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'), array('invalid'));
+	}
+
+	/**
+	 * Tests the edit method - unauthorised event
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 *
+	 * @expectedException  \RuntimeException
+	 */
+	public function testEditUnauthorisedAddEvent()
+	{
+		$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'), array('push'), array('invalid'));
+	}
+
+	/**
+	 * Tests the edit method - unauthorised event
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 *
+	 * @expectedException  \RuntimeException
+	 */
+	public function testEditUnauthorisedRemoveEvent()
+	{
+		$this->object->edit('joomla', 'joomla-platform', 42, 'acunote', array('token' => '123456789'), array('push'), array('push'), array('invalid'));
 	}
 
 	/**
@@ -310,7 +338,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testGet()
 	{
@@ -333,9 +361,9 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 *
-	 * @expectedException  DomainException
+	 * @expectedException  \DomainException
 	 */
 	public function testGetFailure()
 	{
@@ -355,7 +383,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testGetList()
 	{
@@ -378,9 +406,9 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 *
-	 * @expectedException  DomainException
+	 * @expectedException  \DomainException
 	 */
 	public function testGetListFailure()
 	{
@@ -400,7 +428,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 */
 	public function testTest()
 	{
@@ -423,9 +451,9 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   12.3
 	 *
-	 * @expectedException  DomainException
+	 * @expectedException  \DomainException
 	 */
 	public function testTestFailure()
 	{
