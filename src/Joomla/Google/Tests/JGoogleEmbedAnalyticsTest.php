@@ -11,7 +11,7 @@ use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
- * Test class for Joomla\Google\Embed\Analaytics.
+ * Test class for Joomla\Google\Embed\Analytics.
  *
  * @since  1.0
  */

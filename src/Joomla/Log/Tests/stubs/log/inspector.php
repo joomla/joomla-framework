@@ -41,7 +41,7 @@ class JLogInspector extends Log
 	 */
 	public static function clearInstance()
 	{
-		JLog::$instance == null;
+		JLog::$instance = null;
 	}
 
 	/**

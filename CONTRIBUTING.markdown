@@ -13,7 +13,7 @@ Please be patient as not all items will be tested or reviewed immediately by a F
 
 Also be receptive to feedback about your additions or changes to the Framework. The maintainer team and other community members may make suggestions or ask questions about your change. This is part of the review process, and helps everyone to understand what is happening, why it is happening, and potentially optimize your code.
 
-If you need some ideas about what you can do, you will find tasks on the [Issues](https://github.com/joomla/joomla-framework/issues) list. All tasks are allocated to a milestone, usually representing a quarter of the calendar year. The milestones should be used as a guide to when various tasks should be done, but there is generally no problem doing tasks out of order (providing there are no dependancy problems). 
+If you need some ideas about what you can do, you will find tasks on the [Issues](https://github.com/joomla/joomla-framework/issues) list. All tasks are allocated to a milestone, usually representing a quarter of the calendar year. The milestones should be used as a guide to when various tasks should be done, but there is generally no problem doing tasks out of order (providing there are no dependency problems).
 
 All tasks are labelled into broad groups. For example, the [backlog](https://github.com/joomla/joomla-framework/issues?labels=backlog&page=1&state=open) label shows all the tasks that need to be competed to "catch up" on work that was missed out in previous versions of the Framework.
 

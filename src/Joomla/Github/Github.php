@@ -16,11 +16,11 @@ use Joomla\Registry\Registry;
  * @property-read  Gists       $gists       GitHub API object for gists.
  * @property-read  Issues      $issues      GitHub API object for issues.
  * @property-read  Pulls       $pulls       GitHub API object for pulls.
- * @property-read  Refs        $refs        GitHub API object for referencess.
+ * @property-read  Refs        $refs        GitHub API object for references.
  * @property-read  Forks       $forks       GitHub API object for forks.
  * @property-read  Commits     $commits     GitHub API object for commits.
- * @property-read  Milestones  $milestones  GitHub API object for commits.
- * @property-read  Statuses    $statuses    GitHub API object for commits.
+ * @property-read  Milestones  $milestones  GitHub API object for milestones.
+ * @property-read  Statuses    $statuses    GitHub API object for statuses.
  * @property-read  Account     $account     GitHub API object for account references.
  * @property-read  Hooks       $hooks       GitHub API object for hooks.
  * @property-read  Meta        $meta        GitHub API object for meta.

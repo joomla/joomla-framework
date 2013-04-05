@@ -9,7 +9,7 @@ The `Joomla Framework` is a platform for writing web and command line applicatio
 
 It is comprises code originally developed for the Joomla Content Management System (CMS). For more information about the Joomla CMS visit [http://www.joomla.org/about-joomla.html](http://www.joomla.org/about-joomla.html).
 
-For news and information about developering with Joomla, please visit [http://developer.joomla.org](http://developer.joomla.org).
+For news and information about developing with Joomla, please visit [http://developer.joomla.org](http://developer.joomla.org).
 
 View the Joomla Framework API Documentation at [http://joomla.github.com/joomla-framework](http://joomla.github.com/joomla-framework). Powered by [phpDocumentor 2](http://www.phpdoc.org).
 
@@ -42,7 +42,7 @@ If you are interested in working with the development code (in the master branch
 
 ### Package Installation Via Composer
 
-There are two ways to add our packages to your exising composer powered application.
+There are two ways to add our packages to your existing composer powered application.
 
 ##### Adding packages manually to the `require` option in your `composer.json`.
 
@@ -76,7 +76,7 @@ General documentation about the Joomla Framework can be found under the [/docs](
 
 ## Reporting Bugs and Issue
 
-Bugs and issues found in the Joomla Framework code can be reported on the [Issues](https://github.com/joomla/joomla-framework/issues) list. Even for distributed packages where the code is in another repo, plese submit issues to this issue tracker.
+Bugs and issues found in the Joomla Framework code can be reported on the [Issues](https://github.com/joomla/joomla-framework/issues) list. Even for distributed packages where the code is in another repo, please submit issues to this issue tracker.
 
 
 ## Contributing

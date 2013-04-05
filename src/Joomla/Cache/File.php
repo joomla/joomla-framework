@@ -97,12 +97,12 @@ class File extends Cache
 				throw new \RuntimeException(sprintf('Unable to clean expired cache entry for %s.', $key), null, $e);
 			}
 
-			return new Item($key);;
+			return new Item($key);
 		}
 
 		if (!$this->exists($key))
 		{
-			return new Item($key);;
+			return new Item($key);
 		}
 
 		$resource = @fopen($this->fetchStreamUri($key), 'rb');
