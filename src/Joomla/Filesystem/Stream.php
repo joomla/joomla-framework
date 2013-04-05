@@ -292,8 +292,6 @@ class Stream
 		if (!$this->fh)
 		{
 			throw new \RuntimeException('File not open');
-
-			return true;
 		}
 
 		$retval = false;
