@@ -764,8 +764,6 @@ class Stream
 			{
 				// Returned error
 				throw new \RuntimeException($php_errormsg);
-				$retval = false;
-				$remaining = 0;
 			}
 			elseif ($res === 0)
 			{
