@@ -36,6 +36,6 @@ Version 11.2 ("Omar") of the Joomla Platform was tagged and released on
 
 #### Version 11.1
 
-Version 11.1 was tagged on 5 July 2011. This was the inaugral release of
+Version 11.1 was tagged on 5 July 2011. This was the inaugural release of
 the platform following its separation from the Joomla CMS trunk.
 [Release notes for version 11.1](http://developer.joomla.org/news/362-version-11-1-of-the-joomla-platform-released.html)

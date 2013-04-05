@@ -79,7 +79,7 @@ src/Joomla directory.
 #### Coding Standards Analysis
 
 In order to improve the consistency and readability of the source code,
-we run a coding style analysis tool everytime changes are pushed in the
+we run a coding style analysis tool every time changes are pushed in the
 repo. For new contributions we are going to be enforcing coding
 standards to ensure that the coding style in the source code is
 consistent. Ensuring that your code meets these standards will make the

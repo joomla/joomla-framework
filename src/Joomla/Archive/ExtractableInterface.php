@@ -9,7 +9,7 @@
 namespace Joomla\Archive;
 
 /**
- * Archieve class interface
+ * Archive class interface
  *
  * @since  1.0
  */
