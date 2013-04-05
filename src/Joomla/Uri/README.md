@@ -8,7 +8,7 @@ The classes that are included with the Uri package are `Uri`,  which extends the
 
 The Uri class is a mutable object which you'd use to manipulate an Uri.
 
-To pass along an uri as value use UriImmutable, this object gurantees that the code you pass the object into can't manipulate it and, causing bugs in your code.
+To pass along an uri as value use UriImmutable, this object guarantees that the code you pass the object into can't manipulate it and, causing bugs in your code.
 
 If only read access is required it's recommended to type hint against the UriInterface. This way either an Uri or an UriImmutable object can be passed.
 

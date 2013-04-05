@@ -20,7 +20,7 @@ Folder     | Description
 ## Bootstrapping
 
 Bootstrapping the Joomla Framework is done by including
-`/libraries/import.php` in your application. This file will initiliase a
+`/libraries/import.php` in your application. This file will initialise a
 number of constants if they are not already defined by the developer
 prior to including the import.php file:
 
@@ -29,7 +29,7 @@ Name             | Description
 JPATH\_PLATFORM  | The path to the Joomla Framework (where `loader.php` or `platform.php` is located, usually in the same folder as `import.php`).
 IS\_WIN          | A boolean value, true if the platform is Microsoft Windows based.
 IS\_MAC          | A boolean value, true if the platform is Apple OSX based.
-IS\_UNIX         | A bollean value, true is the platform is some flavor or Unix, Linux or similar (but not Mac).
+IS\_UNIX         | A boolean value, true is the platform is some flavor or Unix, Linux or similar (but not Mac).
 
 The bootstrap file will load the `JPlatform` and `JLoader` classes and
 also `JFactory`, `JException` (legacy), `JObject`, `JRequest` (legacy), `JText`
@@ -40,7 +40,7 @@ transitional state that do not conform to the auto-loader standards.
 
 If required, the bootstrap file (`import.php`) can be ignored and a custom
 solution can be implemented (such as if the core `JFactory` class is to be
-overriden).
+overridden).
 
 ```php
 // Define the base path.
@@ -111,7 +111,7 @@ class Pawn
 
 must be found in `BASE_PATH/chess/piece/pawn.php` or in `BASE_PATH/Chess/Piece/Pawn.php`.
 
-For the namespace declaration, it is recommanded to use camel case letters as you will have for a class name.
+For the namespace declaration, it is recommended to use camel case letters as you will have for a class name.
 
 But as you saw above there are different possibilities for the paths case :
 
@@ -180,7 +180,7 @@ Both can be auto loaded using the same Mixed Case loader.
 
 #### Setup the Loader
 
-In order to correctly use the namespace auto loader you need to setup it according the case strategy you choosed.
+In order to correctly use the namespace auto loader you need to setup it according the case strategy you chose.
 
 ```php
 <?php
@@ -258,7 +258,7 @@ Examples :
 There is no limit to the depth to which the auto-loader will search,
 providing it forms a valid path based on the camel case natural of the
 class name.
-Note that while acronyms and names such as HTML, XML and MySQL have a standard presention in text,
+Note that while acronyms and names such as HTML, XML and MySQL have a standard presentation in text,
 such terms should observe camel case rules programmatically ("HTML" becomes "Html", "XML" becomes "Xml"
 and so on).
 
@@ -296,7 +296,7 @@ Classes in a folder that follow a naming convention, but not one the
 auto-loader immediately recognises, can be registered collectively with
 `JLoader`'s discover method. The `discover` method looks at the file names
 in a folder and registers classes based on those names. Additional
-arguments can be used to update the class register and recurse into
+arguments can be used to update the class register and recurs into
 sub-folders.
 
 ```php

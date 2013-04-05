@@ -12,7 +12,7 @@ All classes in this package are supported by the auto-loader so can be invoked a
 
 ### Construction
 
-Unlike its predecessor `JRequest` which is used staticallly, the `Input\Input`
+Unlike its predecessor `JRequest` which is used statically, the `Input\Input`
 class is meant to be used as an instantiated concrete class. Among other
 things, this makes testing of the class, and the classes that are
 coupled to it, easier, but also means the developer has a lot more

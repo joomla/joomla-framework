@@ -4,7 +4,7 @@ This package is a collection of tools that make some of the jobs of unit testing
 
 ## Helper
 
-`\Joomla\Test\Helper` is a static helper class that can be used to take some of the pain out of repetive tasks whilst unit testing with PHPUnit.
+`\Joomla\Test\Helper` is a static helper class that can be used to take some of the pain out of repetitive tasks whilst unit testing with PHPUnit.
 
 ### Mocking
 
