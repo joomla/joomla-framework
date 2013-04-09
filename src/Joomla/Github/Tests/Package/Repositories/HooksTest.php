@@ -298,7 +298,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   12.3
 	 *
-	 * @expectedException  |RuntimeException
+	 * @expectedException  RuntimeException
 	 */
 	public function testEditUnauthorisedEvent()
 	{
