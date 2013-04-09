@@ -292,8 +292,6 @@ class Stream
 		if (!$this->fh)
 		{
 			throw new \RuntimeException('File not open');
-
-			return true;
 		}
 
 		$retval = false;
@@ -766,8 +764,6 @@ class Stream
 			{
 				// Returned error
 				throw new \RuntimeException($php_errormsg);
-				$retval = false;
-				$remaining = 0;
 			}
 			elseif ($res === 0)
 			{

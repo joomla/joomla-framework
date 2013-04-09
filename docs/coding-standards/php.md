@@ -181,7 +181,7 @@ Files included from third party sources must leave DocBlocks intact. Layout file
 
 ### File DocBlock Headers
 
-The file header DocBlock consists of the following required and optiona elements in the following order:
+The file header DocBlock consists of the following required and optional elements in the following order:
 
 -   Short description (optional unless the file contains more than two classes or functions), followed by a blank line).
 -   Long description (optional, followed by a blank line).

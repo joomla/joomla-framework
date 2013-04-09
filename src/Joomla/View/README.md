@@ -18,8 +18,8 @@ The contructor for `View\AbstractView` takes a mandatory `Model\Model` parameter
 Note that `Model\Model` is an interface so the actual object passed does
 necessarily have to extend from `Model\Base` class. Given that, the view
 should only rely on the API that is exposed by the interface and not
-concrete classes unless the contructor is changed in a derived class to
-take more explicit classes or interaces as required by the developer.
+concrete classes unless the constructor is changed in a derived class to
+take more explicit classes or interfaces as required by the developer.
 
 ##### Usage
 
