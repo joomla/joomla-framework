@@ -31,6 +31,14 @@ if (!defined('JPATH_ROOT'))
 	define('JPATH_ROOT', JPATH_BASE);
 }
 
+// Search for the Composer autoload file
+$composerAutoload = dirname(__DIR__) . '/vendor/autoload.php';
+
+if (file_exists($composerAutoload))
+{
+	include_once $composerAutoload;
+}
+
 // Import the platform.
 require_once dirname(__DIR__) . '/src/import.php';
 

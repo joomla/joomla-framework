@@ -96,7 +96,7 @@ class MergingTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException |UnexpectedValueException
+	 * @expectedException UnexpectedValueException
 	 */
 	public function testPerformNoOp()
 	{

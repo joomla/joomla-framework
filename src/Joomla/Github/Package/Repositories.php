@@ -1,6 +1,7 @@
 <?php
 /**
- * @package    Joomla\Framework
+ * Part of the Joomla Framework Github Package
+ *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
@@ -12,8 +13,7 @@ use Joomla\Github\Package;
 /**
  * GitHub API Activity class for the Joomla Framework.
  *
- * @package  Joomla\Framework
- * @since    ¿
+ * @since  ¿
  *
  * @documentation  http://developer.github.com/v3/repos
  *

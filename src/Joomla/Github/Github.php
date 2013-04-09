@@ -26,6 +26,7 @@ use Joomla\Registry\Registry;
  * @property-read  Package\Repositories   $repositories   GitHub API object for the repositories package.
  * @property-read  Package\Search         $search         GitHub API object for the search package.
  * @property-read  Package\Users          $users          GitHub API object for the users package.
+ * @property-read  Package\Zen            $zen            GitHub API object for the zen package.
  *
  * @since  1.0
  */
