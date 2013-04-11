@@ -295,10 +295,10 @@ For simple cases where you only need to mock the `Input\Input` class, the follow
 $mockInput = $this->getMock('Joomla\Input\Input');
 ```
 
-For more complicated mocking where you need to similate input, you can use the `Input\Tests\Mocker` class to create robust mock objects.
+For more complicated mocking where you need to similate input, you can use the `Input\Tests\InputMocker` class to create robust mock objects.
 
 ```php
-use Joomla\Input\Tests\Mocker as InputMocker;
+use Joomla\Input\Tests\InputMocker;
 
 class MyTest extends \PHPUnit_Framework_TestCase
 {
@@ -321,14 +321,20 @@ class MyTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-The `createInput` method will return a mock with the following methods mocked to roughly simulate real behaviour albeit with reduced functionality:
+The `createInput` method will return a mock of the `Input\Input` class with the following methods mocked to roughly simulate real behaviour albeit with reduced functionality:
 
 * `get($name [, $default, $fitler])`
 * `getInt($name [, $default])`
 * `set($name, $value)`
+
+The `createInputJson` method will return a mock of the `Input\Json` class. It extends from the `createInput` method and adds the following method:
+
+* `getRaw`
 
 You can provide customised implementations these methods by creating the following methods in your test class respectively:
 
 * `mockInputGet`
 * `mockInputGetInt`
 * `mockInputSet`
+* `mockInputGetRaw`
+
