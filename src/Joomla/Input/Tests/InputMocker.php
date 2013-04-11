@@ -9,11 +9,11 @@ namespace Joomla\Input\Tests;
 use Joomla\Test\Helper;
 
 /**
- * Class to mock Joomla\Mocker\Input package of classes.
+ * Class to mock Joomla\InputMocker\Input package of classes.
  *
  * @since  1.0
  */
-class Mocker
+class InputMocker
 {
 	/**
 	 * Array to hold mock get and set values.
@@ -43,11 +43,14 @@ class Mocker
 	/**
 	 * Creates an instance of a mock Joomla\Input\Input object.
 	 *
-	 * @return  object
+	 * @param   array  $options  A associative array of options to configure the mock.
+	 *                           * methods => an array of additional methods to mock
+	 *
+	 * @return  \PHPUnit_Framework_MockObject_MockObject
 	 *
 	 * @since   1.0
 	 */
-	public function createInput()
+	public function createInput(array $options = null)
 	{
 		// Collect all the relevant methods in JDatabase.
 		$methods = array(
@@ -61,6 +64,12 @@ class Mocker
 			'serialize',
 			'unserialize',
 		);
+
+		// Add custom methods if required for derived application classes.
+		if (isset($options['methods']) && is_array($options['methods']))
+		{
+			$methods = array_merge($methods, $options['methods']);
+		}
 
 		// Create the mock.
 		$mockObject = $this->test->getMock(
@@ -87,6 +96,28 @@ class Mocker
 		$mockObject->get = $mockObject;
 		$mockObject->post = $mockObject;
 		$mockObject->request = $mockObject;
+
+		return $mockObject;
+	}
+
+	/**
+	 * Creates an instance of a mock Joomla\Input\Json object.
+	 *
+	 * @return  \PHPUnit_Framework_MockObject_MockObject
+	 *
+	 * @since   1.0
+	 */
+	public function createInputJson()
+	{
+		$mockObject = $this->createInput(array('methods' => array('getRaw')));
+
+		Helper::assignMockCallbacks(
+			$mockObject,
+			$this->test,
+			array(
+				'getRaw' => array((is_callable(array($this->test, 'mockInputGetRaw')) ? $this->test : $this), 'mockInputGetRaw'),
+			)
+		);
 
 		return $mockObject;
 	}
@@ -120,6 +151,18 @@ class Mocker
 	public function mockInputGetInt($name, $default = null)
 	{
 		return (int) $this->mockInputGet($name, $default);
+	}
+
+	/**
+	 * Callback for the mock Input\Json::getRaw method.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function mockInputGetRaw()
+	{
+		return '';
 	}
 
 	/**
