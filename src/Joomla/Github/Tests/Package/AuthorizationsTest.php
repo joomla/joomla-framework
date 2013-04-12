@@ -470,7 +470,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getAuthorizationLink method
 	 *
 	 * @return  void
 	 */
@@ -487,7 +487,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the requestToken method
 	 *
 	 * @return  void
 	 */
@@ -508,7 +508,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the requestTokenJson method
 	 *
 	 * @return  void
 	 */
@@ -529,7 +529,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the requestTokenXml method
 	 *
 	 * @return  void
 	 */
@@ -550,7 +550,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the requestTokenInvalidFormat method
 	 *
 	 * @return  void
 	 *

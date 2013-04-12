@@ -72,7 +72,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -93,7 +93,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the get method
 	 *
 	 * @return  void
 	 */
@@ -114,7 +114,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the create method
 	 *
 	 * @return  void
 	 */
@@ -135,7 +135,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the createFailure method
 	 *
 	 * @expectedException \DomainException
 	 * @return  void
@@ -157,7 +157,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the update method
 	 *
 	 * @return  void
 	 */
@@ -178,7 +178,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the delete method
 	 *
 	 * @return  void
 	 */
@@ -199,7 +199,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListByIssue method
 	 *
 	 * @return  void
 	 */
@@ -220,7 +220,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the add method
 	 *
 	 * @return  void
 	 */
@@ -241,7 +241,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the removeFromIssue method
 	 *
 	 * @return  void
 	 */
@@ -262,7 +262,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the replace method
 	 *
 	 * @return  void
 	 */
@@ -283,7 +283,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the removeAllFromIssue method
 	 *
 	 * @return  void
 	 */
@@ -304,7 +304,7 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListByMilestone method
 	 *
 	 * @return  void
 	 */

@@ -59,7 +59,7 @@ class MarkdownTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the render method
 	 *
 	 * @return  void
 	 */
@@ -96,7 +96,7 @@ class MarkdownTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the renderInvalidMode method
 	 *
 	 * @return  void
 	 *
@@ -111,7 +111,7 @@ class MarkdownTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the renderFailure method
 	 *
 	 * @return  void
 	 *

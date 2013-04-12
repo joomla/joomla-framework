@@ -73,7 +73,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -94,7 +94,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListRepository method
 	 *
 	 * @return  void
 	 */
@@ -115,7 +115,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the markRead method
 	 *
 	 * @return  void
 	 */
@@ -136,7 +136,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the markReadLastRead method
 	 *
 	 * @return  void
 	 */
@@ -160,7 +160,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the markReadRepository method
 	 *
 	 * @return  void
 	 */
@@ -183,7 +183,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the markReadRepositoryLastRead method
 	 *
 	 * @return  void
 	 */
@@ -207,7 +207,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the viewThread method
 	 *
 	 * @return  void
 	 */
@@ -228,7 +228,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the markReadThread method
 	 *
 	 * @return  void
 	 */
@@ -249,7 +249,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getThreadSubscription method
 	 *
 	 * @return  void
 	 */
@@ -270,7 +270,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the setThreadSubscription method
 	 *
 	 * @return  void
 	 */
@@ -291,7 +291,7 @@ class NotificationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the deleteThreadSubscription method
 	 *
 	 * @return  void
 	 */

@@ -71,7 +71,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -92,7 +92,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the get method
 	 *
 	 * @return  void
 	 */
@@ -113,7 +113,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the create method
 	 *
 	 * @return  void
 	 */
@@ -134,7 +134,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the createWrongPermission method
 	 *
 	 * @return  void
 	 *
@@ -149,7 +149,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the edit method
 	 *
 	 * @return  void
 	 */
@@ -170,7 +170,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the editWrongPermission method
 	 *
 	 * @return  void
 	 *
@@ -185,7 +185,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the delete method
 	 *
 	 * @return  void
 	 */
@@ -206,7 +206,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListMembers method
 	 *
 	 * @return  void
 	 */
@@ -227,7 +227,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the isMember method
 	 *
 	 * @return  void
 	 */
@@ -248,7 +248,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the isMemberNo method
 	 *
 	 * @return  void
 	 */
@@ -269,7 +269,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the isMemberUnexpected method
 	 *
 	 * @return  void
 	 *
@@ -292,7 +292,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the addMember method
 	 *
 	 * @return  void
 	 */
@@ -313,7 +313,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the removeMember method
 	 *
 	 * @return  void
 	 */
@@ -334,7 +334,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListRepos method
 	 *
 	 * @return  void
 	 */
@@ -355,7 +355,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkRepo method
 	 *
 	 * @return  void
 	 */
@@ -376,7 +376,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkRepoNo method
 	 *
 	 * @return  void
 	 */
@@ -397,7 +397,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkRepoUnexpected method
 	 *
 	 * @return  void
 	 *
@@ -420,7 +420,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the addRepo method
 	 *
 	 * @return  void
 	 */
@@ -441,7 +441,7 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the removeRepo method
 	 *
 	 * @return  void
 	 */

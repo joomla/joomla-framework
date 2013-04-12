@@ -72,7 +72,7 @@ class TreesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the get method
 	 *
 	 * @return  void
 	 */
@@ -93,7 +93,7 @@ class TreesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getRecursively method
 	 *
 	 * @return  void
 	 */
@@ -114,7 +114,7 @@ class TreesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the create method
 	 *
 	 * @return  void
 	 */

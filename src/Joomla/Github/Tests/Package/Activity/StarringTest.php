@@ -72,7 +72,7 @@ class StarringTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -93,7 +93,7 @@ class StarringTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getRepositories method
 	 *
 	 * @return  void
 	 */
@@ -114,7 +114,7 @@ class StarringTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the check method
 	 *
 	 * @return  void
 	 */
@@ -135,7 +135,7 @@ class StarringTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkFalse method
 	 *
 	 * @return  void
 	 */
@@ -156,7 +156,7 @@ class StarringTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkUnexpected method
 	 *
 	 * @expectedException UnexpectedValueException
 	 * @return  void
@@ -178,7 +178,7 @@ class StarringTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the star method
 	 *
 	 * @return  void
 	 */
@@ -199,7 +199,7 @@ class StarringTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the unstar method
 	 *
 	 * @return  void
 	 */

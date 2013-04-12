@@ -71,7 +71,7 @@ class OrgsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -92,7 +92,7 @@ class OrgsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the get method
 	 *
 	 * @return  void
 	 */
@@ -113,7 +113,7 @@ class OrgsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the edit method
 	 *
 	 * @return  void
 	 */
