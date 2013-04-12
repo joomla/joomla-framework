@@ -1,0 +1,463 @@
+<?php
+/**
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+namespace Joomla\Github\Tests;
+
+use Joomla\Github\Package\Orgs\Teams;
+use Joomla\Registry\Registry;
+
+/**
+ * Test class for Teams.
+ *
+ * @since  ¿
+ */
+class TeamsTest extends \PHPUnit_Framework_TestCase
+{
+	/**
+	 * @var    Registry  Options for the GitHub object.
+	 * @since  ¿
+	 */
+	protected $options;
+
+	/**
+	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
+	 * @since  ¿
+	 */
+	protected $client;
+
+	/**
+	 * @var    \Joomla\Http\Response  Mock response object.
+	 * @since  ¿
+	 */
+	protected $response;
+
+	/**
+	 * @var Teams
+	 */
+	protected $object;
+
+	/**
+	 * @var    string  Sample JSON string.
+	 * @since  12.3
+	 */
+	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+
+	/**
+	 * @var    string  Sample JSON error message.
+	 * @since  12.3
+	 */
+	protected $errorString = '{"message": "Generic Error"}';
+
+	/**
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
+	 *
+	 * @since   ¿
+	 *
+	 * @return  void
+	 */
+	protected function setUp()
+	{
+		parent::setUp();
+
+		$this->options  = new Registry;
+		$this->client   = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->response = $this->getMock('\\Joomla\\Http\\Response');
+
+		$this->object = new Teams($this->options, $this->client);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testGetList()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/orgs/joomla/teams')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->getList('joomla'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testGet()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->get(123),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testCreate()
+	{
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('post')
+			->with('/orgs/joomla/teams')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->create('joomla', 'TheTeam', array('joomla-platform'), 'admin'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 *
+	 * @expectedException \UnexpectedValueException
+	 */
+	public function testCreateWrongPermission()
+	{
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
+
+		$this->object->create('joomla', 'TheTeam', array('joomla-platform'), 'invalid');
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testEdit()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('patch')
+			->with('/teams/123')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->edit(123, 'TheTeam', 'admin'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 *
+	 * @expectedException \UnexpectedValueException
+	 */
+	public function testEditWrongPermission()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->object->edit(123, 'TheTeam', 'invalid');
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testDelete()
+	{
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with('/teams/123')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->delete(123),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testGetListMembers()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123/members')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->getListMembers(123),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testIsMember()
+	{
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123/members/elkuku')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->isMember(123, 'elkuku'),
+			$this->equalTo(json_decode(true))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testIsMemberNo()
+	{
+		$this->response->code = 404;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123/members/elkuku')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->isMember(123, 'elkuku'),
+			$this->equalTo(json_decode(false))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 *
+	 * @expectedException \UnexpectedValueException
+	 */
+	public function testIsMemberUnexpected()
+	{
+		$this->response->code = 666;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123/members/elkuku')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->isMember(123, 'elkuku'),
+			$this->equalTo(json_decode(true))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testAddMember()
+	{
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('put')
+			->with('/teams/123/members/elkuku')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->addMember(123, 'elkuku'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testRemoveMember()
+	{
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with('/teams/123/members/elkuku')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->removeMember(123, 'elkuku'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testGetListRepos()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123/repos')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->getListRepos(123),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testCheckRepo()
+	{
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123/repos/joomla')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->checkRepo(123, 'joomla'),
+			$this->equalTo(true)
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testCheckRepoNo()
+	{
+		$this->response->code = 404;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123/repos/joomla')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->checkRepo(123, 'joomla'),
+			$this->equalTo(false)
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 *
+	 * @expectedException \UnexpectedValueException
+	 */
+	public function testCheckRepoUnexpected()
+	{
+		$this->response->code = 666;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/teams/123/repos/joomla')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->checkRepo(123, 'joomla'),
+			$this->equalTo(true)
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testAddRepo()
+	{
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('put')
+			->with('/teams/123/repos/joomla/joomla-platform')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->addRepo(123, 'joomla', 'joomla-platform'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the  method
+	 *
+	 * @return  void
+	 */
+	public function testRemoveRepo()
+	{
+		$this->response->code = 204;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with('/teams/123/repos/joomla/joomla-platform')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->removeRepo(123, 'joomla', 'joomla-platform'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+}

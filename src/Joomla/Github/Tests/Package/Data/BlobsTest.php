@@ -6,38 +6,51 @@
 
 namespace Joomla\Github\Tests;
 
-use Joomla\Github\Package\Zen;
+use Joomla\Github\Package\Data\Blobs;
 use Joomla\Registry\Registry;
 
 /**
- * Test class for the Zen package.
+ * Test class for the GitHub API package.
  *
- * @since  1.0
+ * @since  ¿
  */
-class ZenTest extends \PHPUnit_Framework_TestCase
+class BlobsTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  11.4
+	 * @since  ¿
 	 */
 	protected $options;
 
 	/**
 	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
-	 * @since  11.4
+	 * @since  ¿
 	 */
 	protected $client;
 
 	/**
+	 * @var    Blobs  Object under test.
+	 * @since  ¿
+	 */
+	protected $object;
+
+	/**
 	 * @var    \Joomla\Http\Response  Mock response object.
-	 * @since  12.3
+	 * @since  ¿
 	 */
 	protected $response;
 
 	/**
-	 * @var Zen
+	 * @var    string  Sample JSON string.
+	 * @since  12.3
 	 */
-	protected $object;
+	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+
+	/**
+	 * @var    string  Sample JSON error message.
+	 * @since  12.3
+	 */
+	protected $errorString = '{"message": "Generic Error"}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -55,50 +68,48 @@ class ZenTest extends \PHPUnit_Framework_TestCase
 		$this->client   = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
-		$this->object = new Zen($this->options, $this->client);
+		$this->object = new Blobs($this->options, $this->client);
 	}
 
 	/**
-	 * Tests the Get method.
+	 * Tests the  method
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function testGet()
 	{
 		$this->response->code = 200;
-		$this->response->body = 'My Zen';
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/zen', 0, 0)
+			->with('/repos/joomla/joomla-platform/git/blobs/12345', 0, 0)
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->get(),
-			$this->equalTo($this->response->body)
+			$this->object->get('joomla', 'joomla-platform', '12345'),
+			$this->equalTo(json_decode($this->response->body))
 		);
 	}
 
 	/**
-	 * Tests the Get method.
+	 * Tests the  method
 	 *
-	 * @expectedException \RuntimeException
-	 *
-	 * @return void
+	 * @return  void
 	 */
-	public function testGetFailure()
+	public function testCreate()
 	{
-		$this->response->code = 400;
-		$this->response->body = 'My Zen';
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
-			->method('get')
-			->with('/zen', 0, 0)
+			->method('post')
+			->with('/repos/joomla/joomla-platform/git/blobs', '{"content":"Hello w\u00f6rld","encoding":"utf-8"}', 0, 0)
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->get(),
-			$this->equalTo($this->response->body)
+			$this->object->create('joomla', 'joomla-platform', 'Hello wörld'),
+			$this->equalTo(json_decode($this->response->body))
 		);
 	}
 }
