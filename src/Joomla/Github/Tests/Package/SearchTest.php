@@ -71,7 +71,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the issues method
 	 *
 	 * @return  void
 	 */
@@ -92,7 +92,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the issuesInvalidState method
 	 *
 	 * @return  void
 	 *
@@ -107,7 +107,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the repositories method
 	 *
 	 * @return  void
 	 */
@@ -128,7 +128,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the users method
 	 *
 	 * @return  void
 	 */
@@ -149,7 +149,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the email method
 	 *
 	 * @return  void
 	 */

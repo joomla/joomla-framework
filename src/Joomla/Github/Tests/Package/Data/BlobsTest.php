@@ -72,7 +72,7 @@ class BlobsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the get method
 	 *
 	 * @return  void
 	 */
@@ -93,7 +93,7 @@ class BlobsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the create method
 	 *
 	 * @return  void
 	 */

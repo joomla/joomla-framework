@@ -71,7 +71,7 @@ class EmailsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -92,7 +92,7 @@ class EmailsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the add method
 	 *
 	 * @return  void
 	 */
@@ -113,7 +113,7 @@ class EmailsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the delete method
 	 *
 	 * @return  void
 	 */

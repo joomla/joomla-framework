@@ -73,7 +73,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -94,7 +94,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getRepositories method
 	 *
 	 * @return  void
 	 */
@@ -115,7 +115,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getRepositoriesUser method
 	 *
 	 * @return  void
 	 */
@@ -136,7 +136,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getSubscription method
 	 *
 	 * @return  void
 	 */
@@ -157,7 +157,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the setSubscription method
 	 *
 	 * @return  void
 	 */
@@ -178,7 +178,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the deleteSubscription method
 	 *
 	 * @return  void
 	 */
@@ -199,7 +199,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the check method
 	 *
 	 * @return  void
 	 */
@@ -220,7 +220,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkFalse method
 	 *
 	 * @return  void
 	 */
@@ -241,7 +241,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkUnexpected method
 	 *
 	 * @expectedException UnexpectedValueException
 	 * @return  void
@@ -260,7 +260,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the watch method
 	 *
 	 * @return  void
 	 */
@@ -281,7 +281,7 @@ class WatchingTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the unwatch method
 	 *
 	 * @return  void
 	 */

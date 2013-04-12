@@ -71,7 +71,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -92,7 +92,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListWithUser method
 	 *
 	 * @return  void
 	 */
@@ -113,7 +113,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListFollowedBy method
 	 *
 	 * @return  void
 	 */
@@ -134,7 +134,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListFollowedByWithUser method
 	 *
 	 * @return  void
 	 */
@@ -155,7 +155,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the check method
 	 *
 	 * @return  void
 	 */
@@ -176,7 +176,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkNo method
 	 *
 	 * @return  void
 	 */
@@ -197,7 +197,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkUnexpected method
 	 *
 	 * @return  void
 	 *
@@ -220,7 +220,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the follow method
 	 *
 	 * @return  void
 	 */
@@ -241,7 +241,7 @@ class FollowersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the unfollow method
 	 *
 	 * @return  void
 	 */

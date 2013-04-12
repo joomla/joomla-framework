@@ -71,7 +71,7 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the create method
 	 *
 	 * @return  void
 	 */
@@ -92,7 +92,7 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the createReply method
 	 *
 	 * @return  void
 	 */
@@ -113,7 +113,7 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the delete method
 	 *
 	 * @return  void
 	 */
@@ -134,7 +134,7 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the edit method
 	 *
 	 * @return  void
 	 */
@@ -155,7 +155,7 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the get method
 	 *
 	 * @return  void
 	 */
@@ -176,7 +176,7 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */

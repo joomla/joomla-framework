@@ -71,7 +71,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getList method
 	 *
 	 * @return  void
 	 */
@@ -92,7 +92,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListNotAMember method
 	 *
 	 * @return  void
 	 */
@@ -113,7 +113,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListUnexpected method
 	 *
 	 * @return  void
 	 *
@@ -136,7 +136,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the check method
 	 *
 	 * @return  void
 	 */
@@ -157,7 +157,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkNoMember method
 	 *
 	 * @return  void
 	 */
@@ -178,7 +178,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkRequesterNoMember method
 	 *
 	 * @return  void
 	 */
@@ -199,7 +199,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkUnexpectedr method
 	 *
 	 * @return  void
 	 *
@@ -222,7 +222,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the remove method
 	 *
 	 * @return  void
 	 */
@@ -243,7 +243,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the getListPublic method
 	 *
 	 * @return  void
 	 */
@@ -264,7 +264,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkPublic method
 	 *
 	 * @return  void
 	 */
@@ -285,7 +285,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkPublicNo method
 	 *
 	 * @return  void
 	 */
@@ -306,7 +306,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the checkPublicUnexpected method
 	 *
 	 * @return  void
 	 *
@@ -329,7 +329,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the publicize method
 	 *
 	 * @return  void
 	 */
@@ -350,7 +350,7 @@ class MembersTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the  method
+	 * Tests the conceal method
 	 *
 	 * @return  void
 	 */
