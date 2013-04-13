@@ -33,7 +33,7 @@ class AbstractDatabaseModelTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertInstanceOf('Joomla\Database\Driver', $this->instance->getDb());
+		$this->assertInstanceOf('Joomla\Database\DatabaseDriver', $this->instance->getDb());
 	}
 
 	/**

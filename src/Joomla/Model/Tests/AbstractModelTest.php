@@ -35,9 +35,12 @@ class AbstractModelTest extends \PHPUnit_Framework_TestCase
 	public function test__construct()
 	{
 		$this->assertEquals(new Registry, $this->instance->getState(), 'Checks default state.');
+		$dbMock = $this->getMockBuilder('Joomla\\Database\\DatabaseDriver')
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
 
 		$state = new Registry(array('foo' => 'bar'));
-		$class = new DatabaseModel($state);
+		$class = new DatabaseModel($dbMock, $state);
 		$this->assertEquals($state, $class->getState(), 'Checks state injection.');
 	}
 
@@ -66,7 +69,11 @@ class AbstractModelTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
+		$dbMock = $this->getMockBuilder('Joomla\\Database\\DatabaseDriver')
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
 		// Note: We're using DatabaseModel because it still uses the majority of the AbstractModel methods.
-		$this->instance = new DatabaseModel;
+		$this->instance = new DatabaseModel($dbMock);
 	}
 }

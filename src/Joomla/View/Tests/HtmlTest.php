@@ -85,7 +85,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetLayout()
 	{
-		Helper::setValue($this->instance, 'layout', 'foo');
+		TestHelper::setValue($this->instance, 'layout', 'foo');
 
 		$this->assertEquals('foo', $this->instance->getLayout());
 	}
@@ -128,7 +128,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	public function testGetPaths()
 	{
 		// Inject a known value into the property.
-		Helper::setValue($this->instance, 'paths', 'paths');
+		TestHelper::setValue($this->instance, 'paths', 'paths');
 
 		// Check dirty path.
 		$this->assertEquals('paths', $this->instance->getPaths());
@@ -211,7 +211,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testLoadPaths()
 	{
-		$this->assertEquals(new \SplPriorityQueue, Helper::invoke($this->instance, 'loadPaths'));
+		$this->assertEquals(new \SplPriorityQueue, TestHelper::invoke($this->instance, 'loadPaths'));
 	}
 
 	/**
