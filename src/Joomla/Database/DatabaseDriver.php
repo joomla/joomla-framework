@@ -275,8 +275,6 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 			// Derive the class name from the driver.
 			$class = '\\Joomla\\Database\\' . ucfirst(strtolower($options['driver'])) . '\\' . ucfirst(strtolower($options['driver'])) . 'Driver';
 
-			//echo $class; die;
-
 			// If the class still doesn't exist we have nothing left to do but throw an exception.  We did our best.
 			if (!class_exists($class))
 			{
@@ -630,7 +628,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	public function getExporter()
 	{
 		// Derive the class name from the driver.
-		$class = '\\Joomla\\Database\\Exporter\\' . ucfirst($this->name);
+		$class = '\\Joomla\\Database\\' . ucfirst(strtolower($options['driver'])) . '\\' . ucfirst(strtolower($options['driver'])) . 'Exporter';
 
 		// Make sure we have an exporter class for this driver.
 		if (!class_exists($class))
@@ -657,7 +655,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	public function getImporter()
 	{
 		// Derive the class name from the driver.
-		$class = '\\Joomla\\Database\\Importer\\' . ucfirst($this->name);
+		$class = '\\Joomla\\Database\\' . ucfirst(strtolower($options['driver'])) . '\\' . ucfirst(strtolower($options['driver'])) . 'Importer';
 
 		// Make sure we have an importer class for this driver.
 		if (!class_exists($class))
@@ -719,7 +717,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	public function getIterator($column = null, $class = '\\stdClass')
 	{
 		// Derive the class name from the driver.
-		$iteratorClass = '\\Joomla\\Database\\Iterator\\' . ucfirst($this->name);
+		$iteratorClass = '\\Joomla\\Database\\' . ucfirst(strtolower($options['driver'])) . '\\' . ucfirst(strtolower($options['driver'])) . 'Iterator';
 
 		// Make sure we have an iterator class for this driver.
 		if (!class_exists($iteratorClass))
