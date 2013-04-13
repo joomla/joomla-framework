@@ -125,7 +125,7 @@ class LoggerDatabaseTest extends TestCaseDatabase
 		$logger->connect();
 
 		$this->assertInstanceOf(
-			'Joomla\\Database\\Driver',
+			'Joomla\\Database\\DatabaseDriver',
 			$logger->dbo,
 			'Line: ' . __LINE__
 		);

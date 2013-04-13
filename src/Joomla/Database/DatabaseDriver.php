@@ -208,6 +208,8 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	{
 		if (!isset(self::$connectors))
 		{
+			self::$connectors = array();
+
 			// Get an iterator and loop trough the driver classes.
 			$iterator = new \DirectoryIterator(__DIR__);
 
@@ -224,7 +226,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 
 				// Derive the class name from the type.
 				/* @var  $class  Driver */
-				$class = ucfirst(strtolower($baseName)) . '\\' . ucfirst(strtolower($basename)) . 'Driver';
+				$class = ucfirst(strtolower($baseName)) . '\\' . ucfirst(strtolower($baseName)) . 'Driver';
 
 				// If the class doesn't exist, or if it's not supported on this system, move on to the next type.
 				if (!class_exists($class) || !($class::isSupported()))
@@ -686,7 +688,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 		if ($new)
 		{
 			// Derive the class name from the driver.
-			$class = '\\Joomla\\Database\\Query\\' . ucfirst($this->name);
+			$class = '\\Joomla\\Database\\' . ucfirst($this->name) . '\\' . ucfirst($this->name) . 'Query';
 
 			// Make sure we have a query class for this driver.
 			if (!class_exists($class))

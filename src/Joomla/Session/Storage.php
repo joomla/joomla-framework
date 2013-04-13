@@ -8,7 +8,7 @@
 
 namespace Joomla\Session;
 
-use Joomla\Filter\Input;
+use Joomla\Filter\InputFilter;
 
 /**
  * Custom session storage handler for PHP
@@ -49,7 +49,7 @@ abstract class Storage
 	 */
 	public static function getInstance($name = 'none', $options = array())
 	{
-		$filter = new Input;
+		$filter = new InputFilter;
 		$name = strtolower($filter->clean($name, 'word'));
 
 		if (empty(self::$instances[$name]))
