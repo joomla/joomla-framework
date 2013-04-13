@@ -16,7 +16,7 @@ use Psr\Log\LoggerAwareInterface;
  *
  * @since  1.0
  */
-abstract class Filter implements LoggerAwareInterface
+abstract class ImageFilter implements LoggerAwareInterface
 {
 	/**
 	 * @var    resource  The image resource handle.

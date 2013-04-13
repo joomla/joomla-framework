@@ -8,14 +8,14 @@
 
 namespace Joomla\Registry\Format;
 
-use Joomla\Registry\Format;
+use Joomla\Registry\AbstractRegistryFormat;
 
 /**
  * JSON format handler for Registry.
  *
  * @since  1.0
  */
-class Json extends Format
+class Json extends AbstractRegistryFormat
 {
 	/**
 	 * Converts an object into a JSON formatted string.

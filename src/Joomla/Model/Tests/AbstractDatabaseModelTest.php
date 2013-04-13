@@ -15,7 +15,7 @@ require_once __DIR__ . '/Stubs/DatabaseModel.php';
  *
  * @since  1.0
  */
-class DatabaseTest extends \PHPUnit_Framework_TestCase
+class AbstractDatabaseModelTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    \Joomla\Model\Database

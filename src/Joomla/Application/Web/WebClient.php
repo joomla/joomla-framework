@@ -27,7 +27,7 @@ namespace Joomla\Application\Web;
  *
  * @since  1.0
  */
-class Client
+class WebClient
 {
 	const WINDOWS = 1;
 	const WINDOWS_PHONE = 2;

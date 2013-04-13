@@ -13,7 +13,7 @@ namespace Joomla\Database;
  *
  * @since  1.0
  */
-abstract class Exporter
+abstract class DatabaseExporter
 {
 	/**
 	 * The type of output format (xml).

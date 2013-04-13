@@ -13,7 +13,7 @@ namespace Joomla\Database;
  *
  * @since  1.0
  */
-abstract class Importer
+abstract class DatabaseImporter
 {
 	/**
 	 * @var    array  An array of cached data.

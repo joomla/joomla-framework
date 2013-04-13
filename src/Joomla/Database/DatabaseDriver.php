@@ -18,7 +18,7 @@ use Psr\Log;
  * @method  string  q()   q($text, $escape = true)  Alias for quote method
  * @method  string  qn()  qn($name, $as = null)     Alias for quoteName method
  */
-abstract class Driver implements DatabaseInterface, Log\LoggerAwareInterface
+abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInterface
 {
 	/**
 	 * The name of the database.

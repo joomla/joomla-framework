@@ -8,7 +8,7 @@
 
 namespace Joomla\Model;
 
-use Joomla\Database\Driver;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
 
 /**
@@ -16,7 +16,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-abstract class Database extends Base
+abstract class AbstractDatabaseModel extends AbstractModel
 {
 	/**
 	 * The database driver.
@@ -34,7 +34,7 @@ abstract class Database extends Base
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Driver $db, Registry $state = null)
+	public function __construct(DatabaseDriver $db, Registry $state = null)
 	{
 		$this->db = $db;
 
@@ -62,7 +62,7 @@ abstract class Database extends Base
 	 *
 	 * @since   1.0
 	 */
-	public function setDb(Driver $db)
+	public function setDb(DatabaseDriver $db)
 	{
 		$this->db = $db;
 	}

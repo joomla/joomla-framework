@@ -6,10 +6,10 @@
 
 namespace Joomla\Data\Tests;
 
-use Joomla\Data\Object;
+use Joomla\Data\DataObject;
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/Stubs/buran.php';
 require_once __DIR__ . '/Stubs/capitaliser.php';
@@ -28,11 +28,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Tests the Joomla\Data\Object::object constructor.
+	 * Tests the Joomla\Data\DataObject::object constructor.
 	 *
 	 * @return  void
 	 *
-	 * @covers	Joomla\Data\Object::__construct
+	 * @covers	Joomla\Data\DataObject::__construct
 	 */
 	public function test__construct()
 	{
@@ -44,11 +44,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::__get method.
+	 * Tests the Joomla\Data\DataObject::__get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::__get
+	 * @covers  Joomla\Data\DataObject::__get
 	 * @since   1.0
 	 */
 	public function test__get()
@@ -60,11 +60,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::__isset method.
+	 * Tests the Joomla\Data\DataObject::__isset method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::__isset
+	 * @covers  Joomla\Data\DataObject::__isset
 	 * @since   1.0
 	 */
 	public function test__isset()
@@ -77,11 +77,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::__set method where a custom setter is available.
+	 * Tests the Joomla\Data\DataObject::__set method where a custom setter is available.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::__set
+	 * @covers  Joomla\Data\DataObject::__set
 	 * @since   1.0
 	 */
 	public function test__set_setter()
@@ -97,11 +97,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::__unset method.
+	 * Tests the Joomla\Data\DataObject::__unset method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::__unset
+	 * @covers  Joomla\Data\DataObject::__unset
 	 * @since   1.0
 	 */
 	public function test__unset()
@@ -116,11 +116,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::bind method.
+	 * Tests the Joomla\Data\DataObject::bind method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::bind
+	 * @covers  Joomla\Data\DataObject::bind
 	 * @since   1.0
 	 */
 	public function testBind()
@@ -136,11 +136,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::bind method with array input.
+	 * Tests the Joomla\Data\DataObject::bind method with array input.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::bind
+	 * @covers  Joomla\Data\DataObject::bind
 	 * @since   1.0
 	 */
 	public function testBind_array()
@@ -164,11 +164,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::bind method with input that is a traverable object.
+	 * Tests the Joomla\Data\DataObject::bind method with input that is a traverable object.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::bind
+	 * @covers  Joomla\Data\DataObject::bind
 	 * @since   1.0
 	 */
 	public function testBind_arrayObject()
@@ -194,11 +194,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::bind method with object input.
+	 * Tests the Joomla\Data\DataObject::bind method with object input.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::bind
+	 * @covers  Joomla\Data\DataObject::bind
 	 * @since   1.0
 	 */
 	public function testBind_object()
@@ -221,11 +221,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::bind method for an expected exception.
+	 * Tests the Joomla\Data\DataObject::bind method for an expected exception.
 	 *
 	 * @return  void
 	 *
-	 * @covers             Joomla\Data\Object::bind
+	 * @covers             Joomla\Data\DataObject::bind
 	 * @expectedException  InvalidArgumentException
 	 * @since           1.0
 	 */
@@ -235,11 +235,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::count method.
+	 * Tests the Joomla\Data\DataObject::count method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::count
+	 * @covers  Joomla\Data\DataObject::count
 	 * @since   1.0
 	 */
 	public function testCount()
@@ -258,11 +258,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::dump method.
+	 * Tests the Joomla\Data\DataObject::dump method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::dump
+	 * @covers  Joomla\Data\DataObject::dump
 	 * @since   1.0
 	 */
 	public function testDump()
@@ -284,13 +284,13 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 			'scalar' => 'value_1',
 			'date' => new Date('2012-01-01'),
 			'registry' => new Registry(array('key' => 'value')),
-			'Object' => new Object(
+			'Object' => new DataObject(
 				array(
-					'level2' => new Object(
+					'level2' => new DataObject(
 						array(
-							'level3' => new Object(
+							'level3' => new DataObject(
 								array(
-									'level4' => new Object(
+									'level4' => new DataObject(
 										array(
 											'level5' => 'deep',
 										)
@@ -314,26 +314,26 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($dump->registry, (object) array('key' => 'value'));
 		$this->assertInstanceOf('stdClass', $dump->Object->level2);
 		$this->assertInstanceOf('stdClass', $dump->Object->level2->level3);
-		$this->assertInstanceOf('Joomla\\Data\\Object', $dump->Object->level2->level3->level4);
+		$this->assertInstanceOf('Joomla\\Data\\DataObject', $dump->Object->level2->level3->level4);
 
 		$dump = $this->instance->dump(0);
 		$this->assertInstanceOf('Joomla\\Date\\Date', $dump->date);
 		$this->assertInstanceOf('Joomla\\Registry\\Registry', $dump->registry);
-		$this->assertInstanceOf('Joomla\\Data\\Object', $dump->Object);
+		$this->assertInstanceOf('Joomla\\Data\\DataObject', $dump->Object);
 
 		$dump = $this->instance->dump(1);
 		$this->assertEquals($dump->date, '2012-01-01 00:00:00');
 		$this->assertEquals($dump->registry, (object) array('key' => 'value'));
 		$this->assertInstanceOf('stdClass', $dump->Object);
-		$this->assertInstanceOf('Joomla\\Data\\Object', $dump->Object->level2);
+		$this->assertInstanceOf('Joomla\\Data\\DataObject', $dump->Object->level2);
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::dumpProperty method.
+	 * Tests the Joomla\Data\DataObject::dumpProperty method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::dumpProperty
+	 * @covers  Joomla\Data\DataObject::dumpProperty
 	 * @since   1.0
 	 */
 	public function testDumpProperty()
@@ -348,11 +348,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::getIterator method.
+	 * Tests the Joomla\Data\DataObject::getIterator method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::getIterator
+	 * @covers  Joomla\Data\DataObject::getIterator
 	 * @since   1.0
 	 */
 	public function testGetIterator()
@@ -361,11 +361,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::getProperty method.
+	 * Tests the Joomla\Data\DataObject::getProperty method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::getProperty
+	 * @covers  Joomla\Data\DataObject::getProperty
 	 * @since   1.0
 	 */
 	public function testGetProperty()
@@ -375,11 +375,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::getProperty method.
+	 * Tests the Joomla\Data\DataObject::getProperty method.
 	 *
 	 * @return  void
 	 *
-	 * @covers             Joomla\Data\Object::getProperty
+	 * @covers             Joomla\Data\DataObject::getProperty
 	 * @expectedException  InvalidArgumentException
 	 * @since           1.0
 	 */
@@ -392,13 +392,13 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::jsonSerialize method.
+	 * Tests the Joomla\Data\DataObject::jsonSerialize method.
 	 *
 	 * Note, this is not completely backward compatible. Previous this would just return the class name.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::jsonSerialize
+	 * @covers  Joomla\Data\DataObject::jsonSerialize
 	 * @since   1.0
 	 */
 	public function testJsonSerialize()
@@ -410,11 +410,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::setProperty method.
+	 * Tests the Joomla\Data\DataObject::setProperty method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::setProperty
+	 * @covers  Joomla\Data\DataObject::setProperty
 	 * @since   1.0
 	 */
 	public function testSetProperty()
@@ -429,11 +429,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Data\Object::setProperty method.
+	 * Tests the Joomla\Data\DataObject::setProperty method.
 	 *
 	 * @return  void
 	 *
-	 * @covers             Joomla\Data\Object::setProperty
+	 * @covers             Joomla\Data\DataObject::setProperty
 	 * @expectedException  InvalidArgumentException
 	 * @since           1.0
 	 */
@@ -444,11 +444,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test that Joomla\Data\Object::setProperty() will not set a property which starts with a null byte.
+	 * Test that Joomla\Data\DataObject::setProperty() will not set a property which starts with a null byte.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Data\Object::setProperty
+	 * @covers  Joomla\Data\DataObject::setProperty
 	 * @see     http://us3.php.net/manual/en/language.types.array.php#language.types.array.casting
 	 * @since   1.0
 	 */

@@ -6,14 +6,14 @@
 
 namespace Joomla\Database\Driver;
 
-use Joomla\Database\Driver;
+use Joomla\Database\DatabaseDriver;
 
 /**
  * Test class JDatabase.
  *
  * @since  1.0
  */
-class Nosql extends Driver
+class Nosql extends DatabaseDriver
 {
 	/**
 	 * The name of the database driver.

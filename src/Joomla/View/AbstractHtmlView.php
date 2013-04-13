@@ -16,7 +16,7 @@ use Joomla\Model\ModelInterface;
  *
  * @since  1.0
  */
-abstract class Html extends AbstractView
+abstract class AbstractHtmlView extends AbstractView
 {
 	/**
 	 * The view layout.

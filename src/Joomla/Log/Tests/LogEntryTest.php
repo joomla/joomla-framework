@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Log\Entry;
+use Joomla\Log\LogEntry;
 use Joomla\Log\Log;
 use Joomla\Date\Date;
 
@@ -24,7 +24,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDefaultValues()
 	{
-		$tmp = new Entry('Lorem ipsum dolor sit amet');
+		$tmp = new LogEntry('Lorem ipsum dolor sit amet');
 		$date = new Date('now');
 
 		// Message.
@@ -65,21 +65,21 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testBadPriorityValues()
 	{
-		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::ALL);
+		$tmp = new LogEntry('Lorem ipsum dolor sit amet', Log::ALL);
 		$this->assertThat(
 			$tmp->priority,
 			$this->equalTo(Log::INFO),
 			'Line: ' . __LINE__ . '.'
 		);
 
-		$tmp = new Entry('Lorem ipsum dolor sit amet', 23642872);
+		$tmp = new LogEntry('Lorem ipsum dolor sit amet', 23642872);
 		$this->assertThat(
 			$tmp->priority,
 			$this->equalTo(Log::INFO),
 			'Line: ' . __LINE__ . '.'
 		);
 
-		$tmp = new Entry('Lorem ipsum dolor sit amet', 'foobar');
+		$tmp = new LogEntry('Lorem ipsum dolor sit amet', 'foobar');
 		$this->assertThat(
 			$tmp->priority,
 			$this->equalTo(Log::INFO),
@@ -97,7 +97,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	public function testCategorySanitization()
 	{
 		// Category should always be lowercase.
-		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::INFO, 'TestingTheCategory');
+		$tmp = new LogEntry('Lorem ipsum dolor sit amet', Log::INFO, 'TestingTheCategory');
 		$this->assertThat(
 			$tmp->category,
 			$this->equalTo('testingthecategory'),
@@ -105,7 +105,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Category should not have spaces.
-		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::INFO, 'testing the category');
+		$tmp = new LogEntry('Lorem ipsum dolor sit amet', Log::INFO, 'testing the category');
 		$this->assertThat(
 			$tmp->category,
 			$this->equalTo('testingthecategory'),
@@ -113,7 +113,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Category should not have special characters.
-		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::INFO, 'testing@#$^the*&@^#*&category');
+		$tmp = new LogEntry('Lorem ipsum dolor sit amet', Log::INFO, 'testing@#$^the*&@^#*&category');
 		$this->assertThat(
 			$tmp->category,
 			$this->equalTo('testingthecategory'),
@@ -121,7 +121,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Category should allow numbers.
-		$tmp = new Entry('Lorem ipsum dolor sit amet', Log::INFO, 'testing1the2category');
+		$tmp = new LogEntry('Lorem ipsum dolor sit amet', Log::INFO, 'testing1the2category');
 		$this->assertThat(
 			$tmp->category,
 			$this->equalTo('testing1the2category'),

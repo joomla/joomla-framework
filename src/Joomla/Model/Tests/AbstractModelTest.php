@@ -6,15 +6,17 @@
 
 namespace Joomla\Model\Tests;
 
-use Joomla\Model\Base;
+use Joomla\Model\AbstractModel;
 use Joomla\Registry\Registry;
+
+require_once __DIR__ . '/Stubs/DatabaseModel.php';
 
 /**
  * Tests for the Joomla\Model\Base class.
  *
  * @since  1.0
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class AbstractModelTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    \Joomla\Model\Base
@@ -35,7 +37,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(new Registry, $this->instance->getState(), 'Checks default state.');
 
 		$state = new Registry(array('foo' => 'bar'));
-		$class = new Base($state);
+		$class = new DatabaseModel($state);
 		$this->assertEquals($state, $class->getState(), 'Checks state injection.');
 	}
 
@@ -64,6 +66,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->instance = new Base;
+		// Note: We're using DatabaseModel because it still uses the majority of the AbstractModel methods.
+		$this->instance = new DatabaseModel;
 	}
 }

@@ -15,7 +15,7 @@ use Joomla\Factory;
  *
  * @since  1.0
  */
-class Helper
+class LanguageHelper
 {
 	/**
 	 * Builds a list of the system languages which can be used in a select option

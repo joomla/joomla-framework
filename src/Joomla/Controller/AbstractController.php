@@ -16,7 +16,7 @@ use Joomla\Application;
  *
  * @since  1.0
  */
-abstract class Base implements ControllerInterface
+abstract class AbstractController implements ControllerInterface
 {
 	/**
 	 * The application object.
@@ -42,7 +42,7 @@ abstract class Base implements ControllerInterface
 	 *
 	 * @since  1.0
 	 */
-	public function __construct(Input $input = null, Application\Base $app = null)
+	public function __construct(Input $input = null, Application\AbstractApplication $app = null)
 	{
 		$this->input = $input;
 		$this->app = $app;
@@ -105,7 +105,7 @@ abstract class Base implements ControllerInterface
 	 *
 	 * @since   1.0
 	 */
-	public function setApplication(Application\Base $app)
+	public function setApplication(Application\AbstractApplication $app)
 	{
 		$this->app = $app;
 

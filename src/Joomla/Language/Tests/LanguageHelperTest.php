@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Language\Helper as LanguageHelper;
+use Joomla\Language\LanguageHelper;
 
 /**
  * Test class for LanguageHelper.

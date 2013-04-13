@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Refs extends Object
+class Refs extends GithubObject
 {
 	/**
 	 * Method to create an issue.

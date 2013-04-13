@@ -13,7 +13,7 @@ namespace Joomla\Registry;
  *
  * @since  1.0
  */
-abstract class Format
+abstract class AbstractRegistryFormat
 {
 	/**
 	 * @var    array  Format instances container.

@@ -17,7 +17,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-abstract class Object
+abstract class GithubObject
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.

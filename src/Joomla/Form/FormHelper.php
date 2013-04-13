@@ -19,7 +19,7 @@ use Joomla\Filesystem\Path;
  *
  * @since  1.0
  */
-class Helper
+class FormHelper
 {
 	/**
 	 * Array with paths where entities(field, rule, form) can be found.

@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class Base implements ModelInterface
+class AbstractModel implements ModelInterface
 {
 	/**
 	 * The model state.

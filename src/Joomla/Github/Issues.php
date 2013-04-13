@@ -16,7 +16,7 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  */
-class Issues extends Object
+class Issues extends GithubObject
 {
 	/**
 	 * Method to create an issue.

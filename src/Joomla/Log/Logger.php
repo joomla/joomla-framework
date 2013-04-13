@@ -55,11 +55,11 @@ abstract class Logger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   Entry  $entry  The log entry object to add to the log.
+	 * @param   LogEntry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	abstract public function addEntry(Entry $entry);
+	abstract public function addEntry(LogEntry $entry);
 }

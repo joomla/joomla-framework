@@ -13,7 +13,7 @@ namespace Joomla\Router;
  *
  * @since  1.0
  */
-class Rest extends Router
+class RestRouter extends Router
 {
 	/**
 	 * @var     boolean  A boolean allowing to pass _method as parameter in POST requests

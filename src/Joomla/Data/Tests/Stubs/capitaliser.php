@@ -6,14 +6,14 @@
 
 namespace Joomla\Data\Tests;
 
-use Joomla\Data\Object;
+use Joomla\Data\DataObject;
 
 /**
- * Joomla Framework Capitaliser Object Class
+ * Joomla Framework Capitaliser DataObject Class
  *
  * @since  1.0
  */
-class JDataCapitaliser extends Object
+class JDataCapitaliser extends DataObject
 {
 	/**
 	 * Set an object property.

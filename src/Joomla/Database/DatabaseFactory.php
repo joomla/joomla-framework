@@ -13,7 +13,7 @@ namespace Joomla\Database;
  *
  * @since  1.0
  */
-class Factory
+class DatabaseFactory
 {
 	/**
 	 * Contains the current Factory instance

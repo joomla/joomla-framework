@@ -15,7 +15,7 @@ use Joomla\Factory;
  *
  * @since  1.0
  */
-class Helper
+class ClientHelper
 {
 	/**
 	 * Method to return the array of client layer configuration options

@@ -13,7 +13,7 @@ namespace Joomla\Test;
  *
  * @since  1.0
  */
-class Helper
+class TestHelper
 {
 	/**
 	 * Assigns mock callbacks to methods.

@@ -17,7 +17,7 @@ namespace Joomla\Database;
  * @method  string  qn()  qs($name, $as = null)     Alias for quoteName method
  * @method  string  e()   e($text, $extra = false)  Alias for escape method
  */
-abstract class Query
+abstract class DatabaseQuery
 {
 	/**
 	 * The database driver.

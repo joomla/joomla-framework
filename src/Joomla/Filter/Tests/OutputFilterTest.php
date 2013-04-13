@@ -6,7 +6,7 @@
 
 namespace Joomla\Filter\Tests;
 
-use Joomla\Filter\Output;
+use Joomla\Filter\OutputFilter;
 
 /**
  * FilterTestObject
@@ -38,7 +38,7 @@ class FilterTestObject
  *
  * @since  1.0
  */
-class FilterOutputTest extends \PHPUnit_Framework_TestCase
+class OutputFilterTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var  Output

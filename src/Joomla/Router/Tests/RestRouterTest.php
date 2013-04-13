@@ -6,8 +6,8 @@
 
 namespace Joomla\Router\Tests;
 
-use Joomla\Router\Rest;
-use Joomla\Test\Helper;
+use Joomla\Router\RestRouter;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/Stubs/GooGet.php';
 
@@ -16,7 +16,7 @@ require_once __DIR__ . '/Stubs/GooGet.php';
  *
  * @since  1.0
  */
-class RestTest extends \PHPUnit_Framework_TestCase
+class RestRouterTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Joomla\Router\Rest  The object to be tested.
@@ -141,7 +141,7 @@ class RestTest extends \PHPUnit_Framework_TestCase
 		}
 
 		// Execute the code to test.
-		$actual = Helper::invoke($this->instance, 'fetchControllerSuffix');
+		$actual = TestHelper::invoke($this->instance, 'fetchControllerSuffix');
 
 		// Verify the value.
 		$this->assertEquals($expected, $actual);
@@ -160,7 +160,7 @@ class RestTest extends \PHPUnit_Framework_TestCase
 		$_SERVER['REQUEST_METHOD'] = 'FOOBAR';
 
 		$this->setExpectedException('RuntimeException');
-		$suffix = Helper::invoke($this->instance, 'fetchControllerSuffix');
+		$suffix = TestHelper::invoke($this->instance, 'fetchControllerSuffix');
 	}
 
 	/**
@@ -175,15 +175,15 @@ class RestTest extends \PHPUnit_Framework_TestCase
 	public function testMethodInPostRequest()
 	{
 		// Check the defaults
-		$this->assertEquals(false, Helper::invoke($this->instance, 'isMethodInPostRequest'));
+		$this->assertEquals(false, TestHelper::invoke($this->instance, 'isMethodInPostRequest'));
 
 		// Check setting true
-		Helper::invoke($this->instance, 'setMethodInPostRequest', true);
-		$this->assertEquals(true, Helper::invoke($this->instance, 'isMethodInPostRequest'));
+		TestHelper::invoke($this->instance, 'setMethodInPostRequest', true);
+		$this->assertEquals(true, TestHelper::invoke($this->instance, 'isMethodInPostRequest'));
 
 		// Check setting false
-		Helper::invoke($this->instance, 'setMethodInPostRequest', false);
-		$this->assertEquals(false, Helper::invoke($this->instance, 'isMethodInPostRequest'));
+		TestHelper::invoke($this->instance, 'setMethodInPostRequest', false);
+		$this->assertEquals(false, TestHelper::invoke($this->instance, 'isMethodInPostRequest'));
 	}
 
 	/**
@@ -196,7 +196,7 @@ class RestTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers        Joomla\Router\Rest::parseRoute
+	 * @covers        Joomla\Router\RestRouter::parseRoute
 	 * @dataProvider  seedTestParseRoute
 	 * @since         1.0
 	 */
@@ -220,7 +220,7 @@ class RestTest extends \PHPUnit_Framework_TestCase
 		}
 
 		// Execute the route parsing.
-		$actual = Helper::invoke($this->instance, 'parseRoute', $r);
+		$actual = TestHelper::invoke($this->instance, 'parseRoute', $r);
 
 		// Test the assertions.
 		$this->assertEquals($c, $actual, 'Incorrect controller name found.');
@@ -237,7 +237,7 @@ class RestTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->instance = new Rest;
+		$this->instance = new RestRouter;
 		$this->requestMethod = @$_SERVER['REQUEST_METHOD'];
 	}
 
