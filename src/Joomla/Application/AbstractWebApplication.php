@@ -48,7 +48,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	/**
 	 * The application client object.
 	 *
-	 * @var    Web\Client
+	 * @var    Web\WebClient
 	 * @since  1.0
 	 */
 	public $client;
@@ -86,13 +86,13 @@ abstract class AbstractWebApplication extends AbstractApplication
 	 * @param   Registry    $config  An optional argument to provide dependency injection for the application's
 	 *                               config object.  If the argument is a Registry object that object will become
 	 *                               the application's config object, otherwise a default config object is created.
-	 * @param   Web\Client  $client  An optional argument to provide dependency injection for the application's
-	 *                               client object.  If the argument is a Web\Client object that object will become
+	 * @param   Web\WebClient  $client  An optional argument to provide dependency injection for the application's
+	 *                               client object.  If the argument is a Web\WebClient object that object will become
 	 *                               the application's client object, otherwise a default client object is created.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, Registry $config = null, Web\Client $client = null)
+	public function __construct(Input $input = null, Registry $config = null, Web\WebClient $client = null)
 	{
 		parent::__construct($input, $config);
 

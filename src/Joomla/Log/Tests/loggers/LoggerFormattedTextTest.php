@@ -7,7 +7,7 @@
 require_once __DIR__ . '/stubs/formattedtext/inspector.php';
 
 use Joomla\Log\Log;
-use Joomla\Log\Entry;
+use Joomla\Log\LogEntry;
 use Joomla\Factory;
 
 /**
@@ -141,21 +141,21 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 		// Remove the log file if it exists.
 		@unlink($logger->path);
 
-		$logger->addEntry(new Entry('Testing Entry 01'));
+		$logger->addEntry(new LogEntry('Testing Entry 01'));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'INFO	-	Testing Entry 01',
 			'Line: ' . __LINE__
 		);
 
-		$logger->addEntry(new Entry('Testing 02', Log::ERROR));
+		$logger->addEntry(new LogEntry('Testing 02', Log::ERROR));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'ERROR	-	Testing 02',
 			'Line: ' . __LINE__
 		);
 
-		$logger->addEntry(new Entry('Testing3', Log::EMERGENCY, 'deprecated'));
+		$logger->addEntry(new LogEntry('Testing3', Log::EMERGENCY, 'deprecated'));
 		$this->assertEquals(
 			$this->getLastLine($logger->path),
 			'EMERGENCY	deprecated	Testing3',

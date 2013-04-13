@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class Factory
+class HttpFactory
 {
 	/**
 	 * Method to recieve Http instance.

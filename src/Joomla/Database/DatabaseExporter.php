@@ -200,13 +200,13 @@ abstract class DatabaseExporter
 	/**
 	 * Sets the database connector to use for exporting structure and/or data from MySQL.
 	 *
-	 * @param   Driver  $db  The database connector.
+	 * @param   DatabaseDriver  $db  The database connector.
 	 *
-	 * @return  Exporter  Method supports chaining.
+	 * @return  DatabaseExporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function setDbo(Driver $db)
+	public function setDbo(DatabaseDriver $db)
 	{
 		$this->db = $db;
 

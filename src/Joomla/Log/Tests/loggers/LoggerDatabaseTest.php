@@ -7,7 +7,7 @@
 require_once __DIR__ . '/stubs/database/inspector.php';
 
 use Joomla\Log\Log;
-use Joomla\Log\Entry;
+use Joomla\Log\LogEntry;
 use Joomla\Factory;
 use Joomla\Log\Logger\Database as LoggerDatabase;
 use Joomla\Test\TestHelper;
@@ -65,8 +65,8 @@ class LoggerDatabaseTest extends TestCaseDatabase
 		$expected = $this->createXMLDataSet(__DIR__ . '/stubs/database/S01E01.xml');
 
 		// Add the new entries to the database.
-		$logger->addEntry(new Entry('Testing Entry 02', Log::INFO, null, '2009-12-01 12:30:00'));
-		$logger->addEntry(new Entry('Testing3', Log::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
+		$logger->addEntry(new LogEntry('Testing Entry 02', Log::INFO, null, '2009-12-01 12:30:00'));
+		$logger->addEntry(new LogEntry('Testing3', Log::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
 
 		// Get the actual dataset from the database.
 		$actual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
@@ -96,8 +96,8 @@ class LoggerDatabaseTest extends TestCaseDatabase
 		$expected = $this->createXMLDataSet(__DIR__ . '/stubs/database/S01E01.xml');
 
 		// Add the new entries to the database.
-		$logger->addEntry(new Entry('Testing Entry 02', Log::INFO, null, '2009-12-01 12:30:00'));
-		$logger->addEntry(new Entry('Testing3', Log::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
+		$logger->addEntry(new LogEntry('Testing Entry 02', Log::INFO, null, '2009-12-01 12:30:00'));
+		$logger->addEntry(new LogEntry('Testing3', Log::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
 
 		// Get the actual dataset from the database.
 		$actual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());

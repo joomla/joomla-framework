@@ -17,7 +17,7 @@ namespace Joomla\Database\Query;
  *
  * @since  1.0
  */
-class Element
+class QueryElement
 {
 	/**
 	 * @var    string  The name of the element.

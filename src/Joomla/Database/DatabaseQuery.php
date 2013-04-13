@@ -22,7 +22,7 @@ abstract class DatabaseQuery
 	/**
 	 * The database driver.
 	 *
-	 * @var    Driver
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	protected $db = null;
@@ -46,7 +46,7 @@ abstract class DatabaseQuery
 	/**
 	 * The query element for a generic query (type = null).
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $element = null;
@@ -54,7 +54,7 @@ abstract class DatabaseQuery
 	/**
 	 * The select element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $select = null;
@@ -62,7 +62,7 @@ abstract class DatabaseQuery
 	/**
 	 * The delete element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $delete = null;
@@ -70,7 +70,7 @@ abstract class DatabaseQuery
 	/**
 	 * The update element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $update = null;
@@ -78,7 +78,7 @@ abstract class DatabaseQuery
 	/**
 	 * The insert element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $insert = null;
@@ -86,7 +86,7 @@ abstract class DatabaseQuery
 	/**
 	 * The from element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $from = null;
@@ -94,7 +94,7 @@ abstract class DatabaseQuery
 	/**
 	 * The join element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $join = null;
@@ -102,7 +102,7 @@ abstract class DatabaseQuery
 	/**
 	 * The set element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $set = null;
@@ -110,7 +110,7 @@ abstract class DatabaseQuery
 	/**
 	 * The where element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $where = null;
@@ -118,7 +118,7 @@ abstract class DatabaseQuery
 	/**
 	 * The group by element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $group = null;
@@ -126,7 +126,7 @@ abstract class DatabaseQuery
 	/**
 	 * The having element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $having = null;
@@ -134,7 +134,7 @@ abstract class DatabaseQuery
 	/**
 	 * The column list for an INSERT statement.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $columns = null;
@@ -142,7 +142,7 @@ abstract class DatabaseQuery
 	/**
 	 * The values list for an INSERT statement.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $values = null;
@@ -150,7 +150,7 @@ abstract class DatabaseQuery
 	/**
 	 * The order element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $order = null;
@@ -166,7 +166,7 @@ abstract class DatabaseQuery
 	/**
 	 * The call element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $call = null;
@@ -174,7 +174,7 @@ abstract class DatabaseQuery
 	/**
 	 * The exec element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $exec = null;
@@ -182,7 +182,7 @@ abstract class DatabaseQuery
 	/**
 	 * The union element.
 	 *
-	 * @var    Query\Element
+	 * @var    Query\QueryElement
 	 * @since  1.0
 	 */
 	protected $union = null;
@@ -223,11 +223,11 @@ abstract class DatabaseQuery
 	/**
 	 * Class constructor.
 	 *
-	 * @param   Driver  $db  The database driver.
+	 * @param   DatabaseDriver  $db  The database driver.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Driver $db = null)
+	public function __construct(DatabaseDriver $db = null)
 	{
 		$this->db = $db;
 	}
@@ -415,7 +415,7 @@ abstract class DatabaseQuery
 
 		if (is_null($this->call))
 		{
-			$this->call = new Query\Element('CALL', $columns);
+			$this->call = new Query\QueryElement('CALL', $columns);
 		}
 		else
 		{
@@ -596,7 +596,7 @@ abstract class DatabaseQuery
 	{
 		if (is_null($this->columns))
 		{
-			$this->columns = new Query\Element('()', $columns);
+			$this->columns = new Query\QueryElement('()', $columns);
 		}
 		else
 		{
@@ -659,7 +659,7 @@ abstract class DatabaseQuery
 	 */
 	public function dateFormat()
 	{
-		if (!($this->db instanceof Driver))
+		if (!($this->db instanceof DatabaseDriver))
 		{
 			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
@@ -699,7 +699,7 @@ abstract class DatabaseQuery
 	public function delete($table = null)
 	{
 		$this->type = 'delete';
-		$this->delete = new Query\Element('DELETE', null);
+		$this->delete = new Query\QueryElement('DELETE', null);
 
 		if (!empty($table))
 		{
@@ -715,7 +715,7 @@ abstract class DatabaseQuery
 	 * This method is provided for use where the query object is passed to a function for modification.
 	 * If you have direct access to the database object, it is recommended you use the escape method directly.
 	 *
-	 * Note that 'e' is an alias for this method as it is in JDatabaseDriver.
+	 * Note that 'e' is an alias for this method as it is in JDatabaseDatabaseDriver.
 	 *
 	 * @param   string   $text   The string to be escaped.
 	 * @param   boolean  $extra  Optional parameter to provide extra escaping.
@@ -727,7 +727,7 @@ abstract class DatabaseQuery
 	 */
 	public function escape($text, $extra = false)
 	{
-		if (!($this->db instanceof Driver))
+		if (!($this->db instanceof DatabaseDriver))
 		{
 			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
@@ -757,7 +757,7 @@ abstract class DatabaseQuery
 
 		if (is_null($this->exec))
 		{
-			$this->exec = new Query\Element('EXEC', $columns);
+			$this->exec = new Query\QueryElement('EXEC', $columns);
 		}
 		else
 		{
@@ -799,7 +799,7 @@ abstract class DatabaseQuery
 				$tables = '( ' . (string) $tables . ' ) AS ' . $this->quoteName($subQueryAlias);
 			}
 
-			$this->from = new Query\Element('FROM', $tables);
+			$this->from = new Query\QueryElement('FROM', $tables);
 		}
 		else
 		{
@@ -927,7 +927,7 @@ abstract class DatabaseQuery
 	{
 		if (is_null($this->group))
 		{
-			$this->group = new Query\Element('GROUP BY', $columns);
+			$this->group = new Query\QueryElement('GROUP BY', $columns);
 		}
 		else
 		{
@@ -955,7 +955,7 @@ abstract class DatabaseQuery
 		if (is_null($this->having))
 		{
 			$glue = strtoupper($glue);
-			$this->having = new Query\Element('HAVING', $conditions, " $glue ");
+			$this->having = new Query\QueryElement('HAVING', $conditions, " $glue ");
 		}
 		else
 		{
@@ -1004,7 +1004,7 @@ abstract class DatabaseQuery
 	public function insert($table, $incrementField=false)
 	{
 		$this->type = 'insert';
-		$this->insert = new Query\Element('INSERT INTO', $table);
+		$this->insert = new Query\QueryElement('INSERT INTO', $table);
 		$this->autoIncrementField = $incrementField;
 
 		return $this;
@@ -1030,7 +1030,7 @@ abstract class DatabaseQuery
 			$this->join = array();
 		}
 
-		$this->join[] = new Query\Element(strtoupper($type) . ' JOIN', $conditions);
+		$this->join[] = new Query\QueryElement(strtoupper($type) . ' JOIN', $conditions);
 
 		return $this;
 	}
@@ -1091,7 +1091,7 @@ abstract class DatabaseQuery
 	 */
 	public function nullDate($quoted = true)
 	{
-		if (!($this->db instanceof Driver))
+		if (!($this->db instanceof DatabaseDriver))
 		{
 			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
@@ -1123,7 +1123,7 @@ abstract class DatabaseQuery
 	{
 		if (is_null($this->order))
 		{
-			$this->order = new Query\Element('ORDER BY', $columns);
+			$this->order = new Query\QueryElement('ORDER BY', $columns);
 		}
 		else
 		{
@@ -1158,7 +1158,7 @@ abstract class DatabaseQuery
 	 * This method is provided for use where the query object is passed to a function for modification.
 	 * If you have direct access to the database object, it is recommended you use the quote method directly.
 	 *
-	 * Note that 'q' is an alias for this method as it is in Driver.
+	 * Note that 'q' is an alias for this method as it is in DatabaseDriver.
 	 *
 	 * Usage:
 	 * $query->quote('fulltext');
@@ -1175,7 +1175,7 @@ abstract class DatabaseQuery
 	 */
 	public function quote($text, $escape = true)
 	{
-		if (!($this->db instanceof Driver))
+		if (!($this->db instanceof DatabaseDriver))
 		{
 			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
@@ -1190,7 +1190,7 @@ abstract class DatabaseQuery
 	 * This method is provided for use where the query object is passed to a function for modification.
 	 * If you have direct access to the database object, it is recommended you use the quoteName method directly.
 	 *
-	 * Note that 'qn' is an alias for this method as it is in Driver.
+	 * Note that 'qn' is an alias for this method as it is in DatabaseDriver.
 	 *
 	 * Usage:
 	 * $query->quoteName('#__a');
@@ -1208,7 +1208,7 @@ abstract class DatabaseQuery
 	 */
 	public function quoteName($name, $as = null)
 	{
-		if (!($this->db instanceof Driver))
+		if (!($this->db instanceof DatabaseDriver))
 		{
 			throw new \RuntimeException('JLIB_DATABASE_ERROR_INVALID_DB_OBJECT');
 		}
@@ -1257,7 +1257,7 @@ abstract class DatabaseQuery
 
 		if (is_null($this->select))
 		{
-			$this->select = new Query\Element('SELECT', $columns);
+			$this->select = new Query\QueryElement('SELECT', $columns);
 		}
 		else
 		{
@@ -1287,7 +1287,7 @@ abstract class DatabaseQuery
 		if (is_null($this->set))
 		{
 			$glue = strtoupper($glue);
-			$this->set = new Query\Element('SET', $conditions, PHP_EOL . "\t$glue ");
+			$this->set = new Query\QueryElement('SET', $conditions, PHP_EOL . "\t$glue ");
 		}
 		else
 		{
@@ -1335,7 +1335,7 @@ abstract class DatabaseQuery
 	public function update($table)
 	{
 		$this->type = 'update';
-		$this->update = new Query\Element('UPDATE', $table);
+		$this->update = new Query\QueryElement('UPDATE', $table);
 
 		return $this;
 	}
@@ -1357,7 +1357,7 @@ abstract class DatabaseQuery
 	{
 		if (is_null($this->values))
 		{
-			$this->values = new Query\Element('()', $values, '),(');
+			$this->values = new Query\QueryElement('()', $values, '),(');
 		}
 		else
 		{
@@ -1387,7 +1387,7 @@ abstract class DatabaseQuery
 		if (is_null($this->where))
 		{
 			$glue = strtoupper($glue);
-			$this->where = new Query\Element('WHERE', $conditions, " $glue ");
+			$this->where = new Query\QueryElement('WHERE', $conditions, " $glue ");
 		}
 		else
 		{
@@ -1454,10 +1454,10 @@ abstract class DatabaseQuery
 			$name = 'UNION ()';
 		}
 
-		// Get the Query\Element if it does not exist
+		// Get the Query\QueryElement if it does not exist
 		if (is_null($this->union))
 		{
-				$this->union = new Query\Element($name, $query, "$glue");
+				$this->union = new Query\QueryElement($name, $query, "$glue");
 		}
 		else
 		// Otherwise append the second UNION.

@@ -16,7 +16,7 @@ use Joomla\String\String;
  *
  * @since  1.0
  */
-class Output
+class OutputFilter
 {
 	/**
 	 * Makes an object safe to display in forms

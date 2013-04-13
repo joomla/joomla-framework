@@ -34,14 +34,14 @@ class FilterTestObject
 }
 
 /**
- * Test class for Filter\Output
+ * Test class for Filter\OutputFilter
  *
  * @since  1.0
  */
 class OutputFilterTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var  Output
+	 * @var  OutputFilter
 	 */
 	protected $object;
 
@@ -58,7 +58,7 @@ class OutputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new Output;
+		$this->object = new OutputFilter;
 		$this->safeObject = new FilterTestObject;
 		$this->safeObjectArrayTest = new FilterTestObject;
 	}
@@ -185,7 +185,7 @@ class OutputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCleanText($data, $expect)
 	{
-		$this->assertEquals($expect, Output::cleanText($data));
+		$this->assertEquals($expect, OutputFilter::cleanText($data));
 	}
 
 	/**

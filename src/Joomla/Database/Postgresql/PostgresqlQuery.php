@@ -6,9 +6,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Postresql;
+namespace Joomla\Database\Postgresql;
 
 use Joomla\Database\DatabaseQuery;
+use Joomla\Database\Query\QueryElement;
 use Joomla\Database\Query\LimitableInterface;
 
 /**
@@ -329,7 +330,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 		if ( is_null($this->forUpdate) )
 		{
 			$glue = strtoupper($glue);
-			$this->forUpdate = new Element('FOR UPDATE', 'OF ' . $table_name, "$glue ");
+			$this->forUpdate = new QueryElement('FOR UPDATE', 'OF ' . $table_name, "$glue ");
 		}
 		else
 		{
@@ -356,7 +357,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 		if ( is_null($this->forShare) )
 		{
 			$glue = strtoupper($glue);
-			$this->forShare = new Element('FOR SHARE', 'OF ' . $table_name, "$glue ");
+			$this->forShare = new QueryElement('FOR SHARE', 'OF ' . $table_name, "$glue ");
 		}
 		else
 		{
@@ -481,7 +482,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 
 		if ( is_null($this->noWait) )
 		{
-			$this->noWait = new Element('NOWAIT', null);
+			$this->noWait = new QueryElement('NOWAIT', null);
 		}
 
 		return $this;
@@ -500,7 +501,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	{
 		if (is_null($this->limit))
 		{
-			$this->limit = new Element('LIMIT', (int) $limit);
+			$this->limit = new QueryElement('LIMIT', (int) $limit);
 		}
 
 		return $this;
@@ -519,7 +520,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	{
 		if (is_null($this->offset))
 		{
-			$this->offset = new Element('OFFSET', (int) $offset);
+			$this->offset = new QueryElement('OFFSET', (int) $offset);
 		}
 
 		return $this;
@@ -538,7 +539,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	{
 		if (is_null($this->returning))
 		{
-			$this->returning = new Element('RETURNING', $pkCol);
+			$this->returning = new QueryElement('RETURNING', $pkCol);
 		}
 
 		return $this;

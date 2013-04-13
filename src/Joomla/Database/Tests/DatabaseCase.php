@@ -47,7 +47,7 @@ abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 			$pdo->exec(file_get_contents(__DIR__ . '/Stubs/ddl.sql'));
 
 			// Set the PDO instance to the driver using reflection whizbangery.
-			Helper::setValue(self::$driver, 'connection', $pdo);
+			TestHelper::setValue(self::$driver, 'connection', $pdo);
 		}
 		catch (\RuntimeException $e)
 		{

@@ -10,7 +10,7 @@ use Joomla\Filter\InputFilter;
 use Joomla\Filter\OutputFilter;
 
 /**
- * Test class for Filter\Input
+ * Test class for Filter\InputFilter
  *
  * @since  1.0
  */
@@ -601,7 +601,7 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCleanByCallingMember($type, $data, $expect, $message)
 	{
-		$filter = new Input;
+		$filter = new InputFilter;
 		$this->assertThat(
 			$filter->clean($data, $type),
 			$this->equalTo($expect),
@@ -741,7 +741,7 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCleanWithImgWhitelisted($type, $data, $expect, $message)
 	{
-		$filter = new Input(array('img'), null, 0, 0);
+		$filter = new InputFilter(array('img'), null, 0, 0);
 		$this->assertThat(
 			$filter->clean($data, $type),
 			$this->equalTo($expect),
@@ -847,7 +847,7 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCleanWithClassWhitelisted($type, $data, $expect, $message)
 	{
-		$filter = new Input(null, array('class'), 0, 0);
+		$filter = new InputFilter(null, array('class'), 0, 0);
 		$this->assertThat(
 			$filter->clean($data, $type),
 			$this->equalTo($expect),
@@ -960,7 +960,7 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCleanWithImgAndClassWhitelisted($type, $data, $expect, $message)
 	{
-		$filter = new Input(array('img'), array('class'), 0, 0);
+		$filter = new InputFilter(array('img'), array('class'), 0, 0);
 		$this->assertThat(
 			$filter->clean($data, $type),
 			$this->equalTo($expect),
@@ -1176,7 +1176,7 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCleanWithDefaultBlackList($type, $data, $expect, $message)
 	{
-		$filter = new Input(null, null, 1, 1);
+		$filter = new InputFilter(null, null, 1, 1);
 		$this->assertThat(
 			$filter->clean($data, $type),
 			$this->equalTo($expect),
@@ -1275,7 +1275,7 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCleanWithImgBlackList($type, $data, $expect, $message)
 	{
-		$filter = new Input(array('img'), null, 1, 1);
+		$filter = new InputFilter(array('img'), null, 1, 1);
 		$this->assertThat(
 			$filter->clean($data, $type),
 			$this->equalTo($expect),
@@ -1321,7 +1321,7 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCleanWithClassBlackList($type, $data, $expect, $message)
 	{
-		$filter = new Input(null, array('class'), 1, 1);
+		$filter = new InputFilter(null, array('class'), 1, 1);
 		$this->assertThat(
 			$filter->clean($data, $type),
 			$this->equalTo($expect),

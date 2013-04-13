@@ -209,22 +209,22 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 		if (!isset(self::$connectors))
 		{
 			// Get an iterator and loop trough the driver classes.
-			$iterator = new \DirectoryIterator(__DIR__ . '/Driver');
+			$iterator = new \DirectoryIterator(__DIR__);
 
 			/* @var  $file  \DirectoryIterator */
 			foreach ($iterator as $file)
 			{
-				$baseName = $file->getBasename('.php');
-
 				// Only load for php files.
-				if (!$file->isFile() || $file->getExtension() != 'php')
+				if (!$file->isDir())
 				{
 					continue;
 				}
 
+				$baseName = $file->getBasename();
+
 				// Derive the class name from the type.
 				/* @var  $class  Driver */
-				$class = '\\Joomla\\Database\\Driver\\' . $baseName;
+				$class = ucfirst(strtolower($baseName)) . '\\' . ucfirst(strtolower($basename)) . 'Driver';
 
 				// If the class doesn't exist, or if it's not supported on this system, move on to the next type.
 				if (!class_exists($class) || !($class::isSupported()))
@@ -271,7 +271,9 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 		if (empty(self::$instances[$signature]))
 		{
 			// Derive the class name from the driver.
-			$class = '\\Joomla\\Database\\Driver\\' . ucfirst(strtolower($options['driver']));
+			$class = '\\Joomla\\Database\\' . ucfirst(strtolower($options['driver'])) . '\\' . ucfirst(strtolower($options['driver'])) . 'Driver';
+
+			//echo $class; die;
 
 			// If the class still doesn't exist we have nothing left to do but throw an exception.  We did our best.
 			if (!class_exists($class))

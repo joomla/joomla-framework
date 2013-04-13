@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database;
+namespace Joomla\Database\Nosql;
 
 use Joomla\Database\DatabaseDriver;
 
@@ -13,7 +13,7 @@ use Joomla\Database\DatabaseDriver;
  *
  * @since  1.0
  */
-class Nosql extends DatabaseDriver
+class NosqlDriver extends DatabaseDriver
 {
 	/**
 	 * The name of the database driver.

@@ -105,7 +105,7 @@ class RestRouterTest extends \PHPUnit_Framework_TestCase
 	public function testSetHttpMethodSuffix()
 	{
 		$this->instance->setHttpMethodSuffix('FOO', 'Bar');
-		$s = Helper::getValue($this->instance, 'suffixMap');
+		$s = TestHelper::getValue($this->instance, 'suffixMap');
 		$this->assertEquals('Bar', $s['FOO']);
 	}
 
@@ -126,7 +126,7 @@ class RestRouterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testFetchControllerSuffix($input, $expected, $method, $exception, $allowMethod=false)
 	{
-		Helper::invoke($this->instance, 'setMethodInPostRequest', $allowMethod);
+		TestHelper::invoke($this->instance, 'setMethodInPostRequest', $allowMethod);
 
 		// Set reuqest method
 		$_SERVER['REQUEST_METHOD'] = $input;

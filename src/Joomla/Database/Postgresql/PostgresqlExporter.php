@@ -110,7 +110,7 @@ class PostgresqlExporter extends DatabaseExporter
 	public function check()
 	{
 		// Check if the db connector has been set.
-		if (!($this->db instanceof PostrgresqlDriver))
+		if (!($this->db instanceof PostgresqlDriver))
 		{
 			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}

@@ -440,7 +440,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 	public function testSetProperty_exception()
 	{
 		// Get the reflection property. This should throw an exception.
-		$property = Helper::getValue($this->instance, 'set_test');
+		$property = TestHelper::getValue($this->instance, 'set_test');
 	}
 
 	/**

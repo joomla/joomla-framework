@@ -177,7 +177,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			Helper::getValue($inspector, 'config')->test(),
+			TestHelper::getValue($inspector, 'config')->test(),
 			$this->equalTo('ok'),
 			'Tests config injection.'
 		);

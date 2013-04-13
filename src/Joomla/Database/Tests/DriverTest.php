@@ -186,7 +186,7 @@ class DriverTest extends DatabaseCase
 	 */
 	public function testGetDatabase()
 	{
-		$this->assertEquals('europa', Helper::invoke($this->instance, 'getDatabase'));
+		$this->assertEquals('europa', TestHelper::invoke($this->instance, 'getDatabase'));
 	}
 
 	/**
@@ -528,7 +528,7 @@ class DriverTest extends DatabaseCase
 			'Tests the left-right quotes on an object.'
 		);
 
-// 		Helper::setValue($this->db, 'nameQuote', '/');
+// 		TestHelper::setValue($this->db, 'nameQuote', '/');
 
 		$refl = new \ReflectionClass($this->instance);
 		$property = $refl->getProperty('nameQuote');

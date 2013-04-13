@@ -50,7 +50,7 @@ class Json extends AbstractRegistryFormat
 
 		if ((substr($data, 0, 1) != '{') && (substr($data, -1, 1) != '}'))
 		{
-			$ini = Format::getInstance('Ini');
+			$ini = AbstractRegistryFormat::getInstance('Ini');
 			$obj = $ini->stringToObject($data, $options);
 		}
 		else

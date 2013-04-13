@@ -18,7 +18,7 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  */
-class Entry
+class LogEntry
 {
 	/**
 	 * Application responsible for log entry.

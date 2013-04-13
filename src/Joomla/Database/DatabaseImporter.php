@@ -238,7 +238,7 @@ abstract class DatabaseImporter
 	 *
 	 * @since   1.0
 	 */
-	public function setDbo(Driver $db)
+	public function setDbo(DatabaseDriver $db)
 	{
 		$this->db = $db;
 

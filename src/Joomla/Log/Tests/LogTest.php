@@ -51,7 +51,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 		Log::addLogger(array('logger' => 'echoo'), Log::ALL);
 
 		$this->expectOutputString("DEBUG: TESTING [deprecated]\n");
-		$log->addLogEntry(new Entry('TESTING', Log::DEBUG, 'DePrEcAtEd'));
+		$log->addLogEntry(new LogEntry('TESTING', Log::DEBUG, 'DePrEcAtEd'));
 	}
 
 	/**
@@ -70,7 +70,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 		Log::addLogger(array('logger' => 'echoo'), Log::ALL);
 
 		$this->expectOutputString("WARNING: TESTING [deprecated]\n");
-		Log::add(new Entry('TESTING', Log::WARNING, 'DePrEcAtEd'));
+		Log::add(new LogEntry('TESTING', Log::WARNING, 'DePrEcAtEd'));
 	}
 
 	/**
@@ -91,7 +91,7 @@ class LogTest extends PHPUnit_Framework_TestCase
 
 		Log::addLogger(array('logger' => 'foobar'), Log::ALL);
 
-		Log::add(new Entry('TESTING', Log::WARNING, 'DePrEcAtEd'));
+		Log::add(new LogEntry('TESTING', Log::WARNING, 'DePrEcAtEd'));
 	}
 
 	/**

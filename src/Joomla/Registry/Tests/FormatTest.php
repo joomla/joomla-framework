@@ -4,17 +4,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\Format;
+use Joomla\Registry\AbstractRegistryFormat;
 
 /**
- * Test class for Format.
+ * Test class for AbstractRegistryFormat.
  *
  * @since  1.0
  */
-class FormatTest extends PHPUnit_Framework_TestCase
+class AbstractRegistryFormatTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the Format::getInstance method.
+	 * Test the AbstractRegistryFormat::getInstance method.
 	 *
 	 * @return  void
 	 *
@@ -23,28 +23,28 @@ class FormatTest extends PHPUnit_Framework_TestCase
 	public function testGetInstance()
 	{
 		// Test INI format.
-		$object = Format::getInstance('INI');
+		$object = AbstractRegistryFormat::getInstance('INI');
 		$this->assertThat(
 			$object instanceof Joomla\Registry\Format\Ini,
 			$this->isTrue()
 		);
 
 		// Test JSON format.
-		$object = Format::getInstance('JSON');
+		$object = AbstractRegistryFormat::getInstance('JSON');
 		$this->assertThat(
 			$object instanceof Joomla\Registry\Format\Json,
 			$this->isTrue()
 		);
 
 		// Test PHP format.
-		$object = Format::getInstance('PHP');
+		$object = AbstractRegistryFormat::getInstance('PHP');
 		$this->assertThat(
 			$object instanceof Joomla\Registry\Format\PHP,
 			$this->isTrue()
 		);
 
 		// Test XML format.
-		$object = Format::getInstance('XML');
+		$object = AbstractRegistryFormat::getInstance('XML');
 		$this->assertThat(
 			$object instanceof Joomla\Registry\Format\Xml,
 			$this->isTrue()
@@ -53,12 +53,12 @@ class FormatTest extends PHPUnit_Framework_TestCase
 		// Test non-existing format.
 		try
 		{
-			$object = Format::getInstance('SQL');
+			$object = AbstractRegistryFormat::getInstance('SQL');
 		}
 		catch (Exception $e)
 		{
 			return;
 		}
-		$this->fail('Format should throw an exception in case of non-existing formats');
+		$this->fail('AbstractRegistryFormat should throw an exception in case of non-existing formats');
 	}
 }
