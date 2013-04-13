@@ -6,6 +6,8 @@
 
 use Joomla\Image\Filter\Brightness as FilterBrightness;
 
+use Joomla\Test\TestHelper;
+
 /**
  * Test class for JImage.
  *
