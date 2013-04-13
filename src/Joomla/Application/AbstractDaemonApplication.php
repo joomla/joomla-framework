@@ -10,7 +10,7 @@ namespace Joomla\Application;
 
 use Joomla\Filesystem\Folder;
 use Joomla\Registry\Registry;
-use Joomla\Input\InputCli as InputCli;
+use Joomla\Input\InputCli;
 use Psr\Log\LoggerAwareInterface;
 
 /**
@@ -782,7 +782,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 			}
 
 			// Attach the signal handler for the signal.
-			if (!$this->pcntlSignal(constant($signal), array('AbstractDaemonApplication', 'signal')))
+			if (!$this->pcntlSignal(constant($signal), array(__CLASS__, 'signal')))
 			{
 				if ($this->hasLogger())
 				{
