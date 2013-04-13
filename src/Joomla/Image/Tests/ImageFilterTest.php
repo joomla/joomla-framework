@@ -72,6 +72,6 @@ class JImageFilterTest extends PHPUnit_Framework_TestCase
 
 		$filter = new FilterBrightness($imageHandle);
 
-		$this->assertEquals(Helper::getValue($filter, 'handle'), $imageHandle);
+		$this->assertEquals(TestHelper::getValue($filter, 'handle'), $imageHandle);
 	}
 }
