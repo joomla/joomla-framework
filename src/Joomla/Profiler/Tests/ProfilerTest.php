@@ -10,7 +10,7 @@ use Joomla\Profiler\Renderer\DefaultRenderer;
 use Joomla\Profiler\ProfilePoint;
 use Joomla\Profiler\Profiler;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for Joomla\Profiler\Profiler.
@@ -35,10 +35,10 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertEquals('test', Helper::getValue($this->instance, 'name'));
-		$this->assertInstanceOf('\Joomla\Profiler\Renderer\DefaultRenderer', Helper::getValue($this->instance, 'renderer'));
-		$this->assertEmpty(Helper::getValue($this->instance, 'points'));
-		$this->assertFalse(Helper::getValue($this->instance, 'memoryRealUsage'));
+		$this->assertEquals('test', TestHelper::getValue($this->instance, 'name'));
+		$this->assertInstanceOf('\Joomla\Profiler\Renderer\DefaultRenderer', TestHelper::getValue($this->instance, 'renderer'));
+		$this->assertEmpty(TestHelper::getValue($this->instance, 'points'));
+		$this->assertFalse(TestHelper::getValue($this->instance, 'memoryRealUsage'));
 
 		$renderer = new DefaultRenderer;
 		$pointOne = new ProfilePoint('start');
@@ -46,10 +46,10 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 		$points = array($pointOne, $pointTwo);
 
 		$profiler = new Profiler('bar', $renderer, $points, true);
-		$this->assertEquals('bar', Helper::getValue($profiler, 'name'));
-		$this->assertSame($renderer, Helper::getValue($profiler, 'renderer'));
-		$this->assertEquals($points, Helper::getValue($profiler, 'points'));
-		$this->assertTrue(Helper::getValue($profiler, 'memoryRealUsage'));
+		$this->assertEquals('bar', TestHelper::getValue($profiler, 'name'));
+		$this->assertSame($renderer, TestHelper::getValue($profiler, 'renderer'));
+		$this->assertEquals($points, TestHelper::getValue($profiler, 'points'));
+		$this->assertTrue(TestHelper::getValue($profiler, 'memoryRealUsage'));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 		$second = new ProfilePoint('second', 1.5, 1000);
 		$third = new ProfilePoint('third', 2.5, 2000);
 
-		Helper::invoke($this->instance, 'setPoints', array($first, $second, $third));
+		TestHelper::invoke($this->instance, 'setPoints', array($first, $second, $third));
 
 		$this->assertTrue($this->instance->hasPoint('first'));
 		$this->assertTrue($this->instance->hasPoint('second'));
@@ -92,7 +92,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 		$first = new ProfilePoint('test');
 		$second = new ProfilePoint('test');
 
-		Helper::invoke($this->instance, 'setPoints', array($first, $second));
+		TestHelper::invoke($this->instance, 'setPoints', array($first, $second));
 	}
 
 	/**
@@ -110,7 +110,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 		$first = new ProfilePoint('test');
 		$second = 0;
 
-		Helper::invoke($this->instance, 'setPoints', array($first, $second));
+		TestHelper::invoke($this->instance, 'setPoints', array($first, $second));
 	}
 
 	/**
@@ -337,7 +337,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetMemoryPeakBytes()
 	{
-		Helper::setValue($this->instance, 'memoryPeakBytes', 10);
+		TestHelper::setValue($this->instance, 'memoryPeakBytes', 10);
 		$this->assertEquals(10, $this->instance->getMemoryPeakBytes());
 	}
 
@@ -351,7 +351,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetPoints()
 	{
-		Helper::setValue($this->instance, 'points', false);
+		TestHelper::setValue($this->instance, 'points', false);
 		$this->assertFalse($this->instance->getPoints());
 	}
 
@@ -366,7 +366,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 	public function testSetRenderer()
 	{
 		// Reset the property.
-		Helper::setValue($this->instance, 'renderer', null);
+		TestHelper::setValue($this->instance, 'renderer', null);
 
 		$renderer = new DefaultRenderer;
 
@@ -385,7 +385,7 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetRenderer()
 	{
-		Helper::setValue($this->instance, 'renderer', true);
+		TestHelper::setValue($this->instance, 'renderer', true);
 		$this->assertTrue($this->instance->getRenderer());
 	}
 

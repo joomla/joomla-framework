@@ -13,7 +13,7 @@ namespace Joomla\Client;
  *
  * @since  1.0
  */
-class Ldap
+class LdapClient
 {
 	/**
 	 * @var    string  Hostname of LDAP server

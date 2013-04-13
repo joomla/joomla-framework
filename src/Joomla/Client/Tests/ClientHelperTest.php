@@ -6,17 +6,17 @@
 
 namespace Joomla\Client\Tests;
 
-use Joomla\Client\Helper;
+use Joomla\Client\ClientHelper;
 
 /**
- * Test class for Helper.
+ * Test class for ClientHelper.
  *
  * @since  1.0
  */
-class HelperTest extends \PHPUnit_Framework_TestCase
+class ClientHelperTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Helper
+	 * @var    ClientHelper
 	 */
 	protected $object;
 
@@ -30,7 +30,7 @@ class HelperTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->object = new Helper;
+		$this->object = new ClientHelper;
 	}
 
 	/**

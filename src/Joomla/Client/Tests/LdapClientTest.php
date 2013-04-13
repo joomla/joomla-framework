@@ -6,17 +6,17 @@
 
 namespace Joomla\Client\Tests;
 
-use Joomla\Client\Ldap;
+use Joomla\Client\LdapClient;
 
 /**
- * Test class for Ldap.
+ * Test class for LdapClient.
  *
  * @since  1.0
  */
-class LdapTest extends \PHPUnit_Framework_TestCase
+class LdapClientTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Ldap
+	 * @var    LdapClient
 	 */
 	protected $object;
 
@@ -30,7 +30,7 @@ class LdapTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->object = new Ldap;
+		$this->object = new LdapClient;
 	}
 
 	/**

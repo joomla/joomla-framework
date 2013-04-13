@@ -104,7 +104,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf(
 			'Joomla\Registry\Registry',
-			Helper::getValue($this->instance, 'config'),
+			TestHelper::getValue($this->instance, 'config'),
 			'Config property wrong type'
 		);
 
@@ -211,7 +211,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->cachable,
+			TestHelper::getValue($this->instance, 'response')->cachable,
 			$this->isTrue(),
 			'Checks the internal cache property has been set.'
 		);
@@ -227,12 +227,12 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testAppendBody()
 	{
 		// Similulate a previous call to setBody or appendBody.
-		Helper::getValue($this->instance, 'response')->body = array('foo');
+		TestHelper::getValue($this->instance, 'response')->body = array('foo');
 
 		$this->instance->appendBody('bar');
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->body,
+			TestHelper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('foo', 'bar')
 			),
@@ -242,7 +242,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$this->instance->appendBody(true);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->body,
+			TestHelper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('foo', 'bar', '1')
 			),
@@ -260,7 +260,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testClearHeaders()
 	{
 		// Fill the header array with an arbitrary value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -274,7 +274,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals(
 			array(),
-			Helper::getValue($this->instance, 'response')->headers,
+			TestHelper::getValue($this->instance, 'response')->headers,
 			'Checks the headers were cleared.'
 		);
 	}
@@ -315,7 +315,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testCompressWithGzipEncoding()
 	{
 		// Fill the header body with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -331,7 +331,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -339,7 +339,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		Helper::invoke($this->instance, 'compress');
+		TestHelper::invoke($this->instance, 'compress');
 
 		// Ensure that the compressed body is shorter than the raw body.
 		$this->assertThat(
@@ -350,7 +350,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Ensure that the compression headers were set.
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->headers,
+			TestHelper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(
 				array(
 					0 => array('name' => 'Content-Encoding', 'value' => 'gzip'),
@@ -371,7 +371,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testCompressWithDeflateEncoding()
 	{
 		// Fill the header body with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -387,7 +387,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -395,7 +395,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		Helper::invoke($this->instance, 'compress');
+		TestHelper::invoke($this->instance, 'compress');
 
 		// Ensure that the compressed body is shorter than the raw body.
 		$this->assertThat(
@@ -406,7 +406,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Ensure that the compression headers were set.
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->headers,
+			TestHelper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(
 				array(
 					0 => array('name' => 'Content-Encoding', 'value' => 'deflate'),
@@ -435,7 +435,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -446,7 +446,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -454,7 +454,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		Helper::invoke($this->instance, 'compress');
+		TestHelper::invoke($this->instance, 'compress');
 
 		// Ensure that the compressed body is the same as the raw body since there is no compression.
 		$this->assertThat(
@@ -465,7 +465,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->headers,
+			TestHelper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
@@ -489,7 +489,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -500,7 +500,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -511,7 +511,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		// Set the headers sent flag to true.
 		$this->instance->headersSent = true;
 
-		Helper::invoke($this->instance, 'compress');
+		TestHelper::invoke($this->instance, 'compress');
 
 		// Set the headers sent flag back to false.
 		$this->instance->headersSent = false;
@@ -525,7 +525,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->headers,
+			TestHelper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
@@ -549,7 +549,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Replace \r\n -> \n to ensure same length on all platforms
 		// Fill the header body with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -560,7 +560,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Load the client encoding with a value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -568,7 +568,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		Helper::invoke($this->instance, 'compress');
+		TestHelper::invoke($this->instance, 'compress');
 
 		// Ensure that the compressed body is the same as the raw body since there is no supported compression.
 		$this->assertThat(
@@ -579,7 +579,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Ensure that the compression headers were not set.
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->headers,
+			TestHelper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(null),
 			'Checks the headers were set correctly.'
 		);
@@ -615,7 +615,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$_SERVER['QUERY_STRING'] = $queryString;
 
 		$this->assertThat(
-			Helper::invoke($this->instance, 'detectRequestUri'),
+			TestHelper::invoke($this->instance, 'detectRequestUri'),
 			$this->equalTo($expects)
 		);
 	}
@@ -653,7 +653,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testGetBody()
 	{
 		// Fill the header body with an arbitrary value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -692,7 +692,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testGetHeaders()
 	{
 		// Fill the header body with an arbitrary value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -720,36 +720,36 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	{
 		// Set the site_uri value in the configuration.
 		$config = new Registry(array('site_uri' => 'http://test.joomla.org/path/'));
-		Helper::setValue($this->instance, 'config', $config);
+		TestHelper::setValue($this->instance, 'config', $config);
 
-		Helper::invoke($this->instance, 'loadSystemUris');
+		TestHelper::invoke($this->instance, 'loadSystemUris');
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.full'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.full'),
 			$this->equalTo('http://test.joomla.org/path/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.host'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.host'),
 			$this->equalTo('http://test.joomla.org'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.path'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.path'),
 			$this->equalTo('/path/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.media.full'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.media.full'),
 			$this->equalTo('http://test.joomla.org/path/media/'),
 			'Checks the full media uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.media.path'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.media.path'),
 			$this->equalTo('/path/media/'),
 			'Checks the media uri path.'
 		);
@@ -764,34 +764,34 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testLoadSystemUrisWithoutSiteUriSet()
 	{
-		Helper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
+		TestHelper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.full'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.host'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.path'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.media.full'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.media.full'),
 			$this->equalTo('http://joom.la/media/'),
 			'Checks the full media uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.media.path'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.media.path'),
 			$this->equalTo('/media/'),
 			'Checks the media uri path.'
 		);
@@ -808,37 +808,37 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	{
 		// Set the media_uri value in the configuration.
 		$config = new Registry(array('media_uri' => 'http://cdn.joomla.org/media/'));
-		Helper::setValue($this->instance, 'config', $config);
+		TestHelper::setValue($this->instance, 'config', $config);
 
-		Helper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
+		TestHelper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.full'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.host'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.path'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.media.full'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.media.full'),
 			$this->equalTo('http://cdn.joomla.org/media/'),
 			'Checks the full media uri.'
 		);
 
 		// Since this is on a different domain we need the full url for this too.
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.media.path'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.media.path'),
 			$this->equalTo('http://cdn.joomla.org/media/'),
 			'Checks the media uri path.'
 		);
@@ -855,37 +855,37 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	{
 		// Set the media_uri value in the configuration.
 		$config = new Registry(array('media_uri' => '/media/'));
-		Helper::setValue($this->instance, 'config', $config);
+		TestHelper::setValue($this->instance, 'config', $config);
 
-		Helper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
+		TestHelper::invoke($this->instance, 'loadSystemUris', 'http://joom.la/application');
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.full'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.full'),
 			$this->equalTo('http://joom.la/'),
 			'Checks the full base uri.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.host'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.host'),
 			$this->equalTo('http://joom.la'),
 			'Checks the base uri host.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.base.path'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.base.path'),
 			$this->equalTo('/'),
 			'Checks the base uri path.'
 		);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.media.full'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.media.full'),
 			$this->equalTo('http://joom.la/media/'),
 			'Checks the full media uri.'
 		);
 
 		// Since this is on a different domain we need the full url for this too.
 		$this->assertThat(
-			Helper::getValue($this->instance, 'config')->get('uri.media.path'),
+			TestHelper::getValue($this->instance, 'config')->get('uri.media.path'),
 			$this->equalTo('/media/'),
 			'Checks the media uri path.'
 		);
@@ -901,12 +901,12 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testPrependBody()
 	{
 		// Similulate a previous call to a body method.
-		Helper::getValue($this->instance, 'response')->body = array('foo');
+		TestHelper::getValue($this->instance, 'response')->body = array('foo');
 
 		$this->instance->prependBody('bar');
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->body,
+			TestHelper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('bar', 'foo')
 			),
@@ -916,7 +916,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$this->instance->prependBody(true);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->body,
+			TestHelper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('1', 'bar', 'foo')
 			),
@@ -937,7 +937,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$url = 'index.php';
 
 		// Inject the client information.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -949,7 +949,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$config = new Registry;
 		$config->set('uri.base.full', $base);
 
-		Helper::setValue($this->instance, 'config', $config);
+		TestHelper::setValue($this->instance, 'config', $config);
 
 		$this->instance->redirect($url, false);
 
@@ -984,7 +984,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$config = new Registry;
 		$config->set('uri.base.full', $base);
 
-		Helper::setValue($this->instance, 'config', $config);
+		TestHelper::setValue($this->instance, 'config', $config);
 
 		// Capture the output for this test.
 		ob_start();
@@ -1010,7 +1010,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$url = 'http://j.org/index.php?phi=Φ';
 
 		// Inject the client information.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -1047,7 +1047,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$url = 'http://j.org/index.php';
 
 		// Inject the client information.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -1085,7 +1085,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testRedirectWithUrl($url, $base, $request, $expected)
 	{
 		// Inject the client information.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'client',
 			(object) array(
@@ -1098,7 +1098,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$config->set('uri.base.full', $base);
 		$config->set('uri.request', $request);
 
-		Helper::setValue($this->instance, 'config', $config);
+		TestHelper::setValue($this->instance, 'config', $config);
 
 		$this->instance->redirect($url, false);
 
@@ -1130,7 +1130,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testSendHeaders()
 	{
 		// Similulate a previous call to a setHeader method.
-		Helper::getValue($this->instance, 'response')->headers = array(
+		TestHelper::getValue($this->instance, 'response')->headers = array(
 			array('name' => 'Status', 'value' => 200),
 			array('name' => 'X-JWeb-SendHeaders', 'value' => 'foo'),
 		);
@@ -1164,7 +1164,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$this->instance->setBody('foo');
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->body,
+			TestHelper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('foo')
 			),
@@ -1174,7 +1174,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 		$this->instance->setBody(true);
 
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->body,
+			TestHelper::getValue($this->instance, 'response')->body,
 			$this->equalTo(
 				array('1')
 			),
@@ -1192,7 +1192,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function testSetHeader()
 	{
 		// Fill the header body with an arbitrary value.
-		Helper::setValue(
+		TestHelper::setValue(
 			$this->instance,
 			'response',
 			(object) array(
@@ -1206,7 +1206,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$this->instance->setHeader('foo', 'car');
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->headers,
+			TestHelper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(
 				array(
 					array('name' => 'foo', 'value' => 'bar'),
@@ -1218,7 +1218,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$this->instance->setHeader('foo', 'car', true);
 		$this->assertThat(
-			Helper::getValue($this->instance, 'response')->headers,
+			TestHelper::getValue($this->instance, 'response')->headers,
 			$this->equalTo(
 				array(
 					array('name' => 'foo', 'value' => 'car')

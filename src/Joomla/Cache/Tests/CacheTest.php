@@ -6,7 +6,7 @@
 
 namespace Joomla\Cache\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/Stubs/Concrete.php';
 

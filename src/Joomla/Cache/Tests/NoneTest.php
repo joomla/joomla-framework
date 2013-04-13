@@ -7,7 +7,7 @@
 namespace Joomla\Cache\Tests;
 
 use Joomla\Cache;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Tests for the Joomla\Cache\None class.
@@ -109,9 +109,9 @@ class NoneTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExists()
 	{
-		$this->assertFalse(Helper::invoke($this->instance, 'exists', 'foo'));
+		$this->assertFalse(TestHelper::invoke($this->instance, 'exists', 'foo'));
 		$this->instance->set('foo', 'bar');
-		$this->assertFalse(Helper::invoke($this->instance, 'exists', 'foo'));
+		$this->assertFalse(TestHelper::invoke($this->instance, 'exists', 'foo'));
 	}
 
 	/**

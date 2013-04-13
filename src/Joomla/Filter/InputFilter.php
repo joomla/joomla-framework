@@ -16,7 +16,7 @@ namespace Joomla\Filter;
  *
  * @since  1.0
  */
-class Input
+class InputFilter
 {
 	/**
 	 * A container for JFilterInput instances.

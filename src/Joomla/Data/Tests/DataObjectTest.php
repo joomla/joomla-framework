@@ -19,7 +19,7 @@ require_once __DIR__ . '/Stubs/capitaliser.php';
  *
  * @since  1.0
  */
-class ObjectTest extends \PHPUnit_Framework_TestCase
+class DataObjectTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Object
@@ -36,7 +36,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$instance = new Object(array('property1' => 'value1', 'property2' => 5));
+		$instance = new DataObject(array('property1' => 'value1', 'property2' => 5));
 		$this->assertThat(
 			$instance->property1,
 			$this->equalTo('value1')
@@ -343,7 +343,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 		$this->instance->bind(array('dump_test' => 'dump_test_value'));
 		$this->assertEquals(
 			'dump_test_value',
-			Helper::invoke($this->instance, 'dumpProperty', 'dump_test', 3, $dumped)
+			TestHelper::invoke($this->instance, 'dumpProperty', 'dump_test', 3, $dumped)
 		);
 	}
 
@@ -388,7 +388,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 		$this->instance->bind(array('get_test' => 'get_test_value'));
 
 		// Get the reflection property. This should throw an exception.
-		$property = Helper::getValue($this->instance, 'get_test');
+		$property = TestHelper::getValue($this->instance, 'get_test');
 	}
 
 	/**
@@ -475,6 +475,6 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->instance = new Object;
+		$this->instance = new DataObject;
 	}
 }

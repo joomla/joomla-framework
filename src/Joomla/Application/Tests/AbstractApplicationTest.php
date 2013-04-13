@@ -45,7 +45,7 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf(
 			'Joomla\Registry\Registry',
-			Helper::getValue($this->instance, 'config'),
+			TestHelper::getValue($this->instance, 'config'),
 			'Config property wrong type'
 		);
 
@@ -69,10 +69,10 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$instance = new ConcreteBase($mockInput, $mockConfig);
 
-		$input = Helper::getValue($instance, 'input');
+		$input = TestHelper::getValue($instance, 'input');
 		$this->assertEquals('ok', $input->test());
 
-		$config = Helper::getValue($instance, 'config');
+		$config = TestHelper::getValue($instance, 'config');
 		$this->assertEquals('ok', $config->test());
 	}
 

@@ -7,7 +7,7 @@
 namespace Joomla\Data\Tests;
 
 use Joomla\Data;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/Stubs/buran.php';
 require_once __DIR__ . '/Stubs/vostok.php';
@@ -38,14 +38,14 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$this->assertEmpty(Helper::getValue(new Data\Set, 'objects'), 'New list should have no objects.');
+		$this->assertEmpty(TestHelper::getValue(new Data\Set, 'objects'), 'New list should have no objects.');
 
 		$input = array(
 			'key' => new Data\Object(array('foo' => 'bar'))
 		);
 		$new = new Data\Set($input);
 
-		$this->assertEquals($input, Helper::getValue($new, 'objects'), 'Check initialised object list.');
+		$this->assertEquals($input, TestHelper::getValue($new, 'objects'), 'Check initialised object list.');
 	}
 
 	/**
@@ -295,13 +295,13 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->instance->next();
 		$this->assertThat(
-			Helper::getValue($this->instance, 'current'),
+			TestHelper::getValue($this->instance, 'current'),
 			$this->equalTo(1)
 		);
 
 		$this->instance->next();
 		$this->assertThat(
-			Helper::getValue($this->instance, 'current'),
+			TestHelper::getValue($this->instance, 'current'),
 			$this->equalTo(false)
 		);
 	}
@@ -347,7 +347,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	public function testOffsetSet()
 	{
 		$this->instance->offsetSet(0, new Data\Object);
-		$objects = Helper::getValue($this->instance, 'objects');
+		$objects = TestHelper::getValue($this->instance, 'objects');
 
 		$this->assertEquals(new Data\Object, $objects[0], 'Checks explicit use of offsetSet.');
 
@@ -384,7 +384,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	public function testOffsetUnset()
 	{
 		$this->instance->offsetUnset(0);
-		$objects = Helper::getValue($this->instance, 'objects');
+		$objects = TestHelper::getValue($this->instance, 'objects');
 
 		$this->assertFalse(isset($objects[0]));
 	}
@@ -399,7 +399,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetRewind()
 	{
-		Helper::setValue($this->instance, 'current', 'foo');
+		TestHelper::setValue($this->instance, 'current', 'foo');
 
 		$this->instance->rewind();
 		$this->assertEquals(0, $this->instance->key());
@@ -420,7 +420,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertTrue($this->instance->valid());
 
-		Helper::setValue($this->instance, 'current', null);
+		TestHelper::setValue($this->instance, 'current', null);
 
 		$this->assertFalse($this->instance->valid());
 	}

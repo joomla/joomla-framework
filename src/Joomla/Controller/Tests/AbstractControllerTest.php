@@ -9,7 +9,7 @@ namespace Joomla\Controller\Tests;
 use Joomla\Application\Tests\Mocker as ApplicationMocker;
 use Joomla\Input\Input;
 use Joomla\Input\Cookie as InputCookie;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/Stubs/BaseController.php';
 
@@ -38,7 +38,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__construct()
 	{
-		$app = Helper::getValue($this->instance, 'app');
+		$app = TestHelper::getValue($this->instance, 'app');
 
 		// New controller with no dependancies.
 		$this->assertAttributeEmpty('input', $this->instance);

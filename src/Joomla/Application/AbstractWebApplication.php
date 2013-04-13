@@ -96,7 +96,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	{
 		parent::__construct($input, $config);
 
-		$this->client = $client instanceof Web\Client ? $client : new Web\Client;
+		$this->client = $client instanceof Web\WebClient ? $client : new Web\WebClient;
 
 		// Set the execution datetime and timestamp;
 		$this->set('execution.datetime', gmdate('Y-m-d H:i:s'));
@@ -320,7 +320,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 		else
 		{
 			// We have to use a JavaScript redirect here because MSIE doesn't play nice with utf-8 URLs.
-			if (($this->client->engine == Web\Client::TRIDENT) && !String::is_ascii($url))
+			if (($this->client->engine == Web\WebClient::TRIDENT) && !String::is_ascii($url))
 			{
 				$html = '<html><head>';
 				$html .= '<meta http-equiv="content-type" content="text/html; charset=' . $this->charSet . '" />';

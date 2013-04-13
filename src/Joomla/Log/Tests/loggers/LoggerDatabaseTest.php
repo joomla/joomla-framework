@@ -10,7 +10,7 @@ use Joomla\Log\Log;
 use Joomla\Log\Entry;
 use Joomla\Factory;
 use Joomla\Log\Logger\Database as LoggerDatabase;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for LoggerDatabase.
@@ -90,7 +90,7 @@ class LoggerDatabaseTest extends TestCaseDatabase
 			'db_prefix' => 'jos_'
 		);
 		$logger = new LoggerDatabase($config);
-		Helper::setValue($logger, 'dbo', Factory::$database);
+		TestHelper::setValue($logger, 'dbo', Factory::$database);
 
 		// Get the expected database from XML.
 		$expected = $this->createXMLDataSet(__DIR__ . '/stubs/database/S01E01.xml');

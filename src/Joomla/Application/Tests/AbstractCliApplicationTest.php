@@ -57,7 +57,7 @@ class AbstractCliApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$instance = new ConcreteCli($mockInput, $mockConfig);
 
-		$input = Helper::getValue($instance, 'input');
+		$input = TestHelper::getValue($instance, 'input');
 		$this->assertEquals('ok', $input->test());
 	}
 

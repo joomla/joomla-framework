@@ -6,7 +6,7 @@
 
 namespace Joomla\Database\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for JDatabasePostgresqlQuery.
@@ -117,7 +117,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		$this->dbo = Mock\Driver::create($this, '1970-01-01 00:00:00', 'Y-m-d H:i:s');
 
 		// Mock the escape method to ensure the API is calling the DBO's escape method.
-		Helper::assignMockCallbacks(
+		TestHelper::assignMockCallbacks(
 			$this->dbo,
 			$this,
 			array('escape' => array($this, 'mockEscape'))
@@ -416,7 +416,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		// First pass - set the values.
 		foreach ($properties as $property)
 		{
-			Helper::setValue($q, $property, $property);
+			TestHelper::setValue($q, $property, $property);
 		}
 
 		// Clear the whole query.
@@ -473,7 +473,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 			// Set the clauses
 			foreach ($clauses as $clause2)
 			{
-				Helper::setValue($q, $clause2, $clause2);
+				TestHelper::setValue($q, $clause2, $clause2);
 			}
 
 			// Clear the clause.
@@ -539,14 +539,14 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		// Set the clauses.
 		foreach ($clauses as $clause)
 		{
-			Helper::setValue($q, $clause, $clause);
+			TestHelper::setValue($q, $clause, $clause);
 		}
 
 		// Check that all properties have been cleared
 		foreach ($types as $type)
 		{
 			// Set the type.
-			Helper::setValue($q, $type, $type);
+			TestHelper::setValue($q, $type, $type);
 
 			// Clear the type.
 			$q->clear($type);
@@ -694,7 +694,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Reset the field to test the glue.
-		Helper::setValue($q, 'having', null);
+		TestHelper::setValue($q, 'having', null);
 		$q->having('COUNT(foo) > 1', 'OR');
 		$q->having('COUNT(bar) > 2');
 
@@ -1034,7 +1034,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Clear the where
-		Helper::setValue($q, 'where', null);
+		TestHelper::setValue($q, 'where', null);
 		$q->where(
 			array(
 				'bar = 2',
@@ -1098,7 +1098,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Testing glue
-		Helper::setValue($q, 'forUpdate', null);
+		TestHelper::setValue($q, 'forUpdate', null);
 		$q->forUpdate('#__foo', ';');
 		$q->forUpdate('#__bar');
 		$this->assertThat(
@@ -1139,7 +1139,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Testing glue
-		Helper::setValue($q, 'forShare', null);
+		TestHelper::setValue($q, 'forShare', null);
 		$q->forShare('#__foo', ';');
 		$q->forShare('#__bar');
 		$this->assertThat(

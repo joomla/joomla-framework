@@ -6,17 +6,17 @@
 
 namespace Joomla\Client\Tests;
 
-use Joomla\Client\Ftp;
+use Joomla\Client\FtpClient;
 
 /**
- * Test class for Ftp.
+ * Test class for FtpClient.
  *
  * @since  1.0
  */
-class FtpTest extends \PHPUnit_Framework_TestCase
+class FtpClientTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Ftp
+	 * @var    FtpClient
 	 */
 	protected $object;
 
@@ -30,7 +30,7 @@ class FtpTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->object = new Ftp;
+		$this->object = new FtpClient;
 	}
 
 	/**

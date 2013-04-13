@@ -53,7 +53,7 @@ if (!defined('FTP_NATIVE'))
  *
  * @since  1.0
  */
-class Ftp
+class FtpClient
 {
 	/**
 	 * @var    resource  Socket resource
