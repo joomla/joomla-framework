@@ -14,7 +14,7 @@ namespace Joomla\Data;
  *
  * @since  1.0
  */
-class Set implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
+class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 {
 	/**
 	 * The current position of the iterator.
@@ -233,7 +233,7 @@ class Set implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @return  array  An associative array of the date objects in the set, dumped as a simple PHP stdClass object.
 	 *
-	 * @see     Joomla\Data\Object::dump()
+	 * @see     Joomla\Data\DataObject::dump()
 	 * @since   1.0
 	 */
 	public function dump($depth = 3, \SplObjectStorage $dumped = null)
@@ -399,7 +399,7 @@ class Set implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 */
 	public function offsetSet($offset, $object)
 	{
-		if (!($object instanceof Object))
+		if (!($object instanceof DataObject))
 		{
 			throw new \InvalidArgumentException(sprintf('%s("%s", *%s*)', __METHOD__, $offset, gettype($object)));
 		}
@@ -495,7 +495,7 @@ class Set implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if an object is not an instance of Data\Object.
+	 * @throws  InvalidArgumentException if an object is not an instance of Data\DataObject.
 	 */
 	private function _initialise(array $input = array())
 	{

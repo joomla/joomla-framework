@@ -10,7 +10,7 @@ namespace Joomla\Application;
 
 use Joomla\Filesystem\Folder;
 use Joomla\Registry\Registry;
-use Joomla\Input\Cli as InputCli;
+use Joomla\Input\InputCli as InputCli;
 use Psr\Log\LoggerAwareInterface;
 
 /**
@@ -20,7 +20,7 @@ use Psr\Log\LoggerAwareInterface;
  * @see    http://php.net/manual/en/features.commandline.php
  * @since  1.0
  */
-abstract class Daemon extends Cli implements LoggerAwareInterface
+abstract class AbstractDaemonApplication extends AbstractCliApplication implements LoggerAwareInterface
 {
 	/**
 	 * @var    array  The available POSIX signals to be caught by default.
@@ -752,7 +752,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 	}
 
 	/**
-	 * Method to attach the JApplicationDaemon signal handler to the known signals.  Applications
+	 * Method to attach the AbstractDaemonApplication signal handler to the known signals.  Applications
 	 * can override these handlers by using the pcntl_signal() function and attaching a different
 	 * callback method.
 	 *
@@ -782,7 +782,7 @@ abstract class Daemon extends Cli implements LoggerAwareInterface
 			}
 
 			// Attach the signal handler for the signal.
-			if (!$this->pcntlSignal(constant($signal), array('JApplicationDaemon', 'signal')))
+			if (!$this->pcntlSignal(constant($signal), array('AbstractDaemonApplication', 'signal')))
 			{
 				if ($this->hasLogger())
 				{

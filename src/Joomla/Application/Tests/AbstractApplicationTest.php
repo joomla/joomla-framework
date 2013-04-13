@@ -6,8 +6,8 @@
 
 namespace Joomla\Application\Tests;
 
-use Joomla\Application\Base;
-use Joomla\Test\Helper;
+use Joomla\Application\AbstractApplication;
+use Joomla\Test\TestHelper;
 use Joomla\Registry\Registry;
 
 require_once __DIR__ . '/Stubs/ConcreteBase.php';
@@ -17,7 +17,7 @@ require_once __DIR__ . '/Stubs/ConcreteBase.php';
  *
  * @since  1.0
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.

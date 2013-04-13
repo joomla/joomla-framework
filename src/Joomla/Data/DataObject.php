@@ -16,7 +16,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class Object implements DumpableInterface, \IteratorAggregate, \JsonSerializable, \Countable
+class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializable, \Countable
 {
 	/**
 	 * The data object properties.

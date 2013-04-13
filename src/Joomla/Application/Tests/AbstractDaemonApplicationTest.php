@@ -6,9 +6,9 @@
 
 namespace Joomla\Application\Tests;
 
-use Joomla\Application\Daemon;
+use Joomla\Application\AbstractDaemonApplication;
 use Joomla\Registry\Registry;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 include_once __DIR__ . '/Stubs/ConcreteDaemon.php';
 
@@ -17,7 +17,7 @@ include_once __DIR__ . '/Stubs/ConcreteDaemon.php';
  *
  * @since  1.0
  */
-class DaemonTest extends \PHPUnit_Framework_TestCase
+class AbstractDaemonApplicationTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of a Daemon inspector.
@@ -264,7 +264,7 @@ class DaemonTest extends \PHPUnit_Framework_TestCase
 
 		// Get a new ConcreteDaemon instance.
 		$this->inspector = new ConcreteDaemon;
-		Helper::setValue('Joomla\Application\Daemon', 'instance', $this->inspector);
+		TestHelper::setValue('Joomla\Application\Daemon', 'instance', $this->inspector);
 	}
 
 	/**
@@ -286,7 +286,7 @@ class DaemonTest extends \PHPUnit_Framework_TestCase
 		// Check if the inspector was instantiated.
 		if (isset($this->inspector))
 		{
-			Helper::setValue('Joomla\Application\Daemon', 'instance', null);
+			TestHelper::setValue('Joomla\Application\Daemon', 'instance', null);
 		}
 	}
 }

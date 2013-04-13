@@ -6,10 +6,10 @@
 
 namespace Joomla\Application\Tests;
 
-use Joomla\Application\Cli;
+use Joomla\Application\AbstractCliApplication;
 use Joomla\Registry\Registry;
-use Joomla\Test\Config;
-use Joomla\Test\Helper;
+use Joomla\Test\TestConfig;
+use Joomla\Test\TestHelper;
 
 include_once __DIR__ . '/Stubs/ConcreteCli.php';
 
@@ -18,7 +18,7 @@ include_once __DIR__ . '/Stubs/ConcreteCli.php';
  *
  * @since  1.0
  */
-class CliTest extends \PHPUnit_Framework_TestCase
+class AbstractCliApplicationTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * An instance of the object to test.

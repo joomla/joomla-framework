@@ -18,7 +18,7 @@ use Psr\Log\LoggerInterface;
  *
  * @since  1.0
  */
-abstract class Base implements LoggerAwareInterface
+abstract class AbstractApplication implements LoggerAwareInterface
 {
 	/**
 	 * The application configuration object.

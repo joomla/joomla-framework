@@ -6,20 +6,20 @@
 
 namespace Joomla\Application\Tests;
 
-use Joomla\Application\Web;
-use Joomla\Application\Web\Client as WebClient;
+use Joomla\Application\AbstractWebApplication;
+use Joomla\Application\Web\WebClient;
 use Joomla\Registry\Registry;
-use Joomla\Test\Config;
-use Joomla\Test\Helper;
+use Joomla\Test\TestConfig;
+use Joomla\Test\TestHelper;
 
 include_once __DIR__ . '/Stubs/ConcreteWeb.php';
 
 /**
- * Test class for Joomla\Application\Web.
+ * Test class for Joomla\Application\AbstractWebApplication.
  *
  * @since  1.0
  */
-class WebTest extends \PHPUnit_Framework_TestCase
+class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Value for test host.
@@ -109,7 +109,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertInstanceOf(
-			'Joomla\\Application\\Web\\Client',
+			'Joomla\\Application\\Web\\WebClient',
 			$this->instance->client,
 			'Client property wrong type'
 		);
@@ -160,7 +160,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
 			$this->returnValue('ok')
 		);
 
-		$mockClient = $this->getMock('Joomla\\Application\\Web\\Client', array('test'), array(), '', false);
+		$mockClient = $this->getMock('Joomla\\Application\\Web\\WebClient', array('test'), array(), '', false);
 		$mockClient
 			->expects($this->any())
 			->method('test')

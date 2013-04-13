@@ -16,7 +16,7 @@ use Joomla\Input;
  *
  * @since  1.0
  */
-abstract class Cli extends Base
+abstract class AbstractCliApplication extends AbstractApplication
 {
 	/**
 	 * @var    Cli  The application instance.

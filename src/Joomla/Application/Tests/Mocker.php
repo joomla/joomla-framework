@@ -6,7 +6,7 @@
 
 namespace Joomla\Application\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Class to mock the \Joomla\Application package.
@@ -54,7 +54,7 @@ class Mocker
 	}
 
 	/**
-	 * Creates an instance of a mock Joomla\Application\Base object.
+	 * Creates an instance of a mock Joomla\Application\AbstractApplication object.
 	 *
 	 * @return  object
 	 *
@@ -79,7 +79,7 @@ class Mocker
 
 		// Create the mock.
 		$mockObject = $this->test->getMock(
-			'Joomla\\Application\\Base',
+			'Joomla\\Application\\AbstractApplication',
 			$methods,
 			// Constructor arguments.
 			array(),
@@ -93,7 +93,7 @@ class Mocker
 	}
 
 	/**
-	 * Creates an instance of the mock Joomla\Application\Cli object.
+	 * Creates an instance of the mock Joomla\Application\AbstractCliApplication object.
 	 *
 	 * @return  object
 	 *
@@ -120,7 +120,7 @@ class Mocker
 
 		// Create the mock.
 		$mockObject = $this->test->getMock(
-			'Joomla\\Application\\Cli',
+			'Joomla\\Application\\AbstractCliApplication',
 			$methods,
 			// Constructor arguments.
 			array(),
@@ -196,7 +196,7 @@ class Mocker
 
 		// Create the mock.
 		$mockObject = $this->test->getMock(
-			isset($options['class']) ? $options['class'] : 'Joomla\\Application\\Web',
+			isset($options['class']) ? $options['class'] : 'Joomla\\Application\\AbstractWebApplication',
 			$methods,
 			// Constructor arguments.
 			array(),
