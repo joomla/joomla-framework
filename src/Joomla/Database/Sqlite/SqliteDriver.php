@@ -17,7 +17,7 @@ use Joomla\Database\Pdo\PdoDriver;
  * @see    http://php.net/pdo
  * @since  1.0
  */
-class SqliteDriver2 extends PdoDriver
+class SqliteDriver extends PdoDriver
 {
 	/**
 	 * The name of the database driver.
