@@ -16,7 +16,7 @@ namespace Joomla\Log;
  *
  * @since  1.0
  */
-abstract class Logger
+abstract class AbstractLogger
 {
 	/**
 	 * Options array for the JLog instance.
