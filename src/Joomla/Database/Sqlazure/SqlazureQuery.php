@@ -6,14 +6,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Query;
+namespace Joomla\Database\Sqlazure;
+
+use Joomla\Database\Sqlsrv\SqlsrvQuery;
 
 /**
  * Query Building Class.
  *
  * @since  1.0
  */
-class Sqlazure extends Sqlsrv
+class SqlazureQuery extends SqlsrvQuery
 {
 	/**
 	 * The character(s) used to quote SQL statement names such as table names or field names,

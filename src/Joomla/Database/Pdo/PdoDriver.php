@@ -6,10 +6,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Driver;
+namespace Joomla\Database\Pdo;
 
 use Psr\Log;
-use Joomla\Database\Driver;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Database\Query\LimitableInterface;
 use Joomla\Database\Query\PreparableInterface;
 
@@ -19,7 +19,7 @@ use Joomla\Database\Query\PreparableInterface;
  * @see    http://php.net/pdo
  * @since  1.0
  */
-abstract class Pdo extends Driver
+abstract class PdoDriver extends DatabaseDriver
 {
 	/**
 	 * The name of the database driver.

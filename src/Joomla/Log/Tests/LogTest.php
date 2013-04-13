@@ -7,7 +7,7 @@
 require_once __DIR__ . '/stubs/log/inspector.php';
 
 use Joomla\Log\Log;
-use Joomla\Log\Entry;
+use Joomla\Log\LogEntry;
 
 /**
  * Test class for JLog.

@@ -6,15 +6,15 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Query;
+namespace Joomla\Database\Pdo;
 
-use Joomla\Database\Query;
+use Joomla\Database\DatabaseQuery;
 
 /**
  * PDO Query Building Class.
  *
  * @since  1.0
  */
-class Pdo extends Query
+class PdoQuery extends DatabaseQuery
 {
 }

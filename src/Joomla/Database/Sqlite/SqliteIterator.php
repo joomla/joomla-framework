@@ -6,13 +6,15 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Iterator;
+namespace Joomla\Database\Sqlite;
+
+use Joomla\Database\Pdo\PdoIterator;
 
 /**
  * SQLite database iterator.
  *
  * @since  1.0
  */
-class Sqlite extends Pdo
+class SqliteIterator extends PdoIterator
 {
 }

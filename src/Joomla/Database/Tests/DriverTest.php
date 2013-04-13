@@ -6,7 +6,7 @@
 
 namespace Joomla\Database\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 use Psr\Log;
 
 require_once __DIR__ . '/Stubs/nosqldriver.php';
@@ -166,7 +166,7 @@ class DriverTest extends DatabaseCase
 	}
 
 	/**
-	 * Tests the Joomla\Database\Driver::getCount method.
+	 * Tests the Joomla\Database\DatabaseDriver::getCount method.
 	 *
 	 * @return  void
 	 *
@@ -178,7 +178,7 @@ class DriverTest extends DatabaseCase
 	}
 
 	/**
-	 * Tests the Joomla\Database\Driver::getDatabase method.
+	 * Tests the Joomla\Database\DatabaseDriver::getDatabase method.
 	 *
 	 * @return  void
 	 *
@@ -190,7 +190,7 @@ class DriverTest extends DatabaseCase
 	}
 
 	/**
-	 * Tests the Joomla\Database\Driver::getDateFormat method.
+	 * Tests the Joomla\Database\DatabaseDriver::getDateFormat method.
 	 *
 	 * @return  void
 	 *
@@ -226,7 +226,7 @@ class DriverTest extends DatabaseCase
 	}
 
 	/**
-	 * Tests the Joomla\Database\Driver::getPrefix method.
+	 * Tests the Joomla\Database\DatabaseDriver::getPrefix method.
 	 *
 	 * @return  void
 	 *
@@ -241,7 +241,7 @@ class DriverTest extends DatabaseCase
 	}
 
 	/**
-	 * Tests the Joomla\Database\Driver::getNullDate method.
+	 * Tests the Joomla\Database\DatabaseDriver::getNullDate method.
 	 *
 	 * @return  void
 	 *
@@ -256,7 +256,7 @@ class DriverTest extends DatabaseCase
 	}
 
 	/**
-	 * Tests the Joomla\Database\Driver::getMinimum method.
+	 * Tests the Joomla\Database\DatabaseDriver::getMinimum method.
 	 *
 	 * @return  void
 	 *
@@ -276,8 +276,8 @@ class DriverTest extends DatabaseCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Database\Driver::log
-	 * @covers  Joomla\Database\Driver::setLogger
+	 * @covers  Joomla\Database\DatabaseDriver::log
+	 * @covers  Joomla\Database\DatabaseDriver::setLogger
 	 * @since   1.0
 	 */
 	public function testLog()
@@ -305,7 +305,7 @@ class DriverTest extends DatabaseCase
 	}
 
 	/**
-	 * Tests the Joomla\Database\Driver::isMinimumVersion method.
+	 * Tests the Joomla\Database\DatabaseDriver::isMinimumVersion method.
 	 *
 	 * @return  void
 	 *
@@ -347,8 +347,8 @@ class DriverTest extends DatabaseCase
 	{
 		$this->assertThat(
 			$this->instance->setQuery('SELECT * FROM #__dbtest'),
-			$this->isInstanceOf('Joomla\Database\Driver'),
-			'setQuery method should return an instance of Joomla\Database\Driver.'
+			$this->isInstanceOf('Joomla\Database\DatabaseDriver'),
+			'setQuery method should return an instance of Joomla\Database\DatabaseDriver.'
 		);
 	}
 
@@ -565,7 +565,7 @@ class DriverTest extends DatabaseCase
 	 */
 	protected function setUp()
 	{
-		$this->instance = \Joomla\Database\Driver::getInstance(
+		$this->instance = \Joomla\Database\DatabaseDriver::getInstance(
 			array(
 				'driver' => 'nosql',
 				'database' => 'europa',

@@ -6,14 +6,18 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Query;
+namespace Joomla\Database\Sqlite;
+
+use Joomla\Database\Pdo\PdoQuery;
+use Joomla\Database\Query\PreparableInterface;
+use Joomla\Database\Query\LimitableInterface;
 
 /**
  * SQLite Query Building Class.
  *
  * @since  1.0
  */
-class Sqlite extends Pdo implements PreparableInterface, LimitableInterface
+class SqliteQuery extends PdoQuery implements PreparableInterface, LimitableInterface
 {
 	/**
 	 * @var    integer  The limit for the result set.

@@ -6,18 +6,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Driver;
+namespace Joomla\Database\Postresql;
 
 use Psr\Log;
-use Joomla\Database\Driver;
-use Joomla\Database\Query\Postgresql as QueryPostgresql;
+use Joomla\Database\DatabaseDriver;
 
 /**
  * PostgreSQL database driver
  *
  * @since  1.0
  */
-class Postgresql extends Driver
+class PostgresqlDriver extends DatabaseDriver
 {
 	/**
 	 * The database driver name
@@ -283,12 +282,12 @@ class Postgresql extends Driver
 		if ($new)
 		{
 			// Make sure we have a query class for this driver.
-			if (!class_exists('\\Joomla\\Database\\Query\\Postgresql'))
+			if (!class_exists('PostgresqlQuery'))
 			{
-				throw new \RuntimeException('\\Joomla\\Database\\Query\\Postgresql Class not found.');
+				throw new \RuntimeException('\\Joomla\\Database\\Postgresql\\PostgresqlQuery Class not found.');
 			}
 
-			$this->queryObject = new QueryPostgresql($this);
+			$this->queryObject = new PostgresqlQuery($this);
 
 			return $this->queryObject;
 		}

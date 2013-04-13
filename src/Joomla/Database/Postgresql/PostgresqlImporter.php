@@ -6,17 +6,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Importer;
+namespace Joomla\Database\Postgresql;
 
-use Joomla\Database\Importer;
-use Joomla\Database\Driver\Postgresql as DriverPostgresql;
+use Joomla\Database\DatabaseImporter;
 
 /**
  * PostgreSQL import driver.
  *
  * @since  1.0
  */
-class Postgresql extends Importer
+class PostgresqlImporter extends DatabaseImporter
 {
 	/**
 	 * Checks if all data and options are in order prior to exporting.
@@ -29,7 +28,7 @@ class Postgresql extends Importer
 	public function check()
 	{
 		// Check if the db connector has been set.
-		if (!($this->db instanceof DriverPostgresql))
+		if (!($this->db instanceof PostgresqlDriver))
 		{
 			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}

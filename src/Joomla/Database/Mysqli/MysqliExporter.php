@@ -6,17 +6,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Exporter;
+namespace Joomla\Database\Mysqli;
 
-use Joomla\Database\Exporter;
-use Joomla\Database\Driver\Mysqli as DriverMysqli;
+use Joomla\Database\DatabaseExporter;
+use Joomla\Database\Mysqli\MysqliDriver;
 
 /**
  * MySQLi export driver.
  *
  * @since  1.0
  */
-class Mysqli extends Exporter
+class MysqliExporter extends DatabaseExporter
 {
 	/**
 	 * Builds the XML data for the tables to export.
@@ -89,7 +89,7 @@ class Mysqli extends Exporter
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *
-	 * @return  Mysqli  Method supports chaining.
+	 * @return  MysqliExporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 * @throws  Exception if an error is encountered.
@@ -97,7 +97,7 @@ class Mysqli extends Exporter
 	public function check()
 	{
 		// Check if the db connector has been set.
-		if (!($this->db instanceof DriverMysqli))
+		if (!($this->db instanceof MysqliDriver))
 		{
 			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}

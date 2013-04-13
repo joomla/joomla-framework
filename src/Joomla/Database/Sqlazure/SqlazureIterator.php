@@ -6,13 +6,13 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Iterator;
+namespace Joomla\Database\Sqlazure;
 
 /**
  * SQL azure database iterator.
  *
  * @since  1.0
  */
-class Azure extends Sqlsrv
+class SqlazureIterator extends SqlsrvIterator
 {
 }

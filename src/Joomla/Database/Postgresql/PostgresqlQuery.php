@@ -6,16 +6,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Query;
+namespace Joomla\Database\Postresql;
 
-use Joomla\Database\Query;
+use Joomla\Database\DatabaseQuery;
+use Joomla\Database\Query\LimitableInterface;
 
 /**
  * Query Building Class.
  *
  * @since  1.0
  */
-class Postgresql extends Query implements LimitableInterface
+class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 {
 	/**
 	 * @var    object  The FOR UPDATE element used in "FOR UPDATE"  lock
@@ -179,7 +180,7 @@ class Postgresql extends Query implements LimitableInterface
 				break;
 		}
 
-		if ($this instanceof Query\LimitableInterface)
+		if ($this instanceof LimitableInterface)
 		{
 			$query = $this->processLimit($query, $this->limit, $this->offset);
 		}

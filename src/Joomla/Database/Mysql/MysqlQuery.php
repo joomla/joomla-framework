@@ -6,7 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Query;
+namespace Joomla\Database\Mysql;
+
+use Joomla\Database\Mysqli\MysqliDriver
 
 /**
  * Query Building Class.

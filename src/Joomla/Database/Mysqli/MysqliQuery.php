@@ -6,16 +6,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Query;
+namespace Joomla\Database\Mysqli;
 
-use Joomla\Database\Query;
+use Joomla\Database\DatabaseQuery;
 
 /**
  * Query Building Class.
  *
  * @since  1.0
  */
-class Mysqli extends Query implements LimitableInterface
+class MysqliQuery extends DatabaseQuery implements LimitableInterface
 {
 	/**
 	 * @var    integer  The offset for the result set.

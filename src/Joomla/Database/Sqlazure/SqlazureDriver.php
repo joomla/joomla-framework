@@ -6,7 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Driver;
+namespace Joomla\Database\Sqlazure;
+
+use Joomla\Database\Sqlsrv\SqlsrvDriver;
 
 /**
  * SQL Server database driver
@@ -14,7 +16,7 @@ namespace Joomla\Database\Driver;
  * @see    http://msdn.microsoft.com/en-us/library/ee336279.aspx
  * @since  1.0
  */
-class Sqlazure extends Sqlsrv
+class SqlazureDriver extends SqlsrvDriver
 {
 	/**
 	 * The name of the database driver.
@@ -22,5 +24,5 @@ class Sqlazure extends Sqlsrv
 	 * @var    string
 	 * @since  1.0
 	 */
-	public $name = 'sqlzure';
+	public $name = 'sqlazure';
 }

@@ -6,7 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Driver;
+namespace Joomla\Database\Oracle;
+
+use Joomla\Database\Pdo\PdoDriver;
 
 /**
  * Oracle database driver
@@ -14,7 +16,7 @@ namespace Joomla\Database\Driver;
  * @see    http://php.net/pdo
  * @since  1.0
  */
-class Oracle extends Pdo
+class OracleDriver extends PdoDriver
 {
 	/**
 	 * The name of the database driver.

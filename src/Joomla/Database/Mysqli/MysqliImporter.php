@@ -6,17 +6,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Importer;
+namespace Joomla\Database\Mysqli;
 
-use Joomla\Database\Importer;
-use Joomla\Database\Driver\Mysqli as DriverMysqli;
+use Joomla\Database\DatabaseImporter;
+use Joomla\Database\Mysqli\MysqliDriver;
 
 /**
  * MySQLi import driver.
  *
  * @since  1.0
  */
-class Mysqli extends Importer
+class MysqliImporter extends DatabaseImporter
 {
 	/**
 	 * Checks if all data and options are in order prior to exporting.
@@ -29,7 +29,7 @@ class Mysqli extends Importer
 	public function check()
 	{
 		// Check if the db connector has been set.
-		if (!($this->db instanceof DriverMysqli))
+		if (!($this->db instanceof MysqliDriver))
 		{
 			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
 		}

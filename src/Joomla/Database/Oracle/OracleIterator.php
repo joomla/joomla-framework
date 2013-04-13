@@ -6,13 +6,15 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Iterator;
+namespace Joomla\Database\Oracle;
+
+use Joomla\Database\Pdo\PdoIterator;
 
 /**
  * Oracle database iterator.
  *
  * @since  1.0
  */
-class Oracle extends Pdo
+class OracleIterator extends PdoIterator
 {
 }

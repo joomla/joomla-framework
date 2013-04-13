@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Iterator;
+namespace Joomla\Database\Sqlsrv;
 
 use Joomla\Database\DatabaseIterator;
 
@@ -15,7 +15,7 @@ use Joomla\Database\DatabaseIterator;
  *
  * @since  1.0
  */
-class Sqlsrv extends DatabaseIterator
+class SqlsrvIterator extends DatabaseIterator
 {
 	/**
 	 * Get the number of rows in the result set for the executed SQL given by the cursor.

@@ -6,9 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Driver;
+namespace Joomla\Database\Mysqli;
 
-use Joomla\Database\Driver;
+use Joomla\Database\DatabaseDriver;
 use Psr\Log;
 
 /**
@@ -17,7 +17,7 @@ use Psr\Log;
  * @see    http://php.net/manual/en/book.mysqli.php
  * @since  1.0
  */
-class Mysqli extends Driver
+class MysqliDriver extends DatabaseDriver
 {
 	/**
 	 * The name of the database driver.

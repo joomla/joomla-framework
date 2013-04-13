@@ -11,7 +11,7 @@ namespace Joomla\Database\Tests;
  *
  * @since  1.0
  */
-class QueryElementInspector extends \Joomla\Database\Query\Element
+class QueryElementInspector extends \Joomla\Database\Query\QueryElement
 {
 	/**
 	 * Gets any property from the class.

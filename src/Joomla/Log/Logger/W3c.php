@@ -8,8 +8,6 @@
 
 namespace Joomla\Log\Logger;
 
-use Joomla\Log\Logger\Formattedtext;
-
 /**
  * Joomla! W3c Logging class
  *

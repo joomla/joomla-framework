@@ -8,8 +8,8 @@
 
 namespace Joomla\Log\Logger;
 
-use Joomla\Log\Entry;
-use Joomla\Log\Logger;
+use Joomla\Log\LogEntry;
+use Joomla\Log\AbstractLogger;
 use Exception;
 
 /**
@@ -20,7 +20,7 @@ use Exception;
  *
  * @since  1.0
  */
-class Callback extends Logger
+class Callback extends AbstractLogger
 {
 	/**
 	 * @var    callable  The function to call when an entry is added - should return True on success
@@ -55,14 +55,14 @@ class Callback extends Logger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   Entry  $entry  The log entry object to add to the log.
+	 * @param   LogEntry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
 	 * @throws  Exception
 	 */
-	public function addEntry(Entry $entry)
+	public function addEntry(LogEntry $entry)
 	{
 		// Pass the log entry to the callback function
 		call_user_func($this->callback, $entry);

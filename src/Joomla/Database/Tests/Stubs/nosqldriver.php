@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Driver;
+namespace Joomla\Database;
 
 use Joomla\Database\DatabaseDriver;
 

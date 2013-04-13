@@ -11,7 +11,7 @@ namespace Joomla\Database\Tests;
  *
  * @since  1.0
  */
-class ImporterPostgresqlInspector extends \Joomla\Database\Importer\Postgresql
+class ImporterPostgresqlInspector extends \Joomla\Database\Postgresql\PostgresqlImporter
 {
 	/**
 	 * Gets any property from the class.

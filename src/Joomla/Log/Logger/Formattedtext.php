@@ -10,8 +10,8 @@ namespace Joomla\Log\Logger;
 
 use JPlatform;
 use Joomla\Filesystem\Folder;
-use Joomla\Log\Logger;
-use Joomla\Log\Entry;
+use Joomla\Log\AbstractLogger;
+use Joomla\Log\LogEntry;
 use Joomla\Factory;
 use RuntimeException;
 
@@ -23,7 +23,7 @@ use RuntimeException;
  *
  * @since  1.0
  */
-class Formattedtext extends Logger
+class Formattedtext extends AbstractLogger
 {
 	/**
 	 * @var    resource  The file pointer for the log file.
@@ -109,14 +109,14 @@ class Formattedtext extends Logger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   Entry  $entry  The log entry object to add to the log.
+	 * @param   LogEntry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
-	public function addEntry(Entry $entry)
+	public function addEntry(LogEntry $entry)
 	{
 		// Initialise the file if not already done.
 		if (!is_resource($this->file))
