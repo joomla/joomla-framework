@@ -101,7 +101,7 @@ abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 	 */
 	protected function getDataSet()
 	{
-		return $this->createXMLDataSet(__DIR__ . '/stubs/database.xml');
+		return $this->createXMLDataSet(__DIR__ . '/Stubs/database.xml');
 	}
 
 	/**
