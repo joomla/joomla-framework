@@ -9,7 +9,7 @@
  *
  * @since  1.0
  */
-class TControllerBar extends \Joomla\Controller\Base
+class TControllerBar extends \Joomla\Controller\AbstractController
 {
 	/**
 	 * Execute the controller.

@@ -785,7 +785,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$handle = imagecreatetruecolor(1, 1);
 
 		// Create the mock filter.
-		$mockFilter = $this->getMockForAbstractClass('\\Joomla\\Image\\Filter', array($handle), 'ImageFilterMock', true, false, true);
+		$mockFilter = $this->getMockForAbstractClass('\\Joomla\\Image\\ImageFilter', array($handle), 'ImageFilterMock', true, false, true);
 
 		// Setup the mock method call expectation.
 		$mockFilter->expects($this->once())

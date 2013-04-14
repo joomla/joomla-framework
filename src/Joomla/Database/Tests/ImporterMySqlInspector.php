@@ -11,7 +11,7 @@ namespace Joomla\Database\Tests;
  *
  * @since  1.0
  */
-class ImporterMySqlInspector extends \Joomla\Database\Importer\Mysql
+class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 {
 	/**
 	 * Gets any property from the class.

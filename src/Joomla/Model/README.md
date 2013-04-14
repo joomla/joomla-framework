@@ -25,7 +25,7 @@ requirements of the interface are already satisfied by the base class.
 
 namespace MyApp;
 
-use Joomla\Model\Base;
+use Joomla\Model\AbstractModel;
 
 /**
  * My custom model.
@@ -34,7 +34,7 @@ use Joomla\Model\Base;
  *
  * @since   1.0
  */
-class MyModel extends Base
+class MyModel extends AbstractModel
 {
   /**
 	 * Get the time.
@@ -86,7 +86,7 @@ class MyDatabaseModel extends Model\Database
 	 * @throws  RuntimeException on database error.
 	 */
 	public function getCount()
-	{		
+	{
 		// Get the query builder from the internal database object.
 		$q = $this->db->getQuery(true);
 

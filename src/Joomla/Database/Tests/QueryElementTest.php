@@ -6,7 +6,7 @@
 
 namespace Joomla\Database\Tests;
 
-use Joomla\Database\Query\Element as QueryElement;
+use Joomla\Database\Query\QueryElement;
 
 /**
  * Test class for JDatabaseQueryElement.

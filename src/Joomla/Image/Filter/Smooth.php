@@ -8,7 +8,7 @@
 
 namespace Joomla\Image\Filter;
 
-use Joomla\Image\Filter;
+use Joomla\Image\ImageFilter;
 use InvalidArgumentException;
 
 /**
@@ -16,7 +16,7 @@ use InvalidArgumentException;
  *
  * @since  1.0
  */
-class Smooth extends Filter
+class Smooth extends ImageFilter
 {
 	/**
 	 * Method to apply a filter to an image resource.

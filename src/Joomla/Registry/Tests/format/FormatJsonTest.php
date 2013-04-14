@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\Format;
+use Joomla\Registry\AbstractRegistryFormat;
 
 /**
  * Test class for Json.
@@ -23,7 +23,7 @@ class JRegistryFormatJSONTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testObjectToString()
 	{
-		$class = Format::getInstance('JSON');
+		$class = AbstractRegistryFormat::getInstance('JSON');
 		$options = null;
 		$object = new stdClass;
 		$object->foo = 'bar';
@@ -61,7 +61,7 @@ class JRegistryFormatJSONTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStringToObject()
 	{
-		$class = Format::getInstance('JSON');
+		$class = AbstractRegistryFormat::getInstance('JSON');
 
 		$string1 = '{"title":"Joomla Framework","author":"Me","params":{"show_title":1,"show_abstract":0,"show_author":1,"categories":[1,2]}}';
 		$string2 = "[section]\nfoo=bar";

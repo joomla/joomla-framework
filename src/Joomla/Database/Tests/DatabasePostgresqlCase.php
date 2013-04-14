@@ -16,7 +16,7 @@ use Joomla\Factory;
 abstract class DatabasePostgresqlCase extends DatabaseCase
 {
 	/**
-	 * @var    \Joomla\Database\Driver\Postgresql  The active database driver being used for the tests.
+	 * @var    \Joomla\Database\Postgresql\PostgresqlDriver  The active database driver being used for the tests.
 	 * @since  1.0
 	 */
 	protected static $driver;
@@ -28,7 +28,7 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 	private static $_options = array('driver' => 'postgresql');
 
 	/**
-	 * @var    \Joomla\Database\Driver\Postgresql  The saved database driver to be restored after these tests.
+	 * @var    \Joomla\Database\Postgresql\PostgresqlDriver  The saved database driver to be restored after these tests.
 	 * @since  1.0
 	 */
 	private static $_stash;
@@ -91,7 +91,7 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = \Joomla\Database\Driver::getInstance(self::$_options);
+			self::$driver = \Joomla\Database\DatabaseDriver::getInstance(self::$_options);
 		}
 		catch (\RuntimeException $e)
 		{

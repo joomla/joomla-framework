@@ -7,7 +7,7 @@
 namespace Joomla\Database\Tests;
 
 /**
- * Test class for Joomla\Database\Driver\Postgresql.
+ * Test class for Joomla\Database\Postgresql\PostgresqlDriver.
  *
  * @since  1.0
  */
@@ -547,7 +547,7 @@ class DriverPostgresqlTest extends DatabasePostgresqlCase
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(\Joomla\Database\Driver\Postgresql::isSupported(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Postgresql\PostgresqlDriver::isSupported(), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -882,7 +882,7 @@ class DriverPostgresqlTest extends DatabasePostgresqlCase
 	 */
 	public function testTest()
 	{
-		$this->assertThat(\Joomla\Database\Driver\Postgresql::test(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Postgresql\PostgresqlDriver::test(), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -956,7 +956,7 @@ class DriverPostgresqlTest extends DatabasePostgresqlCase
 		/* create savepoint only if is passed by data provider */
 		if (!is_null($toSavepoint))
 		{
-			self::$driver->transactionSavepoint($toSavepoint);
+			self::$driver->transactionStart((boolean) $toSavepoint);
 		}
 
 		/* try to insert this tuple, always rolled back */
@@ -966,12 +966,11 @@ class DriverPostgresqlTest extends DatabasePostgresqlCase
 			->values("8, 'testRollback','1972-01-01','testRollbackSp'");
 		self::$driver->setQuery($queryIns)->execute();
 
-		self::$driver->transactionRollback($toSavepoint);
+		self::$driver->transactionRollback((boolean) $toSavepoint);
 
 		/* release savepoint and commit only if a savepoint exists */
 		if (!is_null($toSavepoint))
 		{
-			self::$driver->releaseTransactionSavepoint($toSavepoint);
 			self::$driver->transactionCommit();
 		}
 

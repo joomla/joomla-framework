@@ -7,7 +7,7 @@
 namespace Joomla\Router\Tests;
 
 use Joomla\Router\Router;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/Stubs/Bar.php';
 require_once __DIR__ . '/Stubs/Baz.php';
@@ -230,7 +230,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 		}
 
 		// Execute the route parsing.
-		$actual = Helper::invoke($this->instance, 'parseRoute', $r);
+		$actual = TestHelper::invoke($this->instance, 'parseRoute', $r);
 
 		// Test the assertions.
 		$this->assertEquals($c, $actual, 'Incorrect controller name found.');
@@ -275,7 +275,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	public function testFetchControllerWithMissingClass()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = Helper::invoke($this->instance, 'fetchController', 'goober');
+		$controller = TestHelper::invoke($this->instance, 'fetchController', 'goober');
 	}
 
 	/**
@@ -289,7 +289,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	public function testFetchControllerWithNonController()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = Helper::invoke($this->instance, 'fetchController', 'MyTestControllerBaz');
+		$controller = TestHelper::invoke($this->instance, 'fetchController', 'MyTestControllerBaz');
 	}
 
 	/**
@@ -303,7 +303,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	public function testFetchControllerWithPrefixSet()
 	{
 		$this->instance->setControllerPrefix('MyTestController');
-		$controller = Helper::invoke($this->instance, 'fetchController', 'Foo');
+		$controller = TestHelper::invoke($this->instance, 'fetchController', 'Foo');
 	}
 
 	/**
@@ -317,7 +317,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	public function testFetchControllerWithoutPrefixSetThoughNecessary()
 	{
 		$this->setExpectedException('RuntimeException');
-		$controller = Helper::invoke($this->instance, 'fetchController', 'foo');
+		$controller = TestHelper::invoke($this->instance, 'fetchController', 'foo');
 	}
 
 	/**
@@ -330,7 +330,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testFetchControllerWithoutPrefixSet()
 	{
-		$controller = Helper::invoke($this->instance, 'fetchController', 'TControllerBar');
+		$controller = TestHelper::invoke($this->instance, 'fetchController', 'TControllerBar');
 	}
 
 	/**

@@ -50,7 +50,7 @@ class Cli extends Input
 		}
 		else
 		{
-			$this->filter = new Filter\Input;
+			$this->filter = new Filter\InputFilter;
 		}
 
 		// Get the command line options

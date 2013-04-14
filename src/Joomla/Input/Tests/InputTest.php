@@ -8,7 +8,7 @@ namespace Joomla\Input\Tests;
 
 use Joomla\Input\Input;
 use Joomla\Input\Cookie;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/Stubs/FilterInputMock.php';
 
@@ -367,12 +367,12 @@ class InputTest extends \PHPUnit_Framework_TestCase
 	public function testSerialize()
 	{
 		// Load the inputs so that the static $loaded is set to true.
-		Helper::invoke($this->instance, 'loadAllInputs');
+		TestHelper::invoke($this->instance, 'loadAllInputs');
 
 		// Adjust the values so they are easier to handle.
-		Helper::setValue($this->instance, 'inputs', array('server' => 'remove', 'env' => 'remove', 'request' => 'keep'));
-		Helper::setValue($this->instance, 'options', 'options');
-		Helper::setValue($this->instance, 'data', 'data');
+		TestHelper::setValue($this->instance, 'inputs', array('server' => 'remove', 'env' => 'remove', 'request' => 'keep'));
+		TestHelper::setValue($this->instance, 'options', 'options');
+		TestHelper::setValue($this->instance, 'data', 'data');
 
 		$this->assertThat(
 			$this->instance->serialize(),

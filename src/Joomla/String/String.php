@@ -136,9 +136,11 @@ abstract class String
 	 * }
 	 * </code>
 	 *
-	 * @param   string  $string  The string to test.
+	 * @param   string  $str  The string to test.
 	 *
 	 * @return  boolean True if the string is all ASCII
+	 *
+	 * @since   1.0
 	 */
 	public static function is_ascii($str)
 	{

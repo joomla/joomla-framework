@@ -18,12 +18,15 @@ namespace Joomla\Uri;
 final class UriImmutable extends AbstractUri
 {
 	/**
-	 * @var bool
+	 * @var  boolean  Has this class been instantiated yet.
 	 */
 	private $constructed = false;
 
 	/**
 	 * Prevent setting undeclared properties.
+	 *
+	 * @param   string  $name   This is an immutable object, setting $name is not allowed.
+	 * @param   mixed   $value  This is an immutable object, setting $value is not allowed.
 	 *
 	 * @return  null  This method always throws an exception.
 	 *

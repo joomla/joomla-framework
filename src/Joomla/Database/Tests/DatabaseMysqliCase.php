@@ -16,7 +16,7 @@ use Joomla\Factory;
 abstract class DatabaseMysqliCase extends DatabaseCase
 {
 	/**
-	 * @var    \Joomla\Database\Driver\Mysqli  The active database driver being used for the tests.
+	 * @var    \Joomla\Database\Mysqli\MysqliDriver  The active database driver being used for the tests.
 	 * @since  1.0
 	 */
 	protected static $driver;
@@ -28,7 +28,7 @@ abstract class DatabaseMysqliCase extends DatabaseCase
 	private static $_options = array('driver' => 'mysqli');
 
 	/**
-	 * @var    \Joomla\Database\Driver\Mysqli  The saved database driver to be restored after these tests.
+	 * @var    \Joomla\Database\Mysqli\MysqliDriver  The saved database driver to be restored after these tests.
 	 * @since  1.0
 	 */
 	private static $_stash;
@@ -88,7 +88,7 @@ abstract class DatabaseMysqliCase extends DatabaseCase
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = \Joomla\Database\Driver::getInstance(self::$_options);
+			self::$driver = \Joomla\Database\DatabaseDriver::getInstance(self::$_options);
 		}
 		catch (\RuntimeException $e)
 		{

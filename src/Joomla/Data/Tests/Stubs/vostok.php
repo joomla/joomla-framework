@@ -6,16 +6,16 @@
 
 namespace Joomla\Data\Tests;
 
-use Joomla\Data\Object;
+use Joomla\Data\DataObject;
 
 /**
- * Derived Data\Object class for testing.
+ * Derived Data\DataObject class for testing.
  *
  * @since  1.0
  *
  * @method      launch() launch(string $status)
  */
-class JDataVostok extends Object
+class JDataVostok extends DataObject
 {
 	/**
 	 * An array method.

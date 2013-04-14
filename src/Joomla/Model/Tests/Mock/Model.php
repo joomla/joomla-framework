@@ -7,14 +7,14 @@
 namespace Joomla\Model\Tests\Mock;
 
 /**
- * Mock class for \Joomla\Model\Base.
+ * Mock class for \Joomla\Model\AbstractModel.
  *
  * @since  1.0
  */
 class Model
 {
 	/**
-	 * Creates and instance of the mock JModel object.
+	 * Creates and instance of the mock AbstractModel object.
 	 *
 	 * @param   \PHPUnit_Framework_TestCase  $test  A test object.
 	 *
@@ -24,7 +24,7 @@ class Model
 	 */
 	public static function create(\PHPUnit_Framework_TestCase $test)
 	{
-		// Collect all the relevant methods in JModel.
+		// Collect all the relevant methods in AbstractModel.
 		$methods = array(
 			'getState',
 			'loadState',

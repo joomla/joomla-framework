@@ -50,7 +50,7 @@ class Input implements \Serializable, \Countable
 	/**
 	 * Filter object to use.
 	 *
-	 * @var    FilterInput
+	 * @var    InputFilter
 	 * @since  1.0
 	 */
 	protected $filter = null;
@@ -88,7 +88,7 @@ class Input implements \Serializable, \Countable
 		}
 		else
 		{
-			$this->filter = new Filter\Input;
+			$this->filter = new Filter\InputFilter;
 		}
 
 		if (is_null($source))
@@ -347,7 +347,7 @@ class Input implements \Serializable, \Countable
 		}
 		else
 		{
-			$this->filter = new Filter\Input;
+			$this->filter = new Filter\InputFilter;
 		}
 	}
 

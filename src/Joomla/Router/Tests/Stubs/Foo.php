@@ -9,7 +9,7 @@
  *
  * @since  1.0
  */
-class MyTestControllerFoo extends \Joomla\Controller\Base
+class MyTestControllerFoo extends \Joomla\Controller\AbstractController
 {
 	/**
 	 * Execute the controller.
