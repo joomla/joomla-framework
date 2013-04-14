@@ -232,7 +232,7 @@ abstract class DatabaseImporter
 	/**
 	 * Sets the database connector to use for exporting structure and/or data.
 	 *
-	 * @param   Driver  $db  The database connector.
+	 * @param   DatabaseDriver  $db  The database connector.
 	 *
 	 * @return  Importer  Method supports chaining.
 	 *

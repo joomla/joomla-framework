@@ -8,13 +8,13 @@
 
 namespace Joomla\Database\Mysql;
 
-use Joomla\Database\Mysqli\MysqliDriver
+use Joomla\Database\Mysqli\MysqliQuery;
 
 /**
  * Query Building Class.
  *
  * @since  1.0
  */
-class Mysql extends Mysqli
+class MysqlQuery extends MysqliQuery
 {
 }
