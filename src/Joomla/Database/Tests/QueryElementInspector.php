@@ -7,7 +7,7 @@
 namespace Joomla\Database\Tests;
 
 /**
- * Class to expose protected properties and methods in JDatabaseQueryExporter for testing purposes.
+ * Class to expose protected properties and methods in QueryElement for testing purposes.
  *
  * @since  1.0
  */

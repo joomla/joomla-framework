@@ -18,7 +18,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * A mock of the Driver object for testing purposes.
 	 *
-	 * @var    \Joomla\Database\Driver
+	 * @var    \Joomla\Database\DatabaseDriver
 	 * @since  1.0
 	 */
 	protected $dbo;
@@ -84,11 +84,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test for the \Joomla\Database\Query::__call method.
+	 * Test for the \Joomla\Database\DatabaseQuery::__call method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::__call
+	 * @covers  \Joomla\Database\DatabaseQuery::__call
 	 * @since   1.0
 	 */
 	public function test__call()
@@ -119,11 +119,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test for the \Joomla\Database\Query::__get method.
+	 * Test for the \Joomla\Database\DatabaseQuery::__get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::__get
+	 * @covers  \Joomla\Database\DatabaseQuery::__get
 	 * @since   1.0
 	 */
 	public function test__get()
@@ -285,7 +285,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test for the \Joomla\Database\Query::__string method for a 'select' case.
+	 * Test for the \Joomla\Database\DatabaseQuery::__string method for a 'select' case.
 	 *
 	 * @return  void
 	 *
@@ -317,7 +317,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test for the \Joomla\Database\Query::__string method for a 'update' case.
+	 * Test for the \Joomla\Database\DatabaseQuery::__string method for a 'update' case.
 	 *
 	 * @return  void
 	 *
@@ -347,7 +347,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::__toString
+	 * @covers  \Joomla\Database\DatabaseQuery::__toString
 	 * @since   1.0
 	 */
 	public function test__toStringUnion()
@@ -360,11 +360,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::call method.
+	 * Tests the \Joomla\Database\DatabaseQuery::call method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::call
+	 * @covers  \Joomla\Database\DatabaseQuery::call
 	 * @since   1.0
 	 */
 	public function testCall()
@@ -379,7 +379,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::__toString
+	 * @covers  \Joomla\Database\DatabaseQuery::__toString
 	 * @since   1.0
 	 */
 	public function testCall__toString()
@@ -392,7 +392,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::castAsChar
+	 * @covers  \Joomla\Database\DatabaseQuery::castAsChar
 	 * @since   1.0
 	 */
 	public function testCastAsChar()
@@ -409,7 +409,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::charLength
+	 * @covers  \Joomla\Database\DatabaseQuery::charLength
 	 * @since   1.0
 	 */
 	public function testCharLength()
@@ -435,7 +435,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::clear
+	 * @covers  \Joomla\Database\DatabaseQuery::clear
 	 * @since   1.0
 	 */
 	public function testClear_all()
@@ -489,7 +489,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::clear
+	 * @covers  \Joomla\Database\DatabaseQuery::clear
 	 * @since   1.0
 	 */
 	public function testClear_clause()
@@ -549,7 +549,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::clear
+	 * @covers  \Joomla\Database\DatabaseQuery::clear
 	 * @since   1.0
 	 */
 	public function testClear_type()
@@ -612,11 +612,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::columns method.
+	 * Tests the \Joomla\Database\DatabaseQuery::columns method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::columns
+	 * @covers  \Joomla\Database\DatabaseQuery::columns
 	 * @since   1.0
 	 */
 	public function testColumns()
@@ -644,11 +644,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::concatenate method.
+	 * Tests the \Joomla\Database\DatabaseQuery::concatenate method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::concatenate
+	 * @covers  \Joomla\Database\DatabaseQuery::concatenate
 	 * @since   1.0
 	 */
 	public function testConcatenate()
@@ -667,11 +667,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::currentTimestamp method.
+	 * Tests the \Joomla\Database\DatabaseQuery::currentTimestamp method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::currentTimestamp
+	 * @covers  \Joomla\Database\DatabaseQuery::currentTimestamp
 	 * @since   1.0
 	 */
 	public function testCurrentTimestamp()
@@ -683,11 +683,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::dateFormat method.
+	 * Tests the \Joomla\Database\DatabaseQuery::dateFormat method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::dateFormat
+	 * @covers  \Joomla\Database\DatabaseQuery::dateFormat
 	 * @since   1.0
 	 */
 	public function testDateFormat()
@@ -699,11 +699,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::dateFormat method for an expected exception.
+	 * Tests the \Joomla\Database\DatabaseQuery::dateFormat method for an expected exception.
 	 *
 	 * @return  void
 	 *
-	 * @covers             \Joomla\Database\Query::dateFormat
+	 * @covers             \Joomla\Database\DatabaseQuery::dateFormat
 	 * @expectedException  RuntimeException
 	 * @since           1.0
 	 */
@@ -716,11 +716,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::delete method.
+	 * Tests the \Joomla\Database\DatabaseQuery::delete method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::delete
+	 * @covers  \Joomla\Database\DatabaseQuery::delete
 	 * @since   1.0
 	 */
 	public function testDelete()
@@ -751,11 +751,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the delete property in \Joomla\Database\Query::__toString method.
+	 * Tests the delete property in \Joomla\Database\DatabaseQuery::__toString method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::__toString
+	 * @covers  \Joomla\Database\DatabaseQuery::__toString
 	 * @since   1.0
 	 */
 	public function testDelete__toString()
@@ -771,11 +771,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::dump method.
+	 * Tests the \Joomla\Database\DatabaseQuery::dump method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::dump
+	 * @covers  \Joomla\Database\DatabaseQuery::dump
 	 * @since   1.0
 	 */
 	public function testDump()
@@ -795,11 +795,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::escape method.
+	 * Tests the \Joomla\Database\DatabaseQuery::escape method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::escape
+	 * @covers  \Joomla\Database\DatabaseQuery::escape
 	 * @since   1.0
 	 */
 	public function testEscape()
@@ -811,11 +811,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::escape method for an expected exception.
+	 * Tests the \Joomla\Database\DatabaseQuery::escape method for an expected exception.
 	 *
 	 * @return  void
 	 *
-	 * @covers             \Joomla\Database\Query::escape
+	 * @covers             \Joomla\Database\DatabaseQuery::escape
 	 * @expectedException  RuntimeException
 	 * @since           1.0
 	 */
@@ -828,11 +828,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::exec method.
+	 * Tests the \Joomla\Database\DatabaseQuery::exec method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::exec
+	 * @covers  \Joomla\Database\DatabaseQuery::exec
 	 * @since   1.0
 	 */
 	public function testExec()
@@ -843,11 +843,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the exec property in \Joomla\Database\Query::__toString method.
+	 * Tests the exec property in \Joomla\Database\DatabaseQuery::__toString method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::__toString
+	 * @covers  \Joomla\Database\DatabaseQuery::__toString
 	 * @since   1.0
 	 */
 	public function testExec__toString()
@@ -856,11 +856,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::from method.
+	 * Tests the \Joomla\Database\DatabaseQuery::from method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::from
+	 * @covers  \Joomla\Database\DatabaseQuery::from
 	 * @since   1.0
 	 */
 	public function testFrom()
@@ -888,11 +888,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::group method.
+	 * Tests the \Joomla\Database\DatabaseQuery::group method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::group
+	 * @covers  \Joomla\Database\DatabaseQuery::group
 	 * @since   1.0
 	 */
 	public function testGroup()
@@ -920,11 +920,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::having method.
+	 * Tests the \Joomla\Database\DatabaseQuery::having method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::having
+	 * @covers  \Joomla\Database\DatabaseQuery::having
 	 * @since   1.0
 	 */
 	public function testHaving()
@@ -963,11 +963,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::innerJoin method.
+	 * Tests the \Joomla\Database\DatabaseQuery::innerJoin method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::innerJoin
+	 * @covers  \Joomla\Database\DatabaseQuery::innerJoin
 	 * @since   1.0
 	 */
 	public function testInnerJoin()
@@ -992,11 +992,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::insert method.
+	 * Tests the \Joomla\Database\DatabaseQuery::insert method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::insert
+	 * @covers  \Joomla\Database\DatabaseQuery::insert
 	 * @since   1.0
 	 */
 	public function testInsert()
@@ -1021,11 +1021,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::join method.
+	 * Tests the \Joomla\Database\DatabaseQuery::join method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::join
+	 * @covers  \Joomla\Database\DatabaseQuery::join
 	 * @since   1.0
 	 */
 	public function testJoin()
@@ -1052,11 +1052,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::leftJoin method.
+	 * Tests the \Joomla\Database\DatabaseQuery::leftJoin method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::leftJoin
+	 * @covers  \Joomla\Database\DatabaseQuery::leftJoin
 	 * @since   1.0
 	 */
 	public function testLeftJoin()
@@ -1081,11 +1081,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::length method.
+	 * Tests the \Joomla\Database\DatabaseQuery::length method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::length
+	 * @covers  \Joomla\Database\DatabaseQuery::length
 	 * @since   1.0
 	 */
 	public function testLength()
@@ -1105,7 +1105,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers        \Joomla\Database\Query::nullDate
+	 * @covers        \Joomla\Database\DatabaseQuery::nullDate
 	 * @dataProvider  seedNullDateTest
 	 * @since      1.0
 	 */
@@ -1119,11 +1119,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::nullDate method for an expected exception.
+	 * Tests the \Joomla\Database\DatabaseQuery::nullDate method for an expected exception.
 	 *
 	 * @return  void
 	 *
-	 * @covers             \Joomla\Database\Query::nullDate
+	 * @covers             \Joomla\Database\DatabaseQuery::nullDate
 	 * @expectedException  RuntimeException
 	 * @since           1.0
 	 */
@@ -1136,11 +1136,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::order method.
+	 * Tests the \Joomla\Database\DatabaseQuery::order method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::order
+	 * @covers  \Joomla\Database\DatabaseQuery::order
 	 * @since   1.0
 	 */
 	public function testOrder()
@@ -1180,11 +1180,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::outerJoin method.
+	 * Tests the \Joomla\Database\DatabaseQuery::outerJoin method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::outerJoin
+	 * @covers  \Joomla\Database\DatabaseQuery::outerJoin
 	 * @since   1.0
 	 */
 	public function testOuterJoin()
@@ -1217,7 +1217,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers        \Joomla\Database\Query::quote
+	 * @covers        \Joomla\Database\DatabaseQuery::quote
 	 * @since      1.0
 	 * @dataProvider  seedQuoteTest
 	 */
@@ -1227,11 +1227,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::nullDate method for an expected exception.
+	 * Tests the \Joomla\Database\DatabaseQuery::nullDate method for an expected exception.
 	 *
 	 * @return  void
 	 *
-	 * @covers             \Joomla\Database\Query::quote
+	 * @covers             \Joomla\Database\DatabaseQuery::quote
 	 * @expectedException  RuntimeException
 	 * @since           1.0
 	 */
@@ -1248,7 +1248,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::quoteName
+	 * @covers  \Joomla\Database\DatabaseQuery::quoteName
 	 * @since   1.0
 	 */
 	public function testQuoteName()
@@ -1261,11 +1261,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::quoteName method for an expected exception.
+	 * Tests the \Joomla\Database\DatabaseQuery::quoteName method for an expected exception.
 	 *
 	 * @return  void
 	 *
-	 * @covers             \Joomla\Database\Query::quoteName
+	 * @covers             \Joomla\Database\DatabaseQuery::quoteName
 	 * @expectedException  RuntimeException
 	 * @since           1.0
 	 */
@@ -1278,11 +1278,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::rightJoin method.
+	 * Tests the \Joomla\Database\DatabaseQuery::rightJoin method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::rightJoin
+	 * @covers  \Joomla\Database\DatabaseQuery::rightJoin
 	 * @since   1.0
 	 */
 	public function testRightJoin()
@@ -1307,11 +1307,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::select method.
+	 * Tests the \Joomla\Database\DatabaseQuery::select method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::select
+	 * @covers  \Joomla\Database\DatabaseQuery::select
 	 * @since   1.0
 	 */
 	public function testSelect()
@@ -1356,11 +1356,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::set method.
+	 * Tests the \Joomla\Database\DatabaseQuery::set method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::set
+	 * @covers  \Joomla\Database\DatabaseQuery::set
 	 * @since   1.0
 	 */
 	public function testSet()
@@ -1413,11 +1413,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::setQuery method.
+	 * Tests the \Joomla\Database\DatabaseQuery::setQuery method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::setQuery
+	 * @covers  \Joomla\Database\DatabaseQuery::setQuery
 	 * @since   1.0
 	 */
 	public function testSetQuery()
@@ -1428,11 +1428,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests rendering coupled with the \Joomla\Database\Query::setQuery method.
+	 * Tests rendering coupled with the \Joomla\Database\DatabaseQuery::setQuery method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::__toString
+	 * @covers  \Joomla\Database\DatabaseQuery::__toString
 	 * @since   1.0
 	 */
 	public function testSetQuery__toString()
@@ -1441,11 +1441,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::update method.
+	 * Tests the \Joomla\Database\DatabaseQuery::update method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::update
+	 * @covers  \Joomla\Database\DatabaseQuery::update
 	 * @since   1.0
 	 */
 	public function testUpdate()
@@ -1470,11 +1470,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::values method.
+	 * Tests the \Joomla\Database\DatabaseQuery::values method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::values
+	 * @covers  \Joomla\Database\DatabaseQuery::values
 	 * @since   1.0
 	 */
 	public function testValues()
@@ -1507,11 +1507,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::where method.
+	 * Tests the \Joomla\Database\DatabaseQuery::where method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::where
+	 * @covers  \Joomla\Database\DatabaseQuery::where
 	 * @since   1.0
 	 */
 	public function testWhere()
@@ -1560,7 +1560,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::__clone method properly clones an array.
+	 * Tests the \Joomla\Database\DatabaseQuery::__clone method properly clones an array.
 	 *
 	 * @return  void
 	 *
@@ -1581,7 +1581,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::__clone method properly clones an object.
+	 * Tests the \Joomla\Database\DatabaseQuery::__clone method properly clones an object.
 	 *
 	 * @return  void
 	 *
@@ -1601,11 +1601,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::union method.
+	 * Tests the \Joomla\Database\DatabaseQuery::union method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::union
+	 * @covers  \Joomla\Database\DatabaseQuery::union
 	 * @since   1.0
 	 */
 	public function testUnionChain()
@@ -1618,11 +1618,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::union method.
+	 * Tests the \Joomla\Database\DatabaseQuery::union method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::union
+	 * @covers  \Joomla\Database\DatabaseQuery::union
 	 * @since   1.0
 	 */
 	public function testUnionClear()
@@ -1639,11 +1639,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::union method.
+	 * Tests the \Joomla\Database\DatabaseQuery::union method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::union
+	 * @covers  \Joomla\Database\DatabaseQuery::union
 	 * @since   1.0
 	 */
 	public function testUnionUnion()
@@ -1659,11 +1659,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::union method.
+	 * Tests the \Joomla\Database\DatabaseQuery::union method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::union
+	 * @covers  \Joomla\Database\DatabaseQuery::union
 	 * @since   1.0
 	 */
 	public function testUnionDistinctString()
@@ -1679,11 +1679,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::union method.
+	 * Tests the \Joomla\Database\DatabaseQuery::union method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::union
+	 * @covers  \Joomla\Database\DatabaseQuery::union
 	 * @since   1.0
 	 */
 	public function testUnionDistinctTrue()
@@ -1699,11 +1699,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::union method.
+	 * Tests the \Joomla\Database\DatabaseQuery::union method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::union
+	 * @covers  \Joomla\Database\DatabaseQuery::union
 	 * @since   1.0
 	 */
 	public function testUnionDistinctFalse()
@@ -1719,11 +1719,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::union method.
+	 * Tests the \Joomla\Database\DatabaseQuery::union method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::union
+	 * @covers  \Joomla\Database\DatabaseQuery::union
 	 * @since   1.0
 	 */
 	public function testUnionArray()
@@ -1739,11 +1739,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::union method.
+	 * Tests the \Joomla\Database\DatabaseQuery::union method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::union
+	 * @covers  \Joomla\Database\DatabaseQuery::union
 	 * @since   1.0
 	 */
 	public function testUnionTwo()
@@ -1760,11 +1760,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::unionDistinct method.
+	 * Tests the \Joomla\Database\DatabaseQuery::unionDistinct method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::unionDistinct
+	 * @covers  \Joomla\Database\DatabaseQuery::unionDistinct
 	 * @since   1.0
 	 */
 	public function testUnionDistinct()
@@ -1780,11 +1780,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::unionDistinct method.
+	 * Tests the \Joomla\Database\DatabaseQuery::unionDistinct method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::unionDistinct
+	 * @covers  \Joomla\Database\DatabaseQuery::unionDistinct
 	 * @since   1.0
 	 */
 	public function testUnionDistinctArray()
@@ -1800,11 +1800,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query::format method.
+	 * Tests the \Joomla\Database\DatabaseQuery::format method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  \Joomla\Database\Query::format
+	 * @covers  \Joomla\Database\DatabaseQuery::format
 	 * @since   1.0
 	 */
 	public function testFormat()

@@ -8,14 +8,14 @@ management through the use of a generic database engine.
 ```php
 // Example for initialising a database driver in a custom application class.
 
-use Joomla\Application\Base;
+use Joomla\Application\AbstractApplication;
 use Joomla\Database;
 
-class MyApplication extends Base
+class MyApplication extends AbstractApplication
 {
 	/**
 	 * Database driver.
-	 * 
+	 *
 	 * @var    Database\Driver
 	 * @since  1.0
 	 */
@@ -25,7 +25,7 @@ class MyApplication extends Base
 	{
 		// Do stuff
 	}
-	
+
 	protected function initiliase()
 	{
 		// Make the database driver.
@@ -62,18 +62,18 @@ function search($title)
 
 	// Search for an exact match of the title, correctly sanitising the untrusted input.
 	$sql1 = 'SELECT * FROM #__content WHERE title = ' . $db->quote($title);
-	
+
 	// Special treatment for a LIKE clause.
 	$search = $db->quote($db->escape($title, true) . '%', false);
 	$sql2 = 'SELECT * FROM #__content WHERE title LIKE ' . $search;
-	
-	// 
+
+	//
 	if (is_array($title))
 	{
 		$sql3 = 'SELECT * FROM #__content WHERE title IN ('
 			. implode(',', $db->quote($title)) . ')';
 	}
-	
+
 	// Do the database calls.
 }
 ```
@@ -84,7 +84,7 @@ In the second case, the example shows how to treat a search string that will be 
 
 In the third case, the title variable is an array so the whole array can be passed to the `quote` method (this saves using a closure and a )
 
-Shorthand versions are  available the these methods: 
+Shorthand versions are  available the these methods:
 
 * `q` can be used instead of `quote`
 * `e` can be used instead of `escape`
@@ -122,4 +122,4 @@ If debugging is enabled (using `setDebug(true)`), all queries are logged with a 
 
 * **sql** : The query that was executed.
 * **category** : A value of "databasequery" is used.
-* 
+*

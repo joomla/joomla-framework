@@ -10,6 +10,8 @@ before_script:
   - pyrus install --force phpunit/DbUnit
   - mysql -e 'create database joomla_ut;'
   - mysql joomla_ut < src/Joomla/Database/Tests/Stubs/mysql.sql
+  - psql -c 'create database joomla_ut;' -U postgres
+  - psql -d joomla_ut -a -f src/Joomla/Database/Tests/Stubs/postgresql.sql
 
 script:
   - phpunit --configuration phpunit.travis.xml

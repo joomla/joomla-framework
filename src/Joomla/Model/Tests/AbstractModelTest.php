@@ -12,14 +12,14 @@ use Joomla\Registry\Registry;
 require_once __DIR__ . '/Stubs/DatabaseModel.php';
 
 /**
- * Tests for the Joomla\Model\Base class.
+ * Tests for the Joomla\Model\AbstractModel class.
  *
  * @since  1.0
  */
 class AbstractModelTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Model\Base
+	 * @var    \Joomla\Model\AbstractModel
 	 * @since  1.0
 	 */
 	private $instance;
@@ -29,7 +29,7 @@ class AbstractModelTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Model\Base::__construct
+	 * @covers  Joomla\Model\AbstractModel::__construct
 	 * @since   1.0
 	 */
 	public function test__construct()
@@ -49,8 +49,8 @@ class AbstractModelTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Model\Base::getState
-	 * @covers  Joomla\Model\Base::setState
+	 * @covers  Joomla\Model\AbstractModel::getState
+	 * @covers  Joomla\Model\AbstractModel::setState
 	 * @since   1.0
 	 */
 	public function testSetState()

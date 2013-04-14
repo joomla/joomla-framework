@@ -14,7 +14,7 @@ use Joomla\Test\TestHelper;
 include_once __DIR__ . '/Stubs/ConcreteCli.php';
 
 /**
- * Test class for Joomla\Application\Cli.
+ * Test class for Joomla\Application\AbstractCliApplication.
  *
  * @since  1.0
  */
@@ -33,7 +33,7 @@ class AbstractCliApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Cli::__construct
+	 * @covers  Joomla\Application\AbstractCliApplication::__construct
 	 * @since   1.0
 	 */
 	public function test__construct()
@@ -66,7 +66,7 @@ class AbstractCliApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Cli::close
+	 * @covers  Joomla\Application\AbstractCliApplication::close
 	 * @since   1.0
 	 */
 	public function testClose()

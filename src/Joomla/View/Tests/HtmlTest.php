@@ -12,14 +12,14 @@ use Joomla\Test\TestHelper;
 require_once __DIR__ . '/stubs/thtml.php';
 
 /**
- * Tests for the Joomla\View\Html class.
+ * Tests for the Joomla\View\AbstractHtmlView class.
  *
  * @since  1.0
  */
 class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\View\Html
+	 * @var    \Joomla\View\AbstractHtmlView
 	 * @since  1.0
 	 */
 	private $instance;
@@ -29,7 +29,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::__construct
+	 * @covers  Joomla\View\AbstractHtmlView::__construct
 	 * @since   1.0
 	 */
 	public function test__construct()
@@ -49,7 +49,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::__toString
+	 * @covers  Joomla\View\AbstractHtmlView::__toString
 	 * @since   1.0
 	 */
 	public function test__toString()
@@ -67,7 +67,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::escape
+	 * @covers  Joomla\View\AbstractHtmlView::escape
 	 * @since   1.0
 	 */
 	public function testEscape()
@@ -80,7 +80,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::getLayout
+	 * @covers  Joomla\View\AbstractHtmlView::getLayout
 	 * @since   1.0
 	 */
 	public function testGetLayout()
@@ -95,7 +95,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::getPath
+	 * @covers  Joomla\View\AbstractHtmlView::getPath
 	 * @since   1.0
 	 */
 	public function testGetPath()
@@ -122,7 +122,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::getPaths
+	 * @covers  Joomla\View\AbstractHtmlView::getPaths
 	 * @since   1.0
 	 */
 	public function testGetPaths()
@@ -139,7 +139,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::render
+	 * @covers  Joomla\View\AbstractHtmlView::render
 	 * @since   1.0
 	 */
 	public function testRender()
@@ -158,7 +158,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::render
+	 * @covers  Joomla\View\AbstractHtmlView::render
 	 * @since   1.0
 	 *
 	 * @expectedException  RuntimeException
@@ -173,7 +173,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::setLayout
+	 * @covers  Joomla\View\AbstractHtmlView::setLayout
 	 * @since   1.0
 	 */
 	public function testSetLayout()
@@ -188,7 +188,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::setPaths
+	 * @covers  Joomla\View\AbstractHtmlView::setPaths
 	 * @since   1.0
 	 */
 	public function testSetPaths()
@@ -206,7 +206,7 @@ class AbstractHtmlViewTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\View\Html::loadPaths
+	 * @covers  Joomla\View\AbstractHtmlView::loadPaths
 	 * @since   1.0
 	 */
 	public function testLoadPaths()

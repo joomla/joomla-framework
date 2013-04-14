@@ -9,6 +9,7 @@
 namespace Joomla\Database\Mysqli;
 
 use Joomla\Database\DatabaseQuery;
+use Joomla\Database\Query\LimitableInterface;
 
 /**
  * Query Building Class.

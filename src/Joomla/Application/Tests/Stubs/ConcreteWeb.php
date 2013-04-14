@@ -9,7 +9,7 @@ namespace Joomla\Application\Tests;
 use Joomla\Application\AbstractWebApplication;
 
 /**
- * Concrete stub for the Joomla\Application\Web class.
+ * Concrete stub for the Joomla\Application\AbstractWebApplication class.
  *
  * @since  1.0
  */
