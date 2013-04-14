@@ -34,7 +34,7 @@ interface ControllerInterface extends \Serializable
 	/**
 	 * Get the application object.
 	 *
-	 * @return  Application\Base  The application object.
+	 * @return  Application\AbstractApplication  The application object.
 	 *
 	 * @since   1.0
 	 */
