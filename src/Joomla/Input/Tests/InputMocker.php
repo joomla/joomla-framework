@@ -6,7 +6,7 @@
 
 namespace Joomla\Input\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Class to mock Joomla\InputMocker\Input package of classes.
@@ -83,7 +83,7 @@ class InputMocker
 			false
 		);
 
-		Helper::assignMockCallbacks(
+		TestHelper::assignMockCallbacks(
 			$mockObject,
 			$this->test,
 			array(

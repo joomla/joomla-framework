@@ -1187,7 +1187,7 @@ class Form
 
 			// Filter safe HTML.
 			case 'SAFEHTML':
-				$filterInput = new Filter\Input(null, null, 1, 1);
+				$filterInput = new Filter\InputFilter(null, null, 1, 1);
 				$return = $filterInput->clean($value, 'string');
 				break;
 
@@ -1234,7 +1234,7 @@ class Form
 					return;
 				}
 
-				$filterInput = new Filter\Input;
+				$filterInput = new Filter\InputFilter;
 				$value = $filterInput->clean($value, 'html');
 				$value = trim($value);
 
@@ -1368,9 +1368,9 @@ class Form
 					$return = call_user_func($filter, $value);
 				}
 				else
-				// Filter using Input. All HTML code is filtered by default.
+				// Filter using InputFilter. All HTML code is filtered by default.
 				{
-					$filterInput = new Filter\Input;
+					$filterInput = new Filter\InputFilter;
 					$return = $filterInput->clean($value, $filter);
 				}
 				break;
@@ -1733,7 +1733,7 @@ class Form
 	}
 
 	/**
-	 * Proxy for {@link Helper::loadFieldType()}.
+	 * Proxy for {@link FormHelper::loadFieldType()}.
 	 *
 	 * @param   string   $type  The field type.
 	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
@@ -1744,23 +1744,23 @@ class Form
 	 */
 	protected function loadFieldType($type, $new = true)
 	{
-		return Helper::loadFieldType($type, $new);
+		return FormHelper::loadFieldType($type, $new);
 	}
 
 	/**
-	 * Proxy for Helper::loadRuleType().
+	 * Proxy for FormHelper::loadRuleType().
 	 *
 	 * @param   string   $type  The rule type.
 	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
 	 *
 	 * @return  mixed  JFormRule object on success, false otherwise.
 	 *
-	 * @see     Helper::loadRuleType()
+	 * @see     FormHelper::loadRuleType()
 	 * @since   1.0
 	 */
 	protected function loadRuleType($type, $new = true)
 	{
-		return Helper::loadRuleType($type, $new);
+		return FormHelper::loadRuleType($type, $new);
 	}
 
 	/**
@@ -1904,7 +1904,7 @@ class Form
 	}
 
 	/**
-	 * Proxy for {@link Helper::addFieldPath()}.
+	 * Proxy for {@link FormHelper::addFieldPath()}.
 	 *
 	 * @param   mixed  $new  A path or array of paths to add.
 	 *
@@ -1914,37 +1914,37 @@ class Form
 	 */
 	public static function addFieldPath($new = null)
 	{
-		return Helper::addFieldPath($new);
+		return FormHelper::addFieldPath($new);
 	}
 
 	/**
-	 * Proxy for Helper::addFormPath().
+	 * Proxy for FormHelper::addFormPath().
 	 *
 	 * @param   mixed  $new  A path or array of paths to add.
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
-	 * @see     Helper::addFormPath()
+	 * @see     FormHelper::addFormPath()
 	 * @since   1.0
 	 */
 	public static function addFormPath($new = null)
 	{
-		return Helper::addFormPath($new);
+		return FormHelper::addFormPath($new);
 	}
 
 	/**
-	 * Proxy for Helper::addRulePath().
+	 * Proxy for FormHelper::addRulePath().
 	 *
 	 * @param   mixed  $new  A path or array of paths to add.
 	 *
 	 * @return  array  The list of paths that have been added.
 	 *
-	 * @see Helper::addRulePath()
+	 * @see FormHelper::addRulePath()
 	 * @since   1.0
 	 */
 	public static function addRulePath($new = null)
 	{
-		return Helper::addRulePath($new);
+		return FormHelper::addRulePath($new);
 	}
 
 	/**

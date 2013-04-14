@@ -13,6 +13,6 @@ use Joomla\View;
  *
  * @since  1.0
  */
-class HtmlView extends View\Html
+class HtmlView extends View\AbstractHtmlView
 {
 }

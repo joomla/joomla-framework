@@ -6,7 +6,7 @@
 
 namespace Joomla\Database\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for JDatabasePostgresqlQuery.
@@ -117,7 +117,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		$this->dbo = Mock\Driver::create($this, '1970-01-01 00:00:00', 'Y-m-d H:i:s');
 
 		// Mock the escape method to ensure the API is calling the DBO's escape method.
-		Helper::assignMockCallbacks(
+		TestHelper::assignMockCallbacks(
 			$this->dbo,
 			$this,
 			array('escape' => array($this, 'mockEscape'))
@@ -125,7 +125,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test for the \Joomla\Database\Query\Postgresql::__string method for a 'select' case.
+	 * Test for the \Joomla\Database\Postgresql\PostgresqlQuery::__string method for a 'select' case.
 	 *
 	 * @return  void
 	 *
@@ -133,7 +133,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringSelect()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$q->select('a.id')
 			->from('a')
@@ -167,7 +167,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringUpdate()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$q->update('#__foo AS a')
 			->join('INNER', 'b ON b.id = a.id')
@@ -195,7 +195,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringYear()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$q->select($q->year($q->quoteName('col')))->from('table');
 
@@ -214,7 +214,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringMonth()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$q->select($q->month($q->quoteName('col')))->from('table');
 
@@ -233,7 +233,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringDay()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$q->select($q->day($q->quoteName('col')))->from('table');
 
@@ -252,7 +252,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringHour()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$q->select($q->hour($q->quoteName('col')))->from('table');
 
@@ -271,7 +271,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringMinute()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$q->select($q->minute($q->quoteName('col')))->from('table');
 
@@ -290,7 +290,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringSecond()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$q->select($q->second($q->quoteName('col')))->from('table');
 
@@ -309,8 +309,8 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringInsert_subquery()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
-		$subq = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
+		$subq = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 		$subq->select('col2')->where('a=1');
 
 		$q->insert('table')->columns('col')->values($subq);
@@ -337,7 +337,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCastAsChar()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->castAsChar('123'),
@@ -355,7 +355,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCharLength()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->charLength('a.title'),
@@ -376,7 +376,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			$q,
-			$this->isInstanceOf('\Joomla\Database\Query')
+			$this->isInstanceOf('\Joomla\Database\DatabaseQuery')
 		);
 	}
 
@@ -411,12 +411,12 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 			'returning',
 		);
 
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		// First pass - set the values.
 		foreach ($properties as $property)
 		{
-			Helper::setValue($q, $property, $property);
+			TestHelper::setValue($q, $property, $property);
 		}
 
 		// Clear the whole query.
@@ -468,12 +468,12 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		// Test each clause.
 		foreach ($clauses as $clause)
 		{
-			$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+			$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 			// Set the clauses
 			foreach ($clauses as $clause2)
 			{
-				Helper::setValue($q, $clause2, $clause2);
+				TestHelper::setValue($q, $clause2, $clause2);
 			}
 
 			// Clear the clause.
@@ -534,19 +534,19 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 			'values',
 		);
 
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		// Set the clauses.
 		foreach ($clauses as $clause)
 		{
-			Helper::setValue($q, $clause, $clause);
+			TestHelper::setValue($q, $clause, $clause);
 		}
 
 		// Check that all properties have been cleared
 		foreach ($types as $type)
 		{
 			// Set the type.
-			Helper::setValue($q, $type, $type);
+			TestHelper::setValue($q, $type, $type);
 
 			// Clear the type.
 			$q->clear($type);
@@ -580,7 +580,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testConcatenate()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->concatenate(array('foo', 'bar')),
@@ -604,7 +604,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testFrom()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->from('#__foo'),
@@ -637,7 +637,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGroup()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->group('foo'),
@@ -670,7 +670,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testHaving()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->having('COUNT(foo) > 1'),
@@ -694,7 +694,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Reset the field to test the glue.
-		Helper::setValue($q, 'having', null);
+		TestHelper::setValue($q, 'having', null);
 		$q->having('COUNT(foo) > 1', 'OR');
 		$q->having('COUNT(bar) > 2');
 
@@ -714,8 +714,8 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testInnerJoin()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
-		$q2 = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
+		$q2 = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -746,7 +746,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testJoin($type, $conditions)
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->join('INNER', 'foo ON foo.id = bar.id'),
@@ -778,8 +778,8 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testLeftJoin()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
-		$q2 = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
+		$q2 = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -810,7 +810,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testNullDate($quoted, $expected)
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->nullDate($quoted),
@@ -828,7 +828,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOrder()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->order('column'),
@@ -859,8 +859,8 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOuterJoin()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
-		$q2 = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
+		$q2 = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -892,7 +892,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testQuote($text, $escape, $expected)
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->quoteName("test"),
@@ -910,7 +910,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testQuoteName()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->quoteName('test'),
@@ -928,8 +928,8 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRightJoin()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
-		$q2 = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
+		$q2 = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -956,7 +956,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSelect()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->select('foo'),
@@ -1006,7 +1006,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testWhere()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 		$this->assertThat(
 			$q->where('foo = 1'),
 			$this->identicalTo($q),
@@ -1034,7 +1034,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Clear the where
-		Helper::setValue($q, 'where', null);
+		TestHelper::setValue($q, 'where', null);
 		$q->where(
 			array(
 				'bar = 2',
@@ -1051,7 +1051,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the \Joomla\Database\Query\Postgresql::escape method.
+	 * Tests the \Joomla\Database\Postgresql\PostgresqlQuery::escape method.
 	 *
 	 * @return  void
 	 *
@@ -1059,7 +1059,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testEscape()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->escape('foo'),
@@ -1076,7 +1076,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testForUpdate ()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->forUpdate('#__foo'),
@@ -1098,7 +1098,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Testing glue
-		Helper::setValue($q, 'forUpdate', null);
+		TestHelper::setValue($q, 'forUpdate', null);
 		$q->forUpdate('#__foo', ';');
 		$q->forUpdate('#__bar');
 		$this->assertThat(
@@ -1117,7 +1117,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testForShare ()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->forShare('#__foo'),
@@ -1139,7 +1139,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Testing glue
-		Helper::setValue($q, 'forShare', null);
+		TestHelper::setValue($q, 'forShare', null);
 		$q->forShare('#__foo', ';');
 		$q->forShare('#__bar');
 		$this->assertThat(
@@ -1158,7 +1158,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testNoWait ()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->noWait(),
@@ -1182,7 +1182,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testLimit()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->limit('5'),
@@ -1206,7 +1206,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOffset()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->offset('10'),
@@ -1230,7 +1230,7 @@ class PostgresqlQueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testReturning()
 	{
-		$q = new \Joomla\Database\Query\Postgresql($this->dbo);
+		$q = new \Joomla\Database\Postgresql\PostgresqlQuery($this->dbo);
 
 		$this->assertThat(
 			$q->returning('id'),

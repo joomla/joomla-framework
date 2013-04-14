@@ -6,7 +6,7 @@
 
 namespace Joomla\Form\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 use Joomla\Form\Field_Checkbox;
 
 /**
@@ -45,13 +45,13 @@ class JFormFieldCheckboxTest extends \PHPUnit_Framework_TestCase
 		// Test with no checked element
 		$element = simplexml_load_string(
 			'<field name="color" type="checkbox" value="red" />');
-		Helper::setValue($formField, 'element', $element);
-		Helper::setValue($formField, 'id', 'myTestId');
-		Helper::setValue($formField, 'name', 'myTestName');
+		TestHelper::setValue($formField, 'element', $element);
+		TestHelper::setValue($formField, 'id', 'myTestId');
+		TestHelper::setValue($formField, 'name', 'myTestName');
 
 		$this->assertEquals(
 			'<input type="checkbox" name="myTestName" id="myTestId" value="red" />',
-			Helper::invoke($formField, 'getInput'),
+			TestHelper::invoke($formField, 'getInput'),
 			'The field with no value and no checked attribute did not produce the right html'
 		);
 	}
@@ -71,14 +71,14 @@ class JFormFieldCheckboxTest extends \PHPUnit_Framework_TestCase
 		// Test with no checked element
 		$element = simplexml_load_string(
 			'<field name="color" type="checkbox" value="red" />');
-		Helper::setValue($formField, 'element', $element);
-		Helper::setValue($formField, 'id', 'myTestId');
-		Helper::setValue($formField, 'name', 'myTestName');
-		Helper::setValue($formField, 'value', 'red');
+		TestHelper::setValue($formField, 'element', $element);
+		TestHelper::setValue($formField, 'id', 'myTestId');
+		TestHelper::setValue($formField, 'name', 'myTestName');
+		TestHelper::setValue($formField, 'value', 'red');
 
 		$this->assertEquals(
 			'<input type="checkbox" name="myTestName" id="myTestId" value="red" checked="checked" />',
-			Helper::invoke($formField, 'getInput'),
+			TestHelper::invoke($formField, 'getInput'),
 			'The field with a value and no checked attribute did not produce the right html'
 		);
 	}
@@ -97,13 +97,13 @@ class JFormFieldCheckboxTest extends \PHPUnit_Framework_TestCase
 		// Test with checked element
 		$element = simplexml_load_string(
 			'<field name="color" type="checkbox" value="red" checked="checked" />');
-		Helper::setValue($formField, 'element', $element);
-		Helper::setValue($formField, 'id', 'myTestId');
-		Helper::setValue($formField, 'name', 'myTestName');
+		TestHelper::setValue($formField, 'element', $element);
+		TestHelper::setValue($formField, 'id', 'myTestId');
+		TestHelper::setValue($formField, 'name', 'myTestName');
 
 		$this->assertEquals(
 			'<input type="checkbox" name="myTestName" id="myTestId" value="red" checked="checked" />',
-			Helper::invoke($formField, 'getInput'),
+			TestHelper::invoke($formField, 'getInput'),
 			'The field with no value and the checked attribute did not produce the right html'
 		);
 	}
@@ -122,13 +122,13 @@ class JFormFieldCheckboxTest extends \PHPUnit_Framework_TestCase
 		// Test with checked element
 		$element = simplexml_load_string(
 			'<field name="color" type="checkbox" value="red" disabled="true" />');
-		Helper::setValue($formField, 'element', $element);
-		Helper::setValue($formField, 'id', 'myTestId');
-		Helper::setValue($formField, 'name', 'myTestName');
+		TestHelper::setValue($formField, 'element', $element);
+		TestHelper::setValue($formField, 'id', 'myTestId');
+		TestHelper::setValue($formField, 'name', 'myTestName');
 
 		$this->assertEquals(
 			'<input type="checkbox" name="myTestName" id="myTestId" value="red" disabled="disabled" />',
-			Helper::invoke($formField, 'getInput'),
+			TestHelper::invoke($formField, 'getInput'),
 			'The field set to disabled did not produce the right html'
 		);
 	}

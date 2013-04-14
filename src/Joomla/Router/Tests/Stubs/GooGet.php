@@ -6,14 +6,14 @@
 
 namespace Joomla\Router\Tests\Stubs;
 
-use Joomla\Controller\Base;
+use Joomla\Controller\AbstractController;
 
 /**
  * Test stub controller.
  *
  * @since  1.0
  */
-class GooGet extends Base
+class GooGet extends AbstractController
 {
 	/**
 	 * Execute the controller.

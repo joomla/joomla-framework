@@ -10,8 +10,8 @@ namespace Joomla\Filesystem;
 
 use Joomla\Factory;
 use Joomla\Log\Log;
-use Joomla\Client\Ftp as ClientFtp;
-use Joomla\Client\Helper as ClientHelper;
+use Joomla\Client\FtpClient;
+use Joomla\Client\ClientHelper;
 
 /**
  * A File handling class
@@ -115,7 +115,7 @@ class File
 			if ($FTPOptions['enabled'] == 1)
 			{
 				// Connect the FTP client
-				$ftp = ClientFtp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 
 				// If the parent folder doesn't exist we must create it
 				if (!file_exists(dirname($dest)))
@@ -176,7 +176,7 @@ class File
 		if ($FTPOptions['enabled'] == 1)
 		{
 			// Connect the FTP client
-			$ftp = ClientFtp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+			$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 		}
 
 		foreach ($files as $file)
@@ -262,7 +262,7 @@ class File
 			if ($FTPOptions['enabled'] == 1)
 			{
 				// Connect the FTP client
-				$ftp = ClientFtp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 
 				// Translate path for the FTP account
 				$src = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $src), '/');
@@ -334,7 +334,7 @@ class File
 			if ($FTPOptions['enabled'] == 1)
 			{
 				// Connect the FTP client
-				$ftp = ClientFtp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 
 				// Translate path for the FTP account and use FTP write buffer to file
 				$file = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $file), '/');
@@ -395,7 +395,7 @@ class File
 			if ($FTPOptions['enabled'] == 1)
 			{
 				// Connect the FTP client
-				$ftp = ClientFtp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 
 				// Translate path for the FTP account
 				$dest = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $dest), '/');

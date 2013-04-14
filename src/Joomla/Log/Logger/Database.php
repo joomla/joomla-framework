@@ -8,9 +8,9 @@
 
 namespace Joomla\Log\Logger;
 
-use Joomla\Database\Driver;
-use Joomla\Log\Logger;
-use Joomla\Log\Entry;
+use Joomla\Database\DatabaseDriver;
+use Joomla\Log\AbstractLogger;
+use Joomla\Log\LogEntry;
 use Joomla\Factory;
 
 /**
@@ -22,7 +22,7 @@ use Joomla\Factory;
  *
  * @since  1.0
  */
-class Database extends Logger
+class Database extends AbstractLogger
 {
 	/**
 	 * @var    string  The name of the database driver to use for connecting to the database.
@@ -107,13 +107,13 @@ class Database extends Logger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   Entry  $entry  The log entry object to add to the log.
+	 * @param   LogEntry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function addEntry(Entry $entry)
+	public function addEntry(LogEntry $entry)
 	{
 		// Connect to the database if not connected.
 		if (empty($this->dbo))
@@ -146,7 +146,7 @@ class Database extends Logger
 			'database' => $this->database,
 			'prefix' => $this->prefix);
 
-		$db = Driver::getInstance($options);
+		$db = DatabaseDriver::getInstance($options);
 
 		// Assign the database connector to the class.
 		$this->dbo = $db;

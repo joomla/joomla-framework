@@ -9,7 +9,7 @@
 namespace Joomla\Oauth2;
 
 use Joomla\Registry\Registry;
-use Joomla\Application\Web;
+use Joomla\Application\AbstractWebApplication;
 use Joomla\Input\Input;
 use Joomla\Http\Http;
 use Joomla\Factory;
@@ -43,7 +43,7 @@ class Client
 	protected $input;
 
 	/**
-	 * @var    Web  The application object to send HTTP headers for redirects.
+	 * @var    AbstractWebApplication  The application object to send HTTP headers for redirects.
 	 * @since  1.0
 	 */
 	protected $application;
@@ -51,19 +51,19 @@ class Client
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options      JOAuth2Client options object
-	 * @param   Http      $http         The HTTP client object
-	 * @param   Input     $input        The input object
-	 * @param   Web       $application  The application object
+	 * @param   Registry                $options      OAuth2 Client options object
+	 * @param   Http                    $http         The HTTP client object
+	 * @param   Input                   $input        The input object
+	 * @param   AbstractWebApplication  $application  The application object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Http $http = null, Input $input, Web $application = null)
+	public function __construct(Registry $options = null, Http $http = null, Input $input, AbstractWebApplication $application = null)
 	{
 		$this->options = isset($options) ? $options : new Registry;
 		$this->http = isset($http) ? $http : new Http($this->options);
 		$this->input = isset($input) ? $input : Factory::getApplication()->input;
-		$this->application = isset($application) ? $application : Web::getInstance();
+		$this->application = isset($application) ? $application : AbstractWebApplication::getInstance();
 	}
 
 	/**

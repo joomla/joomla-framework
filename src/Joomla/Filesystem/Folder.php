@@ -11,7 +11,7 @@ namespace Joomla\Filesystem;
 use Joomla\Factory;
 use Joomla\Log\Log;
 use Joomla\Client\Ftp;
-use Joomla\Client\Helper as ClientHelper;
+use Joomla\Client\ClientHelper;
 
 /**
  * A Folder handling class

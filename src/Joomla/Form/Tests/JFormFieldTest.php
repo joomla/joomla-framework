@@ -7,7 +7,7 @@
 namespace Joomla\Form\Tests;
 
 use Joomla\Form\Form;
-use Joomla\Form\Helper;
+use Joomla\Form\FormHelper;
 
 /**
  * Test class for JFormField.
@@ -72,7 +72,7 @@ class JFormFieldTest extends \PHPUnit_Framework_TestCase
 		// Add custom path.
 		Form::addFieldPath(__DIR__ . '/_testfields');
 
-		Helper::loadFieldType('foo.bar');
+		FormHelper::loadFieldType('foo.bar');
 		$field = new \Foo\Form\Field_Bar($form);
 		$this->assertEquals(
 			$field->type,
@@ -80,7 +80,7 @@ class JFormFieldTest extends \PHPUnit_Framework_TestCase
 			'Line:' . __LINE__ . ' The field type should have been guessed by the constructor.'
 		);
 
-		Helper::loadFieldType('foo');
+		FormHelper::loadFieldType('foo');
 		$field = new \Joomla\Form\Field_Foo($form);
 		$this->assertEquals(
 			$field->type,
@@ -88,7 +88,7 @@ class JFormFieldTest extends \PHPUnit_Framework_TestCase
 			'Line:' . __LINE__ . ' The field type should have been guessed by the constructor.'
 		);
 
-		Helper::loadFieldType('modal_foo');
+		FormHelper::loadFieldType('modal_foo');
 		$field = new \Joomla\Form\Field_Modal_Foo($form);
 		$this->assertEquals(
 			$field->type,

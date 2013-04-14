@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Account extends Object
+class Account extends GithubObject
 {
 	/**
 	 * Method to create an authorisation.

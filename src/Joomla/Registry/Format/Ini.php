@@ -8,7 +8,7 @@
 
 namespace Joomla\Registry\Format;
 
-use Joomla\Registry\Format;
+use Joomla\Registry\AbstractRegistryFormat;
 use stdClass;
 
 /**
@@ -16,7 +16,7 @@ use stdClass;
  *
  * @since  1.0
  */
-class Ini extends Format
+class Ini extends AbstractRegistryFormat
 {
 	/**
 	 * A cache used by stringToobject.

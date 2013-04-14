@@ -11,11 +11,7 @@ namespace Joomla\View;
 use Joomla\Model\ModelInterface;
 
 /**
-<<<<<<< HEAD:src/Joomla/View/Base.php
- * Joomla Framework Base View Class
-=======
  * Joomla Framework Abstract View Class
->>>>>>> staging:src/Joomla/View/AbstractView.php
  *
  * @since  1.0
  */

@@ -8,7 +8,7 @@
 
 namespace Joomla\Registry\Format;
 
-use Joomla\Registry\Format;
+use Joomla\Registry\AbstractRegistryFormat;
 use SimpleXMLElement;
 use stdClass;
 
@@ -17,7 +17,7 @@ use stdClass;
  *
  * @since  1.0
  */
-class Xml extends Format
+class Xml extends AbstractRegistryFormat
 {
 	/**
 	 * Converts an object into an XML formatted string.

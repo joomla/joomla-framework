@@ -8,14 +8,14 @@
 
 namespace Joomla\Image\Filter;
 
-use Joomla\Image\Filter;
+use Joomla\Image\ImageFilter;
 
 /**
  * Image Filter class to make an image appear "sketchy".
  *
  * @since  1.0
  */
-class Sketchy extends Filter
+class Sketchy extends ImageFilter
 {
 	/**
 	 * Method to apply a filter to an image resource.

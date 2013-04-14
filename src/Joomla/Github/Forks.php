@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Forks extends Object
+class Forks extends GithubObject
 {
 	/**
 	 * Method to fork a repository.

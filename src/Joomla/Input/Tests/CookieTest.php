@@ -7,7 +7,7 @@
 namespace Joomla\Input\Tests;
 
 use Joomla\Input\Cookie;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for JInputCookie.
@@ -42,7 +42,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
 		{
 			$this->instance->set('foo', 'bar');
 
-			$data = Helper::getValue($this->instance, 'data');
+			$data = TestHelper::getValue($this->instance, 'data');
 
 			$this->assertTrue(array_key_exists('foo', $data));
 			$this->assertTrue(in_array('bar', $data));

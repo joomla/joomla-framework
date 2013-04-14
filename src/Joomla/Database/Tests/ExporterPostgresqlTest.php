@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests;
 require_once __DIR__ . '/ExporterPostgresqlInspector.php';
 
 /**
- * Test the \Joomla\Database\Exporter\Postgresql class.
+ * Test the \Joomla\Database\Postgresql\PostgresqlExporter class.
  *
  * @since  1.0
  */
@@ -46,7 +46,7 @@ class ExporterPostgresqlTest extends \PHPUnit_Framework_TestCase
 
 		// Set up the database object mock.
 		$this->dbo = $this->getMock(
-			'Joomla\\Database\\Driver\\Postgresql',
+			'Joomla\\Database\\Postgresql\\PostgresqlDriver',
 			array(
 				'getErrorNum',
 				'getPrefix',

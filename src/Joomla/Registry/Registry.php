@@ -289,7 +289,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	public function loadString($data, $format = 'JSON', $options = array())
 	{
 		// Load a string into the given namespace [or default namespace if not given]
-		$handler = Format::getInstance($format);
+		$handler = AbstractRegistryFormat::getInstance($format);
 
 		$obj = $handler->stringToObject($data, $options);
 		$this->loadObject($obj);
@@ -463,7 +463,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	public function toString($format = 'JSON', $options = array())
 	{
 		// Return a namespace in a given format
-		$handler = Format::getInstance($format);
+		$handler = AbstractRegistryFormat::getInstance($format);
 
 		return $handler->objectToString($this->data, $options);
 	}

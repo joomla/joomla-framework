@@ -7,7 +7,7 @@
 namespace Joomla\Profiler\Tests;
 
 use Joomla\Profiler\ProfilePoint;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Tests for the ProfilePoint class.
@@ -27,14 +27,14 @@ class ProfilePointTest extends \PHPUnit_Framework_TestCase
 	public function test__construct()
 	{
 		$point = new ProfilePoint('test');
-		$this->assertEquals('test', Helper::getValue($point, 'name'));
-		$this->assertSame(0.0, Helper::getValue($point, 'time'));
-		$this->assertSame(0, Helper::getValue($point, 'memoryBytes'));
+		$this->assertEquals('test', TestHelper::getValue($point, 'name'));
+		$this->assertSame(0.0, TestHelper::getValue($point, 'time'));
+		$this->assertSame(0, TestHelper::getValue($point, 'memoryBytes'));
 
 		$point = new ProfilePoint('foo', '1', '1048576');
-		$this->assertEquals('foo', Helper::getValue($point, 'name'));
-		$this->assertSame(1.0, Helper::getValue($point, 'time'));
-		$this->assertSame(1048576, Helper::getValue($point, 'memoryBytes'));
+		$this->assertEquals('foo', TestHelper::getValue($point, 'name'));
+		$this->assertSame(1.0, TestHelper::getValue($point, 'time'));
+		$this->assertSame(1048576, TestHelper::getValue($point, 'memoryBytes'));
 	}
 
 	/**

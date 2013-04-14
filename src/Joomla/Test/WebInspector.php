@@ -8,14 +8,14 @@
 
 namespace Joomla\Test;
 
-use Joomla\Application\Web;
+use Joomla\Application\AbstractWebApplication;
 
 /**
  * Inspector for the Joomla\Application\Web class.
  *
  * @since  1.0
  */
-class WebInspector extends Web
+class WebInspector extends AbstractWebApplication
 {
 	/**
 	 * @var     boolean  True to mimic the headers already being sent.
@@ -123,7 +123,7 @@ class WebInspector extends Web
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function fetchConfigurationData($file = '', $class = '\\Joomla\\Test\\Config')
+	protected function fetchConfigurationData($file = '', $class = '\\Joomla\\Test\\TestConfig')
 	{
 		// Instantiate variables.
 		$config = array();

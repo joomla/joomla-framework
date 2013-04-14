@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Gists extends Object
+class Gists extends GithubObject
 {
 	/**
 	 * Method to create a gist.

@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\Format;
+use Joomla\Registry\AbstractRegistryFormat;
 
 /**
  * Test class for Ini.
@@ -22,7 +22,7 @@ class JRegistryFormatINITest extends PHPUnit_Framework_TestCase
 	 */
 	public function testObjectToString()
 	{
-		$class = Format::getInstance('INI');
+		$class = AbstractRegistryFormat::getInstance('INI');
 		$options = null;
 		$object = new stdClass;
 		$object->foo = 'bar';
@@ -50,7 +50,7 @@ class JRegistryFormatINITest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStringToObject()
 	{
-		$class = Format::getInstance('INI');
+		$class = AbstractRegistryFormat::getInstance('INI');
 
 		$string2 = "[section]\nfoo=bar";
 

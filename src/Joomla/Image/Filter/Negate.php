@@ -8,14 +8,14 @@
 
 namespace Joomla\Image\Filter;
 
-use Joomla\Image\Filter;
+use Joomla\Image\ImageFilter;
 
 /**
  * Image Filter class to negate the colors of an image.
  *
  * @since  1.0
  */
-class Negate extends Filter
+class Negate extends ImageFilter
 {
 	/**
 	 * Method to apply a filter to an image resource.

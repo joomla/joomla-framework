@@ -6,14 +6,14 @@
 
 namespace Joomla\Application\Tests;
 
-use Joomla\Application\Web;
+use Joomla\Application\AbstractWebApplication;
 
 /**
  * Concrete stub for the Joomla\Application\Web class.
  *
  * @since  1.0
  */
-class ConcreteWeb extends Web
+class ConcreteWeb extends AbstractWebApplication
 {
 	/**
 	 * The exit code if the application was closed otherwise null.

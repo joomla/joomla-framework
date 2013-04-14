@@ -6,7 +6,7 @@
 
 namespace Joomla\Database\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Abstract test case class for database testing.
@@ -16,7 +16,7 @@ use Joomla\Test\Helper;
 abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 {
 	/**
-	 * @var    \Joomla\Database\Driver  The active database driver being used for the tests.
+	 * @var    \Joomla\Database\DatabaseDriver  The active database driver being used for the tests.
 	 * @since  1.0
 	 */
 	protected static $driver;
@@ -40,14 +40,14 @@ abstract class DatabaseCase extends \PHPUnit_Extensions_Database_TestCase
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = \Joomla\Database\Driver::getInstance($options);
+			self::$driver = \Joomla\Database\DatabaseDriver::getInstance($options);
 
 			// Create a new PDO instance for an SQLite memory database and load the test schema into it.
 			$pdo = new \PDO('sqlite::memory:');
 			$pdo->exec(file_get_contents(__DIR__ . '/Stubs/ddl.sql'));
 
 			// Set the PDO instance to the driver using reflection whizbangery.
-			Helper::setValue(self::$driver, 'connection', $pdo);
+			TestHelper::setValue(self::$driver, 'connection', $pdo);
 		}
 		catch (\RuntimeException $e)
 		{

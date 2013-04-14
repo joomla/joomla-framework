@@ -5,7 +5,7 @@
  */
 
 use Joomla\Registry\Registry;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for Registry.
@@ -150,28 +150,28 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 		$a = new Registry;
 		$parent = new stdClass;
 
-		Helper::invoke($a, 'bindData', $parent, 'foo');
+		TestHelper::invoke($a, 'bindData', $parent, 'foo');
 		$this->assertThat(
 			$parent->{0},
 			$this->equalTo('foo'),
 			'Line: ' . __LINE__ . ' The input value should exist in the parent object.'
 		);
 
-		Helper::invoke($a, 'bindData', $parent, array('foo' => 'bar'));
+		TestHelper::invoke($a, 'bindData', $parent, array('foo' => 'bar'));
 		$this->assertThat(
 			$parent->{'foo'},
 			$this->equalTo('bar'),
 			'Line: ' . __LINE__ . ' The input value should exist in the parent object.'
 		);
 
-		Helper::invoke($a, 'bindData', $parent, array('level1' => array('level2' => 'value2')));
+		TestHelper::invoke($a, 'bindData', $parent, array('level1' => array('level2' => 'value2')));
 		$this->assertThat(
 			$parent->{'level1'}->{'level2'},
 			$this->equalTo('value2'),
 			'Line: ' . __LINE__ . ' The input value should exist in the parent object.'
 		);
 
-		Helper::invoke($a, 'bindData', $parent, array('intarray' => array(0, 1, 2)));
+		TestHelper::invoke($a, 'bindData', $parent, array('intarray' => array(0, 1, 2)));
 		$this->assertThat(
 			$parent->{'intarray'},
 			$this->equalTo(array(0, 1, 2)),

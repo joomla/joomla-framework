@@ -6,7 +6,7 @@
 
 namespace Joomla\Cache\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Class to mock Joomla\Mocker\Cache.
@@ -64,7 +64,7 @@ class Mocker
 			false
 		);
 
-		Helper::assignMockCallbacks(
+		TestHelper::assignMockCallbacks(
 			$mockObject,
 			$this->test,
 			array(
@@ -104,7 +104,7 @@ class Mocker
 			false
 		);
 
-		Helper::assignMockCallbacks(
+		TestHelper::assignMockCallbacks(
 			$mockObject,
 			$this->test,
 			array(

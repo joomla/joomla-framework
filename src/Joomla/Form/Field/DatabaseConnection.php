@@ -9,14 +9,14 @@
 namespace Joomla\Form;
 
 use Joomla\Language\Text;
-use Joomla\Database\Driver;
+use Joomla\Database\DatabaseDriver;
 
 /**
  * Form Field class for the Joomla Framework.
  * Provides a list of available database connections, optionally limiting to
  * a given list.
  *
- * @see    JDatabaseDriver
+ * @see    Joomla\Database\DatabaseDriver
  * @since  1.0
  */
 class Field_DatabaseConnection extends Field_List
@@ -38,12 +38,12 @@ class Field_DatabaseConnection extends Field_List
 	 * @return  array    The field option objects.
 	 *
 	 * @since   1.0
-	 * @see		JDatabaseDriver
+	 * @see		Joomla\Database\DatabaseDriver
 	 */
 	protected function getOptions()
 	{
 		// This gets the connectors available in the platform and supported by the server.
-		$available = Driver::getConnectors();
+		$available = DatabaseDriver::getConnectors();
 
 		/**
 		 * This gets the list of database types supported by the application.

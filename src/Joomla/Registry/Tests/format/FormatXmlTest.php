@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\Format;
+use Joomla\Registry\AbstractRegistryFormat;
 
 /**
  * Test class for Xml.
@@ -22,7 +22,7 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testObjectToString()
 	{
-		$class = Format::getInstance('XML');
+		$class = AbstractRegistryFormat::getInstance('XML');
 		$options = null;
 		$object = new stdClass;
 		$object->foo = 'bar';
@@ -68,7 +68,7 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStringToObject()
 	{
-		$class = Format::getInstance('XML');
+		$class = AbstractRegistryFormat::getInstance('XML');
 		$object = new stdClass;
 		$object->foo = 'bar';
 		$object->booleantrue = true;

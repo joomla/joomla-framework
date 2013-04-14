@@ -7,7 +7,7 @@
 namespace Joomla\Database\Tests;
 
 /**
- * Test class for Joomla\Database\Driver\Mysqli.
+ * Test class for Joomla\Database\Mysqli\MysqliDriver.
  *
  * @since  1.0
  */
@@ -63,7 +63,7 @@ class DriverMysqliTest extends DatabaseMysqliCase
 	{
 		$this->assertThat(
 			self::$driver->dropTable('#__bar', true),
-			$this->isInstanceOf('\\Joomla\\Database\\Driver\\Mysqli'),
+			$this->isInstanceOf('\\Joomla\\Database\\Mysqli\\MysqliDriver'),
 			'The table is dropped if present.'
 		);
 	}
@@ -119,7 +119,7 @@ class DriverMysqliTest extends DatabaseMysqliCase
 	{
 		$this->assertThat(
 			self::$driver->getExporter(),
-			$this->isInstanceOf('\\Joomla\\Database\\Exporter\\Mysqli'),
+			$this->isInstanceOf('\\Joomla\\Database\\Mysqli\\MysqliExporter'),
 			'Line:' . __LINE__ . ' The getExporter method should return the correct exporter.'
 		);
 	}
@@ -135,7 +135,7 @@ class DriverMysqliTest extends DatabaseMysqliCase
 	{
 		$this->assertThat(
 			self::$driver->getImporter(),
-			$this->isInstanceOf('\\Joomla\\Database\\Importer\\Mysqli'),
+			$this->isInstanceOf('\\Joomla\\Database\\Mysqli\\MysqliImporter'),
 			'Line:' . __LINE__ . ' The getImporter method should return the correct importer.'
 		);
 	}
@@ -494,7 +494,7 @@ class DriverMysqliTest extends DatabaseMysqliCase
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(\Joomla\Database\Driver\Mysqli::isSupported(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Mysqli\MysqliDriver::isSupported(), $this->isTrue(), __LINE__);
 	}
 
 	/**

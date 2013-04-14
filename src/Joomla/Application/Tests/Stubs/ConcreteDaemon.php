@@ -6,15 +6,14 @@
 
 namespace Joomla\Application\Tests;
 
-use Joomla\Application\Daemon;
-use Joomla\Test\Helper;
+use Joomla\Application\AbstractDaemonApplication;
 
 /**
  * Inspector for the Joomla\Application\Daemon class.
  *
  * @since  1.0
  */
-class ConcreteDaemon extends Daemon
+class ConcreteDaemon extends AbstractDaemonApplication
 {
 	/**
 	 * @var     integer  Mimic the response of the pcntlChildExitStatus method.

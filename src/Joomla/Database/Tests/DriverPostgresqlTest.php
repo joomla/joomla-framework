@@ -7,7 +7,7 @@
 namespace Joomla\Database\Tests;
 
 /**
- * Test class for Joomla\Database\Driver\Postgresql.
+ * Test class for Joomla\Database\Postgresql\PostgresqlDriver.
  *
  * @since  1.0
  */
@@ -547,7 +547,7 @@ class DriverPostgresqlTest extends DatabasePostgresqlCase
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(\Joomla\Database\Driver\Postgresql::isSupported(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Postgresql\PostgresqlDriver::isSupported(), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -882,7 +882,7 @@ class DriverPostgresqlTest extends DatabasePostgresqlCase
 	 */
 	public function testTest()
 	{
-		$this->assertThat(\Joomla\Database\Driver\Postgresql::test(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Postgresql\PostgresqlDriver::test(), $this->isTrue(), __LINE__);
 	}
 
 	/**

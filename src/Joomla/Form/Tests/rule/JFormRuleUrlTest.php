@@ -6,7 +6,7 @@
 
 namespace Joomla\Form\Tests;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 use Joomla\Form\Rule\Url as RuleUrl;
 
 /**
