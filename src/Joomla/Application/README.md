@@ -7,15 +7,15 @@
 If you are overriding the `__construct` method in your application class, remember to call the parent constructor last.
 
 ```php
-use Joomla\Application\Base;
+use Joomla\Application\AbstractApplication;
 
-class MyApplication extends Base
+class MyApplication extends AbstractApplication
 {
 	/**
 	 * Customer constructor for my application class.
 	 *
 	 * @param   Input     $input
-	 * @param   Registry  $config  
+	 * @param   Registry  $config
 	 *
 	 * @since   1.0
 	 */
@@ -23,11 +23,11 @@ class MyApplication extends Base
 	{
 		// Do some extra assignment.
 		$this->foo = $foo;
-		
+
 		// Call the parent constructor last of all.
 		parent::__construct($input, $config);
 	}
-	
+
 	protected function doExecute()
 	{
 		// Do stuff.
@@ -56,12 +56,12 @@ class MyApplication extends Base
 The following example shows how you could set up logging in your application using `initialise` method from `Application\Base`.
 
 ```php
-use Joomla\Application\Base;
+use Joomla\Application\AbstractApplication;
 use Monolog\Monolog;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 
-class MyApplication extends Base
+class MyApplication extends AbstractApplication
 {
 	/**
 	 * Custom initialisation for my application.
@@ -77,7 +77,7 @@ class MyApplication extends Base
 		// Get the file logging path from configuration.
 		$logPath = $this->get('logger.path');
 		$log = new Logger('MyApp');
-		
+
 		if ($logPath)
 		{
 			// If the log path is set, configure a file logger.
@@ -88,7 +88,7 @@ class MyApplication extends Base
 			// If the log path is not set, just use a null logger.
 			$log->pushHandler(new NullHandler, Logger::WARNING);
 		}
-		
+
 		$this->setLogger($logger);
 	}
 }
@@ -102,17 +102,17 @@ To check if the logger has been set, use the `hasLogger` method. This will retur
 Consider the following example:
 
 ```php
-use Joomla\Application\Base;
+use Joomla\Application\AbstractApplication;
 
-class MyApplication extends Base
+class MyApplication extends AbstractApplication
 {
 	protected function doExecute()
 	{
 		// Do stuff.
-		
+
 		// In this case, we always want the logger set.
 		$this->getLogger()->logInfo('Performed this {task}', array('task' => $task));
-		
+
 		// Or, in this case logging is optional, so we check if the logger is set first.
 		if ($this->get('debug') && $this->hasLogger())
 		{
@@ -138,14 +138,14 @@ use Joomla\Application\Tests\Mocker as AppMocker;
 class MyTest extends \PHPUnit_Framework_TestCase
 {
 	private $instance;
-	
+
 	protected function setUp()
 	{
 		parent::setUp();
 
 		// Create the mock input object.
 		$appMocker = new AppMocker($this);
-		$mockApp = $appMocker->createMockWeb();		
+		$mockApp = $appMocker->createMockWeb();
 		// Create the test instance injecting the mock dependency.
 		$this->instance = new MyClass($mockApp);
 	}

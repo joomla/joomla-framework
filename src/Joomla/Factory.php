@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 use Joomla\Language\Language;
 use Joomla\Filesystem\Stream;
 use Joomla\Session\Session;
-use Joomla\Database\Driver;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Language\Text;
 use Joomla\Client\Helper;
 use Joomla\Date\Date;

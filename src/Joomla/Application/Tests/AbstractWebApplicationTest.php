@@ -88,7 +88,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::__construct method.
+	 * Tests the Joomla\Application\AbstractWebApplication::__construct method.
 	 *
 	 * @return  void
 	 *
@@ -136,7 +136,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::__construct method with dependancy injection.
+	 * Tests the Joomla\Application\AbstractWebApplication::__construct method with dependancy injection.
 	 *
 	 * @return  void
 	 *
@@ -190,7 +190,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::allowCache method.
+	 * Tests the Joomla\Application\AbstractWebApplication::allowCache method.
 	 *
 	 * @return  void
 	 *
@@ -218,7 +218,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::appendBody method.
+	 * Tests the Joomla\Application\AbstractWebApplication::appendBody method.
 	 *
 	 * @return  void
 	 *
@@ -251,7 +251,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::clearHeaders method.
+	 * Tests the Joomla\Application\AbstractWebApplication::clearHeaders method.
 	 *
 	 * @return  void
 	 *
@@ -280,7 +280,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::close method.
+	 * Tests the Joomla\Application\AbstractWebApplication::close method.
 	 *
 	 * @return  void
 	 *
@@ -306,7 +306,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::compress method.
+	 * Tests the Joomla\Application\AbstractWebApplication::compress method.
 	 *
 	 * @return  void
 	 *
@@ -362,7 +362,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::compress method.
+	 * Tests the Joomla\Application\AbstractWebApplication::compress method.
 	 *
 	 * @return  void
 	 *
@@ -418,7 +418,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::compress method.
+	 * Tests the Joomla\Application\AbstractWebApplication::compress method.
 	 *
 	 * @return  void
 	 *
@@ -472,7 +472,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::compress method.
+	 * Tests the Joomla\Application\AbstractWebApplication::compress method.
 	 *
 	 * @return  void
 	 *
@@ -532,7 +532,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::compress method.
+	 * Tests the Joomla\Application\AbstractWebApplication::compress method.
 	 *
 	 * @return  void
 	 *
@@ -586,7 +586,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::detectRequestUri method.
+	 * Tests the Joomla\Application\AbstractWebApplication::detectRequestUri method.
 	 *
 	 * @param   string  $https        @todo
 	 * @param   string  $phpSelf      @todo
@@ -625,7 +625,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Web::execute
+	 * @covers  Joomla\Application\AbstractWebApplication::execute
 	 * @since   1.0
 	 */
 	public function testExecute()
@@ -644,7 +644,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::getBody method.
+	 * Tests the Joomla\Application\AbstractWebApplication::getBody method.
 	 *
 	 * @return  void
 	 *
@@ -683,7 +683,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::getHeaders method.
+	 * Tests the Joomla\Application\AbstractWebApplication::getHeaders method.
 	 *
 	 * @return  void
 	 *
@@ -710,7 +710,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::loadSystemUris method.
+	 * Tests the Joomla\Application\AbstractWebApplication::loadSystemUris method.
 	 *
 	 * @return  void
 	 *
@@ -756,7 +756,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::loadSystemUris method.
+	 * Tests the Joomla\Application\AbstractWebApplication::loadSystemUris method.
 	 *
 	 * @return  void
 	 *
@@ -798,7 +798,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::loadSystemUris method.
+	 * Tests the Joomla\Application\AbstractWebApplication::loadSystemUris method.
 	 *
 	 * @return  void
 	 *
@@ -845,7 +845,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::loadSystemUris method.
+	 * Tests the Joomla\Application\AbstractWebApplication::loadSystemUris method.
 	 *
 	 * @return  void
 	 *
@@ -892,7 +892,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::prependBody method.
+	 * Tests the Joomla\Application\AbstractWebApplication::prependBody method.
 	 *
 	 * @return  void
 	 *
@@ -925,7 +925,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::redirect method.
+	 * Tests the Joomla\Application\AbstractWebApplication::redirect method.
 	 *
 	 * @return  void
 	 *
@@ -966,7 +966,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::redirect method with headers already sent.
+	 * Tests the Joomla\Application\AbstractWebApplication::redirect method with headers already sent.
 	 *
 	 * @return  void
 	 *
@@ -999,7 +999,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::redirect method with headers already sent.
+	 * Tests the Joomla\Application\AbstractWebApplication::redirect method with headers already sent.
 	 *
 	 * @return  void
 	 *
@@ -1036,7 +1036,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::redirect method with moved option.
+	 * Tests the Joomla\Application\AbstractWebApplication::redirect method with moved option.
 	 *
 	 * @return  void
 	 *
@@ -1070,7 +1070,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::redirect method with assorted URL's.
+	 * Tests the Joomla\Application\AbstractWebApplication::redirect method with assorted URL's.
 	 *
 	 * @param   string  $url       @todo
 	 * @param   string  $base      @todo
@@ -1109,7 +1109,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::respond method.
+	 * Tests the Joomla\Application\AbstractWebApplication::respond method.
 	 *
 	 * @return  void
 	 *
@@ -1121,7 +1121,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::sendHeaders method.
+	 * Tests the Joomla\Application\AbstractWebApplication::sendHeaders method.
 	 *
 	 * @return  void
 	 *
@@ -1153,7 +1153,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::setBody method.
+	 * Tests the Joomla\Application\AbstractWebApplication::setBody method.
 	 *
 	 * @return  void
 	 *
@@ -1183,7 +1183,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Web::setHeader method.
+	 * Tests the Joomla\Application\AbstractWebApplication::setHeader method.
 	 *
 	 * @return  void
 	 *
@@ -1233,8 +1233,8 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Web::getSession
-	 * @covers  Joomla\Application\Web::setSession
+	 * @covers  Joomla\Application\AbstractWebApplication::getSession
+	 * @covers  Joomla\Application\AbstractWebApplication::setSession
 	 * @since   1.0
 	 */
 	public function testSetSession()
@@ -1248,7 +1248,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers Joomla\Application\Web::isSSLConnection
+	 * @covers Joomla\Application\AbstractWebApplication::isSSLConnection
 	 *
 	 * @return void
 	 */

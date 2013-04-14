@@ -14,7 +14,7 @@ use Joomla\Language\LanguageHelper;
 class LanguageHelperTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var Joomla\Language\Helper
+	 * @var Joomla\Language\LanguageHelper
 	 */
 	protected $object;
 
@@ -34,7 +34,7 @@ class LanguageHelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers Joomla\Language\Helper::createLanguageList
+	 * @covers Joomla\Language\LanguageHelper::createLanguageList
 	 *
 	 * @return void
 	 */
@@ -62,7 +62,7 @@ class LanguageHelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers Joomla\Language\Helper::detectLanguage
+	 * @covers Joomla\Language\LanguageHelper::detectLanguage
 	 * @todo Implement testDetectLanguage().
 	 *
 	 * @return void
@@ -80,7 +80,7 @@ class LanguageHelperTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers Joomla\Language\Helper::getLanguages
+	 * @covers Joomla\Language\LanguageHelper::getLanguages
 	 * @todo Implement testGetLanguages().
 	 *
 	 * @return void
