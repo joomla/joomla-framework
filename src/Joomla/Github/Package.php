@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
  *
  * @since  ¿
  */
-abstract class Package extends Object
+abstract class Package extends GithubObject
 {
 	/**
 	 * Constructor.
