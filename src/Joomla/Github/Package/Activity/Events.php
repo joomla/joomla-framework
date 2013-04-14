@@ -17,14 +17,14 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Activity
- * @since       ¿
+ * @since       1.0
  */
 class Events extends Package
 {
 	/**
 	 * List public events.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getPublic()
@@ -43,7 +43,7 @@ class Events extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -63,7 +63,7 @@ class Events extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getIssue($owner, $repo)
@@ -82,7 +82,7 @@ class Events extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getNetwork($owner, $repo)
@@ -100,7 +100,7 @@ class Events extends Package
 	 *
 	 * @param   string  $org  Organisation.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getOrg($org)
@@ -122,7 +122,7 @@ class Events extends Package
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getUser($user)
@@ -140,7 +140,7 @@ class Events extends Package
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getUserPublic($user)
@@ -161,7 +161,7 @@ class Events extends Package
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getByUser($user)
@@ -179,7 +179,7 @@ class Events extends Package
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getByUserPublic($user)
@@ -201,7 +201,7 @@ class Events extends Package
 	 * @param   string  $user  User name.
 	 * @param   string  $org   Organisation.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @return  object
 	 */
 	public function getUserOrg($user, $org)

@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Users
- * @since       12.3
+ * @since       1.0
  */
 class Users extends Package
 {
@@ -26,9 +26,9 @@ class Users extends Package
 	 *
 	 * @param   string  $user  The users login name.
 	 *
-	 * @throws DomainException
+	 * @throws \DomainException
 	 *
-	 * @return JGithubTypeFullUser
+	 * @return object
 	 */
 	public function get($user)
 	{
@@ -44,7 +44,7 @@ class Users extends Package
 	/**
 	 * Get the current authenticated user.
 	 *
-	 * @throws DomainException
+	 * @throws \DomainException
 	 *
 	 * @return mixed
 	 */
@@ -70,7 +70,7 @@ class Users extends Package
 	 * @param   string  $hireable  If he is unemplayed :P
 	 * @param   string  $bio       The biometrical DNA fingerprint (or smthng...)
 	 *
-	 * @throws DomainException
+	 * @throws \DomainException
 	 *
 	 * @return mixed
 	 */
@@ -102,7 +102,7 @@ class Users extends Package
 	 *
 	 * @param   integer  $since  The integer ID of the last User that you’ve seen.
 	 *
-	 * @throws DomainException
+	 * @throws \DomainException
 	 * @return mixed
 	 */
 	public function getList($since = 0)

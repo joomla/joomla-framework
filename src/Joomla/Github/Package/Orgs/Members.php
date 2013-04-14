@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/orgs/members/
  *
- * @since  ¿
+ * @since  1.0
  */
 class Members extends Package
 {
@@ -32,7 +32,7 @@ class Members extends Package
 	 * @param   string  $org  The name of the organization.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return boolean|mixed
 	 */
@@ -69,7 +69,7 @@ class Members extends Package
 	 * @param   string  $user  The name of the user.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return boolean
 	 */
@@ -119,7 +119,7 @@ class Members extends Package
 	 * @param   string  $org   The name of the organization.
 	 * @param   string  $user  The name of the user.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -141,7 +141,7 @@ class Members extends Package
 	 *
 	 * @param   string  $org  The name of the organization.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -162,7 +162,7 @@ class Members extends Package
 	 * @param   string  $user  The name of the user.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -197,7 +197,7 @@ class Members extends Package
 	 * @param   string  $org   The name of the organization.
 	 * @param   string  $user  The name of the user.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -218,7 +218,7 @@ class Members extends Package
 	 * @param   string  $org   The name of the organization.
 	 * @param   string  $user  The name of the user.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

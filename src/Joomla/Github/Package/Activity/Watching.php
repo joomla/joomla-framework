@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Activity
- * @since       ¿
+ * @since       1.0
  */
 class Watching extends Package
 {
@@ -27,7 +27,7 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return mixed
 	 */
@@ -48,7 +48,7 @@ class Watching extends Package
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return mixed
 	 */
@@ -70,7 +70,7 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return mixed
 	 */
@@ -92,7 +92,7 @@ class Watching extends Package
 	 * @param   boolean  $subscribed  Determines if notifications should be received from this thread.
 	 * @param   boolean  $ignored     Determines if all notifications should be blocked from this thread.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -117,7 +117,7 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -141,7 +141,7 @@ class Watching extends Package
 	 * @param   string  $repo   Repository name.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -176,7 +176,7 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -199,7 +199,7 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

@@ -12,25 +12,25 @@ use Joomla\Registry\Registry;
 /**
  * Test class for Authorization.
  *
- * @since  ¿
+ * @since  1.0
  */
 class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    \Joomla\Http\Response  Mock response object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $response;
 
@@ -57,7 +57,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -75,7 +75,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testCreate()
 	{
@@ -103,7 +103,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testCreateFailure()
 	{
@@ -143,7 +143,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDelete()
 	{
@@ -166,7 +166,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDeleteFailure()
 	{
@@ -201,7 +201,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditAddScopes()
 	{
@@ -229,7 +229,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditRemoveScopes()
 	{
@@ -257,7 +257,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditScopes()
 	{
@@ -285,7 +285,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditFailure()
 	{
@@ -325,7 +325,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \RuntimeException
 	 */
@@ -339,7 +339,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
@@ -362,7 +362,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @expectedException  \DomainException
 	 */
@@ -384,7 +384,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetList()
 	{
@@ -407,7 +407,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \DomainException
 	 */
@@ -429,7 +429,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetRateLimit()
 	{
@@ -452,7 +452,7 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \DomainException
 	 */

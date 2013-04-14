@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/merging
  *
- * @since  ¿
+ * @since  1.0
  */
 class Merging extends Package
 {
@@ -30,7 +30,7 @@ class Merging extends Package
 	 *                                   If omitted, a default message will be used.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since   12.4
+	 * @since   1.0
 	 *
 	 * @return  boolean
 	 */

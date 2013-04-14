@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/statuses
  *
- * @since  ¿
+ * @since  1.0
  */
 class Statuses extends Package
 {
@@ -32,7 +32,7 @@ class Statuses extends Package
 	 * @throws \InvalidArgumentException
 	 * @throws \DomainException
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -77,7 +77,7 @@ class Statuses extends Package
 	 *
 	 * @return  array
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function getList($user, $repo, $sha)
 	{

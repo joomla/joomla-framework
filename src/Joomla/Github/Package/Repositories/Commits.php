@@ -16,7 +16,7 @@ use Joomla\Date\Date;
  *
  * @documentation http://developer.github.com/v3/repos/commits
  *
- * @since  ¿
+ * @since  1.0
  */
 class Commits extends Package
 {
@@ -37,7 +37,7 @@ class Commits extends Package
 	 * @param   Date    $until   ISO 8601 Date - Only commits before this date will be returned.
 	 *
 	 * @throws \DomainException
-	 * @since    12.1
+	 * @since    1.0
 	 *
 	 * @return  array
 	 */
@@ -74,7 +74,7 @@ class Commits extends Package
 	 * @param   string  $sha   The SHA of the commit to retrieve.
 	 *
 	 * @throws \DomainException
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @return  array
 	 */
@@ -107,7 +107,7 @@ class Commits extends Package
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function compare($user, $repo, $base, $head)
 	{

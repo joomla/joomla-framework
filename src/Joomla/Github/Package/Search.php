@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Search
- * @since       12.3
+ * @since       1.0
  */
 class Search extends Package
 {
@@ -31,7 +31,7 @@ class Search extends Package
 	 *
 	 * @throws \UnexpectedValueException
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -63,7 +63,7 @@ class Search extends Package
 	 * @param   string   $language    Filter results by language https://github.com/languages
 	 * @param   integer  $start_page  Page number to fetch
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -89,7 +89,7 @@ class Search extends Package
 	 * @param   string   $keyword     The search term.
 	 * @param   integer  $start_page  Page number to fetch
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -116,7 +116,7 @@ class Search extends Package
 	 *
 	 * @param   string  $email  The email address(es).
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

@@ -21,7 +21,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Data
- * @since       11.3
+ * @since       1.0
  */
 class Blobs extends Package
 {

@@ -18,7 +18,7 @@ use Joomla\Date\Date;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Activity
- * @since       ¿
+ * @since       1.0
  */
 class Notifications extends Package
 {
@@ -33,7 +33,7 @@ class Notifications extends Package
 	 * @param   Date     $since          filters out any notifications updated before the given time. The time should be passed in
 	 *                                   as UTC in the ISO 8601 format.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -64,7 +64,7 @@ class Notifications extends Package
 	 * @param   Date     $since          filters out any notifications updated before the given time. The time should be passed in
 	 *                                   as UTC in the ISO 8601 format.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -92,7 +92,7 @@ class Notifications extends Package
 	 * @param   Date     $last_read_at  Describes the last point that notifications were checked.
 	 *                                  Anything updated since this time will not be updated. Default: Now. Expected in ISO 8601 format.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -129,7 +129,7 @@ class Notifications extends Package
 	 * @param   Date     $last_read_at  Describes the last point that notifications were checked.
 	 *                                  Anything updated since this time will not be updated. Default: Now. Expected in ISO 8601 format.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -159,7 +159,7 @@ class Notifications extends Package
 	 *
 	 * @param   integer  $id  The thread id.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -180,7 +180,7 @@ class Notifications extends Package
 	 * @param   boolean  $unread  Changes the unread status of the threads.
 	 * @param   boolean  $read    Inverse of “unread”.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -208,7 +208,7 @@ class Notifications extends Package
 	 *
 	 * @param   integer  $id  The thread id.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -233,7 +233,7 @@ class Notifications extends Package
 	 * @param   boolean  $subscribed  Determines if notifications should be received from this thread.
 	 * @param   boolean  $ignored     Determines if all notifications should be blocked from this thread.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -257,7 +257,7 @@ class Notifications extends Package
 	 *
 	 * @param   integer  $id  The thread id.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

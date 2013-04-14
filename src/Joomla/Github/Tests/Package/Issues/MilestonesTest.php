@@ -12,31 +12,31 @@ use Joomla\Registry\Registry;
 /**
  * Test class for the GitHub API package.
  *
- * @since  ¿
+ * @since  1.0
  */
 class MilestonesTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    Milestones  Object under test.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $object;
 
 	/**
 	 * @var    \Joomla\Http\Response  Mock response object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $response;
 
@@ -92,7 +92,7 @@ class MilestonesTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	public function testCreate()
 	{

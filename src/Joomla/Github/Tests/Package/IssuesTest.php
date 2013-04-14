@@ -13,31 +13,31 @@ use Joomla\Date\Date;
 /**
  * Test class for Issues.
  *
- * @since  ¿
+ * @since  1.0
  */
 class IssuesTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    Issues  Object under test.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $object;
 
 	/**
 	 * @var    \Joomla\Http\Response  Mock response object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $response;
 

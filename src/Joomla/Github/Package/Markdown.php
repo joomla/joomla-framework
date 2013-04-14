@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Markdown
- * @since       ¿
+ * @since       1.0
  */
 class Markdown extends Package
 {
@@ -29,7 +29,7 @@ class Markdown extends Package
 	 * @param   string  $context  An optional repository context, only used in 'gfm' mode.
 	 *
 	 * @throws \InvalidArgumentException
-	 * @since   ¿
+	 * @since   1.0
 	 * @return  string  Formatted HTML
 	 */
 	public function render($text, $mode = 'gfm', $context = null)

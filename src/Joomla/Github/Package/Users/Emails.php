@@ -18,7 +18,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/users/emails
  *
- * @since  ¿
+ * @since  1.0
  */
 class Emails extends Package
 {
@@ -33,7 +33,7 @@ class Emails extends Package
 	 * Until API v3 is finalized, use the application/vnd.github.v3 media type
 	 * to get this response format.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -52,7 +52,7 @@ class Emails extends Package
 	 *
 	 * @param   string|array  $email  The email address(es).
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -72,7 +72,7 @@ class Emails extends Package
 	 *
 	 * @param   string|array  $email  The email address(es).
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

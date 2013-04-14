@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Gists
- * @since       11.3
+ * @since       1.0
  *
  * @property-read  Gists\Comments  $comments  GitHub API object for gist comments.
  */
@@ -31,7 +31,7 @@ class Gists extends Package
 	 * @param   string   $description  The optional description of the gist.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -69,7 +69,7 @@ class Gists extends Package
 	 * @param   integer  $gistId  The gist number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since   1.0
 	 *
 	 * @return  void
 	 */
@@ -99,7 +99,7 @@ class Gists extends Package
 	 * @param   string   $description  The description of the gist.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -152,7 +152,7 @@ class Gists extends Package
 	 * @param   integer  $gistId  The gist number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -182,7 +182,7 @@ class Gists extends Package
 	 * @param   integer  $gistId  The gist number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -213,7 +213,7 @@ class Gists extends Package
 	 * @param   integer  $limit  The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -244,7 +244,7 @@ class Gists extends Package
 	 * @param   integer  $limit  The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -274,7 +274,7 @@ class Gists extends Package
 	 * @param   integer  $limit  The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -304,7 +304,7 @@ class Gists extends Package
 	 * @param   integer  $limit  The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -333,7 +333,7 @@ class Gists extends Package
 	 * @param   integer  $gistId  The gist number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  boolean  True if the gist is starred.
 	 */
@@ -368,7 +368,7 @@ class Gists extends Package
 	 * @param   integer  $gistId  The gist number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  void
 	 */
@@ -395,7 +395,7 @@ class Gists extends Package
 	 * @param   integer  $gistId  The gist number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  void
 	 */
@@ -423,7 +423,7 @@ class Gists extends Package
 	 * @param   array  $files  The list of file paths or filenames and content.
 	 *
 	 * @throws \InvalidArgumentException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */

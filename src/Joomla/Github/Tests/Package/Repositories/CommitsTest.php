@@ -12,7 +12,7 @@ use Joomla\Registry\Registry;
 /**
  * Test class for Commits.
  *
- * @since  ¿
+ * @since  1.0
  */
 class CommitsTest extends \PHPUnit_Framework_TestCase
 {
@@ -58,7 +58,7 @@ class CommitsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -76,7 +76,7 @@ class CommitsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetCommit()
 	{
@@ -99,7 +99,7 @@ class CommitsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @expectedException  \DomainException
 	 */
@@ -121,7 +121,7 @@ class CommitsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testGetList()
 	{
@@ -144,7 +144,7 @@ class CommitsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @expectedException  \DomainException
 	 */
@@ -166,7 +166,7 @@ class CommitsTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function testCompare()
 	{

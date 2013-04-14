@@ -58,7 +58,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -76,7 +76,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testCreate()
 	{
@@ -105,7 +105,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testCreateFailure()
 	{
@@ -146,7 +146,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \RuntimeException
 	 */
@@ -160,7 +160,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDelete()
 	{
@@ -183,7 +183,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testDeleteFailure()
 	{
@@ -218,7 +218,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEdit()
 	{
@@ -251,7 +251,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testEditFailure()
 	{
@@ -296,7 +296,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  RuntimeException
 	 */
@@ -310,7 +310,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \RuntimeException
 	 */
@@ -324,7 +324,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \RuntimeException
 	 */
@@ -338,7 +338,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
@@ -361,7 +361,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \DomainException
 	 */
@@ -383,7 +383,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testGetList()
 	{
@@ -406,7 +406,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \DomainException
 	 */
@@ -428,7 +428,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function testTest()
 	{
@@ -451,7 +451,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @expectedException  \DomainException
 	 */

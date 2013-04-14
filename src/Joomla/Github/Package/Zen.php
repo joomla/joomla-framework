@@ -13,7 +13,7 @@ use Joomla\Github\Package;
 /**
  * GitHub API Zen class for the Joomla Framework.
  *
- * @since  ¿
+ * @since  1.0
  *
  * @documentation  http://developer.github.com/guides/getting-started/
  */

@@ -12,25 +12,25 @@ use Joomla\Registry\Registry;
 /**
  * Test class for Repositories.
  *
- * @since  ¿
+ * @since  1.0
  */
 class RepositoriesTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    \Joomla\Http\Response  Mock response object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $response;
 
@@ -41,13 +41,13 @@ class RepositoriesTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $errorString = '{"message": "Generic Error"}';
 
@@ -55,7 +55,7 @@ class RepositoriesTest extends \PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  void
 	 */

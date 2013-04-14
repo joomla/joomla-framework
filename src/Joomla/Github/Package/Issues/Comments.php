@@ -19,7 +19,7 @@ use Joomla\Date\Date;
  *
  * @documentation http://developer.github.com/v3/issues/comments/
  *
- * @since  ¿
+ * @since  1.0
  */
 class Comments extends Package
 {
@@ -33,7 +33,7 @@ class Comments extends Package
 	 * @param   integer  $limit    The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -59,7 +59,7 @@ class Comments extends Package
 	 *
 	 * @throws \UnexpectedValueException
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -126,7 +126,7 @@ class Comments extends Package
 	 * @param   integer  $commentId  The id of the comment to update.
 	 * @param   string   $body       The new body text for the comment.
 	 *
-	 * @since   11.3
+	 * @since  1.0
 	 * @throws \DomainException
 	 *
 	 * @return  object
@@ -158,7 +158,7 @@ class Comments extends Package
 	 * @param   string   $body     The comment body text.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -189,7 +189,7 @@ class Comments extends Package
 	 * @param   integer  $commentId  The id of the comment to delete.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  boolean
 	 */

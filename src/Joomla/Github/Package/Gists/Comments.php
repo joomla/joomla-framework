@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Gists
- * @since       ¿
+ * @since       1.0
  */
 class Comments extends Package
 {
@@ -28,7 +28,7 @@ class Comments extends Package
 	 * @param   string   $body    The comment body text.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -64,7 +64,7 @@ class Comments extends Package
 	 * @param   integer  $commentId  The id of the comment to delete.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  void
 	 */
@@ -92,7 +92,7 @@ class Comments extends Package
 	 * @param   string   $body       The new body text for the comment.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -128,7 +128,7 @@ class Comments extends Package
 	 * @param   integer  $commentId  The comment id to get.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -159,7 +159,7 @@ class Comments extends Package
 	 * @param   integer  $limit   The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */

@@ -12,31 +12,31 @@ use Joomla\Registry\Registry;
 /**
  * Test class for the GitHub API package.
  *
- * @since  ¿
+ * @since  1.0
  */
 class TagsTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    Tags  Object under test.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $object;
 
 	/**
 	 * @var    \Joomla\Http\Response  Mock response object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $response;
 
@@ -56,7 +56,7 @@ class TagsTest extends \PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  void
 	 */

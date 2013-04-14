@@ -19,7 +19,7 @@ use Joomla\Uri\Uri;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Issues
- * @since       11.3
+ * @since       1.0
  *
  * @property-read  Issues\Assignees   $assignees   GitHub API object for assignees.
  * @property-read  Issues\Comments    $comments    GitHub API object for comments.
@@ -41,7 +41,7 @@ class Issues extends Package
 	 * @param   array    $labels     The labels to associate with this issue.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -95,7 +95,7 @@ class Issues extends Package
 	 * @param   array    $labels     The labels to associate with this issue.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -174,7 +174,7 @@ class Issues extends Package
 	 * @param   integer  $issueId  The issue number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -210,7 +210,7 @@ class Issues extends Package
 	 * @param   integer  $limit      The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -253,7 +253,7 @@ class Issues extends Package
 	 * @param   integer  $limit      The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */

@@ -18,7 +18,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/orgs/teams/
  *
- * @since  ¿
+ * @since  1.0
  */
 class Teams extends Package
 {
@@ -27,7 +27,7 @@ class Teams extends Package
 	 *
 	 * @param   string  $org  The name of the organization.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -46,7 +46,7 @@ class Teams extends Package
 	 *
 	 * @param   integer  $id  The team id.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -75,7 +75,7 @@ class Teams extends Package
 	 *
 	 * @throws \UnexpectedValueException
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -122,7 +122,7 @@ class Teams extends Package
 	 *                                admin - team members can pull, push and administer these repositories.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -157,7 +157,7 @@ class Teams extends Package
 	 *
 	 * @param   integer  $id  The team id.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -179,7 +179,7 @@ class Teams extends Package
 	 *
 	 * @param   integer  $id  The team id.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -202,7 +202,7 @@ class Teams extends Package
 	 * @param   string   $user  The name of the user.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -240,7 +240,7 @@ class Teams extends Package
 	 * @param   integer  $id    The team id.
 	 * @param   string   $user  The name of the user.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -265,7 +265,7 @@ class Teams extends Package
 	 * @param   integer  $id    The team id.
 	 * @param   string   $user  The name of the user.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -285,7 +285,7 @@ class Teams extends Package
 	 *
 	 * @param   integer  $id  The team id.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -306,7 +306,7 @@ class Teams extends Package
 	 * @param   string   $repo  The name of the GitHub repository.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -349,7 +349,7 @@ class Teams extends Package
 	 * @param   string   $owner  The name of the owner of the GitHub repository.
 	 * @param   string   $repo   The name of the GitHub repository.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -375,7 +375,7 @@ class Teams extends Package
 	 * @param   string   $owner  The name of the owner of the GitHub repository.
 	 * @param   string   $repo   The name of the GitHub repository.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

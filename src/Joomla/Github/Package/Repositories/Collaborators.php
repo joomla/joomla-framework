@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/collaborators
  *
- * @since  ¿
+ * @since  1.0
  */
 class Collaborators extends Package
 {
@@ -29,7 +29,7 @@ class Collaborators extends Package
 	 * @param   string  $owner  The name of the owner of the GitHub repository.
 	 * @param   string  $repo   The name of the GitHub repository.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -51,7 +51,7 @@ class Collaborators extends Package
 	 * @param   string  $user   The name of the GitHub user.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return boolean
 	 */
@@ -85,7 +85,7 @@ class Collaborators extends Package
 	 * @param   string  $repo   The name of the GitHub repository.
 	 * @param   string  $user   The name of the GitHub user.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -107,7 +107,7 @@ class Collaborators extends Package
 	 * @param   string  $repo   The name of the GitHub repository.
 	 * @param   string  $user   The name of the GitHub user.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

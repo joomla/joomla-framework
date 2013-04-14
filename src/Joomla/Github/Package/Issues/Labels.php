@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Issues
- * @since       12.3
+ * @since       1.0
  */
 class Labels extends Package
 {
@@ -27,7 +27,7 @@ class Labels extends Package
 	 * @param   string  $owner  The name of the owner of the GitHub repository.
 	 * @param   string  $repo   The name of the GitHub repository.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  array
 	 */
@@ -49,7 +49,7 @@ class Labels extends Package
 	 * @param   string  $repo  The name of the GitHub repository.
 	 * @param   string  $name  The label name to get.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -73,7 +73,7 @@ class Labels extends Package
 	 * @param   string  $color  The label color.
 	 *
 	 * @throws \DomainException
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -113,7 +113,7 @@ class Labels extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 */
 	public function delete($owner, $repo, $name)
 	{
@@ -136,7 +136,7 @@ class Labels extends Package
 	 * @param   string  $name   The new label name.
 	 * @param   string  $color  The new label color.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -166,7 +166,7 @@ class Labels extends Package
 	 * @param   string   $repo    The name of the GitHub repository.
 	 * @param   integer  $number  The issue number.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -189,7 +189,7 @@ class Labels extends Package
 	 * @param   string  $number  The issue number.
 	 * @param   array   $labels  An array of labels to add.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -212,7 +212,7 @@ class Labels extends Package
 	 * @param   string  $number  The issue number.
 	 * @param   string  $name    The name of the label to remove.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -236,7 +236,7 @@ class Labels extends Package
 	 * @param   string  $number  The issue number.
 	 * @param   array   $labels  New labels
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -258,7 +258,7 @@ class Labels extends Package
 	 * @param   string  $repo    The name of the GitHub repository.
 	 * @param   string  $number  The issue number.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -281,7 +281,7 @@ class Labels extends Package
 	 * @param   string  $repo    The name of the GitHub repository.
 	 * @param   string  $number  The issue number.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */

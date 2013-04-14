@@ -18,7 +18,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/contents
  *
- * @since  ¿
+ * @since  1.0
  */
 class Contents extends Package
 {
@@ -59,7 +59,7 @@ class Contents extends Package
 	 * @param   string  $repo   The name of the GitHub repository.
 	 * @param   string  $ref    The String name of the Commit/Branch/Tag. Defaults to master.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -120,7 +120,7 @@ class Contents extends Package
 	 * @param   string  $path   The content path.
 	 * @param   string  $ref    The String name of the Commit/Branch/Tag. Defaults to master.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -176,7 +176,7 @@ class Contents extends Package
 	 * @param   string  $ref             The String name of the Commit/Branch/Tag. Defaults to master.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

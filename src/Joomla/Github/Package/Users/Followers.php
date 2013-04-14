@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Users
- * @since       12.3
+ * @since       1.0
  */
 class Followers extends Package
 {
@@ -26,7 +26,7 @@ class Followers extends Package
 	 *
 	 * @param   string  $user  The name of the user. If not set the current authenticated user will be used.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -47,7 +47,7 @@ class Followers extends Package
 	 *
 	 * @param   string  $user  The name of the user. If not set the current authenticated user will be used.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -69,7 +69,7 @@ class Followers extends Package
 	 * @param   string  $user  The name of the user.
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return boolean
 	 */
@@ -106,7 +106,7 @@ class Followers extends Package
 	 *
 	 * @param   string  $user  The name of the user.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -129,7 +129,7 @@ class Followers extends Package
 	 *
 	 * @param   string  $user  The name of the user.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

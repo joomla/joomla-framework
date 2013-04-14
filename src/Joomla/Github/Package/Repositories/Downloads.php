@@ -19,7 +19,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/downloads
  *
- * @since  ¿
+ * @since  1.0
  */
 class Downloads extends Package
 {
@@ -29,7 +29,7 @@ class Downloads extends Package
 	 * @param   string  $owner  The name of the owner of the GitHub repository.
 	 * @param   string  $repo   The name of the GitHub repository.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -51,7 +51,7 @@ class Downloads extends Package
 	 * @param   string   $repo   The name of the GitHub repository.
 	 * @param   integer  $id     The id of the download.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -78,7 +78,7 @@ class Downloads extends Package
 	 * @param   string  $description   The description.
 	 * @param   string  $content_type  The content type.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -147,7 +147,7 @@ class Downloads extends Package
 	 * @param   string  $file                   Local file. Example assumes the file existing in the directory
 	 *                                          where you are running the curl command. Yes, the @ matters.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return boolean
 	 */
@@ -183,7 +183,7 @@ class Downloads extends Package
 	 * @param   string   $repo   The name of the GitHub repository.
 	 * @param   integer  $id     The id of the download.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

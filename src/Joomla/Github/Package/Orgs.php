@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Orgs
- * @since       ¿
+ * @since       1.0
  *
  * @documentation  http://developer.github.com/v3/orgs/
  *
@@ -31,7 +31,7 @@ class Orgs extends Package
 	 *
 	 * @param   string  $user  The user name.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -53,7 +53,7 @@ class Orgs extends Package
 	 *
 	 * @param   string  $org  The organization name.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -78,7 +78,7 @@ class Orgs extends Package
 	 * @param   string  $location      The location name.
 	 * @param   string  $name          The name.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */

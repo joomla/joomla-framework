@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/users/keys
  *
- * @since  ¿
+ * @since  1.0
  */
 class Keys extends Package
 {
@@ -26,7 +26,7 @@ class Keys extends Package
 	 *
 	 * @param   string  $user  The name of the user.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -47,7 +47,7 @@ class Keys extends Package
 	 * Management of public keys via the API requires that you are authenticated
 	 * through basic auth, or OAuth with the ‘user’ scope.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -66,7 +66,7 @@ class Keys extends Package
 	 *
 	 * @param   integer  $id  The id of the key.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -86,7 +86,7 @@ class Keys extends Package
 	 * @param   string  $title  The title of the key.
 	 * @param   string  $key    The key.
 	 *
-	 * @since    ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -113,7 +113,7 @@ class Keys extends Package
 	 * @param   string   $title  The title of the key.
 	 * @param   string   $key    The key.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -137,7 +137,7 @@ class Keys extends Package
 	 *
 	 * @param   integer  $id  The id of the key.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */

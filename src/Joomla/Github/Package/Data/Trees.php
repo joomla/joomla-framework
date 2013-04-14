@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Data
- * @since       11.3
+ * @since       1.0
  */
 class Trees extends Package
 {
@@ -28,7 +28,7 @@ class Trees extends Package
 	 * @param   string  $repo   The name of the GitHub repository.
 	 * @param   string  $sha    The SHA1 value to set the reference to.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return object
 	 */
@@ -49,7 +49,7 @@ class Trees extends Package
 	 * @param   string  $repo   The name of the GitHub repository.
 	 * @param   string  $sha    The SHA1 value to set the reference to.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return object
 	 */
@@ -92,7 +92,7 @@ class Trees extends Package
 	 *                              a tree structure
 	 * @param   string  $base_tree  The SHA1 of the tree you want to update with new data.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return object
 	 */

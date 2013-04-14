@@ -19,7 +19,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Data
- * @since       11.3
+ * @since       1.0
  */
 class Tags extends Package
 {
@@ -30,7 +30,7 @@ class Tags extends Package
 	 * @param   string  $repo   The name of the GitHub repository.
 	 * @param   string  $sha    The SHA1 value to set the reference to.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return object
 	 */
@@ -60,7 +60,7 @@ class Tags extends Package
 	 * @param   string  $tagger_email  The email of the author of the tag.
 	 * @param   string  $tagger_date   Timestamp of when this object was tagged.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return object
 	 */

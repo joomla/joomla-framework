@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/comments
  *
- * @since  ¿
+ * @since  1.0
  */
 class Comments extends Package
 {
@@ -29,7 +29,7 @@ class Comments extends Package
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getListRepository($user, $repo, $page = 0, $limit = 0)
 	{
@@ -53,7 +53,7 @@ class Comments extends Package
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function getList($user, $repo, $sha, $page = 0, $limit = 0)
 	{
@@ -75,7 +75,7 @@ class Comments extends Package
 	 *
 	 * @return  array
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function get($user, $repo, $id)
 	{
@@ -98,7 +98,7 @@ class Comments extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function edit($user, $repo, $id, $comment)
 	{
@@ -126,7 +126,7 @@ class Comments extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function delete($user, $repo, $id)
 	{
@@ -153,7 +153,7 @@ class Comments extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function create($user, $repo, $sha, $comment, $line, $filepath, $position)
 	{

@@ -21,7 +21,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Issues
- * @since       12.3
+ * @since       1.0
  */
 class Events extends Package
 {

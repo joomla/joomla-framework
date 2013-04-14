@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/hooks
  *
- * @since  ¿
+ * @since  1.0
  */
 class Hooks extends Package
 {
@@ -23,7 +23,7 @@ class Hooks extends Package
 	 * Array containing the allowed hook events
 	 *
 	 * @var    array
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $events = array(
 		'push', 'issues', 'issue_comment', 'commit_comment', 'pull_request', 'gollum', 'watch', 'download', 'fork', 'fork_apply',
@@ -42,7 +42,7 @@ class Hooks extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  \DomainException
 	 * @throws  \RuntimeException
 	 */
@@ -79,7 +79,7 @@ class Hooks extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  \DomainException
 	 */
 	public function delete($user, $repo, $id)
@@ -108,7 +108,7 @@ class Hooks extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  \DomainException
 	 * @throws  \RuntimeException
 	 */
@@ -167,7 +167,7 @@ class Hooks extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  \DomainException
 	 */
 	public function get($user, $repo, $id)
@@ -188,7 +188,7 @@ class Hooks extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  \DomainException
 	 */
 	public function getList($user, $repo)
@@ -210,7 +210,7 @@ class Hooks extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 * @throws  \DomainException
 	 */
 	public function test($user, $repo, $id)

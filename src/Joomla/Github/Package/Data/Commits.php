@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Data
- * @since       11.3
+ * @since       1.0
  */
 class Commits extends Package
 {
@@ -52,7 +52,7 @@ class Commits extends Package
 	 *                            For a single parent, an array of one SHA should be provided.
 	 *                            For a merge commit, an array of more than one should be provided.
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */

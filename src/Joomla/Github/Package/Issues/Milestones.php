@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Issues
- * @since       12.3
+ * @since       1.0
  */
 class Milestones extends Package
 {
@@ -33,7 +33,7 @@ class Milestones extends Package
 	 * @param   integer  $limit      The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @return  array
 	 */
@@ -70,7 +70,7 @@ class Milestones extends Package
 	 * @throws \DomainException
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function get($user, $repo, $milestoneId)
 	{
@@ -104,7 +104,7 @@ class Milestones extends Package
 	 * @throws \DomainException
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function create($user, $repo, $title, $state = null, $description = null, $due_on = null)
 	{
@@ -161,7 +161,7 @@ class Milestones extends Package
 	 * @throws \DomainException
 	 * @return  object
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function edit($user, $repo, $milestoneId, $title = null, $state = null, $description = null, $due_on = null)
 	{
@@ -217,7 +217,7 @@ class Milestones extends Package
 	 * @throws \DomainException
 	 * @return  void
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function delete($user, $repo, $milestoneId)
 	{

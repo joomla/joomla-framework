@@ -18,7 +18,7 @@ use Joomla\Uri\Uri;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Authorization
- * @since       12.3
+ * @since       1.0
  */
 class Authorization extends Package
 {
@@ -30,7 +30,7 @@ class Authorization extends Package
 	 * @param   string  $url     A URL to remind you what app the OAuth token is for.
 	 *
 	 * @throws \DomainException
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -63,7 +63,7 @@ class Authorization extends Package
 	 * @param   integer  $id  ID of the authorization to delete
 	 *
 	 * @throws \DomainException
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -98,7 +98,7 @@ class Authorization extends Package
 	 *
 	 * @throws \RuntimeException
 	 * @throws \DomainException
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -167,7 +167,7 @@ class Authorization extends Package
 	 * @param   integer  $id  ID of the authorization to retrieve
 	 *
 	 * @throws \DomainException
-	 * @since   12.3
+	 * @since   1.0
 	 * @note    This method will only accept Basic Authentication
 	 *
 	 * @return  object
@@ -195,7 +195,7 @@ class Authorization extends Package
 	 * Method to get the authorised applications for the authenticated user.
 	 *
 	 * @throws \DomainException
-	 * @since   12.3
+	 * @since   1.0
 	 * @note    This method will only accept Basic Authentication
 	 *
 	 * @return  object
@@ -223,7 +223,7 @@ class Authorization extends Package
 	 * Method to get the rate limit for the authenticated user.
 	 *
 	 * @throws \DomainException
-	 * @since   12.3
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -255,7 +255,7 @@ class Authorization extends Package
 	 * @param   string  $state         An unguessable random string. It is used to protect against
 	 *                                 cross-site request forgery attacks.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return Uri
 	 */
@@ -293,7 +293,7 @@ class Authorization extends Package
 	 * @param   string  $format         The response format (json, xml, ).
 	 *
 	 * @throws \UnexpectedValueException
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return string
 	 */

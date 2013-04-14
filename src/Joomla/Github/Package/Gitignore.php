@@ -20,7 +20,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Gitignore
- * @since       12.4
+ * @since       1.0
  */
 class Gitignore extends Package
 {
@@ -29,7 +29,7 @@ class Gitignore extends Package
 	 *
 	 * List all templates available to pass as an option when creating a repository.
 	 *
-	 * @since ¿
+	 * @since  1.0
 	 *
 	 * @return object
 	 */
@@ -50,7 +50,7 @@ class Gitignore extends Package
 	 * @param   boolean  $raw   Raw output
 	 *
 	 * @throws \DomainException
-	 * @since  ¿
+	 * @since  1.0
 	 *
 	 * @return mixed|string
 	 */

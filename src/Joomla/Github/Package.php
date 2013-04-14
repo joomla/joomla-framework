@@ -13,7 +13,7 @@ use Joomla\Registry\Registry;
 /**
  * GitHub API package class for the Joomla Framework.
  *
- * @since  ¿
+ * @since  1.0
  */
 abstract class Package extends GithubObject
 {
@@ -38,7 +38,7 @@ abstract class Package extends GithubObject
 	 *
 	 * @param   string  $name  Name of property to retrieve
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 * @throws \InvalidArgumentException
 	 *
 	 * @return  Package  GitHub API package object.

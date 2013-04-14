@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/repos/forks
  *
- * @since  ¿
+ * @since  1.0
  */
 class Forks extends Package
 {
@@ -28,7 +28,7 @@ class Forks extends Package
 	 *
 	 * @return  object
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  \DomainException
 	 */
 	public function create($owner, $repo, $org = '')
@@ -61,7 +61,7 @@ class Forks extends Package
 	 *
 	 * @return  array
 	 *
-	 * @since   11.4
+	 * @since   1.0
 	 * @throws  \DomainException
 	 */
 	public function getList($owner, $repo, $page = 0, $limit = 0)

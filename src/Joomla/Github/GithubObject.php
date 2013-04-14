@@ -33,7 +33,7 @@ abstract class GithubObject
 
 	/**
 	 * @var string
-	 * @since ¿
+	 * @since  1.0
 	 */
 	protected $package = '';
 

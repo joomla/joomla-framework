@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/pulls/comments/
  *
- * @since  ¿
+ * @since  1.0
  */
 class Comments extends Package
 {
@@ -30,7 +30,7 @@ class Comments extends Package
 	 * @param   string   $filePath  The Relative path of the file to comment on.
 	 * @param   string   $position  The line index in the diff to comment on.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -65,7 +65,7 @@ class Comments extends Package
 	 * @param   string   $body       The comment body text.
 	 * @param   integer  $inReplyTo  The id of the comment to reply to.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -96,7 +96,7 @@ class Comments extends Package
 	 * @param   string   $repo       The name of the GitHub repository.
 	 * @param   integer  $commentId  The id of the comment to delete.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  void
 	 */
@@ -120,7 +120,7 @@ class Comments extends Package
 	 * @param   integer  $commentId  The id of the comment to update.
 	 * @param   string   $body       The new body text for the comment.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -149,7 +149,7 @@ class Comments extends Package
 	 * @param   string   $repo       The name of the GitHub repository.
 	 * @param   integer  $commentId  The comment id to get.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  object
 	 */
@@ -173,7 +173,7 @@ class Comments extends Package
 	 * @param   integer  $page    The page number from which to get items.
 	 * @param   integer  $limit   The number of items on a page.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  array
 	 */

@@ -12,25 +12,25 @@ use Joomla\Registry\Registry;
 /**
  * Test class for Gitignore.
  *
- * @since  ¿
+ * @since  1.0
  */
 class GitignoreTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    \PHPUnit_Framework_MockObject_MockObject  Mock client object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    \Joomla\Http\Response  Mock response object.
-	 * @since  ¿
+	 * @since  1.0
 	 */
 	protected $response;
 
@@ -43,7 +43,7 @@ class GitignoreTest extends \PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 *
 	 * @return  void
 	 */
@@ -63,7 +63,7 @@ class GitignoreTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 */
 	public function testGetList()
 	{
@@ -94,7 +94,7 @@ class GitignoreTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
@@ -120,7 +120,7 @@ class GitignoreTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 */
 	public function testGetRaw()
 	{
@@ -160,7 +160,7 @@ class GitignoreTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @expectedException \DomainException
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 * @return  void
 	 */
 	public function testGetFailure()

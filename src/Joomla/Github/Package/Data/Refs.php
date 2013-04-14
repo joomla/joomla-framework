@@ -18,7 +18,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Data
- * @since       11.3
+ * @since       1.0
  */
 class Refs extends Package
 {
@@ -32,7 +32,7 @@ class Refs extends Package
 	 * @throws \DomainException
 	 * @return  object
 	 *
-	 * @since   11.3
+	 * @since  1.0
 	 */
 	public function get($user, $repo, $ref)
 	{
@@ -65,7 +65,7 @@ class Refs extends Package
 	 * @throws \DomainException
 	 * @return  array
 	 *
-	 * @since   11.3
+	 * @since  1.0
 	 */
 	public function getList($user, $repo, $namespace = '', $page = 0, $limit = 0)
 	{
@@ -95,7 +95,7 @@ class Refs extends Package
 	 * @param   string  $sha   The SHA1 value to set this reference to.
 	 *
 	 * @throws DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -136,7 +136,7 @@ class Refs extends Package
 	 * @param   boolean  $force  Whether the update should be forced. Default to false.
 	 *
 	 * @throws DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -180,7 +180,7 @@ class Refs extends Package
 	 * @param   string  $repo   The name of the GitHub repository.
 	 * @param   string  $ref    The reference to update.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 * @return object
 	 */
 	public function delete($owner, $repo, $ref)

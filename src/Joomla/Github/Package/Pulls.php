@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub.Pulls
- * @since       11.3
+ * @since       1.0
  */
 class Pulls extends Package
 {
@@ -35,7 +35,7 @@ class Pulls extends Package
 	 * @param   string  $body   The body text for the new pull request.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -81,7 +81,7 @@ class Pulls extends Package
 	 * @param   string   $head     The branch (or git ref) where your changes are implemented.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -124,7 +124,7 @@ class Pulls extends Package
 	 * @param   string   $state   The optional new state for the pull request. [open, closed]
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -179,7 +179,7 @@ class Pulls extends Package
 	 * @param   integer  $pullId  The pull request number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
@@ -212,7 +212,7 @@ class Pulls extends Package
 	 * @param   integer  $limit   The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -245,7 +245,7 @@ class Pulls extends Package
 	 * @param   integer  $limit   The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -278,7 +278,7 @@ class Pulls extends Package
 	 * @param   integer  $limit  The number of items on a page.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  array
 	 */
@@ -315,7 +315,7 @@ class Pulls extends Package
 	 * @param   integer  $pullId  The pull request number.  The pull request number.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  boolean  True if the pull request has been merged.
 	 */
@@ -353,7 +353,7 @@ class Pulls extends Package
 	 * @param   string   $message  The message that will be used for the merge commit.
 	 *
 	 * @throws \DomainException
-	 * @since   11.3
+	 * @since  1.0
 	 *
 	 * @return  object
 	 */
