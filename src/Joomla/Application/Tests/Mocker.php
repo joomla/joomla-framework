@@ -134,7 +134,7 @@ class Mocker
 	}
 
 	/**
-	 * Creates an instance of the mock Joomla\Application\Web object.
+	 * Creates an instance of the mock Joomla\Application\AbstractWebApplication object.
 	 *
 	 * @param   array  $options  A associative array of options to configure the mock.
 	 *                           session => a mock session
@@ -231,7 +231,7 @@ class Mocker
 	}
 
 	/**
-	 * Mock the Joomla\Application\Web::appendBody method.
+	 * Mock the Joomla\Application\AbstractWebApplication::appendBody method.
 	 *
 	 * @param   string  $content  The content to append to the response body.
 	 *
@@ -245,7 +245,7 @@ class Mocker
 	}
 
 	/**
-	 * Mock the Joomla\Application\Web::get method.
+	 * Mock the Joomla\Application\AbstractWebApplication::get method.
 	 *
 	 * @param   string  $name     The name of the property.
 	 * @param   mixed   $default  The default value (optional) if none is set.
@@ -260,7 +260,7 @@ class Mocker
 	}
 
 	/**
-	 * Mock the Joomla\Application\Web::getBody method.
+	 * Mock the Joomla\Application\AbstractWebApplication::getBody method.
 	 *
 	 * @param   boolean  $asArray  True to return the body as an array of strings.
 	 *
@@ -274,7 +274,7 @@ class Mocker
 	}
 
 	/**
-	 * Mock the Joomla\Application\Web::getHeaders method.
+	 * Mock the Joomla\Application\AbstractWebApplication::getHeaders method.
 	 *
 	 * @return  mixed
 	 *
@@ -286,7 +286,7 @@ class Mocker
 	}
 
 	/**
-	 * Mock the Joomla\Application\Web::appendBody method.
+	 * Mock the Joomla\Application\AbstractWebApplication::appendBody method.
 	 *
 	 * @param   string  $content  The content to append to the response body.
 	 *
@@ -300,7 +300,7 @@ class Mocker
 	}
 
 	/**
-	 * Mock the Joomla\Application\Web::set method.
+	 * Mock the Joomla\Application\AbstractWebApplication::set method.
 	 *
 	 * @param   string  $name   The name of the property.
 	 * @param   mixed   $value  The value of the property to set (optional).
@@ -315,7 +315,7 @@ class Mocker
 	}
 
 	/**
-	 * Mock the Joomla\Application\Web::setBody method.
+	 * Mock the Joomla\Application\AbstractWebApplication::setBody method.
 	 *
 	 * @param   string  $content  The body of the response.
 	 *
@@ -329,7 +329,7 @@ class Mocker
 	}
 
 	/**
-	 * Mock the Joomla\Application\Web::setHeader method.
+	 * Mock the Joomla\Application\AbstractWebApplication::setHeader method.
 	 *
 	 * @param   string   $name     The name of the header to set.
 	 * @param   string   $value    The value of the header to set.

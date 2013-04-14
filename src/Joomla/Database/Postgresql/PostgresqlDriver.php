@@ -56,7 +56,7 @@ class PostgresqlDriver extends DatabaseDriver
 	/**
 	 * Query object returned by getQuery
 	 *
-	 * @var    \Joomla\Database\Query\Postgresql
+	 * @var    \Joomla\Database\Postgresql\PostgresqlQuery
 	 * @since  1.0
 	 */
 	protected $queryObject = null;
@@ -267,12 +267,12 @@ class PostgresqlDriver extends DatabaseDriver
 	}
 
 	/**
-	 * Get the current or query, or new JDatabaseQuery object.
+	 * Get the current or query, or new DatabaseQuery object.
 	 *
 	 * @param   boolean  $new    False to return the last query set, True to return a new Query object.
 	 * @param   boolean  $asObj  False to return last query as string, true to get Postgresql query object.
 	 *
-	 * @return  \Joomla\Database\Query\Postgresql  The current query object or a new object extending the Query class.
+	 * @return  \Joomla\Database\Postgresql\PostgresqlQuery  The current query object or a new object extending the Query class.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -282,7 +282,7 @@ class PostgresqlDriver extends DatabaseDriver
 		if ($new)
 		{
 			// Make sure we have a query class for this driver.
-			if (!class_exists('PostgresqlQuery'))
+			if (!class_exists('\\Joomla\\Database\\Postgresql\\PostgresqlQuery'))
 			{
 				throw new \RuntimeException('\\Joomla\\Database\\Postgresql\\PostgresqlQuery Class not found.');
 			}

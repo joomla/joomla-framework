@@ -28,7 +28,7 @@ abstract class DatabaseMysqlCase extends DatabaseCase
 	private static $_options = array('driver' => 'mysql');
 
 	/**
-	 * @var    \Joomla\Database\Driver\Mysql  The saved database driver to be restored after these tests.
+	 * @var    \Joomla\Database\Mysql\MysqlDriver  The saved database driver to be restored after these tests.
 	 * @since  1.0
 	 */
 	private static $_stash;

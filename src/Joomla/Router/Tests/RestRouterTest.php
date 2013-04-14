@@ -19,7 +19,7 @@ require_once __DIR__ . '/Stubs/GooGet.php';
 class RestRouterTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Joomla\Router\Rest  The object to be tested.
+	 * @var    \Joomla\Router\RestRouter  The object to be tested.
 	 * @since  1.0
 	 */
 	private $instance;
@@ -95,11 +95,11 @@ class RestRouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Router\Rest::setHttpMethodSuffix method.
+	 * Tests the Joomla\Router\RestRouter::setHttpMethodSuffix method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Router\Rest::setHttpMethodSuffix
+	 * @covers  Joomla\Router\RestRouter::setHttpMethodSuffix
 	 * @since   1.0
 	 */
 	public function testSetHttpMethodSuffix()
@@ -110,7 +110,7 @@ class RestRouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Router\Rest::fetchControllerSuffix method.
+	 * Tests the Joomla\Router\RestRouter::fetchControllerSuffix method.
 	 *
 	 * @param   string   $input        Input string to test.
 	 * @param   string   $expected     Expected fetched string.
@@ -120,7 +120,7 @@ class RestRouterTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers        Joomla\Router\Rest::fetchControllerSuffix
+	 * @covers        Joomla\Router\RestRouter::fetchControllerSuffix
 	 * @dataProvider  seedTestFetchControllerSuffix
 	 * @since         1.0
 	 */
@@ -148,11 +148,11 @@ class RestRouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Router\Rest::fetchControllerSuffix method if the suffix map is missing.
+	 * Tests the Joomla\Router\RestRouter::fetchControllerSuffix method if the suffix map is missing.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Router\Rest::fetchControllerSuffix
+	 * @covers  Joomla\Router\RestRouter::fetchControllerSuffix
 	 * @since   1.0
 	 */
 	public function testFetchControllerSuffixWithMissingSuffixMap()
@@ -164,12 +164,12 @@ class RestRouterTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Router\Rest::setMethodInPostRequest and isMethodInPostRequest.
+	 * Tests the Joomla\Router\RestRouter::setMethodInPostRequest and isMethodInPostRequest.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Router\Rest::setMethodInPostRequest
-	 * @covers  Joomla\Router\Rest::isMethodInPostRequest
+	 * @covers  Joomla\Router\RestRouter::setMethodInPostRequest
+	 * @covers  Joomla\Router\RestRouter::isMethodInPostRequest
 	 * @since   1.0
 	 */
 	public function testMethodInPostRequest()

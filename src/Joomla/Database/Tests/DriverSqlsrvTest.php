@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests;
 use Joomla\Database\Sqlsrv\SqlsrvDriver;
 
 /**
- * Test class for \Joomla\Database\Driver\Sqlsrv.
+ * Test class for \Joomla\Database\Sqlsrv\SqlsrvDriver.
  *
  * @since  1.0
  */

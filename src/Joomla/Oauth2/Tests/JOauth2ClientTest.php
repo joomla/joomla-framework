@@ -33,7 +33,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 	protected $input;
 
 	/**
-	 * @var    \Joomla\Application\Web  The application object to send HTTP headers for redirects.
+	 * @var    \Joomla\Application\AbstractWebApplication  The application object to send HTTP headers for redirects.
 	 */
 	protected $application;
 

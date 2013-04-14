@@ -9,7 +9,7 @@
 namespace Joomla\Form;
 
 use Joomla\Html\Html;
-use Joomla\Language\Helper as LanguageHelper;
+use Joomla\Language\LanguageHelper;
 
 /**
  * Form Field class for the Joomla Framework.

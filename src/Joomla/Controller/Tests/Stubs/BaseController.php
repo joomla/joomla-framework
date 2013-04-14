@@ -9,13 +9,7 @@ namespace Joomla\Controller\Tests;
 use Joomla\Controller\AbstractController;
 
 /**
- * Joomla Framework Capitaliser Object Class
- *
- * @since  1.0
- */
-
-/**
- * Concrete class extending JControllerBase.
+ * Concrete class extending Joomla\Controller\AbstractController.
  *
  * @since  1.0
  */

@@ -16,7 +16,7 @@ use Joomla\Factory;
 abstract class DatabaseSqlsrvCase extends DatabaseCase
 {
 	/**
-	 * @var    \Joomla\Database\Driver\Sqlsrv  The active database driver being used for the tests.
+	 * @var    \Joomla\Database\Sqlsrv\SqlsrvDriver  The active database driver being used for the tests.
 	 * @since  1.0
 	 */
 	protected static $driver;
@@ -28,7 +28,7 @@ abstract class DatabaseSqlsrvCase extends DatabaseCase
 	private static $_options = array('driver' => 'sqlsrv');
 
 	/**
-	 * @var    \Joomla\Database\Driver\Sqlsrv  The saved database driver to be restored after these tests.
+	 * @var    \Joomla\Database\Sqlsrv\SqlsrvDriver  The saved database driver to be restored after these tests.
 	 * @since  1.0
 	 */
 	private static $_stash;

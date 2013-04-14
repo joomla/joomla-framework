@@ -11,7 +11,7 @@ namespace Joomla\Test;
 use Joomla\Application\AbstractWebApplication;
 
 /**
- * Inspector for the Joomla\Application\Web class.
+ * Inspector for the Joomla\Application\AbstractWebApplication class.
  *
  * @since  1.0
  */

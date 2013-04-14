@@ -13,7 +13,7 @@ use Joomla\Registry\Registry;
 require_once __DIR__ . '/Stubs/ConcreteBase.php';
 
 /**
- * Test class for Joomla\Application\Base.
+ * Test class for Joomla\Application\AbstractApplication.
  *
  * @since  1.0
  */
@@ -22,7 +22,7 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * An instance of the object to test.
 	 *
-	 * @var    Base
+	 * @var    AbstractApplication
 	 * @since  1.0
 	 */
 	protected $instance;
@@ -32,7 +32,7 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Base::__construct
+	 * @covers  Joomla\Application\AbstractApplication::__construct
 	 * @since   1.0
 	 */
 	public function test__construct()
@@ -81,7 +81,7 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Base::close
+	 * @covers  Joomla\Application\AbstractApplication::close
 	 * @since   1.0
 	 */
 	public function testClose()
@@ -108,7 +108,7 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Base::execute
+	 * @covers  Joomla\Application\AbstractApplication::execute
 	 * @since   1.0
 	 */
 	public function testExecute()
@@ -125,7 +125,7 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Base::get
+	 * @covers  Joomla\Application\AbstractApplication::get
 	 * @since   1.0
 	 */
 	public function testGet()
@@ -140,11 +140,11 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Base::getLogger for an expected exception.
+	 * Tests the Joomla\Application\AbstractApplication::getLogger for an expected exception.
 	 *
 	 * @return  void
 	 *
-	 * @covers             Joomla\Application\Base::getLogger
+	 * @covers             Joomla\Application\AbstractApplication::getLogger
 	 * @expectedException  UnexpectedValueException
 	 * @since              1.0
 	 */
@@ -154,11 +154,11 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Base::hasLogger for an expected exception.
+	 * Tests the Joomla\Application\AbstractApplication::hasLogger for an expected exception.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Base::hasLogger
+	 * @covers  Joomla\Application\AbstractApplication::hasLogger
 	 * @since   1.0
 	 */
 	public function testHasLogger()
@@ -176,7 +176,7 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Base::set
+	 * @covers  Joomla\Application\AbstractApplication::set
 	 * @since   1.0
 	 */
 	public function testSet()
@@ -196,7 +196,7 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Base::setConfiguration
+	 * @covers  Joomla\Application\AbstractApplication::setConfiguration
 	 * @since   1.0
 	 */
 	public function testSetConfiguration()
@@ -208,12 +208,12 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\Base::setLogger and getLogger methods.
+	 * Tests the Joomla\Application\AbstractApplication::setLogger and getLogger methods.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Application\Base::setLogger
-	 * @covers  Joomla\Application\Base::getLogger
+	 * @covers  Joomla\Application\AbstractApplication::setLogger
+	 * @covers  Joomla\Application\AbstractApplication::getLogger
 	 * @since   1.0
 	 */
 	public function testSetLogger()

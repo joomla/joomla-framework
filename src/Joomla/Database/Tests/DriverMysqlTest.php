@@ -7,7 +7,7 @@
 namespace Joomla\Database\Tests;
 
 /**
- * Test class for Joomla\Database\Driver\Mysql.
+ * Test class for Joomla\Database\Mysql\MysqlDriver.
  *
  * @since  1.0
  */
