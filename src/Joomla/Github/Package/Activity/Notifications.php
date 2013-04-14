@@ -16,8 +16,6 @@ use Joomla\Date\Date;
  *
  * @documentation http://developer.github.com/v3/activity/notifications/
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Activity
  * @since       1.0
  */
 class Notifications extends Package

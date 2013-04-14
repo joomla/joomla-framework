@@ -15,8 +15,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/pulls
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Pulls
  * @since       1.0
  */
 class Pulls extends Package

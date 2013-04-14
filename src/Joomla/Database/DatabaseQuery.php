@@ -14,7 +14,7 @@ namespace Joomla\Database;
  * @since  1.0
  *
  * @method  string  q()   q($text, $escape = true)  Alias for quote method
- * @method  string  qn()  qs($name, $as = null)     Alias for quoteName method
+ * @method  string  qn()  qn($name, $as = null)     Alias for quoteName method
  * @method  string  e()   e($text, $extra = false)  Alias for escape method
  */
 abstract class DatabaseQuery

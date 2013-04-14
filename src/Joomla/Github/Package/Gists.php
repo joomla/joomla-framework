@@ -15,8 +15,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/gists
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Gists
  * @since       1.0
  *
  * @property-read  Gists\Comments  $comments  GitHub API object for gist comments.

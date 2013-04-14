@@ -15,8 +15,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/markdown
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Markdown
  * @since       1.0
  */
 class Markdown extends Package

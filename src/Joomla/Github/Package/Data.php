@@ -15,8 +15,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/git/
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Data
  * @since       1.0
 
  * http://developer.github.com/v3/git/
