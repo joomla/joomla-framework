@@ -21,7 +21,7 @@ abstract class AbstractController implements ControllerInterface
 	/**
 	 * The application object.
 	 *
-	 * @var    Application\Base
+	 * @var    Application\AbstractApplication
 	 * @since  1.0
 	 */
 	private $app;
@@ -99,7 +99,7 @@ abstract class AbstractController implements ControllerInterface
 	/**
 	 * Set the application object.
 	 *
-	 * @param   Application\Base  $app  The application object.
+	 * @param   Application\AbstractApplication  $app  The application object.
 	 *
 	 * @return  Base  Returns itself to support chaining.
 	 *

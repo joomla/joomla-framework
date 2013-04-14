@@ -29,8 +29,8 @@ abstract class AbstractDatabaseModel extends AbstractModel
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   Driver    $db     The database adpater.
-	 * @param   Registry  $state  The model state.
+	 * @param   DatabaseDriver  $db     The database adpater.
+	 * @param   Registry        $state  The model state.
 	 *
 	 * @since   1.0
 	 */
@@ -56,7 +56,7 @@ abstract class AbstractDatabaseModel extends AbstractModel
 	/**
 	 * Set the database driver.
 	 *
-	 * @param   Driver  $db  The database driver.
+	 * @param   DatabaseDriver  $db  The database driver.
 	 *
 	 * @return  void
 	 *
