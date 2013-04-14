@@ -8,8 +8,8 @@
 
 namespace Joomla\Log\Logger;
 
-use Joomla\Log\Logger;
-use Joomla\Log\Entry;
+use Joomla\Log\AbstractLogger;
+use Joomla\Log\LogEntry;
 use Joomla\Log\Log;
 
 /**
@@ -22,7 +22,7 @@ use Joomla\Log\Log;
  *
  * @since  1.0
  */
-class Syslog extends Logger
+class Syslog extends AbstractLogger
 {
 	/**
 	 * @var array Translation array for JLogEntry priorities to SysLog priority names.
@@ -115,13 +115,13 @@ class Syslog extends Logger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   Entry  $entry  The log entry object to add to the log.
+	 * @param   LogEntry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function addEntry(Entry $entry)
+	public function addEntry(LogEntry $entry)
 	{
 		// Generate the value for the priority based on predefined constants.
 		$priority = constant(strtoupper('LOG_' . $this->priorities[$entry->priority]));

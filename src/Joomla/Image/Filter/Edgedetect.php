@@ -8,14 +8,14 @@
 
 namespace Joomla\Image\Filter;
 
-use Joomla\Image\Filter;
+use Joomla\Image\ImageFilter;
 
 /**
  * Image Filter class to add an edge detect effect to an image.
  *
  * @since  1.0
  */
-class Edgedetect extends Filter
+class Edgedetect extends ImageFilter
 {
 	/**
 	 * Method to apply a filter to an image resource.

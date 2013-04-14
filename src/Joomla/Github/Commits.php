@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Commits extends Object
+class Commits extends GithubObject
 {
 	/**
 	 * Method to create a commit.

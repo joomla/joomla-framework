@@ -7,7 +7,7 @@
 namespace Joomla\String\Tests;
 
 use Joomla\String\Inflector;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Test for the Inflector class.
@@ -107,9 +107,9 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 	public function testAddRule()
 	{
 		// Case 1
-		Helper::invoke($this->inflector, 'addRule', '/foo/', 'singular');
+		TestHelper::invoke($this->inflector, 'addRule', '/foo/', 'singular');
 
-		$rules = Helper::getValue($this->inflector, 'rules');
+		$rules = TestHelper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/foo/', $rules['singular']),
@@ -118,9 +118,9 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Case 2
-		Helper::invoke($this->inflector, 'addRule', '/bar/', 'plural');
+		TestHelper::invoke($this->inflector, 'addRule', '/bar/', 'plural');
 
-		$rules = Helper::getValue($this->inflector, 'rules');
+		$rules = TestHelper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['plural']),
@@ -129,9 +129,9 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Case 3
-		Helper::invoke($this->inflector, 'addRule', array('/goo/', '/car/'), 'singular');
+		TestHelper::invoke($this->inflector, 'addRule', array('/goo/', '/car/'), 'singular');
 
-		$rules = Helper::getValue($this->inflector, 'rules');
+		$rules = TestHelper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/goo/', $rules['singular']),
@@ -157,7 +157,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testAddRuleException()
 	{
-		Helper::invoke($this->inflector, 'addRule', new \stdClass, 'singular');
+		TestHelper::invoke($this->inflector, 'addRule', new \stdClass, 'singular');
 	}
 
 	/**
@@ -171,16 +171,16 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 	public function testGetCachedPlural()
 	{
 		// Reset the cache.
-		Helper::setValue($this->inflector, 'cache', array('foo' => 'bar'));
+		TestHelper::setValue($this->inflector, 'cache', array('foo' => 'bar'));
 
 		$this->assertThat(
-			Helper::invoke($this->inflector, 'getCachedPlural', 'bar'),
+			TestHelper::invoke($this->inflector, 'getCachedPlural', 'bar'),
 			$this->isFalse(),
 			'Checks for an uncached plural.'
 		);
 
 		$this->assertThat(
-			Helper::invoke($this->inflector, 'getCachedPlural', 'foo'),
+			TestHelper::invoke($this->inflector, 'getCachedPlural', 'foo'),
 			$this->equalTo('bar'),
 			'Checks for a cached plural word.'
 		);
@@ -197,16 +197,16 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 	public function testGetCachedSingular()
 	{
 		// Reset the cache.
-		Helper::setValue($this->inflector, 'cache', array('foo' => 'bar'));
+		TestHelper::setValue($this->inflector, 'cache', array('foo' => 'bar'));
 
 		$this->assertThat(
-			Helper::invoke($this->inflector, 'getCachedSingular', 'foo'),
+			TestHelper::invoke($this->inflector, 'getCachedSingular', 'foo'),
 			$this->isFalse(),
 			'Checks for an uncached singular.'
 		);
 
 		$this->assertThat(
-			Helper::invoke($this->inflector, 'getCachedSingular', 'bar'),
+			TestHelper::invoke($this->inflector, 'getCachedSingular', 'bar'),
 			$this->equalTo('foo'),
 			'Checks for a cached singular word.'
 		);
@@ -223,19 +223,19 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 	public function testMatchRegexRule()
 	{
 		$this->assertThat(
-			Helper::invoke($this->inflector, 'matchRegexRule', 'xyz', 'plural'),
+			TestHelper::invoke($this->inflector, 'matchRegexRule', 'xyz', 'plural'),
 			$this->equalTo('xyzs'),
 			'Checks pluralising against the basic regex.'
 		);
 
 		$this->assertThat(
-			Helper::invoke($this->inflector, 'matchRegexRule', 'xyzs', 'singular'),
+			TestHelper::invoke($this->inflector, 'matchRegexRule', 'xyzs', 'singular'),
 			$this->equalTo('xyz'),
 			'Checks singularising against the basic regex.'
 		);
 
 		$this->assertThat(
-			Helper::invoke($this->inflector, 'matchRegexRule', 'xyz', 'singular'),
+			TestHelper::invoke($this->inflector, 'matchRegexRule', 'xyz', 'singular'),
 			$this->isFalse(),
 			'Checks singularising against an unmatched regex.'
 		);
@@ -251,9 +251,9 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetCache()
 	{
-		Helper::invoke($this->inflector, 'setCache', 'foo', 'bar');
+		TestHelper::invoke($this->inflector, 'setCache', 'foo', 'bar');
 
-		$cache = Helper::getValue($this->inflector, 'cache');
+		$cache = TestHelper::getValue($this->inflector, 'cache');
 
 		$this->assertThat(
 			$cache['foo'],
@@ -261,9 +261,9 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 			'Checks the cache was set.'
 		);
 
-		Helper::invoke($this->inflector, 'setCache', 'foo', 'car');
+		TestHelper::invoke($this->inflector, 'setCache', 'foo', 'car');
 
-		$cache = Helper::getValue($this->inflector, 'cache');
+		$cache = TestHelper::getValue($this->inflector, 'cache');
 
 		$this->assertThat(
 			$cache['foo'],
@@ -285,7 +285,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 		// Add string.
 		$this->inflector->addCountableRule('foo');
 
-		$rules = Helper::getValue($this->inflector, 'rules');
+		$rules = TestHelper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('foo', $rules['countable']),
@@ -296,7 +296,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 		// Add array.
 		$this->inflector->addCountableRule(array('goo', 'car'));
 
-		$rules = Helper::getValue($this->inflector, 'rules');
+		$rules = TestHelper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('car', $rules['countable']),
@@ -323,7 +323,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 			'Checks chaining.'
 		);
 
-		$rules = Helper::getValue($this->inflector, 'rules');
+		$rules = TestHelper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['plural']),
@@ -350,7 +350,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 			'Checks chaining.'
 		);
 
-		$rules = Helper::getValue($this->inflector, 'rules');
+		$rules = TestHelper::getValue($this->inflector, 'rules');
 
 		$this->assertThat(
 			in_array('/bar/', $rules['singular']),
@@ -376,7 +376,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Inject an instance an test.
-		Helper::setValue($this->inflector, 'instance', new \stdClass);
+		TestHelper::setValue($this->inflector, 'instance', new \stdClass);
 
 		$this->assertThat(
 			Inflector::getInstance(),

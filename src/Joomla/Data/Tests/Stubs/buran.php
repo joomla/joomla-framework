@@ -6,14 +6,14 @@
 
 namespace Joomla\Data\Tests;
 
-use Joomla\Data\Object;
+use Joomla\Data\DataObject;
 
 /**
- * Derived Data\Object class for testing.
+ * Derived Data\DataObject class for testing.
  *
  * @since  1.0
  */
-class JDataBuran extends Object
+class JDataBuran extends DataObject
 {
 	public $rocket = false;
 

@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Milestones extends Object
+class Milestones extends GithubObject
 {
 	/**
 	 * Method to get the list of milestones for a repo.

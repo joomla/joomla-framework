@@ -8,14 +8,14 @@
 
 namespace Joomla\Image\Filter;
 
-use Joomla\Image\Filter;
+use Joomla\Image\ImageFilter;
 
 /**
  * Image Filter class to emboss an image.
  *
  * @since  1.0
  */
-class Emboss extends Filter
+class Emboss extends ImageFilter
 {
 	/**
 	 * Method to apply a filter to an image resource.

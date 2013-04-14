@@ -126,7 +126,7 @@ class Log
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   mixed    $entry     The JLogEntry object to add to the log or the message for a new JLogEntry object.
+	 * @param   mixed    $entry     The LogEntry object to add to the log or the message for a new LogEntry object.
 	 * @param   integer  $priority  Message priority.
 	 * @param   string   $category  Type of entry
 	 * @param   string   $date      Date of entry (defaults to now if not specified or blank)
@@ -143,10 +143,10 @@ class Log
 			self::setInstance(new self);
 		}
 
-		// If the entry object isn't a JLogEntry object let's make one.
-		if (!($entry instanceof Entry))
+		// If the entry object isn't a LogEntry object let's make one.
+		if (!($entry instanceof LogEntry))
 		{
-			$entry = new Entry((string) $entry, $priority, $category, $date);
+			$entry = new LogEntry((string) $entry, $priority, $category, $date);
 		}
 
 		self::$instance->addLogEntry($entry);
@@ -230,14 +230,14 @@ class Log
 	/**
 	 * Method to add an entry to the appropriate loggers.
 	 *
-	 * @param   Entry  $entry  The JLogEntry object to send to the loggers.
+	 * @param   LogEntry  $entry  The LogEntry object to send to the loggers.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
-	protected function addLogEntry(Entry $entry)
+	protected function addLogEntry(LogEntry $entry)
 	{
 		// Find all the appropriate loggers based on priority and category for the entry.
 		$loggers = $this->findLoggers($entry->priority, $entry->category);

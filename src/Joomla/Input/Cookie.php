@@ -33,7 +33,7 @@ class Cookie extends Input
 		}
 		else
 		{
-			$this->filter = new Filter\Input;
+			$this->filter = new Filter\InputFilter;
 		}
 
 		// Set the data source.

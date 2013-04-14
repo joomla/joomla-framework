@@ -8,15 +8,15 @@
 
 namespace Joomla\Log\Logger;
 
-use Joomla\Log\Logger;
-use Joomla\Log\Entry;
+use Joomla\Log\AbstractLogger;
+use Joomla\Log\LogEntry;
 
 /**
  * Joomla Echo logger class.
  *
  * @since  1.0
  */
-class Echoo extends Logger
+class Echoo extends AbstractLogger
 {
 	/**
 	 * @var    string  Value to use at the end of an echoed log entry to separate lines.
@@ -44,13 +44,13 @@ class Echoo extends Logger
 	/**
 	 * Method to add an entry to the log.
 	 *
-	 * @param   Entry  $entry  The log entry object to add to the log.
+	 * @param   LogEntry  $entry  The log entry object to add to the log.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function addEntry(Entry $entry)
+	public function addEntry(LogEntry $entry)
 	{
 		echo $this->priorities[$entry->priority] . ': '
 			. $entry->message . (empty($entry->category) ? '' : ' [' . $entry->category . ']')

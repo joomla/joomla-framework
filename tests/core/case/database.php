@@ -11,9 +11,9 @@ require_once 'PHPUnit/Extensions/Database/DataSet/XmlDataSet.php';
 require_once 'PHPUnit/Extensions/Database/DataSet/QueryDataSet.php';
 require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
 
-use Joomla\Database\Driver as DatabaseDriver;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Factory;
-use Joomla\Test\Helper as TestHelper;
+use Joomla\Test\TestHelper;
 
 /**
  * Abstract test case class for database testing.

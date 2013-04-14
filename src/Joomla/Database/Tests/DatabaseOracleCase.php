@@ -101,7 +101,7 @@ abstract class DatabaseOracleCase extends DatabaseCase
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = \Joomla\Database\Driver::getInstance(self::$_options);
+			self::$driver = \Joomla\Database\DatabaseDriver::getInstance(self::$_options);
 		}
 		catch (\RuntimeException $e)
 		{

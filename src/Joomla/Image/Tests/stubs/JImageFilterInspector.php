@@ -6,14 +6,14 @@
 
 namespace Joomla\Image\Filter;
 
-use Joomla\Image\Filter;
+use Joomla\Image\ImageFilter;
 
 /**
  * Image Filter class inspector for testing purposes.
  *
  * @since  1.0
  */
-class Inspector extends Filter
+class Inspector extends ImageFilter
 {
 	/**
 	 * Method to apply a filter to an image resource.

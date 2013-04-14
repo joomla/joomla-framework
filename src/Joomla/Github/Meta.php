@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Meta extends Object
+class Meta extends GithubObject
 {
 	/**
 	 * Method to get the authorized IP addresses for services

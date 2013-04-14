@@ -6,7 +6,7 @@
 
 namespace Joomla\Database\Tests\Mock;
 
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Class to mock JDatabaseDriver.
@@ -95,7 +95,7 @@ class Driver
 
 		// Create the mock.
 		$mockObject = $test->getMock(
-			'\Joomla\Database\Driver',
+			'\Joomla\Database\DatabaseDriver',
 			$methods,
 			// Constructor arguments.
 			array(),
@@ -106,7 +106,7 @@ class Driver
 		);
 
 		// Mock selected methods.
-		Helper::assignMockReturns(
+		TestHelper::assignMockReturns(
 			$mockObject,
 			$test,
 			array(
@@ -115,7 +115,7 @@ class Driver
 			)
 		);
 
-		Helper::assignMockCallbacks(
+		TestHelper::assignMockCallbacks(
 			$mockObject,
 			$test,
 			array(

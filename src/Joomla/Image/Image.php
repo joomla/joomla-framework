@@ -808,7 +808,7 @@ class Image implements LoggerAwareInterface
 	 *
 	 * @param   string  $type  The image filter type to get.
 	 *
-	 * @return  Filter
+	 * @return  ImageFilter
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -834,7 +834,7 @@ class Image implements LoggerAwareInterface
 		$instance = new $className($this->handle);
 
 		// Verify that the filter type is valid.
-		if (!($instance instanceof Filter))
+		if (!($instance instanceof ImageFilter))
 		{
 			// @codeCoverageIgnoreStart
 			if ($this->logger)

@@ -13,6 +13,6 @@ use Joomla\Model;
  *
  * @since  1.0
  */
-class DatabaseModel extends Model\Database
+class DatabaseModel extends Model\AbstractDatabaseModel
 {
 }

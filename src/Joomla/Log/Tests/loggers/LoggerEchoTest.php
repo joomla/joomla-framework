@@ -5,7 +5,7 @@
  */
 
 use Joomla\Log\Log;
-use Joomla\Log\Entry;
+use Joomla\Log\LogEntry;
 use Joomla\Log\Logger\Echoo as LoggerEcho;
 
 /**
@@ -45,7 +45,7 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	public function testAddEntry01()
 	{
 		$this->expectOutputString("DEBUG: TESTING [deprecated]\n");
-		$this->object->addEntry(new Entry('TESTING', Log::DEBUG, 'DePrEcAtEd'));
+		$this->object->addEntry(new LogEntry('TESTING', Log::DEBUG, 'DePrEcAtEd'));
 	}
 
 	/**
@@ -56,7 +56,7 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	public function testAddEntry02()
 	{
 		$this->expectOutputString("CRITICAL: TESTING2 [bam]\n");
-		$this->object->addEntry(new Entry('TESTING2', Log::CRITICAL, 'BAM'));
+		$this->object->addEntry(new LogEntry('TESTING2', Log::CRITICAL, 'BAM'));
 	}
 
 	/**
@@ -67,7 +67,7 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	public function testAddEntry03()
 	{
 		$this->expectOutputString("ERROR: Testing3\n");
-		$this->object->addEntry(new Entry('Testing3', Log::ERROR));
+		$this->object->addEntry(new LogEntry('Testing3', Log::ERROR));
 	}
 
 	/**
@@ -78,6 +78,6 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	public function testAddEntry04()
 	{
 		$this->expectOutputString("INFO: Testing 4\n");
-		$this->object->addEntry(new Entry('Testing 4'));
+		$this->object->addEntry(new LogEntry('Testing 4'));
 	}
 }

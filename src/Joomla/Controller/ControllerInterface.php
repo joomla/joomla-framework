@@ -58,7 +58,7 @@ interface ControllerInterface extends \Serializable
 	 *
 	 * @since   1.0
 	 */
-	public function setApplication(Application\Base $app);
+	public function setApplication(Application\AbstractApplication $app);
 
 	/**
 	 * Set the input object.

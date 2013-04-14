@@ -11,6 +11,6 @@ namespace Joomla\Database\Tests\Mock;
  *
  * @since  1.0
  */
-class Query extends \Joomla\Database\Query
+class Query extends \Joomla\Database\DatabaseQuery
 {
 }

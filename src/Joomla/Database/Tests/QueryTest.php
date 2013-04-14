@@ -9,7 +9,7 @@ namespace Joomla\Database\Tests;
 require_once __DIR__ . '/QueryInspector.php';
 
 /**
- * Test class for \Joomla\Database\Query.
+ * Test class for \Joomla\Database\DatabaseQuery.
  *
  * @since  1.0
  */

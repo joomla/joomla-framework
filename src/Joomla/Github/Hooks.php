@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Hooks extends Object
+class Hooks extends GithubObject
 {
 	/**
 	 * Array containing the allowed hook events

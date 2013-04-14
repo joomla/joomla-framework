@@ -6,7 +6,7 @@
 
 namespace Joomla\Database\Tests;
 
-use Joomla\Database\Driver\Sqlsrv;
+use Joomla\Database\Sqlsrv\SqlsrvDriver;
 
 /**
  * Test class for \Joomla\Database\Driver\Sqlsrv.
@@ -69,7 +69,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	{
 		$this->assertThat(
 			self::$driver->dropTable('#__bar', true),
-			$this->isInstanceOf('\\Joomla\\Database\\Driver\\Sqlsrv'),
+			$this->isInstanceOf('\\Joomla\\Database\\Sqlsrv\\SqlsrvDriver'),
 			'The table is dropped if present.'
 		);
 	}
@@ -520,7 +520,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	public function testIsSupported()
 	{
 		$this->assertThat(
-			\Joomla\Database\Driver\Sqlsrv::isSupported(),
+			\Joomla\Database\Sqlsrv\SqlsrvDriver::isSupported(),
 			$this->isTrue(),
 			__LINE__
 		);

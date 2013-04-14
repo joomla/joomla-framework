@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Statuses extends Object
+class Statuses extends GithubObject
 {
 	/**
 	 * Method to create a status.

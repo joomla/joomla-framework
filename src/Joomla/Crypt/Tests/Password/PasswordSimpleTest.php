@@ -8,7 +8,7 @@ namespace Joomla\Crypt\Tests;
 
 use Joomla\Crypt\PasswordInterface;
 use Joomla\Crypt\Password\Simple;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for JCryptPasswordSimple.
@@ -193,7 +193,7 @@ class PasswordSimpleTest extends \PHPUnit_Framework_TestCase
 		$test = new Simple;
 		$test->setDefaultType($type);
 		$this->assertThat(
-			Helper::getValue($test, 'defaultType'),
+			TestHelper::getValue($test, 'defaultType'),
 			$this->equalTo($expectation)
 		);
 	}

@@ -32,7 +32,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 
 		// Set up the database object mock.
 		$this->dbo = $this->getMock(
-			'Joomla\\Database\\Driver\\Mysqli',
+			'Joomla\\Database\\Mysqli\\MysqliDriver',
 			array(),
 			array(),
 			'',
@@ -49,7 +49,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCheckWithNoDbo()
 	{
-		$instance = new \Joomla\Database\Importer\Mysqli;
+		$instance = new \Joomla\Database\Mysqli\MysqliImporter;
 
 		try
 		{
@@ -75,7 +75,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCheckWithNoTables()
 	{
-		$instance = new \Joomla\Database\Importer\Mysqli;
+		$instance = new \Joomla\Database\Mysqli\MysqliImporter;
 		$instance->setDbo($this->dbo);
 
 		try
@@ -102,7 +102,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCheckWithGoodInput()
 	{
-		$instance = new \Joomla\Database\Importer\Mysqli;
+		$instance = new \Joomla\Database\Mysqli\MysqliImporter;
 		$instance->setDbo($this->dbo);
 		$instance->from('foobar');
 
@@ -133,7 +133,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetDboWithBadInput()
 	{
-		$instance = new \Joomla\Database\Importer\Mysqli;
+		$instance = new \Joomla\Database\Mysqli\MysqliImporter;
 
 		try
 		{
@@ -159,7 +159,7 @@ class ImporterMySQLiTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetDboWithGoodInput()
 	{
-		$instance = new \Joomla\Database\Importer\Mysqli;
+		$instance = new \Joomla\Database\Mysqli\MysqliImporter;
 
 		try
 		{

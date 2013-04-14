@@ -6,14 +6,14 @@
 
 namespace Joomla\Application\Tests;
 
-use Joomla\Application\Cli;
+use Joomla\Application\AbstractCliApplication;
 
 /**
  * Concrete stub for the Joomla\Application\Cli class.
  *
  * @since  1.0
  */
-class ConcreteCli extends Cli
+class ConcreteCli extends AbstractCliApplication
 {
 	/**
 	 * The exit code if the application was closed otherwise null.

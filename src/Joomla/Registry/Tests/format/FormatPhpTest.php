@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\Format;
+use Joomla\Registry\AbstractRegistryFormat;
 
 /**
  * Test class for Php.
@@ -22,7 +22,7 @@ class JRegistryFormatPHPTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testObjectToString()
 	{
-		$class = Format::getInstance('PHP');
+		$class = AbstractRegistryFormat::getInstance('PHP');
 		$options = array('class' => 'myClass');
 		$object = new stdClass;
 		$object->foo = 'bar';
@@ -63,7 +63,7 @@ class JRegistryFormatPHPTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStringToObject()
 	{
-		$class = Format::getInstance('PHP');
+		$class = AbstractRegistryFormat::getInstance('PHP');
 
 		// This method is not implemented in the class. The test is to achieve 100% code coverage
 		$this->assertTrue($class->stringToObject(''));

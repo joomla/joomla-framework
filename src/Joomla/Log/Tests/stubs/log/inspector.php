@@ -9,7 +9,7 @@
  */
 
 use Joomla\Log\Log;
-use Joomla\Log\Entry;
+use Joomla\Log\LogEntry;
 
 /**
  * JLogInspector class.
@@ -51,7 +51,7 @@ class JLogInspector extends Log
 	 *
 	 * @return void
 	 */
-	public function addLogEntry(Entry $entry)
+	public function addLogEntry(LogEntry $entry)
 	{
 		$this->queue[] = $entry;
 

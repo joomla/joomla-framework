@@ -8,14 +8,14 @@
 
 namespace Joomla\Image\Filter;
 
-use Joomla\Image\Filter;
+use Joomla\Image\ImageFilter;
 
 /**
  * Image Filter class to transform an image to grayscale.
  *
  * @since  1.0
  */
-class Grayscale extends Filter
+class Grayscale extends ImageFilter
 {
 	/**
 	 * Method to apply a filter to an image resource.

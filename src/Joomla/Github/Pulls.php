@@ -13,7 +13,7 @@ namespace Joomla\Github;
  *
  * @since  1.0
  */
-class Pulls extends Object
+class Pulls extends GithubObject
 {
 	/**
 	 * Method to create a pull request.

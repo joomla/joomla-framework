@@ -8,7 +8,7 @@ namespace Joomla\Cache\Tests;
 
 use Joomla\Cache;
 use Joomla\Registry\Registry;
-use Joomla\Test\Helper;
+use Joomla\Test\TestHelper;
 
 /**
  * Tests for the Joomla\Cache\Cache class.
@@ -89,9 +89,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExists()
 	{
-		$this->assertFalse(Helper::invoke($this->instance, 'exists', 'foo'));
+		$this->assertFalse(TestHelper::invoke($this->instance, 'exists', 'foo'));
 		$this->instance->set('foo', 'bar');
-		$this->assertTrue(Helper::invoke($this->instance, 'exists', 'foo'));
+		$this->assertTrue(TestHelper::invoke($this->instance, 'exists', 'foo'));
 	}
 
 	/**
@@ -120,7 +120,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSet()
 	{
-		$fileName = Helper::invoke($this->instance, 'fetchStreamUri', 'foo');
+		$fileName = TestHelper::invoke($this->instance, 'fetchStreamUri', 'foo');
 
 		$this->assertFalse(file_exists($fileName));
 
@@ -143,7 +143,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCheckFilePath()
 	{
-		$this->assertTrue(Helper::invoke($this->instance, 'checkFilePath', __DIR__));
+		$this->assertTrue(TestHelper::invoke($this->instance, 'checkFilePath', __DIR__));
 	}
 
 	/**
@@ -158,7 +158,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	public function testCheckFilePath_exception1()
 	{
 		// Invalid path
-		Helper::invoke($this->instance, 'checkFilePath', 'foo123');
+		TestHelper::invoke($this->instance, 'checkFilePath', 'foo123');
 	}
 
 	/**
@@ -186,7 +186,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testFetchStreamUri()
 	{
-		$fileName = Helper::invoke($this->instance, 'fetchStreamUri', 'test');
+		$fileName = TestHelper::invoke($this->instance, 'fetchStreamUri', 'test');
 	}
 
 	/**
@@ -202,11 +202,11 @@ class FileTest extends \PHPUnit_Framework_TestCase
 		$this->instance->setOption('ttl', 1);
 		$this->instance->set('foo', 'bar');
 		sleep(2);
-		$this->assertTrue(Helper::invoke($this->instance, 'isExpired', 'foo'), 'Should be expired.');
+		$this->assertTrue(TestHelper::invoke($this->instance, 'isExpired', 'foo'), 'Should be expired.');
 
 		$this->instance->setOption('ttl', 900);
 		$this->instance->set('foo', 'bar');
-		$this->assertFalse(Helper::invoke($this->instance, 'isExpired', 'foo'), 'Should not be expired.');
+		$this->assertFalse(TestHelper::invoke($this->instance, 'isExpired', 'foo'), 'Should not be expired.');
 	}
 
 	/**

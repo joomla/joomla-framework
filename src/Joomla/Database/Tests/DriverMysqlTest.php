@@ -63,7 +63,7 @@ class DriverMysqlTest extends DatabaseMysqlCase
 	{
 		$this->assertThat(
 			self::$driver->dropTable('#__bar', true),
-			$this->isInstanceOf('\\Joomla\\Database\\Driver\\Mysql'),
+			$this->isInstanceOf('\\Joomla\\Database\\Mysql\\MysqlDriver'),
 			'The table is dropped if present.'
 		);
 	}
@@ -131,7 +131,7 @@ class DriverMysqlTest extends DatabaseMysqlCase
 	{
 		$this->assertThat(
 			self::$driver->getExporter(),
-			$this->isInstanceOf('\\Joomla\\Database\\Exporter\\Mysql'),
+			$this->isInstanceOf('\\Joomla\\Database\\Mysql\\MysqlExporter'),
 			'Line:' . __LINE__ . ' The getExporter method should return the correct exporter.'
 		);
 	}
@@ -147,7 +147,7 @@ class DriverMysqlTest extends DatabaseMysqlCase
 	{
 		$this->assertThat(
 			self::$driver->getImporter(),
-			$this->isInstanceOf('\\Joomla\\Database\\Importer\\Mysql'),
+			$this->isInstanceOf('\\Joomla\\Database\\Mysql\\MysqlImporter'),
 			'Line:' . __LINE__ . ' The getImporter method should return the correct importer.'
 		);
 	}
@@ -508,7 +508,7 @@ class DriverMysqlTest extends DatabaseMysqlCase
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(\Joomla\Database\Driver\Mysql::isSupported(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Mysql\MysqlDriver::isSupported(), $this->isTrue(), __LINE__);
 	}
 
 	/**
