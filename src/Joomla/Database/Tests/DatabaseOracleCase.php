@@ -16,7 +16,7 @@ use Joomla\Factory;
 abstract class DatabaseOracleCase extends DatabaseCase
 {
 	/**
-	 * @var    \Joomla\Database\Driver\Oracle  The active database driver being used for the tests.
+	 * @var    \Joomla\Database\Oracle\OracleDriver  The active database driver being used for the tests.
 	 * @since  1.0
 	 */
 	protected static $driver;
@@ -28,7 +28,7 @@ abstract class DatabaseOracleCase extends DatabaseCase
 	private static $_options = array('driver' => 'oracle');
 
 	/**
-	 * @var    \Joomla\Database\Driver\Oracle  The saved database driver to be restored after these tests.
+	 * @var    \Joomla\Database\Oracle\OracleDriver  The saved database driver to be restored after these tests.
 	 * @since  1.0
 	 */
 	private static $_stash;

@@ -9,7 +9,7 @@ namespace Joomla\Model\Tests;
 use Joomla\Model;
 
 /**
- * Concrete class extending JModelDatabase.
+ * Concrete class extending Joomla\Model\AbstractDatabaseModel.
  *
  * @since  1.0
  */

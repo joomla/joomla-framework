@@ -11,14 +11,14 @@ use Joomla\Database\Tests\Mock as DatabaseMock;
 require_once __DIR__ . '/Stubs/DatabaseModel.php';
 
 /**
- * Tests for the Joomla\Model\Database class.
+ * Tests for the Joomla\Model\AbstractDatabaseModel class.
  *
  * @since  1.0
  */
 class AbstractDatabaseModelTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Model\Database
+	 * @var    \Joomla\Model\AbstractDatabaseModel
 	 * @since  1.0
 	 */
 	private $instance;
@@ -28,7 +28,7 @@ class AbstractDatabaseModelTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Model\Database::__construct
+	 * @covers  Joomla\Model\AbstractDatabaseModel::__construct
 	 * @since   1.0
 	 */
 	public function test__construct()
@@ -41,8 +41,8 @@ class AbstractDatabaseModelTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Model\Database::getDb
-	 * @covers  Joomla\Model\Database::setDb
+	 * @covers  Joomla\Model\AbstractDatabaseModel::getDb
+	 * @covers  Joomla\Model\AbstractDatabaseModel::setDb
 	 * @since   1.0
 	 */
 	public function testSetDb()

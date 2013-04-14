@@ -14,14 +14,14 @@ use Joomla\Test\TestHelper;
 require_once __DIR__ . '/Stubs/BaseController.php';
 
 /**
- * Tests for the Joomla\Controller\Base class.
+ * Tests for the Joomla\Controller\AbstractController class.
  *
  * @since  1.0
  */
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    \Joomla\Controller\Base
+	 * @var    \Joomla\Controller\AbstractController
 	 * @since  1.0
 	 */
 	private $instance;
@@ -31,9 +31,9 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Controller\Base::__construct
-	 * @covers  Joomla\Controller\Base::getInput
-	 * @covers  Joomla\Controller\Base::getApplication
+	 * @covers  Joomla\Controller\AbstractController::__construct
+	 * @covers  Joomla\Controller\AbstractController::getInput
+	 * @covers  Joomla\Controller\AbstractController::getApplication
 	 * @since   1.0
 	 */
 	public function test__construct()
@@ -59,7 +59,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             Joomla\Controller\Base::getApplication
+	 * @covers             Joomla\Controller\AbstractController::getApplication
 	 * @expectedException  \UnexpectedValueException
 	 * @since              1.0
 	 */
@@ -73,7 +73,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             Joomla\Controller\Base::getInput
+	 * @covers             Joomla\Controller\AbstractController::getInput
 	 * @expectedException  \UnexpectedValueException
 	 * @since              1.0
 	 */
@@ -87,7 +87,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Controller\Base::serialize
+	 * @covers  Joomla\Controller\AbstractController::serialize
 	 * @since   1.0
 	 */
 	public function testSerialise()
@@ -102,7 +102,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Controller\Base::unserialize
+	 * @covers  Joomla\Controller\AbstractController::unserialize
 	 * @since   1.0
 	 */
 	public function testUnserialise()
@@ -118,7 +118,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Controller\Base::unserialize
+	 * @covers  Joomla\Controller\AbstractController::unserialize
 	 * @since   1.0
 	 *
 	 * @expectedException  UnexpectedValueException
@@ -133,7 +133,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Controller\Base::setApplication
+	 * @covers  Joomla\Controller\AbstractController::setApplication
 	 * @since   1.0
 	 */
 	public function testSetApplication()
@@ -150,7 +150,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Controller\Base::setInput
+	 * @covers  Joomla\Controller\AbstractController::setInput
 	 * @since   1.0
 	 */
 	public function testSetInput()

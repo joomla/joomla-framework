@@ -9,7 +9,7 @@ use Joomla\Log\Log;
 use Joomla\Date\Date;
 
 /**
- * Test class for JLogEntry.
+ * Test class for Joomla\Log\LogEntry.
  *
  * @since  1.0
  */
@@ -18,7 +18,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Verify the default values for the log entry object.
 	 *
-	 * @covers  Joomla\Log\Entry::__construct
+	 * @covers  Joomla\Log\LogEntry::__construct
 	 *
 	 * @return void
 	 */
@@ -59,7 +59,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Verify the priority for the entry object cannot be something not in the approved list.
 	 *
-	 * @covers  Joomla\Log\Entry::__construct
+	 * @covers  Joomla\Log\LogEntry::__construct
 	 *
 	 * @return void
 	 */
@@ -90,7 +90,7 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test that non-standard category values are sanitized.
 	 *
-	 * @covers  Joomla\Log\Entry::__construct
+	 * @covers  Joomla\Log\LogEntry::__construct
 	 *
 	 * @return void
 	 */
