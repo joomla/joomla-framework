@@ -13,8 +13,6 @@ use Joomla\Github\Package;
 /**
  * GitHub API Activity class for the Joomla Platform.
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Activity
  * @since       1.0
  *
  * @documentation  http://developer.github.com/v3/activity/

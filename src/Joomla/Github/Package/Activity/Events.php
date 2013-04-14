@@ -15,8 +15,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/activity/events/
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Activity
  * @since       1.0
  */
 class Events extends Package

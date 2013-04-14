@@ -15,8 +15,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/gists/comments/
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Gists
  * @since       1.0
  */
 class Comments extends Package

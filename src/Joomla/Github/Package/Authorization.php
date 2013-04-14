@@ -16,8 +16,6 @@ use Joomla\Uri\Uri;
  *
  * @documentation http://developer.github.com/v3/oauth/
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Authorization
  * @since       1.0
  */
 class Authorization extends Package
