@@ -15,8 +15,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/issues/labels/
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Issues
  * @since       1.0
  */
 class Labels extends Package

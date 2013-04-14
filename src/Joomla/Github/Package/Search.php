@@ -15,8 +15,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/search
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Search
  * @since       1.0
  */
 class Search extends Package

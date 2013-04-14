@@ -18,8 +18,6 @@ use Joomla\Github\Package;
  * @documentation http://developer.github.com/v3/gitignore/
  * @documentation https://github.com/github/gitignore
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Gitignore
  * @since       1.0
  */
 class Gitignore extends Package

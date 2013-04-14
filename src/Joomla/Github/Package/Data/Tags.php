@@ -17,8 +17,6 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/git/tags/
  *
- * @package     Joomla.Platform
- * @subpackage  GitHub.Data
  * @since       1.0
  */
 class Tags extends Package
