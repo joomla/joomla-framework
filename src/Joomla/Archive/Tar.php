@@ -13,7 +13,7 @@ use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 
 /**
- * Tar format adapter for the JArchive class
+ * Tar format adapter for the Archive package
  *
  * This class is inspired from and draws heavily in code and concept from the Compress package of
  * The Horde Project <http://www.horde.org>
@@ -145,7 +145,7 @@ class Tar implements ExtractableInterface
 	 *
 	 * @param   string  &$data  The Tar archive buffer.
 	 *
-	 * @return   array  Archive metadata array
+	 * @return  array  Archive metadata array
 	 * <pre>
 	 * KEY: Position in the array
 	 * VALUES: 'attr'  --  File attributes
@@ -156,7 +156,8 @@ class Tar implements ExtractableInterface
 	 * 'type'  --  File type
 	 * </pre>
 	 *
-	 * @since  1.0
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function getTarInfo(& $data)
 	{

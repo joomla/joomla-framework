@@ -37,8 +37,8 @@ abstract class AbstractController implements ControllerInterface
 	/**
 	 * Instantiate the controller.
 	 *
-	 * @param   Input             $input  The input object.
-	 * @param   Application\Base  $app    The application object.
+	 * @param   Input                            $input  The input object.
+	 * @param   Application\AbstractApplication  $app    The application object.
 	 *
 	 * @since  1.0
 	 */
@@ -51,7 +51,7 @@ abstract class AbstractController implements ControllerInterface
 	/**
 	 * Get the application object.
 	 *
-	 * @return  Application\Base  The application object.
+	 * @return  Application\AbstractApplication  The application object.
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException if the application has not been set.
@@ -101,7 +101,7 @@ abstract class AbstractController implements ControllerInterface
 	 *
 	 * @param   Application\AbstractApplication  $app  The application object.
 	 *
-	 * @return  Base  Returns itself to support chaining.
+	 * @return  AbstractController  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -117,7 +117,7 @@ abstract class AbstractController implements ControllerInterface
 	 *
 	 * @param   Input  $input  The input object.
 	 *
-	 * @return  Base  Returns itself to support chaining.
+	 * @return  AbstractController  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -133,7 +133,7 @@ abstract class AbstractController implements ControllerInterface
 	 *
 	 * @param   string  $input  The serialized controller.
 	 *
-	 * @return  Base  Returns itself to support chaining.
+	 * @return  AbstractController  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException if input is not the right class.

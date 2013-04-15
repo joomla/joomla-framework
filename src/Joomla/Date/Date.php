@@ -8,11 +8,8 @@
 
 namespace Joomla\Date;
 
-use DateTime;
-use DateTimeZone;
-
 /**
- * JDate is a class that stores a date and provides logic to manipulate
+ * Date is a class that stores a date and provides logic to manipulate
  * and render that date in a variety of formats.
  *
  * @property-read  string   $daysinmonth   t - Number of days in the given month.
@@ -30,7 +27,7 @@ use DateTimeZone;
  *
  * @since  1.0
  */
-class Date extends DateTime
+class Date extends \DateTime
 {
 	/**
 	 * The format string to be applied when using the __toString() magic method.
@@ -43,7 +40,7 @@ class Date extends DateTime
 	/**
 	 * Placeholder for a DateTimeZone object with GMT as the time zone.
 	 *
-	 * @var    DateTimeZone
+	 * @var    \DateTimeZone
 	 * @since  1.0
 	 */
 	protected static $gmt;
@@ -52,7 +49,7 @@ class Date extends DateTime
 	 * Placeholder for a DateTimeZone object with the default server
 	 * time zone as the time zone.
 	 *
-	 * @var    DateTimeZone
+	 * @var    \DateTimeZone
 	 * @since  1.0
 	 */
 	protected static $stz;
@@ -60,7 +57,7 @@ class Date extends DateTime
 	/**
 	 * The DateTimeZone object for usage in rending dates as strings.
 	 *
-	 * @var    DateTimeZone
+	 * @var    \DateTimeZone
 	 * @since  1.0
 	 */
 	protected $tz;
@@ -78,12 +75,12 @@ class Date extends DateTime
 		// Create the base GMT and server time zone objects.
 		if (empty(self::$gmt) || empty(self::$stz))
 		{
-			self::$gmt = new DateTimeZone('GMT');
-			self::$stz = new DateTimeZone(@date_default_timezone_get());
+			self::$gmt = new \DateTimeZone('GMT');
+			self::$stz = new \DateTimeZone(@date_default_timezone_get());
 		}
 
 		// If the time zone object is not set, attempt to build it.
-		if (!($tz instanceof DateTimeZone))
+		if (!($tz instanceof \DateTimeZone))
 		{
 			if ($tz === null)
 			{
@@ -91,7 +88,7 @@ class Date extends DateTime
 			}
 			elseif (is_string($tz))
 			{
-				$tz = new DateTimeZone($tz);
+				$tz = new \DateTimeZone($tz);
 			}
 		}
 
@@ -185,7 +182,7 @@ class Date extends DateTime
 
 	/**
 	 * Magic method to render the date object in the format specified in the public
-	 * static member JDate::$format.
+	 * static member Date::$format.
 	 *
 	 * @return  string  The date as a formatted string.
 	 *
@@ -242,9 +239,9 @@ class Date extends DateTime
 	/**
 	 * Method to wrap the setTimezone() function and set the internal time zone object.
 	 *
-	 * @param   DateTimeZone  $tz  The new DateTimeZone object.
+	 * @param   \DateTimeZone  $tz  The new DateTimeZone object.
 	 *
-	 * @return  JDate
+	 * @return  Date
 	 *
 	 * @since   1.0
 	 * @note    This method can't be type hinted due to a PHP bug: https://bugs.php.net/bug.php?id=61483
@@ -269,7 +266,7 @@ class Date extends DateTime
 	 */
 	public function toISO8601($local = false)
 	{
-		return $this->format(DateTime::RFC3339, $local);
+		return $this->format(\DateTime::RFC3339, $local);
 	}
 
 	/**
@@ -285,7 +282,7 @@ class Date extends DateTime
 	 */
 	public function toRFC822($local = false)
 	{
-		return $this->format(DateTime::RFC2822, $local);
+		return $this->format(\DateTime::RFC2822, $local);
 	}
 
 	/**

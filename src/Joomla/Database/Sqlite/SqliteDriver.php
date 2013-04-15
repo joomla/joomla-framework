@@ -68,7 +68,7 @@ class SqliteDriver extends PdoDriver
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  Sqlite  Returns this object to support chaining.
+	 * @return  SqliteDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -130,7 +130,7 @@ class SqliteDriver extends PdoDriver
 	 * @return  array  A list of the create SQL for the tables.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableCreate($tables)
 	{
@@ -151,7 +151,7 @@ class SqliteDriver extends PdoDriver
 	 * @return  array  An array of fields for the database table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
 	{
@@ -207,7 +207,7 @@ class SqliteDriver extends PdoDriver
 	 * @return  array  An array of the column specification for the table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableKeys($table)
 	{
@@ -247,7 +247,7 @@ class SqliteDriver extends PdoDriver
 	 * @return  array   An array of all the tables in the database.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableList()
 	{
@@ -255,7 +255,6 @@ class SqliteDriver extends PdoDriver
 
 		$query = $this->getQuery(true);
 
-		$tables = array();
 		$type = 'table';
 
 		$query->select('name');
@@ -295,7 +294,7 @@ class SqliteDriver extends PdoDriver
 	 * @return  boolean  True if the database was successfully selected.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function select($database)
 	{
@@ -327,10 +326,10 @@ class SqliteDriver extends PdoDriver
 	 *
 	 * @param   string  $table  The name of the table to unlock.
 	 *
-	 * @return  Sqlite  Returns this object to support chaining.
+	 * @return  SqliteDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function lockTable($table)
 	{
@@ -345,10 +344,10 @@ class SqliteDriver extends PdoDriver
 	 * @param   string  $backup    Not used by Sqlite.
 	 * @param   string  $prefix    Not used by Sqlite.
 	 *
-	 * @return  Sqlite  Returns this object to support chaining.
+	 * @return  SqliteDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
 	{
@@ -360,10 +359,10 @@ class SqliteDriver extends PdoDriver
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  Sqlite  Returns this object to support chaining.
+	 * @return  SqliteDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function unlockTables()
 	{
@@ -390,7 +389,7 @@ class SqliteDriver extends PdoDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
 	{
@@ -414,7 +413,7 @@ class SqliteDriver extends PdoDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
 	{
@@ -444,7 +443,7 @@ class SqliteDriver extends PdoDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
 	{

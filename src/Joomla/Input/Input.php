@@ -50,7 +50,7 @@ class Input implements \Serializable, \Countable
 	/**
 	 * Filter object to use.
 	 *
-	 * @var    InputFilter
+	 * @var    Filter\InputFilter
 	 * @since  1.0
 	 */
 	protected $filter = null;

@@ -302,7 +302,7 @@ abstract class Field
 	 *
 	 * @param   Form  $form  The Form object to attach to the form field.
 	 *
-	 * @return  FormField  The form field object so that the method can be used in a chain.
+	 * @return  Field  The form field object so that the method can be used in a chain.
 	 *
 	 * @since   1.0
 	 */

@@ -405,7 +405,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   mixed  $columns  A string or an array of field names.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -470,7 +470,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $clause  Optionally, the name of the clause to clear, or nothing to clear the whole query.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -588,7 +588,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   mixed  $columns  A column name, or array of column names.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -655,7 +655,7 @@ abstract class DatabaseQuery
 	 * @return  string  The format string.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function dateFormat()
 	{
@@ -692,7 +692,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $table  The name of the table to delete from.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -723,7 +723,7 @@ abstract class DatabaseQuery
 	 * @return  string  The escaped string.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException if the internal db property is not a valid object.
+	 * @throws  \RuntimeException if the internal db property is not a valid object.
 	 */
 	public function escape($text, $extra = false)
 	{
@@ -747,7 +747,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   mixed  $columns  A string or an array of field names.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -780,10 +780,10 @@ abstract class DatabaseQuery
 	 *                                  as a subquery in FROM clause along with a value for $subQueryAlias.
 	 * @param   string  $subQueryAlias  Alias used when $tables is a JDatabaseQuery.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function from($tables, $subQueryAlias = null)
 	{
@@ -919,7 +919,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   mixed  $columns  A string or array of ordering columns.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -946,7 +946,7 @@ abstract class DatabaseQuery
 	 * @param   mixed   $conditions  A string or array of columns.
 	 * @param   string  $glue        The glue by which to join the conditions. Defaults to AND.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -973,7 +973,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $condition  The join condition.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -997,7 +997,7 @@ abstract class DatabaseQuery
 	 * @param   mixed    $table           The name of the table to insert data into.
 	 * @param   boolean  $incrementField  The name of the field to auto increment.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1019,7 +1019,7 @@ abstract class DatabaseQuery
 	 * @param   string  $type        The type of join. This string is prepended to the JOIN keyword.
 	 * @param   string  $conditions  A string or array of conditions.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1043,7 +1043,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $condition  The join condition.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1064,7 +1064,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $value  The string to measure.
 	 *
-	 * @return  int
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
@@ -1087,7 +1087,7 @@ abstract class DatabaseQuery
 	 * @return  string  Null or zero representation of a timestamp.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function nullDate($quoted = true)
 	{
@@ -1115,7 +1115,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   mixed  $columns  A string or array of ordering columns.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1141,7 +1141,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $condition  The join condition.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1171,7 +1171,7 @@ abstract class DatabaseQuery
 	 * @return  string  The quoted input string.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException if the internal db property is not a valid object.
+	 * @throws  \RuntimeException if the internal db property is not a valid object.
 	 */
 	public function quote($text, $escape = true)
 	{
@@ -1204,7 +1204,7 @@ abstract class DatabaseQuery
 	 * @return  mixed  The quote wrapped name, same type of $name.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException if the internal db property is not a valid object.
+	 * @throws  \RuntimeException if the internal db property is not a valid object.
 	 */
 	public function quoteName($name, $as = null)
 	{
@@ -1224,7 +1224,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $condition  The join condition.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1247,7 +1247,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   mixed  $columns  A string or an array of field names.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1278,7 +1278,7 @@ abstract class DatabaseQuery
 	 * @param   string  $glue        The glue by which to join the condition strings. Defaults to ,.
 	 *                               Note that the glue is set on first use and cannot be changed.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1307,7 +1307,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   mixed  $sql  An SQL Query
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1328,7 +1328,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $table  A table to update.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1349,7 +1349,7 @@ abstract class DatabaseQuery
 	 *
 	 * @param   string  $values  A single tuple, or array of tuples.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1378,7 +1378,7 @@ abstract class DatabaseQuery
 	 * @param   string  $glue        The glue by which to join the conditions. Defaults to AND.
 	 *                               Note that the glue is set on first use and cannot be changed.
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1457,12 +1457,11 @@ abstract class DatabaseQuery
 		// Get the Query\QueryElement if it does not exist
 		if (is_null($this->union))
 		{
-				$this->union = new Query\QueryElement($name, $query, "$glue");
+			$this->union = new Query\QueryElement($name, $query, "$glue");
 		}
 		else
 		// Otherwise append the second UNION.
 		{
-			$glue = '';
 			$this->union->append($query);
 		}
 

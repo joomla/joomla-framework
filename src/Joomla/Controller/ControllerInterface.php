@@ -52,7 +52,7 @@ interface ControllerInterface extends \Serializable
 	/**
 	 * Set the application object.
 	 *
-	 * @param   Application\Base  $app  The application object.
+	 * @param   Application\AbstractApplication  $app  The application object.
 	 *
 	 * @return  ControllerInterface  Returns itself to support chaining.
 	 *

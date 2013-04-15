@@ -259,7 +259,7 @@ class Text
 	 *
 	 * Note that this method can take a mixed number of arguments as for the sprintf function.
 	 *
-	 * @param   format  $string  The format string.
+	 * @param   string  $string  The format string.
 	 *
 	 * @return  mixed
 	 *

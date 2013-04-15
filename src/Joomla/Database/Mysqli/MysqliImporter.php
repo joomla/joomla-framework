@@ -21,7 +21,7 @@ class MysqliImporter extends DatabaseImporter
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *
-	 * @return  Mysqli  Method supports chaining.
+	 * @return  MysqliImporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \Exception if an error is encountered.

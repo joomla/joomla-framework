@@ -11,9 +11,6 @@ namespace Joomla\Google\Data\Picasa;
 use Joomla\Google\Data;
 use Joomla\Google\Auth;
 use Joomla\Registry\Registry;
-use SimpleXMLElement;
-use RuntimeException;
-use UnexpectedValueException;
 
 /**
  * Google Picasa data class for the Joomla Framework.
@@ -23,7 +20,7 @@ use UnexpectedValueException;
 class Photo extends Data
 {
 	/**
-	 * @var    SimpleXMLElement  The photo's XML
+	 * @var    \SimpleXMLElement  The photo's XML
 	 * @since  1.0
 	 */
 	protected $xml;
@@ -31,13 +28,13 @@ class Photo extends Data
 	/**
 	 * Constructor.
 	 *
-	 * @param   SimpleXMLElement  $xml      XML from Google
-	 * @param   Registry          $options  Google options object
-	 * @param   Auth              $auth     Google data http client object
+	 * @param   \SimpleXMLElement  $xml      XML from Google
+	 * @param   Registry           $options  Google options object
+	 * @param   Auth               $auth     Google data http client object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(SimpleXMLElement $xml, Registry $options = null, Auth $auth = null)
+	public function __construct(\SimpleXMLElement $xml, Registry $options = null, Auth $auth = null)
 	{
 		$this->xml = $xml;
 
@@ -57,9 +54,9 @@ class Photo extends Data
 	 * @return  boolean  Success or failure.
 	 *
 	 * @since   1.0
-	 * @throws  Exception
-	 * @throws  RuntimeException
-	 * @throws  UnexpectedValueException
+	 * @throws  \Exception
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function delete($match = '*')
 	{
@@ -77,11 +74,11 @@ class Photo extends Data
 			{
 				$jdata = $this->query($url, null, array('GData-Version' => 2, 'If-Match' => $match), 'delete');
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				if (strpos($e->getMessage(), 'Error code 412 received requesting data: Mismatch: etags') === 0)
 				{
-					throw new RuntimeException("Etag match failed: `$match`.");
+					throw new \RuntimeException("Etag match failed: `$match`.");
 				}
 
 				throw $e;
@@ -89,7 +86,7 @@ class Photo extends Data
 
 			if ($jdata->body != '')
 			{
-				throw new UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
+				throw new \UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
 			}
 
 			$this->xml = null;
@@ -316,8 +313,8 @@ class Photo extends Data
 	 * @return  mixed  Data from Google.
 	 *
 	 * @since   1.0
-	 * @throws  Exception
-	 * @throws  RuntimeException
+	 * @throws  \Exception
+	 * @throws  \RuntimeException
 	 */
 	public function save($match = '*')
 	{
@@ -336,11 +333,11 @@ class Photo extends Data
 				$headers = array('GData-Version' => 2, 'Content-type' => 'application/atom+xml', 'If-Match' => $match);
 				$jdata = $this->query($url, $this->xml->asXML(), $headers, 'put');
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				if (strpos($e->getMessage(), 'Error code 412 received requesting data: Mismatch: etags') === 0)
 				{
-					throw new RuntimeException("Etag match failed: `$match`.");
+					throw new \RuntimeException("Etag match failed: `$match`.");
 				}
 
 				throw $e;

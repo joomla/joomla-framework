@@ -21,7 +21,7 @@ abstract class AbstractDatabaseModel extends AbstractModel
 	/**
 	 * The database driver.
 	 *
-	 * @var    Driver
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	protected $db;
@@ -44,7 +44,7 @@ abstract class AbstractDatabaseModel extends AbstractModel
 	/**
 	 * Get the database driver.
 	 *
-	 * @return  Driver  The database driver.
+	 * @return  DatabaseDriver  The database driver.
 	 *
 	 * @since   1.0
 	 */

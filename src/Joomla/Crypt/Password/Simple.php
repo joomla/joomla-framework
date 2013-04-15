@@ -8,6 +8,7 @@
 
 namespace Joomla\Crypt\Password;
 
+use Joomla\Crypt\Crypt;
 use Joomla\Crypt\PasswordInterface;
 
 /**
@@ -38,6 +39,7 @@ class Simple implements PasswordInterface
 	 * @return  string  The hashed password.
 	 *
 	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function create($password, $type = null)
 	{
@@ -50,18 +52,7 @@ class Simple implements PasswordInterface
 		{
 			case '$2a$':
 			case PasswordInterface::BLOWFISH:
-				$salt = $this->getSalt(22);
-
-				if (version_compare(PHP_VERSION, '5.3.7') >= 0)
-				{
-					$type = '$2y$';
-				}
-				else
-				{
-					$type = '$2a$';
-				}
-
-				$salt = $type . str_pad($this->cost, 2, '0', STR_PAD_LEFT) . '$' . $this->getSalt(22);
+				$salt = '$2y$' . str_pad($this->cost, 2, '0', STR_PAD_LEFT) . '$' . $this->getSalt(22);
 
 			return crypt($password, $salt);
 
@@ -110,7 +101,7 @@ class Simple implements PasswordInterface
 	{
 		$bytes = ceil($length * 6 / 8);
 
-		$randomData = str_replace('+', '.', base64_encode(JCrypt::genRandomBytes($bytes)));
+		$randomData = str_replace('+', '.', base64_encode(Crypt::genRandomBytes($bytes)));
 
 		return substr($randomData, 0, $length);
 	}

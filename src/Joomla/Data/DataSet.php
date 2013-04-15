@@ -38,7 +38,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 * @param   array  $objects  An array of Data\Object objects to bind to the data set.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if an object is not an instance of Data\Object.
+	 * @throws  \InvalidArgumentException if an object is not an instance of Data\Object.
 	 */
 	public function __construct(array $objects = array())
 	{
@@ -199,7 +199,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	/**
 	 * Clears the objects in the data set.
 	 *
-	 * @return  Set  Returns itself to allow chaining.
+	 * @return  DataSet  Returns itself to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -214,7 +214,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	/**
 	 * Get the current data object in the set.
 	 *
-	 * @return  Object  The current object, or false if the array is empty or the pointer is beyond the end of the elements.
+	 * @return  DataObject  The current object, or false if the array is empty or the pointer is beyond the end of the elements.
 	 *
 	 * @since   1.0
 	 */
@@ -377,7 +377,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *
 	 * @param   mixed  $offset  The object offset.
 	 *
-	 * @return  Object  The object if it exists, null otherwise.
+	 * @return  DataObject  The object if it exists, null otherwise.
 	 *
 	 * @since   1.0
 	 */
@@ -389,13 +389,13 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	/**
 	 * Sets an offset in the iterator.
 	 *
-	 * @param   mixed   $offset  The object offset.
-	 * @param   Object  $object  The object object.
+	 * @param   mixed       $offset  The object offset.
+	 * @param   DataObject  $object  The object object.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if an object is not an instance of Data\Object.
+	 * @throws  \InvalidArgumentException if an object is not an instance of Data\Object.
 	 */
 	public function offsetSet($offset, $object)
 	{
@@ -495,7 +495,7 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException if an object is not an instance of Data\DataObject.
+	 * @throws  \InvalidArgumentException if an object is not an instance of Data\DataObject.
 	 */
 	private function _initialise(array $input = array())
 	{

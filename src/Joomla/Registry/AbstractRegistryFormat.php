@@ -27,10 +27,10 @@ abstract class AbstractRegistryFormat
 	 *
 	 * @param   string  $type  The format to load
 	 *
-	 * @return  Format  Registry format handler
+	 * @return  AbstractRegistryFormat  Registry format handler
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	public static function getInstance($type)
 	{

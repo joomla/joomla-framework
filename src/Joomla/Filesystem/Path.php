@@ -158,7 +158,7 @@ class Path
 	 * @return  string  A cleaned version of the path or exit on error.
 	 *
 	 * @since   1.0
-	 * @throws  Exception
+	 * @throws  \Exception
 	 */
 	public static function check($path)
 	{
@@ -186,7 +186,7 @@ class Path
 	 * @return  string  The cleaned path.
 	 *
 	 * @since   1.0
-	 * @throws  UnexpectedValueException If $path is not a string.
+	 * @throws  \UnexpectedValueException If $path is not a string.
 	 */
 	public static function clean($path, $ds = DIRECTORY_SEPARATOR)
 	{

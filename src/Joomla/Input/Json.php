@@ -52,7 +52,7 @@ class Json extends Input
 
 			if (!is_array($this->data))
 			{
-				$data = array();
+				$this->data = array();
 			}
 		}
 		else

@@ -8,6 +8,8 @@
 
 namespace Joomla\Cache;
 
+use Psr\Cache\CacheItemInterface;
+
 /**
  * Runtime cache only driver for the Joomla Framework.
  *

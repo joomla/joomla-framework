@@ -104,7 +104,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  void  Returns void if the database connected successfully.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function connect()
 	{
@@ -253,7 +253,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  Sqlsrv  Returns this object to support chaining.
+	 * @return  SqlsrvDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -331,7 +331,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  array  An array of fields.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
 	{
@@ -376,7 +376,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  array  A list of the create SQL for the tables.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableCreate($tables)
 	{
@@ -393,7 +393,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  array  An array of the column specification for the table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableKeys($table)
 	{
@@ -409,7 +409,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  array  An array of all the tables in the database.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableList()
 	{
@@ -448,7 +448,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  boolean    True on success.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function insertObject($table, &$object, $key = null)
 	{
@@ -525,7 +525,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  mixed  The return value or null if the query failed.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadResult()
 	{
@@ -558,8 +558,8 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
-	 * @throws  Exception
+	 * @throws  \Exception
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -590,8 +590,6 @@ class SqlsrvDriver extends DatabaseDriver
 		if ($this->debug)
 		{
 			// Add the query to the object queue.
-			$this->log[] = $sql;
-
 			$this->log(
 				Log\LogLevel::DEBUG,
 				'{sql}',
@@ -628,7 +626,7 @@ class SqlsrvDriver extends DatabaseDriver
 					$this->connection = null;
 					$this->connect();
 				}
-				catch (RuntimeException $e)
+				catch (\RuntimeException $e)
 				// If connect fails, ignore that exception and throw the normal exception.
 				{
 					// Get the error number and message.
@@ -781,7 +779,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  boolean  True if the database was successfully selected.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function select($database)
 	{
@@ -820,7 +818,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
 	{
@@ -847,7 +845,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
 	{
@@ -880,7 +878,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
 	{
@@ -1029,10 +1027,10 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @param   string  $backup    Table prefix
 	 * @param   string  $prefix    For the table - used to rename constraints in non-mysql databases
 	 *
-	 * @return  Sqlsrv  Returns this object to support chaining.
+	 * @return  SqlsrvDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
 	{
@@ -1058,10 +1056,10 @@ class SqlsrvDriver extends DatabaseDriver
 	 *
 	 * @param   string  $tableName  The name of the table to lock.
 	 *
-	 * @return  Sqlsrv  Returns this object to support chaining.
+	 * @return  SqlsrvDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function lockTable($tableName)
 	{
@@ -1071,10 +1069,10 @@ class SqlsrvDriver extends DatabaseDriver
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  Sqlsrv  Returns this object to support chaining.
+	 * @return  SqlsrvDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function unlockTables()
 	{

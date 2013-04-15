@@ -194,7 +194,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	 *
 	 * @param   string  $clause  Optionally, the name of the clause to clear, or nothing to clear the whole query.
 	 *
-	 * @return  void
+	 * @return  PostgresqlQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -316,10 +316,10 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	/**
 	 * Sets the FOR UPDATE lock on select's output row
 	 *
-	 * @param   string   $table_name  The table to lock
-	 * @param   boolean  $glue        The glue by which to join the conditions. Defaults to ',' .
+	 * @param   string  $table_name  The table to lock
+	 * @param   string  $glue        The glue by which to join the conditions. Defaults to ',' .
 	 *
-	 * @return  Postgresql  FOR UPDATE query element
+	 * @return  PostgresqlQuery  FOR UPDATE query element
 	 *
 	 * @since   1.0
 	 */
@@ -327,7 +327,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	{
 		$this->type = 'forUpdate';
 
-		if ( is_null($this->forUpdate) )
+		if (is_null($this->forUpdate))
 		{
 			$glue = strtoupper($glue);
 			$this->forUpdate = new QueryElement('FOR UPDATE', 'OF ' . $table_name, "$glue ");
@@ -343,10 +343,10 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	/**
 	 * Sets the FOR SHARE lock on select's output row
 	 *
-	 * @param   string   $table_name  The table to lock
-	 * @param   boolean  $glue        The glue by which to join the conditions. Defaults to ',' .
+	 * @param   string  $table_name  The table to lock
+	 * @param   string  $glue        The glue by which to join the conditions. Defaults to ',' .
 	 *
-	 * @return  Postgresql  FOR SHARE query element
+	 * @return  PostgresqlQuery  FOR SHARE query element
 	 *
 	 * @since   1.0
 	 */
@@ -354,7 +354,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	{
 		$this->type = 'forShare';
 
-		if ( is_null($this->forShare) )
+		if (is_null($this->forShare))
 		{
 			$glue = strtoupper($glue);
 			$this->forShare = new QueryElement('FOR SHARE', 'OF ' . $table_name, "$glue ");
@@ -472,7 +472,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	/**
 	 * Sets the NOWAIT lock on select's output row
 	 *
-	 * @return  Postgresql  NOWAIT query element
+	 * @return  PostgresqlQuery  NOWAIT query element
 	 *
 	 * @since   1.0
 	 */
@@ -493,7 +493,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	 *
 	 * @param   int  $limit  An int of how many row will be returned
 	 *
-	 * @return  Postgresql  Returns this object to allow chaining.
+	 * @return  PostgresqlQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -512,7 +512,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	 *
 	 * @param   int  $offset  An int for skipping row
 	 *
-	 * @return  Postgresql  Returns this object to allow chaining.
+	 * @return  PostgresqlQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -531,7 +531,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	 *
 	 * @param   mixed  $pkCol  The name of the primary key column.
 	 *
-	 * @return  Postgresql  Returns this object to allow chaining.
+	 * @return  PostgresqlQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -555,7 +555,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return  Postgresql  Returns this object to allow chaining.
+	 * @return  PostgresqlQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */

@@ -58,8 +58,8 @@ abstract class PdoDriver extends DatabaseDriver
 	/**
 	 * Contains the current query execution status
 	 *
-	 * @var array
-	 * @since 12.1
+	 * @var    array
+	 * @since  1.0
 	 */
 	protected $executed = false;
 
@@ -102,7 +102,8 @@ abstract class PdoDriver extends DatabaseDriver
 	 * @return  void  Returns void if the database connected successfully.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function connect()
 	{
@@ -118,7 +119,6 @@ abstract class PdoDriver extends DatabaseDriver
 		}
 
 		// Initialize the connection string variable:
-		$connectionString = '';
 		$replace = array();
 		$with = array();
 
@@ -281,6 +281,9 @@ abstract class PdoDriver extends DatabaseDriver
 				$with = array($this->options['host'], $this->options['port'], $this->options['database']);
 
 				break;
+
+			default:
+				throw new \UnexpectedValueException('The ' . $this->options['driver'] . ' driver is not supported.');
 		}
 
 		// Create the connection string:
@@ -353,8 +356,8 @@ abstract class PdoDriver extends DatabaseDriver
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
-	 * @throws  Exception
+	 * @throws  \Exception
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -386,8 +389,6 @@ abstract class PdoDriver extends DatabaseDriver
 		if ($this->debug)
 		{
 			// Add the query to the object queue.
-			$this->log[] = $sql;
-
 			$this->log(
 				Log\LogLevel::DEBUG,
 				'{sql}',
@@ -481,9 +482,9 @@ abstract class PdoDriver extends DatabaseDriver
 	 *
 	 * @param   mixed  $key  One of the PDO::ATTR_* Constants
 	 *
-	 * @return mixed
+	 * @return  mixed
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -661,7 +662,7 @@ abstract class PdoDriver extends DatabaseDriver
 	 * @return  boolean  True if the database was successfully selected.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function select($database)
 	{
@@ -678,7 +679,7 @@ abstract class PdoDriver extends DatabaseDriver
 	 * @param   integer  $limit          The maximum affected rows to set.
 	 * @param   array    $driverOptions  The optional PDO driver options
 	 *
-	 * @return  Pdo  This object to support method chaining.
+	 * @return  PdoDriver  This object to support method chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -703,7 +704,7 @@ abstract class PdoDriver extends DatabaseDriver
 
 		$this->prepared = $this->connection->prepare($sql, $driverOptions);
 
-		// Store reference to the JDatabaseQuery instance:
+		// Store reference to the DatabaseQuery instance:
 		parent::setQuery($query, $offset, $limit);
 
 		return $this;
@@ -729,7 +730,7 @@ abstract class PdoDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
 	{
@@ -751,7 +752,7 @@ abstract class PdoDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
 	{
@@ -773,7 +774,7 @@ abstract class PdoDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
 	{
@@ -886,7 +887,7 @@ abstract class PdoDriver extends DatabaseDriver
 	 * @return  mixed  The result of the query as an array, false if there are no more rows.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadNextAssoc()
 	{

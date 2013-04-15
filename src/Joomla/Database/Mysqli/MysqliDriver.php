@@ -94,7 +94,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  void  Returns void if the database connected successfully.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function connect()
 	{
@@ -237,10 +237,10 @@ class MysqliDriver extends DatabaseDriver
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  Mysqli  Returns this object to support chaining.
+	 * @return  MysqliDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function dropTable($tableName, $ifExists = true)
 	{
@@ -275,7 +275,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  mixed  The collation in use by the database (string) or boolean false if not supported.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getCollation()
 	{
@@ -309,7 +309,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  array  A list of the create SQL for the tables.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableCreate($tables)
 	{
@@ -342,7 +342,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  array  An array of fields for the database table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
 	{
@@ -382,7 +382,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  array  An array of the column specification for the table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableKeys($table)
 	{
@@ -401,7 +401,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  array  An array of all the tables in the database.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableList()
 	{
@@ -448,10 +448,10 @@ class MysqliDriver extends DatabaseDriver
 	 *
 	 * @param   string  $table  The name of the table to unlock.
 	 *
-	 * @return  Mysqli  Returns this object to support chaining.
+	 * @return  MysqliDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function lockTable($table)
 	{
@@ -466,7 +466,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -497,8 +497,6 @@ class MysqliDriver extends DatabaseDriver
 		if ($this->debug)
 		{
 			// Add the query to the object queue.
-			$this->log[] = $sql;
-
 			$this->log(
 				Log\LogLevel::DEBUG,
 				'{sql}',
@@ -565,10 +563,10 @@ class MysqliDriver extends DatabaseDriver
 	 * @param   string  $backup    Not used by MySQL.
 	 * @param   string  $prefix    Not used by MySQL.
 	 *
-	 * @return  Mysqli  Returns this object to support chaining.
+	 * @return  MysqliDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
 	{
@@ -585,7 +583,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  boolean  True if the database was successfully selected.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function select($database)
 	{
@@ -626,7 +624,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
 	{
@@ -653,7 +651,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
 	{
@@ -686,7 +684,7 @@ class MysqliDriver extends DatabaseDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
 	{
@@ -771,10 +769,10 @@ class MysqliDriver extends DatabaseDriver
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  Mysqli  Returns this object to support chaining.
+	 * @return  MysqliDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function unlockTables()
 	{
