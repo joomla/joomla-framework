@@ -12,9 +12,6 @@ use Joomla\Google\Data;
 use Joomla\Google\Auth;
 use Joomla\Filesystem\File;
 use Joomla\Registry\Registry;
-use SimpleXMLElement;
-use RuntimeException;
-use UnexpectedValueException;
 
 /**
  * Google Picasa data class for the Joomla Framework.
@@ -24,7 +21,7 @@ use UnexpectedValueException;
 class Album extends Data
 {
 	/**
-	 * @var    SimpleXMLElement  The album's XML
+	 * @var    \SimpleXMLElement  The album's XML
 	 * @since  1.0
 	 */
 	protected $xml;
@@ -32,13 +29,13 @@ class Album extends Data
 	/**
 	 * Constructor.
 	 *
-	 * @param   SimpleXMLElement  $xml      XML from Google
-	 * @param   Registry          $options  Google options object
-	 * @param   Auth              $auth     Google data http client object
+	 * @param   \SimpleXMLElement  $xml      XML from Google
+	 * @param   Registry           $options  Google options object
+	 * @param   Auth               $auth     Google data http client object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(SimpleXMLElement $xml, Registry $options = null, Auth $auth = null)
+	public function __construct(\SimpleXMLElement $xml, Registry $options = null, Auth $auth = null)
 	{
 		$this->xml = $xml;
 
@@ -58,9 +55,9 @@ class Album extends Data
 	 * @return  boolean  Success or failure.
 	 *
 	 * @since   1.0
-	 * @throws  Exception
-	 * @throws  RuntimeException
-	 * @throws  UnexpectedValueException
+	 * @throws  \Exception
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function delete($match = '*')
 	{
@@ -78,11 +75,11 @@ class Album extends Data
 			{
 				$jdata = $this->query($url, null, array('GData-Version' => 2, 'If-Match' => $match), 'delete');
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				if (strpos($e->getMessage(), 'Error code 412 received requesting data: Mismatch: etags') === 0)
 				{
-					throw new RuntimeException("Etag match failed: `$match`.");
+					throw new \RuntimeException("Etag match failed: `$match`.");
 				}
 
 				throw $e;
@@ -90,7 +87,7 @@ class Album extends Data
 
 			if ($jdata->body != '')
 			{
-				throw new UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
+				throw new \UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
 			}
 
 			$this->xml = null;
@@ -275,8 +272,8 @@ class Album extends Data
 	 * @return  mixed  Data from Google.
 	 *
 	 * @since   1.0
-	 * @throws  Exception
-	 * @throws  RuntimeException
+	 * @throws  \Exception
+	 * @throws  \RuntimeException
 	 */
 	public function save($match = '*')
 	{
@@ -295,11 +292,11 @@ class Album extends Data
 				$headers = array('GData-Version' => 2, 'Content-type' => 'application/atom+xml', 'If-Match' => $match);
 				$jdata = $this->query($url, $this->xml->asXML(), $headers, 'put');
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				if (strpos($e->getMessage(), 'Error code 412 received requesting data: Mismatch: etags') === 0)
 				{
-					throw new RuntimeException("Etag match failed: `$match`.");
+					throw new \RuntimeException("Etag match failed: `$match`.");
 				}
 
 				throw $e;
@@ -344,7 +341,7 @@ class Album extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   1.0
-	 * @throws  UnexpectedValueException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function listPhotos()
 	{
@@ -367,7 +364,7 @@ class Album extends Data
 			}
 			else
 			{
-				throw new UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
+				throw new \UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
 			}
 		}
 		else
@@ -386,8 +383,8 @@ class Album extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
-	 * @throws  UnexpectedValueException
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function upload($file, $title = '', $summary = '')
 	{
@@ -397,15 +394,15 @@ class Album extends Data
 
 			if (!($type = $this->getMIME($file)))
 			{
-				throw new RuntimeException("Inappropriate file type.");
+				throw new \RuntimeException("Inappropriate file type.");
 			}
 
 			if (!($data = file_get_contents($file)))
 			{
-				throw new RuntimeException("Cannot access file: `$file`");
+				throw new \RuntimeException("Cannot access file: `$file`");
 			}
 
-			$xml = new SimpleXMLElement('<entry></entry>');
+			$xml = new \SimpleXMLElement('<entry></entry>');
 			$xml->addAttribute('xmlns', 'http://www.w3.org/2005/Atom');
 			$xml->addChild('title', $title);
 			$xml->addChild('summary', $summary);
@@ -439,7 +436,7 @@ class Album extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   1.0
-	 * @throws  UnexpectedValueException
+	 * @throws  \UnexpectedValueException
 	 */
 	protected function getMIME($file)
 	{

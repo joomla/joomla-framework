@@ -37,44 +37,39 @@ class Patcher
 	const SPLIT = '/(\r\n)|(\r)|(\n)/';
 
 	/**
-	 * @var  array  sources files
-	 *
-	 * @since   1.0
+	 * @var    array  sources files
+	 * @since  1.0
 	 */
 	protected $sources = array();
 
 	/**
-	 * @var  array  destination files
-	 *
-	 * @since   1.0
+	 * @var    array  destination files
+	 * @since  1.0
 	 */
 	protected $destinations = array();
 
 	/**
-	 * @var  array  removal files
-	 *
-	 * @since   1.0
+	 * @var    array  removal files
+	 * @since  1.0
 	 */
 	protected $removals = array();
 
 	/**
-	 * @var  array  patches
-	 *
-	 * @since   1.0
+	 * @var    array  patches
+	 * @since  1.0
 	 */
 	protected $patches = array();
 
 	/**
-	 * @var  array  instance of this class
-	 *
-	 * @since   1.0
+	 * @var    array  instance of this class
+	 * @since  1.0
 	 */
 	protected static $instance;
 
 	/**
 	 * Constructor
 	 *
-	 * The constructor is protected to force the use of JFilesystemPatcher::getInstance()
+	 * The constructor is protected to force the use of Patcher::getInstance()
 	 *
 	 * @since   1.0
 	 */
@@ -85,7 +80,7 @@ class Patcher
 	/**
 	 * Method to get a patcher
 	 *
-	 * @return  JFilesystemPatcher  an instance of the patcher
+	 * @return  Patcher  an instance of the patcher
 	 *
 	 * @since   1.0
 	 */
@@ -102,7 +97,9 @@ class Patcher
 	/**
 	 * Reset the pacher
 	 *
-	 * @return  JFilesystemPatcher  This object for chaining
+	 * @return  Patcher  This object for chaining
+	 *
+	 * @since   1.0
 	 */
 	public function reset()
 	{
@@ -117,9 +114,10 @@ class Patcher
 	/**
 	 * Apply the patches
 	 *
-	 * @throws RuntimeException
+	 * @return  integer  The number of files patched
 	 *
-	 * @return integer the number of files patched
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function apply()
 	{
@@ -211,7 +209,7 @@ class Patcher
 	 * @param   string  $root      The files root path
 	 * @param   string  $strip     The number of '/' to strip
 	 *
-	 * @return	JFilesystemPatch $this for chaining
+	 * @return	Patcher  $this for chaining
 	 *
 	 * @since   1.0
 	 */
@@ -227,7 +225,7 @@ class Patcher
 	 * @param   string  $root   The files root path
 	 * @param   string  $strip  The number of '/' to strip
 	 *
-	 * @return	JFilesystemPatch $this for chaining
+	 * @return	Patcher  $this for chaining
 	 *
 	 * @since   1.0
 	 */
@@ -247,7 +245,7 @@ class Patcher
 	 *
 	 * @param   string  $data  Input string
 	 *
-	 * @return  array  The lines of the inputdestination file
+	 * @return  array  The lines of the input destination file
 	 *
 	 * @since   1.0
 	 */
@@ -267,7 +265,8 @@ class Patcher
 	 *
 	 * @return  boolean  TRUE in case of success, FALSE in case of failure
 	 *
-	 * @throw  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected static function findHeader(&$lines, &$src, &$dst)
 	{
@@ -330,7 +329,8 @@ class Patcher
 	 *
 	 * @return  boolean  TRUE in case of success, false in case of failure
 	 *
-	 * @throw  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected static function findHunk(&$lines, &$src_line, &$src_size, &$dst_line, &$dst_size)
 	{
@@ -386,7 +386,8 @@ class Patcher
 	 *
 	 * @return  void
 	 *
-	 * @throw  RuntimeException
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function applyHunk(&$lines, $src, $dst, $src_line, $src_size, $dst_line, $dst_size)
 	{

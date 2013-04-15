@@ -30,7 +30,7 @@ abstract class Select
 	 * @since  1.0
 	 */
 	protected static $formatOptions = array('format.depth' => 0, 'format.eol' => "\n", 'format.indent' => "\t");
-	
+
 	/**
 	 * Default values for options. Organized by option group.
 	 *
@@ -54,8 +54,8 @@ abstract class Select
 	 *
 	 * @return  string  HTML for the radio list
 	 *
+	 * @see     \Joomla\Form\Field\Radio
 	 * @since   1.0
-	 * @see     JFormFieldRadio
 	 */
 	public static function booleanlist($name, $attribs = null, $selected = null, $yes = 'JYES', $no = 'JNO', $id = false)
 	{
@@ -169,8 +169,7 @@ abstract class Select
 	 * @return  string  HTML for the select list
 	 *
 	 * @since   1.0
-	 *
-	 * @throws  RuntimeException If a group has contents that cannot be processed.
+	 * @throws  \RuntimeException If a group has contents that cannot be processed.
 	 */
 	public static function groupedlist($data, $name, $options = array())
 	{
@@ -260,7 +259,7 @@ abstract class Select
 			}
 			else
 			{
-				throw new RuntimeException('Invalid group contents.', 1);
+				throw new \RuntimeException('Invalid group contents.', 1);
 			}
 
 			if ($noGroup)
@@ -637,7 +636,7 @@ abstract class Select
 	 * @param   boolean  $idtag      Value of the field id or null by default
 	 * @param   boolean  $translate  True if options will be translated
 	 *
-	 * @return  string HTML for the select list
+	 * @return  string  HTML for the select list
 	 *
 	 * @since   1.0
 	 */
@@ -688,5 +687,4 @@ abstract class Select
 
 		return $html;
 	}
-
 }

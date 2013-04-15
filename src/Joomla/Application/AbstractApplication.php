@@ -188,7 +188,7 @@ abstract class AbstractApplication implements LoggerAwareInterface
 	 *
 	 * @param   Registry  $config  A registry object holding the configuration.
 	 *
-	 * @return  Base  Returns itself to support chaining.
+	 * @return  AbstractApplication  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -204,7 +204,7 @@ abstract class AbstractApplication implements LoggerAwareInterface
 	 *
 	 * @param   LoggerInterface  $logger  The logger.
 	 *
-	 * @return  Base  Returns itself to support chaining.
+	 * @return  AbstractApplication  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */

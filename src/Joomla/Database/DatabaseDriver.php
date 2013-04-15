@@ -225,7 +225,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 				$baseName = $file->getBasename();
 
 				// Derive the class name from the type.
-				/* @var  $class  Driver */
+				/* @var  $class  DatabaseDriver */
 				$class = ucfirst(strtolower($baseName)) . '\\' . ucfirst(strtolower($baseName)) . 'Driver';
 
 				// If the class doesn't exist, or if it's not supported on this system, move on to the next type.
@@ -254,7 +254,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 *
 	 * @param   array  $options  Parameters to be passed to the database driver.
 	 *
-	 * @return  Driver  A database object.
+	 * @return  DatabaseDriver  A database object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -439,7 +439,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 * @param   string   $table     The name of the database table to drop.
 	 * @param   boolean  $ifExists  Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  Driver     Returns this object to support chaining.
+	 * @return  DatabaseDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -620,7 +620,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	/**
 	 * Gets an exporter class object.
 	 *
-	 * @return  Exporter  An exporter object.
+	 * @return  DatabaseExporter  An exporter object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -637,7 +637,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 			throw new \RuntimeException('Database Exporter not found.');
 		}
 
-		/* @var  $o  Exporter */
+		/* @var  $o  DatabaseExporter */
 		$o = new $class;
 		$o->setDbo($this);
 
@@ -647,7 +647,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	/**
 	 * Gets an importer class object.
 	 *
-	 * @return  Importer  An importer object.
+	 * @return  DatabaseImporter  An importer object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -664,7 +664,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 			throw new \RuntimeException('Database Importer not found');
 		}
 
-		/* @var  $o  Importer */
+		/* @var  $o  DatabaseImporter */
 		$o = new $class;
 		$o->setDbo($this);
 
@@ -676,7 +676,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 *
 	 * @param   boolean  $new  False to return the current query object, True to return a new Query object.
 	 *
-	 * @return  Query  The current query object or a new object extending the Query class.
+	 * @return  DatabaseQuery  The current query object or a new object extending the Query class.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -1204,7 +1204,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 * @param   string  $message  The message.
 	 * @param   array   $context  Additional context.
 	 *
-	 * @return  Driver  Returns itself to allow chaining.
+	 * @return  DatabaseDriver  Returns itself to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1223,7 +1223,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 *
 	 * @param   string  $tableName  The name of the table to unlock.
 	 *
-	 * @return  Driver  Returns this object to support chaining.
+	 * @return  DatabaseDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -1458,7 +1458,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 * @param   string  $backup    Table prefix
 	 * @param   string  $prefix    For the table - used to rename constraints in non-mysql databases
 	 *
-	 * @return  Driver  Returns this object to support chaining.
+	 * @return  DatabaseDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -1501,7 +1501,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 * @param   integer  $offset  The affected row offset to set.
 	 * @param   integer  $limit   The maximum affected rows to set.
 	 *
-	 * @return  Driver  This object to support method chaining.
+	 * @return  DatabaseDriver  This object to support method chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -1685,7 +1685,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  Driver  Returns this object to support chaining.
+	 * @return  DatabaseDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

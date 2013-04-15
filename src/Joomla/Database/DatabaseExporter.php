@@ -34,7 +34,7 @@ abstract class DatabaseExporter
 	/**
 	 * The database connector to use for exporting structure and/or data.
 	 *
-	 * @var    Driver
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	protected $db = null;
@@ -92,8 +92,6 @@ abstract class DatabaseExporter
 		// Check everything is ok to run first.
 		$this->check();
 
-		$buffer = '';
-
 		// Get the format.
 		switch ($this->asFormat)
 		{
@@ -109,7 +107,7 @@ abstract class DatabaseExporter
 	/**
 	 * Set the output option for the exporter to XML format.
 	 *
-	 * @return  Exporter  Method supports chaining.
+	 * @return  DatabaseExporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -143,7 +141,7 @@ abstract class DatabaseExporter
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *
-	 * @return  Driver  Method supports chaining.
+	 * @return  DatabaseDriver  Method supports chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \Exception if an error is encountered.
@@ -155,7 +153,7 @@ abstract class DatabaseExporter
 	 *
 	 * @param   mixed  $from  The name of a single table, or an array of the table names to export.
 	 *
-	 * @return  Exporter  Method supports chaining.
+	 * @return  DatabaseExporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \Exception if input is not a string or array.
@@ -218,7 +216,7 @@ abstract class DatabaseExporter
 	 *
 	 * @param   boolean  $setting  True to export the structure, false to not.
 	 *
-	 * @return  Exporter  Method supports chaining.
+	 * @return  DatabaseExporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */

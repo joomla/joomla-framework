@@ -48,7 +48,7 @@ class Archive
 
 		$this->options = $options;
 	}
-	
+
 
 	/**
 	 * Extract an archive file to a directory.
@@ -63,7 +63,6 @@ class Archive
 	 */
 	public function extract($archivename, $extractdir)
 	{
-		$result = false;
 		$ext = pathinfo($archivename, PATHINFO_EXTENSION);
 		$path = pathinfo($archivename, PATHINFO_DIRNAME);
 		$filename = pathinfo($archivename, PATHINFO_FILENAME);
@@ -149,9 +148,9 @@ class Archive
 	/**
 	 * Method to override the provided adapter with your own implementation.
 	 *
-	 * @param   string  $type      Name of the adapter to set.
-	 * @param   string  $class     FQCN of your class which implements ExtractableInterface.
-	 * @param   object  $override  True to force override the adapter type.
+	 * @param   string   $type      Name of the adapter to set.
+	 * @param   string   $class     FQCN of your class which implements ExtractableInterface.
+	 * @param   boolean  $override  True to force override the adapter type.
 	 *
 	 * @return  Archive  This object for chaining.
 	 *
@@ -178,7 +177,7 @@ class Archive
 	 *
 	 * @param   string  $type  The type of adapter (bzip2|gzip|tar|zip).
 	 *
-	 * @return  Joomla\Archive\ExtractableInterface  Adapter for the requested type
+	 * @return  ExtractableInterface  Adapter for the requested type
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -190,6 +189,7 @@ class Archive
 		if (!isset($this->adapters[$type]))
 		{
 			// Try to load the adapter object
+			/* @var  ExtractableInterface  $class */
 			$class = 'Joomla\\Archive\\' . ucfirst($type);
 
 			if (!class_exists($class) || !$class::isSupported())

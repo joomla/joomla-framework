@@ -62,7 +62,8 @@ class File extends Cache
 			'/\.data$/i'
 		);
 
-		foreach ($iterator as $name => $file)
+		/* @var  \RecursiveDirectoryIterator  $file */
+		foreach ($iterator as $file)
 		{
 			if ($file->isFile())
 			{
@@ -139,7 +140,7 @@ class File extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  void
+	 * @return  boolean  True on success
 	 *
 	 * @since   1.0
 	 */

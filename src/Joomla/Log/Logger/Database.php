@@ -14,9 +14,9 @@ use Joomla\Log\LogEntry;
 use Joomla\Factory;
 
 /**
- * Joomla! MySQL Database Log class
+ * Joomla! Database Log class
  *
- * This class is designed to output logs to a specific MySQL database table. Fields in this
+ * This class is designed to output logs to a specific database table. Fields in this
  * table are based on the Syslog style of log output. This is designed to allow quick and
  * easy searching.
  *
@@ -61,7 +61,7 @@ class Database extends AbstractLogger
 	protected $table = 'jos_';
 
 	/**
-	 * @var    Driver  The database driver object for the logger.
+	 * @var    DatabaseDriver  The database driver object for the logger.
 	 * @since  1.0
 	 */
 	protected $dbo;

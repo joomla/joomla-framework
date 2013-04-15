@@ -16,7 +16,7 @@ namespace Joomla\Crypt;
 class Crypt
 {
 	/**
-	 * @var    Cipher  The encryption cipher object.
+	 * @var    CipherInterface  The encryption cipher object.
 	 * @since  1.0
 	 */
 	private $cipher;

@@ -105,7 +105,7 @@ class Apc extends Cache
 	 *
 	 * @param   string  $key  The storage entry identifier.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */
