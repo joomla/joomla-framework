@@ -15,7 +15,6 @@ namespace Joomla\Filesystem;
  * where as the legacy JFile static class treated files in a rather
  * atomic manner.
  *
- *
  * This class adheres to the stream wrapper operations:
  *
  * @see    http://php.net/manual/en/function.stream-get-wrappers.php
@@ -27,23 +26,25 @@ namespace Joomla\Filesystem;
  */
 class Stream
 {
-	// Publicly settable vars (protected to let our parent read them)
 	/**
 	 * File Mode
+	 *
 	 * @var    integer
 	 * @since  1.0
-	 * */
+	 */
 	protected $filemode = 0644;
 
 	/**
 	 * Directory Mode
+	 *
 	 * @var   integer
 	 * @since  1.0
-	 * */
+	 */
 	protected $dirmode = 0755;
 
 	/**
 	 * Default Chunk Size
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -51,6 +52,7 @@ class Stream
 
 	/**
 	 * Filename
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
@@ -58,6 +60,7 @@ class Stream
 
 	/**
 	 * Prefix of the connection for writing
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
@@ -65,15 +68,16 @@ class Stream
 
 	/**
 	 * Prefix of the connection for reading
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
 	protected $readprefix;
 
 	/**
+	 * Read Processing method
 	 *
-	 *Read Processing method
-	 * @var   string  gz, bz, f
+	 * @var    string  gz, bz, f
 	 * If a scheme is detected, fopen will be defaulted
 	 * To use compression with a network stream use a filter
 	 * @since  1.0
@@ -82,6 +86,7 @@ class Stream
 
 	/**
 	 * Filters applied to the current stream
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
@@ -89,6 +94,7 @@ class Stream
 
 	/**
 	 * File Handle
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
@@ -96,13 +102,15 @@ class Stream
 
 	/**
 	 * File size
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $filesize;
 
 	/**
-	 *Context to use when opening the connection
+	 * Context to use when opening the connection
+	 *
 	 * @var
 	 * @since  1.0
 	 */
@@ -110,6 +118,7 @@ class Stream
 
 	/**
 	 * Context options; used to rebuild the context
+	 *
 	 * @var
 	 * @since  1.0
 	 */
@@ -117,6 +126,7 @@ class Stream
 
 	/**
 	 * The mode under which the file was opened
+	 *
 	 * @var
 	 * @since  1.0
 	 */
@@ -170,6 +180,7 @@ class Stream
 	 * @return  boolean
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function open($filename, $mode = 'r', $use_include_path = false, $context = null,
 		$use_prefix = false, $relative = false, $detectprocessingmode = false)
@@ -185,7 +196,6 @@ class Stream
 		$this->openmode = $mode;
 
 		$url = parse_url($filename);
-		$retval = false;
 
 		if (isset($url['scheme']))
 		{
@@ -265,16 +275,12 @@ class Stream
 		{
 			throw new \RuntimeException($php_errormsg);
 		}
-		else
-		{
-			$retval = true;
-		}
 
 		// Restore error tracking to what it was before
 		ini_set('track_errors', $track_errors);
 
 		// Return the result
-		return $retval;
+		return true;
 	}
 
 	/**
@@ -286,6 +292,7 @@ class Stream
 	 * @return  boolean
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function close()
 	{
@@ -293,8 +300,6 @@ class Stream
 		{
 			throw new \RuntimeException('File not open');
 		}
-
-		$retval = false;
 
 		// Capture PHP errors
 		$php_errormsg = 'Error Unknown';
@@ -325,7 +330,6 @@ class Stream
 		{
 			// Reset this
 			$this->fh = null;
-			$retval = true;
 		}
 
 		// If we wrote, chmod the file after it's closed
@@ -338,7 +342,7 @@ class Stream
 		ini_set('track_errors', $track_errors);
 
 		// Return the result
-		return $retval;
+		return true;
 	}
 
 	/**
@@ -347,6 +351,7 @@ class Stream
 	 * @return  boolean
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function eof()
 	{
@@ -391,6 +396,7 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function filesize()
 	{
@@ -398,8 +404,6 @@ class Stream
 		{
 			throw new \RuntimeException('File not open');
 		}
-
-		$retval = false;
 
 		// Capture PHP errors
 		$php_errormsg = '';
@@ -460,6 +464,7 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function gets($length = 0)
 	{
@@ -467,8 +472,6 @@ class Stream
 		{
 			throw new \RuntimeException('File not open');
 		}
-
-		$retval = false;
 
 		// Capture PHP errors
 		$php_errormsg = 'Error Unknown';
@@ -492,16 +495,12 @@ class Stream
 		{
 			throw new \RuntimeException($php_errormsg);
 		}
-		else
-		{
-			$retval = $res;
-		}
 
 		// Restore error tracking to what it was before
 		ini_set('track_errors', $track_errors);
 
 		// Return the result
-		return $retval;
+		return $res;
 	}
 
 	/**
@@ -515,6 +514,7 @@ class Stream
 	 *
 	 * @see     http://php.net/manual/en/function.fread.php
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function read($length = 0)
 	{
@@ -611,8 +611,9 @@ class Stream
 	 *
 	 * @return  boolean  True on success, false on failure
 	 *
-	 * @see http://php.net/manual/en/function.fseek.php
+	 * @see     http://php.net/manual/en/function.fseek.php
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function seek($offset, $whence = SEEK_SET)
 	{
@@ -620,8 +621,6 @@ class Stream
 		{
 			throw new \RuntimeException('File not open');
 		}
-
-		$retval = false;
 
 		// Capture PHP errors
 		$php_errormsg = '';
@@ -646,16 +645,12 @@ class Stream
 		{
 			throw new \RuntimeException($php_errormsg);
 		}
-		else
-		{
-			$retval = true;
-		}
 
 		// Restore error tracking to what it was before
 		ini_set('track_errors', $track_errors);
 
 		// Return the result
-		return $retval;
+		return true;
 	}
 
 	/**
@@ -664,6 +659,7 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function tell()
 	{
@@ -671,8 +667,6 @@ class Stream
 		{
 			throw new \RuntimeException('File not open');
 		}
-
-		$res = false;
 
 		// Capture PHP errors
 		$php_errormsg = '';
@@ -713,7 +707,7 @@ class Stream
 	 * any write you do. Specifying chunked will get around this by only
 	 * writing in specific chunk sizes. This defaults to 8192 which is a
 	 * sane number to use most of the time (change the default with
-	 * JStream::set('chunksize', newsize);)
+	 * Stream::set('chunksize', newsize);)
 	 * Note: This doesn't support gzip/bzip2 writing like reading does
 	 *
 	 * @param   string   &$string  Reference to the string to write.
@@ -724,6 +718,7 @@ class Stream
 	 *
 	 * @see     http://php.net/manual/en/function.fwrite.php
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function write(&$string, $length = 0, $chunk = 0)
 	{
@@ -795,6 +790,7 @@ class Stream
 	 * @return  boolean
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function chmod($filename = '', $mode = 0)
 	{
@@ -813,8 +809,6 @@ class Stream
 		{
 			$mode = $this->filemode;
 		}
-
-		$retval = false;
 
 		// Capture PHP errors
 		$php_errormsg = '';
@@ -840,16 +834,12 @@ class Stream
 		{
 			throw new \RuntimeException($php_errormsg);
 		}
-		else
-		{
-			$retval = true;
-		}
 
 		// Restore error tracking to what it was before.
 		ini_set('track_errors', $track_errors);
 
 		// Return the result
-		return $retval;
+		return true;
 	}
 
 	/**
@@ -859,6 +849,7 @@ class Stream
 	 *
 	 * @see     http://php.net/manual/en/function.stream-get-meta-data.php
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function get_meta_data()
 	{
@@ -900,7 +891,7 @@ class Stream
 	 *
 	 * @return  void
 	 *
-	 * @see       http://php.net/stream_context_create
+	 * @see     http://php.net/stream_context_create
 	 * @since   1.0
 	 */
 	public function setContextOptions($context)
@@ -971,6 +962,7 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function applyContextToStream()
 	{
@@ -1008,6 +1000,7 @@ class Stream
 	 *
 	 * @see     http://php.net/manual/en/function.stream-filter-append.php
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function appendFilter($filtername, $read_write = STREAM_FILTER_READ, $params = array())
 	{
@@ -1049,6 +1042,7 @@ class Stream
 	 *
 	 * @see     http://php.net/manual/en/function.stream-filter-prepend.php
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function prependFilter($filtername, $read_write = STREAM_FILTER_READ, $params = array())
 	{
@@ -1090,11 +1084,10 @@ class Stream
 	 * @return  boolean   Result of operation
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function removeFilter(&$resource, $byindex = false)
 	{
-		$res = false;
-
 		// Capture PHP errors
 		$php_errormsg = '';
 		$track_errors = ini_get('track_errors');
@@ -1132,11 +1125,10 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function copy($src, $dest, $context = null, $use_prefix = true, $relative = false)
 	{
-		$res = false;
-
 		// Capture PHP errors
 		$php_errormsg = '';
 		$track_errors = ini_get('track_errors');
@@ -1192,11 +1184,10 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function move($src, $dest, $context = null, $use_prefix = true, $relative = false)
 	{
-		$res = false;
-
 		// Capture PHP errors
 		$php_errormsg = '';
 		$track_errors = ini_get('track_errors');
@@ -1245,11 +1236,10 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function delete($filename, $context = null, $use_prefix = true, $relative = false)
 	{
-		$res = false;
-
 		// Capture PHP errors
 		$php_errormsg = '';
 		$track_errors = ini_get('track_errors');
@@ -1296,6 +1286,7 @@ class Stream
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function upload($src, $dest, $context = null, $use_prefix = true, $relative = false)
 	{

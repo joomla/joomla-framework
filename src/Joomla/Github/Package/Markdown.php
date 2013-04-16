@@ -26,9 +26,11 @@ class Markdown extends Package
 	 * @param   string  $mode     The parsing mode; valid options are 'markdown' or 'gfm'.
 	 * @param   string  $context  An optional repository context, only used in 'gfm' mode.
 	 *
-	 * @throws \InvalidArgumentException
-	 * @since   1.0
 	 * @return  string  Formatted HTML
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function render($text, $mode = 'gfm', $context = null)
 	{

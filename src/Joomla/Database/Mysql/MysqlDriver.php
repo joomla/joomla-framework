@@ -66,7 +66,7 @@ class MysqlDriver extends MysqliDriver
 	 * @return  void  Returns void if the database connected successfully.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function connect()
 	{
@@ -232,7 +232,7 @@ class MysqlDriver extends MysqliDriver
 	 * @return  mixed  A database cursor resource on success, boolean false on failure.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -342,7 +342,7 @@ class MysqlDriver extends MysqliDriver
 	 * @return  boolean  True if the database was successfully selected.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function select($database)
 	{

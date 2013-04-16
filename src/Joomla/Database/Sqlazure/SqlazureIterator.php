@@ -8,6 +8,8 @@
 
 namespace Joomla\Database\Sqlazure;
 
+use Joomla\Database\Sqlsrv\SqlsrvIterator;
+
 /**
  * SQL azure database iterator.
  *

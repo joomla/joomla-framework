@@ -44,7 +44,7 @@ class Keychain extends Registry
 	 * @return  boolean  Result of writing the passphrase file to disk.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function createPassphraseFile($passphrase, $passphraseFile, $privateKeyFile, $privateKeyPassphrase)
 	{
@@ -115,7 +115,7 @@ class Keychain extends Registry
 	 * @return  boolean  Result of loading the object.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function loadKeychain($keychainFile, $passphraseFile, $publicKeyFile)
 	{
@@ -146,7 +146,7 @@ class Keychain extends Registry
 	 * @return  boolean  Result of storing the file.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function saveKeychain($keychainFile, $passphraseFile, $publicKeyFile)
 	{
@@ -172,7 +172,7 @@ class Keychain extends Registry
 	 * @return  string  The passphrase in from passphraseFile
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function getPassphraseFromFile($passphraseFile, $publicKeyFile)
 	{

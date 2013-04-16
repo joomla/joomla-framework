@@ -159,7 +159,7 @@ abstract class AbstractHtmlView extends AbstractView
 	 *
 	 * @param   string  $layout  The layout name.
 	 *
-	 * @return  Html  Method supports chaining.
+	 * @return  AbstractHtmlView  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -175,7 +175,7 @@ abstract class AbstractHtmlView extends AbstractView
 	 *
 	 * @param   \SplPriorityQueue  $paths  The paths queue.
 	 *
-	 * @return  Html  Method supports chaining.
+	 * @return  AbstractHtmlView  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */

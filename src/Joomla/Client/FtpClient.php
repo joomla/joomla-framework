@@ -186,7 +186,7 @@ class FtpClient
 	 * @param   string  $user     Username to use for a connection
 	 * @param   string  $pass     Password to use for a connection
 	 *
-	 * @return  JClientFtp        The FTP Client object.
+	 * @return  FtpClient  The FTP Client object.
 	 *
 	 * @since   1.0
 	 */

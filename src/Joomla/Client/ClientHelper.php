@@ -103,7 +103,7 @@ class ClientHelper
 
 				if ($options['enabled'])
 				{
-					$ftp = Ftp::getInstance($options['host'], $options['port']);
+					$ftp = FtpClient::getInstance($options['host'], $options['port']);
 
 					// Test the connection and try to log in
 					if ($ftp->isConnected())

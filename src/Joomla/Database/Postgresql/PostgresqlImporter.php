@@ -20,7 +20,7 @@ class PostgresqlImporter extends DatabaseImporter
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *
-	 * @return  Postgresql  Method supports chaining.
+	 * @return  PostgresqlImporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \Exception if an error is encountered.
@@ -496,7 +496,7 @@ class PostgresqlImporter extends DatabaseImporter
 	 * @return  array  The lookup array. array({key name} => array(object, ...))
 	 *
 	 * @since   1.0
-	 * @throws  Exception
+	 * @throws  \Exception
 	 */
 	protected function getIdxLookup($keys)
 	{

@@ -13,7 +13,7 @@ use Joomla\Filesystem\Path;
 use Joomla\Filesystem\Folder;
 
 /**
- * ZIP format adapter for the JArchive class
+ * ZIP format adapter for the Archive package
  *
  * The ZIP compression code is partially based on code from:
  * Eric Mueller <eric@themepark.com>
@@ -122,7 +122,6 @@ class Zip implements ExtractableInterface
 	 * @return  boolean  True if successful.
 	 *
 	 * @since   1.0
-	 *
 	 * @todo    Finish Implementation
 	 */
 	public function create($archive, $files)
@@ -273,7 +272,7 @@ class Zip implements ExtractableInterface
 	 * @return  boolean  True on success
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function extractNative($archive, $destination)
 	{
@@ -340,7 +339,7 @@ class Zip implements ExtractableInterface
 	 * @return  boolean True on success
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	private function readZipInfo(&$data)
 	{
@@ -475,9 +474,9 @@ class Zip implements ExtractableInterface
 	 * (date in high 2-bytes, time in low 2-bytes allowing magnitude
 	 * comparison).
 	 *
-	 * @param   int  $unixtime  The current UNIX timestamp.
+	 * @param   integer  $unixtime  The current UNIX timestamp.
 	 *
-	 * @return  int  The current date in a 4-byte DOS format.
+	 * @return  integer  The current date in a 4-byte DOS format.
 	 *
 	 * @since   1.0
 	 */
@@ -509,7 +508,6 @@ class Zip implements ExtractableInterface
 	 * @return  void
 	 *
 	 * @since   1.0
-	 *
 	 * @todo    Review and finish implementation
 	 */
 	private function addToZIPFile(array &$file, array &$contents, array &$ctrldir)
@@ -620,7 +618,6 @@ class Zip implements ExtractableInterface
 	 * @return  boolean  True if successful
 	 *
 	 * @since   1.0
-	 *
 	 * @todo	Review and finish implementation
 	 */
 	private function createZIPFile(array &$contents, array &$ctrlDir, $path)

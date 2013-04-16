@@ -8,6 +8,7 @@
 
 namespace Joomla\Form\Rule;
 
+use Joomla\Form\Form;
 use Joomla\Form\Rule;
 use Joomla\String\String;
 use Joomla\Uri\UriHelper;

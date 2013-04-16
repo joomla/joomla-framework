@@ -92,7 +92,7 @@ class MysqliQuery extends DatabaseQuery implements LimitableInterface
 	 * @param   integer  $limit   The limit for the result set
 	 * @param   integer  $offset  The offset for the result set
 	 *
-	 * @return  Query  Returns this object to allow chaining.
+	 * @return  MysqliQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */

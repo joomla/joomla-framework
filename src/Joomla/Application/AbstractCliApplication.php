@@ -19,7 +19,7 @@ use Joomla\Input;
 abstract class AbstractCliApplication extends AbstractApplication
 {
 	/**
-	 * @var    Cli  The application instance.
+	 * @var    AbstractCliApplication  The application instance.
 	 * @since  1.0
 	 */
 	private static $instance;
@@ -63,7 +63,7 @@ abstract class AbstractCliApplication extends AbstractApplication
 	 * @param   string   $text  The text to display.
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
-	 * @return  Cli  Instance of $this to allow chaining.
+	 * @return  AbstractCliApplication  Instance of $this to allow chaining.
 	 *
 	 * @codeCoverageIgnore
 	 * @since   1.0
