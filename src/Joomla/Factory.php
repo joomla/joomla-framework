@@ -14,10 +14,8 @@ use Joomla\Filesystem\Stream;
 use Joomla\Session\Session;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Language\Text;
-use Joomla\Client\Helper;
+use Joomla\Client\ClientHelper;
 use Joomla\Date\Date;
-use RuntimeException;
-use Exception;
 
 // Legacy classes.
 use JApplication;
@@ -74,7 +72,7 @@ abstract class Factory
 	/**
 	 * Driver object instance
 	 *
-	 * @var    Driver
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	public static $database = null;
@@ -117,7 +115,7 @@ abstract class Factory
 	 *
 	 * @return  Session object
 	 *
-	 * @see     JSession
+	 * @see     Session
 	 * @since   1.0
 	 */
 	public static function getSession(array $options = array())
@@ -137,7 +135,7 @@ abstract class Factory
 	 *
 	 * @return  Language object
 	 *
-	 * @see     JLanguage
+	 * @see     Language
 	 * @since   1.0
 	 */
 	public static function getLanguage()
@@ -153,11 +151,11 @@ abstract class Factory
 	/**
 	 * Get a database object.
 	 *
-	 * Returns the global {@link JDatabaseDriver} object, only creating it if it doesn't already exist.
+	 * Returns the global {@link DatabaseDriver} object, only creating it if it doesn't already exist.
 	 *
-	 * @return  Driver
+	 * @return  DatabaseDriver
 	 *
-	 * @see     Driver
+	 * @see     DatabaseDriver
 	 * @since   1.0
 	 */
 	public static function getDbo()
@@ -247,9 +245,9 @@ abstract class Factory
 	/**
 	 * Create an database object
 	 *
-	 * @return  Driver
+	 * @return  DatabaseDriver
 	 *
-	 * @see     Driver
+	 * @see     DatabaseDriver
 	 * @since   1.0
 	 */
 	protected static function createDbo()
@@ -268,9 +266,9 @@ abstract class Factory
 
 		try
 		{
-			$db = Driver::getInstance($options);
+			$db = DatabaseDriver::getInstance($options);
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			if (!headers_sent())
 			{
@@ -327,8 +325,8 @@ abstract class Factory
 
 		if ($use_prefix)
 		{
-			$FTPOptions = Helper::getCredentials('ftp');
-			$SCPOptions = Helper::getCredentials('scp');
+			$FTPOptions = ClientHelper::getCredentials('ftp');
+			$SCPOptions = ClientHelper::getCredentials('scp');
 
 			if ($FTPOptions['enabled'] == 1 && $use_network)
 			{

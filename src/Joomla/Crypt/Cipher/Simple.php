@@ -102,7 +102,7 @@ class Cipher_Simple implements CipherInterface
 	 *
 	 * @param   array  $options  Key generation options.
 	 *
-	 * @return  JCryptKey
+	 * @return  Key
 	 *
 	 * @since   1.0
 	 */

@@ -10,7 +10,7 @@ namespace Joomla\Application;
 
 use Joomla\Filesystem\Folder;
 use Joomla\Registry\Registry;
-use Joomla\Input\InputCli;
+use Joomla\Input\Cli;
 use Psr\Log\LoggerAwareInterface;
 
 /**
@@ -93,7 +93,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	/**
 	 * Class constructor.
 	 *
-	 * @param   InputCli  $input   An optional argument to provide dependency injection for the application's
+	 * @param   Cli  $input   An optional argument to provide dependency injection for the application's
 	 *                             input object.  If the argument is a InputCli object that object will become
 	 *                             the application's input object, otherwise a default input object is created.
 	 * @param   Registry  $config  An optional argument to provide dependency injection for the application's
@@ -103,7 +103,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(InputCli $input = null, Registry $config = null)
+	public function __construct(Cli $input = null, Registry $config = null)
 	{
 		// Verify that the process control extension for PHP is available.
 		// @codeCoverageIgnoreStart
@@ -154,22 +154,32 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 *
 	 * @since   1.0
 	 * @see     pcntl_signal()
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public static function signal($signal)
 	{
-		// Log all signals sent to the daemon.
-		if ($this->logger)
+		// Retrieve the logger if set
+		try
 		{
-			$this->logger->debug('Received signal: ' . $signal);
+			$logger = static::$instance->getLogger();
+		}
+		catch (\UnexpectedValueException $e)
+		{
+			$logger = false;
+		}
+
+		// Log all signals sent to the daemon.
+		if ($logger)
+		{
+			$logger->debug('Received signal: ' . $signal);
 		}
 
 		// Let's make sure we have an application instance.
 		if (!is_subclass_of(static::$instance, __CLASS__))
 		{
-			if ($this->logger)
+			if ($logger)
 			{
-				$this->logger->emergency('Cannot find the application instance.');
+				$logger->emergency('Cannot find the application instance.');
 			}
 
 			throw new \RuntimeException('Cannot find the application instance.');
@@ -274,7 +284,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 *
 	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.
 	 *
-	 * @return  JCli  Instance of $this to allow chaining.
+	 * @return  AbstractDaemonApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -543,7 +553,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function daemonize()
 	{
@@ -659,7 +669,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function detach()
 	{
@@ -700,7 +710,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 * @return  integer  The child process id to the parent process, zero to the child process.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function fork()
 	{

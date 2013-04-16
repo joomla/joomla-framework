@@ -590,7 +590,7 @@ class PostgresqlDriver extends DatabaseDriver
 	 *
 	 * @param   string  $tableName  The name of the table to unlock.
 	 *
-	 * @return  Postgresql  Returns this object to support chaining.
+	 * @return  PostgresqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -640,8 +640,6 @@ class PostgresqlDriver extends DatabaseDriver
 		if ($this->debug)
 		{
 			// Add the query to the object queue.
-			$this->log[] = $sql;
-
 			$this->log(
 				Log\LogLevel::DEBUG,
 				'{sql}',
@@ -715,7 +713,7 @@ class PostgresqlDriver extends DatabaseDriver
 	 * @param   string  $backup    Not used by PostgreSQL.
 	 * @param   string  $prefix    Not used by PostgreSQL.
 	 *
-	 * @return  Postgresql  Returns this object to support chaining.
+	 * @return  PostgresqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -827,8 +825,6 @@ class PostgresqlDriver extends DatabaseDriver
 	 */
 	public function sqlValue($columns, $field_name, $field_value)
 	{
-		$val = '';
-
 		switch ($columns[$field_name])
 		{
 			case 'boolean':
@@ -1232,7 +1228,6 @@ class PostgresqlDriver extends DatabaseDriver
 	public function replacePrefix($sql, $prefix = '#__')
 	{
 		$sql = trim($sql);
-		$replacedQuery = '';
 
 		if (strpos($sql, '\''))
 		{
@@ -1331,7 +1326,7 @@ class PostgresqlDriver extends DatabaseDriver
 	 * Unlocks tables in the database, this command does not exist in PostgreSQL,
 	 * it is automatically done on commit or rollback.
 	 *
-	 * @return  Postgresql  Returns this object to support chaining.
+	 * @return  PostgresqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

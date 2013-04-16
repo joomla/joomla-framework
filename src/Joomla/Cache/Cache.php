@@ -20,7 +20,7 @@ use Psr\Cache\CacheItemInterface;
 abstract class Cache implements CacheInterface
 {
 	/**
-	 * @var    ArrayAccess  The options for the cache object.
+	 * @var    \ArrayAccess  The options for the cache object.
 	 * @since  1.0
 	 */
 	protected $options;

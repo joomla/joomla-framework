@@ -8,11 +8,9 @@
 
 namespace Joomla\Google\Data;
 
-use SimpleXMLElement;
 use Joomla\Google\Data;
 use Joomla\Google\Auth;
 use Joomla\Registry\Registry;
-use UnexpectedValueException;
 
 /**
  * Google Picasa data class for the Joomla Framework.
@@ -47,7 +45,7 @@ class Picasa extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   1.0
-	 * @throws  UnexpectedValueException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function listAlbums($userID = 'default')
 	{
@@ -70,7 +68,7 @@ class Picasa extends Data
 			}
 			else
 			{
-				throw new UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
+				throw new \UnexpectedValueException("Unexpected data received from Google: `{$jdata->body}`.");
 			}
 		}
 		else
@@ -100,7 +98,7 @@ class Picasa extends Data
 		{
 			$time = $time ? $time : time();
 			$title = $title != '' ? $title : date('F j, Y');
-			$xml = new SimpleXMLElement('<entry></entry>');
+			$xml = new \SimpleXMLElement('<entry></entry>');
 			$xml->addAttribute('xmlns', 'http://www.w3.org/2005/Atom');
 			$xml->addChild('title', $title);
 			$xml->addChild('summary', $summary);
@@ -134,7 +132,7 @@ class Picasa extends Data
 	 * @return  mixed  Data from Google
 	 *
 	 * @since   1.0
-	 * @throws  UnexpectedValueException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getAlbum($url)
 	{

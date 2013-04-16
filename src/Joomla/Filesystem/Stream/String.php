@@ -174,11 +174,10 @@ class String
 	 *
 	 * @param   integer  $count  Bytes of data from the current position should be returned.
 	 *
-	 * @return  void
-	 *
-	 * @since   1.0
+	 * @return  string
 	 *
 	 * @see     http://www.php.net/manual/en/streamwrapper.stream-read.php
+	 * @since   1.0
 	 */
 	public function stream_read($count)
 	{

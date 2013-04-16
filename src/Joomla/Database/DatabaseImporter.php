@@ -24,7 +24,7 @@ abstract class DatabaseImporter
 	/**
 	 * The database connector to use for exporting structure and/or data.
 	 *
-	 * @var    Driver
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	protected $db = null;
@@ -80,7 +80,7 @@ abstract class DatabaseImporter
 	/**
 	 * Set the output option for the exporter to XML format.
 	 *
-	 * @return  Importer  Method supports chaining.
+	 * @return  DatabaseImporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -94,10 +94,10 @@ abstract class DatabaseImporter
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *
-	 * @return  Importer  Method supports chaining.
+	 * @return  DatabaseImporter  Method supports chaining.
 	 *
 	 * @since   1.0
-	 * @throws  Exception if an error is encountered.
+	 * @throws  \Exception if an error is encountered.
 	 */
 	abstract public function check();
 
@@ -106,7 +106,7 @@ abstract class DatabaseImporter
 	 *
 	 * @param   mixed  $from  The data source to import.
 	 *
-	 * @return  Importer  Method supports chaining.
+	 * @return  DatabaseImporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -160,7 +160,7 @@ abstract class DatabaseImporter
 	 *
 	 * @note    Currently only supports XML format.
 	 * @since   1.0
-	 * @throws  RuntimeException on error.
+	 * @throws  \RuntimeException on error.
 	 */
 	protected function mergeStructure()
 	{
@@ -234,7 +234,7 @@ abstract class DatabaseImporter
 	 *
 	 * @param   DatabaseDriver  $db  The database connector.
 	 *
-	 * @return  Importer  Method supports chaining.
+	 * @return  DatabaseImporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -250,7 +250,7 @@ abstract class DatabaseImporter
 	 *
 	 * @param   boolean  $setting  True to export the structure, false to not.
 	 *
-	 * @return  Importer  Method supports chaining.
+	 * @return  DatabaseImporter  Method supports chaining.
 	 *
 	 * @since   1.0
 	 */

@@ -10,7 +10,7 @@ namespace Joomla\Filesystem;
 
 use Joomla\Factory;
 use Joomla\Log\Log;
-use Joomla\Client\Ftp;
+use Joomla\Client\FtpClient;
 use Joomla\Client\ClientHelper;
 
 /**
@@ -32,7 +32,7 @@ abstract class Folder
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public static function copy($src, $dest, $path = '', $force = false, $use_streams = false)
 	{
@@ -70,7 +70,7 @@ abstract class Folder
 		if ($FTPOptions['enabled'] == 1 && !$use_streams)
 		{
 			// Connect the FTP client
-			$ftp = Ftp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+			$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 
 			if (!($dh = @opendir($src)))
 			{
@@ -218,7 +218,7 @@ abstract class Folder
 		if ($FTPOptions['enabled'] == 1)
 		{
 			// Connect the FTP client
-			$ftp = Ftp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+			$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 
 			// Translate path to FTP path
 			$path = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $path), '/');
@@ -294,6 +294,7 @@ abstract class Folder
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public static function delete($path)
 	{
@@ -364,7 +365,7 @@ abstract class Folder
 		if ($FTPOptions['enabled'] == 1)
 		{
 			// Connect the FTP client
-			$ftp = Ftp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+			$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 		}
 
 		// In case of restricted permissions we zap it one way or the other
@@ -438,7 +439,7 @@ abstract class Folder
 			if ($FTPOptions['enabled'] == 1)
 			{
 				// Connect the FTP client
-				$ftp = Ftp::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
 
 				// Translate path for the FTP account
 				$src = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $src), '/');

@@ -40,16 +40,16 @@ class OracleDriver extends PdoDriver
 	/**
 	 * Returns the current dateformat
 	 *
-	 * @var   string
-	 * @since 12.1
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $dateformat;
 
 	/**
 	 * Returns the current character set
 	 *
-	 * @var   string
-	 * @since 12.1
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $charset;
 
@@ -90,7 +90,7 @@ class OracleDriver extends PdoDriver
 	 * @return  void  Returns void if the database connected successfully.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function connect()
 	{
@@ -131,7 +131,7 @@ class OracleDriver extends PdoDriver
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  Oracle  Returns this object to support chaining.
+	 * @return  OracleDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -182,9 +182,9 @@ class OracleDriver extends PdoDriver
      * date format and needs to check what the current
      * one is to see if it needs to be changed.
      *
-     * @return string The current date format
+     * @return  string  The current date format
      *
-     * @since 12.1
+     * @since   1.0
      */
 	public function getDateFormat()
 	{
@@ -202,7 +202,7 @@ class OracleDriver extends PdoDriver
 	 * @return  array  A list of the create SQL for the tables.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableCreate($tables)
 	{
@@ -239,7 +239,7 @@ class OracleDriver extends PdoDriver
 	 * @return  array  An array of fields for the database table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableColumns($table, $typeOnly = true)
 	{
@@ -292,7 +292,7 @@ class OracleDriver extends PdoDriver
 	 * @return  array  An array of the column specification for the table.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableKeys($table)
 	{
@@ -328,15 +328,13 @@ class OracleDriver extends PdoDriver
 	 * @return  array    An array of all the tables in the database.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getTableList($databaseName = null, $includeDatabaseName = false)
 	{
 		$this->connect();
 
 		$query = $this->getQuery(true);
-
-		$tables = array();
 
 		if ($includeDatabaseName)
 		{
@@ -395,7 +393,7 @@ class OracleDriver extends PdoDriver
 	 * @return  boolean  True if the database was successfully selected.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function select($database)
 	{
@@ -414,9 +412,9 @@ class OracleDriver extends PdoDriver
      *
      * @param   string  $dateFormat  Oracle Date Format String
      *
-     * @return boolean
+     * @return  boolean
      *
-     * @since  1.0
+     * @since   1.0
      */
 	public function setDateFormat($dateFormat = 'DD-MON-RR')
 	{
@@ -462,10 +460,10 @@ class OracleDriver extends PdoDriver
 	 *
 	 * @param   string  $table  The name of the table to unlock.
 	 *
-	 * @return  Oracle  Returns this object to support chaining.
+	 * @return  OracleDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function lockTable($table)
 	{
@@ -482,10 +480,10 @@ class OracleDriver extends PdoDriver
 	 * @param   string  $backup    Not used by Oracle.
 	 * @param   string  $prefix    Not used by Oracle.
 	 *
-	 * @return  Oracle  Returns this object to support chaining.
+	 * @return  OracleDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
 	{
@@ -497,10 +495,10 @@ class OracleDriver extends PdoDriver
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  Oracle  Returns this object to support chaining.
+	 * @return  OracleDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function unlockTables()
 	{
@@ -622,7 +620,7 @@ class OracleDriver extends PdoDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionCommit($toSavepoint = false)
 	{
@@ -646,7 +644,7 @@ class OracleDriver extends PdoDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionRollback($toSavepoint = false)
 	{
@@ -676,7 +674,7 @@ class OracleDriver extends PdoDriver
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function transactionStart($asSavepoint = false)
 	{

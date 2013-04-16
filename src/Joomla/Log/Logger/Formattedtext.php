@@ -8,12 +8,10 @@
 
 namespace Joomla\Log\Logger;
 
-use JPlatform;
 use Joomla\Filesystem\Folder;
 use Joomla\Log\AbstractLogger;
 use Joomla\Log\LogEntry;
 use Joomla\Factory;
-use RuntimeException;
 
 /**
  * Joomla! Formatted Text File Log class
@@ -33,7 +31,7 @@ class Formattedtext extends AbstractLogger
 
 	/**
 	 * @var    string  The format for which each entry follows in the log file.  All fields must be named
-	 * in all caps and be within curly brackets eg. {FOOBAR}.
+	 *                 in all caps and be within curly brackets eg. {FOOBAR}.
 	 * @since  1.0
 	 */
 	protected $format = '{DATETIME}	{PRIORITY}	{CATEGORY}	{MESSAGE}';
@@ -114,7 +112,7 @@ class Formattedtext extends AbstractLogger
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function addEntry(LogEntry $entry)
 	{
@@ -168,7 +166,7 @@ class Formattedtext extends AbstractLogger
 		// Write the new entry to the file.
 		if (!fwrite($this->file, $line . "\n"))
 		{
-			throw new RuntimeException('Cannot write to log file.');
+			throw new \RuntimeException('Cannot write to log file.');
 		}
 	}
 
@@ -211,6 +209,7 @@ class Formattedtext extends AbstractLogger
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function initFile()
 	{
@@ -231,14 +230,14 @@ class Formattedtext extends AbstractLogger
 		// Open the file for writing (append mode).
 		if (!$this->file = fopen($this->path, 'a'))
 		{
-			throw new RuntimeException('Cannot open file for writing log');
+			throw new \RuntimeException('Cannot open file for writing log');
 		}
 
 		if ($head)
 		{
 			if (!fwrite($this->file, $head))
 			{
-				throw new RuntimeException('Cannot fput file for log');
+				throw new \RuntimeException('Cannot fput file for log');
 			}
 		}
 	}

@@ -10,6 +10,7 @@ namespace Joomla\Form;
 
 use Joomla\Factory;
 use Joomla\Html\Html;
+use Joomla\Language\Text;
 
 /**
  * Supports an custom SQL select list
@@ -58,7 +59,7 @@ class Field_SQL extends Field_List
 			{
 				if ($translate == true)
 				{
-					$options[] = Html::_('select.option', $item->$key, JText::_($item->$value));
+					$options[] = Html::_('select.option', $item->$key, Text::_($item->$value));
 				}
 				else
 				{

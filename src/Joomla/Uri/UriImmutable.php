@@ -18,7 +18,8 @@ namespace Joomla\Uri;
 final class UriImmutable extends AbstractUri
 {
 	/**
-	 * @var  boolean  Has this class been instantiated yet.
+	 * @var    boolean  Has this class been instantiated yet.
+	 * @since  1.0
 	 */
 	private $constructed = false;
 
@@ -30,9 +31,8 @@ final class UriImmutable extends AbstractUri
 	 *
 	 * @return  null  This method always throws an exception.
 	 *
-	 * @throws  BadMethodCallException
-	 *
 	 * @since   1.0
+	 * @throws  \BadMethodCallException
 	 */
 	public function __set($name, $value)
 	{
@@ -45,6 +45,7 @@ final class UriImmutable extends AbstractUri
 	 * @param   string  $uri  The optional URI string
 	 *
 	 * @since   1.0
+	 * @throws  \BadMethodCallException
 	 */
 	public function __construct($uri = null)
 	{

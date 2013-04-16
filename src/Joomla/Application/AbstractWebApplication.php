@@ -64,7 +64,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	/**
 	 * The application instance.
 	 *
-	 * @var    Web
+	 * @var    AbstractWebApplication
 	 * @since  1.0
 	 */
 	private static $instance;
@@ -371,7 +371,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	 * @param   string   $value    The value of the header to set.
 	 * @param   boolean  $replace  True to replace any headers with the same name.
 	 *
-	 * @return  Web  Instance of $this to allow chaining.
+	 * @return  AbstractWebApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -418,7 +418,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	/**
 	 * Method to clear any set response headers.
 	 *
-	 * @return  Web  Instance of $this to allow chaining.
+	 * @return  AbstractWebApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -432,7 +432,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	/**
 	 * Send the response headers.
 	 *
-	 * @return  Web  Instance of $this to allow chaining.
+	 * @return  AbstractWebApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -462,7 +462,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	 *
 	 * @param   string  $content  The content to set as the response body.
 	 *
-	 * @return  Web  Instance of $this to allow chaining.
+	 * @return  AbstractWebApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -478,7 +478,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	 *
 	 * @param   string  $content  The content to prepend to the response body.
 	 *
-	 * @return  Web  Instance of $this to allow chaining.
+	 * @return  AbstractWebApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -494,7 +494,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	 *
 	 * @param   string  $content  The content to append to the response body.
 	 *
-	 * @return  Web  Instance of $this to allow chaining.
+	 * @return  AbstractWebApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -570,8 +570,6 @@ abstract class AbstractWebApplication extends AbstractApplication
 	 */
 	protected function detectRequestUri()
 	{
-		$uri = '';
-
 		// First we need to detect the URI scheme.
 		if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'))
 		{
@@ -648,7 +646,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	 *
 	 * @param   Session  $session  A session object.
 	 *
-	 * @return  Web  Returns itself to support chaining.
+	 * @return  AbstractWebApplication  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */

@@ -33,7 +33,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *                              by which to set the initial properties of the new object.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function __construct($properties = array())
 	{
@@ -59,7 +59,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *
 	 * @return  mixed  The value of the data property, or null if the data property does not exist.
 	 *
-	 * @see     Data::getProperty()
+	 * @see     DataObject::getProperty()
 	 * @since   1.0
 	 */
 	public function __get($property)
@@ -91,7 +91,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *
 	 * @return  void
 	 *
-	 * @see     Data::setProperty()
+	 * @see     DataObject::setProperty()
 	 * @since   1.0
 	 */
 	public function __set($property, $value)
@@ -119,10 +119,10 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 * @param   mixed    $properties   An associative array of properties or an object.
 	 * @param   boolean  $updateNulls  True to bind null values, false to ignore null values.
 	 *
-	 * @return  Data  Returns itself to allow chaining.
+	 * @return  DataObject  Returns itself to allow chaining.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function bind($properties, $updateNulls = true)
 	{
@@ -169,7 +169,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *                                      form. A depth of 1 will recurse into the first level of properties only.
 	 * @param   \SplObjectStorage  $dumped  An array of already serialized objects that is used to avoid infinite loops.
 	 *
-	 * @return  stdClass  The data properties as a simple PHP stdClass object.
+	 * @return  object  The data properties as a simple PHP stdClass object.
 	 *
 	 * @since   1.0
 	 */
@@ -202,7 +202,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *
 	 * This allows the data properties to be access via a foreach statement.
 	 *
-	 * @return  ArrayIterator  This object represented as an ArrayIterator.
+	 * @return  \ArrayIterator  This object represented as an ArrayIterator.
 	 *
 	 * @see     IteratorAggregate::getIterator()
 	 * @since   1.0
@@ -276,7 +276,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *
 	 * @return  mixed  The value of the data property.
 	 *
-	 * @see     Data::__get()
+	 * @see     DataObject::__get()
 	 * @since   1.0
 	 */
 	protected function getProperty($property)
@@ -297,7 +297,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *
 	 * @return  mixed  The value of the data property.
 	 *
-	 * @see     Data::__set()
+	 * @see     DataObject::__set()
 	 * @since   1.0
 	 */
 	protected function setProperty($property, $value)
