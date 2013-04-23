@@ -6,6 +6,8 @@
 
 namespace Joomla\Database\Tests;
 
+use Joomla\Test\TestHelper;
+
 require_once __DIR__ . '/QueryInspector.php';
 
 /**
@@ -1576,6 +1578,14 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 		$baseElement->testArray[] = 'test';
 
+		$this->assertThat(
+			TestHelper::getValue($baseElement, 'db'),
+			$this->identicalTo(
+				TestHelper::getValue($cloneElement, 'db')
+			),
+			'The cloned $db variable should be identical after cloning.'
+		);
+
 		$this->assertFalse($baseElement === $cloneElement);
 		$this->assertTrue(count($cloneElement->testArray) == 0);
 	}
@@ -1595,8 +1605,15 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 		$cloneElement = clone($baseElement);
 
-		$this->assertFalse($baseElement === $cloneElement);
+		$this->assertThat(
+			TestHelper::getValue($baseElement, 'db'),
+			$this->identicalTo(
+				TestHelper::getValue($cloneElement, 'db')
+			),
+			'The cloned $db variable should be identical after cloning.'
+		);
 
+		$this->assertFalse($baseElement === $cloneElement);
 		$this->assertFalse($baseElement->testObject === $cloneElement->testObject);
 	}
 
