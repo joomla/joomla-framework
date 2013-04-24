@@ -123,28 +123,28 @@ class PostgresqlDriver extends DatabaseDriver
 		{
 		// Port is empty or not set via options, check for port annotation (:) in the host string
 		$tmp = substr(strstr($this->options['host'], ':'), 1);
-		
+
 			if (!empty($tmp))
 			{
-			// Get the port number
-			if (is_numeric($tmp))
-			{
-			$this->options['port'] = $tmp;
-			}
-			
-			// Extract the host name
-			$this->options['host'] = substr($this->options['host'], 0, strlen($this->options['host']) - (strlen($tmp) + 1));
-			
-			// This will take care of the following notation: ":5432"
-			if ($this->options['host'] == '')
-			{
-			$this->options['host'] = 'localhost';
-			}
+				// Get the port number
+				if (is_numeric($tmp))
+				{
+					$this->options['port'] = $tmp;
+				}
+				
+				// Extract the host name
+				$this->options['host'] = substr($this->options['host'], 0, strlen($this->options['host']) - (strlen($tmp) + 1));
+				
+				// This will take care of the following notation: ":5432"
+				if ($this->options['host'] == '')
+				{
+					$this->options['host'] = 'localhost';
+				}
 			}
 			// No port annotation (:) found, setting port to default PostgreSQL port 5432
 			else
 			{
-			$this->options['port'] = '5432';
+				$this->options['port'] = '5432';
 			}
 		}
 
