@@ -29,7 +29,7 @@ abstract class AbstractDatabaseModel extends AbstractModel
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   DatabaseDriver  $db     The database adpater.
+	 * @param   DatabaseDriver  $db     The database adapter.
 	 * @param   Registry        $state  The model state.
 	 *
 	 * @since   1.0
