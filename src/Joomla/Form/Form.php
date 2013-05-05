@@ -1231,7 +1231,7 @@ class Form
 			case 'URL':
 				if (empty($value))
 				{
-					return;
+					return false;
 				}
 
 				$filterInput = new Filter\InputFilter;
