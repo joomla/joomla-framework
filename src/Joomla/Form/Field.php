@@ -205,7 +205,7 @@ abstract class Field
 	/**
 	 * The string used for generated fields names
 	 *
-	 * @var    integer
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected static $generated_fieldname = '__field';
