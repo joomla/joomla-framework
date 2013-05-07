@@ -40,7 +40,7 @@ class ColorProcessorTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			$this->object->process('<foo>foo</foo>'),
-			$this->equalTo('[31mfobo[0m')
+			$this->equalTo('[31mfoo[0m')
 		);
 	}
 

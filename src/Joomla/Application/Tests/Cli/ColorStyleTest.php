@@ -6,6 +6,8 @@
 
 namespace Joomla\Application\Cli\Tests;
 
+use Joomla\Application\Cli\ColorStyle;
+
 /**
  * Test class.
  *
