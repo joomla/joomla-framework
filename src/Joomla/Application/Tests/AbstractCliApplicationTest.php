@@ -23,7 +23,7 @@ class AbstractCliApplicationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * An instance of the object to test.
 	 *
-	 * @var    Cli
+	 * @var   AbstractCliApplication
 	 * @since  1.0
 	 */
 	protected $instance;
@@ -99,5 +99,18 @@ class AbstractCliApplicationTest extends \PHPUnit_Framework_TestCase
 	{
 		// Get a new ConcreteCli instance.
 		$this->instance = new ConcreteCli;
+	}
+
+	/**
+	 * Test the getOutput() method.
+	 *
+	 * @return void
+	 */
+	public function testGetOutput()
+	{
+		$this->assertInstanceOf(
+			'Joomla\Application\Cli\Output\Stdout',
+			$this->instance->getOutput()
+		);
 	}
 }

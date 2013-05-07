@@ -10,6 +10,7 @@ namespace Joomla\Application;
 
 use Joomla\Registry\Registry;
 use Joomla\Input;
+use Joomla\Application\Cli\CliOutput;
 
 /**
  * Base class for a Joomla! command line application.
@@ -25,6 +26,11 @@ abstract class AbstractCliApplication extends AbstractApplication
 	private static $instance;
 
 	/**
+	 * @var CliOutput
+	 */
+	protected $output;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   Input\Cli  $input   An optional argument to provide dependency injection for the application's
@@ -34,9 +40,11 @@ abstract class AbstractCliApplication extends AbstractApplication
 	 *                              config object.  If the argument is a Registry object that object will become
 	 *                              the application's config object, otherwise a default config object is created.
 	 *
+	 * @param   CliOutput  $output  The output handler.
+	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input\Cli $input = null, Registry $config = null)
+	public function __construct(Input\Cli $input = null, Registry $config = null, CliOutput $output = null)
 	{
 		// Close the application if we are not executed from the command line.
 		// @codeCoverageIgnoreStart
@@ -47,7 +55,7 @@ abstract class AbstractCliApplication extends AbstractApplication
 
 		// @codeCoverageIgnoreEnd
 
-		parent::__construct($input instanceof Input\Input ? $input : new Input\Cli);
+		parent::__construct($input instanceof Input\Input ? $input : new Input\Cli, $config);
 
 		// Set the execution datetime and timestamp;
 		$this->set('execution.datetime', gmdate('Y-m-d H:i:s'));
@@ -55,6 +63,18 @@ abstract class AbstractCliApplication extends AbstractApplication
 
 		// Set the current directory.
 		$this->set('cwd', getcwd());
+
+		$this->output = ($output instanceof CliOutput) ? $output : new Cli\Output\Stdout;
+	}
+
+	/**
+	 * Get an output object.
+	 *
+	 * @return CliOutput
+	 */
+	public function getOutput()
+	{
+		return $this->output;
 	}
 
 	/**
@@ -70,7 +90,7 @@ abstract class AbstractCliApplication extends AbstractApplication
 	 */
 	public function out($text = '', $nl = true)
 	{
-		fwrite(STDOUT, $text . ($nl ? "\n" : null));
+		$this->output->out($text, $nl);
 
 		return $this;
 	}
