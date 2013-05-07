@@ -23,37 +23,9 @@ use Joomla\Github\Package;
 class Contents extends Package
 {
 	/**
-	 * Get the README
+	 * Get the README.
 	 *
 	 * This method returns the preferred README for a repository.
-
-	GET /repos/:owner/:repo/readme
-
-	Parameters
-
-	ref
-	Optional string - The String name of the Commit/Branch/Tag. Defaults to master.
-
-	Response
-
-	Status: 200 OK
-	X-RateLimit-Limit: 5000
-	X-RateLimit-Remaining: 4999
-
-	{
-	"type": "file",
-	"encoding": "base64",
-	"_links": {
-	"git": "https://api.github.com/repos/pengwynn/octokit/git/blobs/3d21ec53a331a6f037a91c368710b99387d012c1",
-	"self": "https://api.github.com/repos/pengwynn/octokit/contents/README.md",
-	"html": "https://github.com/pengwynn/octokit/blob/master/README.md"
-	},
-	"size": 5362,
-	"name": "README.md",
-	"path": "README.md",
-	"content": "encoded content ...",
-	"sha": "3d21ec53a331a6f037a91c368710b99387d012c1"
-	}
 	 *
 	 * @param   string  $owner  The name of the owner of the GitHub repository.
 	 * @param   string  $repo   The name of the GitHub repository.
@@ -80,40 +52,9 @@ class Contents extends Package
 	}
 
 	/**
-
-	Get contents
-
-	This method returns the contents of any file or directory in a repository.
-
-	GET /repos/:owner/:repo/contents/:path
-
-	Parameters
-
-	path
-	Optional string - The content path.
-	ref
-	Optional string - The String name of the Commit/Branch/Tag. Defaults to master.
-
-	Response
-
-	Status: 200 OK
-	X-RateLimit-Limit: 5000
-	X-RateLimit-Remaining: 4999
-
-	{
-	"type": "file",
-	"encoding": "base64",
-	"_links": {
-	"git": "https://api.github.com/repos/pengwynn/octokit/git/blobs/3d21ec53a331a6f037a91c368710b99387d012c1",
-	"self": "https://api.github.com/repos/pengwynn/octokit/contents/README.md",
-	"html": "https://github.com/pengwynn/octokit/blob/master/README.md"
-	},
-	"size": 5362,
-	"name": "README.md",
-	"path": "README.md",
-	"content": "encoded content ...",
-	"sha": "3d21ec53a331a6f037a91c368710b99387d012c1"
-	}
+	 * Get contents.
+	 *
+	 * This method returns the contents of any file or directory in a repository.
 	 *
 	 * @param   string  $owner  The name of the owner of the GitHub repository.
 	 * @param   string  $repo   The name of the GitHub repository.
@@ -143,32 +84,16 @@ class Contents extends Package
 	}
 
 	/**
-
-	Get archive link
-
-	This method will return a 302 to a URL to download a tarball or zipball archive for a repository. Please make sure your HTTP framework is configured to follow redirects or you will need to use the Location header to make a second GET request.
-
-	Note: For private repositories, these links are temporary and expire quickly.
-
-	GET /repos/:owner/:repo/:archive_format/:ref
-
-	Parameters
-
-	archive_format
-	Either tarball or zipball
-	ref
-	Optional string - valid Git reference, defaults to master
-
-	Response
-
-	Status: 302 Found
-	Location: http://github.com/me/myprivate/tarball/master?SSO=thistokenexpires
-	X-RateLimit-Limit: 5000
-	X-RateLimit-Remaining: 4999
-
-	To follow redirects with curl, use the -L switch:
-
-	curl -L https://api.github.com/repos/pengwynn/octokit/tarball > octokit.tar.gz
+	 * Get archive link.
+	 *
+	 * This method will return a 302 to a URL to download a tarball or zipball archive for a repository.
+	 * Please make sure your HTTP framework is configured to follow redirects or you will need to use the
+	 * Location header to make a second GET request.
+	 *
+	 * Note: For private repositories, these links are temporary and expire quickly.
+	 *
+	 * To follow redirects with curl, use the -L switch:
+	 * curl -L https://api.github.com/repos/pengwynn/octokit/tarball > octokit.tar.gz
 	 *
 	 * @param   string  $owner           The name of the owner of the GitHub repository.
 	 * @param   string  $repo            The name of the GitHub repository.
@@ -199,6 +124,217 @@ class Contents extends Package
 		return $this->processResponse(
 			$this->client->get($this->fetchUrl($path)),
 			302
+		);
+	}
+
+	/**
+	 * Create a file.
+	 *
+	 * This method creates a new file in a repository.
+	 *
+	 * Optional Parameters
+	 * The author section is optional and is filled in with the committer information if omitted.
+	 * If the committer information is omitted, the authenticated user’s information is used.
+	 *
+	 * You must provide values for both name and email, whether you choose to use author or committer.
+	 * Otherwise, you’ll receive a 500 status code.
+	 *
+	 * @param   string  $owner           The owner of the repository.
+	 * @param   string  $repo            The repository name.
+	 * @param   string  $path            The content path.
+	 * @param   string  $message         The commit message.
+	 * @param   string  $content         The new file content, Base64 encoded.
+	 * @param   string  $branch          The branch name. If not provided, uses the repository’s
+	 *                                   default branch (usually master).
+	 * @param   string  $authorName      The name of the author of the commit
+	 * @param   string  $authorEmail     The email of the author of the commit
+	 * @param   string  $committerName   The name of the committer of the commit
+	 * @param   string  $committerEmail  The email of the committer of the commit
+	 *
+	 * @throws \UnexpectedValueException
+	 *
+	 * @return object
+	 */
+	public function create($owner, $repo, $path, $message, $content, $branch = 'master',
+		$authorName = '', $authorEmail = '', $committerName = '', $committerEmail = '')
+	{
+		// Build the request path.
+		$route = '/repos/' . $owner . '/' . $repo . '/contents/' . $path;
+
+		$data = array(
+			'message' => $message,
+			'content' => $content,
+			'branch'  => $branch
+		);
+
+		if ($authorName)
+		{
+			if (!$authorEmail)
+			{
+				throw new \UnexpectedValueException('You must provide an author e-mail if you supply an author name');
+			}
+
+			$data['author'] = array(
+				'name'  => $authorName,
+				'email' => $authorEmail
+			);
+		}
+
+		if ($committerName)
+		{
+			if (!$committerEmail)
+			{
+				throw new \UnexpectedValueException('You must provide a committer e-mail if you supply a committer name');
+			}
+
+			$data['committer'] = array(
+				'name'  => $committerName,
+				'email' => $committerEmail
+			);
+		}
+
+		return $this->processResponse($this->client->put($this->fetchUrl($route), json_encode($data)), 201);
+	}
+
+	/**
+	 * Update a file.
+	 *
+	 * This method updates a file in a repository.
+	 *
+	 * Optional Parameters
+	 * The author section is optional and is filled in with the committer information if omitted.
+	 * If the committer information is omitted, the authenticated user’s information is used.
+	 *
+	 * You must provide values for both name and email, whether you choose to use author or committer.
+	 * Otherwise, you’ll receive a 500 status code.
+	 *
+	 * @param   string  $owner           The owner of the repository.
+	 * @param   string  $repo            The repository name.
+	 * @param   string  $path            The content path.
+	 * @param   string  $message         The commit message.
+	 * @param   string  $content         The new file content, Base64 encoded.
+	 * @param   string  $sha             The blob SHA of the file being replaced.
+	 * @param   string  $branch          The branch name. If not provided, uses the repository’s
+	 *                                   default branch (usually master).
+	 * @param   string  $authorName      The name of the author of the commit
+	 * @param   string  $authorEmail     The email of the author of the commit
+	 * @param   string  $committerName   The name of the committer of the commit
+	 * @param   string  $committerEmail  The email of the committer of the commit
+	 *
+	 * @throws \UnexpectedValueException
+	 *
+	 * @return object
+	 */
+	public function update($owner, $repo, $path, $message, $content, $sha, $branch = 'master',
+		$authorName = '', $authorEmail = '', $committerName = '', $committerEmail = '')
+	{
+		// Build the request path.
+		$route = '/repos/' . $owner . '/' . $repo . '/contents/' . $path;
+
+		$data = array(
+			'message' => $message,
+			'content' => $content,
+			'sha'     => $sha,
+			'branch'  => $branch
+		);
+
+		if ($authorName)
+		{
+			if (!$authorEmail)
+			{
+				throw new \UnexpectedValueException('You must provide an author e-mail if you supply an author name');
+			}
+
+			$data['author'] = array(
+				'name'  => $authorName,
+				'email' => $authorEmail
+			);
+		}
+
+		if ($committerName)
+		{
+			if (!$committerEmail)
+			{
+				throw new \UnexpectedValueException('You must provide a committer e-mail if you supply a committer name');
+			}
+
+			$data['committer'] = array(
+				'name'  => $committerName,
+				'email' => $committerEmail
+			);
+		}
+
+		return $this->processResponse($this->client->put($this->fetchUrl($route), json_encode($data)));
+	}
+
+	/**
+	 * Delete a file.
+	 *
+	 * This method deletes a file in a repository.
+	 *
+	 * @param   string  $owner           The owner of the repository.
+	 * @param   string  $repo            The repository name.
+	 * @param   string  $path            The content path.
+	 * @param   string  $message         The commit message.
+	 * @param   string  $sha             The blob SHA of the file being replaced.
+	 * @param   string  $branch          The branch name. If not provided, uses the repository’s
+	 *                                   default branch (usually master).
+	 * @param   string  $authorName      The name of the author of the commit
+	 * @param   string  $authorEmail     The email of the author of the commit
+	 * @param   string  $committerName   The name of the committer of the commit
+	 * @param   string  $committerEmail  The email of the committer of the commit
+	 *
+	 * @throws \UnexpectedValueException
+	 *
+	 * @return object
+	 */
+	public function delete($owner, $repo, $path, $message, $sha, $branch = 'master',
+		$authorName = '', $authorEmail = '', $committerName = '', $committerEmail = '')
+	{
+		throw new \RuntimeException(__METHOD__ . ' has not been implemented yet.');
+
+// DELETE /repos/:owner/:repo/contents/:path
+
+		// Build the request path.
+		$route = '/repos/' . $owner . '/' . $repo . '/contents/' . $path;
+
+		$data = array(
+			'message' => $message,
+			'sha'     => $sha,
+			'branch'  => $branch
+		);
+
+		if ($authorName)
+		{
+			if (!$authorEmail)
+			{
+				throw new \UnexpectedValueException('You must provide an author e-mail if you supply an author name');
+			}
+
+			$data['author'] = array(
+				'name'  => $authorName,
+				'email' => $authorEmail
+			);
+		}
+
+		if ($committerName)
+		{
+			if (!$committerEmail)
+			{
+				throw new \UnexpectedValueException('You must provide a committer e-mail if you supply a committer name');
+			}
+
+			$data['committer'] = array(
+				'name'  => $committerName,
+				'email' => $committerEmail
+			);
+		}
+
+		return $this->processResponse(
+			$this->client->delete(
+				$this->fetchUrl($route),
+				array(), null, json_encode($data)
+			)
 		);
 	}
 }

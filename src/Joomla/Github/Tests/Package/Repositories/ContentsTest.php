@@ -210,4 +210,142 @@ class ContentsTest extends \PHPUnit_Framework_TestCase
 
 		$this->object->getArchiveLink('joomla', 'joomla-platform', 'invalid');
 	}
+
+	/**
+	 * Tests the create method.
+	 *
+	 * @return  void
+	 */
+	public function testCreate()
+	{
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('put')
+			->with('/repos/joomla/joomla-platform/contents/src/foo')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->create(
+				'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'xxbranch',
+				'eddieajau', 'eddieajau@example.com', 'elkuku', 'elkuku@example.com'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the create method with missing author e-mail.
+	 *
+	 * @expectedException \UnexpectedValueException
+	 *
+	 * @return  void
+	 */
+	public function testCreateFail1()
+	{
+		$this->object->create(
+			'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'xxbranch',
+			'eddieajau', '', 'elkuku', 'elkuku@example.com');
+	}
+
+	/**
+	 * Tests the create method with missing committer e-mail.
+	 *
+	 * @expectedException \UnexpectedValueException
+	 *
+	 * @return  void
+	 */
+	public function testCreateFail2()
+	{
+		$this->object->create(
+			'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'xxbranch',
+			'eddieajau', 'eddieajau@example.com', 'elkuku', '');
+	}
+
+	/**
+	 * Tests the update method.
+	 *
+	 * @return  void
+	 */
+	public function testUpdate()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('put')
+			->with('/repos/joomla/joomla-platform/contents/src/foo')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->update(
+				'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'abcd1234', 'xxbranch',
+				'eddieajau', 'eddieajau@example.com', 'elkuku', 'elkuku@example.com'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
+
+	/**
+	 * Tests the update method with missing author e-mail.
+	 *
+	 * @expectedException \UnexpectedValueException
+	 *
+	 * @return  void
+	 */
+	public function testUpdateFail1()
+	{
+		$this->object->update(
+			'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'abcd1234', 'xxbranch',
+			'eddieajau', '', 'elkuku', 'elkuku@example.com');
+	}
+
+	/**
+	 * Tests the update method with missing committer e-mail.
+	 *
+	 * @expectedException \UnexpectedValueException
+	 *
+	 * @return  void
+	 */
+	public function testUpdateFail2()
+	{
+		$this->object->update(
+			'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'abcd1234', 'xxbranch',
+			'eddieajau', 'eddieajau@example.com', 'elkuku', '');
+	}
+
+	/**
+	 * @covers Joomla\Github\Package\Repositories\Contents::delete
+	 * @todo   Implement testDelete().
+	 */
+	public function testDelete()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
+
+	/**
+	 * @covers Joomla\Github\Package\Repositories\Contents::delete
+	 * @todo   Implement testDelete().
+	 */
+	public function testDeleteFail1()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
+
+	/**
+	 * @covers Joomla\Github\Package\Repositories\Contents::delete
+	 * @todo   Implement testDelete().
+	 */
+	public function testDeleteFail2()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 }
