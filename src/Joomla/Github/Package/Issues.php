@@ -17,7 +17,7 @@ use Joomla\Uri\Uri;
  *
  * @documentation http://developer.github.com/v3/issues
  *
- * @since       1.0
+ * @since  1.0
  *
  * @property-read  Issues\Assignees   $assignees   GitHub API object for assignees.
  * @property-read  Issues\Comments    $comments    GitHub API object for comments.

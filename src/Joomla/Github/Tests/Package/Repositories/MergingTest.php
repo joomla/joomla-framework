@@ -8,6 +8,7 @@ namespace Joomla\Github\Tests;
 
 use Joomla\Github\Package\Repositories\Merging;
 use Joomla\Registry\Registry;
+
 /**
  * Test class for Merging.
  *

@@ -18,7 +18,7 @@ use Joomla\Github\Package;
  * @documentation http://developer.github.com/v3/gitignore/
  * @documentation https://github.com/github/gitignore
  *
- * @since       1.0
+ * @since  1.0
  */
 class Gitignore extends Package
 {

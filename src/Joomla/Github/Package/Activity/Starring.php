@@ -15,7 +15,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/activity/starring/
  *
- * @since       1.0
+ * @since  1.0
  */
 class Starring extends Package
 {
