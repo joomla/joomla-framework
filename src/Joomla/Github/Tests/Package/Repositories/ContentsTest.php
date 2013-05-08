@@ -314,38 +314,53 @@ class ContentsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Joomla\Github\Package\Repositories\Contents::delete
-	 * @todo   Implement testDelete().
+	 * Tests the delete method.
+	 *
+	 * @return  void
 	 */
 	public function testDelete()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('delete')
+			->with('/repos/joomla/joomla-platform/contents/src/foo')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->delete(
+				'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'xxbranch',
+				'eddieajau', 'eddieajau@example.com', 'elkuku', 'elkuku@example.com'),
+			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * @covers Joomla\Github\Package\Repositories\Contents::delete
-	 * @todo   Implement testDelete().
+	 * Tests the delete method with missing author e-mail.
+	 *
+	 * @expectedException \UnexpectedValueException
+	 *
+	 * @return  void
 	 */
 	public function testDeleteFail1()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->object->delete(
+			'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'xxbranch',
+			'eddieajau', '', 'elkuku', 'elkuku@example.com');
 	}
 
 	/**
-	 * @covers Joomla\Github\Package\Repositories\Contents::delete
-	 * @todo   Implement testDelete().
+	 * Tests the update method with missing committer e-mail.
+	 *
+	 * @expectedException \UnexpectedValueException
+	 *
+	 * @return  void
 	 */
 	public function testDeleteFail2()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->object->delete(
+			'joomla', 'joomla-platform', 'src/foo', 'my Message', 'ABC123def', 'xxbranch',
+			'eddieajau', 'eddieajau@example.com', 'elkuku', '');
 	}
 }

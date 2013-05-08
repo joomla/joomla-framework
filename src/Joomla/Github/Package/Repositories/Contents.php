@@ -291,10 +291,6 @@ class Contents extends Package
 	public function delete($owner, $repo, $path, $message, $sha, $branch = 'master',
 		$authorName = '', $authorEmail = '', $committerName = '', $committerEmail = '')
 	{
-		throw new \RuntimeException(__METHOD__ . ' has not been implemented yet.');
-
-// DELETE /repos/:owner/:repo/contents/:path
-
 		// Build the request path.
 		$route = '/repos/' . $owner . '/' . $repo . '/contents/' . $path;
 
