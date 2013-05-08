@@ -58,12 +58,12 @@ class Client
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Http $http = null, Input $input, AbstractWebApplication $application = null)
+	public function __construct(Registry $options = null, Http $http = null, Input $input = null, AbstractWebApplication $application = null)
 	{
 		$this->options = isset($options) ? $options : new Registry;
 		$this->http = isset($http) ? $http : new Http($this->options);
-		$this->input = isset($input) ? $input : Factory::getApplication()->input;
-		$this->application = isset($application) ? $application : AbstractWebApplication::getInstance();
+		$this->application = isset($application) ? $application : Factory::$application;
+		$this->input = isset($input) ? $input : $this->application->input;
 	}
 
 	/**
