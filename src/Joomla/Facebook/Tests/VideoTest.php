@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook\Tests;
@@ -15,12 +12,9 @@ use stdClass;
 require_once __DIR__ . '/case/FacebookTestCase.php';
 
 /**
- * Test class for JFacebookVideo.
+ * Test class for Joomla\Facebook\Video.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 class VideoTest extends FacebookTestCase
 {
@@ -32,7 +26,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -46,7 +40,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetVideo()
 	{
@@ -73,7 +67,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetVideoFailure()
@@ -98,7 +92,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetComments()
 	{
@@ -125,7 +119,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetCommentsFailure()
@@ -150,7 +144,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateComment()
 	{
@@ -182,7 +176,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateCommentFailure()
@@ -213,7 +207,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteComment()
 	{
@@ -240,7 +234,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteCommentFailure()
@@ -266,7 +260,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetLikes()
 	{
@@ -293,7 +287,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetLikesFailure()
@@ -318,7 +312,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateLike()
 	{
@@ -345,7 +339,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateLikeFailure()
@@ -371,7 +365,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteLike()
 	{
@@ -398,7 +392,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteLikeFailure()
@@ -424,7 +418,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetPicture()
 	{
@@ -451,7 +445,7 @@ class VideoTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetPictureFailure()

@@ -1,10 +1,9 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
@@ -16,29 +15,26 @@ use Joomla\Http\Http;
 use Joomla\Input\Input;
 
 /**
- * Joomla Platform class for generating Facebook API access token.
+ * Joomla Framework class for generating Facebook API access token.
  *
- * @package     Joomla.Platform
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 class OAuth extends Client
 {
 	/**
-	 * @var JRegistry Options for the JFacebookOAuth object.
-	 * @since 13.1
+	 * @var Joomla\Registry\Registry Options for the OAuth object.
+	 * @since 1.0
 	 */
 	protected $options;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  JFacebookOauth options object.
-	 * @param   JHttp      $client   The HTTP client object.
-	 * @param   JInput     $input    The input object.
+	 * @param   Registry  $options  JFacebookOauth options object.
+	 * @param   Http      $client   The HTTP client object.
+	 * @param   Input     $input    The input object.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Http $client = null, Input $input = null, WebInspector $application = null)
 	{
@@ -48,7 +44,7 @@ class OAuth extends Client
 		$this->options->def('authurl', 'http://www.facebook.com/dialog/oauth');
 		$this->options->def('tokenurl', 'https://graph.facebook.com/oauth/access_token');
 
-		// Call the JOauthOauth2client constructor to setup the object.
+		// Call the Joomla\Oauth2\Client constructor to setup the object.
 		parent::__construct($this->options, $client, $input, $application);
 	}
 
@@ -57,9 +53,9 @@ class OAuth extends Client
 	 *
 	 * @param   string  $scope  Comma separated list of permissions.
 	 *
-	 * @return  JFacebookOauth  This object for method chaining
+	 * @return  OAuth  This object for method chaining
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function setScope($scope)
 	{
@@ -73,7 +69,7 @@ class OAuth extends Client
 	 *
 	 * @return  string Comma separated list of permissions.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getScope()
 	{

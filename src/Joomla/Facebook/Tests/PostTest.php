@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook\Tests;
@@ -15,12 +12,9 @@ use stdClass;
 require_once __DIR__ . '/case/FacebookTestCase.php';
 
 /**
- * Test class for JFacebookPost.
+ * Test class for Joomla\Facebook\Post.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 class PostTest extends FacebookTestCase
 {
@@ -32,7 +26,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -46,7 +40,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetPost()
 	{
@@ -73,7 +67,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetPostFailure()
@@ -98,7 +92,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeletePost()
 	{
@@ -125,7 +119,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeletePostFailure()
@@ -151,7 +145,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetComments()
 	{
@@ -178,7 +172,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetCommentsFailure()
@@ -203,7 +197,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateComment()
 	{
@@ -235,7 +229,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateCommentFailure()
@@ -266,7 +260,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteComment()
 	{
@@ -293,7 +287,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteCommentFailure()
@@ -319,7 +313,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetLikes()
 	{
@@ -346,7 +340,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetLikesFailure()
@@ -371,7 +365,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateLike()
 	{
@@ -398,7 +392,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateLikeFailure()
@@ -424,7 +418,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteLike()
 	{
@@ -451,7 +445,7 @@ class PostTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteLikeFailure()

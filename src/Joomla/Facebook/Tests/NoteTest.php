@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook\Tests;
@@ -15,12 +12,9 @@ use stdClass;
 require_once __DIR__ . '/case/FacebookTestCase.php';
 
 /**
- * Test class for JFacebookNote.
+ * Test class for Joomla\Facebook\Note.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 class NoteTest extends FacebookTestCase
 {
@@ -32,7 +26,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -49,7 +43,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return   void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{
@@ -60,7 +54,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetNote()
 	{
@@ -87,7 +81,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetNoteFailure()
@@ -112,7 +106,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetComments()
 	{
@@ -139,7 +133,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetCommentsFailure()
@@ -164,7 +158,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateComment()
 	{
@@ -196,7 +190,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateCommentFailure()
@@ -227,7 +221,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteComment()
 	{
@@ -254,7 +248,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteCommentFailure()
@@ -280,7 +274,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetLikes()
 	{
@@ -307,7 +301,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetLikesFailure()
@@ -332,7 +326,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateLike()
 	{
@@ -359,7 +353,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateLikeFailure()
@@ -385,7 +379,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteLike()
 	{
@@ -412,7 +406,7 @@ class NoteTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteLikeFailure()

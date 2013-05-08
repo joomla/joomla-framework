@@ -1,22 +1,18 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
 
 /**
- * Facebook API Video class for the Joomla Platform.
- *
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Facebook API Video class for the Joomla Framework.
  *
  * @see         http://developers.facebook.com/docs/reference/api/video/
- * @since       13.1
+ * @since       1.0
  */
 class Video extends Object
 {
@@ -27,7 +23,7 @@ class Video extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getVideo($video)
 	{
@@ -45,7 +41,7 @@ class Video extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getComments($video, $limit=0, $offset=0, $until=null, $since=null)
 	{
@@ -60,7 +56,7 @@ class Video extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createComment($video, $message)
 	{
@@ -78,7 +74,7 @@ class Video extends Object
 	 *
 	 * @return  boolean Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteComment($comment)
 	{
@@ -96,7 +92,7 @@ class Video extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getLikes($video, $limit=0, $offset=0, $until=null, $since=null)
 	{
@@ -110,7 +106,7 @@ class Video extends Object
 	 *
 	 * @return  boolean Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createLike($video)
 	{
@@ -124,7 +120,7 @@ class Video extends Object
 	 *
 	 * @return  boolean Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteLike($video)
 	{
@@ -138,7 +134,7 @@ class Video extends Object
 	 *
 	 * @return  string  URL of the picture.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPicture($video)
 	{

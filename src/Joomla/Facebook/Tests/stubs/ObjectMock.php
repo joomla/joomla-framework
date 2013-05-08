@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook\Tests;
@@ -14,10 +11,7 @@ use Joomla\Facebook\Object;
 /**
  * Facebook mock object.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 
 class ObjectMock extends Object
@@ -35,7 +29,7 @@ class ObjectMock extends Object
 	 *
 	 * @return  string   The request URL.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function fetchUrl($path, $limit = 0, $offset = 0, $until = null, $since = null)
 	{

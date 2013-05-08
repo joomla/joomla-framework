@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook\Tests;
@@ -16,18 +13,15 @@ use stdClass;
 require_once __DIR__ . '/case/FacebookTestCase.php';
 
 /**
- * Test class for JFacebookEvent.
+ * Test class for Joomla\Facebook\Event.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 class EventTest extends FacebookTestCase
 {
 	/**
 	 * @var    string  Sample URL string.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $sampleUrl = '"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/372662_10575676585_830678637_q.jpg"';
 
@@ -39,7 +33,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -53,7 +47,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetEvent()
 	{
@@ -80,7 +74,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetEventFailure()
@@ -105,7 +99,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetFeed()
 	{
@@ -132,7 +126,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetFeedFailure()
@@ -157,7 +151,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateLink()
 	{
@@ -191,7 +185,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateLinkFailure()
@@ -223,7 +217,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteLink()
 	{
@@ -250,7 +244,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteLinkFailure()
@@ -275,7 +269,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreatePost()
 	{
@@ -322,7 +316,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreatePostFailure()
@@ -367,7 +361,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeletePost()
 	{
@@ -394,7 +388,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeletePostFailure()
@@ -419,7 +413,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateStatus()
 	{
@@ -451,7 +445,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateStatusFailure()
@@ -481,7 +475,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteStatus()
 	{
@@ -508,7 +502,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteStatusFailure()
@@ -533,7 +527,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetInvited()
 	{
@@ -560,7 +554,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetInvitedFailure()
@@ -585,7 +579,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testIsInvited()
 	{
@@ -613,7 +607,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testIsInvitedFailure()
@@ -639,7 +633,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateInvite()
 	{
@@ -671,7 +665,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateInviteFailure()
@@ -701,7 +695,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteInvite()
 	{
@@ -729,7 +723,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testDeleteInviteFailure()
@@ -755,7 +749,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetAttending()
 	{
@@ -782,7 +776,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetAttendingFailure()
@@ -807,7 +801,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateAttending()
 	{
@@ -834,7 +828,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateAttendingFailure()
@@ -859,7 +853,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testIsAttending()
 	{
@@ -887,7 +881,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testIsAttendingFailure()
@@ -913,7 +907,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetMaybe()
 	{
@@ -940,7 +934,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetMaybeFailure()
@@ -965,7 +959,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testIsMaybe()
 	{
@@ -993,7 +987,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testIsMaybeFailure()
@@ -1019,7 +1013,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateMaybe()
 	{
@@ -1046,7 +1040,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateMaybeFailure()
@@ -1071,7 +1065,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetDeclined()
 	{
@@ -1098,7 +1092,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetDeclinedFailure()
@@ -1123,7 +1117,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testIsDeclined()
 	{
@@ -1151,7 +1145,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testIsDeclinedFailure()
@@ -1177,7 +1171,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateDeclined()
 	{
@@ -1204,7 +1198,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateDeclinedFailure()
@@ -1229,7 +1223,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetNoreply()
 	{
@@ -1256,7 +1250,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetNoreplyFailure()
@@ -1281,7 +1275,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testIsNoreply()
 	{
@@ -1309,7 +1303,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testIsNoreplyFailure()
@@ -1335,7 +1329,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetPicture()
 	{
@@ -1363,7 +1357,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetPictureFailure()
@@ -1389,7 +1383,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetPhotos()
 	{
@@ -1416,7 +1410,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetPhotosFailure()
@@ -1441,7 +1435,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreatePhoto()
 	{
@@ -1478,7 +1472,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreatePhotoFailure()
@@ -1513,7 +1507,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetVideos()
 	{
@@ -1540,7 +1534,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetVideosFailure()
@@ -1565,7 +1559,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateVideo()
 	{
@@ -1604,7 +1598,7 @@ class EventTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testCreateVideoFailure()

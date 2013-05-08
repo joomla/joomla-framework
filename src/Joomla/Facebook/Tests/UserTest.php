@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook\Tests;
@@ -16,18 +13,15 @@ use stdClass;
 require_once __DIR__ . '/case/FacebookTestCase.php';
 
 /**
- * Test class for JFacebookUser.
+ * Test class for Joomla\Facebook\User.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 class UserTest extends FacebookTestCase
 {
 	/**
 	 * @var    string  Sample URL string.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $sampleUrl = '{"url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/372662_10575676585_830678637_q.jpg"}';
 
@@ -39,7 +33,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -53,7 +47,7 @@ class UserTest extends FacebookTestCase
 	*
 	* @return array
 	*
-	* @since 13.1
+	* @since 1.0
 	*/
 	public function seedOauth()
 	{
@@ -73,7 +67,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetUser($oauth)
 	{
@@ -124,7 +118,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetUserFailure($oauth)
 	{
@@ -165,7 +159,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetFriends()
 	{
@@ -191,7 +185,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetFriendsFailure()
 	{
@@ -225,7 +219,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetFriendRequests()
 	{
@@ -251,7 +245,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetFriendRequestsFailure()
@@ -275,7 +269,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetFriendLists()
 	{
@@ -301,7 +295,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetFriendListsFailure()
@@ -325,7 +319,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetFeed()
 	{
@@ -351,7 +345,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetFeedFailure()
@@ -375,7 +369,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetHome()
 	{
@@ -406,7 +400,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetHomeFailure()
@@ -435,7 +429,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testHasFriend()
 	{
@@ -463,7 +457,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testHasFriendFailure()
@@ -487,7 +481,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetMutualFriends()
 	{
@@ -513,7 +507,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetMutualFriendsFailure()
@@ -541,7 +535,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetPicture($oauth)
 	{
@@ -591,7 +585,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetPictureFailure()
@@ -620,7 +614,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetFamily()
 	{
@@ -646,7 +640,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetFamilyFailure()
@@ -670,7 +664,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetNotifications()
 	{
@@ -698,7 +692,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetNotificationsFailure()
@@ -724,7 +718,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testUpdateNotification()
 	{
@@ -755,7 +749,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testUpdateNotificationFailure()
 	{
@@ -793,7 +787,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetPermissions()
 	{
@@ -819,7 +813,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetPermissionsFailure()
@@ -843,7 +837,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeletePermission()
 	{
@@ -871,7 +865,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeletePermissionFailure()
 	{
@@ -906,7 +900,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetAlbums()
 	{
@@ -932,7 +926,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetAlbumsFailure()
@@ -956,7 +950,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateAlbum()
 	{
@@ -991,7 +985,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreateAlbumFailure()
@@ -1025,7 +1019,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetCheckins()
 	{
@@ -1051,7 +1045,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetCheckinsFailure()
@@ -1075,7 +1069,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateCheckin()
 	{
@@ -1116,7 +1110,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreateCheckinFailure()
@@ -1155,7 +1149,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetLikes()
 	{
@@ -1181,7 +1175,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetLikesFailure()
@@ -1205,7 +1199,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testLikesPage()
 	{
@@ -1231,7 +1225,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testLikesPageFailure()
@@ -1255,7 +1249,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetEvents()
 	{
@@ -1281,7 +1275,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetEventsFailure()
@@ -1305,7 +1299,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateEvent()
 	{
@@ -1348,7 +1342,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreateEventFailure()
@@ -1389,7 +1383,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testEditEvent()
 	{
@@ -1433,7 +1427,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testEditEventFailure()
@@ -1475,7 +1469,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteEvent()
 	{
@@ -1503,7 +1497,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testDeleteEventFailure()
@@ -1529,7 +1523,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetGroups()
 	{
@@ -1555,7 +1549,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetGroupsFailure()
@@ -1579,7 +1573,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetLinks()
 	{
@@ -1605,7 +1599,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetLinksFailure()
@@ -1629,7 +1623,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateLink()
 	{
@@ -1662,7 +1656,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreateLinkFailure()
@@ -1693,7 +1687,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteLink()
 	{
@@ -1721,7 +1715,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testDeleteLinkFailure()
@@ -1747,7 +1741,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetNotes()
 	{
@@ -1773,7 +1767,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetNotesFailure()
@@ -1797,7 +1791,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateNote()
 	{
@@ -1830,7 +1824,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreateNoteFailure()
@@ -1861,7 +1855,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetPhotos()
 	{
@@ -1887,7 +1881,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetPhotosFailure()
@@ -1911,7 +1905,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreatePhoto()
 	{
@@ -1950,7 +1944,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreatePhotoFailure()
@@ -1987,7 +1981,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetPosts()
 	{
@@ -2015,7 +2009,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetPostsFailure()
@@ -2041,7 +2035,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreatePost()
 	{
@@ -2096,7 +2090,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreatePostFailure()
@@ -2149,7 +2143,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeletePost()
 	{
@@ -2177,7 +2171,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testDeletePostFailure()
@@ -2203,7 +2197,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetStatuses()
 	{
@@ -2229,7 +2223,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetStatusesFailure()
@@ -2253,7 +2247,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateStatus()
 	{
@@ -2285,7 +2279,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreateStatusFailure()
@@ -2315,7 +2309,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteStatus()
 	{
@@ -2343,7 +2337,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testDeleteStatusFailure()
@@ -2369,7 +2363,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetVideos()
 	{
@@ -2395,7 +2389,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetVideosFailure()
@@ -2419,7 +2413,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateVideo()
 	{
@@ -2456,7 +2450,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException RuntimeException
 	 */
 	public function testCreateVideoFailure()
@@ -2491,7 +2485,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetTagged()
 	{
@@ -2517,7 +2511,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetTaggedFailure()
@@ -2541,7 +2535,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetActivities()
 	{
@@ -2567,7 +2561,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetActivitiesFailure()
@@ -2591,7 +2585,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetBooks()
 	{
@@ -2617,7 +2611,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetBooksFailure()
@@ -2641,7 +2635,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetInterests()
 	{
@@ -2667,7 +2661,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetInterestsFailure()
@@ -2691,7 +2685,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetMovies()
 	{
@@ -2717,7 +2711,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetMoviesFailure()
@@ -2741,7 +2735,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetTelevision()
 	{
@@ -2767,7 +2761,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetTelevisionFailure()
@@ -2791,7 +2785,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetMusic()
 	{
@@ -2817,7 +2811,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetMusicFailure()
@@ -2841,7 +2835,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetSubscribers()
 	{
@@ -2867,7 +2861,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetSubscribersFailure()
@@ -2891,7 +2885,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetSubscribedTo()
 	{
@@ -2917,7 +2911,7 @@ class UserTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @expectedException  RuntimeException
 	 */
 	public function testGetSubscribedToFailure()

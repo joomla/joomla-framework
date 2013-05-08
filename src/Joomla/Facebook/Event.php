@@ -1,22 +1,18 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
 
 /**
- * Facebook API User class for the Joomla Platform.
- *
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Facebook API User class for the Joomla Framework.
  *
  * @see         http://developers.facebook.com/docs/reference/api/event/
- * @since       13.1
+ * @since       1.0
  */
 class Event extends Object
 {
@@ -27,7 +23,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getEvent($event)
 	{
@@ -45,7 +41,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getFeed($event, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -61,7 +57,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createLink($event, $link, $message = null)
 	{
@@ -80,7 +76,7 @@ class Event extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteLink($link)
 	{
@@ -101,7 +97,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createPost($event, $message = null, $link = null, $picture = null, $name = null, $caption = null,
 		$description = null, $actions = null)
@@ -127,7 +123,7 @@ class Event extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deletePost($post)
 	{
@@ -142,7 +138,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createStatus($event, $message)
 	{
@@ -161,7 +157,7 @@ class Event extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteStatus($status)
 	{
@@ -177,7 +173,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getInvited($event, $limit = 0, $offset = 0)
 	{
@@ -192,7 +188,7 @@ class Event extends Object
 	 *
 	 * @return  array   The decoded JSON response or an empty array if the user is not invited.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function isInvited($event, $user)
 	{
@@ -207,7 +203,7 @@ class Event extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createInvite($event, $users)
 	{
@@ -227,7 +223,7 @@ class Event extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteInvite($event, $user)
 	{
@@ -243,7 +239,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getAttending($event, $limit = 0, $offset = 0)
 	{
@@ -258,7 +254,7 @@ class Event extends Object
 	 *
 	 * @return  array   The decoded JSON response or an empty array if the user is not invited.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function isAttending($event, $user)
 	{
@@ -272,7 +268,7 @@ class Event extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createAttending($event)
 	{
@@ -288,7 +284,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getMaybe($event, $limit = 0, $offset = 0)
 	{
@@ -303,7 +299,7 @@ class Event extends Object
 	 *
 	 * @return  array   The decoded JSON response or an empty array if the user is not invited.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function isMaybe($event, $user)
 	{
@@ -317,7 +313,7 @@ class Event extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createMaybe($event)
 	{
@@ -333,7 +329,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getDeclined($event, $limit = 0, $offset = 0)
 	{
@@ -348,7 +344,7 @@ class Event extends Object
 	 *
 	 * @return  array   The decoded JSON response or an empty array if the user is not invited.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function isDeclined($event, $user)
 	{
@@ -362,7 +358,7 @@ class Event extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createDeclined($event)
 	{
@@ -378,7 +374,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getNoreply($event, $limit = 0, $offset = 0)
 	{
@@ -393,7 +389,7 @@ class Event extends Object
 	 *
 	 * @return  array   The decoded JSON response or an empty array if the user is not invited.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function isNoreply($event, $user)
 	{
@@ -409,7 +405,7 @@ class Event extends Object
 	 *
 	 * @return  string   The URL to the event's profile picture.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPicture($event, $redirect = true, $type = null)
 	{
@@ -439,7 +435,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPhotos($event, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -455,7 +451,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createPhoto($event, $source, $message = null)
 	{
@@ -482,7 +478,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getVideos($event, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -499,7 +495,7 @@ class Event extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createVideo($event, $source, $title = null, $description = null)
 	{

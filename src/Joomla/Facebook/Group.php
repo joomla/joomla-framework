@@ -1,22 +1,18 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
 
 /**
- * Facebook API Group class for the Joomla Platform.
- *
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Facebook API Group class for the Joomla Framework.
  *
  * @see         http://developers.facebook.com/docs/reference/api/group/
- * @since       13.1
+ * @since       1.0
  */
 class Group extends Object
 {
@@ -27,7 +23,7 @@ class Group extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getGroup($group)
 	{
@@ -45,7 +41,7 @@ class Group extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getFeed($group, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -61,7 +57,7 @@ class Group extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getMembers($group, $limit = 0, $offset = 0)
 	{
@@ -79,7 +75,7 @@ class Group extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getDocs($group, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -94,7 +90,7 @@ class Group extends Object
 	 *
 	 * @return  string   The URL to the group's picture.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPicture($group, $type = null)
 	{
@@ -115,7 +111,7 @@ class Group extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createLink($group, $link, $message = null)
 	{
@@ -138,7 +134,7 @@ class Group extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteLink($link)
 	{
@@ -159,7 +155,7 @@ class Group extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createPost($group, $message = null, $link = null, $picture = null, $name = null, $caption = null,
 		$description = null, $actions = null)
@@ -210,7 +206,7 @@ class Group extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deletePost($post)
 	{
@@ -225,7 +221,7 @@ class Group extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createStatus($group, $message)
 	{
@@ -243,7 +239,7 @@ class Group extends Object
 	 *
 	 * @return  boolean Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteStatus($status)
 	{

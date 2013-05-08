@@ -1,22 +1,18 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
 
 /**
- * Facebook API Checkin class for the Joomla Platform.
- *
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Facebook API Checkin class for the Joomla Framework.
  *
  * @see         http://developers.facebook.com/docs/reference/api/checkin/
- * @since       13.1
+ * @since       1.0
  */
 class Checkin extends Object
 {
@@ -27,7 +23,7 @@ class Checkin extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getCheckin($checkin)
 	{
@@ -45,7 +41,7 @@ class Checkin extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getComments($checkin, $limit=0, $offset=0, $until=null, $since=null)
 	{
@@ -60,7 +56,7 @@ class Checkin extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createComment($checkin, $message)
 	{
@@ -78,7 +74,7 @@ class Checkin extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteComment($comment)
 	{
@@ -96,7 +92,7 @@ class Checkin extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getLikes($checkin, $limit=0, $offset=0, $until=null, $since=null)
 	{
@@ -110,7 +106,7 @@ class Checkin extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createLike($checkin)
 	{
@@ -124,7 +120,7 @@ class Checkin extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteLike($checkin)
 	{

@@ -23,25 +23,25 @@ class FacebookTestCase extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    JRegistry  Options for the Facebook object.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
 	 * @var    JFacebookOauth  OAuth client for Facebook.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    JHttp  Mock client object.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * @var    JFacebookAlbum  Object under test.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $object;
 
@@ -52,13 +52,13 @@ class FacebookTestCase extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $errorString = '{"error": {"message": "Generic Error."}}';
 
@@ -70,7 +70,7 @@ class FacebookTestCase extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -110,7 +110,7 @@ class FacebookTestCase extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return   void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function tearDown()
 	{

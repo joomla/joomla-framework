@@ -1,22 +1,18 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
 
 /**
- * Facebook API Album class for the Joomla Platform.
- *
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Facebook API Album class for the Joomla Framework.
  *
  * @see         http://developers.facebook.com/docs/reference/api/album/
- * @since       13.1
+ * @since       1.0
  */
 class Album extends Object
 {
@@ -27,7 +23,7 @@ class Album extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getAlbum($album)
 	{
@@ -45,7 +41,7 @@ class Album extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPhotos($album, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -61,7 +57,7 @@ class Album extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createPhoto($album, $source, $message = null)
 	{
@@ -88,7 +84,7 @@ class Album extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getComments($album, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -103,7 +99,7 @@ class Album extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createComment($album, $message)
 	{
@@ -121,7 +117,7 @@ class Album extends Object
 	 *
 	 * @return  boolean Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteComment($comment)
 	{
@@ -139,7 +135,7 @@ class Album extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getLikes($album, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -153,7 +149,7 @@ class Album extends Object
 	 *
 	 * @return  boolean Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createLike($album)
 	{
@@ -167,7 +163,7 @@ class Album extends Object
 	 *
 	 * @return  boolean Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteLike($album)
 	{
@@ -183,7 +179,7 @@ class Album extends Object
 	 *
 	 * @return  string  URL of the picture.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPicture($album, $redirect = true)
 	{

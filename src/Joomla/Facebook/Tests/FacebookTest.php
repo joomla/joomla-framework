@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook\Tests;
@@ -14,12 +11,9 @@ use Joomla\Facebook\Facebook;
 require_once __DIR__ . '/case/FacebookTestCase.php';
 
 /**
- * Test class for JFacebook.
+ * Test class for Joomla\Facebook\Facebook.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 class FacebookTest extends FacebookTestCase
 {
@@ -31,7 +25,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -45,7 +39,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetUser()
 	{
@@ -60,7 +54,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetStatus()
 	{
@@ -75,7 +69,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetCheckin()
 	{
@@ -90,7 +84,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetEvent()
 	{
@@ -105,7 +99,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetGroup()
 	{
@@ -120,7 +114,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetLink()
 	{
@@ -135,7 +129,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetNote()
 	{
@@ -150,7 +144,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetPost()
 	{
@@ -165,7 +159,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetComment()
 	{
@@ -180,7 +174,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetPhoto()
 	{
@@ -195,7 +189,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetVideo()
 	{
@@ -210,7 +204,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetAlbum()
 	{
@@ -225,7 +219,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetOther()
 	{
@@ -240,7 +234,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testSetOption()
 	{
@@ -257,7 +251,7 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetOption()
 	{

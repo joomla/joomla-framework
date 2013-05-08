@@ -1,10 +1,9 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
@@ -13,112 +12,110 @@ use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 
 /**
- * Joomla Platform class for interacting with a Facebook API instance.
+ * Joomla Framework class for interacting with a Facebook API instance.
  *
- * @package     Joomla.Platform
- * @subpackage  Facebook
- * @since       13.1
+ * @since       1.0
  */
 class Facebook
 {
 	/**
-	 * @var    JRegistry  Options for the Facebook object.
-	 * @since  13.1
+	 * @var    Joomla\Registry\Registry  Options for the Facebook object.
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttp  The HTTP client object to use in sending HTTP requests.
-	 * @since  13.1
+	 * @var    Joomla\Http\Http  The HTTP client object to use in sending HTTP requests.
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    JFacebookOAuth  The OAuth client.
-	 * @since  13.1
+	 * @var    Joomla\Facebook\OAuth  The OAuth client.
+	 * @since  1.0
 	 */
 	protected $oauth;
 
 	/**
-	 * @var    JFacebookUser  Facebook API object for user.
-	 * @since  13.1
+	 * @var    Joomla\Facebook\User  Facebook API object for user.
+	 * @since  1.0
 	 */
 	protected $user;
 
 	/**
-	* @var    JFacebookStatus  Facebook API object for status.
-	* @since  13.1
+	* @var    Joomla\Facebook\Status  Facebook API object for status.
+	* @since  1.0
 	*/
 	protected $status;
 
 	/**
-	* @var    JFacebookCheckin  Facebook API object for checkin.
-	* @since  13.1
+	* @var    Jooomla\Facebook\Checkin  Facebook API object for checkin.
+	* @since  1.0
 	*/
 	protected $checkin;
 
 	/**
-	* @var    JFacebookEvent  Facebook API object for event.
-	* @since  13.1
+	* @var    Joomla\Facebook\Event  Facebook API object for event.
+	* @since  1.0
 	*/
 	protected $event;
 
 	/**
-	* @var    JFacebookGroup  Facebook API object for group.
-	* @since  13.1
+	* @var    Joomla\Facebook\Group  Facebook API object for group.
+	* @since  1.0
 	*/
 	protected $group;
 
 	/**
-	* @var    JFacebookLink  Facebook API object for link.
-	* @since  13.1
+	* @var    Joomla\Facebook\Link  Facebook API object for link.
+	* @since  1.0
 	*/
 	protected $link;
 
 	/**
-	* @var    JFacebookNote  Facebook API object for note.
-	* @since  13.1
+	* @var    Joomla\Facebook\Note  Facebook API object for note.
+	* @since  1.0
 	*/
 	protected $note;
 
 	/**
-	* @var    JFacebookPost  Facebook API object for post.
-	* @since  13.1
+	* @var    Joomla\Facebook\Post  Facebook API object for post.
+	* @since  1.0
 	*/
 	protected $post;
 
 	/**
-	* @var    JFacebookComment  Facebook API object for comment.
-	* @since  13.1
+	* @var    Joomla\Facebook\Comment  Facebook API object for comment.
+	* @since  1.0
 	*/
 	protected $comment;
 
 	/**
-	* @var    JFacebookPhoto  Facebook API object for photo.
-	* @since  13.1
+	* @var    Joomla\Facebook\Photo  Facebook API object for photo.
+	* @since  1.0
 	*/
 	protected $photo;
 
 	/**
-	* @var    JFacebookVideo  Facebook API object for video.
-	* @since  13.1
+	* @var    Joomla\Facebook\Video  Facebook API object for video.
+	* @since  1.0
 	*/
 	protected $video;
 
 	/**
-	* @var    JFacebookAlbum  Facebook API object for album.
-	* @since  13.1
+	* @var    Joomla\Facebook\Album  Facebook API object for album.
+	* @since  1.0
 	*/
 	protected $album;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   JFacebookOAuth  $oauth    OAuth client.
-	 * @param   JRegistry       $options  Facebook options object.
-	 * @param   JFacebookHttp   $client   The HTTP client object.
+	 * @param   OAuth     $oauth    OAuth client.
+	 * @param   Registry  $options  Facebook options object.
+	 * @param   Http      $client   The HTTP client object.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function __construct(OAuth $oauth = null, Registry $options = null, Http $client = null)
 	{
@@ -135,9 +132,9 @@ class Facebook
 	 *
 	 * @param   string  $name  Name of property to retrieve
 	 *
-	 * @return  JFacebookObject  Facebook API object (status, user, friends etc).
+	 * @return  FacebookObject  Facebook API object (status, user, friends etc).
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{
@@ -230,13 +227,13 @@ class Facebook
 	}
 
 	/**
-	 * Get an option from the JFacebook instance.
+	 * Get an option from the Facebook instance.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
 	 * @return  mixed  The option value.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -244,14 +241,14 @@ class Facebook
 	}
 
 	/**
-	 * Set an option for the JFacebook instance.
+	 * Set an option for the Facebook instance.
 	 *
 	* @param   string  $key    The name of the option to set.
 	* @param   mixed   $value  The option value to set.
 	*
-	* @return  JFacebook  This object for method chaining.
+	* @return  Facebook  This object for method chaining.
 	*
-	* @since   13.1
+	* @since   1.0
 	*/
 	public function setOption($key, $value)
 	{

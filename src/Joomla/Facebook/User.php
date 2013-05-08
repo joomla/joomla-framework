@@ -1,22 +1,18 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
 
 /**
- * Facebook API User class for the Joomla Platform.
- *
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Facebook API User class for the Joomla Framework.
  *
  * @see         http://developers.facebook.com/docs/reference/api/user/
- * @since       13.1
+ * @since       1.0
  */
 class User extends Object
 {
@@ -27,7 +23,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getUser($user)
 	{
@@ -43,7 +39,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getFriends($user, $limit = 0, $offset = 0)
 	{
@@ -61,7 +57,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getFriendRequests($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -79,7 +75,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getFriendLists($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -97,7 +93,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getFeed($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -117,7 +113,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getHome($user, $filter = null, $location = false, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -144,7 +140,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function hasFriend($current_user, $user)
 	{
@@ -161,7 +157,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getMutualFriends($current_user, $user, $limit = 0, $offset = 0)
 	{
@@ -177,7 +173,7 @@ class User extends Object
 	 *
 	 * @return  string   The URL to the user's profile picture.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPicture($user, $redirect = true, $type = null)
 	{
@@ -205,7 +201,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getFamily($user, $limit = 0, $offset = 0)
 	{
@@ -224,7 +220,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getNotifications($user, $read = null, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -244,7 +240,7 @@ class User extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function updateNotification($notification)
 	{
@@ -262,7 +258,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPermissions($user, $limit = 0, $offset = 0)
 	{
@@ -277,7 +273,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deletePermission($user, $permission = '')
 	{
@@ -295,7 +291,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getAlbums($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -312,7 +308,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createAlbum($user, $name, $description = null, $privacy = null)
 	{
@@ -336,7 +332,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getCheckins($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -356,7 +352,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createCheckin($user, $place, $coordinates, $tags = null, $message = null, $link = null, $picture = null)
 	{
@@ -383,7 +379,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getLikes($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -398,7 +394,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function likesPage($user, $page)
 	{
@@ -416,7 +412,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getEvents($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -437,7 +433,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createEvent($user, $name, $start_time, $end_time = null, $description = null,
 		$location = null, $location_id = null, $privacy_type = null)
@@ -469,7 +465,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function editEvent($event, $name = null, $start_time = null, $end_time = null, $description = null,
 		$location = null, $location_id = null, $privacy_type = null)
@@ -494,7 +490,7 @@ class User extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteEvent($event)
 	{
@@ -510,7 +506,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getGroups($user, $limit = 0, $offset = 0)
 	{
@@ -528,7 +524,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getLinks($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -544,7 +540,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createLink($user, $link, $message = null)
 	{
@@ -563,7 +559,7 @@ class User extends Object
 	 *
 	 * @return  boolean   Returns true if successful, and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteLink($link)
 	{
@@ -581,7 +577,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getNotes($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -598,7 +594,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createNote($user, $subject, $message)
 	{
@@ -621,7 +617,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPhotos($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -640,7 +636,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createPhoto($user, $source, $message = null, $place = null, $no_story = null)
 	{
@@ -666,7 +662,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getPosts($user, $location = false, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -700,7 +696,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createPost($user, $message = null, $link = null, $picture = null, $name = null, $caption = null,
 		$description = null, $actions = null, $place = null, $tags = null, $privacy = null, $object_attachment = null)
@@ -729,7 +725,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deletePost($post)
 	{
@@ -747,7 +743,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getStatuses($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -762,7 +758,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createStatus($user, $message)
 	{
@@ -781,7 +777,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteStatus($status)
 	{
@@ -799,7 +795,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getVideos($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -816,7 +812,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createVideo($user, $source, $title = null, $description = null)
 	{
@@ -840,7 +836,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getTagged($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -858,7 +854,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getActivities($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -876,7 +872,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getBooks($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -894,7 +890,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getInterests($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -912,7 +908,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getMovies($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -930,7 +926,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getTelevision($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -948,7 +944,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getMusic($user, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -964,7 +960,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getSubscribers($user, $limit = 0, $offset = 0)
 	{
@@ -980,7 +976,7 @@ class User extends Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getSubscribedTo($user, $limit = 0, $offset = 0)
 	{

@@ -1,10 +1,9 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Facebook
+ * Part of the Joomla Framework Facebook Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook;
@@ -15,41 +14,38 @@ use Joomla\Uri\Uri;
 use RuntimeException;
 
 /**
- * Facebook API object class for the Joomla Platform.
+ * Facebook API object class for the Joomla Framework.
  *
- * @package     Joomla.Platform
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 abstract class Object
 {
 	/**
-	 * @var    JRegistry  Options for the Facebook object.
-	 * @since  13.1
+	 * @var    Joomla\Registry\Registry  Options for the Facebook object.
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttp  The HTTP client object to use in sending HTTP requests.
-	 * @since  13.1
+	 * @var    Joomla\Http\Http  The HTTP client object to use in sending HTTP requests.
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    JFacebookOAuth  The OAuth client.
-	 * @since  13.1
+	 * @var    OAuth  The OAuth client.
+	 * @since  1.0
 	 */
 	protected $oauth;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry       $options  Facebook options object.
-	 * @param   JHttp           $client   The HTTP client object.
-	 * @param   JFacebookOAuth  $oauth    The OAuth client.
+	 * @param   Registry  $options  Facebook options object.
+	 * @param   Http      $client   The HTTP client object.
+	 * @param   OAuth     $oauth    The OAuth client.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function __construct(Registry $options = null, Http $client = null, OAuth $oauth = null)
 	{
@@ -71,7 +67,7 @@ abstract class Object
 	 *
 	 * @return  string  The request URL.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	protected function fetchUrl($path, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -114,8 +110,8 @@ abstract class Object
 	 *
 	 * @return   mixed  The request response.
 	 *
-	 * @since    13.1
-	 * @throws   RuntimeException
+	 * @since    1.0
+	 * @throws   \RuntimeException
 	 */
 	public function sendRequest($path, $data = '', array $headers = null, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -127,7 +123,7 @@ abstract class Object
 		// Validate the response.
 		if (property_exists($response, 'error'))
 		{
-			throw new RuntimeException($response->error->message);
+			throw new \RuntimeException($response->error->message);
 		}
 
 		return $response;
@@ -140,7 +136,7 @@ abstract class Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function get($object)
 	{
@@ -175,7 +171,7 @@ abstract class Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getConnection($object, $connection = null, $extra_fields = '', $limit = 0, $offset = 0, $until = null, $since = null)
 	{
@@ -216,7 +212,7 @@ abstract class Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function createConnection($object, $connection = null, $parameters = null, array $headers = null)
 	{
@@ -252,7 +248,7 @@ abstract class Object
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteConnection($object, $connection = null, $extra_fields = '')
 	{
@@ -282,11 +278,11 @@ abstract class Object
 	/**
 	 * Method used to set the OAuth client.
 	 *
-	 * @param   JFacebookOAuth  $oauth  The OAuth client object.
+	 * @param   OAuth  $oauth  The OAuth client object.
 	 *
-	 * @return  JFacebookObject  This object for method chaining.
+	 * @return  FacebookObject  This object for method chaining.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function setOAuth($oauth)
 	{
@@ -298,9 +294,9 @@ abstract class Object
 	/**
 	 * Method used to get the OAuth client.
 	 *
-	 * @return  JFacebookOAuth  The OAuth client
+	 * @return  OAuth  The OAuth client
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getOAuth()
 	{

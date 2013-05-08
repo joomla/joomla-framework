@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Facebook
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Facebook\Tests;
@@ -16,12 +13,9 @@ require_once __DIR__ . '/case/FacebookTestCase.php';
 require_once __DIR__ . '/stubs/ObjectMock.php';
 
 /**
- * Test class for JFacebookObject.
+ * Test class for Joomla\Facebook\Object.
  *
- * @package     Joomla.Platform
- * @subpackage  Facebook
- *
- * @since       13.1
+ * @since       1.0
  */
 class ObjectTest extends FacebookTestCase
 {
@@ -33,7 +27,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return   void
 	 *
-	 * @since    13.1
+	 * @since    1.0
 	 */
 	protected function setUp()
 	{
@@ -53,7 +47,7 @@ class ObjectTest extends FacebookTestCase
 	*
 	* @return array
 	*
-	* @since 13.1
+	* @since 1.0
 	*/
 	public function seedFetchUrl()
 	{
@@ -82,7 +76,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @dataProvider  seedFetchUrl
 	 *
-	 * @since    13.1
+	 * @since    1.0
 	 */
 	public function testFetchUrl($limit, $offset, $until, $since, $expected)
 	{
@@ -102,7 +96,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since    13.1
+	 * @since    1.0
 	 */
 	public function testSendRequest()
 	{
@@ -115,7 +109,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGet()
 	{
@@ -128,7 +122,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetFailure()
 	{
@@ -141,7 +135,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetConnection()
 	{
@@ -154,7 +148,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetConnectionFailure()
 	{
@@ -167,7 +161,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateConnection()
 	{
@@ -180,7 +174,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testCreateConnectionFailure()
 	{
@@ -193,7 +187,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteConnection()
 	{
@@ -206,7 +200,7 @@ class ObjectTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteConnectionFailure()
 	{
