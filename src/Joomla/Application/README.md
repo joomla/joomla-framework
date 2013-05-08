@@ -172,3 +172,49 @@ You can provide customised implementations these methods by creating the followi
 * `mockWebSet`
 * `mockWebSetBody`
 * `mockWebSetHeader`
+
+## Colors for CLI Applications
+
+It is possible to use colors on an ANSI enabled terminal.
+
+```php
+// Green text
+$this->out('<info>foo</info>');
+
+// Yellow text
+$this->out('<comment>foo</comment>');
+
+// Black text on a cyan background
+$this->out('<question>foo</question>');
+
+// White text on a red background
+$this->out('<error>foo</error>');
+```
+
+You can also create your own styles.
+
+```php
+use Joomla\Application\Cli\Colorstyle;
+
+$style = new Colorstyle('yellow', 'red', array('bold', 'blink'));
+$this->getOutput()->addStyle('fire', $style);
+$this->out('<fire>foo</fire>');
+
+```
+
+Available foreground and background colors are: black, red, green, yellow, blue, magenta, cyan and white.
+
+And available options are: bold, underscore, blink and reverse.
+
+You can also set these colors and options inside the tagname:
+
+```php
+// Green text
+$this->out('<fg=green>foo</fg=green>');
+
+// Black text on a cyan background
+$this->out('<fg=black;bg=cyan>foo</fg=black;bg=cyan>');
+
+// Bold text on a yellow background
+$this->out('<bg=yellow;options=bold>foo</bg=yellow;options=bold>');
+```
