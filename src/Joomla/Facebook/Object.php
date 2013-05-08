@@ -16,7 +16,7 @@ use RuntimeException;
 /**
  * Facebook API object class for the Joomla Framework.
  *
- * @since       1.0
+ * @since  1.0
  */
 abstract class Object
 {

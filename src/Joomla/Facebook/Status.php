@@ -11,8 +11,8 @@ namespace Joomla\Facebook;
 /**
  * Facebook API Status class for the Joomla Framework.
  *
- * @see         http://developers.facebook.com/docs/reference/api/status/
- * @since       1.0
+ * @see    http://developers.facebook.com/docs/reference/api/status/
+ * @since  1.0
  */
 class Status extends Object
 {

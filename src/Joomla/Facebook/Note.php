@@ -11,8 +11,8 @@ namespace Joomla\Facebook;
 /**
  * Facebook API Note class for the Joomla Framework.
  *
- * @see         http://developers.facebook.com/docs/reference/api/note/
- * @since       1.0
+ * @see    http://developers.facebook.com/docs/reference/api/note/
+ * @since  1.0
  */
 class Note extends Object
 {

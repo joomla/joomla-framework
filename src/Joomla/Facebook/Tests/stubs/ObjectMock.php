@@ -11,7 +11,7 @@ use Joomla\Facebook\Object;
 /**
  * Facebook mock object.
  *
- * @since       1.0
+ * @since  1.0
  */
 
 class ObjectMock extends Object

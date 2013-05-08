@@ -14,7 +14,7 @@ require_once __DIR__ . '/case/FacebookTestCase.php';
 /**
  * Test class for Joomla\Facebook\Checkin.
  *
- * @since       1.0
+ * @since  1.0
  */
 class CheckinTest extends FacebookTestCase
 {

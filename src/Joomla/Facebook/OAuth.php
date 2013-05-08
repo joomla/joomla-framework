@@ -17,7 +17,7 @@ use Joomla\Input\Input;
 /**
  * Joomla Framework class for generating Facebook API access token.
  *
- * @since       1.0
+ * @since  1.0
  */
 class OAuth extends Client
 {
@@ -30,9 +30,10 @@ class OAuth extends Client
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  JFacebookOauth options object.
-	 * @param   Http      $client   The HTTP client object.
-	 * @param   Input     $input    The input object.
+	 * @param   Registry      $options      JFacebookOauth options object.
+	 * @param   Http          $client       The HTTP client object.
+	 * @param   Input         $input        The input object.
+	 * @param   WebInspector  $application  The application object.
 	 *
 	 * @since   1.0
 	 */

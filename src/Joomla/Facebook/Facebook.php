@@ -14,7 +14,7 @@ use Joomla\Http\Http;
 /**
  * Joomla Framework class for interacting with a Facebook API instance.
  *
- * @since       1.0
+ * @since  1.0
  */
 class Facebook
 {

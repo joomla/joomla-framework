@@ -11,8 +11,8 @@ namespace Joomla\Facebook;
 /**
  * Facebook API Comment class for the Joomla Framework.
  *
- * @see         http://developers.facebook.com/docs/reference/api/Comment/
- * @since       1.0
+ * @see    http://developers.facebook.com/docs/reference/api/Comment/
+ * @since  1.0
  */
 class Comment extends Object
 {

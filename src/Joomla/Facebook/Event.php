@@ -11,8 +11,8 @@ namespace Joomla\Facebook;
 /**
  * Facebook API User class for the Joomla Framework.
  *
- * @see         http://developers.facebook.com/docs/reference/api/event/
- * @since       1.0
+ * @see    http://developers.facebook.com/docs/reference/api/event/
+ * @since  1.0
  */
 class Event extends Object
 {

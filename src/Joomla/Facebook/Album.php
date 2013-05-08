@@ -11,8 +11,8 @@ namespace Joomla\Facebook;
 /**
  * Facebook API Album class for the Joomla Framework.
  *
- * @see         http://developers.facebook.com/docs/reference/api/album/
- * @since       1.0
+ * @see    http://developers.facebook.com/docs/reference/api/album/
+ * @since  1.0
  */
 class Album extends Object
 {

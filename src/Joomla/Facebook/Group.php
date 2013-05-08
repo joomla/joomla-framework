@@ -11,8 +11,8 @@ namespace Joomla\Facebook;
 /**
  * Facebook API Group class for the Joomla Framework.
  *
- * @see         http://developers.facebook.com/docs/reference/api/group/
- * @since       1.0
+ * @see    http://developers.facebook.com/docs/reference/api/group/
+ * @since  1.0
  */
 class Group extends Object
 {

@@ -15,7 +15,7 @@ require_once __DIR__ . '/case/FacebookTestCase.php';
 /**
  * Test class for Joomla\Facebook\Event.
  *
- * @since       1.0
+ * @since  1.0
  */
 class EventTest extends FacebookTestCase
 {
