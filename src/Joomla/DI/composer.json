@@ -8,9 +8,6 @@
     "require": {
         "php": ">=5.3.10"
     },
-    "require-dev": {
-        "joomla/test": "dev-master"
-    },
     "target-dir": "Joomla/DI",
     "autoload": {
     	"psr-0": {
