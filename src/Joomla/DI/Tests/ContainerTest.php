@@ -3,7 +3,6 @@
 namespace Joomla\DI\Tests;
 
 use Joomla\DI\Container;
-use Joomla\Test\TestHelper;
 
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
@@ -83,5 +82,25 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testGetParam()
 	{
 		$this->assertSame($this->fixture->getParam('default.shared'), true);
+	}
+
+	public function testOffsetExists()
+	{
+		$this->markTestIncomplete();
+	}
+
+	public function testOffsetGet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	public function testOffsetSet()
+	{
+		$this->markTestIncomplete();
+	}
+
+	public function testOffsetUnset()
+	{
+		$this->markTestIncomplete();
 	}
 }
