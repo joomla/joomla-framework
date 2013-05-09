@@ -36,7 +36,7 @@ class Container implements \ArrayAccess
 	 *
 	 * @since  1.0
 	 */
-	public $config = array('default.shared' => true);
+	protected $config = array('default.shared' => true);
 
 	/**
 	 * Constructor for the DI Container

@@ -157,6 +157,20 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the get method on a non-existant offset.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  \InvalidArgumentException
+	 */
+	public function testGetNotExists()
+	{
+		$foo = $this->fixture->get('foo');
+	}
+
+	/**
 	 * Tests the get method for passing the
 	 * Joomla\DI\Container instance to the callback.
 	 *
@@ -209,7 +223,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetConfig()
 	{
-		$this->assertSame($this->readAttribute($this->fixture, 'config'), array('default.shared' => true));
+		$this->assertAttributeEquals(array('default.shared' => true), 'config', $this->fixture);
 	}
 
 	/**
@@ -265,6 +279,20 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the offsetGet method on a non-existant offset.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  \InvalidArgumentException
+	 */
+	public function testOffsetGetNotExists()
+	{
+		$foo = $this->fixture['foo'];
+	}
+
+	/**
 	 * Tests the offsetGet method shared.
 	 *
 	 * @return  void
@@ -290,20 +318,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$this->fixture->set('foo', function () { return new \stdClass; }, false);
 
 		$this->assertNotSame($this->fixture['foo'], $this->fixture['foo']);
-	}
-
-	/**
-	 * Tests the offsetGet method on a non-existant offset.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 *
-	 * @expectedException  \InvalidArgumentException
-	 */
-	public function testOffsetGetNotExists()
-	{
-		$foo = $this->fixture['foo'];
 	}
 
 	/**
