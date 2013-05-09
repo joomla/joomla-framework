@@ -22,7 +22,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function setUp()
 	{
@@ -34,7 +34,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function tearDown()
 	{
@@ -46,7 +46,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testConstructor()
 	{
@@ -54,11 +54,40 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the set method with bad callback.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  \UnexpectedValueException
+	 */
+	public function testSetInvalidCallback()
+	{
+		$this->fixture->set('foo', 'bar');
+	}
+
+	/**
+	 * Tests the set method with already set key.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  \OutOfBoundsException
+	 */
+	public function testSetAlreadySet()
+	{
+		$this->fixture->set('foo', function () { return new \stdClass; });
+		$this->fixture->set('foo', function () { return new \stdClass; });
+	}
+
+	/**
 	 * Tests the set method as default shared.
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testSetShared()
 	{
@@ -74,7 +103,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testSetNotShared()
 	{
@@ -90,7 +119,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testGetShared()
 	{
@@ -104,7 +133,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testGetNotShared()
 	{
@@ -114,11 +143,41 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the get method for passing the
+	 * Joomla\DI\Container instance to the callback.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetPassesContainerInstanceShared()
+	{
+		$this->fixture->set('foo', function ($c) { return $c; });
+
+		$this->assertSame($this->fixture, $this->fixture['foo']);
+	}
+
+	/**
+	 * Tests the get method for passing the
+	 * Joomla\DI\Container instance to the callback.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetPassesContainerInstanceNotShared()
+	{
+		$this->fixture->set('foo', function ($c) { return $c; }, false);
+
+		$this->assertSame($this->fixture, $this->fixture['foo']);
+	}
+
+	/**
 	 * Tests the setConfig method.
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testSetConfig()
 	{
@@ -132,7 +191,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testGetConfig()
 	{
@@ -144,7 +203,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testSetParam()
 	{
@@ -158,7 +217,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testGetParam()
 	{
@@ -170,7 +229,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testOffsetExistsTrue()
 	{
@@ -184,7 +243,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testOffsetExistsFalse()
 	{
@@ -196,7 +255,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testOffsetGetExistsShared()
 	{
@@ -210,7 +269,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testOffsetGetExistsNotShared()
 	{
@@ -224,7 +283,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 *
 	 * @expectedException  \InvalidArgumentException
 	 */
@@ -238,7 +297,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testOffsetSetShared()
 	{
@@ -254,7 +313,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testOffsetSetNotShared()
 	{
@@ -272,7 +331,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function testOffsetUnset()
 	{
