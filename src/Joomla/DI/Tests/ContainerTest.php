@@ -223,7 +223,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetConfig()
 	{
-		$this->assertAttributeEquals(array('default.shared' => true), 'config', $this->fixture);
+		$this->assertSame(array('default.shared' => true), $this->fixture->getConfig());
 	}
 
 	/**
