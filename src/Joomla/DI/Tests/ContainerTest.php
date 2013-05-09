@@ -3,8 +3,9 @@
 namespace Joomla\DI\Tests;
 
 use Joomla\DI\Container;
+use Joomla\Test\TestHelper;
 
-class ContainerTest
+class ContainerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
  	 * Holds the Container instance for testing.
@@ -28,33 +29,59 @@ class ContainerTest
 		$this->markTestIncomplete();
 	}
 
-	public function testSet()
+	public function testSetShared()
 	{
-		$this->markTestIncomplete();
+		$this->fixture->set('foo', function () { return new \stdClass; });
+
+		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
+
+		$this->assertTrue($dataStore['foo']['shared']);
 	}
 
-	public function testGet()
+	public function testSetNotShared()
 	{
-		$this->markTestIncomplete();
+		$this->fixture->set('foo', function () { return new \stdClass; }, false);
+
+		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
+
+		$this->assertFalse($dataStore['foo']['shared']);
+	}
+
+	public function testGetShared()
+	{
+		$this->fixture->set('foo', function () { return new \stdClass; });
+
+		$this->assertSame($this->fixture->get('foo'), $this->fixture->get('foo'));
+	}
+
+	public function testGetNotShared()
+	{
+		$this->fixture->set('foo', function () { return new \stdClass; }, false);
+
+		$this->assertNotSame($this->fixture->get('foo'), $this->fixture->get('foo'));
 	}
 
 	public function testSetConfig()
 	{
-		$this->markTestIncomplete();
+		$this->fixture->setConfig(array('foo' => 'bar'));
+
+		$this->assertAttributeEquals(array('default.shared' => true, 'foo' => 'bar'), 'config', $this->fixture);
 	}
 
 	public function testGetConfig()
 	{
-		$this->markTestIncomplete();
+		$this->assertSame($this->readAttribute($this->fixture, 'config'), array('default.shared' => true));
 	}
 
 	public function testSetParam()
 	{
-		$this->markTestIncomplete();
+		$this->fixture->setParam('foo', 'bar');
+
+		$this->assertAttributeEquals(array('default.shared' => true, 'foo' => 'bar'), 'config', $this->fixture);
 	}
 
 	public function testGetParam()
 	{
-		$this->markTestIncomplete();
+		$this->assertSame($this->fixture->getParam('default.shared'), true);
 	}
 }
