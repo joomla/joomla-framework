@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Framework DI Package
  *
- * @copyright  Copyright (C) 2013 Don Gilbert. All rights reserved.
- * @license    LGPL version 2 or later; see http://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
+ * @copyright  Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\DI;
