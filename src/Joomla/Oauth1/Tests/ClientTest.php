@@ -1,65 +1,70 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  OAuth
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-include_once __DIR__ . '/stubs/JOAuth1ClientInspector.php';
-include_once __DIR__ . '/../application/stubs/JApplicationWebInspector.php';
+namespace Joomla\Oauth1\Tests;
+
+use Joomla\Oauth1\Client;
+use Joomla\Registry\Registry;
+use Joomla\Input\Input;
+use Joomla\Http\Http;
+use Joomla\Test\WebInspector;
+use Joomla\Factory;
+use stdClass;
+use Joomla\Test\TestHelper as TestHelper;
+
+require_once __DIR__ . '/stubs/ClientInspector.php';
 
 
 /**
- * Test class for JOAuth1Client.
+ * Test class for OAuth1 Client.
  *
- * @package     Joomla.UnitTest
- * @subpackage  OAuth
- * @since       13.1
+ * @since  1.0
  */
-class JOAuth1ClientTest extends TestCase
+class ClientTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Input  input for the OAuth object.
-	 * @since  13.1
+	 * @var    Input  input for the Client object.
+	 * @since  1.0
 	 */
 	protected $input;
 
 	/**
-	 * @var    JRegistry  Options for the OAuth object.
-	 * @since  13.1
+	 * @var    Registry  Options for the Client object.
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttp  Mock http object.
-	 * @since  13.1
+	 * @var    Http  Mock http object.
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
 	 * An instance of the object to test.
 	 *
-	 * @var    JOAuth1ClientInspector
-	 * @since  11.3
+	 * @var    ClientInspector
+	 * @since  1.0
 	 */
 	protected $class;
 
 	/**
-	 * @var   JApplicationWeb  The application object to send HTTP headers for redirects.
+	 * @var   AbstractWebApplication  The application object to send HTTP headers for redirects.
 	 */
 	protected $application;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
 
@@ -80,14 +85,14 @@ class JOAuth1ClientTest extends TestCase
 		$secret = "TEST_SECRET";
 		$my_url = "TEST_URL";
 
-		$this->options = new JRegistry;
-		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
-		$this->input = new JInput;
-		$this->application = new JApplicationWebInspector;
+		$this->options = new Registry;
+		$this->client = $this->getMock('Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
+		$this->input = new Input;
+		$this->application = new WebInspector;
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
-		$this->object = new JOAuth1ClientInspector($this->options, $this->client, $this->input, $this->application);
+		$this->object = new ClientInspector($this->options, $this->client, $this->input, $this->application);
 	}
 
 	/**
@@ -98,7 +103,7 @@ class JOAuth1ClientTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		JFactory::$session = null;
+		Factory::$session = null;
 	}
 
 	/**
@@ -106,7 +111,7 @@ class JOAuth1ClientTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 13.1
+	* @since 1.0
 	*/
 	public function seedAuthenticate()
 	{
@@ -129,7 +134,7 @@ class JOAuth1ClientTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedAuthenticate
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testAuthenticate($token, $fail, $version)
 	{
@@ -156,9 +161,9 @@ class JOAuth1ClientTest extends TestCase
 				->with($this->object->getOption('requestTokenURL'))
 				->will($this->returnValue($returnData));
 
-			$input = TestReflection::getValue($this->object, 'input');
+			$input = TestHelper::getValue($this->object, 'input');
 			$input->set('oauth_verifier', null);
-			TestReflection::setValue($this->object, 'input', $input);
+			TestHelper::setValue($this->object, 'input', $input);
 
 			if (strcmp($version, '1.0a') === 0)
 			{
@@ -171,22 +176,22 @@ class JOAuth1ClientTest extends TestCase
 			$this->assertEquals($token['secret'], 'secret');
 
 			// Access token.
-			$input = TestReflection::getValue($this->object, 'input');
+			$input = TestHelper::getValue($this->object, 'input');
 
 			if (strcmp($version, '1.0a') === 0)
 			{
-				TestReflection::setValue($this->object, 'version', $version);
+				TestHelper::setValue($this->object, 'version', $version);
 				$data = array('oauth_verifier' => 'verifier', 'oauth_token' => 'token');
 			}
 			else
 			{
-				TestReflection::setValue($this->object, 'version', $version);
+				TestHelper::setValue($this->object, 'version', $version);
 				$data = array('oauth_token' => 'token');
 			}
-			TestReflection::setValue($input, 'data', $data);
+			TestHelper::setValue($input, 'data', $data);
 
 			// Get mock session
-			$mockSession = $this->getMock('JSession', array( '_start', 'get'));
+			$mockSession = $this->getMock('Joomla\\Session\\Session', array( '_start', 'get'));
 
 			if ($fail)
 			{
@@ -200,7 +205,7 @@ class JOAuth1ClientTest extends TestCase
 							->with('secret', null, 'oauth_token')
 							->will($this->returnValue('session'));
 
-				JFactory::$session = $mockSession;
+				Factory::$session = $mockSession;
 
 				$this->setExpectedException('DomainException');
 				$result = $this->object->authenticate();
@@ -216,7 +221,7 @@ class JOAuth1ClientTest extends TestCase
 						->with('secret', null, 'oauth_token')
 						->will($this->returnValue('secret'));
 
-			JFactory::$session = $mockSession;
+			Factory::$session = $mockSession;
 
 			$returnData = new stdClass;
 			$returnData->code = 200;
@@ -239,8 +244,8 @@ class JOAuth1ClientTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
-	 * @expectedException DomainException
+	 * @since   1.0
+	 * @expectedException  \DomainException
 	 */
 	public function testGenerateRequestTokenFailure()
 	{
@@ -255,7 +260,7 @@ class JOAuth1ClientTest extends TestCase
 			->with($this->object->getOption('requestTokenURL'))
 			->will($this->returnValue($returnData));
 
-		TestReflection::invoke($this->object, '_generateRequestToken');
+		TestHelper::invoke($this->object, '_generateRequestToken');
 	}
 
 	/**
@@ -263,7 +268,7 @@ class JOAuth1ClientTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 13.1
+	* @since  1.0
 	*/
 	public function seedOauthRequest()
 	{
@@ -283,7 +288,7 @@ class JOAuth1ClientTest extends TestCase
 	 * @dataProvider seedOauthRequest
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testOauthRequest($method)
 	{
@@ -324,7 +329,7 @@ class JOAuth1ClientTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testSafeEncodeEmpty()
 	{
