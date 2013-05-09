@@ -54,6 +54,20 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the constructor.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testConstructorWithConfig()
+	{
+		$this->fixture = new Container(array('foo' => 'bar'));
+
+		$this->assertAttributeEquals(array('default.shared' => true, 'foo' => 'bar'), 'config', $this->fixture);
+	}
+
+	/**
 	 * Tests the set method with bad callback.
 	 *
 	 * @return  void
