@@ -89,13 +89,14 @@ class Container implements \ArrayAccess
 	/**
 	 * Method to retrieve the results of running the $callback for the specified $key;
 	 *
-	 * @param   string  $key  Name of the dataStore key to get.
+	 * @param   string   $key       Name of the dataStore key to get.
+	 * @param   boolean  $forceNew  True to force creation and return of a new instance.
 	 *
 	 * @return  mixed   Results of running the $callback for the specified $key.
 	 *
 	 * @since   1.0
 	 */
-	public function get($key)
+	public function get($key, $forceNew = false)
 	{
 		if (!isset($this->dataStore[$key]))
 		{
@@ -104,7 +105,7 @@ class Container implements \ArrayAccess
 
 		if ($this->dataStore[$key]['shared'])
 		{
-			if (!isset($this->instances[$key]))
+			if (!isset($this->instances[$key]) || $forceNew)
 			{
 				$this->instances[$key] = $this->dataStore[$key]['callback']($this);
 			}
@@ -125,14 +126,9 @@ class Container implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 */
-	public function getNew($key)
+	public function getNewInstance($key)
 	{
-		if (!isset($this->dataStore[$key]))
-		{
-			throw new \InvalidArgumentException(sprintf('Key %s has not been registered with the container.', $key));
-		}
-
-		return $this->dataStore[$key]['callback']($this);
+		return $this->get($key, true);
 	}
 
 	/**
