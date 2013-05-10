@@ -55,13 +55,13 @@ class Container implements \ArrayAccess
 	 *
 	 * @param   string    $key       Name of dataStore key to set.
 	 * @param   callable  $callback  Callable function to run when requesting the specified $key.
-	 * @param   boolean   $shared    True to create and store a shared instance.
+	 * @param   mixed     $shared    True to create and store a shared instance.
 	 *
 	 * @return  Joomla\DI\Container  This instance to support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function set($key, $callback, $shared = true)
+	public function set($key, $callback, $shared = null)
 	{
 		if (isset($this->dataStore[$key]))
 		{
@@ -71,6 +71,11 @@ class Container implements \ArrayAccess
 		if (!is_callable($callback))
 		{
 			throw new \UnexpectedValueException('Provided value is not a valid callback.');
+		}
+
+		if (is_null($shared))
+		{
+			$shared = $this->config['default.shared'];
 		}
 
 		$this->dataStore[$key] = array(
@@ -192,7 +197,7 @@ class Container implements \ArrayAccess
 	/**
 	 * Whether an offset exists.
 	 *
-	 * @param   string  $key  Name of the bindings key to check if exists.
+	 * @param   string  $key  Name of the dataStore key to check if exists.
 	 *
 	 * @return  boolean  True if the specified offset exists.
 	 *
@@ -206,7 +211,7 @@ class Container implements \ArrayAccess
 	/**
 	 * Offset to retrieve.
 	 *
-	 * @param   string  $key  Name of the bindings key to get.
+	 * @param   string  $key  Name of the dataStore key to get.
 	 *
 	 * @return  mixed  Results of running the $callback for the specified $key.
 	 *
@@ -220,7 +225,7 @@ class Container implements \ArrayAccess
 	/**
 	 * Offset to set.
 	 *
-	 * @param   string    $key       Name of bindings key to set.
+	 * @param   string    $key       Name of dataStore key to set.
 	 * @param   callable  $callback  Callable function to run when requesting $key.
 	 *
 	 * @return  void

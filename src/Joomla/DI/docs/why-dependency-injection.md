@@ -124,7 +124,15 @@ $warrior = new Samurai(new Sword);
 $warrior->attack('the enemy');
 ```
 
-That's the basics of DI. Passing the requirements for a class to the class via it's constructor or via a `setProperty` method, where "property" would typically match the name of the property you are setting, as in the second version of the Samurai class with the `setWeapon` method.
+That's the basics of DI. Passing the requirements for a class to the class via it's constructor or via a `setProperty` method, where "property" would typically match the name of the property you are setting, as in the second version of the Samurai class with the `setWeapon` method. Here's an example using the setter for DI.
+
+```php
+$warrior = new Samurai;
+
+$warrior->setWeapon(new Sword);
+
+$warrior->attack();
+```
 
 ## How Can a Container Help
 

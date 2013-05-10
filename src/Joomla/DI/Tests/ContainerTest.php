@@ -208,11 +208,25 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testGetNew()
+	public function testGetNewExists()
 	{
 		$this->fixture->set('foo', function () { return new \stdClass; });
 
 		$this->assertNotSame($this->fixture->getNew('foo'), $this->fixture->getNew('foo'));
+	}
+
+	/**
+	 * Tests the getNew method on a non-existant offset.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  \InvalidArgumentException
+	 */
+	public function testGetNewNotExists()
+	{
+		$foo = $this->fixture->getNew('foo');
 	}
 
 	/**
