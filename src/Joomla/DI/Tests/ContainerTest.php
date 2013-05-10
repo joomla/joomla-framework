@@ -201,6 +201,21 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the getNew method which will always return a 
+	 * new instance, even if the $key was set to be shared.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetNew()
+	{
+		$this->fixture->set('foo', function () { return new \stdClass; });
+
+		$this->assertNotSame($this->fixture->getNew('foo'), $this->fixture->getNew('foo'));
+	}
+
+	/**
 	 * Tests the setConfig method.
 	 *
 	 * @return  void

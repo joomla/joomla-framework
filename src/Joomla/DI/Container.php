@@ -111,6 +111,26 @@ class Container implements \ArrayAccess
 	}
 
 	/**
+	 * Method to force the container to return a new instance
+	 * of the results of the callback for requested $key.
+	 *
+	 * @param   string  $key  Name of the dataStore key to get.
+	 *
+	 * @return  mixed   Results of running the $callback for the specified $key.
+	 *
+	 * @since   1.0
+	 */
+	public function getNew($key)
+	{
+		if (!isset($this->dataStore[$key]))
+		{
+			throw new \InvalidArgumentException(sprintf('Key %s has not been registered with the container.', $key));
+		}
+
+		return $this->dataStore[$key]['callback']($this);
+	}
+
+	/**
 	 * Method to set an array of config options.
 	 *
 	 * @param   array  $config  Associative array to merge with the internal config.
