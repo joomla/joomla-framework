@@ -63,7 +63,7 @@ Since your told your warrior to prepare himself for battle, he took the items he
 
 ### The Solution
 
-The best way to solve this is to provide the weapon for him as he's preparing. There is one major thing you need to take in order to train the samurai on how to use any weapon you might throw at him, but it's worth the effort.
+The best way to solve this is to provide the weapon for him as he's preparing. There is one major task you need to do in order to train the samurai on how to use any weapon you might throw at him, but it's worth the effort.
 
 #### Create an Interface
 
@@ -104,7 +104,7 @@ class Samurai
 		$this->weapon = $weapon;
 	}
 
-	public function setWeapn(WeaponInterface $weapon)
+	public function setWeapon(WeaponInterface $weapon)
 	{
 		$this->weapon = $weapon;
 	}
@@ -160,4 +160,8 @@ $ioc->set('warrior', function ()
 {
 	return new Samurai(new Sword);
 }, false);
+```
+
+```
+Note: The samurai concept came from a DI/IoC video about using Ninject in .NET. I've expanded upon the concept here.
 ```
