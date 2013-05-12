@@ -70,9 +70,12 @@ class HttpFactory
 			/* @var  $class  TransportInterface */
 			$class = '\\Joomla\\Http\\Transport\\' . ucfirst($adapter);
 
-			if ($class::isSupported())
+			if (class_exists($class))
 			{
-				return new $class($options);
+				if ($class::isSupported())
+				{
+					return new $class($options);
+				}
 			}
 		}
 
