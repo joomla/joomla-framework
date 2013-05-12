@@ -54,7 +54,7 @@ Capitalise all letters of acronyms such as HTML, XML, SQL, GMT, and UTC. This is
 
 Joomla contributors include many non-native speakers of en-GB which makes it understandable that there are sometimes spelling and grammar errors. At the same time, some people reading comments also are non native speakers and may even use automated translation to understand comments. This makes it very important that comments should follow proper en-GB spelling and grammar rules. Unfortunately, these can be tricky.
 
-Wikipedia provides a good summary of common differences between en-US and en-GB. http://en.wikipedia.org/wiki/American\_and\_British\_English\_spelling\_differences Note that there are some instances where en-GB common usage (but not actual rules) varies slightly from en-AU and using en-AU is considered acceptable.
+Wikipedia provides a good summary of common differences between en-US and en-GB. http://en.wikipedia.org/wiki/American_and_British_English_spelling_differences Note that there are some instances where en-GB common usage (but not actual rules) varies slightly from en-AU and using en-AU is considered acceptable.
 
 ### S vs Z
 
