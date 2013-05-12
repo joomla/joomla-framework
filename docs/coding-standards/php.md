@@ -393,7 +393,7 @@ Class variables should be set to null or some other appropriate default value.
 
 Exceptions should be used for error handling.
 
-The follow sections outline how to semantically use [SPL exceptions](http://php.net/manual/en/spl.exceptions.php).
+The following sections outline how to semantically use [SPL exceptions](http://php.net/manual/en/spl.exceptions.php).
 
 ### Logic Exceptions
 
