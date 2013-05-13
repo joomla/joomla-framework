@@ -249,12 +249,13 @@ class Http
 	 * @param   string   $url      Path to the resource.
 	 * @param   array    $headers  An array of name-value pairs to include in the header of the request.
 	 * @param   integer  $timeout  Read timeout in seconds.
+	 * @param   mixed    $data     Either an associative array or a string to be sent with the request.
 	 *
 	 * @return  Response
 	 *
 	 * @since   1.0
 	 */
-	public function delete($url, array $headers = null, $timeout = null)
+	public function delete($url, array $headers = null, $timeout = null, $data = null)
 	{
 		// Look for headers set in the options.
 		$temp = (array) $this->options->get('headers');
@@ -273,7 +274,7 @@ class Http
 			$timeout = $this->options->get('timeout');
 		}
 
-		return $this->transport->request('DELETE', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->transport->request('DELETE', new Uri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
 	}
 
 	/**

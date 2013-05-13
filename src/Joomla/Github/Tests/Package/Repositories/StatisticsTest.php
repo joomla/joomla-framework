@@ -6,19 +6,18 @@
 
 namespace Joomla\Github\Tests;
 
-use Joomla\Github\Package\Repositories\Merging;
+use Joomla\Github\Package\Repositories\Statistics;
 use Joomla\Registry\Registry;
 
 /**
- * Test class for Merging.
+ * Test class for Statistics.
  *
  * @since  1.0
  */
-class MergingTest extends \PHPUnit_Framework_TestCase
+class StatisticsTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	/**
-	 * @var    Registry  Options for the GitHub object.
+	 * @var    \Joomla\Registry\Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -36,19 +35,20 @@ class MergingTest extends \PHPUnit_Framework_TestCase
 	protected $response;
 
 	/**
-	 * @var Merging
+	 * @var    Statistics  Object under test.
+	 * @since  11.4
 	 */
 	protected $object;
 
 	/**
 	 * @var    string  Sample JSON string.
-	 * @since  12.3
+	 * @since  11.4
 	 */
 	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 	/**
 	 * @var    string  Sample JSON error message.
-	 * @since  12.3
+	 * @since  11.4
 	 */
 	protected $errorString = '{"message": "Generic Error"}';
 
@@ -56,130 +56,122 @@ class MergingTest extends \PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @since   1.0
+	 * @access protected
 	 *
-	 * @return  void
+	 * @return void
 	 */
 	protected function setUp()
 	{
 		parent::setUp();
 
 		$this->options  = new Registry;
-		$this->client = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
+		$this->client   = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
-		$this->object = new Merging($this->options, $this->client);
+		$this->object = new Statistics($this->options, $this->client);
 	}
 
 	/**
-	 * Tests the Perform method.
+	 * Tests the contributors method.
 	 *
 	 * @return  void
 	 */
-	public function testPerform()
+	public function testContributors()
 	{
-		$this->response->code = 201;
+		$this->response->code = 200;
 		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
-			->method('post')
-			->with('/repos/joomla/joomla-platform/merges')
+			->method('get')
+			->with('/repos/joomla/joomla-framework/stats/contributors')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->perform('joomla', 'joomla-platform', '123', '456', 'My Message'),
+			$this->object->contributors('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the Perform method.
+	 * Tests the activity method.
 	 *
 	 * @return  void
-	 *
-	 * @expectedException UnexpectedValueException
 	 */
-	public function testPerformNoOp()
+	public function testActivity()
 	{
-		$this->response->code = 204;
+		$this->response->code = 200;
 		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
-			->method('post')
-			->with('/repos/joomla/joomla-platform/merges')
+			->method('get')
+			->with('/repos/joomla/joomla-framework/stats/commit_activity')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->perform('joomla', 'joomla-platform', '123', '456', 'My Message'),
+			$this->object->activity('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the Perform method.
-	 *
-	 * @expectedException \UnexpectedValueException
+	 * Tests the frequency method.
 	 *
 	 * @return  void
 	 */
-	public function testPerformMissing()
+	public function testFrequency()
 	{
-		$this->response->code = 404;
+		$this->response->code = 200;
 		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
-			->method('post')
-			->with('/repos/joomla/joomla-platform/merges')
+			->method('get')
+			->with('/repos/joomla/joomla-framework/stats/code_frequency')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->perform('joomla', 'joomla-platform', '123', '456', 'My Message'),
+			$this->object->frequency('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the Perform method.
-	 *
-	 * @expectedException \UnexpectedValueException
+	 * Tests the participation method.
 	 *
 	 * @return  void
 	 */
-	public function testPerformConflict()
+	public function testParticipation()
 	{
-		$this->response->code = 409;
+		$this->response->code = 200;
 		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
-			->method('post')
-			->with('/repos/joomla/joomla-platform/merges')
+			->method('get')
+			->with('/repos/joomla/joomla-framework/stats/participation')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->perform('joomla', 'joomla-platform', '123', '456', 'My Message'),
+			$this->object->participation('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the Perform method.
-	 *
-	 * @expectedException \UnexpectedValueException
+	 * Tests the punchCard method.
 	 *
 	 * @return  void
 	 */
-	public function testPerformUnexpected()
+	public function testPunchCard()
 	{
-		$this->response->code = 666;
+		$this->response->code = 200;
 		$this->response->body = $this->sampleString;
 
 		$this->client->expects($this->once())
-			->method('post')
-			->with('/repos/joomla/joomla-platform/merges')
+			->method('get')
+			->with('/repos/joomla/joomla-framework/stats/punch_card')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->perform('joomla', 'joomla-platform', '123', '456', 'My Message'),
+			$this->object->punchCard('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
