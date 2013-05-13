@@ -41,6 +41,7 @@
         "joomla/language": "self.version",
         "joomla/log": "self.version",
         "joomla/model": "self.version",
+        "joomla/oauth1": "self.version",
         "joomla/oauth2": "self.version",
         "joomla/profiler": "self.version",
         "joomla/registry": "self.version",
