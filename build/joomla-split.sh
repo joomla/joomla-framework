@@ -11,6 +11,7 @@ git subsplit publish "
 	src/Joomla/Database:git@github.com:joomla/joomla-framework-database.git
 	src/Joomla/Date:git@github.com:joomla/joomla-framework-date.git
 	src/Joomla/Event:git@github.com:joomla/joomla-framework-event.git
+	src/Joomla/Facebook:git@github.com:joomla/joomla-framework-facebook.git
 	src/Joomla/Filesystem:git@github.com:joomla/joomla-framework-filesystem.git
 	src/Joomla/Filter:git@github.com:joomla/joomla-framework-filter.git
 	src/Joomla/Form:git@github.com:joomla/joomla-framework-form.git
