@@ -1,0 +1,21 @@
+{
+    "name": "joomla/oauth1",
+    "type": "joomla-package",
+    "description": "Joomla OAuth1 Package",
+    "keywords": ["joomla", "framework", "oauth1"],
+    "homepage": "https://github.com/joomla/joomla-framework-oauth1",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/application": "dev-master",
+        "joomla/http": "dev-master",
+        "joomla/input": "dev-master",
+        "joomla/registry": "dev-master"
+    },
+    "target-dir": "Joomla/OAuth1",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\OAuth1": ""
+    	}
+    }
+}
