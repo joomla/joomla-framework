@@ -28,6 +28,7 @@
         "joomla/data": "self.version",
         "joomla/database": "self.version",
         "joomla/date": "self.version",
+        "joomla/facebook": "self.version",
         "joomla/filesystem": "self.version",
         "joomla/filter": "self.version",
         "joomla/form": "self.version",
