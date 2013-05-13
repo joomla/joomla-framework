@@ -24,6 +24,7 @@ git subsplit publish "
 	src/Joomla/Language:git@github.com:joomla/joomla-framework-language.git
 	src/Joomla/Log:git@github.com:joomla/joomla-framework-log.git
 	src/Joomla/Model:git@github.com:joomla/joomla-framework-model.git
+	src/Joomla/Oauth1:git@github.com:joomla/joomla-framework-oauth1.git
 	src/Joomla/Oauth2:git@github.com:joomla/joomla-framework-oauth2.git
 	src/Joomla/Profiler:git@github.com:joomla/joomla-framework-profiler.git
 	src/Joomla/Registry:git@github.com:joomla/joomla-framework-registry.git
