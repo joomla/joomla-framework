@@ -1,65 +1,23 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Linkedin
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/linkedin/jobs.php';
+namespace Joomla\Linkedin\Tests;
+
+use Joomla\Linkedin\Jobs;
+use \DomainException;
+
+require_once __DIR__ . '/case/LinkedinTestCase.php';
 
 /**
- * Test class for JLinkedinJobs.
+ * Test class for Jobs.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinJobsTest extends TestCase
+class JobsTest extends LinkedinTestCase
 {
-	/**
-	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  13.1
-	 */
-	protected $options;
-
-	/**
-	 * @var    JHttp  Mock http object.
-	 * @since  13.1
-	 */
-	protected $client;
-
-	/**
-	 * @var    JInput The input object to use in retrieving GET/POST data.
-	 * @since  13.1
-	 */
-	protected $input;
-
-	/**
-	 * @var    JLinkedinJobs  Object under test.
-	 * @since  13.1
-	 */
-	protected $object;
-
-	/**
-	 * @var    JLinkedinOAuth  Authentication object for the Twitter object.
-	 * @since  13.1
-	 */
-	protected $oauth;
-
-	/**
-	 * @var    string  Sample JSON string.
-	 * @since  13.1
-	 */
-	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-
-	/**
-	 * @var    string  Sample JSON error message.
-	 * @since  13.1
-	 */
-	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
-
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
@@ -70,36 +28,7 @@ class JLinkedinJobsTest extends TestCase
 	{
 		parent::setUp();
 
-		$_SERVER['HTTP_HOST'] = 'example.com';
-		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
-		$_SERVER['REQUEST_URI'] = '/index.php';
-		$_SERVER['SCRIPT_NAME'] = '/index.php';
-
-		$key = "app_key";
-		$secret = "app_secret";
-		$my_url = "http://127.0.0.1/gsoc/joomla-platform/linkedin_test.php";
-
-		$this->options = new JRegistry;
-		$this->input = new JInput;
-		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
-		$this->oauth = new JLinkedinOauth($this->options, $this->client, $this->input);
-		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
-
-		$this->object = new JLinkedinJobs($this->options, $this->client, $this->oauth);
-
-		$this->options->set('consumer_key', $key);
-		$this->options->set('consumer_secret', $secret);
-		$this->options->set('callback', $my_url);
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
+		$this->object = new Jobs($this->options, $this->client, $this->oauth);
 	}
 
 	/**
@@ -107,7 +36,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetJob()
 	{
@@ -142,7 +71,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetJobFailure()
 	{
@@ -173,7 +102,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetBookmarked()
 	{
@@ -207,7 +136,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetBookmarkedFailure()
 	{
@@ -237,7 +166,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testBookmark()
 	{
@@ -270,7 +199,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testBookmarkFailure()
 	{
@@ -299,7 +228,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteBookmark()
 	{
@@ -328,7 +257,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testDeleteBookmarkFailure()
 	{
@@ -353,7 +282,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetSuggested()
 	{
@@ -391,7 +320,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetSuggestedFailure()
 	{
@@ -425,7 +354,7 @@ class JLinkedinJobsTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testSearch()
 	{
@@ -493,7 +422,7 @@ class JLinkedinJobsTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testSearchFailure()
 	{

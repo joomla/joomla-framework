@@ -1,22 +1,22 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Linkedin
+ * Part of the Joomla Framework Linkedin Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die();
+namespace Joomla\Linkedin;
+
+use Joomla\Linkedin\Object;
+use \RuntimeException;
 
 /**
- * Linkedin API Social Stream class for the Joomla Platform.
+ * Linkedin API Social Stream class for the Joomla Framework.
  *
- * @package     Joomla.Platform
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinStream extends JLinkedinObject
+class Stream extends Object
 {
 	/**
 	 * Method to add a new share. Note: post must contain comment and/or (title and url).
@@ -31,7 +31,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function share($visibility, $comment = null, $title = null, $url = null, $image = null, $description = null, $twitter = false)
@@ -116,7 +116,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function reshare($visibility, $id, $comment = null, $twitter = false)
@@ -173,12 +173,12 @@ class JLinkedinStream extends JLinkedinObject
 	/**
 	 * Method to get a particular member's current share.
 	 *
-	 * @param   string  $id     Member id of the profile you want.
-	 * @param   string  $url    The public profile URL.
+	 * @param   string  $id   Member id of the profile you want.
+	 * @param   string  $url  The public profile URL.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getCurrentShare($id = null, $url = null)
 	{
@@ -225,13 +225,13 @@ class JLinkedinStream extends JLinkedinObject
 	/**
 	 * Method to get a particular member's current share.
 	 *
-	 * @param   string   $id     Member id of the profile you want.
-	 * @param   string   $url    The public profile URL.
-	 * @param   boolean  $self   Used to return member's feed. Omitted to return aggregated network feed.
+	 * @param   string   $id    Member id of the profile you want.
+	 * @param   string   $url   The public profile URL.
+	 * @param   boolean  $self  Used to return member's feed. Omitted to return aggregated network feed.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getShareStream($id = null, $url = null, $self = true)
 	{
@@ -297,7 +297,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getNetworkUpdates($id = null, $self = true, $type = null, $count = 0, $start = 0, $after = null, $before = null,
 		$hidden = false)
@@ -383,7 +383,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getNetworkStats()
 	{
@@ -412,12 +412,12 @@ class JLinkedinStream extends JLinkedinObject
 	/**
 	 * Method to get the users network updates.
 	 *
-	 * @param   string  $body   The actual content of the update. You can use HTML to include links to the user name and the content the user
-	 * 							created. Other HTML tags are not supported. All body text should be HTML entity escaped and UTF-8 compliant.
+	 * @param   string  $body  The actual content of the update. You can use HTML to include links to the user name and the content the user
+	 * 						   created. Other HTML tags are not supported. All body text should be HTML entity escaped and UTF-8 compliant.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function postNetworkUpdate($body)
 	{
@@ -458,7 +458,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getComments($key)
 	{
@@ -492,7 +492,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function postComment($key, $comment)
 	{
@@ -532,7 +532,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getLikes($key)
 	{
@@ -566,7 +566,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	private function _likeUnlike($key, $like)
 	{
@@ -604,7 +604,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function like($key)
 	{
@@ -618,7 +618,7 @@ class JLinkedinStream extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function unlike($key)
 	{

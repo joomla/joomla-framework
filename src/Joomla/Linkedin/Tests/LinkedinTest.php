@@ -1,47 +1,29 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Linkedin
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/linkedin/linkedin.php';
+namespace Joomla\Linkedin\Tests;
+
+use Joomla\Linkedin\Linkedin;
+use Joomla\Linkedin\People;
+use Joomla\Linkedin\Groups;
+use Joomla\Linkedin\Communications;
+use Joomla\Linkedin\Companies;
+use Joomla\Linkedin\Stream;
+use Joomla\Linkedin\Jobs;
+use \DomainException;
+
+require_once __DIR__ . '/case/LinkedinTestCase.php';
 
 /**
- * Test class for JLinkedin.
+ * Test class for Linkedin.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinTest extends TestCase
+class LinkedinTest extends LinkedinTestCase
 {
-	/**
-	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  13.1
-	 */
-	protected $options;
-
-	/**
-	 * @var    JHttp  Mock http object.
-	 * @since  13.1
-	 */
-	protected $client;
-
-	/**
-	 * @var    JLinkedin  Object under test.
-	 * @since  13.1
-	 */
-	protected $object;
-
-	/**
-	 * @var JTLinkedinrOAuth Facebook OAuth 2 client
-	 * @since 13.1
-	 */
-	protected $oauth;
-
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
@@ -50,25 +32,9 @@ class JLinkedinTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$_SERVER['HTTP_HOST'] = 'example.com';
-		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
-		$_SERVER['REQUEST_URI'] = '/index.php';
-		$_SERVER['SCRIPT_NAME'] = '/index.php';
-
-		$this->options = new JRegistry;
-		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		parent::setUp();
 
 		$this->object = new JLinkedin($this->oauth, $this->options, $this->client);
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
 	}
 
 	/**
@@ -76,13 +42,13 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetPeople()
 	{
 		$this->assertThat(
 			$this->object->people,
-			$this->isInstanceOf('JLinkedinPeople')
+			$this->isInstanceOf('Joomla\\Linkedin\\People')
 		);
 	}
 
@@ -91,13 +57,13 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetGroups()
 	{
 		$this->assertThat(
 			$this->object->groups,
-			$this->isInstanceOf('JLinkedinGroups')
+			$this->isInstanceOf('Joomla\\Linkedin\\Groups')
 		);
 	}
 
@@ -106,13 +72,13 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetCompanies()
 	{
 		$this->assertThat(
 			$this->object->companies,
-			$this->isInstanceOf('JLinkedinCompanies')
+			$this->isInstanceOf('Joomla\\Linkedin\\Companies')
 		);
 	}
 
@@ -121,13 +87,13 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetJobs()
 	{
 		$this->assertThat(
 			$this->object->jobs,
-			$this->isInstanceOf('JLinkedinJobs')
+			$this->isInstanceOf('Joomla\\Linkedin\\Jobs')
 		);
 	}
 
@@ -136,13 +102,13 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetStream()
 	{
 		$this->assertThat(
 			$this->object->stream,
-			$this->isInstanceOf('JLinkedinStream')
+			$this->isInstanceOf('Joomla\\Linkedin\\Stream')
 		);
 	}
 
@@ -151,13 +117,13 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetCommunications()
 	{
 		$this->assertThat(
 			$this->object->communications,
-			$this->isInstanceOf('JLinkedinCommunications')
+			$this->isInstanceOf('Joomla\\Linkedin\\Communications')
 		);
 	}
 
@@ -166,7 +132,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test__GetOther()
 	{
@@ -181,7 +147,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testSetOption()
 	{
@@ -198,7 +164,7 @@ class JLinkedinTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetOption()
 	{

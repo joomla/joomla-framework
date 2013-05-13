@@ -1,22 +1,21 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Linkedin
+ * Part of the Joomla Framework Linkedin Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die();
+namespace Joomla\Linkedin;
+
+use Joomla\Linkedin\Object;
 
 /**
- * Linkedin API Jobs class for the Joomla Platform.
+ * Linkedin API Jobs class for the Joomla Framework.
  *
- * @package     Joomla.Platform
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinJobs extends JLinkedinObject
+class Jobs extends Object
 {
 	/**
 	 * Method to retrieve detailed information about a job.
@@ -26,7 +25,7 @@ class JLinkedinJobs extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getJob($id, $fields = null)
 	{
@@ -65,7 +64,7 @@ class JLinkedinJobs extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getBookmarked($fields = null)
 	{
@@ -100,11 +99,11 @@ class JLinkedinJobs extends JLinkedinObject
 	/**
 	 * Method to bookmark a job to the current user's account.
 	 *
-	 * @param   integer  $id     The unique identifier for a job.
+	 * @param   integer  $id  The unique identifier for a job.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function bookmark($id)
 	{
@@ -138,11 +137,11 @@ class JLinkedinJobs extends JLinkedinObject
 	/**
 	 * Method to delete a bookmark.
 	 *
-	 * @param   integer  $id     The unique identifier for a job.
+	 * @param   integer  $id  The unique identifier for a job.
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function deleteBookmark($id)
 	{
@@ -177,7 +176,7 @@ class JLinkedinJobs extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getSuggested($fields = null, $start = 0, $count = 0)
 	{
@@ -242,7 +241,7 @@ class JLinkedinJobs extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function search($fields = null, $keywords = null, $company_name = null, $job_title = null, $country_code = null, $postal_code = null,
 		$distance = null, $facets = null, $facet = null, $start = 0, $count = 0, $sort = null)
@@ -311,6 +310,7 @@ class JLinkedinJobs extends JLinkedinObject
 		if ($facet)
 		{
 			$data['facet'] = array();
+
 			for ($i = 0; $i < count($facet); $i++)
 			{
 				if ($facet[$i])

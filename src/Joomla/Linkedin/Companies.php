@@ -1,22 +1,22 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Linkedin
+ * Part of the Joomla Framework Linkedin Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die();
+namespace Joomla\Linkedin;
+
+use Joomla\Linkedin\Object;
+use \RuntimeException;
 
 /**
- * Linkedin API Companies class for the Joomla Platform.
+ * Linkedin API Companies class for the Joomla Framework.
  *
- * @package     Joomla.Platform
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinCompanies extends JLinkedinObject
+class Companies extends Object
 {
 	/**
 	 * Method to retrieve companies using a company ID, a universal name, or an email domain.
@@ -28,7 +28,7 @@ class JLinkedinCompanies extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function getCompanies($id = null, $name = null, $domain = null, $fields = null)
@@ -96,7 +96,7 @@ class JLinkedinCompanies extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getUpdates($id, $type = null, $count = 0, $start = 0)
 	{
@@ -157,7 +157,7 @@ class JLinkedinCompanies extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function search($fields = null, $keywords = null, $hq = false, $facets = null, $facet = null, $start = 0, $count = 0, $sort = null)
 	{
@@ -201,6 +201,7 @@ class JLinkedinCompanies extends JLinkedinObject
 		if ($facet)
 		{
 			$data['facet'] = array();
+
 			for ($i = 0; $i < count($facet); $i++)
 			{
 				if ($facet[$i])
@@ -267,7 +268,7 @@ class JLinkedinCompanies extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getFollowed($fields = null)
 	{
@@ -305,7 +306,7 @@ class JLinkedinCompanies extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function follow($id)
 	{
@@ -343,7 +344,7 @@ class JLinkedinCompanies extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function unfollow($id)
 	{
@@ -378,7 +379,7 @@ class JLinkedinCompanies extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getSuggested($fields = null, $start = 0, $count = 0)
 	{
@@ -431,7 +432,7 @@ class JLinkedinCompanies extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getProducts($id, $fields = null, $start = 0, $count = 0)
 	{

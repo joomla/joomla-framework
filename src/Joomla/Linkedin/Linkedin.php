@@ -1,90 +1,98 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Linkedin
+ * Part of the Joomla Framework Linkedin Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die();
+namespace Joomla\Linkedin;
+
+use Joomla\Registry\Registry;
+use Joomla\Http\Http;
+use Joomla\Linkedin\OAuth;
+use Joomla\Linkedin\People;
+use Joomla\Linkedin\Groups;
+use Joomla\Linkedin\Communications;
+use Joomla\Linkedin\Companies;
+use Joomla\Linkedin\Stream;
+use Joomla\Linkedin\Jobs;
 
 /**
- * Joomla Platform class for interacting with a Linkedin API instance.
+ * Joomla Framework class for interacting with a Linkedin API instance.
  *
- * @package     Joomla.Platform
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedin
+class Linkedin
 {
 	/**
 	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttp  The HTTP client object to use in sending HTTP requests.
-	 * @since  13.1
+	 * @var    Http  The HTTP client object to use in sending HTTP requests.
+	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var JLinkedinOAuth The OAuth client.
-	 * @since 13.1
+	 * @var    OAuth The OAuth client.
+	 * @since  1.0
 	 */
 	protected $oauth;
 
 	/**
 	 * @var    JLinkedinPeople  Linkedin API object for people.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $people;
 
 	/**
 	 * @var    JLinkedinGroups  Linkedin API object for groups.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $groups;
 
 	/**
 	 * @var    JLinkedinCompanies  Linkedin API object for companies.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $companies;
 
 	/**
 	 * @var    JLinkedinJobs  Linkedin API object for jobs.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $jobs;
 
 	/**
 	 * @var    JLinkedinStream  Linkedin API object for social stream.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $stream;
 
 	/**
 	 * @var    JLinkedinCommunications  Linkedin API object for communications.
-	 * @since  13.1
+	 * @since  1.0
 	 */
 	protected $communications;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry      $options  Linkedin options object.
-	 * @param   JLinkedinHttp  $client   The HTTP client object.
+	 * @param   OAuth     $oauth    The Linkedin OAuth client.
+	 * @param   Registry  $options  Linkedin options object.
+	 * @param   Http      $client   The HTTP client object.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
-	public function __construct(JLinkedinOAuth $oauth = null, JRegistry $options = null, JHttp $client = null)
+	public function __construct(OAuth $oauth = null, Registry $options = null, Http $client = null)
 	{
 		$this->oauth = $oauth;
-		$this->options = isset($options) ? $options : new JRegistry;
-		$this->client  = isset($client) ? $client : new JHttp($this->options);
+		$this->options = isset($options) ? $options : new Registry;
+		$this->client  = isset($client) ? $client : new Http($this->options);
 
 		// Setup the default API url if not already set.
 		$this->options->def('api.url', 'https://api.linkedin.com');
@@ -95,9 +103,9 @@ class JLinkedin
 	 *
 	 * @param   string  $name  Name of property to retrieve
 	 *
-	 * @return  JLinkedinObject  Linkedin API object (statuses, users, favorites, etc.).
+	 * @return  Object  Linkedin API object (statuses, users, favorites, etc.).
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{
@@ -106,7 +114,7 @@ class JLinkedin
 			case 'people':
 				if ($this->people == null)
 				{
-					$this->people = new JLinkedinPeople($this->options, $this->client, $this->oauth);
+					$this->people = new People($this->options, $this->client, $this->oauth);
 				}
 
 				return $this->people;
@@ -114,7 +122,7 @@ class JLinkedin
 			case 'groups':
 				if ($this->groups == null)
 				{
-					$this->groups = new JLinkedinGroups($this->options, $this->client, $this->oauth);
+					$this->groups = new Groups($this->options, $this->client, $this->oauth);
 				}
 
 				return $this->groups;
@@ -122,7 +130,7 @@ class JLinkedin
 			case 'companies':
 				if ($this->companies == null)
 				{
-					$this->companies = new JLinkedinCompanies($this->options, $this->client, $this->oauth);
+					$this->companies = new Companies($this->options, $this->client, $this->oauth);
 				}
 
 				return $this->companies;
@@ -130,7 +138,7 @@ class JLinkedin
 			case 'jobs':
 				if ($this->jobs == null)
 				{
-					$this->jobs = new JLinkedinJobs($this->options, $this->client, $this->oauth);
+					$this->jobs = new Jobs($this->options, $this->client, $this->oauth);
 				}
 
 				return $this->jobs;
@@ -138,7 +146,7 @@ class JLinkedin
 			case 'stream':
 				if ($this->stream == null)
 				{
-					$this->stream = new JLinkedinStream($this->options, $this->client, $this->oauth);
+					$this->stream = new Stream($this->options, $this->client, $this->oauth);
 				}
 
 				return $this->stream;
@@ -146,7 +154,7 @@ class JLinkedin
 			case 'communications':
 				if ($this->communications == null)
 				{
-					$this->communications = new JLinkedinCommunications($this->options, $this->client, $this->oauth);
+					$this->communications = new Communications($this->options, $this->client, $this->oauth);
 				}
 
 				return $this->communications;
@@ -154,13 +162,13 @@ class JLinkedin
 	}
 
 	/**
-	 * Get an option from the JLinkedin instance.
+	 * Get an option from the Linkedin instance.
 	 *
 	 * @param   string  $key  The name of the option to get.
 	 *
 	 * @return  mixed  The option value.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getOption($key)
 	{
@@ -173,9 +181,9 @@ class JLinkedin
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JLinkedin  This object for method chaining.
+	 * @return  Linkedin  This object for method chaining.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function setOption($key, $value)
 	{

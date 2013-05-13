@@ -1,50 +1,55 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Linkedin
+ * Part of the Joomla Framework Linkedin Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die();
+namespace Joomla\Linkedin;
+
+use Joomla\Oauth1\Client;
+use Joomla\Registry\Registry;
+use Joomla\Http\Http;
+use Joomla\Http\Response;
+use Joomla\Input\Input;
+use Joomla\Application\AbstractWebApplication;
+use \DomainException;
 
 /**
- * Joomla Platform class for generating Linkedin API access token.
+ * Joomla Framework class for generating Linkedin API access token.
  *
- * @package     Joomla.Platform
- * @subpackage  Linkedin
- *
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinOauth extends JOAuth1Client
+class OAuth extends Client
 {
 	/**
-	* @var    JRegistry  Options for the JLinkedinOauth object.
-	* @since  13.1
+	* @var    Registry  Options for the JLinkedinOauth object.
+	* @since  1.0
 	*/
 	protected $options;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   JRegistry  $options  JLinkedinOauth options object.
-	 * @param   JHttp      $client   The HTTP client object.
-	 * @param   JInput     $input    The input object
+	 * @param   Registry                $options      OAuth options object.
+	 * @param   Http                    $client       The HTTP client object.
+	 * @param   Input                   $input        The Input object
+	 * @param   AbstractWebApplication  $application  The application object.
 	 *
-	 * @since 13.1
+	 * @since 1.0
 	 */
-	public function __construct(JRegistry $options = null, JHttp $client = null, JInput $input = null)
+	public function __construct(Registry $options = null, Http $client = null, Input $input = null, AbstractWebApplication $application = null)
 	{
-		$this->options = isset($options) ? $options : new JRegistry;
+		$this->options = isset($options) ? $options : new Registry;
 
 		$this->options->def('accessTokenURL', 'https://www.linkedin.com/uas/oauth/accessToken');
 		$this->options->def('authenticateURL', 'https://www.linkedin.com/uas/oauth/authenticate');
 		$this->options->def('authoriseURL', 'https://www.linkedin.com/uas/oauth/authorize');
 		$this->options->def('requestTokenURL', 'https://www.linkedin.com/uas/oauth/requestToken');
 
-		// Call the JOauthV1aclient constructor to setup the object.
-		parent::__construct($this->options, $client, $input);
+		// Call the Oauth1 Client constructor to setup the object.
+		parent::__construct($this->options, $client, $input, $application);
 	}
 
 	/**
@@ -52,7 +57,7 @@ class JLinkedinOauth extends JOAuth1Client
 	 *
 	 * @return  boolean  Returns true if the access token is valid and false otherwise.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function verifyCredentials()
 	{
@@ -85,12 +90,12 @@ class JLinkedinOauth extends JOAuth1Client
 	/**
 	 * Method to validate a response.
 	 *
-	 * @param   string         $url       The request URL.
-	 * @param   JHttpResponse  $response  The response to validate.
+	 * @param   string    $url       The request URL.
+	 * @param   Response  $response  The response to validate.
 	 *
 	 * @return  void
 	 *
-	 * @since  13.1
+	 * @since  1.0
 	 * @throws DomainException
 	 */
 	public function validateResponse($url, $response)
@@ -118,10 +123,10 @@ class JLinkedinOauth extends JOAuth1Client
 	 *
 	 * @param   mixed  $scope  String or an array of string containing permissions.
 	 *
-	 * @return  JLinkedinOauth  This object for method chaining
+	 * @return  OAuth  This object for method chaining
 	 *
 	 * @see     https://developer.linkedin.com/documents/authentication
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function setScope($scope)
 	{
@@ -135,7 +140,7 @@ class JLinkedinOauth extends JOAuth1Client
 	 *
 	 * @return  string String or an array of string containing permissions.
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getScope()
 	{

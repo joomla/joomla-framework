@@ -1,22 +1,21 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Linkedin
+ * Part of the Joomla Framework Linkedin Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die();
+namespace Joomla\Linkedin;
+
+use Joomla\Linkedin\Object;
 
 /**
- * Linkedin API People class for the Joomla Platform.
+ * Linkedin API People class for the Joomla Framework.
  *
- * @package     Joomla.Platform
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinPeople extends JLinkedinObject
+class People extends Object
 {
 	/**
 	 * Method to get a member's profile.
@@ -29,7 +28,7 @@ class JLinkedinPeople extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getProfile($id = null, $url = null, $fields = null, $type = 'standard', $language = null)
 	{
@@ -75,6 +74,7 @@ class JLinkedinPeople extends JLinkedinObject
 
 		// Check if language is specified.
 		$header = array();
+
 		if ($language)
 		{
 			$header = array('Accept-Language' => $language);
@@ -100,7 +100,7 @@ class JLinkedinPeople extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function getConnections($fields = null, $start = 0, $count = 500, $modified = null, $modified_since = null)
 	{
@@ -184,7 +184,7 @@ class JLinkedinPeople extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function search($fields = null, $keywords = null, $first_name = null, $last_name = null, $company_name = null,
 		$current_company = null, $title = null, $current_title = null, $school_name = null, $current_school = null, $country_code = null,
@@ -290,6 +290,7 @@ class JLinkedinPeople extends JLinkedinObject
 		if ($facet)
 		{
 			$data['facet'] = array();
+
 			for ($i = 0; $i < count($facet); $i++)
 			{
 				if ($facet[$i])

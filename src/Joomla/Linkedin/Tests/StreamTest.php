@@ -1,65 +1,23 @@
 <?php
 /**
- * @package     Joomla.UnitTest
- * @subpackage  Linkedin
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once JPATH_PLATFORM . '/joomla/linkedin/stream.php';
+namespace Joomla\Linkedin\Tests;
+
+use Joomla\Linkedin\Stream;
+use \DomainException;
+
+require_once __DIR__ . '/case/LinkedinTestCase.php';
 
 /**
- * Test class for JLinkedinStream.
+ * Test class for Stream.
  *
- * @package     Joomla.UnitTest
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinStreamTest extends TestCase
+class StreamTest extends LinkedinTestCase
 {
-	/**
-	 * @var    JRegistry  Options for the Linkedin object.
-	 * @since  13.1
-	 */
-	protected $options;
-
-	/**
-	 * @var    JHttp  Mock http object.
-	 * @since  13.1
-	 */
-	protected $client;
-
-	/**
-	 * @var    JInput The input object to use in retrieving GET/POST data.
-	 * @since  13.1
-	 */
-	protected $input;
-
-	/**
-	 * @var    JLinkedinStream  Object under test.
-	 * @since  13.1
-	 */
-	protected $object;
-
-	/**
-	 * @var    JLinkedinOAuth  Authentication object for the Twitter object.
-	 * @since  13.1
-	 */
-	protected $oauth;
-
-	/**
-	 * @var    string  Sample JSON string.
-	 * @since  13.1
-	 */
-	protected $sampleString = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-
-	/**
-	 * @var    string  Sample JSON error message.
-	 * @since  13.1
-	 */
-	protected $errorString = '{"errorCode":401, "message": "Generic error"}';
-
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
@@ -70,36 +28,7 @@ class JLinkedinStreamTest extends TestCase
 	{
 		parent::setUp();
 
-		$_SERVER['HTTP_HOST'] = 'example.com';
-		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
-		$_SERVER['REQUEST_URI'] = '/index.php';
-		$_SERVER['SCRIPT_NAME'] = '/index.php';
-
-		$key = "app_key";
-		$secret = "app_secret";
-		$my_url = "http://127.0.0.1/gsoc/joomla-platform/linkedin_test.php";
-
-		$this->options = new JRegistry;
-		$this->input = new JInput;
-		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
-		$this->oauth = new JLinkedinOauth($this->options, $this->client, $this->input);
-		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
-
-		$this->object = new JLinkedinStream($this->options, $this->client, $this->oauth);
-
-		$this->options->set('consumer_key', $key);
-		$this->options->set('consumer_secret', $secret);
-		$this->options->set('callback', $my_url);
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
+		$this->object = new Stream($this->options, $this->client, $this->oauth);
 	}
 
 	/**
@@ -107,7 +36,7 @@ class JLinkedinStreamTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 13.1
+	* @since 1.0
 	*/
 	public function seedShare()
 	{
@@ -130,7 +59,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedShare
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testShare($comment, $title, $url, $image, $description)
 	{
@@ -192,7 +121,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testShareFailure()
 	{
@@ -228,7 +157,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testReshare()
 	{
@@ -281,7 +210,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testReshareFailure()
 	{
@@ -330,7 +259,7 @@ class JLinkedinStreamTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 13.1
+	* @since 1.0
 	*/
 	public function seedIdUrl()
 	{
@@ -351,7 +280,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedIdUrl
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetCurrentShare($id, $url)
 	{
@@ -399,7 +328,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetCurrentShareFailure()
 	{
@@ -431,7 +360,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedIdUrl
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetShareStream($id, $url)
 	{
@@ -481,7 +410,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetShareStreamFailure()
 	{
@@ -511,7 +440,7 @@ class JLinkedinStreamTest extends TestCase
 	*
 	* @return array
 	*
-	* @since 13.1
+	* @since 1.0
 	*/
 	public function seedId()
 	{
@@ -530,7 +459,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @dataProvider seedId
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetNetworkUpdates($id)
 	{
@@ -588,7 +517,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetNetworkUpdatesFailure()
 	{
@@ -631,7 +560,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetNetworkStats()
 	{
@@ -663,7 +592,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetNetworkStatsFailure()
 	{
@@ -691,7 +620,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testPostNetworkUpdate()
 	{
@@ -730,7 +659,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testPostNetworkUpdateFailure()
 	{
@@ -765,7 +694,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetComments()
 	{
@@ -799,7 +728,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetCommentsFailure()
 	{
@@ -829,7 +758,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testPostComment()
 	{
@@ -866,7 +795,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testPostCommentFailure()
 	{
@@ -899,7 +828,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetLikes()
 	{
@@ -933,7 +862,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testGetLikesFailure()
 	{
@@ -963,7 +892,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function test_likeUnlike()
 	{
@@ -976,7 +905,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testLike()
 	{
@@ -1009,7 +938,7 @@ class JLinkedinStreamTest extends TestCase
 	 * @return  void
 	 *
 	 * @expectedException DomainException
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testLikeFailure()
 	{
@@ -1038,7 +967,7 @@ class JLinkedinStreamTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function testUnlike()
 	{

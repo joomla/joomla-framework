@@ -1,22 +1,21 @@
 <?php
 /**
- * @package     Joomla.Platform
- * @subpackage  Linkedin
+ * Part of the Joomla Framework Linkedin Package
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-defined('JPATH_PLATFORM') or die();
+namespace Joomla\Linkedin;
+
+use Joomla\Linkedin\Object;
 
 /**
- * Linkedin API Social Communications class for the Joomla Platform.
+ * Linkedin API Social Communications class for the Joomla Framework.
  *
- * @package     Joomla.Platform
- * @subpackage  Linkedin
- * @since       13.1
+ * @since  1.0
  */
-class JLinkedinCommunications extends JLinkedinObject
+class Communications extends Object
 {
 	/**
 	 * Method used to invite people.
@@ -30,7 +29,7 @@ class JLinkedinCommunications extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function inviteByEmail($email, $first_name, $last_name, $subject, $body, $connection = 'friend')
 	{
@@ -89,7 +88,7 @@ class JLinkedinCommunications extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function inviteById($id, $first_name, $last_name, $subject, $body, $connection = 'friend')
 	{
@@ -167,7 +166,7 @@ class JLinkedinCommunications extends JLinkedinObject
 	}
 
 	/**
-	 * Method used to send messages via LinkedIn between two or more individuals connected to the member sending the message..
+	 * Method used to send messages via LinkedIn between two or more individuals connected to the member sending the message.
 	 *
 	 * @param   mixed   $recipient  A string containing the member id or an array of ids.
 	 * @param   string  $subject    The subject of the message that will be sent to the recipient
@@ -175,7 +174,7 @@ class JLinkedinCommunications extends JLinkedinObject
 	 *
 	 * @return  array  The decoded JSON response
 	 *
-	 * @since   13.1
+	 * @since   1.0
 	 */
 	public function sendMessage($recipient, $subject, $body)
 	{
