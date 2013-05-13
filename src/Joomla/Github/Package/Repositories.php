@@ -27,6 +27,7 @@ use Joomla\Github\Package;
  * @property-read  Repositories\Keys           $keys           GitHub API object for keys.
  * @property-read  Repositories\Merging        $merging        GitHub API object for merging.
  * @property-read  Repositories\Statuses       $statuses       GitHub API object for statuses.
+ * @property-read  Repositories\Statistics     $statistics     GitHub API object for statistics.
  */
 class Repositories extends Package
 {

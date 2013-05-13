@@ -19,7 +19,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/git/blobs/
  *
- * @since       1.0
+ * @since  1.0
  */
 class Blobs extends Package
 {
