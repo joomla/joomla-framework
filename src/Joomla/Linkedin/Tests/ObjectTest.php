@@ -9,6 +9,7 @@ namespace Joomla\Linkedin\Tests;
 use Joomla\Linkedin\Object;
 
 require_once __DIR__ . '/case/LinkedinTestCase.php';
+require_once __DIR__ . '/stubs/ObjectMock.php';
 
 /**
  * Test class for JLinkedinObject.
@@ -29,7 +30,7 @@ class ObjectTest extends LinkedinTestCase
 	{
 		parent::setUp();
 
-		$this->object = new LinkedinObject($this->options, $this->client, $this->oauth);
+		$this->object = new ObjectMock($this->options, $this->client, $this->oauth);
 	}
 
 	/**

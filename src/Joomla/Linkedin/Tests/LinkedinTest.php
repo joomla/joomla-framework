@@ -34,7 +34,7 @@ class LinkedinTest extends LinkedinTestCase
 	{
 		parent::setUp();
 
-		$this->object = new JLinkedin($this->oauth, $this->options, $this->client);
+		$this->object = new Linkedin($this->oauth, $this->options, $this->client);
 	}
 
 	/**

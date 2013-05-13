@@ -8,6 +8,7 @@ namespace Joomla\Linkedin\Tests;
 
 use Joomla\Linkedin\Communications;
 use \DomainException;
+use \stdClass;
 
 require_once __DIR__ . '/case/LinkedinTestCase.php';
 
@@ -160,8 +161,8 @@ class CommunicationsTest extends LinkedinTestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = '{"apiStandardProfileRequest": {"headers": {"_total": 1,"values": [{"name": "x-li-auth-token","value": "' .
-			$name . ':' . $value . '"}]}}}';
+		$returnData->body = '{"apiStandardProfileRequest": {"headers": {"_total": 1,"values": [{"name": "x-li-auth-token","value": "'
+				. $name . ':' . $value . '"}]}}}';
 
 		$data['format'] = 'json';
 		$data['first-name'] = $first_name;
@@ -219,7 +220,7 @@ class CommunicationsTest extends LinkedinTestCase
 	 *
 	 * @return  void
 	 *
-	 * @expectedException RuntimeException
+	 * @expectedException DomainException
 	 * @since   1.0
 	 */
 	public function testInviteByIdFailure()

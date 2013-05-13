@@ -8,6 +8,7 @@ namespace Joomla\Linkedin\Tests;
 
 use Joomla\Linkedin\Groups;
 use \DomainException;
+use \stdClass;
 
 require_once __DIR__ . '/case/LinkedinTestCase.php';
 

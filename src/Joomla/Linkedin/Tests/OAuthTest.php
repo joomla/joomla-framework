@@ -8,6 +8,7 @@ namespace Joomla\Linkedin\Tests;
 
 use Joomla\Linkedin\OAuth;
 use \DomainException;
+use \stdClass;
 
 require_once __DIR__ . '/case/LinkedinTestCase.php';
 
@@ -68,6 +69,40 @@ class OAuthTest extends LinkedinTestCase
 		$this->assertThat(
 			$this->oauth->verifyCredentials(),
 			$this->equalTo($expected)
+		);
+	}
+
+	/**
+	 * Tests the setScope method
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testSetScope()
+	{
+		$this->oauth->setScope('read_stream');
+
+		$this->assertThat(
+				$this->options->get('scope'),
+				$this->equalTo('read_stream')
+		);
+	}
+
+	/**
+	 * Tests the getScope method
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetScope()
+	{
+		$this->options->set('scope', 'read_stream');
+
+		$this->assertThat(
+				$this->oauth->getScope(),
+				$this->equalTo('read_stream')
 		);
 	}
 }

@@ -6,8 +6,6 @@
 
 namespace Joomla\Linkedin\Tests;
 
-use Joomla\Test\WebInspector;
-
 use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
