@@ -19,4 +19,5 @@ before_script:
   - psql -d joomla_ut -a -f src/Joomla/Database/Tests/Stubs/postgresql.sql
 
 script:
+  - ant composervalidate
   - phpunit --configuration phpunit.travis.xml
