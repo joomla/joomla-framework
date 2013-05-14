@@ -40,7 +40,6 @@ abstract class AbstractRegistryFormat
 		// Only instantiate the object if it doesn't already exist.
 		if (!isset(self::$instances[$type]))
 		{
-			// Only load the file the class does not exist.
 			$class = '\\Joomla\\Registry\\Format\\' . ucfirst($type);
 
 			if (!class_exists($class))
