@@ -14,51 +14,48 @@ use Joomla\Registry\AbstractRegistryFormat;
 class AbstractRegistryFormatTest extends PHPUnit_Framework_TestCase
 {
 	/**
+	 * Data provider for testGetInstance
+	 *
+	 * @return  void
+	 */
+	public function seedTestGetInstance()
+	{
+		return array(
+			array('Xml'),
+			array('Ini'),
+			array('Json'),
+			array('Php'),
+			array('Yaml')
+		);
+	}
+
+	/**
 	 * Test the AbstractRegistryFormat::getInstance method.
+	 *
+	 * @dataProvider  seedTestGetInstance
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testGetInstance()
+	public function testGetInstance($format)
 	{
-		// Test INI format.
-		$object = AbstractRegistryFormat::getInstance('INI');
+		$class = '\\Joomla\\Registry\\Format\\' . $format;
+
+		$object = AbstractRegistryFormat::getInstance($format);
 		$this->assertThat(
-			$object instanceof Joomla\Registry\Format\Ini,
+			$object instanceof $class,
 			$this->isTrue()
 		);
+	}
 
-		// Test JSON format.
-		$object = AbstractRegistryFormat::getInstance('JSON');
-		$this->assertThat(
-			$object instanceof Joomla\Registry\Format\Json,
-			$this->isTrue()
-		);
-
-		// Test PHP format.
-		$object = AbstractRegistryFormat::getInstance('PHP');
-		$this->assertThat(
-			$object instanceof Joomla\Registry\Format\PHP,
-			$this->isTrue()
-		);
-
-		// Test XML format.
-		$object = AbstractRegistryFormat::getInstance('XML');
-		$this->assertThat(
-			$object instanceof Joomla\Registry\Format\Xml,
-			$this->isTrue()
-		);
-
-		// Test non-existing format.
-		try
-		{
-			$object = AbstractRegistryFormat::getInstance('SQL');
-		}
-		catch (Exception $e)
-		{
-			return;
-		}
-		$this->fail('AbstractRegistryFormat should throw an exception in case of non-existing formats');
+	/**
+	 * Test getInstance with a non-existent format.
+	 *
+	 * @expectedException  \InvalidArgumentException
+	 */
+	public function testGetInstanceNonExistent()
+	{
+		AbstractRegistryFormat::getInstance('SQL');
 	}
 }

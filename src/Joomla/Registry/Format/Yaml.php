@@ -9,46 +9,46 @@
 namespace Joomla\Registry\Format;
 
 use Joomla\Registry\AbstractRegistryFormat;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Yaml as SymfonyYaml;
 
 /**
- * Yaml format handler for Registry.
+ * YAML format handler for Registry.
  *
  * @since  1.0
  */
 class Yaml extends AbstractRegistryFormat
 {
 	/**
-	 * Converts an object into a Yaml formatted string.
+	 * Converts an object into a YAML formatted string.
 	 *
 	 * @param   object  $object   Data source object.
 	 * @param   array   $options  Options used by the formatter.
 	 *
-	 * @return  string  Yaml formatted string.
+	 * @return  string  YAML formatted string.
 	 *
 	 * @since   1.0
 	 */
 	public function objectToString($object, $options = array())
 	{
-		return Yaml::dump((array)$object);
+		$array = json_decode(json_encode($object), true);
+
+		return SymfonyYaml::dump($array);
 	}
 
 	/**
-	 * Parse a JSON formatted string and convert it into an object.
+	 * Parse a YAML formatted string and convert it into an object.
 	 *
-	 * If the string is not in JSON format, this method will attempt to parse it as INI format.
-	 *
-	 * @param   string  $data     JSON formatted string to convert.
+	 * @param   string  $data     YAML formatted string to convert.
 	 * @param   array   $options  Options used by the formatter.
 	 *
-	 * @return  object   Data object.
+	 * @return  object  Data object.
 	 *
 	 * @since   1.0
 	 */
 	public function stringToObject($data, array $options = array())
 	{
-		$data = trim($data);
+		$array = SymfonyYaml::parse(trim($data));
 
-		return Yaml::parse($data);
+		return json_decode(json_encode($array));
 	}
 }
