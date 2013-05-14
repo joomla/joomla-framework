@@ -10,7 +10,7 @@
         "joomla/oauth1": "dev-master",
         "joomla/input": "dev-master",
         "joomla/http": "dev-master",
-        "joomla/registry": "dev-master",
+        "joomla/registry": "dev-master"
     },
     "target-dir": "Joomla/Linkedin",
     "autoload": {
