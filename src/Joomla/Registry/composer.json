@@ -8,7 +8,8 @@
     "require": {
         "php": ">=5.3.10",
          "joomla/compat": "dev-master",
-         "joomla/utilities": "dev-master"
+         "joomla/utilities": "dev-master",
+         "symfony/yaml": "v2.2.*"
     },
     "require-dev": {
          "joomla/test": "dev-master"
