@@ -24,7 +24,8 @@ class DriverSqliteTest extends DatabaseCase
 	{
 		return array(
 			array("'%_abc123", false, "''%_abc123"),
-			array("'%_abc123", true, "''%_abc123")
+			array("'%_abc123", true, "''%_abc123"),
+			array(3, false, 3)
 		);
 	}
 
@@ -102,6 +103,22 @@ class DriverSqliteTest extends DatabaseCase
 	}
 
 	/**
+	 * Test the execute method
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testExecute()
+	{
+		self::$driver->setQuery("REPLACE INTO `jos_dbtest` (`id`, `title`) VALUES (5, 'testTitle')");
+
+		$this->assertThat(self::$driver->execute(), $this->isInstanceOf('\\PDOStatement'), __LINE__);
+
+		$this->assertThat(self::$driver->insertid(), $this->equalTo(5), __LINE__);
+	}
+
+	/**
 	 * Test getAffectedRows method.
 	 *
 	 * @return  void
@@ -157,7 +174,15 @@ class DriverSqliteTest extends DatabaseCase
 	 */
 	public function testGetNumRows()
 	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		$query = self::$driver->getQuery(true);
+		$query->select('*');
+		$query->from('jos_dbtest');
+		$query->where('description = ' . self::$driver->quote('one'));
+		self::$driver->setQuery($query);
+
+		$res = self::$driver->execute();
+
+		$this->assertThat(self::$driver->getNumRows($res), $this->equalTo(0), __LINE__);
 	}
 
 	/**
@@ -306,6 +331,18 @@ class DriverSqliteTest extends DatabaseCase
 	public function testInsertObject()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
+	}
+
+	/**
+	 * Test isSupported method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testIsSupported()
+	{
+		$this->assertThat(\Joomla\Database\Sqlite\SqliteDriver::isSupported(), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -514,19 +551,40 @@ class DriverSqliteTest extends DatabaseCase
 	}
 
 	/**
-	 * Test the execute method
+	 * Tests the lockTable method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testExecute()
+	public function testLockTable()
 	{
-		self::$driver->setQuery("REPLACE INTO `jos_dbtest` (`id`, `title`) VALUES (5, 'testTitle')");
+		$this->assertThat(
+			self::$driver->lockTable('#__dbtest'),
+			$this->isInstanceOf('\\Joomla\\Database\\Sqlite\\SqliteDriver'),
+			'Method returns the current instance of the driver object.'
+		);
+	}
 
-		$this->assertThat(self::$driver->execute(), $this->isInstanceOf('\\PDOStatement'), __LINE__);
+	/**
+	 * Tests the renameTable method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testRenameTable()
+	{
+		$newTableName = 'bak_jos_dbtest';
 
-		$this->assertThat(self::$driver->insertid(), $this->equalTo(5), __LINE__);
+		self::$driver->renameTable('jos_dbtest', $newTableName);
+
+		// Check name change
+		$tableList = self::$driver->getTableList();
+		$this->assertThat(in_array($newTableName, $tableList), $this->isTrue(), __LINE__);
+
+		// Restore initial state
+		self::$driver->renameTable($newTableName, 'jos_dbtest');
 	}
 
 	/**
@@ -549,30 +607,6 @@ class DriverSqliteTest extends DatabaseCase
 	 * @since   1.0
 	 */
 	public function testSetUTF()
-	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test isSupported method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testIsSupported()
-	{
-		$this->assertThat(\Joomla\Database\Sqlite\SqliteDriver::isSupported(), $this->isTrue(), __LINE__);
-	}
-
-	/**
-	 * Test updateObject method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testUpdateObject()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
@@ -664,5 +698,33 @@ class DriverSqliteTest extends DatabaseCase
 		$result = self::$driver->loadRowList();
 
 		$this->assertThat(count($result), $this->equalTo($tupleCount), __LINE__);
+	}
+
+	/**
+	 * Tests the unlockTables method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testUnlockTables()
+	{
+		$this->assertThat(
+			self::$driver->unlockTables(),
+			$this->isInstanceOf('\\Joomla\\Database\\Sqlite\\SqliteDriver'),
+			'Method returns the current instance of the driver object.'
+		);
+	}
+
+	/**
+	 * Test updateObject method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testUpdateObject()
+	{
+		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 }

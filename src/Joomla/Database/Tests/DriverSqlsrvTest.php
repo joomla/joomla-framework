@@ -483,6 +483,27 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
+	 * Tests the renameTable method
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testRenameTable()
+	{
+		$newTableName = 'bak_jos_dbtest';
+
+		self::$driver->renameTable('jos_dbtest', $newTableName);
+
+		// Check name change
+		$tableList = self::$driver->getTableList();
+		$this->assertThat(in_array($newTableName, $tableList), $this->isTrue(), __LINE__);
+
+		// Restore initial state
+		self::$driver->renameTable($newTableName, 'jos_dbtest');
+	}
+
+	/**
 	 * Tests the select method
 	 *
 	 * @return  void
