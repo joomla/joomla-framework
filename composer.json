@@ -39,6 +39,7 @@
         "joomla/input": "self.version",
         "joomla/keychain": "self.version",
         "joomla/language": "self.version",
+        "joomla/linkedin": "self.version",
         "joomla/log": "self.version",
         "joomla/model": "self.version",
         "joomla/oauth1": "self.version",
