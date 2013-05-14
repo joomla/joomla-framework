@@ -134,7 +134,7 @@ $warrior->setWeapon(new Sword);
 $warrior->attack();
 ```
 
-## How Can a Container Help
+## How A Can Container Help
 
 An Inversion of Control (IoC) Container can help you to manage all the parts of the application. Instead of re-building a new warrior each time, it would be much easier for the app to remember how to prepare a warrior and be able to create one on demand. In our example, since the Samurai doesn't have a lot of dependencies, the benefits of a container might be hard to see. But consider that each time you want to create a warrior you need to remember to pass in the dependencies. With a container, you can set up a template, so to speak, and let the app handle the creation. It REALLY comes in handy when the dependencies you are injecting have dependencies within their dependencies. It can get very complicated very fast.
 
