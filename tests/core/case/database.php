@@ -164,7 +164,19 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	 */
 	public function getMockConfig()
 	{
-		return TestMockConfig::create($this);
+		// Create the mock.
+		$mockConfig = $test->getMock(
+			'JConfig',
+			array('get'),
+			// Constructor arguments.
+			array(),
+			// Mock class name.
+			'',
+			// Call original constructor.
+			false
+		);
+
+		return $mockConfig;
 	}
 
 	/**
