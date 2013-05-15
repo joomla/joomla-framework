@@ -98,3 +98,24 @@ $response = $people->getProfile();
 The following resources contain more information:
 * [Joomla! API Reference](http://api.joomla.org)
 * [LinkedIn REST API Reference](http://developer.linkedin.com/rest)
+
+
+## Installation via Composer
+
+Add `"joomla/linkedin": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/linkedin": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/linkedin "dev-master"
+```

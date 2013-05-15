@@ -87,3 +87,24 @@ $github->gists->create(array('issue_summary.txt' => $summary));
 The following resources contain more information:  [Joomla! API
 Reference](http://api.joomla.org), [Github API
 Reference](http://developer.github.com).
+
+
+## Installation via Composer
+
+Add `"joomla/github": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/github": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/github "dev-master"
+```

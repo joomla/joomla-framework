@@ -79,3 +79,24 @@ $calendar->createCalendar('Hello World');
 #### More Information
 
 The following resources contain more information:[Joomla! API Reference](http://api.joomla.org), [Google Developers Homepage](https://developers.google.com/)
+
+
+## Installation via Composer
+
+Add `"joomla/google": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/google": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/google "dev-master"
+```

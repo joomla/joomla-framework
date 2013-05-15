@@ -72,3 +72,24 @@ The `Controller\Base` class implements `Serializable`. When serializing,
 only the input property is serialized. When unserializing, the input
 variable is unserialized and the internal application property is loaded
 at runtime.
+
+
+## Installation via Composer
+
+Add `"joomla/controller": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/controller": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/controller "dev-master"
+```

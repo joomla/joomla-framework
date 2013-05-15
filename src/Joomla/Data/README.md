@@ -185,3 +185,23 @@ if (!empty($hurt))
 ### `Data\Dumpable`
 
 `Data\Dumpable` is an interface that defines a `dump` method for dumping the properties of an object as a `stdClass` with or without recursion.
+
+## Installation via Composer
+
+Add `"joomla/data": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+    "require": {
+        "joomla/data": "dev-master"
+    },
+    "minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/data "dev-master"
+```
