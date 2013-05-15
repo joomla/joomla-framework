@@ -19,11 +19,40 @@ use Symfony\Component\Yaml\Dumper as SymfonyYamlDumper;
  */
 class Yaml extends AbstractRegistryFormat
 {
+	/**
+	 * The YAML parser class.
+	 *
+	 * @var    Symfony\Component\Yaml\Parser;
+	 *
+	 * @since  1.0
+	 */
 	private $parser;
+
+	/**
+	 * The YAML dumper class.
+	 *
+	 * @var    Symfony\Component\Yaml\Dumper;
+	 *
+	 * @since  1.0
+	 */
 	private $dumper;
 
 	/**
+	 * Construct to set up the parser and dumper
+	 * 
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->parser = new SymfonyYamlParser;
+		$this->dumper = new SymfonyYamlDumper;
+	}
+
+	/**
 	 * Converts an object into a YAML formatted string.
+	 * We use json_* to convert the passed object to an array.
 	 *
 	 * @param   object  $object   Data source object.
 	 * @param   array   $options  Options used by the formatter.
@@ -36,15 +65,12 @@ class Yaml extends AbstractRegistryFormat
 	{
 		$array = json_decode(json_encode($object), true);
 
-		if (null === $this->dumper) {
-			$this->dumper = new SymfonyYamlDumper();
-		}
-
 		return $this->dumper->dump($array, 2, 0);
 	}
 
 	/**
 	 * Parse a YAML formatted string and convert it into an object.
+	 * We use the json_* methods to convert the parsed YAML array to an object.
 	 *
 	 * @param   string  $data     YAML formatted string to convert.
 	 * @param   array   $options  Options used by the formatter.
@@ -55,10 +81,6 @@ class Yaml extends AbstractRegistryFormat
 	 */
 	public function stringToObject($data, array $options = array())
 	{
-		if (null === $this->parser) {
-			$this->parser = new SymfonyYamlParser();
-		}
-
 		$array = $this->parser->parse(trim($data));
 
 		return json_decode(json_encode($array));
