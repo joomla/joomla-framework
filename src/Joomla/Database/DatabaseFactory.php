@@ -148,7 +148,7 @@ class DatabaseFactory
 	{
 		if (!self::$instance)
 		{
-			self::setInstance();
+			self::setInstance(new static);
 		}
 
 		return self::$instance;

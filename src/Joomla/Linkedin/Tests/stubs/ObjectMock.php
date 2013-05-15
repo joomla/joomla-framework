@@ -1,17 +1,18 @@
 <?php
 /**
- * @package    Joomla.Test
- *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Linkedin\Tests;
+
+use Joomla\Linkedin\Object;
+
 /**
- * Class to mock JDatabaseQuery.
+ * Linkedin mock object.
  *
- * @package  Joomla.Test
- * @since    12.1
+ * @since  1.0
  */
-class TestMockDatabaseQuery extends JDatabaseQuery
+class ObjectMock extends Object
 {
 }
