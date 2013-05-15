@@ -180,36 +180,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	}
 
 	/**
-	 * Gets a mock database object.
-	 *
-	 * @return  Joomla\Database\Driver
-	 *
-	 * @since   12.1
-	 */
-	public function getMockDatabase()
-	{
-		// Attempt to load the real class first.
-		class_exists('Joomla\\Database\\Driver');
-
-		return TestMockDatabaseDriver::create($this);
-	}
-
-	/**
-	 * Gets a mock language object.
-	 *
-	 * @return  JLanguage
-	 *
-	 * @since   12.1
-	 */
-	public function getMockLanguage()
-	{
-		// Attempt to load the real class first.
-		class_exists('JLanguage');
-
-		return TestMockLanguage::create($this);
-	}
-
-	/**
 	 * Gets a mock session object.
 	 *
 	 * @param   array  $options  An array of key-value options for the JSession mock.
