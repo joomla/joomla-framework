@@ -22,6 +22,19 @@ class FormatYamlTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test the __construct method
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testConstruct()
+	{
+		$this->assertAttributeInstanceOf('Symfony\Component\Yaml\Parser', 'parser', $this->fixture);
+		$this->assertAttributeInstanceOf('Symfony\Component\Yaml\Dumper', 'dumper', $this->fixture);
+	}
+
+	/**
 	 * Test the objectToString method with an object as input.
 	 *
 	 * @return  void

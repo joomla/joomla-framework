@@ -6,8 +6,13 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "psr/log": "~1.0",
-        "symfony/yaml": "2.2.*"
+        "psr/log": "~1.0"
+    },
+    "require-dev": {
+         "symfony/yaml": "~2.0"
+    },
+    "suggest": {
+        "symfony/yaml": "Install symfony/yaml 2.* if you require YAML support."
     },
     "autoload": {
         "psr-0": {
