@@ -218,3 +218,23 @@ $this->out('<fg=black;bg=cyan>foo</fg=black;bg=cyan>');
 // Bold text on a yellow background
 $this->out('<bg=yellow;options=bold>foo</bg=yellow;options=bold>');
 ```
+
+## Installation via Composer
+
+Add `"joomla/application": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/application": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/application "dev-master"
+```

@@ -156,5 +156,24 @@ class FooTest extends \PHPUnit_Framework_TestCase
 		$value2 = TestHelper::invoke($instance, 'bar', 'arg1', 'arg2');
 	}
 }
+```
 
+## Installation via Composer
+
+Add `"joomla/test": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/test": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/test "dev-master"
 ```

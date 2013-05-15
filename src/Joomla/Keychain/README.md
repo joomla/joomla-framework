@@ -190,3 +190,24 @@ openssl rsa -in private.key -pubout -out publickey.pem
 ```
 
 This will use the private key in the file `private.key` and output a new public key to `publickey.pem`. If the private key has a passphrase on it, you will be prompted to enter the passphrase.
+
+
+## Installation via Composer
+
+Add `"joomla/keychain": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/keychain": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/keychain "dev-master"
+```

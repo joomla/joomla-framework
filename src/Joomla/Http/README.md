@@ -168,19 +168,39 @@ $http = JHttpFactory::getHttp();
 $http = JHttpFactory::getHttp(null, 'stream');
 ```
 
-#### JHttpResponse
+#### Joomla\Http\Response
 
 > Can you help improve this section of the manual?
 
-#### JHttpTransportCurl
+#### Joomla\Http\TransportCurl
 
 > Can you help improve this section of the manual?
 
-#### JHttpTransportSocket
+#### Joomla\Http\TransportSocket
 
 > Can you help improve this section of the manual?
 
-#### JHttpTransportStream
+#### Joomla\Http\TransportStream
 
 > Can you help improve this section of the manual?
 
+
+## Installation via Composer
+
+Add `"joomla/http": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/http": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/http "dev-master"
+```

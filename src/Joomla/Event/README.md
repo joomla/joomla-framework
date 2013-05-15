@@ -10,7 +10,6 @@ prioritized listeners.
 An event has a name and can transport arguments.
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\Event;
@@ -31,7 +30,6 @@ $foo = $event->getArgument('foo');
 Its propagation can be stopped
 
 ```php
-<?php
 $event->stop();
 ```
 
@@ -48,7 +46,6 @@ You can create two types of listeners : using a class or a closure (anonymous fu
 The listener listens to events having names matching its method names.
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\EventInterface;
@@ -81,7 +78,6 @@ class ContentListener
 Closures can listen to any Event, it must be declared when adding them to the Dispatcher (see below).
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\EventInterface;
@@ -99,7 +95,6 @@ The Dispatcher is the central point of the Event system, it manages the registra
 Following the example above, you can register the `ContentListener` to the dispatcher :
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\Dispatcher;
@@ -118,7 +113,6 @@ $dispatcher->addListener(new ContentListener);
 ### Registering Closure Listeners
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\Dispatcher;
@@ -146,7 +140,6 @@ It is also possible to do so with "object" Listeners.
 ### Registration with Priority
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\Dispatcher;
@@ -172,8 +165,6 @@ When you add an "object" Listener without specifying the event names,
 it is registered with a NORMAL priority to all events.
 
 ```php
-<?php
-
 /**
  * Here, it won't be registered to the onAfterContentSave event because
  * it is not specified.
@@ -197,7 +188,6 @@ If some listeners have the same priority for a given event, they will be called 
 You can register Events to the Dispatcher, if you need custom ones.
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\Dispatcher;
@@ -221,8 +211,6 @@ Once you registered your listeners (and eventually events to the Dispatcher), yo
 The listeners will be called in a queue according to their priority for that Event.
 
 ```php
-<?php
-
 // Triggering the onAfterSomething Event.
 $dispatcher->triggerEvent('onAfterSomething');
 ```
@@ -232,7 +220,6 @@ If you registered an Event object having the `onAfterSomething` name, then it wi
 You can also pass a custom Event when triggering it
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\Dispatcher;
@@ -255,7 +242,6 @@ If you already added an Event with the onAfterSomething name using `addEvent`, t
 As said above, you can stop the Event propagation if you are listening to an Event supporting it, it is the case for the `Event` class.
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\Event;
@@ -279,7 +265,6 @@ Observable classes depend on a Dispatcher, and they may implement the `Dispatche
 Example of a Model class :
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\DispatcherAwareInterface;
@@ -331,7 +316,6 @@ An immutable event cannot be modified after its instanciation :
 It is useful when you don't want the listeners to manipulate it (they can only inspect it).
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\EventImmutable;
@@ -346,7 +330,6 @@ A dispatcher that delegates its method to an other Dispatcher.
 It is an easy way to achieve immutability for a Dispatcher.
 
 ```php
-<?php
 namespace MyApp;
 
 use Joomla\Event\DelegatingDispatcher;
@@ -363,3 +346,23 @@ $delegatingDispatcher = new DelegatingDispatcher($dispatcher);
 ```
 
 This is useful when you want to make sure that 3rd party applications, won't register or remove listeners from the Dispatcher.
+
+## Installation via Composer
+
+Add `"joomla/event": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/event": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/event "dev-master"
+```

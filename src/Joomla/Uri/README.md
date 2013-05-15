@@ -53,3 +53,24 @@ $uri->setQuery('foo=bar');
 
 Output:
    myUser:myPass@http://localhost:8888path/to/file.php?foo=bar
+
+
+## Installation via Composer
+
+Add `"joomla/uri": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/uri": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/uri "dev-master"
+```
