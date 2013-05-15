@@ -156,68 +156,6 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	}
 
 	/**
-	 * Gets a mock configuration object.
-	 *
-	 * @return  JConfig
-	 *
-	 * @since   12.1
-	 */
-	public function getMockConfig()
-	{
-		// Create the mock.
-		$mockConfig = $test->getMock(
-			'JConfig',
-			array('get'),
-			// Constructor arguments.
-			array(),
-			// Mock class name.
-			'',
-			// Call original constructor.
-			false
-		);
-
-		return $mockConfig;
-	}
-
-	/**
-	 * Gets a mock session object.
-	 *
-	 * @param   array  $options  An array of key-value options for the JSession mock.
-	 * getId : the value to be returned by the mock getId method
-	 * get.user.id : the value to assign to the user object id returned by get('user')
-	 * get.user.name : the value to assign to the user object name returned by get('user')
-	 * get.user.username : the value to assign to the user object username returned by get('user')
-	 *
-	 * @return  JSession
-	 *
-	 * @since   12.1
-	 */
-	public function getMockSession($options = array())
-	{
-		// Attempt to load the real class first.
-		class_exists('JSession');
-
-		return TestMockSession::create($this, $options);
-	}
-
-	/**
-	 * Gets a mock web object.
-	 *
-	 * @param   array  $options  A set of options to configure the mock.
-	 *
-	 * @return  JApplicationWeb
-	 *
-	 * @since   12.1
-	 */
-	public function getMockWeb($options = array())
-	{
-		// Attempt to load the real class first.
-		class_exists('JApplicationWeb');
-
-		return TestMockApplicationWeb::create($this, $options);
-	}
-
-	/**
 	 * Returns the default database connection for running the tests.
 	 *
 	 * @return  PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
