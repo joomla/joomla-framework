@@ -9,7 +9,8 @@
 namespace Joomla\Registry\Format;
 
 use Joomla\Registry\AbstractRegistryFormat;
-use Symfony\Component\Yaml\Yaml as SymfonyYaml;
+use Symfony\Component\Yaml\Parser as SymfonyYamlParser;
+use Symfony\Component\Yaml\Dumper as SymfonyYamlDumper;
 
 /**
  * YAML format handler for Registry.
@@ -18,6 +19,9 @@ use Symfony\Component\Yaml\Yaml as SymfonyYaml;
  */
 class Yaml extends AbstractRegistryFormat
 {
+	private $parser;
+	private $dumper;
+
 	/**
 	 * Converts an object into a YAML formatted string.
 	 *
@@ -32,7 +36,11 @@ class Yaml extends AbstractRegistryFormat
 	{
 		$array = json_decode(json_encode($object), true);
 
-		return SymfonyYaml::dump($array);
+		if (null === $this->dumper) {
+			$this->dumper = new SymfonyYamlDumper();
+		}
+
+		return $this->dumper->dump($array, 2, 0);
 	}
 
 	/**
@@ -47,7 +55,11 @@ class Yaml extends AbstractRegistryFormat
 	 */
 	public function stringToObject($data, array $options = array())
 	{
-		$array = SymfonyYaml::parse(trim($data));
+		if (null === $this->parser) {
+			$this->parser = new SymfonyYamlParser();
+		}
+
+		$array = $this->parser->parse(trim($data));
 
 		return json_decode(json_encode($array));
 	}
