@@ -69,7 +69,11 @@ class JTwitterDirectmessagesTest extends TestCase
 	 * @var    string  Sample JSON string.
 	 * @since  12.3
 	 */
-	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+	protected $rateLimit = '{"resources": {"direct_messages": {
+			"/direct_messages": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/direct_messages/sent": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/direct_messages/show": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -85,11 +89,11 @@ class JTwitterDirectmessagesTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$key = "app_key";
 		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
-		
+
 		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
@@ -118,7 +122,6 @@ class JTwitterDirectmessagesTest extends TestCase
 		$since_id = 12345;
 		$max_id = 54321;
 		$count = 10;
-		$page = 1;
 		$entities = true;
 		$skip_status = true;
 
@@ -126,9 +129,11 @@ class JTwitterDirectmessagesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "direct_messages"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -139,11 +144,10 @@ class JTwitterDirectmessagesTest extends TestCase
 		$data['since_id'] = $since_id;
 		$data['max_id'] = $max_id;
 		$data['count'] = $count;
-		$data['page'] = $page;
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/direct_messages.json', $data);
+		$path = $this->object->fetchUrl('/direct_messages.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -151,7 +155,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getDirectMessages($since_id, $max_id, $count, $page, $entities, $skip_status),
+			$this->object->getDirectMessages($since_id, $max_id, $count, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -176,9 +180,11 @@ class JTwitterDirectmessagesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "direct_messages"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -189,17 +195,16 @@ class JTwitterDirectmessagesTest extends TestCase
 		$data['since_id'] = $since_id;
 		$data['max_id'] = $max_id;
 		$data['count'] = $count;
-		$data['page'] = $page;
 		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/direct_messages.json', $data);
+		$path = $this->object->fetchUrl('/direct_messages.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getDirectMessages($since_id, $max_id, $count, $page, $entities);
+		$this->object->getDirectMessages($since_id, $max_id, $count, $entities);
 	}
 
 	/**
@@ -221,9 +226,11 @@ class JTwitterDirectmessagesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "direct_messages"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -237,7 +244,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		$data['page'] = $page;
 		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/direct_messages/sent.json', $data);
+		$path = $this->object->fetchUrl('/direct_messages/sent.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -270,9 +277,11 @@ class JTwitterDirectmessagesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "direct_messages"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -286,7 +295,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		$data['page'] = $page;
 		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/direct_messages/sent.json', $data);
+		$path = $this->object->fetchUrl('/direct_messages/sent.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -347,7 +356,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		}
 		$data['text'] = $text;
 
-		$path = $this->object->fetchUrl('/1/direct_messages/new.json');
+		$path = $this->object->fetchUrl('/direct_messages/new.json');
 
 		$this->client->expects($this->once())
 		->method('post')
@@ -395,7 +404,7 @@ class JTwitterDirectmessagesTest extends TestCase
 		}
 		$data['text'] = $text;
 
-		$path = $this->object->fetchUrl('/1/direct_messages/new.json');
+		$path = $this->object->fetchUrl('/direct_messages/new.json');
 
 		$this->client->expects($this->once())
 		->method('post')
@@ -420,16 +429,20 @@ class JTwitterDirectmessagesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "direct_messages"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$path = $this->object->fetchUrl('/1/direct_messages/show/' . $id . '.json');
+		$data['id'] = $id;
+
+		$path = $this->object->fetchUrl('/direct_messages/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -458,16 +471,20 @@ class JTwitterDirectmessagesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "direct_messages"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->twitterErrorString;
 
-		$path = $this->object->fetchUrl('/1/direct_messages/show/' . $id . '.json');
+		$data['id'] = $id;
+
+		$path = $this->object->fetchUrl('/direct_messages/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -494,9 +511,10 @@ class JTwitterDirectmessagesTest extends TestCase
 		$returnData->body = $this->sampleString;
 
 		// Set request parameters.
+		$data['id'] = $id;
 		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/direct_messages/destroy/' . $id . '.json');
+		$path = $this->object->fetchUrl('/direct_messages/destroy.json');
 
 		$this->client->expects($this->once())
 		->method('post')
@@ -527,9 +545,10 @@ class JTwitterDirectmessagesTest extends TestCase
 		$returnData->body = $this->errorString;
 
 		// Set request parameters.
+		$data['id'] = $id;
 		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/direct_messages/destroy/' . $id . '.json');
+		$path = $this->object->fetchUrl('/direct_messages/destroy.json');
 
 		$this->client->expects($this->once())
 		->method('post')
