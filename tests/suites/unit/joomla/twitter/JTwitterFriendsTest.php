@@ -63,7 +63,30 @@ class JTwitterFriendsTest extends TestCase
 	 * @var    string  Sample JSON string.
 	 * @since  12.3
 	 */
-	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+	protected $friendsRateLimit = '{"resources": {"friends": {
+			"/friends/ids": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
+
+	/**
+	 * @var    string  Sample JSON string.
+	 * @since  12.3
+	 */
+	protected $friendshipsRateLimit = '{"resources": {"friendships": {
+			"/friendships/show": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/friendships/incoming": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/friendships/outgoing": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/friendships/create": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/friendships/lookup": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/friendships/no_retweets/ids": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
+
+	/**
+	 * @var    string  Sample JSON string.
+	 * @since  12.3
+	 */
+	protected $followersRateLimit = '{"resources": {"followers": {
+			"/followers/ids": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -79,11 +102,11 @@ class JTwitterFriendsTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$key = "app_key";
 		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
-		
+
 		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
@@ -129,15 +152,19 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testGetFriendIds($user)
 	{
+		$cursor = 123;
 		$string_ids = true;
+		$count = 5;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friends"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -156,12 +183,14 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getFriendIds($user, $string_ids);
+			$this->object->getFriendIds($user, $cursor, $string_ids, $count);
 		}
 
+		$data['cursor'] = $cursor;
 		$data['stringify_ids'] = $string_ids;
+		$data['count'] = $count;
 
-		$path = $this->object->fetchUrl('/1/friends/ids.json', $data);
+		$path = $this->object->fetchUrl('/friends/ids.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -169,7 +198,7 @@ class JTwitterFriendsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getFriendIds($user, $string_ids),
+			$this->object->getFriendIds($user, $cursor, $string_ids, $count),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -187,15 +216,19 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testGetFriendIdsFailure($user)
 	{
+		$cursor = 123;
 		$string_ids = true;
+		$count = 5;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friends"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -214,19 +247,21 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getFriendIds($user, $string_ids);
+			$this->object->getFriendIds($user, $cursor, $string_ids, $count);
 		}
 
+		$data['cursor'] = $cursor;
 		$data['stringify_ids'] = $string_ids;
+		$data['count'] = $count;
 
-		$path = $this->object->fetchUrl('/1/friends/ids.json', $data);
+		$path = $this->object->fetchUrl('/friends/ids.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getFriendIds($user, $string_ids);
+		$this->object->getFriendIds($user, $cursor, $string_ids, $count);
 	}
 
 	/**
@@ -264,11 +299,13 @@ class JTwitterFriendsTest extends TestCase
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -304,7 +341,7 @@ class JTwitterFriendsTest extends TestCase
 			$this->object->getFriendshipDetails($user_a, $user_b);
 		}
 
-		$path = $this->object->fetchUrl('/1/friendships/show.json', $data);
+		$path = $this->object->fetchUrl('/friendships/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -333,11 +370,13 @@ class JTwitterFriendsTest extends TestCase
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -373,7 +412,7 @@ class JTwitterFriendsTest extends TestCase
 			$this->object->getFriendshipDetails($user_a, $user_b);
 		}
 
-		$path = $this->object->fetchUrl('/1/friendships/show.json', $data);
+		$path = $this->object->fetchUrl('/friendships/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -381,140 +420,6 @@ class JTwitterFriendsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->object->getFriendshipDetails($user_a, $user_b);
-	}
-
-	/**
-	 * Tests the getFriendshipExists method
-	 *
-	 * @param   mixed  $user_a  Either an integer containing the user ID or a string containing the screen name of the first user.
-	 * @param   mixed  $user_b  Either an integer containing the user ID or a string containing the screen name of the second user.
-	 *
-	 * @dataProvider seedFriendshipDetails
-	 * @return  void
-	 *
-	 * @since 12.3
-	 */
-	public function testGetFriendshipExists($user_a, $user_b)
-	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
-
-		// Set request parameters.
-		if (is_numeric($user_a))
-		{
-			$data['user_id_a'] = $user_a;
-		}
-		elseif (is_string($user_a))
-		{
-			$data['screen_name_a'] = $user_a;
-		}
-		else
-		{
-			$this->setExpectedException('RuntimeException');
-			$this->object->getFriendshipExists($user_a, $user_b);
-		}
-
-		if (is_numeric($user_b))
-		{
-			$data['user_id_b'] = $user_b;
-		}
-		elseif (is_string($user_b))
-		{
-			$data['screen_name_b'] = $user_b;
-		}
-		else
-		{
-			$this->setExpectedException('RuntimeException');
-			$this->object->getFriendshipExists($user_a, $user_b);
-		}
-
-		$path = $this->object->fetchUrl('/1/friendships/exists.json', $data);
-
-		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->assertThat(
-			$this->object->getFriendshipExists($user_a, $user_b),
-			$this->equalTo(json_decode($this->sampleString))
-		);
-	}
-
-	/**
-	 * Tests the getFriendshipExists method - failure
-	 *
-	 * @param   mixed  $user_a  Either an integer containing the user ID or a string containing the screen name of the first user.
-	 * @param   mixed  $user_b  Either an integer containing the user ID or a string containing the screen name of the second user.
-	 *
-	 * @dataProvider seedFriendshipDetails
-	 * @return  void
-	 *
-	 * @since 12.3
-	 * @expectedException  DomainException
-	 */
-	public function testGetFriendshipExistsFailure($user_a, $user_b)
-	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		// Set request parameters.
-		if (is_numeric($user_a))
-		{
-			$data['user_id_a'] = $user_a;
-		}
-		elseif (is_string($user_a))
-		{
-			$data['screen_name_a'] = $user_a;
-		}
-		else
-		{
-			$this->setExpectedException('RuntimeException');
-			$this->object->getFriendshipExists($user_a, $user_b);
-		}
-
-		if (is_numeric($user_b))
-		{
-			$data['user_id_b'] = $user_b;
-		}
-		elseif (is_string($user_b))
-		{
-			$data['screen_name_b'] = $user_b;
-		}
-		else
-		{
-			$this->setExpectedException('RuntimeException');
-			$this->object->getFriendshipExists($user_a, $user_b);
-		}
-
-		$path = $this->object->fetchUrl('/1/friendships/exists.json', $data);
-
-		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->object->getFriendshipExists($user_a, $user_b);
 	}
 
 	/**
@@ -529,15 +434,19 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testGetFollowerIds($user)
 	{
+		$cursor = 123;
 		$string_ids = true;
+		$count = 5;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->followersRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "followers"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -556,12 +465,14 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getFollowerIds($user, $string_ids);
+			$this->object->getFollowerIds($user, $cursor, $string_ids, $count);
 		}
 
+		$data['cursor'] = $cursor;
 		$data['stringify_ids'] = $string_ids;
+		$data['count'] = $count;
 
-		$path = $this->object->fetchUrl('/1/followers/ids.json', $data);
+		$path = $this->object->fetchUrl('/followers/ids.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -569,7 +480,7 @@ class JTwitterFriendsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getFollowerIds($user, $string_ids),
+			$this->object->getFollowerIds($user, $cursor, $string_ids, $count),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -587,15 +498,19 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testGetFollowerIdsFailure($user)
 	{
+		$cursor = 123;
 		$string_ids = true;
+		$count = 5;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->followersRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "followers"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -614,19 +529,21 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getFollowerIds($user, $string_ids);
+			$this->object->getFollowerIds($user, $cursor, $string_ids, $count);
 		}
 
+		$data['cursor'] = $cursor;
 		$data['stringify_ids'] = $string_ids;
+		$data['count'] = $count;
 
-		$path = $this->object->fetchUrl('/1/followers/ids.json', $data);
+		$path = $this->object->fetchUrl('/followers/ids.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getFollowerIds($user, $string_ids);
+		$this->object->getFollowerIds($user, $cursor, $string_ids, $count);
 	}
 
 	/**
@@ -638,24 +555,28 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testGetFriendshipsIncoming()
 	{
+		$cursor = 1234;
 		$string_ids = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
+		$data['cursor'] = $cursor;
 		$data['stringify_ids'] = $string_ids;
 
-		$path = $this->object->fetchUrl('/1/friendships/incoming.json', $data);
+		$path = $this->object->fetchUrl('/friendships/incoming.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -663,7 +584,7 @@ class JTwitterFriendsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getFriendshipsIncoming($string_ids),
+			$this->object->getFriendshipsIncoming($cursor, $string_ids),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -678,31 +599,35 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testGetFriendshipsIncomingFailure()
 	{
+		$cursor = 1243;
 		$string_ids = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
+		$data['cursor'] = $cursor;
 		$data['stringify_ids'] = $string_ids;
 
-		$path = $this->object->fetchUrl('/1/friendships/incoming.json', $data);
+		$path = $this->object->fetchUrl('/friendships/incoming.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getFriendshipsIncoming($string_ids);
+		$this->object->getFriendshipsIncoming($cursor, $string_ids);
 	}
 
 	/**
@@ -714,24 +639,28 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testGetFriendshipsOutgoing()
 	{
+		$cursor = 12344;
 		$string_ids = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
+		$data['cursor'] = $cursor;
 		$data['stringify_ids'] = $string_ids;
 
-		$path = $this->object->fetchUrl('/1/friendships/outgoing.json', $data);
+		$path = $this->object->fetchUrl('/friendships/outgoing.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -739,7 +668,7 @@ class JTwitterFriendsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getFriendshipsOutgoing($string_ids),
+			$this->object->getFriendshipsOutgoing($cursor, $string_ids),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -754,31 +683,35 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testGetFriendshipsOutgoingFailure()
 	{
+		$cursor = 1234;
 		$string_ids = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
+		$data['cursor'] = $cursor;
 		$data['stringify_ids'] = $string_ids;
 
-		$path = $this->object->fetchUrl('/1/friendships/outgoing.json', $data);
+		$path = $this->object->fetchUrl('/friendships/outgoing.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getFriendshipsOutgoing($string_ids);
+		$this->object->getFriendshipsOutgoing($cursor, $string_ids);
 	}
 
 	/**
@@ -835,7 +768,7 @@ class JTwitterFriendsTest extends TestCase
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/1/friendships/create.json', $data)
+			->with('/friendships/create.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
@@ -880,7 +813,7 @@ class JTwitterFriendsTest extends TestCase
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/1/friendships/create.json', $data)
+			->with('/friendships/create.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->object->follow($user);
@@ -899,8 +832,6 @@ class JTwitterFriendsTest extends TestCase
 	 */
 	public function testUnfollow($user)
 	{
-		$entities = true;
-
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
@@ -917,17 +848,16 @@ class JTwitterFriendsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->unfollow($user, $entities);
+			$this->object->unfollow($user);
 		}
-		$data['include_entities'] = $entities;
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/1/friendships/destroy.json', $data)
+			->with('/friendships/destroy.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->unfollow($user, $entities),
+			$this->object->unfollow($user),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -968,7 +898,7 @@ class JTwitterFriendsTest extends TestCase
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/1/friendships/destroy.json', $data)
+			->with('/friendships/destroy.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->object->unfollow($user);
@@ -1008,11 +938,13 @@ class JTwitterFriendsTest extends TestCase
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1033,7 +965,7 @@ class JTwitterFriendsTest extends TestCase
 			$this->object->getFriendshipsLookup($screen_name, $id);
 		}
 
-		$path = $this->oauth->toUrl('/1/friendships/lookup.json', $data);
+		$path = $this->oauth->toUrl('/friendships/lookup.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1062,11 +994,13 @@ class JTwitterFriendsTest extends TestCase
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1087,7 +1021,7 @@ class JTwitterFriendsTest extends TestCase
 			$this->object->getFriendshipsLookup($screen_name, $id);
 		}
 
-		$path = $this->oauth->toUrl('/1/friendships/lookup.json', $data);
+		$path = $this->oauth->toUrl('/friendships/lookup.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1131,12 +1065,13 @@ class JTwitterFriendsTest extends TestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->updateFriendship($user, $device, $retweets);
 		}
+
 		$data['device'] = $device;
 		$data['retweets'] = $retweets;
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/1/friendships/update.json', $data)
+			->with('/friendships/update.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
@@ -1181,7 +1116,7 @@ class JTwitterFriendsTest extends TestCase
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/1/friendships/update.json', $data)
+			->with('/friendships/update.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->object->updateFriendship($user);
@@ -1200,11 +1135,13 @@ class JTwitterFriendsTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1213,7 +1150,7 @@ class JTwitterFriendsTest extends TestCase
 
 		$data['stringify_ids'] = $string_ids;
 
-		$path = $this->object->fetchUrl('/1/friendships/no_retweet_ids.json', $data);
+		$path = $this->object->fetchUrl('/friendships/no_retweets/ids.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1240,11 +1177,13 @@ class JTwitterFriendsTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
+		$returnData->body = $this->friendshipsRateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "friendships"));
 
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1253,7 +1192,7 @@ class JTwitterFriendsTest extends TestCase
 
 		$data['stringify_ids'] = $string_ids;
 
-		$path = $this->object->fetchUrl('/1/friendships/no_retweet_ids.json', $data);
+		$path = $this->object->fetchUrl('/friendships/no_retweets/ids.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
