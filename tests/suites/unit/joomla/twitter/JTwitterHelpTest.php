@@ -57,7 +57,10 @@ class JTwitterHelpTest extends TestCase
 	 * @var    string  Sample JSON string.
 	 * @since  12.3
 	 */
-	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+	protected $rateLimit = '{"resources": {"help": {
+			"/help/languages": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/help/configuration": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -73,11 +76,11 @@ class JTwitterHelpTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$key = "app_key";
 		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
-		
+
 		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
@@ -107,16 +110,18 @@ class JTwitterHelpTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "help"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$path = $this->object->fetchUrl('/1/help/languages.json');
+		$path = $this->object->fetchUrl('/help/languages.json');
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -143,16 +148,18 @@ class JTwitterHelpTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "help"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$path = $this->object->fetchUrl('/1/help/languages.json');
+		$path = $this->object->fetchUrl('/help/languages.json');
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -175,16 +182,18 @@ class JTwitterHelpTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "help"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$path = $this->object->fetchUrl('/1/help/configuration.json');
+		$path = $this->object->fetchUrl('/help/configuration.json');
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -211,16 +220,18 @@ class JTwitterHelpTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "help"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$path = $this->object->fetchUrl('/1/help/configuration.json');
+		$path = $this->object->fetchUrl('/help/configuration.json');
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -228,55 +239,5 @@ class JTwitterHelpTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->object->getConfiguration();
-	}
-
-	/**
-	 * Tests the test method
-	 *
-	 * @return  void
-	 *
-	 * @since   12.3
-	 */
-	public function testTest()
-	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
-
-		$path = $this->object->fetchUrl('/1/help/test.json');
-
-		$this->client->expects($this->once())
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->assertThat(
-			$this->object->test(),
-			$this->equalTo(json_decode($this->sampleString))
-		);
-	}
-
-	/**
-	 * Tests the test method - failure
-	 *
-	 * @return  void
-	 *
-	 * @since   12.3
-	 * @expectedException DomainException
-	 */
-	public function testTestFailure()
-	{
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		$path = $this->object->fetchUrl('/1/help/test.json');
-
-		$this->client->expects($this->once())
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->object->test();
 	}
 }
