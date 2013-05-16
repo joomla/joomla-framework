@@ -63,7 +63,22 @@ class JTwitterListsTest extends TestCase
 	 * @var    string  Sample JSON string.
 	 * @since  12.3
 	 */
-	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+	protected $rateLimit = '{"resources": {"lists": {
+			"/lists/list": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/statuses": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/subscribers": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/subscribers/create": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/members/show": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/subscribers/show": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/subscribers/destroy": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/members/create_all": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/members": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/show": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/subscriptions": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/update": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/create": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/lists/destroy": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -79,11 +94,11 @@ class JTwitterListsTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$key = "app_key";
 		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
-		
+
 		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
@@ -127,15 +142,19 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedUser
 	 */
-	public function testGetAllLists($user)
+	public function testGetLists($user)
 	{
+		$reverse = true;
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -154,10 +173,12 @@ class JTwitterListsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getAllLists($user);
+			$this->object->getLists($user);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/all.json', $data);
+		$data['reverse'] = true;
+
+		$path = $this->object->fetchUrl('/lists/list.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -165,7 +186,7 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getAllLists($user),
+			$this->object->getLists($user, $reverse),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -181,15 +202,17 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedUser
 	 * @expectedException DomainException
 	 */
-	public function testGetAllListsFailure($user)
+	public function testGetListsFailure($user)
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -208,17 +231,17 @@ class JTwitterListsTest extends TestCase
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getAllLists($user);
+			$this->object->getLists($user);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/all.json', $data);
+		$path = $this->object->fetchUrl('/lists/list.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getAllLists($user);
+		$this->object->getLists($user);
 	}
 
 	/**
@@ -251,12 +274,11 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
-	public function testGetListStatuses($list, $owner)
+	public function testGetStatuses($list, $owner)
 	{
 		$since_id = 12345;
 		$max_id = 54321;
-		$per_page = 10;
-		$page = 1;
+		$count = 10;
 		$entities = true;
 		$include_rts = true;
 
@@ -264,9 +286,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -294,23 +318,22 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->getListStatuses($list, $owner);
+				$this->object->getStatuses($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getListStatuses($list, $owner);
+			$this->object->getStatuses($list, $owner);
 		}
 
 		$data['since_id'] = $since_id;
 		$data['max_id'] = $max_id;
-		$data['per_page'] = $per_page;
-		$data['page'] = $page;
+		$data['count'] = $count;
 		$data['include_entities'] = $entities;
 		$data['include_rts'] = $include_rts;
 
-		$path = $this->object->fetchUrl('/1/lists/statuses.json', $data);
+		$path = $this->object->fetchUrl('/lists/statuses.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -318,7 +341,7 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getListStatuses($list, $owner, $since_id, $max_id, $per_page, $page, $entities, $include_rts),
+			$this->object->getStatuses($list, $owner, $since_id, $max_id, $count, $entities, $include_rts),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -335,15 +358,17 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
-	public function testGetListStatusesFailure($list, $owner)
+	public function testGetStatusesFailure($list, $owner)
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -371,133 +396,23 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->getListStatuses($list, $owner);
+				$this->object->getStatuses($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getListStatuses($list, $owner);
+			$this->object->getStatuses($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/statuses.json', $data);
+		$path = $this->object->fetchUrl('/lists/statuses.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getListStatuses($list, $owner);
-	}
-
-	/**
-	 * Tests the getListMemberships method
-	 *
-	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
-	 *
-	 * @return  void
-	 *
-	 * @since 12.3
-	 * @dataProvider seedUser
-	 */
-	public function testGetListMemberships($user)
-	{
-		$filter = true;
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
-
-		// Set request parameters.
-		if (is_numeric($user))
-		{
-			$data['user_id'] = $user;
-		}
-		elseif (is_string($user))
-		{
-			$data['screen_name'] = $user;
-		}
-		else
-		{
-			$this->setExpectedException('RuntimeException');
-			$this->object->getListMemberships($user);
-		}
-		$data['filter_to_owned_lists'] = $filter;
-
-		$path = $this->object->fetchUrl('/1/lists/memberships.json', $data);
-
-		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->assertThat(
-			$this->object->getListMemberships($user, $filter),
-			$this->equalTo(json_decode($this->sampleString))
-		);
-	}
-
-	/**
-	 * Tests the getListMemberships method - failure
-	 *
-	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
-	 *
-	 * @return  void
-	 *
-	 * @since 12.3
-	 * @dataProvider seedUser
-	 * @expectedException DomainException
-	 */
-	public function testGetListMembershipsFailure($user)
-	{
-		$filter = true;
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		// Set request parameters.
-		if (is_numeric($user))
-		{
-			$data['user_id'] = $user;
-		}
-		elseif (is_string($user))
-		{
-			$data['screen_name'] = $user;
-		}
-		else
-		{
-			$this->setExpectedException('RuntimeException');
-			$this->object->getListMemberships($user);
-		}
-		$data['filter_to_owned_lists'] = $filter;
-
-		$path = $this->object->fetchUrl('/1/lists/memberships.json', $data);
-
-		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->object->getListMemberships($user, $filter);
+		$this->object->getStatuses($list, $owner);
 	}
 
 	/**
@@ -511,8 +426,9 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
-	public function testGetListSubscribers($list, $owner)
+	public function testGetSubscribers($list, $owner)
 	{
+		$cursor = 1234;
 		$entities = true;
 		$skip_status = true;
 
@@ -520,9 +436,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -550,19 +468,20 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->getListSubscribers($list, $owner);
+				$this->object->getSubscribers($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getListSubscribers($list, $owner);
+			$this->object->getSubscribers($list, $owner);
 		}
 
+		$data['cursor'] = $cursor;
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/lists/subscribers.json', $data);
+		$path = $this->object->fetchUrl('/lists/subscribers.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -570,7 +489,7 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getListSubscribers($list, $owner, $entities, $skip_status),
+			$this->object->getSubscribers($list, $owner, $cursor, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -587,8 +506,9 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
-	public function testGetListSubscribersFailure($list, $owner)
+	public function testGetSubscribersFailure($list, $owner)
 	{
+		$cursor = 1234;
 		$entities = true;
 		$skip_status = true;
 
@@ -596,9 +516,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -626,26 +548,27 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->getListSubscribers($list, $owner);
+				$this->object->getSubscribers($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getListSubscribers($list, $owner);
+			$this->object->getSubscribers($list, $owner);
 		}
 
+		$data['cursor'] = $cursor;
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/lists/subscribers.json', $data);
+		$path = $this->object->fetchUrl('/lists/subscribers.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getListSubscribers($list, $owner, $entities, $skip_status);
+		$this->object->getSubscribers($list, $owner, $cursor, $entities, $skip_status);
 	}
 
 	/**
@@ -655,7 +578,7 @@ class JTwitterListsTest extends TestCase
 	*
 	* @since 12.3
 	*/
-	public function seedListMembers()
+	public function seedMembers()
 	{
 		// List, User ID, screen name and owner.
 		return array(
@@ -680,9 +603,9 @@ class JTwitterListsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 12.3
-	 * @dataProvider seedListMembers
+	 * @dataProvider seedMembers
 	 */
-	public function testDeleteListMembers($list, $user_id, $screen_name, $owner)
+	public function testDeleteMembers($list, $user_id, $screen_name, $owner)
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -709,13 +632,13 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->deleteListMembers($list, $user_id, $screen_name, $owner);
+				$this->object->deleteMembers($list, $user_id, $screen_name, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->deleteListMembers($list, $user_id, $screen_name, $owner);
+			$this->object->deleteMembers($list, $user_id, $screen_name, $owner);
 		}
 
 		if ($user_id)
@@ -729,10 +652,10 @@ class JTwitterListsTest extends TestCase
 		if ($user_id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->deleteListMembers($list, $user_id, $screen_name, $owner);
+			$this->object->deleteMembers($list, $user_id, $screen_name, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/members/destroy_all.json');
+		$path = $this->object->fetchUrl('/lists/members/destroy_all.json');
 
 		$this->client->expects($this->once())
 		->method('post')
@@ -740,7 +663,7 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->deleteListMembers($list, $user_id, $screen_name, $owner),
+			$this->object->deleteMembers($list, $user_id, $screen_name, $owner),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -756,10 +679,10 @@ class JTwitterListsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 12.3
-	 * @dataProvider seedListMembers
+	 * @dataProvider seedMembers
 	 * @expectedException DomainException
 	 */
-	public function testDeleteListMembersFailure($list, $user_id, $screen_name, $owner)
+	public function testDeleteMembersFailure($list, $user_id, $screen_name, $owner)
 	{
 		$returnData = new stdClass;
 		$returnData->code = 500;
@@ -786,13 +709,13 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->deleteListMembers($list, $user_id, $screen_name, $owner);
+				$this->object->deleteMembers($list, $user_id, $screen_name, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->deleteListMembers($list, $user_id, $screen_name, $owner);
+			$this->object->deleteMembers($list, $user_id, $screen_name, $owner);
 		}
 
 		if ($user_id)
@@ -806,17 +729,17 @@ class JTwitterListsTest extends TestCase
 		if ($user_id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->deleteListMembers($list, $user_id, $screen_name, $owner);
+			$this->object->deleteMembers($list, $user_id, $screen_name, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/members/destroy_all.json');
+		$path = $this->object->fetchUrl('/lists/members/destroy_all.json');
 
 		$this->client->expects($this->once())
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->deleteListMembers($list, $user_id, $screen_name, $owner);
+		$this->object->deleteMembers($list, $user_id, $screen_name, $owner);
 	}
 
 	/**
@@ -836,9 +759,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -875,7 +800,7 @@ class JTwitterListsTest extends TestCase
 			$this->object->subscribe($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/subscribers/create.json');
+		$path = $this->object->fetchUrl('/lists/subscribers/create.json');
 
 		$this->client->expects($this->at(1))
 		->method('post')
@@ -906,9 +831,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -945,7 +872,7 @@ class JTwitterListsTest extends TestCase
 			$this->object->subscribe($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/subscribers/create.json');
+		$path = $this->object->fetchUrl('/lists/subscribers/create.json');
 
 		$this->client->expects($this->at(1))
 		->method('post')
@@ -987,7 +914,7 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedListUserOwner
 	 */
-	public function testIsListMember($list, $user, $owner)
+	public function testIsMember($list, $user, $owner)
 	{
 		$entities = true;
 		$skip_status = true;
@@ -996,9 +923,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1026,13 +955,13 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->isListMember($list, $user, $owner);
+				$this->object->isMember($list, $user, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->isListMember($list, $user, $owner);
+			$this->object->isMember($list, $user, $owner);
 		}
 
 		if (is_numeric($user))
@@ -1047,13 +976,13 @@ class JTwitterListsTest extends TestCase
 		{
 			// We don't have a valid entry
 			$this->setExpectedException('RuntimeException');
-			$this->object->isListMember($list, $user, $owner);
+			$this->object->isMember($list, $user, $owner);
 		}
 
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/lists/members/show.json', $data);
+		$path = $this->object->fetchUrl('/lists/members/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1061,7 +990,7 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->isListMember($list, $user, $owner, $entities, $skip_status),
+			$this->object->isMember($list, $user, $owner, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1079,7 +1008,7 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedListUserOwner
 	 * @expectedException DomainException
 	 */
-	public function testIsListMemberFailure($list, $user, $owner)
+	public function testIsMemberFailure($list, $user, $owner)
 	{
 		$entities = true;
 		$skip_status = true;
@@ -1088,9 +1017,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1118,13 +1049,13 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->isListMember($list, $user, $owner);
+				$this->object->isMember($list, $user, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->isListMember($list, $user, $owner);
+			$this->object->isMember($list, $user, $owner);
 		}
 
 		if (is_numeric($user))
@@ -1139,20 +1070,20 @@ class JTwitterListsTest extends TestCase
 		{
 			// We don't have a valid entry
 			$this->setExpectedException('RuntimeException');
-			$this->object->isListMember($list, $user, $owner);
+			$this->object->isMember($list, $user, $owner);
 		}
 
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/lists/members/show.json', $data);
+		$path = $this->object->fetchUrl('/lists/members/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->isListMember($list, $user, $owner, $entities, $skip_status);
+		$this->object->isMember($list, $user, $owner, $entities, $skip_status);
 	}
 
 	/**
@@ -1167,7 +1098,7 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedListUserOwner
 	 */
-	public function testIsListSubscriber($list, $user, $owner)
+	public function testIsSubscriber($list, $user, $owner)
 	{
 		$entities = true;
 		$skip_status = true;
@@ -1176,9 +1107,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1206,13 +1139,13 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->isListSubscriber($list, $user, $owner);
+				$this->object->isSubscriber($list, $user, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->isListSubscriber($list, $user, $owner);
+			$this->object->isSubscriber($list, $user, $owner);
 		}
 
 		if (is_numeric($user))
@@ -1227,13 +1160,13 @@ class JTwitterListsTest extends TestCase
 		{
 			// We don't have a valid entry
 			$this->setExpectedException('RuntimeException');
-			$this->object->isListSubscriber($list, $user, $owner);
+			$this->object->isSubscriber($list, $user, $owner);
 		}
 
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/lists/subscribers/show.json', $data);
+		$path = $this->object->fetchUrl('/lists/subscribers/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1241,7 +1174,7 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->isListSubscriber($list, $user, $owner, $entities, $skip_status),
+			$this->object->isSubscriber($list, $user, $owner, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1259,7 +1192,7 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedListUserOwner
 	 * @expectedException DomainException
 	 */
-	public function testIsListSubscriberFailure($list, $user, $owner)
+	public function testIsSubscriberFailure($list, $user, $owner)
 	{
 		$entities = true;
 		$skip_status = true;
@@ -1268,9 +1201,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1298,13 +1233,13 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->isListSubscriber($list, $user, $owner);
+				$this->object->isSubscriber($list, $user, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->isListSubscriber($list, $user, $owner);
+			$this->object->isSubscriber($list, $user, $owner);
 		}
 
 		if (is_numeric($user))
@@ -1319,20 +1254,20 @@ class JTwitterListsTest extends TestCase
 		{
 			// We don't have a valid entry
 			$this->setExpectedException('RuntimeException');
-			$this->object->isListSubscriber($list, $user, $owner);
+			$this->object->isSubscriber($list, $user, $owner);
 		}
 
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/lists/subscribers/show.json', $data);
+		$path = $this->object->fetchUrl('/lists/subscribers/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->isListSubscriber($list, $user, $owner, $entities, $skip_status);
+		$this->object->isSubscriber($list, $user, $owner, $entities, $skip_status);
 	}
 
 	/**
@@ -1348,6 +1283,17 @@ class JTwitterListsTest extends TestCase
 	 */
 	public function testUnsubscribe($list, $owner)
 	{
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
@@ -1382,9 +1328,9 @@ class JTwitterListsTest extends TestCase
 			$this->object->unsubscribe($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/subscribers/destroy.json');
+		$path = $this->object->fetchUrl('/lists/subscribers/destroy.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
@@ -1410,6 +1356,17 @@ class JTwitterListsTest extends TestCase
 	public function testUnsubscribeFailure($list, $owner)
 	{
 		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
@@ -1443,9 +1400,9 @@ class JTwitterListsTest extends TestCase
 			$this->object->unsubscribe($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/subscribers/destroy.json');
+		$path = $this->object->fetchUrl('/lists/subscribers/destroy.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
@@ -1464,10 +1421,21 @@ class JTwitterListsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 12.3
-	 * @dataProvider seedListMembers
+	 * @dataProvider seedMembers
 	 */
-	public function testAddListMembers($list, $user_id, $screen_name, $owner)
+	public function testAddMembers($list, $user_id, $screen_name, $owner)
 	{
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
@@ -1493,13 +1461,13 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->addListMembers($list, $user_id, $screen_name, $owner);
+				$this->object->addMembers($list, $user_id, $screen_name, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->addListMembers($list, $user_id, $screen_name, $owner);
+			$this->object->addMembers($list, $user_id, $screen_name, $owner);
 		}
 
 		if ($user_id)
@@ -1513,18 +1481,18 @@ class JTwitterListsTest extends TestCase
 		if ($user_id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->addListMembers($list, $user_id, $screen_name, $owner);
+			$this->object->addMembers($list, $user_id, $screen_name, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/members/create_all.json');
+		$path = $this->object->fetchUrl('/lists/members/create_all.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->addListMembers($list, $user_id, $screen_name, $owner),
+			$this->object->addMembers($list, $user_id, $screen_name, $owner),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1540,11 +1508,22 @@ class JTwitterListsTest extends TestCase
 	 * @return  void
 	 *
 	 * @since 12.3
-	 * @dataProvider seedListMembers
+	 * @dataProvider seedMembers
 	 * @expectedException DomainException
 	 */
-	public function testAddListMembersFailure($list, $user_id, $screen_name, $owner)
+	public function testAddMembersFailure($list, $user_id, $screen_name, $owner)
 	{
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -1570,13 +1549,13 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->addListMembers($list, $user_id, $screen_name, $owner);
+				$this->object->addMembers($list, $user_id, $screen_name, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->addListMembers($list, $user_id, $screen_name, $owner);
+			$this->object->addMembers($list, $user_id, $screen_name, $owner);
 		}
 
 		if ($user_id)
@@ -1590,17 +1569,17 @@ class JTwitterListsTest extends TestCase
 		if ($user_id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->addListMembers($list, $user_id, $screen_name, $owner);
+			$this->object->addMembers($list, $user_id, $screen_name, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/members/create_all.json');
+		$path = $this->object->fetchUrl('/lists/members/create_all.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->addListMembers($list, $user_id, $screen_name, $owner);
+		$this->object->addMembers($list, $user_id, $screen_name, $owner);
 	}
 
 	/**
@@ -1614,7 +1593,7 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
-	public function testGetListMembers($list, $owner)
+	public function testGetMembers($list, $owner)
 	{
 		$entities = true;
 		$skip_status = true;
@@ -1623,9 +1602,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1653,19 +1634,19 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->getListMembers($list, $owner);
+				$this->object->getMembers($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getListMembers($list, $owner);
+			$this->object->getMembers($list, $owner);
 		}
 
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/lists/members.json', $data);
+		$path = $this->object->fetchUrl('/lists/members.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1673,7 +1654,7 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getListMembers($list, $owner, $entities, $skip_status),
+			$this->object->getMembers($list, $owner, $entities, $skip_status),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -1690,7 +1671,7 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
-	public function testGetListMembersFailure($list, $owner)
+	public function testGetMembersFailure($list, $owner)
 	{
 		$entities = true;
 		$skip_status = true;
@@ -1699,9 +1680,11 @@ class JTwitterListsTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1729,26 +1712,26 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->getListMembers($list, $owner);
+				$this->object->getMembers($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->getListMembers($list, $owner);
+			$this->object->getMembers($list, $owner);
 		}
 
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/lists/members.json', $data);
+		$path = $this->object->fetchUrl('/lists/members.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getListMembers($list, $owner, $entities, $skip_status);
+		$this->object->getMembers($list, $owner, $entities, $skip_status);
 	}
 
 	/**
@@ -1762,15 +1745,17 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
-	public function testGetListByIdtMembers($list, $owner)
+	public function testGetListById($list, $owner)
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1807,7 +1792,7 @@ class JTwitterListsTest extends TestCase
 			$this->object->getListById($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/show.json', $data);
+		$path = $this->object->fetchUrl('/lists/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1832,15 +1817,17 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
-	public function testGetListByIdtMembersFailure($list, $owner)
+	public function testGetListByIdFailure($list, $owner)
 	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -1877,7 +1864,7 @@ class JTwitterListsTest extends TestCase
 			$this->object->getListById($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/show.json', $data);
+		$path = $this->object->fetchUrl('/lists/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -1885,110 +1872,6 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->object->getListById($list, $owner);
-	}
-
-	/**
-	 * Tests the getLists method
-	 *
-	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
-	 *
-	 * @return  void
-	 *
-	 * @since 12.3
-	 * @dataProvider seedUser
-	 */
-	public function testGetLists($user)
-	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
-
-		// Set request parameters.
-		if (is_numeric($user))
-		{
-			$data['user_id'] = $user;
-		}
-		elseif (is_string($user))
-		{
-			$data['screen_name'] = $user;
-		}
-		else
-		{
-			$this->setExpectedException('RuntimeException');
-			$this->object->getLists($user);
-		}
-
-		$path = $this->object->fetchUrl('/1/lists.json', $data);
-
-		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->assertThat(
-			$this->object->getLists($user),
-			$this->equalTo(json_decode($this->sampleString))
-		);
-	}
-
-	/**
-	 * Tests the getLists method - failure
-	 *
-	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
-	 *
-	 * @return  void
-	 *
-	 * @since 12.3
-	 * @dataProvider seedUser
-	 * @expectedException DomainException
-	 */
-	public function testGetListsFailure($user)
-	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		// Set request parameters.
-		if (is_numeric($user))
-		{
-			$data['user_id'] = $user;
-		}
-		elseif (is_string($user))
-		{
-			$data['screen_name'] = $user;
-		}
-		else
-		{
-			$this->setExpectedException('RuntimeException');
-			$this->object->getLists($user);
-		}
-
-		$path = $this->object->fetchUrl('/1/lists.json', $data);
-
-		$this->client->expects($this->at(1))
-		->method('get')
-		->with($path)
-		->will($this->returnValue($returnData));
-
-		$this->object->getLists($user);
 	}
 
 	/**
@@ -2004,14 +1887,17 @@ class JTwitterListsTest extends TestCase
 	public function testGetSubscriptions($user)
 	{
 		$count = 10;
+		$cursor = 1234;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -2032,9 +1918,11 @@ class JTwitterListsTest extends TestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getSubscriptions($user);
 		}
-		$data['count'] = $count;
 
-		$path = $this->object->fetchUrl('/1/lists/subscriptions.json', $data);
+		$data['count'] = $count;
+		$data['cursor'] = $cursor;
+
+		$path = $this->object->fetchUrl('/lists/subscriptions.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -2042,7 +1930,7 @@ class JTwitterListsTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getSubscriptions($user, $count),
+			$this->object->getSubscriptions($user, $count, $cursor),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -2061,14 +1949,17 @@ class JTwitterListsTest extends TestCase
 	public function testGetSubscriptionsFailure($user)
 	{
 		$count = 10;
+		$cursor = 1234;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -2089,16 +1980,18 @@ class JTwitterListsTest extends TestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getSubscriptions($user);
 		}
-		$data['count'] = $count;
 
-		$path = $this->object->fetchUrl('/1/lists/subscriptions.json', $data);
+		$data['count'] = $count;
+		$data['cursor'] = $cursor;
+
+		$path = $this->object->fetchUrl('/lists/subscriptions.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getSubscriptions($user, $count);
+		$this->object->getSubscriptions($user, $count, $cursor);
 	}
 
 	/**
@@ -2112,11 +2005,22 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
-	public function testUpdateList($list, $owner)
+	public function testUpdate($list, $owner)
 	{
 		$name = 'test list';
 		$mode = 'private';
 		$description = 'this is a description';
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -2143,28 +2047,28 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->updateList($list, $owner);
+				$this->object->update($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->updateList($list, $owner);
+			$this->object->update($list, $owner);
 		}
 
 		$data['name'] = $name;
 		$data['mode'] = $mode;
 		$data['description'] = $description;
 
-		$path = $this->object->fetchUrl('/1/lists/update.json');
+		$path = $this->object->fetchUrl('/lists/update.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->updateList($list, $owner, $name, $mode, $description),
+			$this->object->update($list, $owner, $name, $mode, $description),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -2181,11 +2085,22 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
-	public function testUpdateListFailure($list, $owner)
+	public function testUpdateFailure($list, $owner)
 	{
 		$name = 'test list';
 		$mode = 'private';
 		$description = 'this is a description';
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
@@ -2212,27 +2127,27 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->updateList($list, $owner);
+				$this->object->update($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->updateList($list, $owner);
+			$this->object->update($list, $owner);
 		}
 
 		$data['name'] = $name;
 		$data['mode'] = $mode;
 		$data['description'] = $description;
 
-		$path = $this->object->fetchUrl('/1/lists/update.json');
+		$path = $this->object->fetchUrl('/lists/update.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->updateList($list, $owner, $name, $mode, $description);
+		$this->object->update($list, $owner, $name, $mode, $description);
 	}
 
 	/**
@@ -2242,11 +2157,22 @@ class JTwitterListsTest extends TestCase
 	 *
 	 * @since 12.3
 	 */
-	public function testCreateList()
+	public function testCreate()
 	{
 		$name = 'test list';
 		$mode = 'private';
 		$description = 'this is a description';
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
@@ -2256,15 +2182,15 @@ class JTwitterListsTest extends TestCase
 		$data['mode'] = $mode;
 		$data['description'] = $description;
 
-		$path = $this->object->fetchUrl('/1/lists/create.json');
+		$path = $this->object->fetchUrl('/lists/create.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->createList($name, $mode, $description),
+			$this->object->create($name, $mode, $description),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -2277,11 +2203,22 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @expectedException DomainException
 	 */
-	public function testCreateListFailure()
+	public function testCreateFailure()
 	{
 		$name = 'test list';
 		$mode = 'private';
 		$description = 'this is a description';
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
@@ -2291,14 +2228,14 @@ class JTwitterListsTest extends TestCase
 		$data['mode'] = $mode;
 		$data['description'] = $description;
 
-		$path = $this->object->fetchUrl('/1/lists/create.json');
+		$path = $this->object->fetchUrl('/lists/create.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->createList($name, $mode, $description);
+		$this->object->create($name, $mode, $description);
 	}
 
 	/**
@@ -2312,8 +2249,19 @@ class JTwitterListsTest extends TestCase
 	 * @since 12.3
 	 * @dataProvider seedListStatuses
 	 */
-	public function testDeleteList($list, $owner)
+	public function testDelete($list, $owner)
 	{
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
@@ -2339,24 +2287,24 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->deleteList($list, $owner);
+				$this->object->delete($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->deleteList($list, $owner);
+			$this->object->delete($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/destroy.json');
+		$path = $this->object->fetchUrl('/lists/destroy.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->deleteList($list, $owner),
+			$this->object->delete($list, $owner),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -2373,8 +2321,19 @@ class JTwitterListsTest extends TestCase
 	 * @dataProvider seedListStatuses
 	 * @expectedException DomainException
 	 */
-	public function testDeleteListFailure($list, $owner)
+	public function testDeleteFailure($list, $owner)
 	{
+		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "lists"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
@@ -2400,22 +2359,22 @@ class JTwitterListsTest extends TestCase
 			{
 				// We don't have a valid entry
 				$this->setExpectedException('RuntimeException');
-				$this->object->deleteList($list, $owner);
+				$this->object->delete($list, $owner);
 			}
 		}
 		else
 		{
 			$this->setExpectedException('RuntimeException');
-			$this->object->deleteList($list, $owner);
+			$this->object->delete($list, $owner);
 		}
 
-		$path = $this->object->fetchUrl('/1/lists/destroy.json');
+		$path = $this->object->fetchUrl('/lists/destroy.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
 
-		$this->object->deleteList($list, $owner);
+		$this->object->delete($list, $owner);
 	}
 }
