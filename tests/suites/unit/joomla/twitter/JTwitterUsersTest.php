@@ -63,7 +63,17 @@ class JTwitterUsersTest extends TestCase
 	 * @var    string  Sample JSON string.
 	 * @since  12.3
 	 */
-	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+	protected $rateLimit = '{"resources": {"users": {
+			"/users/lookup": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/users/profile_banner": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/users/search": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/users/show": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/users/contributees": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/users/contributors": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/users/suggestions": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/users/suggestions/:slug": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/users/suggestions/:slug/members": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -79,11 +89,11 @@ class JTwitterUsersTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$key = "app_key";
 		$secret = "app_secret";
-		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
-		
+		$my_url = "http://127.0.0.1/twitter_test.php";
+
 		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
@@ -138,9 +148,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -161,13 +173,12 @@ class JTwitterUsersTest extends TestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getUsersLookup($screen_name, $id);
 		}
-		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/users/lookup.json', $data);
+		$data['include_entities'] = $entities;
 
 		$this->client->expects($this->at(1))
 		->method('post')
-		->with($path)
+		->with('/users/lookup.json', $data)
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
@@ -194,9 +205,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -218,47 +231,74 @@ class JTwitterUsersTest extends TestCase
 			$this->object->getUsersLookup($screen_name, $id);
 		}
 
-		$path = $this->object->fetchUrl('/1/users/lookup.json', $data);
-
 		$this->client->expects($this->at(1))
 		->method('post')
-		->with($path)
+		->with('/users/lookup.json', $data)
 		->will($this->returnValue($returnData));
 
 		$this->object->getUsersLookup($screen_name, $id);
 	}
 
 	/**
-	 * Tests the getUserProfileImage method
+	 * Provides test data for request format detection.
 	 *
-	 * @return  void
+	 * @return array
 	 *
 	 * @since 12.3
 	 */
-	public function testGetUserProfileImage()
+	public function seedUser()
 	{
-		$screen_name = 'testUser';
-		$size = 'bigger';
+		// User ID or screen name
+		return array(
+				array(234654235457),
+				array('testUser'),
+				array(null)
+		);
+	}
 
+	/**
+	 * Tests the getUserProfileBanner method
+	 *
+	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
+	 *
+	 * @return  void
+	 *
+	 * @dataProvider seedUser
+	 * @since 12.3
+	 */
+	public function testGetUserProfileBanner($user)
+	{
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = 'You are being redirected.';
-		$returnData->headers = array('Location' => 'image/location');
+		$returnData->body = $this->sampleString;
 
 		// Set request parameters.
-		$data['screen_name'] = $screen_name;
-		$data['size'] = $size;
+		if (is_numeric($user))
+		{
+			$data['user_id'] = $user;
+		}
+		elseif (is_string($user))
+		{
+			$data['screen_name'] = $user;
+		}
+		else
+		{
+			$this->setExpectedException('RuntimeException');
+			$this->object->getUserProfileBanner($user);
+		}
 
-		$path = $this->object->fetchUrl('/1/users/profile_image.json', $data);
+		$path = $this->object->fetchUrl('/users/profile_banner.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -266,31 +306,33 @@ class JTwitterUsersTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getUserProfileImage($screen_name, false, $size),
-			$this->equalTo('image/location')
+			$this->object->getUserProfileBanner($user),
+			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the getUserProfileImage method - failure
+	 * Tests the getUserProfileBanner method - failure
+	 *
+	 * @param   mixed  $user  Either an integer containing the user ID or a string containing the screen name.
 	 *
 	 * @return  void
 	 *
 	 * @since 12.3
+	 * @dataProvider seedUser
 	 * @expectedException  DomainException
 	 */
-	public function testGetUserProfileImageFailure()
+	public function testGetUserProfileBannerFailure($user)
 	{
-		$screen_name = 'testUser';
-		$size = 'bigger';
-
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -298,87 +340,74 @@ class JTwitterUsersTest extends TestCase
 		$returnData->body = $this->errorString;
 
 		// Set request parameters.
-		$data['screen_name'] = $screen_name;
-		$data['size'] = $size;
+		if (is_numeric($user))
+		{
+			$data['user_id'] = $user;
+		}
+		elseif (is_string($user))
+		{
+			$data['screen_name'] = $user;
+		}
+		else
+		{
+			$this->setExpectedException('RuntimeException');
+			$this->object->getUserProfileBanner($user);
+		}
 
-		$path = $this->object->fetchUrl('/1/users/profile_image.json', $data);
+		$path = $this->object->fetchUrl('/users/profile_banner.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getUserProfileImage($screen_name, false, $size);
-	}
-
-	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 12.3
-	*/
-	public function seedSearchUsers()
-	{
-		// User ID or screen name
-		return array(
-			array(array("X-FeatureRateLimit-Remaining" => 10)),
-			array(array("X-FeatureRateLimit-Remaining" => 0, "X-FeatureRateLimit-Reset" => 1243245654))
-			);
+		$this->object->getUserProfileBanner($user);
 	}
 
 	/**
 	 * Tests the searchUsers method
 	 *
-	 * @param   string  $header  The JSON encoded header.
-	 *
 	 * @return  void
 	 *
 	 * @since 12.3
-	 * @dataProvider seedSearchUsers
 	 */
-	public function testSearchUsers($header)
+	public function testSearchUsers()
 	{
 		$query = 'testUser';
 		$page = 1;
-		$per_page = 20;
+		$count = 20;
 		$entities = true;
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
-		$returnData->headers = $header;
 
 		// Set request parameters.
 		$data['q'] = $query;
 		$data['page'] = $page;
-		$data['per_page'] = $per_page;
+		$data['count'] = $count;
 		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/users/search.json', $data);
+		$path = $this->object->fetchUrl('/users/search.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
 		->with($path)
 		->will($this->returnValue($returnData));
 
-		$headers_array = $returnData->headers;
-		if ($headers_array['X-FeatureRateLimit-Remaining'] == 0)
-		{
-			$this->setExpectedException('RuntimeException');
-		}
-
 		$this->assertThat(
-			$this->object->searchUsers($query, $page, $per_page, $entities),
+			$this->object->searchUsers($query, $page, $count, $entities),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -399,9 +428,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -411,7 +442,7 @@ class JTwitterUsersTest extends TestCase
 		// Set request parameters.
 		$data['q'] = $query;
 
-		$path = $this->object->fetchUrl('/1/users/search.json', $data);
+		$path = $this->object->fetchUrl('/users/search.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -419,23 +450,6 @@ class JTwitterUsersTest extends TestCase
 		->will($this->returnValue($returnData));
 
 		$this->object->searchUsers($query);
-	}
-
-	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 12.3
-	*/
-	public function seedUser()
-	{
-		// User ID or screen name
-		return array(
-			array(234654235457),
-			array('testUser'),
-			array(null)
-			);
 	}
 
 	/**
@@ -456,9 +470,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -481,7 +497,7 @@ class JTwitterUsersTest extends TestCase
 		}
 		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/users/show.json', $data);
+		$path = $this->object->fetchUrl('/users/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -513,9 +529,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -538,7 +556,7 @@ class JTwitterUsersTest extends TestCase
 		}
 		$data['include_entities'] = $entities;
 
-		$path = $this->object->fetchUrl('/1/users/show.json', $data);
+		$path = $this->object->fetchUrl('/users/show.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -567,9 +585,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -593,7 +613,7 @@ class JTwitterUsersTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/users/contributees.json', $data);
+		$path = $this->object->fetchUrl('/users/contributees.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -626,9 +646,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -652,7 +674,7 @@ class JTwitterUsersTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/users/contributees.json', $data);
+		$path = $this->object->fetchUrl('/users/contributees.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -681,9 +703,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -707,7 +731,7 @@ class JTwitterUsersTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/users/contributors.json', $data);
+		$path = $this->object->fetchUrl('/users/contributors.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -740,9 +764,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -766,7 +792,7 @@ class JTwitterUsersTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/users/contributors.json', $data);
+		$path = $this->object->fetchUrl('/users/contributors.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -791,9 +817,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -803,7 +831,7 @@ class JTwitterUsersTest extends TestCase
 		// Set request parameters.
 		$data['lang'] = $lang;
 
-		$path = $this->object->fetchUrl('/1/users/suggestions.json', $data);
+		$path = $this->object->fetchUrl('/users/suggestions.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -832,9 +860,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -844,7 +874,7 @@ class JTwitterUsersTest extends TestCase
 		// Set request parameters.
 		$data['lang'] = $lang;
 
-		$path = $this->object->fetchUrl('/1/users/suggestions.json', $data);
+		$path = $this->object->fetchUrl('/users/suggestions.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -870,9 +900,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -882,7 +914,7 @@ class JTwitterUsersTest extends TestCase
 		// Set request parameters.
 		$data['lang'] = $lang;
 
-		$path = $this->object->fetchUrl('/1/users/suggestions/' . $slug . '.json', $data);
+		$path = $this->object->fetchUrl('/users/suggestions/' . $slug . '.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -912,9 +944,11 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -924,7 +958,7 @@ class JTwitterUsersTest extends TestCase
 		// Set request parameters.
 		$data['lang'] = $lang;
 
-		$path = $this->object->fetchUrl('/1/users/suggestions/' . $slug . '.json', $data);
+		$path = $this->object->fetchUrl('/users/suggestions/' . $slug . '.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -949,16 +983,18 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$path = $this->object->fetchUrl('/1/users/suggestions/' . $slug . '/members.json');
+		$path = $this->object->fetchUrl('/users/suggestions/' . $slug . '/members.json');
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -987,16 +1023,18 @@ class JTwitterUsersTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "users"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$path = $this->object->fetchUrl('/1/users/suggestions/' . $slug . '/members.json');
+		$path = $this->object->fetchUrl('/users/suggestions/' . $slug . '/members.json');
 
 		$this->client->expects($this->at(1))
 		->method('get')
