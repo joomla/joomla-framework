@@ -63,7 +63,13 @@ class JTwitterPlacesTest extends TestCase
 	 * @var    string  Sample JSON string.
 	 * @since  12.3
 	 */
-	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+	protected $rateLimit = '{"resources": {"geo": {
+			"/geo/id/:place_id": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/geo/reverse_geocode": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/geo/search": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/geo/similar_places": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/geo/place": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -79,11 +85,11 @@ class JTwitterPlacesTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$key = "app_key";
 		$secret = "app_secret";
-		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
-		
+		$my_url = "http://127.0.0./twitter_test.php";
+
 		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
@@ -115,16 +121,18 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
-		$path = $this->object->fetchUrl('/1/geo/id/' . $id . '.json');
+		$path = $this->object->fetchUrl('/geo/id/' . $id . '.json');
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -153,16 +161,18 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
-		$path = $this->object->fetchUrl('/1/geo/id/' . $id . '.json');
+		$path = $this->object->fetchUrl('/geo/id/' . $id . '.json');
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -192,9 +202,11 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -209,7 +221,7 @@ class JTwitterPlacesTest extends TestCase
 		$data['max_results'] = $max_results;
 		$data['callback'] = $callback;
 
-		$path = $this->object->fetchUrl('/1/geo/reverse_geocode.json', $data);
+		$path = $this->object->fetchUrl('/geo/reverse_geocode.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -243,9 +255,11 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -260,7 +274,7 @@ class JTwitterPlacesTest extends TestCase
 		$data['max_results'] = $max_results;
 		$data['callback'] = $callback;
 
-		$path = $this->object->fetchUrl('/1/geo/reverse_geocode.json', $data);
+		$path = $this->object->fetchUrl('/geo/reverse_geocode.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -312,9 +326,11 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -339,7 +355,7 @@ class JTwitterPlacesTest extends TestCase
 		$data['attribute:street_address'] = rawurlencode($attribute);
 		$data['callback'] = $callback;
 
-		$path = $this->object->fetchUrl('/1/geo/search.json', $data);
+		$path = $this->object->fetchUrl('/geo/search.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -379,9 +395,11 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -406,7 +424,7 @@ class JTwitterPlacesTest extends TestCase
 		$data['attribute:street_address'] = rawurlencode($attribute);
 		$data['callback'] = $callback;
 
-		$path = $this->object->fetchUrl('/1/geo/search.json', $data);
+		$path = $this->object->fetchUrl('/geo/search.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -436,9 +454,11 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -452,7 +472,7 @@ class JTwitterPlacesTest extends TestCase
 		$data['attribute:street_address'] = rawurlencode($attribute);
 		$data['callback'] = $callback;
 
-		$path = $this->object->fetchUrl('/1/geo/similar_places.json', $data);
+		$path = $this->object->fetchUrl('/geo/similar_places.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -486,9 +506,11 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -502,7 +524,7 @@ class JTwitterPlacesTest extends TestCase
 		$data['attribute:street_address'] = rawurlencode($attribute);
 		$data['callback'] = $callback;
 
-		$path = $this->object->fetchUrl('/1/geo/similar_places.json', $data);
+		$path = $this->object->fetchUrl('/geo/similar_places.json', $data);
 
 		$this->client->expects($this->at(1))
 		->method('get')
@@ -533,9 +555,11 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -550,7 +574,7 @@ class JTwitterPlacesTest extends TestCase
 		$data['attribute:street_address'] = rawurlencode($attribute);
 		$data['callback'] = $callback;
 
-		$path = $this->object->fetchUrl('/1/geo/place.json');
+		$path = $this->object->fetchUrl('/geo/place.json');
 
 		$this->client->expects($this->at(1))
 		->method('post')
@@ -585,9 +609,11 @@ class JTwitterPlacesTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "geo"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -602,7 +628,7 @@ class JTwitterPlacesTest extends TestCase
 		$data['attribute:street_address'] = rawurlencode($attribute);
 		$data['callback'] = $callback;
 
-		$path = $this->object->fetchUrl('/1/geo/place.json');
+		$path = $this->object->fetchUrl('/geo/place.json');
 
 		$this->client->expects($this->at(1))
 		->method('post')
