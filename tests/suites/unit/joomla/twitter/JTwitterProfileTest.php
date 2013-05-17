@@ -63,7 +63,13 @@ class JTwitterProfileTest extends TestCase
 	 * @var    string  Sample JSON string.
 	 * @since  12.3
 	 */
-	protected $rateLimit = '{"remaining_hits":150, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+	protected $rateLimit = '{"resources": {"account": {
+			"/account/update_profile": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/account/update_profile_background_image": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/account/update_profile_image": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/account/update_profile_colors": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"},
+			"/account/settings": {"remaining":15, "reset":"Mon Jun 25 17:20:53 +0000 2012"}
+			}}}';
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -79,11 +85,11 @@ class JTwitterProfileTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$key = "app_key";
 		$secret = "app_secret";
 		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
-		
+
 		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
 		$this->options = new JRegistry;
@@ -118,6 +124,17 @@ class JTwitterProfileTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
 		$data['name'] = $name;
@@ -127,9 +144,9 @@ class JTwitterProfileTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/account/update_profile.json');
+		$path = $this->object->fetchUrl('/account/update_profile.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
@@ -158,6 +175,17 @@ class JTwitterProfileTest extends TestCase
 		$skip_status = true;
 
 		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
@@ -168,9 +196,9 @@ class JTwitterProfileTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$path = $this->object->fetchUrl('/1/account/update_profile.json');
+		$path = $this->object->fetchUrl('/account/update_profile.json');
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 		->method('post')
 		->with($path, $data)
 		->will($this->returnValue($returnData));
@@ -195,6 +223,17 @@ class JTwitterProfileTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
 		// Set POST request parameters.
@@ -204,9 +243,9 @@ class JTwitterProfileTest extends TestCase
 		$data['skip_status'] = $skip_status;
 		$data['use'] = $use;
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 			->method('post')
-			->with('/1/account/update_profile_background_image.json', $data)
+			->with('/account/update_profile_background_image.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
@@ -232,6 +271,17 @@ class JTwitterProfileTest extends TestCase
 		$use = true;
 
 		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
@@ -242,9 +292,9 @@ class JTwitterProfileTest extends TestCase
 		$data['skip_status'] = $skip_status;
 		$data['use'] = $use;
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 			->method('post')
-			->with('/1/account/update_profile_background_image.json', $data)
+			->with('/account/update_profile_background_image.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->object->updateProfileBackgroundImage($image, $tile, $entities, $skip_status, $use);
@@ -265,6 +315,17 @@ class JTwitterProfileTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
 		// Set POST request parameters.
@@ -272,9 +333,9 @@ class JTwitterProfileTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 			->method('post')
-			->with('/1/account/update_profile_image.json', $data)
+			->with('/account/update_profile_image.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
@@ -298,6 +359,17 @@ class JTwitterProfileTest extends TestCase
 		$skip_status = true;
 
 		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
@@ -306,9 +378,9 @@ class JTwitterProfileTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 			->method('post')
-			->with('/1/account/update_profile_image.json', $data)
+			->with('/account/update_profile_image.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->object->updateProfileImage($image, $entities, $skip_status);
@@ -333,6 +405,17 @@ class JTwitterProfileTest extends TestCase
 
 		$returnData = new stdClass;
 		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
+		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
 		// Set POST request parameters.
@@ -344,9 +427,9 @@ class JTwitterProfileTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 			->method('post')
-			->with('/1/account/update_profile_colors.json', $data)
+			->with('/account/update_profile_colors.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
@@ -374,6 +457,17 @@ class JTwitterProfileTest extends TestCase
 		$skip_status = true;
 
 		$returnData = new stdClass;
+		$returnData->code = 200;
+		$returnData->body = $this->rateLimit;
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
+		$this->client->expects($this->at(0))
+		->method('get')
+		->with($path)
+		->will($this->returnValue($returnData));
+
+		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
@@ -386,76 +480,12 @@ class JTwitterProfileTest extends TestCase
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
-		$this->client->expects($this->once())
+		$this->client->expects($this->at(1))
 			->method('post')
-			->with('/1/account/update_profile_colors.json', $data)
+			->with('/account/update_profile_colors.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->object->updateProfileColors($background, $link, $sidebar_border, $sidebar_fill, $text, $entities, $skip_status);
-	}
-
-	/**
-	 * Tests the getTotals method
-	 *
-	 * @return  void
-	 *
-	 * @since   12.3
-	 */
-	public function testGetTotals()
-	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->sampleString;
-
-		$this->client->expects($this->at(1))
-			->method('get')
-			->with('/1/account/totals.json')
-			->will($this->returnValue($returnData));
-
-		$this->assertThat(
-			$this->object->getTotals($this->oauth),
-			$this->equalTo(json_decode($this->sampleString))
-		);
-	}
-
-	/**
-	 * Tests the getTotals method
-	 *
-	 * @return  void
-	 *
-	 * @since   12.3
-	 * @expectedException DomainException
-	 */
-	public function testGetTotalsFailure()
-	{
-		$returnData = new stdClass;
-		$returnData->code = 200;
-		$returnData->body = $this->rateLimit;
-
-		$this->client->expects($this->at(0))
-		->method('get')
-		->with('/1/account/rate_limit_status.json')
-		->will($this->returnValue($returnData));
-
-		$returnData = new stdClass;
-		$returnData->code = 500;
-		$returnData->body = $this->errorString;
-
-		$this->client->expects($this->at(1))
-			->method('get')
-			->with('/1/account/totals.json')
-			->will($this->returnValue($returnData));
-
-		$this->object->getTotals($this->oauth);
 	}
 
 	/**
@@ -471,9 +501,11 @@ class JTwitterProfileTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -482,7 +514,7 @@ class JTwitterProfileTest extends TestCase
 
 		$this->client->expects($this->at(1))
 			->method('get')
-			->with('/1/account/settings.json')
+			->with('/account/settings.json')
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
@@ -505,9 +537,11 @@ class JTwitterProfileTest extends TestCase
 		$returnData->code = 200;
 		$returnData->body = $this->rateLimit;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array("resources" => "account"));
+
 		$this->client->expects($this->at(0))
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$returnData = new stdClass;
@@ -516,7 +550,7 @@ class JTwitterProfileTest extends TestCase
 
 		$this->client->expects($this->at(1))
 			->method('get')
-			->with('/1/account/settings.json')
+			->with('/account/settings.json')
 			->will($this->returnValue($returnData));
 
 		$this->object->getSettings($this->oauth);
@@ -552,7 +586,7 @@ class JTwitterProfileTest extends TestCase
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/1/account/settings.json', $data)
+			->with('/account/settings.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->assertThat(
@@ -592,7 +626,7 @@ class JTwitterProfileTest extends TestCase
 
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/1/account/settings.json', $data)
+			->with('/account/settings.json', $data)
 			->will($this->returnValue($returnData));
 
 		$this->object->updateSettings($location, $sleep_time, $start_sleep, $end_sleep, $time_zone, $lang);
