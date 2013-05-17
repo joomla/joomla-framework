@@ -38,6 +38,12 @@ class JTwitterObjectTest extends TestCase
 	protected $object;
 
 	/**
+	 * @var    JTwitterOauth  Authentication object for the Twitter object.
+	 * @since  12.3
+	 */
+	protected $oauth;
+
+	/**
 	 * @var    string  Sample JSON string.
 	 * @since  12.3
 	 */
@@ -65,10 +71,29 @@ class JTwitterObjectTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$this->options = new JRegistry;
-		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$_SERVER['HTTP_HOST'] = 'example.com';
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
+		$_SERVER['REQUEST_URI'] = '/index.php';
+		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
-		$this->object = new JTwitterObjectMock($this->options, $this->client);
+		$key = "app_key";
+		$secret = "app_secret";
+		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
+
+		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
+
+		$this->options = new JRegistry;
+		$this->input = new JInput;
+		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
+		$this->oauth = new JTwitterOAuth($this->options, $this->client, $this->input);
+		$this->oauth->setToken($access_token);
+
+		$this->object = new JTwitterObjectMock($this->options, $this->client, $this->oauth);
+
+		$this->options->set('consumer_key', $key);
+		$this->options->set('consumer_secret', $secret);
+		$this->options->set('callback', $my_url);
+		$this->options->set('sendheaders', true);
 	}
 
 	/**
@@ -93,16 +118,21 @@ class JTwitterObjectTest extends TestCase
 	 */
 	public function testCheckRateLimit()
 	{
+		$resource = 'statuses';
+		$action = 'show';
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
-		$returnData->body = '{"remaining_hits":0, "reset_time":"Mon Jun 25 17:20:53 +0000 2012"}';
+		$returnData->body = '{"resources":{"statuses":{"/statuses/show":{"remaining":0, "reset":"Mon Jun 25 17:20:53 +0000 2012"}}}}';
+
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array('resources' => $resource));
 
 		$this->client->expects($this->once())
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->checkRateLimit();
+		$this->object->checkRateLimit($resource, $action);
 	}
 
 	/**
@@ -127,17 +157,21 @@ class JTwitterObjectTest extends TestCase
 	 */
 	public function testGetRateLimit()
 	{
+		$resource = 'statuses';
+
 		$returnData = new stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array('resources' => $resource));
+
 		$this->client->expects($this->once())
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
 		$this->assertThat(
-			$this->object->getRateLimit(),
+			$this->object->getRateLimit($resource),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
@@ -153,16 +187,20 @@ class JTwitterObjectTest extends TestCase
 	 */
 	public function testGetRateLimitFailure()
 	{
+		$resource = 'statuses';
+
 		$returnData = new stdClass;
 		$returnData->code = 500;
 		$returnData->body = $this->errorString;
 
+		$path = $this->object->fetchUrl('/application/rate_limit_status.json', array('resources' => $resource));
+
 		$this->client->expects($this->once())
 		->method('get')
-		->with('/1/account/rate_limit_status.json')
+		->with($path)
 		->will($this->returnValue($returnData));
 
-		$this->object->getRateLimit();
+		$this->object->getRateLimit($resource);
 	}
 
 	/**
@@ -192,6 +230,23 @@ class JTwitterObjectTest extends TestCase
 		$this->assertThat(
 			$this->options->get('api.url'),
 			$this->equalTo('https://example.com/settest')
+		);
+	}
+
+	/**
+	 * Tests the getOption method
+	 *
+	 * @return  void
+	 *
+	 * @since   12.3
+	 */
+	public function testGetOption()
+	{
+		$this->options->set('api.url', 'https://example.com/settest');
+
+		$this->assertThat(
+				$this->object->getOption('api.url'),
+				$this->equalTo('https://example.com/settest')
 		);
 	}
 }

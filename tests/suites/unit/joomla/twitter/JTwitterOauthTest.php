@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+include_once __DIR__ . '/../application/stubs/JApplicationWebInspector.php';
+
 /**
  * Test class for JLinkedinOauth.
  *
@@ -33,6 +35,12 @@ class JTwitterOauthTest extends TestCase
 	 * @since  12.3
 	 */
 	protected $input;
+
+	/**
+	 * @var    JApplicationWeb  The application object to send HTTP headers for redirects.
+	 * @since  12.3
+	 */
+	protected $application;
 
 	/**
 	 * @var    JTwitterOauth  Authentication object for the Twitter object.
@@ -64,19 +72,20 @@ class JTwitterOauthTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$key = "app_key";
 		$secret = "app_secret";
-		$my_url = "http://127.0.0.1/gsoc/joomla-platform/twitter_test.php";
+		$my_url = "http://127.0.0.1/twitter_test.php";
 
 		$this->options = new JRegistry;
 		$this->input = new JInput;
+		$this->application = new JApplicationWebInspector;
 		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
 
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->options->set('callback', $my_url);
-		$this->oauth = new JTwitterOauth($this->options, $this->client, $this->input);
+		$this->oauth = new JTwitterOauth($this->options, $this->client, $this->input, $this->application);
 		$this->oauth->setToken(array('key' => $key, 'secret' => $secret));
 	}
 
@@ -120,7 +129,7 @@ class JTwitterOauthTest extends TestCase
 	 */
 	public function testVerifyCredentials($code, $body, $expected)
 	{
-		$path = 'https://api.twitter.com/1/account/verify_credentials.json';
+		$path = 'https://api.twitter.com/1.1/account/verify_credentials.json';
 
 		$returnData = new stdClass;
 		$returnData->code = $code;
@@ -146,7 +155,7 @@ class JTwitterOauthTest extends TestCase
 	 */
 	public function testEndSession()
 	{
-		$path = 'https://api.twitter.com/1/account/end_session.json';
+		$path = 'https://api.twitter.com/1.1/account/end_session.json';
 
 		$returnData = new stdClass;
 		$returnData->code = 200;

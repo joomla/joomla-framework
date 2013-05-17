@@ -33,7 +33,7 @@ class JTwitterTest extends TestCase
 	 * @since  12.3
 	 */
 	protected $object;
-	
+
 	/**
 	 * @var JTwitterOAuth Facebook OAuth 2 client
 	 * @since 12.3
@@ -52,7 +52,7 @@ class JTwitterTest extends TestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0';
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
-		
+
 		$this->options = new JRegistry;
 		$this->client = $this->getMock('JHttp', array('get', 'post', 'delete', 'put'));
 
