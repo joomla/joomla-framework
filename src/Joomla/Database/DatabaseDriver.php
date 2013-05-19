@@ -226,7 +226,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 
 				// Derive the class name from the type.
 				/* @var  $class  DatabaseDriver */
-				$class = ucfirst(strtolower($baseName)) . '\\' . ucfirst(strtolower($baseName)) . 'Driver';
+				$class = '\\Joomla\\Database\\' . ucfirst(strtolower($baseName)) . '\\' . ucfirst(strtolower($baseName)) . 'Driver';
 
 				// If the class doesn't exist, or if it's not supported on this system, move on to the next type.
 				if (!class_exists($class) || !($class::isSupported()))

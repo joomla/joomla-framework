@@ -1,19 +1,17 @@
 <?php
 /**
- * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Database\Tests;
 
-use Joomla\Database\Sqlsrv\SqlsrvDriver;
-
 /**
- * Test class for \Joomla\Database\Sqlsrv\SqlsrvDriver.
+ * Test class for Joomla\Database\Sqlite\SqliteDriver.
  *
  * @since  1.0
  */
-class DriverSqlsrvTest extends DatabaseSqlsrvCase
+class DriverSqliteTest extends DatabaseCase
 {
 	/**
 	 * Data for the testEscape test.
@@ -26,35 +24,44 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	{
 		return array(
 			array("'%_abc123", false, "''%_abc123"),
-			array("'%_abc123", true, "''%[_]abc123"),
+			array("'%_abc123", true, "''%_abc123"),
+			array(3, false, 3)
 		);
 	}
 
 	/**
-	 * Tests the destructor
+	 * Data for the testTransactionRollback test.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function dataTestTransactionRollback()
+	{
+		return array(array(null, 0), array('transactionSavepoint', 1));
+	}
+
+	/**
+	 * Test __destruct method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement test__destruct().
 	 */
 	public function test__destruct()
 	{
-		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 
 	/**
-	 * Test the connected method.
+	 * Test connected method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testConnected().
 	 */
 	public function testConnected()
 	{
-		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 
@@ -69,7 +76,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	{
 		$this->assertThat(
 			self::$driver->dropTable('#__bar', true),
-			$this->isInstanceOf('\\Joomla\\Database\\Sqlsrv\\SqlsrvDriver'),
+			$this->isInstanceOf('\\Joomla\\Database\\Sqlite\\SqliteDriver'),
 			'The table is dropped if present.'
 		);
 	}
@@ -96,12 +103,27 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the getAffectedRows method
+	 * Test the execute method
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testGetAffectedRows().
+	 */
+	public function testExecute()
+	{
+		self::$driver->setQuery("REPLACE INTO `jos_dbtest` (`id`, `title`) VALUES (5, 'testTitle')");
+
+		$this->assertThat(self::$driver->execute(), $this->isInstanceOf('\\PDOStatement'), __LINE__);
+
+		$this->assertThat(self::$driver->insertid(), $this->equalTo(5), __LINE__);
+	}
+
+	/**
+	 * Test getAffectedRows method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testGetAffectedRows()
 	{
@@ -116,21 +138,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the getCollation method
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @todo    Implement testGetCollation().
-	 */
-	public function testGetCollation()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Tests the getExporter method
+	 * Test getExporter method.
 	 *
 	 * @return  void
 	 *
@@ -144,7 +152,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the getImporter method
+	 * Test getImporter method.
 	 *
 	 * @return  void
 	 *
@@ -158,17 +166,23 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the getNumRows method
+	 * Test getNumRows method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testGetNumRows().
 	 */
 	public function testGetNumRows()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		$query = self::$driver->getQuery(true);
+		$query->select('*');
+		$query->from('jos_dbtest');
+		$query->where('description = ' . self::$driver->quote('one'));
+		self::$driver->setQuery($query);
+
+		$res = self::$driver->execute();
+
+		$this->assertThat(self::$driver->getNumRows($res), $this->equalTo(0), __LINE__);
 	}
 
 	/**
@@ -182,23 +196,69 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	{
 		$this->assertThat(
 			self::$driver->getTableCreate('#__dbtest'),
-			$this->isType('string'),
-			'A blank string is returned since this is not supported on SQL Server.'
+			$this->isType('array'),
+			'The statement to create the table is returned in an array.'
 		);
 	}
 
 	/**
-	 * Tests the getTableColumns method
+	 * Test getTableColumns function.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testGetTableColumns().
 	 */
 	public function testGetTableColumns()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		$tableCol = array('id' => 'INTEGER', 'title' => 'TEXT', 'start_date' => 'TEXT', 'description' => 'TEXT');
+
+		$this->assertThat(
+			self::$driver->getTableColumns('jos_dbtest'),
+			$this->equalTo($tableCol),
+			__LINE__
+		);
+
+		/* not only type field */
+		$id = new \stdClass;
+		$id->Default = null;
+		$id->Field   = 'id';
+		$id->Type    = 'INTEGER';
+		$id->Null    = 'YES';
+		$id->Key     = 'PRI';
+
+		$title = new \stdClass;
+		$title->Default = '\'\'';
+		$title->Field   = 'title';
+		$title->Type    = 'TEXT';
+		$title->Null    = 'NO';
+		$title->Key     = '';
+
+		$start_date = new \stdClass;
+		$start_date->Default = '\'\'';
+		$start_date->Field   = 'start_date';
+		$start_date->Type    = 'TEXT';
+		$start_date->Null    = 'NO';
+		$start_date->Key     = '';
+
+		$description = new \stdClass;
+		$description->Default = '\'\'';
+		$description->Field   = 'description';
+		$description->Type    = 'TEXT';
+		$description->Null    = 'NO';
+		$description->Key     = '';
+
+		$this->assertThat(
+			self::$driver->getTableColumns('jos_dbtest', false),
+			$this->equalTo(
+				array(
+					'id' => $id,
+					'title' => $title,
+					'start_date' => $start_date,
+					'description' => $description
+				)
+			),
+			__LINE__
+		);
 	}
 
 	/**
@@ -234,7 +294,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the getVersion method.
+	 * Test getVersion method.
 	 *
 	 * @return  void
 	 *
@@ -243,28 +303,50 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	public function testGetVersion()
 	{
 		$this->assertThat(
-			self::$driver->getVersion(),
-			$this->isType('string'),
-			'Line:' . __LINE__ . ' The getVersion method should return a string containing the driver version.'
+			strlen(self::$driver->getVersion()),
+			$this->greaterThan(0),
+			'Line:' . __LINE__ . ' The getVersion method should return something without error.'
 		);
 	}
 
 	/**
-	 * Tests the insertid method
+	 * Test insertid method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testInsertid().
 	 */
 	public function testInsertid()
 	{
-		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 
 	/**
-	 * Tests the loadAssoc method
+	 * Test insertObject method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testInsertObject()
+	{
+		$this->markTestIncomplete('This test has not been implemented yet.');
+	}
+
+	/**
+	 * Test isSupported method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testIsSupported()
+	{
+		$this->assertThat(\Joomla\Database\Sqlite\SqliteDriver::isSupported(), $this->isTrue(), __LINE__);
+	}
+
+	/**
+	 * Test loadAssoc method.
 	 *
 	 * @return  void
 	 *
@@ -282,7 +364,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the loadAssocList method
+	 * Test loadAssocList method.
 	 *
 	 * @return  void
 	 *
@@ -311,7 +393,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the loadColumn method
+	 * Test loadColumn method
 	 *
 	 * @return  void
 	 *
@@ -329,7 +411,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the loadObject method
+	 * Test loadObject method
 	 *
 	 * @return  void
 	 *
@@ -347,14 +429,14 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 		$objCompare = new \stdClass;
 		$objCompare->id = 3;
 		$objCompare->title = 'Testing3';
-		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->start_date = '1980-04-18 00:00:00';
 		$objCompare->description = 'three';
 
 		$this->assertThat($result, $this->equalTo($objCompare), __LINE__);
 	}
 
 	/**
-	 * Tests the loadObjectList method
+	 * Test loadObjectList method
 	 *
 	 * @return  void
 	 *
@@ -374,7 +456,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 		$objCompare = new \stdClass;
 		$objCompare->id = 1;
 		$objCompare->title = 'Testing';
-		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->start_date = '1980-04-18 00:00:00';
 		$objCompare->description = 'one';
 
 		$expected[] = clone $objCompare;
@@ -382,7 +464,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 		$objCompare = new \stdClass;
 		$objCompare->id = 2;
 		$objCompare->title = 'Testing2';
-		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->start_date = '1980-04-18 00:00:00';
 		$objCompare->description = 'one';
 
 		$expected[] = clone $objCompare;
@@ -390,7 +472,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 		$objCompare = new \stdClass;
 		$objCompare->id = 3;
 		$objCompare->title = 'Testing3';
-		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->start_date = '1980-04-18 00:00:00';
 		$objCompare->description = 'three';
 
 		$expected[] = clone $objCompare;
@@ -398,7 +480,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 		$objCompare = new \stdClass;
 		$objCompare->id = 4;
 		$objCompare->title = 'Testing4';
-		$objCompare->start_date = '1980-04-18 00:00:00.000';
+		$objCompare->start_date = '1980-04-18 00:00:00';
 		$objCompare->description = 'four';
 
 		$expected[] = clone $objCompare;
@@ -407,7 +489,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the loadResult method
+	 * Test loadResult method
 	 *
 	 * @return  void
 	 *
@@ -427,7 +509,7 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the loadRow method
+	 * Test loadRow method
 	 *
 	 * @return  void
 	 *
@@ -442,13 +524,13 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 		self::$driver->setQuery($query);
 		$result = self::$driver->loadRow();
 
-		$expected = array(3, 'Testing3', '1980-04-18 00:00:00.000', 'three');
+		$expected = array(3, 'Testing3', '1980-04-18 00:00:00', 'three');
 
 		$this->assertThat($result, $this->equalTo($expected), __LINE__);
 	}
 
 	/**
-	 * Tests the loadRowList method
+	 * Test loadRowList method
 	 *
 	 * @return  void
 	 *
@@ -463,29 +545,29 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 		self::$driver->setQuery($query);
 		$result = self::$driver->loadRowList();
 
-		$expected = array(array(1, 'Testing', '1980-04-18 00:00:00.000', 'one'), array(2, 'Testing2', '1980-04-18 00:00:00.000', 'one'));
+		$expected = array(array(1, 'Testing', '1980-04-18 00:00:00', 'one'), array(2, 'Testing2', '1980-04-18 00:00:00', 'one'));
 
 		$this->assertThat($result, $this->equalTo($expected), __LINE__);
 	}
 
 	/**
-	 * Tests the execute method
+	 * Tests the lockTable method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testExecute()
+	public function testLockTable()
 	{
-		self::$driver->setQuery(
-			"INSERT INTO [jos_dbtest] ([title],[start_date],[description]) VALUES ('testTitle','2013-04-01 00:00:00.000','description')"
+		$this->assertThat(
+			self::$driver->lockTable('#__dbtest'),
+			$this->isInstanceOf('\\Joomla\\Database\\Sqlite\\SqliteDriver'),
+			'Method returns the current instance of the driver object.'
 		);
-
-		$this->assertNotEquals(self::$driver->execute(), false, __LINE__);
 	}
 
 	/**
-	 * Tests the renameTable method
+	 * Tests the renameTable method.
 	 *
 	 * @return  void
 	 *
@@ -506,60 +588,143 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	}
 
 	/**
-	 * Tests the select method
+	 * Test select method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testSelect().
 	 */
 	public function testSelect()
 	{
-		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 
 	/**
-	 * Tests the setUTF method
+	 * Test setUTF method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testSetUTF().
 	 */
 	public function testSetUTF()
 	{
-		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 
 	/**
-	 * Tests the isSupported method
+	 * Tests the transactionCommit method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testIsSupported()
+	public function testTransactionCommit()
+	{
+		self::$driver->transactionStart();
+		$queryIns = self::$driver->getQuery(true);
+		$queryIns->insert('#__dbtest')
+			->columns('id, title, start_date, description')
+			->values("6, 'testTitle', '1970-01-01', 'testDescription'");
+
+		self::$driver->setQuery($queryIns)->execute();
+
+		self::$driver->transactionCommit();
+
+		/* check if value is present */
+		$queryCheck = self::$driver->getQuery(true);
+		$queryCheck->select('*')
+			->from('#__dbtest')
+			->where('id = 6');
+		self::$driver->setQuery($queryCheck);
+		$result = self::$driver->loadRow();
+
+		$expected = array('6', 'testTitle', '1970-01-01', 'testDescription');
+
+		$this->assertThat($result, $this->equalTo($expected), __LINE__);
+	}
+
+	/**
+	 * Tests the transactionRollback method, with and without savepoint.
+	 *
+	 * @param   string  $toSavepoint  Savepoint name to rollback transaction to
+	 * @param   int     $tupleCount   Number of tuple found after insertion and rollback
+	 *
+	 * @return  void
+	 *
+	 * @since        1.0
+	 * @dataProvider dataTestTransactionRollback
+	 */
+	public function testTransactionRollback($toSavepoint, $tupleCount)
+	{
+		self::$driver->transactionStart();
+
+		/* try to insert this tuple, inserted only when savepoint != null */
+		$queryIns = self::$driver->getQuery(true);
+		$queryIns->insert('#__dbtest')
+			->columns('id, title, start_date, description')
+			->values("7, 'testRollback', '1970-01-01', 'testRollbackSp'");
+		self::$driver->setQuery($queryIns)->execute();
+
+		/* create savepoint only if is passed by data provider */
+		if (!is_null($toSavepoint))
+		{
+			self::$driver->transactionStart((boolean) $toSavepoint);
+		}
+
+		/* try to insert this tuple, always rolled back */
+		$queryIns = self::$driver->getQuery(true);
+		$queryIns->insert('#__dbtest')
+			->columns('id, title, start_date, description')
+			->values("8, 'testRollback', '1972-01-01', 'testRollbackSp'");
+		self::$driver->setQuery($queryIns)->execute();
+
+		self::$driver->transactionRollback((boolean) $toSavepoint);
+
+		/* release savepoint and commit only if a savepoint exists */
+		if (!is_null($toSavepoint))
+		{
+			self::$driver->transactionCommit();
+		}
+
+		/* find how many rows have description='testRollbackSp' :
+		 *   - 0 if a savepoint doesn't exist
+		 *   - 1 if a savepoint exists
+		 */
+		$queryCheck = self::$driver->getQuery(true);
+		$queryCheck->select('*')
+			->from('#__dbtest')
+			->where("description = 'testRollbackSp'");
+		self::$driver->setQuery($queryCheck);
+		$result = self::$driver->loadRowList();
+
+		$this->assertThat(count($result), $this->equalTo($tupleCount), __LINE__);
+	}
+
+	/**
+	 * Tests the unlockTables method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testUnlockTables()
 	{
 		$this->assertThat(
-			\Joomla\Database\Sqlsrv\SqlsrvDriver::isSupported(),
-			$this->isTrue(),
-			__LINE__
+			self::$driver->unlockTables(),
+			$this->isInstanceOf('\\Joomla\\Database\\Sqlite\\SqliteDriver'),
+			'Method returns the current instance of the driver object.'
 		);
 	}
 
 	/**
-	 * Tests the updateObject method
+	 * Test updateObject method.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testUpdateObject().
 	 */
 	public function testUpdateObject()
 	{
-		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 }
