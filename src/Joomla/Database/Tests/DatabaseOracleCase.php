@@ -31,7 +31,7 @@ abstract class DatabaseOracleCase extends DatabaseCase
 	 * @var    \Joomla\Database\Oracle\OracleDriver  The saved database driver to be restored after these tests.
 	 * @since  1.0
 	 */
-	private static $_stash;
+	private static $stash;
 
 	/**
 	 * This method is called before the first test of this test class is run.
