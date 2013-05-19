@@ -73,6 +73,12 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	protected $exiting = false;
 
 	/**
+	 * @var    AbstractDaemonApplication  The application instance.
+	 * @since  1.0
+	 */
+	private static $instance;
+
+	/**
 	 * @var    integer  The parent process id.
 	 * @since  1.0
 	 */
@@ -141,6 +147,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 			ini_set('memory_limit', $this->config->get('max_memory_limit', '256M'));
 		}
 
+		// Register the application to the static container to be available in static methods
+		static::$instance = $this;
+
 		// Flush content immediately.
 		ob_implicit_flush();
 	}
@@ -158,10 +167,12 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 */
 	public static function signal($signal)
 	{
+		$app = static::$instance;
+
 		// Retrieve the logger if set
 		try
 		{
-			$logger = static::$instance->getLogger();
+			$logger = $app->getLogger();
 		}
 		catch (\UnexpectedValueException $e)
 		{
@@ -175,7 +186,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		}
 
 		// Let's make sure we have an application instance.
-		if (!is_subclass_of(static::$instance, __CLASS__))
+		if (!is_subclass_of($app, __CLASS__))
 		{
 			if ($logger)
 			{
@@ -186,44 +197,44 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		}
 
 		// Fire the onReceiveSignal event.
-		static::$instance->triggerEvent('onReceiveSignal', array($signal));
+		$app->triggerEvent('onReceiveSignal', array($signal));
 
 		switch ($signal)
 		{
 			case SIGINT:
 			case SIGTERM:
 				// Handle shutdown tasks
-				if (static::$instance->running && static::$instance->isActive())
+				if ($app->running && $app->isActive())
 				{
-					static::$instance->shutdown();
+					$app->shutdown();
 				}
 				else
 				{
-					static::$instance->close();
+					$app->close();
 				}
 				break;
 			case SIGHUP:
 				// Handle restart tasks
-				if (static::$instance->running && static::$instance->isActive())
+				if ($app->running && $app->isActive())
 				{
-					static::$instance->shutdown(true);
+					$app->shutdown(true);
 				}
 				else
 				{
-					static::$instance->close();
+					$app->close();
 				}
 				break;
 			case SIGCHLD:
 				// A child process has died
-				while (static::$instance->pcntlWait($signal, WNOHANG || WUNTRACED) > 0)
+				while ($app->pcntlWait($signal, WNOHANG || WUNTRACED) > 0)
 				{
 					usleep(1000);
 				}
 				break;
 			case SIGCLD:
-				while (static::$instance->pcntlWait($signal, WNOHANG) > 0)
+				while ($app->pcntlWait($signal, WNOHANG) > 0)
 				{
-					$signal = static::$instance->pcntlChildExitStatus($signal);
+					$signal = $app->pcntlChildExitStatus($signal);
 				}
 				break;
 			default:
