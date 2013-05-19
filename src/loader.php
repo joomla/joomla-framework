@@ -14,7 +14,7 @@
  * @since    11.1
  */
 abstract class JLoader
-{	
+{
 	/**
 	 * Container for already imported library paths.
 	 *
@@ -117,6 +117,7 @@ abstract class JLoader
 					$success = true;
 				}
 			}
+
 			/*
 			 * If we are not importing a library from the Joomla namespace directly include the
 			* file since we cannot assert the file/folder naming conventions.
@@ -273,8 +274,8 @@ abstract class JLoader
 	 * This will allow people to register a class in a specific location and override platform libraries
 	 * as was previously possible.
 	 *
-	 * @param   boolean  $enableClasses     True to enable class map based class loading (needed to auto load the Joomla core).
-	 * @param   boolean  $enablePrefixes    True to enable prefix based class loading (needed to auto load the Joomla core).
+	 * @param   boolean  $enableClasses   True to enable class map based class loading (needed to auto load the Joomla core).
+	 * @param   boolean  $enablePrefixes  True to enable prefix based class loading (needed to auto load the Joomla core).
 	 *
 	 * @return  void
 	 *
@@ -342,7 +343,7 @@ abstract class JLoader
 				// Loop through paths registered to this namespace until we find a match.
 				foreach ($paths as $path)
 				{
-					$classFilePath = $path . DIRECTORY_SEPARATOR . $classPath; 
+					$classFilePath = $path . DIRECTORY_SEPARATOR . $classPath;
 
 					if (file_exists($classFilePath) && !class_exists($class, false))
 					{

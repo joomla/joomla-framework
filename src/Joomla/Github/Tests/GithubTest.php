@@ -119,7 +119,7 @@ class GithubTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since              1.0
-	 * @expectedException  InvalidArgumentException
+	 * @expectedException  \InvalidArgumentException
 	 */
 	public function test__GetFailure()
 	{

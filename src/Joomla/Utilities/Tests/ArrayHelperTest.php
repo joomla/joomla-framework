@@ -1648,6 +1648,14 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($expect, $output, $message);
 	}
 
+	/**
+	 * Tests the arraySearch method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Utilities\ArrayHelper::arraySearch
+	 * @since   1.0
+	 */
 	public function testArraySearch()
 	{
 		$array = array(

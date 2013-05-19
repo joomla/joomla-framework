@@ -1011,7 +1011,6 @@ class UserTest extends FacebookTestCase
 		->will($this->returnValue($returnData));
 
 		$this->object->createAlbum('me', $name, $description, $privacy);
-
 	}
 
 	/**

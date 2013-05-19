@@ -17,13 +17,20 @@ use Joomla\Application\Cli\ColorStyle;
 class ColorProcessorTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var ColorProcessor
+	 * Object under test
+	 *
+	 * @var    ColorProcessor
+	 * @since  1.0
 	 */
 	protected $object;
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -31,7 +38,12 @@ class ColorProcessorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Joomla\Application\Cli\ColorProcessor::addStyle
+	 * Tests the process method for adding a style
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Application\Cli\ColorProcessor::addStyle
+	 * @since   1.0
 	 */
 	public function testAddStyle()
 	{
@@ -45,7 +57,12 @@ class ColorProcessorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Joomla\Application\Cli\ColorProcessor::stripColors
+	 * Tests the stripColors method
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Application\Cli\ColorProcessor::stripColors
+	 * @since   1.0
 	 */
 	public function testStripColors()
 	{
@@ -56,7 +73,12 @@ class ColorProcessorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Joomla\Application\Cli\ColorProcessor::process
+	 * Tests the process method for replacing colors
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Application\Cli\ColorProcessor::process
+	 * @since   1.0
 	 */
 	public function testProcess()
 	{
@@ -67,7 +89,12 @@ class ColorProcessorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Joomla\Application\Cli\ColorProcessor::process
+	 * Tests the process method for replacing colors
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Application\Cli\ColorProcessor::process
+	 * @since   1.0
 	 */
 	public function testProcessNamed()
 	{
@@ -81,7 +108,12 @@ class ColorProcessorTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers Joomla\Application\Cli\ColorProcessor::replaceColors
+	 * Tests the process method for replacing colors
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Application\Cli\ColorProcessor::replaceColors
+	 * @since   1.0
 	 */
 	public function testProcessReplace()
 	{

@@ -485,6 +485,7 @@ class Patcher
 
 				return;
 			}
+
 			$line = next($lines);
 		}
 		while ($line !== false);
@@ -514,6 +515,7 @@ class Patcher
 				$this->sources[$src] = null;
 			}
 		}
+
 		return $this->sources[$src];
 	}
 

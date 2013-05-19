@@ -49,7 +49,6 @@ class OAuthTest extends LinkedinTestCase
 	 */
 	public function testVerifyCredentials($code, $body, $expected)
 	{
-
 		// Set request parameters.
 		$data['format'] = 'json';
 

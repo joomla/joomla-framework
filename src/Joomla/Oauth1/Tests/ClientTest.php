@@ -169,6 +169,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			{
 				$this->object->setOption('callback', 'TEST_URL');
 			}
+
 			$this->object->authenticate();
 
 			$token = $this->object->getToken();
@@ -188,6 +189,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 				TestHelper::setValue($this->object, 'version', $version);
 				$data = array('oauth_token' => 'token');
 			}
+
 			TestHelper::setValue($input, 'data', $data);
 
 			// Get mock session
@@ -308,7 +310,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 				$this->object->oauthRequest('www.example.com', $method, array('oauth_token' => '1235'), $data, array('Content-Type' => 'multipart/form-data')),
 				$this->equalTo($returnData)
 				);
-
 		}
 		else
 		{

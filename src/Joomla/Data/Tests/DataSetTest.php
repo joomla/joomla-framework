@@ -23,7 +23,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * An instance of the object to test.
 	 *
-	 * @var    Joomla\Data\DataSet
+	 * @var    \Joomla\Data\DataSet
 	 * @since  1.0
 	 */
 	private $instance;
@@ -54,7 +54,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers             Joomla\Data\DataSet::__construct
-	 * @expectedException  InvalidArgumentException
+	 * @expectedException  \InvalidArgumentException
 	 * @since           1.0
 	 */
 	public function test__construct_array()
@@ -68,7 +68,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers             Joomla\Data\DataSet::__construct
-	 * @expectedException  PHPUnit_Framework_Error
+	 * @expectedException  \PHPUnit_Framework_Error
 	 * @since           1.0
 	 */
 	public function test__construct_scalar()

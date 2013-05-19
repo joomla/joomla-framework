@@ -125,5 +125,4 @@ class Status extends Object
 	{
 		return $this->deleteConnection($status, 'likes');
 	}
-
 }

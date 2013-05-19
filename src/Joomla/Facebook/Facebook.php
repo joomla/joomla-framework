@@ -132,98 +132,26 @@ class Facebook
 	 *
 	 * @param   string  $name  Name of property to retrieve
 	 *
-	 * @return  FacebookObject  Facebook API object (status, user, friends etc).
+	 * @return  Object  Facebook API object (status, user, friends etc).
 	 *
 	 * @since   1.0
+	 * @throws  \InvalidArgumentException If $name is not a valid sub class.
 	 */
 	public function __get($name)
 	{
-		switch ($name)
+		$class = '\\Joomla\\Facebook\\' . ucfirst($name);
+
+		if (class_exists($class))
 		{
-			case 'user':
-				if ($this->user == null)
-				{
-					$this->user = new User($this->options, $this->client, $this->oauth);
-				}
-				return $this->user;
+			if (false == isset($this->$name))
+			{
+				$this->$name = new $class($this->options, $this->client, $this->oauth);
+			}
 
-			case 'status':
-				if ($this->status == null)
-				{
-					$this->status = new Status($this->options, $this->client, $this->oauth);
-				}
-				return $this->status;
-
-			case 'checkin':
-				if ($this->checkin == null)
-				{
-					$this->checkin = new Checkin($this->options, $this->client, $this->oauth);
-				}
-				return $this->checkin;
-
-			case 'event':
-				if ($this->event == null)
-				{
-					$this->event = new Event($this->options, $this->client, $this->oauth);
-				}
-				return $this->event;
-
-			case 'group':
-				if ($this->group == null)
-				{
-					$this->group = new Group($this->options, $this->client, $this->oauth);
-				}
-				return $this->group;
-
-			case 'link':
-				if ($this->link == null)
-				{
-					$this->link = new Link($this->options, $this->client, $this->oauth);
-				}
-				return $this->link;
-
-			case 'note':
-				if ($this->note == null)
-				{
-					$this->note = new Note($this->options, $this->client, $this->oauth);
-				}
-				return $this->note;
-
-			case 'post':
-				if ($this->post == null)
-				{
-					$this->post = new Post($this->options, $this->client, $this->oauth);
-				}
-				return $this->post;
-
-			case 'comment':
-				if ($this->comment == null)
-				{
-					$this->comment = new Comment($this->options, $this->client, $this->oauth);
-				}
-				return $this->comment;
-
-			case 'photo':
-				if ($this->photo == null)
-				{
-					$this->photo = new Photo($this->options, $this->client, $this->oauth);
-				}
-				return $this->photo;
-
-			case 'video':
-				if ($this->video == null)
-				{
-					$this->video = new Video($this->options, $this->client, $this->oauth);
-				}
-				return $this->video;
-
-			case 'album':
-				if ($this->album == null)
-				{
-					$this->album = new Album($this->options, $this->client, $this->oauth);
-				}
-				return $this->album;
+			return $this->$name;
 		}
+
+		throw new \InvalidArgumentException(sprintf('Argument %s produced an invalid class name: %s', $name, $class));
 	}
 
 	/**
