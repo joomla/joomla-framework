@@ -219,14 +219,12 @@ class FacebookTest extends FacebookTestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  \InvalidArgumentException
 	 */
 	public function test__GetOther()
 	{
-		$this->assertThat(
-			$this->object->other,
-			$this->isNull()
-		);
+		$tmp = $this->object->other;
 	}
 
 	/**

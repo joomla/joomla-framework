@@ -19,7 +19,20 @@ use Joomla\Archive\Bzip2 as ArchiveBzip2;
  */
 class ArchiveTest extends \PHPUnit_Framework_TestCase
 {
+	/**
+	 * Object under test
+	 *
+	 * @var    Archive
+	 * @since  1.0
+	 */
 	protected $fixture;
+
+	/**
+	 * Output directory
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $outputPath;
 
 	/**
@@ -27,7 +40,9 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * This method is called before a test is executed.
 	 *
-	 * @return mixed
+	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -49,6 +64,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Archive\Archive::extract
+	 * @since   1.0
 	 */
 	public function testExtractZip()
 	{
@@ -81,6 +97,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Archive\Archive::extract
+	 * @since   1.0
 	 */
 	public function testExtractTar()
 	{
@@ -113,6 +130,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Archive\Archive::extract
+	 * @since   1.0
 	 */
 	public function testExtractGzip()
 	{
@@ -152,6 +170,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers  Joomla\Archive\Archive::extract
+	 * @since   1.0
 	 */
 	public function testExtractBzip2()
 	{
@@ -191,6 +210,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 * @return  mixed
 	 *
 	 * @covers  Joomla\Archive\Archive::getAdapter
+	 * @since   1.0
 	 */
 	public function testGetAdapter()
 	{
@@ -210,10 +230,11 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	 * @return  mixed
 	 *
 	 * @covers             Joomla\Archive\Archive::getAdapter
-	 * @expectedException  UnexpectedValueException
+	 * @expectedException  \UnexpectedValueException
+	 * @since              1.0
 	 */
 	public function testGetAdapterException()
 	{
-		$zip = $this->fixture->getAdapter('unknown');
+		$this->fixture->getAdapter('unknown');
 	}
 }

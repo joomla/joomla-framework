@@ -274,6 +274,7 @@ abstract class Factory
 			{
 				header('HTTP/1.1 500 Internal Server Error');
 			}
+
 			exit('Database Error: ' . $e->getMessage());
 		}
 

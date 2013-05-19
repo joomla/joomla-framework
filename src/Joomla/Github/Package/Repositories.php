@@ -184,15 +184,16 @@ class Repositories extends Package
 	 * @param   string   $description         The repository description.
 	 * @param   string   $homepage            The repository homepage.
 	 * @param   boolean  $private             Set true to create a private repository, false to create a public one.
-	 *                                          Creating private repositories requires a paid GitHub account.
+	 *                                        Creating private repositories requires a paid GitHub account.
 	 * @param   boolean  $has_issues          Set true to enable issues for this repository, false to disable them.
 	 * @param   boolean  $has_wiki            Set true to enable the wiki for this repository, false to disable it.
 	 * @param   boolean  $has_downloads       Set true to enable downloads for this repository, false to disable them.
 	 * @param   integer  $team_id             The id of the team that will be granted access to this repository.
-	 *                                          This is only valid when creating a repo in an organization.
+	 *                                        This is only valid when creating a repo in an organization.
 	 * @param   boolean  $auto_init           true to create an initial commit with empty README.
 	 * @param   string   $gitignore_template  Desired language or platform .gitignore template to apply.
-	 *                                          Use the name of the template without the extension. For example, “Haskell” Ignored if auto_init parameter is not provided.
+	 *                                        Use the name of the template without the extension.
+	 *                                        For example, “Haskell” Ignored if auto_init parameter is not provided.
 	 *
 	 * @return object
 	 */

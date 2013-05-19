@@ -125,6 +125,7 @@ class IteratorSqlsrvTest extends DatabaseSqlsrvCase
 		{
 			$this->setExpectedException($exception);
 		}
+
 		self::$driver->setQuery(self::$driver->getQuery(true)->select($select)->from($from), $offset, $limit);
 		$iterator = self::$driver->getIterator($column, $class);
 

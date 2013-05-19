@@ -117,7 +117,6 @@ abstract class String
 		return $string;
 	}
 
-
 	/**
 	 * Tests whether a string contains only 7bit ASCII bytes.
 	 * You might use this to conditionally check whether a string
@@ -144,8 +143,8 @@ abstract class String
 	 */
 	public static function is_ascii($str)
 	{
-	    // Search for any bytes which are outside the ASCII range...
-	    return (preg_match('/(?:[^\x00-\x7F])/', $str) !== 1);
+		// Search for any bytes which are outside the ASCII range...
+		return (preg_match('/(?:[^\x00-\x7F])/', $str) !== 1);
 	}
 
 	/**

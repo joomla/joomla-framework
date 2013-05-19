@@ -116,8 +116,8 @@ class Field_Checkboxes extends Field
 			}
 
 			// Create a new option object based on the <option /> element.
-			$tmp = HtmlSelect::option((string) $option['value'], trim((string) $option), 'value', 'text',
-				((string) $option['disabled'] == 'true')
+			$tmp = HtmlSelect::option(
+				(string) $option['value'], trim((string) $option), 'value', 'text', ((string) $option['disabled'] == 'true')
 			);
 
 			// Set some option attributes.

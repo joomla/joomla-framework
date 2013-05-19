@@ -150,6 +150,8 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 * @param   string  $property  The name of the property.
 	 * @param   mixed   $value     The value to give the data property.
 	 *
+	 * @return  void
+	 *
 	 * @since   1.0
 	 */
 	public function __set($property, $value)

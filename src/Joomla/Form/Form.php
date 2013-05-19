@@ -868,8 +868,8 @@ class Form
 	 * will not be replaced if it already exists.
 	 *
 	 * @param   \SimpleXMLElement  $element  The XML element object representation of the form field.
-	 * @param   string            $group    The optional dot-separated form group path on which to set the field.
-	 * @param   boolean           $replace  True to replace an existing field if one already exists.
+	 * @param   string             $group    The optional dot-separated form group path on which to set the field.
+	 * @param   boolean            $replace  True to replace an existing field if one already exists.
 	 *
 	 * @return  boolean  True on success.
 	 *

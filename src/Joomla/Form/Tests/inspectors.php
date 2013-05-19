@@ -16,49 +16,57 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   \SimpleXMLElement  $source  @todo
-	 * @param   \SimpleXMLElement  $new     @todo
+	 * @param   \SimpleXMLElement  $source  The source element on which to append.
+	 * @param   \SimpleXMLElement  $new     The new element to append.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public static function addNode(\SimpleXMLElement $source, \SimpleXMLElement $new)
 	{
-		return parent::addNode($source, $new);
+		parent::addNode($source, $new);
 	}
 
 	/**
 	 * Test...
 	 *
-	 * @param   \SimpleXMLElement  $source  @todo
-	 * @param   \SimpleXMLElement  $new     @todo
+	 * @param   \SimpleXMLElement  $source  The source element on which to append the attributes
+	 * @param   \SimpleXMLElement  $new     The new element to append
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public static function mergeNode(\SimpleXMLElement $source, \SimpleXMLElement $new)
 	{
-		return parent::mergeNode($source, $new);
+		parent::mergeNode($source, $new);
 	}
 
 	/**
 	 * Test...
 	 *
-	 * @param   \SimpleXMLElement  $source  @todo
-	 * @param   \SimpleXMLElement  $new     @todo
+	 * @param   \SimpleXMLElement  $source  The source element.
+	 * @param   \SimpleXMLElement  $new     The new element to merge.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public static function mergeNodes(\SimpleXMLElement $source, \SimpleXMLElement $new)
 	{
-		return parent::mergeNodes($source, $new);
+		parent::mergeNodes($source, $new);
 	}
 
 	/**
 	 * Test...
 	 *
-	 * @param   string  $element  @todo
-	 * @param   mixed   $value    @todo
+	 * @param   string  $element  The XML element object representation of the form field.
+	 * @param   mixed   $value    The value to filter for the field.
 	 *
-	 * @return void
+	 * @return  mixed   The filtered value.
+	 *
+	 * @since   1.0
 	 */
 	public function filterField($element, $value)
 	{
@@ -68,10 +76,12 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   string  $name   @todo
-	 * @param   null    $group  @todo
+	 * @param   string  $name   The name of the form field.
+	 * @param   string  $group  The optional dot-separated form group path on which to find the field.
 	 *
-	 * @return void
+	 * @return  mixed  The XML element object for the field or boolean false on error.
+	 *
+	 * @since   1.0
 	 */
 	public function findField($name, $group = null)
 	{
@@ -81,9 +91,11 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   string  $group  @todo
+	 * @param   string  $group  The dot-separated form group path on which to find the group.
 	 *
-	 * @return void
+	 * @return  mixed  An array of XML element objects for the group or boolean false on error.
+	 *
+	 * @since   1.0
 	 */
 	public function findGroup($group)
 	{
@@ -93,10 +105,14 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   null  $group   @todo
-	 * @param   bool  $nested  @todo
+	 * @param   mixed    $group   The optional dot-separated form group path on which to find the fields.
+	 *                            Null will return all fields. False will return fields not in a group.
+	 * @param   boolean  $nested  True to also include fields in nested groups that are inside of the
+	 *                            group for which to find fields.
 	 *
-	 * @return void
+	 * @return  mixed  Boolean false on error or array of SimpleXMLElement objects.
+	 *
+	 * @since   1.0
 	 */
 	public function findFieldsByGroup($group = null, $nested = false)
 	{
@@ -106,9 +122,11 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   string  $name  @todo
+	 * @param   string  $name  The name of the fieldset.
 	 *
-	 * @return void
+	 * @return  mixed  Boolean false on error or array of SimpleXMLElement objects.
+	 *
+	 * @since   1.0
 	 */
 	public function findFieldsByFieldset($name)
 	{
@@ -118,7 +136,9 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @return void
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getData()
 	{
@@ -128,7 +148,9 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @return  array    Return the protected options array.
+	 * @return  array  Return the protected options array.
+	 *
+	 * @since   1.0
 	 */
 	public function getOptions()
 	{
@@ -138,7 +160,9 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getXML()
 	{
@@ -148,11 +172,13 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   string  $element  @todo
-	 * @param   null    $group    @todo
-	 * @param   null    $value    @todo
+	 * @param   string  $element  The XML element object representation of the form field.
+	 * @param   string  $group    The optional dot-separated form group path on which to find the field.
+	 * @param   mixed   $value    The optional value to use as the default for the field.
 	 *
-	 * @return JFormField
+	 * @return  \Joomla\Form\Field
+	 *
+	 * @since   1.0
 	 */
 	public function loadField($element, $group = null, $value = null)
 	{
@@ -162,10 +188,12 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   string  $type  @todo
-	 * @param   bool    $new   @todo
+	 * @param   string   $type  The field type.
+	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
 	 *
-	 * @return JFormField
+	 * @return  \Joomla\Form\Field
+	 *
+	 * @since   1.0
 	 */
 	public function loadFieldType($type, $new = true)
 	{
@@ -175,10 +203,12 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   string  $type  @todo
-	 * @param   bool    $new   @todo
+	 * @param   string   $type  The rule type.
+	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
 	 *
-	 * @return JFormRule
+	 * @return  \Joomla\Form\Rule
+	 *
+	 * @since   1.0
 	 */
 	public function loadRuleType($type, $new = true)
 	{
@@ -188,12 +218,15 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   \SimpleXMLElement  $element  @todo
-	 * @param   null              $group    @todo
-	 * @param   null              $value    @todo
-	 * @param   null              $input    @todo
+	 * @param   \SimpleXMLElement          $element  The XML element object representation of the form field.
+	 * @param   string                     $group    The optional dot-separated form group path on which to find the field.
+	 * @param   mixed                      $value    The optional value to use as the default for the field.
+	 * @param   \Joomla\Registry\Registry  $input    An optional Registry object with the entire data set to validate
+	 *                                               against the entire form.
 	 *
-	 * @return boolean
+	 * @return  boolean
+	 *
+	 * @since   1.0
 	 */
 	public function validateField($element, $group = null, $value = null, $input = null)
 	{
@@ -213,7 +246,9 @@ class JFormFieldInspector extends \Joomla\Form\Field
 	 *
 	 * @param   string  $name  Element name
 	 *
-	 * @return mixed
+	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	public function __get($name)
 	{
@@ -230,7 +265,9 @@ class JFormFieldInspector extends \Joomla\Form\Field
 	/**
 	 * Test...
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function getInput()
 	{
@@ -240,7 +277,9 @@ class JFormFieldInspector extends \Joomla\Form\Field
 	/**
 	 * Test...
 	 *
-	 * @return JForm
+	 * @return  \Joomla\Form\Form
+	 *
+	 * @since   1.0
 	 */
 	public function getForm()
 	{
@@ -250,10 +289,12 @@ class JFormFieldInspector extends \Joomla\Form\Field
 	/**
 	 * Test...
 	 *
-	 * @param   string  $fieldId    Field id
-	 * @param   string  $fieldName  Field name
+	 * @param   string  $fieldId    The field element id.
+	 * @param   string  $fieldName  The field element name.
 	 *
-	 * @return string
+	 * @return  string  The id to be used for the field input tag.
+	 *
+	 * @since   1.0
 	 */
 	public function getId($fieldId, $fieldName)
 	{
@@ -263,7 +304,9 @@ class JFormFieldInspector extends \Joomla\Form\Field
 	/**
 	 * Test...
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getLabel()
 	{
@@ -273,7 +316,9 @@ class JFormFieldInspector extends \Joomla\Form\Field
 	/**
 	 * Test...
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getTitle()
 	{

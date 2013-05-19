@@ -144,9 +144,9 @@ abstract class Cache implements CacheInterface
 	/**
 	 * Store the cached data by id.
 	 *
-	 * @param   string   $key  The cache data id
-	 * @param   mixed    $data     The data to store
-	 * @param   integer  $ttl      The number of seconds before the stored data expires.
+	 * @param   string   $key   The cache data id
+	 * @param   mixed    $data  The data to store
+	 * @param   integer  $ttl   The number of seconds before the stored data expires.
 	 *
 	 * @return  boolean
 	 *

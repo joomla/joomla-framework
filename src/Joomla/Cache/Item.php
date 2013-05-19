@@ -44,9 +44,9 @@ class Item implements CacheItemInterface
 	/**
 	 * Class constructor.
 	 *
-	 * @param  string  $key  The key for the cache item.
+	 * @param   string  $key  The key for the cache item.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct($key)
 	{
@@ -84,7 +84,9 @@ class Item implements CacheItemInterface
 	 *
 	 * If the value is set, we are assuming that there was a valid hit on the cache for the given key.
 	 *
-	 * @param  mixed  $value  The value for the cache item.
+	 * @param   mixed  $value  The value for the cache item.
+	 *
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */

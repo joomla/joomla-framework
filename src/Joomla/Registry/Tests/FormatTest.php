@@ -16,7 +16,9 @@ class AbstractRegistryFormatTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Data provider for testGetInstance
 	 *
-	 * @return  void
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public function seedTestGetInstance()
 	{
@@ -32,11 +34,12 @@ class AbstractRegistryFormatTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test the AbstractRegistryFormat::getInstance method.
 	 *
-	 * @dataProvider  seedTestGetInstance
+	 * @param   string  $format  The format to load
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @dataProvider  seedTestGetInstance
+	 * @since         1.0
 	 */
 	public function testGetInstance($format)
 	{
@@ -52,7 +55,10 @@ class AbstractRegistryFormatTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test getInstance with a non-existent format.
 	 *
+	 * @return  void
+	 *
 	 * @expectedException  \InvalidArgumentException
+	 * @since              1.0
 	 */
 	public function testGetInstanceNonExistent()
 	{
