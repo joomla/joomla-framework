@@ -413,7 +413,6 @@ class DriverMysqlTest extends DatabaseMysqlCase
 		$result = self::$driver->loadResult();
 
 		$this->assertThat($result, $this->equalTo(2), __LINE__);
-
 	}
 
 	/**
@@ -472,7 +471,6 @@ class DriverMysqlTest extends DatabaseMysqlCase
 		$this->assertThat(self::$driver->execute(), $this->isTrue(), __LINE__);
 
 		$this->assertThat(self::$driver->insertid(), $this->equalTo(5), __LINE__);
-
 	}
 
 	/**

@@ -104,9 +104,9 @@ class Zip implements ExtractableInterface
 	/**
 	 * Create a new Archive object.
 	 *
-	 * @param  mixed  $options  An array of options or an object that implements \ArrayAccess
+	 * @param   mixed  $options  An array of options or an object that implements \ArrayAccess
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct($options = array())
 	{

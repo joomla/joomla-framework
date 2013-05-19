@@ -127,6 +127,7 @@ class People extends Object
 		{
 			$data['start'] = $start;
 		}
+
 		// Check if count is specified.
 		if ($count != 500)
 		{
@@ -299,26 +300,32 @@ class People extends Object
 					{
 						$data['facet'][] = 'location,' . $facet[$i];
 					}
+
 					if ($i == 1)
 					{
 						$data['facet'][] = 'industry,' . $facet[$i];
 					}
+
 					if ($i == 2)
 					{
 						$data['facet'][] = 'network,' . $facet[$i];
 					}
+
 					if ($i == 3)
 					{
 						$data['facet'][] = 'language,' . $facet[$i];
 					}
+
 					if ($i == 4)
 					{
 						$data['facet'][] = 'current-company,' . $facet[$i];
 					}
+
 					if ($i == 5)
 					{
 						$data['facet'][] = 'past-company,' . $facet[$i];
 					}
+
 					if ($i == 6)
 					{
 						$data['facet'][] = 'school,' . $facet[$i];

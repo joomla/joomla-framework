@@ -22,7 +22,7 @@ class Yaml extends AbstractRegistryFormat
 	/**
 	 * The YAML parser class.
 	 *
-	 * @var    Symfony\Component\Yaml\Parser;
+	 * @var    \Symfony\Component\Yaml\Parser;
 	 *
 	 * @since  1.0
 	 */
@@ -31,7 +31,7 @@ class Yaml extends AbstractRegistryFormat
 	/**
 	 * The YAML dumper class.
 	 *
-	 * @var    Symfony\Component\Yaml\Dumper;
+	 * @var    \Symfony\Component\Yaml\Dumper;
 	 *
 	 * @since  1.0
 	 */
@@ -39,8 +39,6 @@ class Yaml extends AbstractRegistryFormat
 
 	/**
 	 * Construct to set up the parser and dumper
-	 * 
-	 * @return  void
 	 *
 	 * @since   1.0
 	 */

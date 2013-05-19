@@ -477,7 +477,9 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 */
 	public function testExecute()
 	{
-		self::$driver->setQuery("INSERT INTO [jos_dbtest] ([title],[start_date],[description]) VALUES ('testTitle','2013-04-01 00:00:00.000','description')");
+		self::$driver->setQuery(
+			"INSERT INTO [jos_dbtest] ([title],[start_date],[description]) VALUES ('testTitle','2013-04-01 00:00:00.000','description')"
+		);
 
 		$this->assertNotEquals(self::$driver->execute(), false, __LINE__);
 	}

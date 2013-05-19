@@ -81,6 +81,7 @@ class Image implements LoggerAwareInterface
 		{
 			// @codeCoverageIgnoreStart
 			throw new \RuntimeException('The GD extension for PHP is not available.');
+
 			// @codeCoverageIgnoreEnd
 		}
 
@@ -542,6 +543,7 @@ class Image implements LoggerAwareInterface
 					{
 						$this->logger->error('Attempting to load an image of unsupported type GIF.');
 					}
+
 					throw new \RuntimeException('Attempting to load an image of unsupported type GIF.');
 
 					// @codeCoverageIgnoreEnd
@@ -570,6 +572,7 @@ class Image implements LoggerAwareInterface
 					{
 						$this->logger->error('Attempting to load an image of unsupported type JPG.');
 					}
+
 					throw new \RuntimeException('Attempting to load an image of unsupported type JPG.');
 
 					// @codeCoverageIgnoreEnd
@@ -598,6 +601,7 @@ class Image implements LoggerAwareInterface
 					{
 						$this->logger->error('Attempting to load an image of unsupported type PNG.');
 					}
+
 					throw new \RuntimeException('Attempting to load an image of unsupported type PNG.');
 
 					// @codeCoverageIgnoreEnd
@@ -622,8 +626,8 @@ class Image implements LoggerAwareInterface
 				{
 					$this->logger->error('Attempting to load an image of unsupported type ' . $properties->mime);
 				}
+
 				throw new \InvalidArgumentException('Attempting to load an image of unsupported type ' . $properties->mime);
-				break;
 		}
 
 		// Set the filesystem path to the source image.
@@ -827,6 +831,7 @@ class Image implements LoggerAwareInterface
 			{
 				$this->logger->error('The ' . ucfirst($type) . ' image filter is not available.');
 			}
+
 			throw new \RuntimeException('The ' . ucfirst($type) . ' image filter is not available.');
 		}
 
@@ -841,6 +846,7 @@ class Image implements LoggerAwareInterface
 			{
 				$this->logger->error('The ' . ucfirst($type) . ' image filter is not valid.');
 			}
+
 			throw new \RuntimeException('The ' . ucfirst($type) . ' image filter is not valid.');
 
 			// @codeCoverageIgnoreEnd

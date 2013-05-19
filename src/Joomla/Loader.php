@@ -14,4 +14,6 @@ namespace Joomla;
  *
  * @since  1.0
  */
-abstract class Loader extends \JLoader {}
+abstract class Loader extends \JLoader
+{
+}

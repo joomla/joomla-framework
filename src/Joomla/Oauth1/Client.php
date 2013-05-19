@@ -468,6 +468,7 @@ abstract class Client
 				$kv[] = "{$key}={$value}";
 			}
 		}
+
 		// Form the parameter string.
 		$params = implode('&', $kv);
 

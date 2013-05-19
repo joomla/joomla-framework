@@ -25,7 +25,7 @@ abstract class DatabaseOracleCase extends DatabaseCase
 	 * @var    array  The database driver options for the connection.
 	 * @since  1.0
 	 */
-	private static $_options = array('driver' => 'oracle');
+	private static $options = array('driver' => 'oracle');
 
 	/**
 	 * @var    \Joomla\Database\Oracle\OracleDriver  The saved database driver to be restored after these tests.
@@ -71,37 +71,37 @@ abstract class DatabaseOracleCase extends DatabaseCase
 			switch ($k)
 			{
 				case 'charset':
-					self::$_options['charset'] = $v;
+					self::$options['charset'] = $v;
 					break;
 				case 'dbname':
 					$components = parse_url($v);
-					self::$_options['host'] = $components['host'];
-					self::$_options['port'] = $components['port'];
-					self::$_options['database'] = ltrim($components['path'], '/');
+					self::$options['host'] = $components['host'];
+					self::$options['port'] = $components['port'];
+					self::$options['database'] = ltrim($components['path'], '/');
 					break;
 				case 'user':
-					self::$_options['user'] = $v;
+					self::$options['user'] = $v;
 					break;
 				case 'pass':
-					self::$_options['password'] = $v;
+					self::$options['password'] = $v;
 					break;
 				case 'dbschema':
-					self::$_options['schema'] = $v;
+					self::$options['schema'] = $v;
 					break;
 				case 'prefix':
-					self::$_options['prefix'] = $v;
+					self::$options['prefix'] = $v;
 					break;
 			}
 		}
 
 		// Ensure some defaults.
-		self::$_options['charset'] = isset(self::$_options['charset']) ? self::$_options['charset'] : 'AL32UTF8';
-		self::$_options['port'] = isset(self::$_options['port']) ? self::$_options['port'] : 1521;
+		self::$options['charset'] = isset(self::$options['charset']) ? self::$options['charset'] : 'AL32UTF8';
+		self::$options['port'] = isset(self::$options['port']) ? self::$options['port'] : 1521;
 
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = \Joomla\Database\DatabaseDriver::getInstance(self::$_options);
+			self::$driver = \Joomla\Database\DatabaseDriver::getInstance(self::$options);
 		}
 		catch (\RuntimeException $e)
 		{
@@ -115,7 +115,7 @@ abstract class DatabaseOracleCase extends DatabaseCase
 		}
 
 		// Setup the factory pointer for the driver and stash the old one.
-		self::$_stash = Factory::$database;
+		self::$stash = Factory::$database;
 		Factory::$database = self::$driver;
 	}
 
@@ -128,7 +128,7 @@ abstract class DatabaseOracleCase extends DatabaseCase
 	 */
 	public static function tearDownAfterClass()
 	{
-		Factory::$database = self::$_stash;
+		Factory::$database = self::$stash;
 		self::$driver = null;
 	}
 
@@ -142,12 +142,12 @@ abstract class DatabaseOracleCase extends DatabaseCase
 	protected function getConnection()
 	{
 		// Compile the connection DSN.
-		$dsn = 'oci:dbname=//' . self::$_options['host'] . ':' . self::$_options['port'] . '/' . self::$_options['database'];
-		$dsn .= ';charset=' . self::$_options['charset'];
+		$dsn = 'oci:dbname=//' . self::$options['host'] . ':' . self::$options['port'] . '/' . self::$options['database'];
+		$dsn .= ';charset=' . self::$options['charset'];
 
 		// Create the PDO object from the DSN and options.
-		$pdo = new \PDO($dsn, self::$_options['user'], self::$_options['password']);
+		$pdo = new \PDO($dsn, self::$options['user'], self::$options['password']);
 
-		return $this->createDefaultDBConnection($pdo, self::$_options['database']);
+		return $this->createDefaultDBConnection($pdo, self::$options['database']);
 	}
 }

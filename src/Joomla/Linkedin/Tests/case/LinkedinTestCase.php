@@ -15,7 +15,7 @@ use Joomla\Test\WebInspector;
 /**
  * Test case for Linkedin.
  *
- * since  1.0
+ * @since  1.0
  */
 class LinkedinTestCase extends \PHPUnit_Framework_TestCase
 {

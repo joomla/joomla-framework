@@ -45,7 +45,10 @@ class Tags extends Package
 	/**
 	 * Create a Tag Object
 	 *
-	 * Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then create the refs/tags/[tag] reference. If you want to create a lightweight tag, you simply have to create the reference - this call would be unnecessary.
+	 * Note that creating a tag object does not create the reference that makes a tag in Git.
+	 * If you want to create an annotated tag in Git, you have to do this call to create the tag object,
+	 * and then create the refs/tags/[tag] reference. If you want to create a lightweight tag,
+	 * you simply have to create the reference - this call would be unnecessary.
 	 *
 	 * @param   string  $owner         The name of the owner of the GitHub repository.
 	 * @param   string  $repo          The name of the GitHub repository.

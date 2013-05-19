@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Framework Form Package
  *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Form\Html;
@@ -14,7 +14,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Utility class for creating HTML select lists
  *
- * @since       1.0
+ * @since  1.0
  */
 abstract class Select
 {
@@ -112,6 +112,7 @@ abstract class Select
 			$options['option.text'] = $optText;
 			$options['list.select'] = $selected;
 		}
+
 		$attribs = '';
 
 		if (isset($options['list.attr']))
@@ -124,6 +125,7 @@ abstract class Select
 			{
 				$attribs = $options['list.attr'];
 			}
+
 			if ($attribs != '')
 			{
 				$attribs = ' ' . $attribs;
@@ -198,6 +200,7 @@ abstract class Select
 			{
 				$attribs = $options['list.attr'];
 			}
+
 			if ($attribs != '')
 			{
 				$attribs = ' ' . $attribs;
@@ -235,6 +238,7 @@ abstract class Select
 					$label = $group[$options['group.label']];
 					$noGroup = false;
 				}
+
 				if (isset($options['group.id']) && isset($group[$options['group.id']]))
 				{
 					$id = $group[$options['group.id']];
@@ -251,6 +255,7 @@ abstract class Select
 					$label = $group->$options['group.label'];
 					$noGroup = false;
 				}
+
 				if (isset($options['group.id']) && isset($group->$options['group.id']))
 				{
 					$id = $group->$options['group.id'];
@@ -316,6 +321,7 @@ abstract class Select
 			$options['list.attr'] = $attribs;
 			$options['list.select'] = $selected;
 		}
+
 		$start = (int) $start;
 		$end   = (int) $end;
 		$inc   = (int) $inc;
@@ -381,6 +387,7 @@ abstract class Select
 			$options['option.text'] = $optText;
 			$options['disable'] = $disable;
 		}
+
 		$obj = new \stdClass;
 		$obj->$options['option.key'] = $value;
 		$obj->$options['option.text'] = trim($text) ? $text : $value;
@@ -412,6 +419,7 @@ abstract class Select
 		{
 			$obj->$options['option.disable'] = $options['disable'];
 		}
+
 		return $obj;
 	}
 
@@ -499,14 +507,17 @@ abstract class Select
 				{
 					$attr = $element[$options['option.attr']];
 				}
+
 				if (isset($element[$options['option.id']]))
 				{
 					$id = $element[$options['option.id']];
 				}
+
 				if (isset($element[$options['option.label']]))
 				{
 					$label = $element[$options['option.label']];
 				}
+
 				if (isset($element[$options['option.disable']]) && $element[$options['option.disable']])
 				{
 					$extra .= ' disabled="disabled"';
@@ -521,14 +532,17 @@ abstract class Select
 				{
 					$attr = $element->$options['option.attr'];
 				}
+
 				if (isset($element->$options['option.id']))
 				{
 					$id = $element->$options['option.id'];
 				}
+
 				if (isset($element->$options['option.label']))
 				{
 					$label = $element->$options['option.label'];
 				}
+
 				if (isset($element->$options['option.disable']) && $element->$options['option.disable'])
 				{
 					$extra .= ' disabled="disabled"';
@@ -576,10 +590,12 @@ abstract class Select
 				{
 					$label = Text::_($label);
 				}
+
 				if ($options['option.label.toHtml'])
 				{
 					$label = htmlentities($label);
 				}
+
 				if (is_array($attr))
 				{
 					$attr = ArrayHelper::toString($attr);
@@ -588,6 +604,7 @@ abstract class Select
 				{
 					$attr = trim($attr);
 				}
+
 				$extra = ($id ? ' id="' . $id . '"' : '') . ($label ? ' label="' . $label . '"' : '') . ($attr ? ' ' . $attr : '') . $extra;
 
 				if (is_array($options['list.select']))
@@ -679,10 +696,12 @@ abstract class Select
 			{
 				$extra .= ((string) $k == (string) $selected ? ' checked="checked"' : '');
 			}
+
 			$html .= "\n\t" . '<input type="radio" name="' . $name . '"' . ' id="' . $id_text . $k . '" value="' . $k . '"' . ' ' . $extra . ' '
 				. $attribs . '/>' . "\n\t" . '<label for="' . $id_text . $k . '"' . ' id="' . $id_text . $k . '-lbl" class="radiobtn">' . $t
 				. '</label>';
 		}
+
 		$html .= "\n";
 
 		return $html;

@@ -37,9 +37,9 @@ class Archive
 	/**
 	 * Create a new Archive object.
 	 *
-	 * @param  mixed  $options  An array of options or an object that implements \ArrayAccess
+	 * @param   mixed  $options  An array of options or an object that implements \ArrayAccess
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct($options = array())
 	{
@@ -48,7 +48,6 @@ class Archive
 
 		$this->options = $options;
 	}
-
 
 	/**
 	 * Extract an archive file to a directory.
