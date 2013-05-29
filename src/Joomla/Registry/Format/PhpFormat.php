@@ -8,27 +8,27 @@
 
 namespace Joomla\Registry\Format;
 
-use Joomla\Registry\AbstractRegistryFormat;
+use Joomla\Registry\Format\FormatInterface;
 
 /**
  * PHP class format handler for Registry
  *
  * @since  1.0
  */
-class Php extends AbstractRegistryFormat
+class PhpFormat implements FormatInterface
 {
 	/**
 	 * Converts an object into a php class string.
 	 * - NOTE: Only one depth level is supported.
 	 *
-	 * @param   object  $object  Data Source Object
-	 * @param   array   $params  Parameters used by the formatter
+	 * @param   object  $object   Data Source Object
+	 * @param   array   $options  Parameters used by the formatter
 	 *
 	 * @return  string  Config class formatted string
 	 *
 	 * @since   1.0
 	 */
-	public function objectToString($object, $params = array())
+	public function objectToString($object, array $options = array())
 	{
 		// Build the object variables string
 		$vars = '';
@@ -45,12 +45,12 @@ class Php extends AbstractRegistryFormat
 			}
 		}
 
-		$str = "<?php\nclass " . $params['class'] . " {\n";
+		$str = "<?php\nclass " . $options['class'] . " {\n";
 		$str .= $vars;
 		$str .= "}";
 
 		// Use the closing tag if it not set to false in parameters.
-		if (!isset($params['closingtag']) || $params['closingtag'] !== false)
+		if (!isset($options['closingtag']) || $options['closingtag'] !== false)
 		{
 			$str .= "\n?>";
 		}
@@ -107,5 +107,17 @@ class Php extends AbstractRegistryFormat
 		$s .= ')';
 
 		return $s;
+	}
+
+	/**
+	 * Get the name of the format handled by this class.
+	 *
+	 * @return  string  The name
+	 *
+	 * @since   1.0
+	 */
+	public function getName()
+	{
+		return 'PHP';
 	}
 }

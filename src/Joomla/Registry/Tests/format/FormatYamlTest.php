@@ -4,7 +4,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\AbstractRegistryFormat;
+use Joomla\Registry\Format\YamlFormat;
+use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Dumper;
 
 /**
  * Test class for Yaml.
@@ -16,7 +18,7 @@ class FormatYamlTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Object being tested
 	 *
-	 * @var    Joomla\Registry\Format\Yaml
+	 * @var    Joomla\Registry\Format\YamlFormat
 	 * @since  1.0
 	 */
 	protected $fixture;
@@ -31,7 +33,7 @@ class FormatYamlTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$this->fixture = AbstractRegistryFormat::getInstance('Yaml');
+		$this->fixture = new YamlFormat(new Parser, new Dumper);
 	}
 
 	/**

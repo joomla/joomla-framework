@@ -2,8 +2,9 @@
 
 ```
 use Joomla\Registry\Registry;
+use Joomla\Registry\RegistryFactory;
 
-$registry = new Registry;
+$registry = RegistryFactory::getRegistry();
 
 // Set a value in the registry.
 $registry->set('foo') = 'bar';
@@ -19,8 +20,9 @@ The `Registry` class implements `ArrayAccess` so the properties of the registry 
 
 ```
 use Joomla\Registry\Registry;
+use Joomla\Registry\RegistryFactory;
 
-$registry = new Registry;
+$registry = new RegistryFactory::getRegistry();
 
 // Set a value in the registry.
 $registry['foo'] = 'bar';

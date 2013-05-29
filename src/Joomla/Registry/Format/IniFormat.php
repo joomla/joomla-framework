@@ -8,7 +8,6 @@
 
 namespace Joomla\Registry\Format;
 
-use Joomla\Registry\AbstractRegistryFormat;
 use stdClass;
 
 /**
@@ -16,10 +15,10 @@ use stdClass;
  *
  * @since  1.0
  */
-class Ini extends AbstractRegistryFormat
+class IniFormat implements FormatInterface
 {
 	/**
-	 * A cache used by stringToobject.
+	 * A cache used by stringToObject.
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -39,7 +38,7 @@ class Ini extends AbstractRegistryFormat
 	 *
 	 * @since   1.0
 	 */
-	public function objectToString($object, $options = array())
+	public function objectToString($object, array $options = array())
 	{
 		$local = array();
 		$global = array();
@@ -234,5 +233,17 @@ class Ini extends AbstractRegistryFormat
 		}
 
 		return $string;
+	}
+
+	/**
+	 * Get the name of the format handled by this class.
+	 *
+	 * @return  string  The name
+	 *
+	 * @since   1.0
+	 */
+	public function getName()
+	{
+		return 'INI';
 	}
 }

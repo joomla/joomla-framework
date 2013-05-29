@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\AbstractRegistryFormat;
+use Joomla\Registry\Format\XmlFormat;
 
 /**
  * Test class for Xml.
@@ -13,6 +13,16 @@ use Joomla\Registry\AbstractRegistryFormat;
  */
 class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 {
+	/*
+	 * @var  Joomla\Registry\Format\XmlFormat
+	 */
+	protected $object;
+
+	public function setUp()
+	{
+		$this->object = new XmlFormat;
+	}
+
 	/**
 	 * Test the Cml::objectToString method.
 	 *
@@ -22,8 +32,6 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testObjectToString()
 	{
-		$class = AbstractRegistryFormat::getInstance('XML');
-		$options = null;
 		$object = new stdClass;
 		$object->foo = 'bar';
 		$object->quoted = '"stringwithquotes"';
@@ -54,7 +62,7 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 
 		// Test basic object to string.
 		$this->assertThat(
-			$class->objectToString($object, $options),
+			$this->object->objectToString($object),
 			$this->equalTo($string)
 		);
 	}
@@ -68,7 +76,6 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStringToObject()
 	{
-		$class = AbstractRegistryFormat::getInstance('XML');
 		$object = new stdClass;
 		$object->foo = 'bar';
 		$object->booleantrue = true;
@@ -95,7 +102,7 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 
 		// Test basic object to string.
 		$this->assertThat(
-			$class->stringToObject($string),
+			$this->object->stringToObject($string),
 			$this->equalTo($object)
 		);
 	}

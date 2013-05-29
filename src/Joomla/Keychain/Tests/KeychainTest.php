@@ -7,6 +7,7 @@
 namespace Joomla\Keychain\Tests;
 
 use Joomla\Keychain\Keychain;
+use Joomla\Keychain\KeychainFactory;
 
 /**
  * Tests for the Joomla Framework Keychain Class
@@ -15,6 +16,16 @@ use Joomla\Keychain\Keychain;
  */
 class KeychainTest extends \PHPUnit_Framework_TestCase
 {
+	/*
+	 * @var  Joomla\Keychain\Keychain
+	 */
+	protected $object;
+
+	public function setUp()
+	{
+		$this->object = KeychainFactory::getKeychain();
+	}
+
 	/**
 	 * Set up the system by ensuring some files aren't there.
 	 *
@@ -56,15 +67,13 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testLoadCLIKeychain()
 	{
-		$keychain = new Keychain;
-
 		$keychainFile = __DIR__ . '/data/cli-keychain.dat';
 		$passphraseFile = __DIR__ . '/data/cli-passphrase.dat';
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 
-		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
+		$this->object->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 
-		$this->assertEquals('value', $keychain->get('test'));
+		$this->assertEquals('value', $this->object->get('test'));
 	}
 
 	/**
@@ -81,8 +90,7 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new Keychain;
-		$keychain->createPassphraseFile('testpassphrase', $passphraseFile, $privateKeyFile, 'password');
+		$this->object->createPassphraseFile('testpassphrase', $passphraseFile, $privateKeyFile, 'password');
 
 		$this->assertTrue(file_exists($passphraseFile), 'Test passphrase file exists');
 	}
@@ -103,9 +111,7 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new Keychain;
-
-		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
+		$this->object->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 	}
 
 	/**
@@ -124,9 +130,7 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new Keychain;
-
-		$keychain->loadKeychain($passphraseFile, $passphraseFile, $publicKeyFile);
+		$this->object->loadKeychain($passphraseFile, $passphraseFile, $publicKeyFile);
 	}
 
 	/**
@@ -144,9 +148,8 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new Keychain;
-		$keychain->set('dennis', 'liao');
-		$this->assertTrue((bool) $keychain->saveKeychain($keychainFile, $passphraseFile, $publicKeyFile), 'Assert that saveKeychain returns true.');
+		$this->object->set('dennis', 'liao');
+		$this->assertTrue((bool) $this->object->saveKeychain($keychainFile, $passphraseFile, $publicKeyFile), 'Assert that saveKeychain returns true.');
 
 		$this->assertTrue(file_exists($keychainFile), 'Check that keychain file was created properly.');
 	}
@@ -165,11 +168,9 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new Keychain;
+		$this->object->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 
-		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
-
-		$this->assertEquals('liao', $keychain->get('dennis'));
+		$this->assertEquals('liao', $this->object->get('dennis'));
 	}
 
 	/**
@@ -186,22 +187,20 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 		$publicKeyFile = __DIR__ . '/data/publickey.pem';
 		$passphraseFile = __DIR__ . '/data/web-passphrase.dat';
 
-		$keychain = new Keychain;
+		$this->object->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 
-		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
+		$this->assertEquals('liao', $this->object->get('dennis'));
 
-		$this->assertEquals('liao', $keychain->get('dennis'));
+		$this->object->deleteValue('dennis');
 
-		$keychain->deleteValue('dennis');
+		$this->assertFalse($this->object->exists('dennis'));
 
-		$this->assertFalse($keychain->exists('dennis'));
+		$this->object->saveKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 
-		$keychain->saveKeychain($keychainFile, $passphraseFile, $publicKeyFile);
+		$keychain2 = KeychainFactory::getKeychain();
 
-		$keychain = new Keychain;
+		$keychain2->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
 
-		$keychain->loadKeychain($keychainFile, $passphraseFile, $publicKeyFile);
-
-		$this->assertFalse($keychain->exists('dennis'));
+		$this->assertFalse($keychain2->exists('dennis'));
 	}
 }

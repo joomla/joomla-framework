@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\AbstractRegistryFormat;
+use Joomla\Registry\Format\PhpFormat;
 
 /**
  * Test class for Php.
@@ -13,6 +13,16 @@ use Joomla\Registry\AbstractRegistryFormat;
  */
 class JRegistryFormatPHPTest extends PHPUnit_Framework_TestCase
 {
+	/*
+	 * @var  Joomla\Registry\Format\PhpFormat
+	 */
+	protected $object;
+
+	public function setUp()
+	{
+		$this->object = new PhpFormat;
+	}
+
 	/**
 	 * Test the Php::objectToString method.
 	 *
@@ -22,7 +32,6 @@ class JRegistryFormatPHPTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testObjectToString()
 	{
-		$class = AbstractRegistryFormat::getInstance('PHP');
 		$options = array('class' => 'myClass');
 		$object = new stdClass;
 		$object->foo = 'bar';
@@ -49,7 +58,7 @@ class JRegistryFormatPHPTest extends PHPUnit_Framework_TestCase
 			"\tpublic \$array = array(\"nestedarray\" => array(\"test1\" => \"value1\"));\n" .
 			"}\n?>";
 		$this->assertThat(
-			$class->objectToString($object, $options),
+			$this->object->objectToString($object, $options),
 			$this->equalTo($string)
 		);
 	}
@@ -63,9 +72,7 @@ class JRegistryFormatPHPTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStringToObject()
 	{
-		$class = AbstractRegistryFormat::getInstance('PHP');
-
 		// This method is not implemented in the class. The test is to achieve 100% code coverage
-		$this->assertTrue($class->stringToObject(''));
+		$this->assertTrue($this->object->stringToObject(''));
 	}
 }

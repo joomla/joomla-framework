@@ -8,16 +8,16 @@
 
 namespace Joomla\Registry\Format;
 
-use Joomla\Registry\AbstractRegistryFormat;
-use Symfony\Component\Yaml\Parser as SymfonyYamlParser;
-use Symfony\Component\Yaml\Dumper as SymfonyYamlDumper;
+use Joomla\Registry\Format\FormatInterface;
+use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Dumper;
 
 /**
  * YAML format handler for Registry.
  *
  * @since  1.0
  */
-class Yaml extends AbstractRegistryFormat
+class YamlFormat implements FormatInterface
 {
 	/**
 	 * The YAML parser class.
@@ -42,10 +42,10 @@ class Yaml extends AbstractRegistryFormat
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Parser $parser, Dumper $dumper)
 	{
-		$this->parser = new SymfonyYamlParser;
-		$this->dumper = new SymfonyYamlDumper;
+		$this->parser = $parser;
+		$this->dumper = $dumper;
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Yaml extends AbstractRegistryFormat
 	 *
 	 * @since   1.0
 	 */
-	public function objectToString($object, $options = array())
+	public function objectToString($object, array $options = array())
 	{
 		$array = json_decode(json_encode($object), true);
 
@@ -82,5 +82,17 @@ class Yaml extends AbstractRegistryFormat
 		$array = $this->parser->parse(trim($data));
 
 		return json_decode(json_encode($array));
+	}
+
+	/**
+	 * Get the name of the format handled by this class.
+	 *
+	 * @return  string  The name
+	 *
+	 * @since   1.0
+	 */
+	public function getName()
+	{
+		return 'YAML';
 	}
 }
