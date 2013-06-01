@@ -8,9 +8,10 @@
 
 namespace Joomla\Oauth2;
 
-use Joomla\Registry\Registry;
-use Joomla\Application\AbstractWebApplication;
+use Joomla\Application\WebApplicationInterface;
+use Joomla\Input\InputInterface;
 use Joomla\Input\Input;
+use Joomla\Http\HttpInterface;
 use Joomla\Http\Http;
 use Joomla\Factory;
 use InvalidArgumentException;
@@ -51,19 +52,27 @@ class Client
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry                $options      OAuth2 Client options object
-	 * @param   Http                    $http         The HTTP client object
-	 * @param   Input                   $input        The input object
-	 * @param   AbstractWebApplication  $application  The application object
+	 * @param   array                    $options      OAuth2 Client options object
+	 * @param   HttpInterface            $http         The HTTP client object
+	 * @param   InputInterface           $input        The input object
+	 * @param   WebApplicationInterface  $application  The application object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Http $http = null, Input $input = null, AbstractWebApplication $application = null)
+	public function __construct($options = array(), HttpInterface $http, InputInterface $input, WebApplicationInterface $application)
 	{
-		$this->options = isset($options) ? $options : new Registry;
-		$this->http = isset($http) ? $http : new Http($this->options);
-		$this->application = isset($application) ? $application : Factory::$application;
-		$this->input = isset($input) ? $input : $this->application->input;
+		if ($options instanceof \ArrayAccess || is_array($options))
+		{
+			$this->options = $options;
+		}
+		else
+		{
+			throw new \RuntimeException(sprintf('%s requires an options array or an object that implements \\ArrayAccess', __CLASS__));
+		}
+
+		$this->http = $http;
+		$this->input = $input;
+		$this->application = $application;
 	}
 
 	/**
@@ -281,7 +290,7 @@ class Client
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return $this->options[$key];
 	}
 
 	/**
@@ -296,7 +305,7 @@ class Client
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

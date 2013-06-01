@@ -9,6 +9,7 @@
 namespace Joomla\Input;
 
 use Joomla\Filter;
+use Joomla\Input\InputInterface;
 
 /**
  * Joomla! Input Base Class
@@ -37,7 +38,7 @@ use Joomla\Filter;
  * @method      string   getPath()      getPath($name, $default = null)
  * @method      string   getUsername()  getUsername($name, $default = null)
  */
-class Input implements \Serializable, \Countable
+class Input implements InputInterface, \Serializable, \Countable
 {
 	/**
 	 * Options array for the JInput instance.

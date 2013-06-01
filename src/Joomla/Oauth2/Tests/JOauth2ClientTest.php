@@ -6,7 +6,9 @@
 
 use Joomla\Oauth2\Client;
 use Joomla\Registry\Registry;
+use Joomla\Input\InputInterface;
 use Joomla\Input\Input;
+use Joomla\Http\HttpInterface;
 use Joomla\Http\Http;
 use Joomla\Test\WebInspector;
 

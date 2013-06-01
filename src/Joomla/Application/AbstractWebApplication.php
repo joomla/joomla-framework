@@ -19,7 +19,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-abstract class AbstractWebApplication extends AbstractApplication
+abstract class AbstractWebApplication extends AbstractApplication implements WebApplicationInterface 
 {
 	/**
 	 * Character encoding string.
