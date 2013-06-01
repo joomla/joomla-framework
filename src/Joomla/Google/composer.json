@@ -13,9 +13,11 @@
         "joomla/filesystem": "dev-master"
     },
     "require-dev": {
-    	"joomla/input": "dev-master"
+    	"joomla/input": "dev-master",
+    	"joomla/test": "dev-master"
     },
     "target-dir": "Joomla/Google",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Google": ""

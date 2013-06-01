@@ -10,7 +10,11 @@
         "joomla/filesystem": "dev-master",
         "joomla/model": "dev-master"
     },
+    "require-dev": {
+        "joomla/test": "dev-master"
+    },
     "target-dir": "Joomla/View",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\View": ""

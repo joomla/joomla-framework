@@ -11,6 +11,7 @@
         "joomla/client": "dev-master"
     },
     "target-dir": "Joomla/Filesystem",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Filesystem": ""

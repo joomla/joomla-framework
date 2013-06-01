@@ -13,6 +13,7 @@
         "joomla/uri": "dev-master"
     },
     "target-dir": "Joomla/Github",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Github": ""
