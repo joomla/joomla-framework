@@ -11,9 +11,10 @@
         "joomla/registry": "dev-master"
     },
     "require-dev": {
-        "joomla/date": "dev-master"
+        "joomla/test": "dev-master"
     },
     "target-dir": "Joomla/Data",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Data": ""

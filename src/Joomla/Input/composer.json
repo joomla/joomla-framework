@@ -13,6 +13,7 @@
     	"joomla/test": "dev-master"
     },
     "target-dir": "Joomla/Input",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Input": ""

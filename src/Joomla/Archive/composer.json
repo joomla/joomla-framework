@@ -10,6 +10,7 @@
         "joomla/filesystem": "dev-master"
     },
     "target-dir": "Joomla/Archive",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Archive": ""

@@ -12,10 +12,14 @@
         "joomla/input": "dev-master",
         "joomla/registry": "dev-master"
     },
+    "require-dev": {
+        "joomla/test": "dev-master"
+    },
     "target-dir": "Joomla/OAuth2",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
-    		"Joomla\\OAuth2": ""
+    		"Joomla\\Oauth2": ""
     	}
     }
 }

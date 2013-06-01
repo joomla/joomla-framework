@@ -9,6 +9,7 @@
         "php": ">=5.3.10"
     },
     "target-dir": "Joomla/Crypt",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Crypt": ""

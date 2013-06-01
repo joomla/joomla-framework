@@ -11,6 +11,7 @@
         "joomla/uri": "dev-master"
     },
     "target-dir": "Joomla/Http",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Http": ""

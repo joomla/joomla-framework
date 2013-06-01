@@ -8,10 +8,13 @@
     "require": {
         "php": ">=5.3.10",
         "joomla/date": "dev-master",
-        "joomla/database": "dev-master",
         "joomla/filesystem": "dev-master"
     },
+    "require-dev": {
+        "joomla/database": "dev-master"
+    },
     "target-dir": "Joomla/Log",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Log": ""
