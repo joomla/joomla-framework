@@ -1,6 +1,6 @@
 # The OAuth2 Package
 ## Introduction
-The OAuth2 package is a 
+The OAuth2 package is a simple package designed to enable OAuth2 authentication.  You can read about the OAuth2 spec at [http://tools.ietf.org/html/rfc6749](http://tools.ietf.org/html/rfc6749).
 
 ## Using the Class
 ### Constructor Parameters
