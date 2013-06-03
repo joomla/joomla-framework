@@ -11,8 +11,7 @@ namespace Joomla;
 use Joomla\Registry\Registry;
 use Joomla\Language\Language;
 use Joomla\Filesystem\Stream;
-use Joomla\Session\Session;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\Driver;
 use Joomla\Language\Text;
 use Joomla\Client\ClientHelper;
 use Joomla\Date\Date;
@@ -52,14 +51,6 @@ abstract class Factory
 	 * @since  1.0
 	 */
 	public static $dates = array();
-
-	/**
-	 * Session object instance
-	 *
-	 * @var    Session
-	 * @since  1.0
-	 */
-	public static $session = null;
 
 	/**
 	 * Language object instance
@@ -104,28 +95,6 @@ abstract class Factory
 		}
 
 		return self::$config;
-	}
-
-	/**
-	 * Get a session object.
-	 *
-	 * Returns the global {@link JSession} object, only creating it if it doesn't already exist.
-	 *
-	 * @param   array  $options  An array containing session options
-	 *
-	 * @return  Session object
-	 *
-	 * @see     Session
-	 * @since   1.0
-	 */
-	public static function getSession(array $options = array())
-	{
-		if (!self::$session)
-		{
-			self::$session = self::createSession($options);
-		}
-
-		return self::$session;
 	}
 
 	/**
@@ -212,34 +181,6 @@ abstract class Factory
 		}
 
 		return $registry;
-	}
-
-	/**
-	 * Create a session object
-	 *
-	 * @param   array  $options  An array containing session options
-	 *
-	 * @return  Session object
-	 *
-	 * @since   1.0
-	 */
-	protected static function createSession(array $options = array())
-	{
-		// Get the editor configuration setting
-		$conf = self::getConfig();
-		$handler = $conf->get('session_handler', 'none');
-
-		// Config time is in minutes
-		$options['expire'] = ($conf->get('lifetime')) ? $conf->get('lifetime') * 60 : 900;
-
-		$session = Session::getInstance($handler, $options);
-
-		if ($session->getState() == 'expired')
-		{
-			$session->restart();
-		}
-
-		return $session;
 	}
 
 	/**

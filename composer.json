@@ -6,6 +6,7 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
+        "symfony/http-foundation": "2.2.*",
         "psr/log": "~1.0"
     },
     "require-dev": {
@@ -59,6 +60,5 @@
         "joomla/uri": "self.version",
         "joomla/utilities": "self.version",
         "joomla/view": "self.version"
-    },
-    "minimum-stability": "dev"
+    }
 }

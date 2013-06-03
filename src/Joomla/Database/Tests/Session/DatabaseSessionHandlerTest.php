@@ -4,8 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Session\Storage\Database as StorageDatabase;
-use Joomla\Session\Storage;
+namespace Joomla\Database\Tests\Session;
 
 /**
  * Test class for JSessionStorageDatabase.
@@ -13,10 +12,10 @@ use Joomla\Session\Storage;
  *
  * @since  1.0
  */
-class JSessionStorageDatabaseTest extends PHPUnit_Framework_TestCase
+class DatabaseSessionHandlerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var JSessionStorageDatabase
+	 * @var DatabaseSessionHandler
 	 */
 	protected $object;
 
@@ -30,7 +29,7 @@ class JSessionStorageDatabaseTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->object = Storage::getInstance('Database');
+		//$this->object = DatabaseSessionHandler;
 	}
 
 	/**
