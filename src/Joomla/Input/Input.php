@@ -38,7 +38,7 @@ use Joomla\Input\InputInterface;
  * @method      string   getPath()      getPath($name, $default = null)
  * @method      string   getUsername()  getUsername($name, $default = null)
  */
-class Input implements InputInterface, \Serializable, \Countable
+class Input implements InputInterface
 {
 	/**
 	 * Options array for the JInput instance.

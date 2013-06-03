@@ -13,7 +13,7 @@ namespace Joomla\Input;
  *
  * @since  1.0
  */
-interface InputInterface
+interface InputInterface extends \Serializable, \Countable
 {
 	/**
 	 * Magic method to get an input object
