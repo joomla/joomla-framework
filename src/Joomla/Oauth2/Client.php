@@ -60,7 +60,7 @@ class Client
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($options = array(), HttpInterface $http, InputInterface $input, WebApplicationInterface $application)
+	public function __construct($options = array(), HttpInterface $http = null, InputInterface $input = null, WebApplicationInterface $application = null)
 	{
 		if ($options instanceof \ArrayAccess || is_array($options))
 		{

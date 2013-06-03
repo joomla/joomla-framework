@@ -25,7 +25,7 @@ use Joomla\Facebook\Facebook;
 use Joomla\Facebook\OAuth;
 use Joomla\Registry\Registry;
 
-$options = new JRegistry;
+$options = new Registry;
 $options->set('clientid', $app_id);
 $options->set('clientsecret', $app_secret);
 $options->set('redirecturi', $callback_url);

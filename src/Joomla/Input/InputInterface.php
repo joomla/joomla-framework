@@ -108,24 +108,4 @@ interface InputInterface
 	 */
 	public function getMethod();
 
-	/**
-	 * Method to serialize the input.
-	 *
-	 * @return  string  The serialized input.
-	 *
-	 * @since   1.0
-	 */
-	public function serialize();
-
-	/**
-	 * Method to unserialize the input.
-	 *
-	 * @param   string  $input  The serialized input.
-	 *
-	 * @return  Input  The input object.
-	 *
-	 * @since   1.0
-	 */
-	public function unserialize($input);
-
 }

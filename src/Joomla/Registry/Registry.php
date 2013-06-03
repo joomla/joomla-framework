@@ -8,7 +8,6 @@
 
 namespace Joomla\Registry;
 
-use Joomla\Compat\JsonSerializable;
 use Joomla\Utilities\ArrayHelper;
 
 /**
