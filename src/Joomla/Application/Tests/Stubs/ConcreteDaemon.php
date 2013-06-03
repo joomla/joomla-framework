@@ -74,20 +74,6 @@ class ConcreteDaemon extends AbstractDaemonApplication
 	}
 
 	/**
-	 * Method for setting protected static $instance.
-	 *
-	 * @param   mixed  $value  The value of the property.
-	 *
-	 * @return  void.
-	 *
-	 * @since   1.0
-	 */
-	public function setClassInstance($value)
-	{
-		Helper::setValue('Joomla\Application\AbstractDaemonApplication', 'instance', $value);
-	}
-
-	/**
 	 * Method for setting protected static $signals.
 	 *
 	 * @param   mixed  $value  The value of the property.
