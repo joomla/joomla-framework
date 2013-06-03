@@ -8,15 +8,16 @@
 
 namespace Joomla\Oauth2;
 
-use Joomla\Application\WebApplicationInterface;
-use Joomla\Input\InputInterface;
-use Joomla\Input\Input;
-use Joomla\Http\HttpInterface;
-use Joomla\Http\Http;
-use Joomla\Factory;
+use Exception;
 use InvalidArgumentException;
 use RuntimeException;
-use Exception;
+use Joomla\Application\WebApplicationInterface;
+use Joomla\Factory;
+use Joomla\Input\Input;
+use Joomla\Input\InputInterface;
+use Joomla\Http\Http;
+use Joomla\Http\HttpInterface;
+
 
 /**
  * Joomla Framework class for interacting with an OAuth 2.0 server.
@@ -280,7 +281,7 @@ class Client
 	}
 
 	/**
-	 * Get an option from the Client instance.
+	 * Get an option from the Client instance
 	 *
 	 * @param   string  $key  The name of the option to get
 	 *
@@ -289,7 +290,7 @@ class Client
 	 * @since   1.0
 	 */
 	public function getOption($key)
-	{
+	{	
 		return $this->options[$key];
 	}
 
@@ -323,7 +324,7 @@ class Client
 	}
 
 	/**
-	 * Set an option for the Client instance.
+	 * Set token for the Client instance.
 	 *
 	 * @param   array  $value  The access token
 	 *
