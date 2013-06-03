@@ -121,8 +121,8 @@ class PostgresqlDriver extends DatabaseDriver
 		// Check for empty port
 		if (!($this->options['port']))
 		{
-		// Port is empty or not set via options, check for port annotation (:) in the host string
-		$tmp = substr(strstr($this->options['host'], ':'), 1);
+			// Port is empty or not set via options, check for port annotation (:) in the host string
+			$tmp = substr(strstr($this->options['host'], ':'), 1);
 
 			if (!empty($tmp))
 			{
