@@ -10,7 +10,8 @@
         "joomla/string": "dev-master"
     },
     "require-dev": {
-    	"joomla/filesystem": "dev-master"
+        "joomla/filesystem": "dev-master",
+        "joomla/test": "dev-master"
     },
     "target-dir": "Joomla/Language",
     "minimum-stability": "dev",

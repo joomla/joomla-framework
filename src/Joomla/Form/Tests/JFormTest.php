@@ -6,8 +6,8 @@
 
 namespace Joomla\Form\Tests;
 
+use Joomla\Language\Language;
 use Joomla\Language\Text;
-use Joomla\Factory;
 use Joomla\Form\Form;
 use Joomla\Form\Rule;
 
@@ -1101,7 +1101,7 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 			' The method should return a simple input text field whose value is untranslated since the DEFAULT_KEY does not exist in the language.'
 		);
 
-		$lang = Factory::getLanguage();
+		$lang = Language::getInstance();
 		$debug = $lang->setDebug(true);
 		$this->assertThat(
 			$form->getInput('translate_default'),
