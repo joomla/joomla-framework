@@ -1,0 +1,16 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+
+before_install:
+  - sh -e .travis/scripts/apt-get.sh
+  - sh -e .travis/scripts/apache2-vhost.sh
+  - sh -e .travis/scripts/apache2-configure.sh
+
+before_script:
+  - composer update --dev
+
+script:
+  - phpunit
