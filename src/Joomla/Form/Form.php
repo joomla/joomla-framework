@@ -11,6 +11,7 @@ namespace Joomla\Form;
 use Joomla\Factory;
 use Joomla\Filter;
 use Joomla\Date\Date;
+use Joomla\Language\Language;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Path;
 use Joomla\Registry\Registry;
@@ -1702,7 +1703,7 @@ class Form
 
 			if (($translate = $element['translate_default']) && ((string) $translate == 'true' || (string) $translate == '1'))
 			{
-				$lang = Factory::getLanguage();
+				$lang = Language::getInstance();
 
 				if ($lang->hasKey($default))
 				{

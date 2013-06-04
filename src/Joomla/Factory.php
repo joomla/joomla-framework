@@ -62,14 +62,6 @@ abstract class Factory
 	public static $session = null;
 
 	/**
-	 * Language object instance
-	 *
-	 * @var    Language
-	 * @since  1.0
-	 */
-	public static $language = null;
-
-	/**
 	 * Driver object instance
 	 *
 	 * @var    DatabaseDriver
@@ -126,26 +118,6 @@ abstract class Factory
 		}
 
 		return self::$session;
-	}
-
-	/**
-	 * Get a language object.
-	 *
-	 * Returns the global {@link JLanguage} object, only creating it if it doesn't already exist.
-	 *
-	 * @return  Language object
-	 *
-	 * @see     Language
-	 * @since   1.0
-	 */
-	public static function getLanguage()
-	{
-		if (!self::$language)
-		{
-			self::$language = self::createLanguage();
-		}
-
-		return self::$language;
 	}
 
 	/**
@@ -281,24 +253,6 @@ abstract class Factory
 		$db->setDebug($debug);
 
 		return $db;
-	}
-
-	/**
-	 * Create a language object
-	 *
-	 * @return  Language object
-	 *
-	 * @see     Language
-	 * @since   1.0
-	 */
-	protected static function createLanguage()
-	{
-		$conf = self::getConfig();
-		$locale = $conf->get('language');
-		$debug = $conf->get('debug_lang');
-		$lang = Language::getInstance($locale, $debug);
-
-		return $lang;
 	}
 
 	/**

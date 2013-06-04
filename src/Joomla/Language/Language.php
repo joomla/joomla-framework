@@ -293,11 +293,23 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public static function getInstance($lang, $debug = false)
+	public static function getInstance($lang = null, $debug = false)
 	{
 		if (!isset(self::$languages[$lang . $debug]))
 		{
-			self::$languages[$lang . $debug] = new self($lang, $debug);
+			$language = new self($lang, $debug);
+
+			self::$languages[$lang . $debug] = $language;
+
+			/*
+			 * Check if Language was instantiated with a null $lang param;
+			 * if so, retrieve the language code from the object and store
+			 * the instance with the language code as well
+			 */
+			if (is_null($lang))
+			{
+				self::$languages[$language->getLanguage() . $debug] = $language;
+			}
 		}
 
 		return self::$languages[$lang . $debug];
@@ -1201,6 +1213,18 @@ class Language
 		}
 
 		return $dir;
+	}
+
+	/**
+	 * Get the current language code.
+	 *
+	 * @return  string  The language code
+	 *
+	 * @since   1.0
+	 */
+	public function getLanguage()
+	{
+		return $this->lang;
 	}
 
 	/**
