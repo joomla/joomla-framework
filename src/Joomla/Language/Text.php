@@ -8,8 +8,6 @@
 
 namespace Joomla\Language;
 
-use Joomla\Factory;
-
 /**
  * Text handling class.
  *
@@ -44,7 +42,7 @@ class Text
 	 */
 	public static function _($string, $jsSafe = false, $interpretBackSlashes = true, $script = false)
 	{
-		$lang = Factory::getLanguage();
+		$lang = Language::getInstance();
 
 		if (is_array($jsSafe))
 		{
@@ -99,7 +97,7 @@ class Text
 	 */
 	public static function alt($string, $alt, $jsSafe = false, $interpretBackSlashes = true, $script = false)
 	{
-		$lang = Factory::getLanguage();
+		$lang = Language::getInstance();
 
 		if ($lang->hasKey($string . '_' . $alt))
 		{
@@ -140,7 +138,7 @@ class Text
 	 */
 	public static function plural($string, $n)
 	{
-		$lang = Factory::getLanguage();
+		$lang = Language::getInstance();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -223,7 +221,7 @@ class Text
 	 */
 	public static function sprintf($string)
 	{
-		$lang = Factory::getLanguage();
+		$lang = Language::getInstance();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -267,7 +265,7 @@ class Text
 	 */
 	public static function printf($string)
 	{
-		$lang = Factory::getLanguage();
+		$lang = Language::getInstance();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -325,7 +323,7 @@ class Text
 		if ($string !== null)
 		{
 			// Normalize the key and translate the string.
-			self::$strings[strtoupper($string)] = Factory::getLanguage()->_($string, $jsSafe, $interpretBackSlashes);
+			self::$strings[strtoupper($string)] = Language::getInstance()->_($string, $jsSafe, $interpretBackSlashes);
 		}
 
 		return self::$strings;

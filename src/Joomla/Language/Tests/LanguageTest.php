@@ -9,6 +9,7 @@ require_once __DIR__ . '/data/language/en-GB/en-GB.localise.php';
 
 use Joomla\Language\Language;
 use Joomla\Filesystem\Folder;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for Joomla\Language\Language.
@@ -60,13 +61,28 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 	 * Test...
 	 *
 	 * @covers Joomla\Language\Language::getInstance
+	 * @covers Joomla\Language\Language::getLanguage
 	 *
 	 * @return void
 	 */
-	public function testGetInstance()
+	public function testGetInstanceAndLanguage()
 	{
 		$instance = Language::getInstance(null);
 		$this->assertInstanceOf('Joomla\Language\Language', $instance);
+
+		$this->assertEquals(
+			TestHelper::getValue($instance, 'default'),
+			$instance->getLanguage(),
+			'Asserts that getInstance when called with a null language returns the default language.  Line: ' . __LINE__
+		);
+
+		$instance = Language::getInstance('es-ES');
+
+		$this->assertEquals(
+			'es-ES',
+			$instance->getLanguage(),
+			'Asserts that getInstance when called with a specific language returns that language.  Line: ' . __LINE__
+		);
 	}
 
 	/**
