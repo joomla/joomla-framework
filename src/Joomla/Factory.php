@@ -134,12 +134,7 @@ abstract class Factory
 	{
 		if (!self::$database)
 		{
-			// Get the debug configuration setting
-			$conf = self::getConfig();
-			$debug = $conf->get('debug');
-
 			self::$database = self::createDbo();
-			self::$database->setDebug($debug);
 		}
 
 		return self::$database;
