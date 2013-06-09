@@ -42,7 +42,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function contributors($owner, $repo)
+	public function getListContributors($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/contributors';
@@ -64,7 +64,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function activity($owner, $repo)
+	public function getActivityData($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/commit_activity';
@@ -85,7 +85,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function frequency($owner, $repo)
+	public function getCodeFrequency($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/code_frequency';
@@ -110,7 +110,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function participation($owner, $repo)
+	public function getParticipation($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/participation';
@@ -139,7 +139,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function punchCard($owner, $repo)
+	public function getPunchCard($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/punch_card';

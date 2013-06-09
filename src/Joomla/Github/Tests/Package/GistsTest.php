@@ -137,7 +137,7 @@ class GistsTest extends \PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$this->object->create(
 				array(
-					JPATH_BASE . '/gittest'
+					__DIR__ . '/../data/gittest'
 				),
 				true,
 				'This is a gist'
@@ -160,7 +160,7 @@ class GistsTest extends \PHPUnit_Framework_TestCase
 
 		$this->object->create(
 			array(
-				JPATH_BASE . '/gittest_notfound'
+				'/file/not/found'
 			),
 			true,
 			'This is a gist'

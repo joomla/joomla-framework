@@ -72,7 +72,7 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the contributors method.
+	 * Tests the getListContributors method.
 	 *
 	 * @return  void
 	 */
@@ -87,13 +87,13 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->contributors('joomla', 'joomla-framework'),
+			$this->object->getListContributors('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the activity method.
+	 * Tests the getActivityData method.
 	 *
 	 * @return  void
 	 */
@@ -108,13 +108,13 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->activity('joomla', 'joomla-framework'),
+			$this->object->getActivityData('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the frequency method.
+	 * Tests the getCodeFrequency method.
 	 *
 	 * @return  void
 	 */
@@ -129,13 +129,13 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->frequency('joomla', 'joomla-framework'),
+			$this->object->getCodeFrequency('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the participation method.
+	 * Tests the getParticipation method.
 	 *
 	 * @return  void
 	 */
@@ -150,13 +150,13 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->participation('joomla', 'joomla-framework'),
+			$this->object->getParticipation('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
 
 	/**
-	 * Tests the punchCard method.
+	 * Tests the getPunchCard method.
 	 *
 	 * @return  void
 	 */
@@ -171,7 +171,7 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->punchCard('joomla', 'joomla-framework'),
+			$this->object->getPunchCard('joomla', 'joomla-framework'),
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
