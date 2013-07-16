@@ -115,7 +115,7 @@ class Container implements \ArrayAccess
 	 *
 	 * @return  array  Array of arguments to pass to the method.
 	 */
-	protected function getMethodArgs(\ReflectionMethod $method, array $params)
+	protected function getMethodArgs(\ReflectionMethod $method, array $params = array())
 	{
 		$methodArgs = array();
 
