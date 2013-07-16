@@ -51,6 +51,131 @@ class Container implements \ArrayAccess
 	}
 
 	/**
+	 * Build an object of class $key;
+	 *
+	 * @param   string   $key                The class name to build.
+	 * @param   array    $constructorParams  Array of named parameters to pass to constructor.
+	 * @param   boolean  $shared             True to create a shared resource.
+	 *
+	 * @return  object  Instance of class specified by $key with all dependencies injected.
+	 *
+	 * @since   1.0
+	 */
+	public function buildObject($key, array $constructorParams = array(), $shared = false)
+	{
+		try
+		{
+			$reflection = new \ReflectionClass($key);
+		}
+		catch (\ReflectionException $e)
+		{
+			return false;
+		}
+
+		$constructor = $reflection->getConstructor();
+
+		// If there are no parameters, just return a new object.
+		if (is_null($constructor))
+		{
+			$callback = function () use ($key) { return new $key; };
+
+			return $this->set($key, $callback, $shared)->get($key);
+		}
+
+		$newInstanceArgs = $this->getMethodArgs($constructor, $constructorParams);
+
+		$callback = function () use ($reflection, $newInstanceArgs) {
+			return $reflection->newInstanceArgs($newInstanceArgs);
+		};
+
+		return $this->set($key, $callback, $shared)->get($key);
+	}
+
+	/**
+	 * Convenience method for building a shared object.
+	 *
+	 * @param   string   $key                The class name to build.
+	 * @param   array    $constructorParams  Array of named parameters to pass to constructor.
+	 * @param   boolean  $shared             True to create a shared resource.
+	 *
+	 * @return  object  Instance of class specified by $key with all dependencies injected.
+	 *
+	 * @since   1.0
+	 */
+	public function buildSharedObject($key, $constructorParams = array())
+	{
+		return $this->buildObject($key, $constructorParams, true);
+	}
+
+	/**
+	 * Build an array of constructor parameters.
+	 *
+	 * @param   \ReflectionMethod  $method  Method for which to build the argument array.
+	 * @param   array              $params  Array of parameters from which to pull named dependencies.
+	 *
+	 * @return  array  Array of arguments to pass to the method.
+	 */
+	protected function getMethodArgs(\ReflectionMethod $method, array $params)
+	{
+		$methodArgs = array();
+
+		foreach ($method->getParameters() as $param)
+		{
+			$dependency = $param->getClass();
+			$dependencyVarName = $param->getName();
+			$dependencyClassName = $dependency->getName();
+
+			// If the dependency has been specified in the method call, use it.
+			if (isset($params[$dependencyVarName]))
+			{
+				if (is_object($params[$dependencyVarName]))
+				{
+					$depObject = $params[$dependencyVarName];
+				}
+				else
+				{
+					$depObject = $this->buildObject($params[$dependencyVarName]);
+				}
+
+				// If the object is an instance of the expected class, use it.
+				if ($depObject instanceof $dependencyClassName)
+				{
+					$methodArgs[] = $depObject;
+					continue;
+				}
+			}
+
+			// If the dependency is registered with the container, use it.
+			if (isset($this->dataStore[$dependencyClassName]))
+			{
+				$depObject = $this->get($dependencyClassName);
+
+				if ($depObject instanceof $dependencyClassName)
+				{
+					$methodArgs[] = $depObject;
+					continue;
+				}
+			}
+
+			// You shouldn't hint against implementations, but in case you have.
+			if (class_exists($dependencyClassName))
+			{
+				$methodArgs[] = $this->buildObject($dependencyClassName);
+				continue;
+			}
+
+			// Finally, if there is a default parameter, let's use it.
+			if ($param->isOptional())
+			{
+				$methodArgs[] = $param->getDefaultValue();
+				continue;
+			}
+		}
+
+		return $methodArgs;
+	}
+
+	/**
 	 * Method to set the key and callback to the dataStore array.
 	 *
 	 * @param   string    $key       Name of dataStore key to set.
@@ -100,6 +225,14 @@ class Container implements \ArrayAccess
 	{
 		if (!isset($this->dataStore[$key]))
 		{
+			// If the key hasn't been set, try to build it.
+			$object = $this->buildObject($key);
+
+			if ($object !== false)
+			{
+				return $object;
+			}
+
 			throw new \InvalidArgumentException(sprintf('Key %s has not been registered with the container.', $key));
 		}
 

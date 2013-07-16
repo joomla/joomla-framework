@@ -8,6 +8,34 @@ namespace Joomla\DI\Tests;
 
 use Joomla\DI\Container;
 
+interface StubInterface {}
+
+class Stub1 implements StubInterface {}
+
+class Stub2 implements StubInterface
+{
+	protected $stub;
+
+	public function __construct(StubInterface $stub)
+	{
+		$this->stub = $stub;
+	}
+}
+
+class Stub3
+{
+	protected $stub;
+	protected $stub2;
+
+	public function __construct(StubInterface $stub, StubInterface $stub2)
+	{
+		$this->stub = $stub;
+		$this->stub2 = $stub2;
+	}
+}
+
+class Stub4 implements StubInterface {}
+
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
@@ -65,6 +93,104 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$this->fixture = new Container(array('foo' => 'bar'));
 
 		$this->assertAttributeEquals(array('default.shared' => true, 'foo' => 'bar'), 'config', $this->fixture);
+	}
+
+	/**
+	 * Tests the buildObject with no dependencies.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testBuildObjectNoDependencies()
+	{
+		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub1');
+
+		$this->assertInstanceOf('Joomla\\DI\\Tests\\Stub1', $object);
+	}
+
+	/**
+	 * Tests the buildObject, getting dependency from the container.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testBuildObjectGetDependencyFromContainer()
+	{
+		$this->fixture['Joomla\\DI\\Tests\\StubInterface'] = function () {
+			return new Stub1;
+		};
+
+		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub2');
+
+		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub1', 'stub', $object);
+	}
+
+	/**
+	 * Tests the buildObject, getting dependency names from param array.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testBuildObjectGetDependencyFromParamsAsDependencyName()
+	{
+		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub2', array('stub' => 'Joomla\\DI\\Tests\\Stub1'));
+
+		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub1', 'stub', $object);
+	}
+
+	/**
+	 * Tests the buildObject, getting dependency names from param array.
+	 * This really tests have 2 implementations for the same typehinted interface.
+	 * It's partly a "scope test".
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testBuildObjectGetDependencyFromParamsAsDependencyNameSameInterface()
+	{
+		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () { return new Stub4; });
+
+		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub3', array(
+			'stub' => 'Joomla\\DI\\Tests\\Stub1',
+			'stub2' => 'Joomla\\DI\\Tests\\Stub2'
+		));
+
+		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub1', 'stub', $object);
+		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub2', 'stub2', $object);
+	}
+
+	/**
+	 * Tests the buildObject, getting dependency names from param array as an object.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testBuildObjectGetDependencyFromParamsAsDependencyObject()
+	{
+		$stub1 = new Stub1;
+		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub2', array('stub' => $stub1));
+
+		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub1', 'stub', $object);
+		$this->assertAttributeSame($stub1, 'stub', $object);
+	}
+
+	/**
+	 * Tests the buildSharedObject.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testBuildSharedObject()
+	{
+		$object = $this->fixture->buildSharedObject('Joomla\\DI\\Tests\\Stub1');
+
+		$this->assertSame($object, $this->fixture->get('Joomla\\DI\\Tests\\Stub1'));
 	}
 
 	/**
@@ -168,6 +294,20 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testGetNotExists()
 	{
 		$foo = $this->fixture->get('foo');
+	}
+
+	/**
+	 * Test the get method on a non-existant offest that happens to be a class name.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetNotExistsButIsClass()
+	{
+		$object = $this->fixture->get('Joomla\\DI\\Tests\\Stub1');
+
+		$this->assertInstanceOf('Joomla\\DI\\Tests\\Stub1', $object);
 	}
 
 	/**
@@ -305,6 +445,20 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testOffsetGetNotExists()
 	{
 		$foo = $this->fixture['foo'];
+	}
+
+	/**
+	 * Tests the offsetGet method on a non-existant offset that happens to be a class name.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testOffsetGetNotExistsButIsClass()
+	{
+		$object = $this->fixture['Joomla\\DI\\Tests\\Stub1'];
+
+		$this->assertInstanceOf('Joomla\\DI\\Tests\\Stub1', $object);
 	}
 
 	/**
