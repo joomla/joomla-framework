@@ -93,7 +93,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	/**
 	 * Class constructor.
 	 *
-	 * @param   Cli  $input   An optional argument to provide dependency injection for the application's
+	 * @param   Cli       $input   An optional argument to provide dependency injection for the application's
 	 *                             input object.  If the argument is a InputCli object that object will become
 	 *                             the application's input object, otherwise a default input object is created.
 	 * @param   Registry  $config  An optional argument to provide dependency injection for the application's
@@ -111,7 +111,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		{
 			if ($this->hasLogger())
 			{
-				$this->logger->error('The PCNTL extension for PHP is not available.');
+				$this->getLogger()->error('The PCNTL extension for PHP is not available.');
 			}
 
 			throw new \RuntimeException('The PCNTL extension for PHP is not available.');
@@ -122,7 +122,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		{
 			if ($this->hasLogger())
 			{
-				$this->logger->error('The POSIX extension for PHP is not available.');
+				$this->getLogger()->error('The POSIX extension for PHP is not available.');
 			}
 
 			throw new \RuntimeException('The POSIX extension for PHP is not available.');
@@ -156,12 +156,12 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 * @see     pcntl_signal()
 	 * @throws  \RuntimeException
 	 */
-	public static function signal($signal)
+	public function signal($signal)
 	{
 		// Retrieve the logger if set
 		try
 		{
-			$logger = static::$instance->getLogger();
+			$logger = $this->getLogger();
 		}
 		catch (\UnexpectedValueException $e)
 		{
@@ -175,7 +175,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		}
 
 		// Let's make sure we have an application instance.
-		if (!is_subclass_of(static::$instance, __CLASS__))
+		if (!is_subclass_of($this, __CLASS__))
 		{
 			if ($logger)
 			{
@@ -186,46 +186,54 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		}
 
 		// Fire the onReceiveSignal event.
-		static::$instance->triggerEvent('onReceiveSignal', array($signal));
+		$this->triggerEvent('onReceiveSignal', array($signal));
 
 		switch ($signal)
 		{
 			case SIGINT:
 			case SIGTERM:
 				// Handle shutdown tasks
-				if (static::$instance->running && static::$instance->isActive())
+				if ($this->running && $this->isActive())
 				{
-					static::$instance->shutdown();
+					$this->shutdown();
 				}
 				else
 				{
-					static::$instance->close();
+					$this->close();
 				}
+
 				break;
+
 			case SIGHUP:
 				// Handle restart tasks
-				if (static::$instance->running && static::$instance->isActive())
+				if ($this->running && $this->isActive())
 				{
-					static::$instance->shutdown(true);
+					$this->shutdown(true);
 				}
 				else
 				{
-					static::$instance->close();
+					$this->close();
 				}
+
 				break;
+
 			case SIGCHLD:
 				// A child process has died
-				while (static::$instance->pcntlWait($signal, WNOHANG || WUNTRACED) > 0)
+				while ($this->pcntlWait($signal, WNOHANG || WUNTRACED) > 0)
 				{
 					usleep(1000);
 				}
+
 				break;
+
 			case SIGCLD:
-				while (static::$instance->pcntlWait($signal, WNOHANG) > 0)
+				while ($this->pcntlWait($signal, WNOHANG) > 0)
 				{
-					$signal = static::$instance->pcntlChildExitStatus($signal);
+					$signal = $this->pcntlChildExitStatus($signal);
 				}
+
 				break;
+
 			default:
 				break;
 		}
@@ -268,9 +276,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 			// No response so remove the process id file and log the situation.
 			@ unlink($pidFile);
 
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->warning('The process found based on PID file was unresponsive.');
+				$this->getLogger()->warning('The process found based on PID file was unresponsive.');
 			}
 
 			return false;
@@ -290,9 +298,6 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 */
 	public function loadConfiguration($data)
 	{
-		// Execute the parent load method.
-		parent::loadConfiguration($data);
-
 		/*
 		 * Setup some application metadata options.  This is useful if we ever want to write out startup scripts
 		 * or just have some sort of information available to share about things.
@@ -394,9 +399,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Enable basic garbage collection.
 		gc_enable();
 
-		if ($this->logger)
+		if ($this->hasLogger())
 		{
-			$this->logger->info('Starting ' . $this->name);
+			$this->getLogger()->info('Starting ' . $this->name);
 		}
 
 		// Set off the process for becoming a daemon.
@@ -422,9 +427,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		else
 		// We were not able to daemonize the application so log the failure and die gracefully.
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->info('Starting ' . $this->name . ' failed');
+				$this->getLogger()->info('Starting ' . $this->name . ' failed');
 			}
 		}
 
@@ -442,9 +447,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 */
 	public function restart()
 	{
-		if ($this->logger)
+		if ($this->hasLogger())
 		{
-			$this->logger->info('Stopping ' . $this->name);
+			$this->getLogger()->info('Stopping ' . $this->name);
 		}
 
 		$this->shutdown(true);
@@ -460,9 +465,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 */
 	public function stop()
 	{
-		if ($this->logger)
+		if ($this->hasLogger())
 		{
-			$this->logger->info('Stopping ' . $this->name);
+			$this->getLogger()->info('Stopping ' . $this->name);
 		}
 
 		$this->shutdown();
@@ -488,9 +493,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Change the user id for the process id file if necessary.
 		if ($uid && (fileowner($file) != $uid) && (!@ chown($file, $uid)))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->error('Unable to change user ownership of the process id file.');
+				$this->getLogger()->error('Unable to change user ownership of the process id file.');
 			}
 
 			return false;
@@ -499,9 +504,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Change the group id for the process id file if necessary.
 		if ($gid && (filegroup($file) != $gid) && (!@ chgrp($file, $gid)))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->error('Unable to change group ownership of the process id file.');
+				$this->getLogger()->error('Unable to change group ownership of the process id file.');
 			}
 
 			return false;
@@ -516,9 +521,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Change the user id for the process necessary.
 		if ($uid && (posix_getuid($file) != $uid) && (!@ posix_setuid($uid)))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->error('Unable to change user ownership of the proccess.');
+				$this->getLogger()->error('Unable to change user ownership of the proccess.');
 			}
 
 			return false;
@@ -527,9 +532,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Change the group id for the process necessary.
 		if ($gid && (posix_getgid($file) != $gid) && (!@ posix_setgid($gid)))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->error('Unable to change group ownership of the proccess.');
+				$this->getLogger()->error('Unable to change group ownership of the proccess.');
 			}
 
 			return false;
@@ -539,9 +544,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		$user = posix_getpwuid($uid);
 		$group = posix_getgrgid($gid);
 
-		if ($this->logger)
+		if ($this->hasLogger())
 		{
-			$this->logger->info('Changed daemon identity to ' . $user['name'] . ':' . $group['name']);
+			$this->getLogger()->info('Changed daemon identity to ' . $user['name'] . ':' . $group['name']);
 		}
 
 		return true;
@@ -560,9 +565,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Is there already an active daemon running?
 		if ($this->isActive())
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->emergency($this->name . ' daemon is still running. Exiting the application.');
+				$this->getLogger()->emergency($this->name . ' daemon is still running. Exiting the application.');
 			}
 
 			return false;
@@ -595,9 +600,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		}
 		catch (\RuntimeException $e)
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->emergency('Unable to fork.');
+				$this->getLogger()->emergency('Unable to fork.');
 			}
 
 			return false;
@@ -606,9 +611,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Verify the process id is valid.
 		if ($this->processId < 1)
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->emergency('The process id is invalid; the fork failed.');
+				$this->getLogger()->emergency('The process id is invalid; the fork failed.');
 			}
 
 			return false;
@@ -620,9 +625,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Write out the process id file for concurrency management.
 		if (!$this->writeProcessIdFile())
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->emergency('Unable to write the pid file at: ' . $this->config->get('application_pid_file'));
+				$this->getLogger()->emergency('Unable to write the pid file at: ' . $this->config->get('application_pid_file'));
 			}
 
 			return false;
@@ -634,18 +639,18 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 			// If the identity change was required then we need to return false.
 			if ($this->config->get('application_require_identity'))
 			{
-				if ($this->logger)
+				if ($this->hasLogger())
 				{
-					$this->logger->critical('Unable to change process owner.');
+					$this->getLogger()->critical('Unable to change process owner.');
 				}
 
 				return false;
 			}
 			else
 			{
-				if ($this->logger)
+				if ($this->hasLogger())
 				{
-					$this->logger->warning('Unable to change process owner.');
+					$this->getLogger()->warning('Unable to change process owner.');
 				}
 			}
 		}
@@ -673,9 +678,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 */
 	protected function detach()
 	{
-		if ($this->logger)
+		if ($this->hasLogger())
 		{
-			$this->logger->debug('Detaching the ' . $this->name . ' daemon.');
+			$this->getLogger()->debug('Detaching the ' . $this->name . ' daemon.');
 		}
 
 		// Attempt to fork the process.
@@ -685,9 +690,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		if ($pid)
 		{
 			// Add the log entry for debugging purposes and exit gracefully.
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->debug('Ending ' . $this->name . ' parent process');
+				$this->getLogger()->debug('Ending ' . $this->name . ' parent process');
 			}
 
 			$this->close();
@@ -731,9 +736,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Log the fork in the parent.
 		{
 			// Log the fork.
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->debug('Process forked ' . $pid);
+				$this->getLogger()->debug('Process forked ' . $pid);
 			}
 		}
 
@@ -792,7 +797,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 			}
 
 			// Attach the signal handler for the signal.
-			if (!$this->pcntlSignal(constant($signal), array(__CLASS__, 'signal')))
+			if (!$this->pcntlSignal(constant($signal), array($this, 'signal')))
 			{
 				if ($this->hasLogger())
 				{
@@ -877,9 +882,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Verify the process id is valid.
 		if ($this->processId < 1)
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->emergency('The process id is invalid.');
+				$this->getLogger()->emergency('The process id is invalid.');
 			}
 
 			return false;
@@ -890,9 +895,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 
 		if (empty($file))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->error('The process id file path is empty.');
+				$this->getLogger()->error('The process id file path is empty.');
 			}
 
 			return false;
@@ -903,9 +908,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 
 		if (!is_dir($folder) && !Folder::create($folder))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->error('Unable to create directory: ' . $folder);
+				$this->getLogger()->error('Unable to create directory: ' . $folder);
 			}
 
 			return false;
@@ -914,9 +919,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Write the process id file out to disk.
 		if (!file_put_contents($file, $this->processId))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->error('Unable to write proccess id file: ' . $file);
+				$this->getLogger()->error('Unable to write proccess id file: ' . $file);
 			}
 
 			return false;
@@ -925,9 +930,9 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 		// Make sure the permissions for the proccess id file are accurate.
 		if (!chmod($file, 0644))
 		{
-			if ($this->logger)
+			if ($this->hasLogger())
 			{
-				$this->logger->error('Unable to adjust permissions for the proccess id file: ' . $file);
+				$this->getLogger()->error('Unable to adjust permissions for the proccess id file: ' . $file);
 			}
 
 			return false;

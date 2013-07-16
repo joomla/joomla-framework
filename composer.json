@@ -8,6 +8,12 @@
         "php": ">=5.3.10",
         "psr/log": "~1.0"
     },
+    "require-dev": {
+         "symfony/yaml": "~2.0"
+    },
+    "suggest": {
+        "symfony/yaml": "Install symfony/yaml 2.* if you require YAML support."
+    },
     "autoload": {
         "psr-0": {
             "Joomla": "src/",
@@ -28,6 +34,7 @@
         "joomla/data": "self.version",
         "joomla/database": "self.version",
         "joomla/date": "self.version",
+        "joomla/facebook": "self.version",
         "joomla/filesystem": "self.version",
         "joomla/filter": "self.version",
         "joomla/form": "self.version",
@@ -38,8 +45,10 @@
         "joomla/input": "self.version",
         "joomla/keychain": "self.version",
         "joomla/language": "self.version",
+        "joomla/linkedin": "self.version",
         "joomla/log": "self.version",
         "joomla/model": "self.version",
+        "joomla/oauth1": "self.version",
         "joomla/oauth2": "self.version",
         "joomla/profiler": "self.version",
         "joomla/registry": "self.version",

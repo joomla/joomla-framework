@@ -120,7 +120,6 @@ class Memcached extends Cache
 		$this->driver->set($key, $value, $ttl);
 
 		return (bool) ($this->driver->getResultCode() == \Memcached::RES_SUCCESS);
-// 			throw new \RuntimeException(sprintf('Unable to set cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 	}
 
 	/**

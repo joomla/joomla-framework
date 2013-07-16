@@ -156,7 +156,6 @@ it would be used implicitly as a part of an application built from
 
 ```php
 #!/usr/bin/php
-<?php
 /**
  * This file is saved as argv.php
  *
@@ -169,7 +168,7 @@ it would be used implicitly as a part of an application built from
  * @package  Examples
  * @since    1.0
  */
-class Argv extends JApplicationCli
+class Argv extends Joomla\Application\AbstractCliApplication
 {
 	/**
 	 * Execute the application.
@@ -338,3 +337,24 @@ You can provide customised implementations these methods by creating the followi
 * `mockInputSet`
 * `mockInputGetRaw`
 
+
+
+## Installation via Composer
+
+Add `"joomla/input": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+  "require": {
+    "joomla/input": "dev-master"
+  },
+  "minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/input "dev-master"
+```

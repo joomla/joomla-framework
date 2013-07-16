@@ -11,8 +11,6 @@ This is a simple package that contains forward compatibility classes and interfa
 Since this is a PHP 5.4 interface, the `jsonSerialize()` method does not get called automatically when `json_encode`-ing an instance of the class when used in 5.3. To work around this, simply call the `jsonSerialize()` method directly when passing it to `json_encode`. This is forward-compatible with PHP 5.4.
 
 ```php
-<?php
-
 class MyClass implements \JsonSerializable
 {
 	/**
@@ -34,4 +32,24 @@ class MyClass implements \JsonSerializable
 $obj = new MyClass(array('sample', 'data', 'to', 'encode'));
 
 $encoded = json_encode($obj->jsonSerialize());
+```
+
+## Installation via Composer
+
+Add `"joomla/compat": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/compat": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/compat "dev-master"
 ```

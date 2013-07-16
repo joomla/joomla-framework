@@ -11,6 +11,7 @@ namespace Joomla\Form;
 use Joomla\Factory;
 use Joomla\Filter;
 use Joomla\Date\Date;
+use Joomla\Language\Language;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Path;
 use Joomla\Registry\Registry;
@@ -868,8 +869,8 @@ class Form
 	 * will not be replaced if it already exists.
 	 *
 	 * @param   \SimpleXMLElement  $element  The XML element object representation of the form field.
-	 * @param   string            $group    The optional dot-separated form group path on which to set the field.
-	 * @param   boolean           $replace  True to replace an existing field if one already exists.
+	 * @param   string             $group    The optional dot-separated form group path on which to set the field.
+	 * @param   boolean            $replace  True to replace an existing field if one already exists.
 	 *
 	 * @return  boolean  True on success.
 	 *
@@ -1702,7 +1703,7 @@ class Form
 
 			if (($translate = $element['translate_default']) && ((string) $translate == 'true' || (string) $translate == '1'))
 			{
-				$lang = Factory::getLanguage();
+				$lang = Language::getInstance();
 
 				if ($lang->hasKey($default))
 				{

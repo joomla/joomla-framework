@@ -44,3 +44,24 @@ traditional Joomla! CMS hashing scheme. The hash format can be specified
 during hash creation by using the constants `JCryptPassword::BLOWFISH`,
 `JCryptPassword::MD5` and `JCryptPassword::JOOMLA`. An appropriate salt
 will be automatically generated when required.
+
+
+## Installation via Composer
+
+Add `"joomla/crypt": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/crypt": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/crypt "dev-master"
+```

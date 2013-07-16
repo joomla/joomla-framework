@@ -11,9 +11,14 @@
          "joomla/utilities": "dev-master"
     },
     "require-dev": {
+         "symfony/yaml": "~2.0",
          "joomla/test": "dev-master"
     },
+    "suggest": {
+        "symfony/yaml": "Install 2.* if you require YAML support."
+    },
     "target-dir": "Joomla/Registry",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Registry": ""

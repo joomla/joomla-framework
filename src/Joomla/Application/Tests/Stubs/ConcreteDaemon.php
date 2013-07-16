@@ -16,6 +16,12 @@ use Joomla\Application\AbstractDaemonApplication;
 class ConcreteDaemon extends AbstractDaemonApplication
 {
 	/**
+	 * @var    ConcreteDaemon  The application instance.
+	 * @since  1.0
+	 */
+	public static $instance;
+
+	/**
 	 * @var     integer  Mimic the response of the pcntlChildExitStatus method.
 	 * @since   1.0
 	 */
@@ -65,20 +71,6 @@ class ConcreteDaemon extends AbstractDaemonApplication
 		{
 			throw new \Exception('Undefined or private property: ' . __CLASS__ . '::' . $name);
 		}
-	}
-
-	/**
-	 * Method for setting protected static $instance.
-	 *
-	 * @param   mixed  $value  The value of the property.
-	 *
-	 * @return  void.
-	 *
-	 * @since   1.0
-	 */
-	public function setClassInstance($value)
-	{
-		Helper::setValue('Joomla\Application\Daemon', 'instance', $value);
 	}
 
 	/**

@@ -96,9 +96,18 @@
 	<target name="phpcs" description="Generate checkstyle.xml using PHP_CodeSniffer">
 		<exec executable="phpcs${script-suffix}">
 			<arg value="--report=checkstyle" />
-			<arg value="--extensions=php,css" />
+			<arg value="--extensions=php" />
 			<arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
 			<arg value="--standard=${basedir}/build/phpcs/Joomla" />
+			<arg path="${source}" />
+		</exec>
+	</target>
+
+	<target name="travis-phpcs" description="Generate codestyle report using PHP_CodeSniffer for output on Travis-CI">
+		<exec executable="phpcs${script-suffix}">
+			<arg value="--report=full" />
+			<arg value="--extensions=php" />
+			<arg value="--standard=${basedir}/build/phpcs/Joomla/ruleset.xml" />
 			<arg path="${source}" />
 		</exec>
 	</target>

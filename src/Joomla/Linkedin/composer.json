@@ -1,0 +1,22 @@
+{
+    "name": "joomla/linkedin",
+    "type": "joomla-package",
+    "description": "Joomla Linkedin Package",
+    "keywords": ["joomla", "framework", "linkedin"],
+    "homepage": "https://github.com/joomla/joomla-framework-linkedin",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/oauth1": "dev-master",
+        "joomla/input": "dev-master",
+        "joomla/http": "dev-master",
+        "joomla/registry": "dev-master"
+    },
+    "target-dir": "Joomla/Linkedin",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Linkedin": ""
+    	}
+    }
+}
+

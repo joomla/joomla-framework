@@ -16,7 +16,7 @@ use Joomla\Github\Package;
  *
  * @documentation http://developer.github.com/v3/git/refs/
  *
- * @since       1.0
+ * @since  1.0
  */
 class Refs extends Package
 {

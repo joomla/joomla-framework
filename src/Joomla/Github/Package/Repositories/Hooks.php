@@ -26,8 +26,8 @@ class Hooks extends Package
 	 * @since  1.0
 	 */
 	protected $events = array(
-		'push', 'issues', 'issue_comment', 'commit_comment', 'pull_request', 'gollum', 'watch', 'download', 'fork', 'fork_apply',
-		'member', 'public', 'status'
+		'push', 'issues', 'issue_comment', 'commit_comment', 'pull_request', 'pull_request_review_comment', 'gollum',
+		'watch', 'download', 'fork', 'fork_apply', 'member', 'public', 'team_add', 'status'
 	);
 
 	/**

@@ -477,9 +477,32 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 */
 	public function testExecute()
 	{
-		self::$driver->setQuery("INSERT INTO [jos_dbtest] ([title],[start_date],[description]) VALUES ('testTitle','2013-04-01 00:00:00.000','description')");
+		self::$driver->setQuery(
+			"INSERT INTO [jos_dbtest] ([title],[start_date],[description]) VALUES ('testTitle','2013-04-01 00:00:00.000','description')"
+		);
 
 		$this->assertNotEquals(self::$driver->execute(), false, __LINE__);
+	}
+
+	/**
+	 * Tests the renameTable method
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testRenameTable()
+	{
+		$newTableName = 'bak_jos_dbtest';
+
+		self::$driver->renameTable('jos_dbtest', $newTableName);
+
+		// Check name change
+		$tableList = self::$driver->getTableList();
+		$this->assertThat(in_array($newTableName, $tableList), $this->isTrue(), __LINE__);
+
+		// Restore initial state
+		self::$driver->renameTable($newTableName, 'jos_dbtest');
 	}
 
 	/**

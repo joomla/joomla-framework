@@ -10,7 +10,11 @@
         "joomla/registry": "dev-master",
         "joomla/database": "dev-master"
     },
+    "require-dev": {
+        "joomla/test": "dev-master"
+    },
     "target-dir": "Joomla/Model",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Model": ""

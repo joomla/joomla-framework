@@ -345,18 +345,18 @@ class Teams extends Package
 	 * If you attempt to add a repo to a team that is not owned by the organization, you get:
 	 * Status: 422 Unprocessable Entity
 	 *
-	 * @param   integer  $id     The team id.
-	 * @param   string   $owner  The name of the owner of the GitHub repository.
-	 * @param   string   $repo   The name of the GitHub repository.
+	 * @param   integer  $id    The team id.
+	 * @param   string   $org   The name of the organization of the GitHub repository.
+	 * @param   string   $repo  The name of the GitHub repository.
 	 *
 	 * @since  1.0
 	 *
 	 * @return object
 	 */
-	public function addRepo($id, $owner, $repo)
+	public function addRepo($id, $org, $repo)
 	{
 		// Build the request path.
-		$path = '/teams/' . $id . '/repos/' . $owner . '/' . $repo;
+		$path = '/teams/' . $id . '/repos/' . $org . '/' . $repo;
 
 		return $this->processResponse(
 			$this->client->put($this->fetchUrl($path), ''),

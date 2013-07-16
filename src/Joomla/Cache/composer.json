@@ -15,6 +15,7 @@
         "joomla/registry": "Registry can be used as an alternative to using an array for the caching options."
     },
     "target-dir": "Joomla/Cache",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Cache": ""

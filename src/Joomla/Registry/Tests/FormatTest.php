@@ -14,51 +14,54 @@ use Joomla\Registry\AbstractRegistryFormat;
 class AbstractRegistryFormatTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the AbstractRegistryFormat::getInstance method.
+	 * Data provider for testGetInstance
 	 *
-	 * @return  void
+	 * @return  array
 	 *
 	 * @since   1.0
 	 */
-	public function testGetInstance()
+	public function seedTestGetInstance()
 	{
-		// Test INI format.
-		$object = AbstractRegistryFormat::getInstance('INI');
+		return array(
+			array('Xml'),
+			array('Ini'),
+			array('Json'),
+			array('Php'),
+			array('Yaml')
+		);
+	}
+
+	/**
+	 * Test the AbstractRegistryFormat::getInstance method.
+	 *
+	 * @param   string  $format  The format to load
+	 *
+	 * @return  void
+	 *
+	 * @dataProvider  seedTestGetInstance
+	 * @since         1.0
+	 */
+	public function testGetInstance($format)
+	{
+		$class = '\\Joomla\\Registry\\Format\\' . $format;
+
+		$object = AbstractRegistryFormat::getInstance($format);
 		$this->assertThat(
-			$object instanceof Joomla\Registry\Format\Ini,
+			$object instanceof $class,
 			$this->isTrue()
 		);
+	}
 
-		// Test JSON format.
-		$object = AbstractRegistryFormat::getInstance('JSON');
-		$this->assertThat(
-			$object instanceof Joomla\Registry\Format\Json,
-			$this->isTrue()
-		);
-
-		// Test PHP format.
-		$object = AbstractRegistryFormat::getInstance('PHP');
-		$this->assertThat(
-			$object instanceof Joomla\Registry\Format\PHP,
-			$this->isTrue()
-		);
-
-		// Test XML format.
-		$object = AbstractRegistryFormat::getInstance('XML');
-		$this->assertThat(
-			$object instanceof Joomla\Registry\Format\Xml,
-			$this->isTrue()
-		);
-
-		// Test non-existing format.
-		try
-		{
-			$object = AbstractRegistryFormat::getInstance('SQL');
-		}
-		catch (Exception $e)
-		{
-			return;
-		}
-		$this->fail('AbstractRegistryFormat should throw an exception in case of non-existing formats');
+	/**
+	 * Test getInstance with a non-existent format.
+	 *
+	 * @return  void
+	 *
+	 * @expectedException  \InvalidArgumentException
+	 * @since              1.0
+	 */
+	public function testGetInstanceNonExistent()
+	{
+		AbstractRegistryFormat::getInstance('SQL');
 	}
 }

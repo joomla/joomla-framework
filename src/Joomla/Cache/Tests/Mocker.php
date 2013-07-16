@@ -24,7 +24,9 @@ class Mocker
 	/**
 	 * Class contructor.
 	 *
-	 * @param  \PHPUnit_Framework_TestCase  $test  A test class.
+	 * @param   \PHPUnit_Framework_TestCase  $test  A test class.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(\PHPUnit_Framework_TestCase $test)
 	{
@@ -119,7 +121,7 @@ class Mocker
 	/**
 	 * Callback to mock the Joomla\Cache\Cache::get method.
 	 *
-	 * @param   string  $text  The input text.
+	 * @param   string  $key  The input text.
 	 *
 	 * @return  string
 	 *

@@ -16,6 +16,7 @@
         "joomla/utilities": "dev-master"
     },
     "target-dir": "Joomla/Form",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Form": ""

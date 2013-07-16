@@ -1,0 +1,23 @@
+{
+    "name": "joomla/facebook",
+    "type": "joomla-package",
+    "description": "Joomla Facebook Package",
+    "keywords": ["joomla", "framework", "facebook"],
+    "homepage": "https://github.com/joomla/joomla-framework-facebook",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/oauth2": "dev-master",
+        "joomla/input": "dev-master",
+        "joomla/http": "dev-master",
+        "joomla/registry": "dev-master",
+        "joomla/uri": "dev-master"
+    },
+    "target-dir": "Joomla/Facebook",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Facebook": ""
+    	}
+    }
+}
+

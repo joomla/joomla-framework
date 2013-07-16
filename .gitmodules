@@ -1,0 +1,3 @@
+[submodule "build/phpcs/Joomla"]
+	path = build/phpcs/Joomla
+	url = git://github.com/joomla/coding-standards.git

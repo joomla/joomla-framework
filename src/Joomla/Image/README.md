@@ -121,3 +121,24 @@ This parameter can be one of the following:
 - `JImage::SCALE_INSIDE` - Fits your thumbnail within your given parameters. It will not be any taller or wider than the size passed, whichever is larger.
 - `JImage::SCALE_OUTSIDE` - Fits your thumbnail to the given parameters. It will be as tall or as wide as the size passed, whichever is smaller.
 - `JImage::CROP` - Gives you a thumbnail of the exact size, cropped from the center of the full sized image.
+
+
+## Installation via Composer
+
+Add `"joomla/image": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
+
+```json
+{
+	"require": {
+		"joomla/image": "dev-master"
+	},
+	"minimum-stability": "dev"
+}
+```
+
+Alternatively, you can simply run the following from the command line:
+
+```sh
+composer init --stability="dev"
+composer require joomla/image "dev-master"
+```

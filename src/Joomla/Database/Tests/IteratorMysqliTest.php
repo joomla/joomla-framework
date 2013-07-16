@@ -125,6 +125,7 @@ class IteratorMysqliTest extends DatabaseMysqliCase
 		{
 			$this->setExpectedException($exception);
 		}
+
 		self::$driver->setQuery(self::$driver->getQuery(true)->select($select)->from($from)->setLimit($limit, $offset));
 		$iterator = self::$driver->getIterator($column, $class);
 

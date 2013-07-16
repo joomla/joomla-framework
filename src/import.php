@@ -15,9 +15,6 @@ if (!defined('JPATH_FRAMEWORK'))
 	define('JPATH_FRAMEWORK', __DIR__);
 }
 
-// Include the composer autoloader.
-//require_once dirname(__DIR__) . '/vendor/autoload.php';
-
 // Import the library loader if necessary. Don't try to autoload it yet.
 if (!class_exists('JLoader', false))
 {

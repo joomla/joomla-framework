@@ -25,13 +25,13 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 	 * @var    array  The database driver options for the connection.
 	 * @since  1.0
 	 */
-	private static $_options = array('driver' => 'postgresql');
+	private static $options = array('driver' => 'postgresql');
 
 	/**
 	 * @var    \Joomla\Database\Postgresql\PostgresqlDriver  The saved database driver to be restored after these tests.
 	 * @since  1.0
 	 */
-	private static $_stash;
+	private static $stash;
 
 	/**
 	 * This method is called before the first test of this test class is run.
@@ -71,19 +71,19 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 			switch ($k)
 			{
 				case 'host':
-					self::$_options['host'] = $v;
+					self::$options['host'] = $v;
 					break;
 				case 'port':
-					self::$_options['port'] = $v;
+					self::$options['port'] = $v;
 					break;
 				case 'dbname':
-					self::$_options['database'] = $v;
+					self::$options['database'] = $v;
 					break;
 				case 'user':
-					self::$_options['user'] = $v;
+					self::$options['user'] = $v;
 					break;
 				case 'pass':
-					self::$_options['password'] = $v;
+					self::$options['password'] = $v;
 					break;
 			}
 		}
@@ -91,7 +91,7 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = \Joomla\Database\DatabaseDriver::getInstance(self::$_options);
+			self::$driver = \Joomla\Database\DatabaseDriver::getInstance(self::$options);
 		}
 		catch (\RuntimeException $e)
 		{
@@ -105,7 +105,7 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 		}
 
 		// Setup the factory pointer for the driver and stash the old one.
-		self::$_stash = Factory::$database;
+		self::$stash = Factory::$database;
 		Factory::$database = self::$driver;
 	}
 
@@ -118,7 +118,7 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 	 */
 	public static function tearDownAfterClass()
 	{
-		Factory::$database = self::$_stash;
+		Factory::$database = self::$stash;
 		self::$driver = null;
 	}
 
@@ -132,11 +132,11 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 	protected function getConnection()
 	{
 		// Compile the connection DSN.
-		$dsn = 'pgsql:host=' . self::$_options['host'] . ';port=' . self::$_options['port'] . ';dbname=' . self::$_options['database'];
+		$dsn = 'pgsql:host=' . self::$options['host'] . ';port=' . self::$options['port'] . ';dbname=' . self::$options['database'];
 
 		// Create the PDO object from the DSN and options.
-		$pdo = new \PDO($dsn, self::$_options['user'], self::$_options['password']);
+		$pdo = new \PDO($dsn, self::$options['user'], self::$options['password']);
 
-		return $this->createDefaultDBConnection($pdo, self::$_options['database']);
+		return $this->createDefaultDBConnection($pdo, self::$options['database']);
 	}
 }

@@ -18,4 +18,14 @@ use Joomla\Session\Storage;
  */
 class None extends Storage
 {
+	/**
+	 * Register the functions of this class with PHP's session handler
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function register()
+	{
+	}
 }

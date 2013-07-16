@@ -10,6 +10,7 @@
          "joomla/string": "dev-master"
     },
     "target-dir": "Joomla/Utilities",
+    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Utilities": ""
