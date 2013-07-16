@@ -78,15 +78,15 @@ class Container implements \ArrayAccess
 		if (is_null($constructor))
 		{
 			$callback = function () use ($key) { return new $key; };
-
-			return $this->set($key, $callback, $shared)->get($key);
 		}
+		else
+		{
+			$newInstanceArgs = $this->getMethodArgs($constructor, $constructorParams);
 
-		$newInstanceArgs = $this->getMethodArgs($constructor, $constructorParams);
-
-		$callback = function () use ($reflection, $newInstanceArgs) {
-			return $reflection->newInstanceArgs($newInstanceArgs);
-		};
+			$callback = function () use ($reflection, $newInstanceArgs) {
+				return $reflection->newInstanceArgs($newInstanceArgs);
+			};
+		}
 
 		return $this->set($key, $callback, $shared)->get($key);
 	}
