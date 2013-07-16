@@ -125,7 +125,7 @@ class Container implements \ArrayAccess
 			$dependencyVarName = $param->getName();
 			$dependencyClassName = $dependency->getName();
 
-			// If the dependency has been specified in the method call, use it.
+			// If the dependency has been specified in the params array, use it.
 			if (isset($params[$dependencyVarName]))
 			{
 				if (is_object($params[$dependencyVarName]))
