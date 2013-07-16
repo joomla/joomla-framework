@@ -125,7 +125,7 @@ class Container implements \ArrayAccess
 			$dependencyVarName = $param->getName();
 			$dependencyClassName = $dependency->getName();
 
-			// If the dependency has been specified in the params array, use it.
+			// If the dependency var name has been specified in the params array, use it.
 			if (isset($params[$dependencyVarName]))
 			{
 				if (is_object($params[$dependencyVarName]))
@@ -145,7 +145,7 @@ class Container implements \ArrayAccess
 				}
 			}
 
-			// If the dependency is registered with the container, use it.
+			// If the dependency class name is registered with the container, use it.
 			if (isset($this->dataStore[$dependencyClassName]))
 			{
 				$depObject = $this->get($dependencyClassName);
