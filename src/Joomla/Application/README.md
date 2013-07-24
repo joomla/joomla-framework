@@ -173,22 +173,55 @@ You can provide customised implementations these methods by creating the followi
 * `mockWebSetBody`
 * `mockWebSetHeader`
 
-## Colors for CLI Applications
+## Command Line Applications
+
+The Joomla Framework provides an application class for making command line applications.
+
+An example command line application skeleton:
+
+```php
+<?php
+
+use Joomla\Application\AbstractCliApplication;
+
+// Bootstrap the autoloader (adjust path as appropriate to your situation).
+require_once __DIR__ . '/../vendor/autoload.php';
+
+class MyCli extends AbstractCliApplication
+{
+	protected function doExecute()
+	{
+		$this->out('It works');
+	}
+}
+
+$app = new MyCli;
+$app->execute();
+
+```
+
+### Colors for CLI Applications
 
 It is possible to use colors on an ANSI enabled terminal.
 
 ```php
-// Green text
-$this->out('<info>foo</info>');
+class MyCli extends AbstractCliApplication
+{
+	protected function doExecute()
+	{
+		// Green text
+		$this->out('<info>foo</info>');
 
-// Yellow text
-$this->out('<comment>foo</comment>');
+		// Yellow text
+		$this->out('<comment>foo</comment>');
 
-// Black text on a cyan background
-$this->out('<question>foo</question>');
+		// Black text on a cyan background
+		$this->out('<question>foo</question>');
 
-// White text on a red background
-$this->out('<error>foo</error>');
+		// White text on a red background
+		$this->out('<error>foo</error>');
+	}
+}
 ```
 
 You can also create your own styles.
@@ -196,9 +229,26 @@ You can also create your own styles.
 ```php
 use Joomla\Application\Cli\Colorstyle;
 
-$style = new Colorstyle('yellow', 'red', array('bold', 'blink'));
-$this->getOutput()->addStyle('fire', $style);
-$this->out('<fire>foo</fire>');
+class MyCli extends AbstractCliApplication
+{
+	/**
+	 * Override to initialise the colour styles.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function initialise()
+	{
+		$style = new Colorstyle('yellow', 'red', array('bold', 'blink'));
+		$this->getOutput()->addStyle('fire', $style);
+	}
+	
+	protected function doExecute()
+	{
+		$this->out('<fire>foo</fire>');
+	}
+}
 
 ```
 
@@ -209,14 +259,20 @@ And available options are: bold, underscore, blink and reverse.
 You can also set these colors and options inside the tagname:
 
 ```php
-// Green text
-$this->out('<fg=green>foo</fg=green>');
+class MyCli extends AbstractCliApplication
+{
+	protected function doExecute()
+	{
+		// Green text
+		$this->out('<fg=green>foo</fg=green>');
 
-// Black text on a cyan background
-$this->out('<fg=black;bg=cyan>foo</fg=black;bg=cyan>');
+		// Black text on a cyan background
+		$this->out('<fg=black;bg=cyan>foo</fg=black;bg=cyan>');
 
-// Bold text on a yellow background
-$this->out('<bg=yellow;options=bold>foo</bg=yellow;options=bold>');
+		// Bold text on a yellow background
+		$this->out('<bg=yellow;options=bold>foo</bg=yellow;options=bold>');
+	}
+}
 ```
 
 ## Installation via Composer
