@@ -24,6 +24,8 @@ class HttpFactory
 	 * @param   mixed     $adapters  Adapter (string) or queue of adapters (array) to use for communication.
 	 *
 	 * @return  Http  Joomla Http class
+
+	 * @throws  \RuntimeException
 	 *
 	 * @since   1.0
 	 */
@@ -34,7 +36,11 @@ class HttpFactory
 			$options = new Registry;
 		}
 
-		return new Http($options, self::getAvailableDriver($options, $adapters));
+		if(!$driver = self::getAvailableDriver($options, $adapters)) {
+			throw new \RuntimeException('No transport driver available.');
+		}
+
+		return new Http($options, $driver);
 	}
 
 	/**
