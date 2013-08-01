@@ -36,7 +36,8 @@ class HttpFactory
 			$options = new Registry;
 		}
 
-		if(!$driver = self::getAvailableDriver($options, $adapters)) {
+		if (!$driver = self::getAvailableDriver($options, $adapters))
+		{
 			throw new \RuntimeException('No transport driver available.');
 		}
 
