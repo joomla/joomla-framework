@@ -7,8 +7,10 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/language": "dev-master",
         "joomla/string": "dev-master"
+    },
+    "suggest": {
+        "joomla/language": "Required only if you want to use `OutputFilter::stringURLSafe`."
     },
     "target-dir": "Joomla/Filter",
     "minimum-stability": "dev",
