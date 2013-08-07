@@ -20,3 +20,5 @@ Alternatively, you can simply run the following from the command line:
 composer init --stability="dev"
 composer require joomla/filter "dev-master"
 ```
+
+Note that the `Joomla\Language` package is an optional dependency and is only required if the application requires the use of `OutputFilter::stringURLSafe`.
