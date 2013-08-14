@@ -10,7 +10,7 @@
         "joomla/string": "dev-master"
     },
     "require-dev": {
-        "joomla/language": "dev-master",
+        "joomla/language": "dev-master"
     },
     "suggest": {
         "joomla/language": "Required only if you want to use `OutputFilter::stringURLSafe`."
