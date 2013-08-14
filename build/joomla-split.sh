@@ -22,12 +22,14 @@ git subsplit publish "
 	src/Joomla/Input:git@github.com:joomla/joomla-framework-input.git
 	src/Joomla/Keychain:git@github.com:joomla/joomla-framework-keychain.git
 	src/Joomla/Language:git@github.com:joomla/joomla-framework-language.git
+	src/Joomla/Linkedin:git@github.com:joomla/joomla-framework-linkedin.git
 	src/Joomla/Log:git@github.com:joomla/joomla-framework-log.git
 	src/Joomla/Model:git@github.com:joomla/joomla-framework-model.git
 	src/Joomla/Oauth1:git@github.com:joomla/joomla-framework-oauth1.git
 	src/Joomla/Oauth2:git@github.com:joomla/joomla-framework-oauth2.git
 	src/Joomla/Profiler:git@github.com:joomla/joomla-framework-profiler.git
 	src/Joomla/Registry:git@github.com:joomla/joomla-framework-registry.git
+	src/Joomla/Router@github.com:joomla/joomla-framework-router.git
 	src/Joomla/Session:git@github.com:joomla/joomla-framework-session.git
 	src/Joomla/String:git@github.com:joomla/joomla-framework-string.git
 	src/Joomla/Test:git@github.com:joomla/joomla-framework-test.git
