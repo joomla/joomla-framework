@@ -36,12 +36,56 @@ class Stub3
 
 class Stub4 implements StubInterface {}
 
+class Stub5
+{
+	protected $stub;
+
+	public function __construct(Stub4 $stub)
+	{
+		$this->stub = $stub;
+	}
+}
+
+class Stub6
+{
+	protected $stub;
+
+	public function __construct($stub = 'foo')
+	{
+		$this->stub = $stub;
+	}
+}
+
+class Stub7
+{
+	protected $stub;
+
+	public function __construct($stub)
+	{
+		$this->stub = $stub;
+	}
+}
+
+class Stub8
+{
+	protected $stub;
+
+	public function __construct(DoesntExist $stub)
+	{
+		$this->stub = $stub;
+	}
+}
+
+class Stub9
+{
+}
+
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
  	 * Holds the Container instance for testing.
 	 *
-	 * @var  Joomla\DI\Container
+	 * @var  \Joomla\DI\Container
 	 */
 	protected $fixture;
 
@@ -78,7 +122,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testConstructor()
 	{
-		$this->assertAttributeEquals(array('default.shared' => true), 'config', $this->fixture);
+		$this->assertAttributeEquals(
+			null,
+			'parent',
+			$this->fixture,
+			'A default new object should have a null $parent.'
+		);
 	}
 
 	/**
@@ -88,11 +137,16 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testConstructorWithConfig()
+	public function testConstructorWithParent()
 	{
-		$this->fixture = new Container(array('foo' => 'bar'));
+		$container = new Container($this->fixture);
 
-		$this->assertAttributeEquals(array('default.shared' => true, 'foo' => 'bar'), 'config', $this->fixture);
+		$this->assertAttributeInstanceOf(
+			'Joomla\\DI\\Container',
+			'parent',
+			$container,
+			'A default new object should have a null $parent.'
+		);
 	}
 
 	/**
@@ -106,7 +160,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub1');
 
-		$this->assertInstanceOf('Joomla\\DI\\Tests\\Stub1', $object);
+		$this->assertInstanceOf(
+			'Joomla\\DI\\Tests\\Stub1',
+			$object,
+			'When building an object, an instance of the requested class should be returned.'
+		);
 	}
 
 	/**
@@ -118,65 +176,33 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testBuildObjectGetDependencyFromContainer()
 	{
-		$this->fixture['Joomla\\DI\\Tests\\StubInterface'] = function () {
+		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () {
 			return new Stub1;
-		};
+		});
 
 		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub2');
 
-		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub1', 'stub', $object);
+		$this->assertAttributeInstanceOf(
+			'Joomla\\DI\\Tests\\Stub1',
+			'stub',
+			$object,
+			'When building an object, the dependencies should resolve from the container.'
+		);
 	}
 
 	/**
-	 * Tests the buildObject, getting dependency names from param array.
+	 * Tests attempting to build a non-class.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testBuildObjectGetDependencyFromParamsAsDependencyName()
+	public function testBuildObjectNonClass()
 	{
-		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub2', array('stub' => 'Joomla\\DI\\Tests\\Stub1'));
-
-		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub1', 'stub', $object);
-	}
-
-	/**
-	 * Tests the buildObject, getting dependency names from param array.
-	 * This really tests have 2 implementations for the same typehinted interface.
-	 * It's partly a "scope test".
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testBuildObjectGetDependencyFromParamsAsDependencyNameSameInterface()
-	{
-		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () { return new Stub4; });
-
-		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub3', array(
-			'stub' => 'Joomla\\DI\\Tests\\Stub1',
-			'stub2' => 'Joomla\\DI\\Tests\\Stub2'
-		));
-
-		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub1', 'stub', $object);
-		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub2', 'stub2', $object);
-	}
-
-	/**
-	 * Tests the buildObject, getting dependency names from param array as an object.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testBuildObjectGetDependencyFromParamsAsDependencyObject()
-	{
-		$stub1 = new Stub1;
-		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub2', array('stub' => $stub1));
-
-		$this->assertAttributeInstanceOf('Joomla\\DI\\Tests\\Stub1', 'stub', $object);
-		$this->assertAttributeSame($stub1, 'stub', $object);
+		$this->assertFalse(
+			$this->fixture->buildObject('asdf'),
+			'Attempting to build a non-class should return false.'
+		);
 	}
 
 	/**
@@ -190,7 +216,155 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$object = $this->fixture->buildSharedObject('Joomla\\DI\\Tests\\Stub1');
 
-		$this->assertSame($object, $this->fixture->get('Joomla\\DI\\Tests\\Stub1'));
+		$this->assertSame(
+			$object,
+			$this->fixture->get('Joomla\\DI\\Tests\\Stub1'),
+			'Building a shared object should return the same object whenever requested.'
+		);
+	}
+
+	/**
+	 * Tests the creation of a child Container.
+	 *
+	 * @return void
+	 */
+	public function testCreateChild()
+	{
+		$child = $this->fixture->createChild();
+
+		$this->assertAttributeInstanceOf(
+			'Joomla\\DI\\Container',
+			'parent',
+			$child,
+			'When create a child container, the $parent property should be an instance of Joomla\\DI\\Container.'
+		);
+
+		$this->assertAttributeSame(
+			$this->fixture,
+			'parent',
+			$child,
+			'When creating a child container, the $parent property should be the same as the creating Container.'
+		);
+	}
+
+	/**
+	 * Test getting method args
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetMethodArgsFromContainer()
+	{
+		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () {
+			return new Stub1;
+		});
+
+		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
+		$reflectionMethod->setAccessible(true);
+
+		$reflectionClass = new \ReflectionClass('Joomla\\DI\\Tests\\Stub2');
+		$constructor = $reflectionClass->getConstructor();
+
+		$args = $reflectionMethod->invoke($this->fixture, $constructor);
+
+		$this->assertInstanceOf(
+			'Joomla\\DI\\Tests\\Stub1',
+			$args[0],
+			'When getting method args, it should resolve dependencies from the container if set.'
+		);
+	}
+
+	/**
+	 * Test getting method args as concrete class
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetMethodArgsConcreteClass()
+	{
+		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
+		$reflectionMethod->setAccessible(true);
+
+		$reflectionClass = new \ReflectionClass('Joomla\\DI\\Tests\\Stub5');
+		$constructor = $reflectionClass->getConstructor();
+
+		$args = $reflectionMethod->invoke($this->fixture, $constructor);
+
+		$this->assertInstanceOf(
+			'Joomla\\DI\\Tests\\Stub4',
+			$args[0],
+			'When getting method args, it should create any concrete dependencies.'
+		);
+	}
+
+	/**
+	 * Test getting method args as default values
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetMethodArgsDefaultValues()
+	{
+		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
+		$reflectionMethod->setAccessible(true);
+
+		$reflectionClass = new \ReflectionClass('Joomla\\DI\\Tests\\Stub6');
+		$constructor = $reflectionClass->getConstructor();
+
+		$args = $reflectionMethod->invoke($this->fixture, $constructor);
+
+		$this->assertEquals(
+			'foo',
+			$args[0],
+			'When getting method args, it should resolve dependencies from their default values.'
+		);
+	}
+
+	/**
+	 * Test getting method args that can't resolve.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  \Joomla\DI\Exception\DependencyResolutionException
+	 */
+	public function testGetMethodArgsCantResolve()
+	{
+		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
+		$reflectionMethod->setAccessible(true);
+
+		$reflectionClass = new \ReflectionClass('Joomla\\DI\\Tests\\Stub7');
+		$constructor = $reflectionClass->getConstructor();
+
+		$reflectionMethod->invoke($this->fixture, $constructor);
+	}
+
+	/**
+	 * Test getting method args that can't resolve.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  \Joomla\DI\Exception\DependencyResolutionException
+	 */
+	public function testGetMethodArgsResolvedIsNotInstanceOfHintedDependency()
+	{
+		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () {
+			return new Stub9;
+		});
+
+		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
+		$reflectionMethod->setAccessible(true);
+
+		$reflectionClass = new \ReflectionClass('Joomla\\DI\\Tests\\Stub2');
+		$constructor = $reflectionClass->getConstructor();
+
+		$reflectionMethod->invoke($this->fixture, $constructor);
 	}
 
 	/**
@@ -208,7 +382,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the set method with already set key.
+	 * Tests the set method with already set protected key.
 	 *
 	 * @return  void
 	 *
@@ -216,10 +390,31 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @expectedException  \OutOfBoundsException
 	 */
-	public function testSetAlreadySet()
+	public function testSetAlreadySetProtected()
+	{
+		$this->fixture->set('foo', function () { return new \stdClass; }, false, true);
+		$this->fixture->set('foo', function () { return new \stdClass; }, false, true);
+	}
+
+	/**
+	 * Tests the set method with already set not protected key.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testSetAlreadySetNotProtected()
 	{
 		$this->fixture->set('foo', function () { return new \stdClass; });
-		$this->fixture->set('foo', function () { return new \stdClass; });
+		$this->fixture->set('foo', function () { return 'bar'; });
+
+		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
+
+		$this->assertSame(
+			$dataStore['foo']['callback']($this->fixture),
+			'bar',
+			'Overwriting a non-protected key should be allowed.'
+		);
 	}
 
 	/**
@@ -231,7 +426,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetShared()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; });
+		$this->fixture->set('foo', function () { return new \stdClass; }, true);
 
 		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
 
@@ -255,6 +450,102 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the protected method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testProtect()
+	{
+		$this->fixture->protect('foo', function () { return new \stdClass; });
+
+		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
+
+		$this->assertTrue(
+			$dataStore['foo']['protected'],
+			'The protect convenience method sets items as protected.'
+		);
+
+		$this->assertFalse(
+			$dataStore['foo']['shared'],
+			'The protected method does not set shared by default.'
+		);
+	}
+
+	/**
+	 * Tests the protected method when passing the shared arg..
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testProtectShared()
+	{
+		$this->fixture->protect('foo', function () { return new \stdClass; }, true);
+
+		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
+
+		$this->assertTrue(
+			$dataStore['foo']['protected'],
+			'The protect convenience method sets items as protected.'
+		);
+
+		$this->assertTrue(
+			$dataStore['foo']['shared'],
+			'The protected method does set shared when passed true as third arg.'
+		);
+	}
+
+	/**
+	 * Tests the share method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testShare()
+	{
+		$this->fixture->share('foo', function () { return new \stdClass; });
+
+		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
+
+		$this->assertTrue(
+			$dataStore['foo']['shared'],
+			'The share convenience method sets items as shared.'
+		);
+
+		$this->assertFalse(
+			$dataStore['foo']['protected'],
+			'The protected method does not set protected by default.'
+		);
+	}
+
+	/**
+	 * Tests the protected method when passing the shared arg..
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testShareProtected()
+	{
+		$this->fixture->share('foo', function () { return new \stdClass; }, true);
+
+		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
+
+		$this->assertTrue(
+			$dataStore['foo']['protected'],
+			'The shared method does set protected when passed true as third arg.'
+		);
+
+		$this->assertTrue(
+			$dataStore['foo']['shared'],
+			'The share convenience method sets items as shared.'
+		);
+	}
+
+	/**
 	 * Tests the get method shared.
 	 *
 	 * @return  void
@@ -263,7 +554,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetShared()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; });
+		$this->fixture->set('foo', function () { return new \stdClass; }, true);
 
 		$this->assertSame($this->fixture->get('foo'), $this->fixture->get('foo'));
 	}
@@ -283,7 +574,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the get method on a non-existant offset.
+	 * Tests the get method on a non-existent offset.
 	 *
 	 * @return  void
 	 *
@@ -293,21 +584,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetNotExists()
 	{
-		$foo = $this->fixture->get('foo');
-	}
-
-	/**
-	 * Test the get method on a non-existant offest that happens to be a class name.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testGetNotExistsButIsClass()
-	{
-		$object = $this->fixture->get('Joomla\\DI\\Tests\\Stub1');
-
-		$this->assertInstanceOf('Joomla\\DI\\Tests\\Stub1', $object);
+		$this->fixture->get('foo');
 	}
 
 	/**
@@ -322,7 +599,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->fixture->set('foo', function ($c) { return $c; });
 
-		$this->assertSame($this->fixture, $this->fixture['foo']);
+		$this->assertSame($this->fixture, $this->fixture->get('foo'));
 	}
 
 	/**
@@ -337,7 +614,59 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->fixture->set('foo', function ($c) { return $c; }, false);
 
-		$this->assertSame($this->fixture, $this->fixture['foo']);
+		$this->assertSame($this->fixture, $this->fixture->get('foo'));
+	}
+
+	/**
+	 * Test getRaw
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetRaw()
+	{
+		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getRaw');
+		$reflectionMethod->setAccessible(true);
+
+		$function = function () { return 'foo'; };
+
+		$this->fixture->set('foo', $function);
+
+		$raw = $reflectionMethod->invoke($this->fixture, 'foo');
+
+		$this->assertSame(
+			$function,
+			$raw['callback'],
+			'getRaw should return the raw object uncalled'
+		);
+	}
+
+	/**
+	 * Test getRaw
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetRawFromParent()
+	{
+		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getRaw');
+		$reflectionMethod->setAccessible(true);
+
+		$function = function () { return 'foo'; };
+
+		$this->fixture->set('foo', $function);
+
+		$child = new Container($this->fixture);
+
+		$raw = $reflectionMethod->invoke($child, 'foo');
+
+		$this->assertSame(
+			$function,
+			$raw['callback'],
+			'getRaw should return the raw object uncalled'
+		);
 	}
 
 	/**
@@ -353,195 +682,5 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$this->fixture->set('foo', function () { return new \stdClass; });
 
 		$this->assertNotSame($this->fixture->getNewInstance('foo'), $this->fixture->getNewInstance('foo'));
-	}
-
-	/**
-	 * Tests the setConfig method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testSetConfig()
-	{
-		$this->fixture->setConfig(array('foo' => 'bar'));
-
-		$this->assertAttributeEquals(array('default.shared' => true, 'foo' => 'bar'), 'config', $this->fixture);
-	}
-
-	/**
-	 * Tests the getConfig method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testGetConfig()
-	{
-		$this->assertSame(array('default.shared' => true), $this->fixture->getConfig());
-	}
-
-	/**
-	 * Tests the setParam method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testSetParam()
-	{
-		$this->fixture->setParam('foo', 'bar');
-
-		$this->assertAttributeEquals(array('default.shared' => true, 'foo' => 'bar'), 'config', $this->fixture);
-	}
-
-	/**
-	 * Tests the getParam method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testGetParam()
-	{
-		$this->assertSame($this->fixture->getParam('default.shared'), true);
-	}
-
-	/**
-	 * Tests the offsetExists method true.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetExistsTrue()
-	{
-		$this->fixture->set('foo', function () { return new \stdClass; });
-
-		$this->assertTrue(isset($this->fixture['foo']));
-	}
-
-	/**
-	 * Tests the offsetExists method false.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetExistsFalse()
-	{
-		$this->assertFalse(isset($this->fixture['foo']));
-	}
-
-	/**
-	 * Tests the offsetGet method on a non-existant offset.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 *
-	 * @expectedException  \InvalidArgumentException
-	 */
-	public function testOffsetGetNotExists()
-	{
-		$foo = $this->fixture['foo'];
-	}
-
-	/**
-	 * Tests the offsetGet method on a non-existant offset that happens to be a class name.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetGetNotExistsButIsClass()
-	{
-		$object = $this->fixture['Joomla\\DI\\Tests\\Stub1'];
-
-		$this->assertInstanceOf('Joomla\\DI\\Tests\\Stub1', $object);
-	}
-
-	/**
-	 * Tests the offsetGet method shared.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetGetExistsShared()
-	{
-		$this->fixture->set('foo', function () { return new \stdClass; });
-
-		$this->assertInstanceOf('stdClass', $this->fixture['foo']);
-	}
-
-	/**
-	 * Tests the offsetGet method not shared.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetGetExistsNotShared()
-	{
-		$this->fixture->set('foo', function () { return new \stdClass; }, false);
-
-		$this->assertNotSame($this->fixture['foo'], $this->fixture['foo']);
-	}
-
-	/**
-	 * Tests the offsetSet method shared.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetSetShared()
-	{
-		$this->fixture['foo'] = function () { return new \stdClass; };
-
-		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
-
-		$this->assertTrue($dataStore['foo']['shared']);
-	}
-
-	/**
-	 * Tests the offsetSet method not shared.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetSetNotShared()
-	{
-		$this->fixture->setParam('default.shared', false);
-
-		$this->fixture['foo'] = function () { return new \stdClass; };
-
-		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
-
-		$this->assertFalse($dataStore['foo']['shared']);
-	}
-
-	/**
-	 * Tests the offsetSet method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testOffsetUnset()
-	{
-		$this->fixture['foo'] = function () { return new \stdClass; };
-
-		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
-
-		$this->assertTrue(array_key_exists('foo', $dataStore));
-
-		unset($this->fixture['foo']);
-
-		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
-
-		$this->assertFalse(array_key_exists('foo', $dataStore));
 	}
 }

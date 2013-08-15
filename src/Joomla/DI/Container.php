@@ -8,7 +8,9 @@
 
 namespace Joomla\DI;
 
-class Container implements \ArrayAccess
+use Joomla\DI\Exception\DependencyResolutionException;
+
+class Container
 {
 	/**
 	 * Holds the shared instances.
@@ -30,38 +32,37 @@ class Container implements \ArrayAccess
 	private $dataStore = array();
 
 	/**
-	 * Holds config options accessible within the passed callback.
+	 * Parent for hierarchical containers.
 	 *
-	 * @var    array  $config
+	 * @var    Container
 	 *
 	 * @since  1.0
 	 */
-	protected $config = array('default.shared' => true);
+	private $parent;
 
 	/**
 	 * Constructor for the DI Container
 	 *
-	 * @param  array  $config  Array of configuration parameters.
+	 * @param  Container  $parent  Parent for hierarchical containers.
 	 *
 	 * @since  1.0
 	 */
-	public function __construct(array $config = array())
+	public function __construct(Container $parent = null)
 	{
-		$this->setConfig($config);
+		$this->parent = $parent;
 	}
 
 	/**
 	 * Build an object of class $key;
 	 *
-	 * @param   string   $key                The class name to build.
-	 * @param   array    $constructorParams  Array of named parameters to pass to constructor.
-	 * @param   boolean  $shared             True to create a shared resource.
+	 * @param   string   $key     The class name to build.
+	 * @param   boolean  $shared  True to create a shared resource.
 	 *
 	 * @return  object  Instance of class specified by $key with all dependencies injected.
 	 *
 	 * @since   1.0
 	 */
-	public function buildObject($key, array $constructorParams = array(), $shared = false)
+	public function buildObject($key, $shared = false)
 	{
 		try
 		{
@@ -81,8 +82,9 @@ class Container implements \ArrayAccess
 		}
 		else
 		{
-			$newInstanceArgs = $this->getMethodArgs($constructor, $constructorParams);
+			$newInstanceArgs = $this->getMethodArgs($constructor);
 
+			// Create a callable for the dataStore
 			$callback = function () use ($reflection, $newInstanceArgs) {
 				return $reflection->newInstanceArgs($newInstanceArgs);
 			};
@@ -102,9 +104,20 @@ class Container implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 */
-	public function buildSharedObject($key, $constructorParams = array())
+	public function buildSharedObject($key)
 	{
-		return $this->buildObject($key, $constructorParams, true);
+		return $this->buildObject($key, true);
+	}
+
+	/**
+	 * Create a child Container with a new property scope that
+	 * that has the ability to access the parent scope when resolving.
+	 *
+	 * @return Container
+	 */
+	public function createChild()
+	{
+		return new static($this);
 	}
 
 	/**
@@ -115,7 +128,7 @@ class Container implements \ArrayAccess
 	 *
 	 * @return  array  Array of arguments to pass to the method.
 	 */
-	protected function getMethodArgs(\ReflectionMethod $method, array $params = array())
+	protected function getMethodArgs(\ReflectionMethod $method)
 	{
 		$methodArgs = array();
 
@@ -123,32 +136,21 @@ class Container implements \ArrayAccess
 		{
 			$dependency = $param->getClass();
 			$dependencyVarName = $param->getName();
-			$dependencyClassName = $dependency->getName();
 
-			// If the dependency var name has been specified in the params array, use it.
-			if (isset($params[$dependencyVarName]))
+			// If we have a dependency, that means it has been type-hinted.
+			if (!is_null($dependency))
 			{
-				if (is_object($params[$dependencyVarName]))
+				$dependencyClassName = $dependency->getName();
+
+				// If the dependency class name is registered with this container or a parent, use it.
+				if ($this->getRaw($dependencyClassName) !== null)
 				{
-					$depObject = $params[$dependencyVarName];
+					$depObject = $this->get($dependencyClassName);
 				}
 				else
 				{
-					$depObject = $this->buildObject($params[$dependencyVarName]);
+					$depObject = $this->buildObject($dependencyClassName);
 				}
-
-				// If the object is an instance of the expected class, use it.
-				if ($depObject instanceof $dependencyClassName)
-				{
-					$methodArgs[] = $depObject;
-					continue;
-				}
-			}
-
-			// If the dependency class name is registered with the container, use it.
-			if (isset($this->dataStore[$dependencyClassName]))
-			{
-				$depObject = $this->get($dependencyClassName);
 
 				if ($depObject instanceof $dependencyClassName)
 				{
@@ -157,19 +159,15 @@ class Container implements \ArrayAccess
 				}
 			}
 
-			// You shouldn't hint against implementations, but in case you have.
-			if (class_exists($dependencyClassName))
-			{
-				$methodArgs[] = $this->buildObject($dependencyClassName);
-				continue;
-			}
-
-			// Finally, if there is a default parameter, let's use it.
+			// Finally, if there is a default parameter, use it.
 			if ($param->isOptional())
 			{
 				$methodArgs[] = $param->getDefaultValue();
 				continue;
 			}
+
+			// Couldn't resolve dependency, and no default was provided.
+			throw new DependencyResolutionException(sprintf('Could not resolve dependency: %s', $dependencyVarName));
 		}
 
 		return $methodArgs;
@@ -178,37 +176,69 @@ class Container implements \ArrayAccess
 	/**
 	 * Method to set the key and callback to the dataStore array.
 	 *
-	 * @param   string    $key       Name of dataStore key to set.
-	 * @param   callable  $callback  Callable function to run when requesting the specified $key.
-	 * @param   mixed     $shared    True to create and store a shared instance.
+	 * @param   string    $key        Name of dataStore key to set.
+	 * @param   callable  $callback   Callable function to run when requesting the specified $key.
+	 * @param   boolean   $shared     True to create and store a shared instance.
+	 * @param   boolean   $protected  True to protect this item from being overwritten. Useful for services.
 	 *
-	 * @return  Joomla\DI\Container  This instance to support chaining.
+	 * @return  \Joomla\DI\Container  This instance to support chaining.
+	 *
+	 * @throws  \OutOfBoundsException      Thrown if the provided key is already set and is protected.
+	 * @throws  \UnexpectedValueException  Thrown if the provided callback is not valid.
 	 *
 	 * @since   1.0
 	 */
-	public function set($key, $callback, $shared = null)
+	public function set($key, $callback, $shared = false, $protected = false)
 	{
-		if (isset($this->dataStore[$key]))
+		if (isset($this->dataStore[$key]) && $this->dataStore[$key]['protected'] === true)
 		{
-			throw new \OutOfBoundsException(sprintf('Key %s has already been assigned.', $key));
+			throw new \OutOfBoundsException(sprintf('Key %s is protected and can\'t be overwritten.', $key));
 		}
 
 		if (!is_callable($callback))
 		{
-			throw new \UnexpectedValueException('Provided value is not a valid callback.');
-		}
-
-		if (is_null($shared))
-		{
-			$shared = $this->config['default.shared'];
+			throw new \UnexpectedValueException('Provided value is not a valid callable.');
 		}
 
 		$this->dataStore[$key] = array(
 			'callback' => $callback,
-			'shared' => $shared
+			'shared' => $shared,
+			'protected' => $protected
 		);
 
 		return $this;
+	}
+
+	/**
+	 * Convenience method for creating protected keys.
+	 *
+	 * @param   string    $key       Name of dataStore key to set.
+	 * @param   callable  $callback  Callable function to run when requesting the specified $key.
+	 * @param   bool      $shared    True to create and store a shared instance.
+	 *
+	 * @return  \Joomla\DI\Container  This instance to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function protect($key, $callback, $shared = false)
+	{
+		return $this->set($key, $callback, $shared, true);
+	}
+
+	/**
+	 * Convenience method for creating shared keys.
+	 *
+	 * @param   string    $key        Name of dataStore key to set.
+	 * @param   callable  $callback   Callable function to run when requesting the specified $key.
+	 * @param   bool      $protected  True to create and store a shared instance.
+	 *
+	 * @return  \Joomla\DI\Container  This instance to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function share($key, $callback, $protected = false)
+	{
+		return $this->set($key, $callback, true, $protected);
 	}
 
 	/**
@@ -223,30 +253,45 @@ class Container implements \ArrayAccess
 	 */
 	public function get($key, $forceNew = false)
 	{
-		if (!isset($this->dataStore[$key]))
+		$raw = $this->getRaw($key);
+
+		if (is_null($raw))
 		{
-			// If the key hasn't been set, try to build it.
-			$object = $this->buildObject($key);
-
-			if ($object !== false)
-			{
-				return $object;
-			}
-
 			throw new \InvalidArgumentException(sprintf('Key %s has not been registered with the container.', $key));
 		}
 
-		if ($this->dataStore[$key]['shared'])
+		if ($raw['shared'])
 		{
 			if (!isset($this->instances[$key]) || $forceNew)
 			{
-				$this->instances[$key] = $this->dataStore[$key]['callback']($this);
+				$this->instances[$key] = $raw['callback']($this);
 			}
 
 			return $this->instances[$key];
 		}
 
-		return $this->dataStore[$key]['callback']($this);
+		return $raw['callback']($this);
+	}
+
+	/**
+	 * Get the raw data assigned to a key.
+	 *
+	 * @param   string  $key  The key for which to get the stored item.
+	 *
+	 * @return  mixed
+	 */
+	protected function getRaw($key)
+	{
+		if (isset($this->dataStore[$key]))
+		{
+			return $this->dataStore[$key];
+		}
+		elseif ($this->parent instanceof Container)
+		{
+			return $this->parent->getRaw($key);
+		}
+
+		return null;
 	}
 
 	/**
@@ -262,122 +307,6 @@ class Container implements \ArrayAccess
 	public function getNewInstance($key)
 	{
 		return $this->get($key, true);
-	}
-
-	/**
-	 * Method to set an array of config options.
-	 *
-	 * @param   array  $config  Associative array to merge with the internal config.
-	 *
-	 * @return  Joomla\DI\Container  This instance to support chaining.
-	 *
-	 * @since   1.0
-	 */
-	public function setConfig(array $config)
-	{
-		$this->config = array_merge($this->config, $config);
-
-		return $this;
-	}
-
-	/**
-	 * Method to retrieve the entire config array.
-	 *
-	 * @return  array  The config array for this instance.
-	 *
-	 * @since   1.0
-	 */
-	public function getConfig()
-	{
-		return $this->config;
-	}
-
-	/**
-	 * Method to set a single config option.
-	 *
-	 * @param   string  $key    Name of config key.
-	 * @param   mixed   $value  Value of config key.
-	 *
-	 * @return  Joomla\DI\Container  This instance to support chaining.
-	 *
-	 * @since   1.0
-	 */
-	public function setParam($key, $value)
-	{
-		$this->config[$key] = $value;
-
-		return $this;
-	}
-
-	/**
-	 * Method to retrieve a single configuration parameter.
-	 *
-	 * @param   string  $key  Name of config key to retrieve.
-	 *
-	 * @return  mixed  Value of config $key or null if not yet set.
-	 *
-	 * @since   1.0
-	 */
-	public function getParam($key)
-	{
-		return isset($this->config[$key]) ? $this->config[$key] : null;
-	}
-
-	/**
-	 * Whether an offset exists.
-	 *
-	 * @param   string  $key  Name of the dataStore key to check if exists.
-	 *
-	 * @return  boolean  True if the specified offset exists.
-	 *
-	 * @since   1.0
-	 */
-	public function offsetExists($key)
-	{
-		return isset($this->dataStore[$key]);
-	}
-
-	/**
-	 * Offset to retrieve.
-	 *
-	 * @param   string  $key  Name of the dataStore key to get.
-	 *
-	 * @return  mixed  Results of running the $callback for the specified $key.
-	 *
-	 * @since   1.0
-	 */
-	public function offsetGet($key)
-	{
-		return $this->get($key);
-	}
-
-	/**
-	 * Offset to set.
-	 *
-	 * @param   string    $key       Name of dataStore key to set.
-	 * @param   callable  $callback  Callable function to run when requesting $key.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function offsetSet($key, $callback)
-	{
-		$this->set($key, $callback, $this->config['default.shared']);
-	}
-
-	/**
-	 * Offset to unset.
-	 *
-	 * @param   string  $key  Offset to unset.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function offsetUnset($key)
-	{
-		unset($this->dataStore[$key]);
 	}
 }
 
