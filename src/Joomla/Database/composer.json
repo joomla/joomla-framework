@@ -10,7 +10,7 @@
         "psr/log": "~1.0"
     },
     "require-dev": {
-        "joomla/test": "dev-master"
+        "joomla/test": "1.*"
     },
     "target-dir": "Joomla/Database",
     "autoload": {

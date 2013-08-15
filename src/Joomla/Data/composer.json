@@ -7,14 +7,13 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/compat": "dev-master",
-        "joomla/registry": "dev-master"
+        "joomla/compat": "1.*",
+        "joomla/registry": "1.*"
     },
     "require-dev": {
-        "joomla/test": "dev-master"
+        "joomla/test": "1.*"
     },
     "target-dir": "Joomla/Data",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Data": ""

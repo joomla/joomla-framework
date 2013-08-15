@@ -9,10 +9,9 @@
         "php": ">=5.3.10"
     },
     "require-dev": {
-        "joomla/test": "dev-master"
+        "joomla/test": "1.*"
     },
     "target-dir": "Joomla/Profiler",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Profiler": ""

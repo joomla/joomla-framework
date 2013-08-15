@@ -7,11 +7,10 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/log": "dev-master",
-        "joomla/client": "dev-master"
+        "joomla/log": "1.*",
+        "joomla/client": "1.*"
     },
     "target-dir": "Joomla/Filesystem",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Filesystem": ""

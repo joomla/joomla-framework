@@ -7,17 +7,16 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/registry": "dev-master",
-        "joomla/uri": "dev-master",
-        "joomla/oauth2": "dev-master",
-        "joomla/filesystem": "dev-master"
+        "joomla/registry": "1.*",
+        "joomla/uri": "1.*",
+        "joomla/oauth2": "1.*",
+        "joomla/filesystem": "1.*"
     },
     "require-dev": {
-    	"joomla/input": "dev-master",
-    	"joomla/test": "dev-master"
+    	"joomla/input": "1.*",
+    	"joomla/test": "1.*"
     },
     "target-dir": "Joomla/Google",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Google": ""
