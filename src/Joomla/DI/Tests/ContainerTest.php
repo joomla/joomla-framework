@@ -735,4 +735,27 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertNotSame($this->fixture->getNewInstance('foo'), $this->fixture->getNewInstance('foo'));
 	}
+
+	/**
+	 * Test registering a service provider. Make sure register get's called.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testRegisterServiceProvider()
+	{
+		$mock = $this->getMock('Joomla\\DI\\ServiceProviderInterface');
+
+		$mock->expects($this->once())
+			->method('register');
+
+		$returned = $this->fixture->registerServiceProvider($mock);
+
+		$this->assertSame(
+			$returned,
+			$this->fixture,
+			'When registering a service provider, the container instance should be returned.'
+		);
+	}
 }
