@@ -7,14 +7,13 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-    	"joomla/controller": "dev-master",
-    	"joomla/input": "dev-master"
+    	"joomla/controller": "1.*",
+    	"joomla/input": "1.*"
     },
     "require-dev": {
-    	"joomla/test": "dev-master"
+    	"joomla/test": "1.*"
     },
     "target-dir": "Joomla/Router",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Router": ""

@@ -7,20 +7,19 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/input": "dev-master",
-        "joomla/session": "dev-master",
-        "joomla/string": "dev-master",
-        "joomla/registry": "dev-master",
-        "joomla/uri": "dev-master",
-        "joomla/filesystem": "dev-master",
+        "joomla/input": "1.*",
+        "joomla/session": "1.*",
+        "joomla/string": "1.*",
+        "joomla/registry": "1.*",
+        "joomla/uri": "1.*",
+        "joomla/filesystem": "1.*",
         "psr/log": "~1.0"
     },
     "require-dev": {
-        "joomla/controller": "dev-master",
-        "joomla/test": "dev-master"
+        "joomla/controller": "1.*",
+        "joomla/test": "1.*"
     },
     "target-dir": "Joomla/Application",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Application": ""

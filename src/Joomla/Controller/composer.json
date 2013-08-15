@@ -9,16 +9,15 @@
         "php": ">=5.3.10"
     },
     "require-dev": {
-        "joomla/application": "dev-master",
-        "joomla/input": "dev-master",
-        "joomla/test": "dev-master"
+        "joomla/application": "1.*",
+        "joomla/input": "1.*",
+        "joomla/test": "1.*"
     },
     "suggest": {
-    	"joomla/application": "dev-master",
-    	"joomla/input": "dev-master"
+    	"joomla/application": "1.*",
+    	"joomla/input": "1.*"
     },
     "target-dir": "Joomla/Controller",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Controller": ""

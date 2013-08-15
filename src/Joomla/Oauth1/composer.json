@@ -7,10 +7,10 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/application": "dev-master",
-        "joomla/http": "dev-master",
-        "joomla/input": "dev-master",
-        "joomla/registry": "dev-master"
+        "joomla/application": "1.*",
+        "joomla/http": "1.*",
+        "joomla/input": "1.*",
+        "joomla/registry": "1.*"
     },
     "target-dir": "Joomla/OAuth1",
     "autoload": {
