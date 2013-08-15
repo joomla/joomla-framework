@@ -7,14 +7,13 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/filesystem": "dev-master",
-        "joomla/model": "dev-master"
+        "joomla/filesystem": "1.*",
+        "joomla/model": "1.*"
     },
     "require-dev": {
-        "joomla/test": "dev-master"
+        "joomla/test": "1.*"
     },
     "target-dir": "Joomla/View",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\View": ""

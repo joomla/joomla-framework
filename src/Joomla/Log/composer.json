@@ -7,14 +7,13 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/date": "dev-master",
-        "joomla/filesystem": "dev-master"
+        "joomla/date": "1.*",
+        "joomla/filesystem": "1.*"
     },
     "require-dev": {
-        "joomla/database": "dev-master"
+        "joomla/database": "1.*"
     },
     "target-dir": "Joomla/Log",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Log": ""

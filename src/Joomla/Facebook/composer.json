@@ -7,11 +7,11 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/oauth2": "dev-master",
-        "joomla/input": "dev-master",
-        "joomla/http": "dev-master",
-        "joomla/registry": "dev-master",
-        "joomla/uri": "dev-master"
+        "joomla/oauth2": "1.*",
+        "joomla/input": "1.*",
+        "joomla/http": "1.*",
+        "joomla/registry": "1.*",
+        "joomla/uri": "1.*"
     },
     "target-dir": "Joomla/Facebook",
     "autoload": {

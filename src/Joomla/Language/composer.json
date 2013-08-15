@@ -7,14 +7,13 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/string": "dev-master"
+        "joomla/string": "1.*"
     },
     "require-dev": {
-        "joomla/filesystem": "dev-master",
-        "joomla/test": "dev-master"
+        "joomla/filesystem": "1.*",
+        "joomla/test": "1.*"
     },
     "target-dir": "Joomla/Language",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Language": ""

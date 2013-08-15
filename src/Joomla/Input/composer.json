@@ -7,13 +7,12 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/filter": "dev-master"
+        "joomla/filter": "1.*"
     },
     "require-dev": {
-    	"joomla/test": "dev-master"
+    	"joomla/test": "1.*"
     },
     "target-dir": "Joomla/Input",
-    "minimum-stability": "dev",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Input": ""
