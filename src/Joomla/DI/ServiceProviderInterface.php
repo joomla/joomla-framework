@@ -8,7 +8,21 @@
 
 namespace Joomla\DI;
 
+/**
+ * Defines the interface for a Service Provider.
+ *
+ * @since  1.0
+ */
 interface ServiceProviderInterface
 {
+	/**
+	 * Registers the service provider with a DI container.
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @return  Container  Returns itself to support chaining.
+	 *
+	 * @since   1.0
+	 */
 	public function register(Container $container);
 }

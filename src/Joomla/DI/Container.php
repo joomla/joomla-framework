@@ -347,6 +347,8 @@ class Container
 	 * @param   ServiceProviderInterface $provider
 	 *
 	 * @return  Container  This object for chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function registerServiceProvider(ServiceProviderInterface $provider)
 	{
