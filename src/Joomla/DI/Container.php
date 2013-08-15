@@ -340,5 +340,19 @@ class Container
 	{
 		return $this->get($key, true);
 	}
+
+	/**
+	 * Register a service provider to the container.
+	 *
+	 * @param   ServiceProviderInterface $provider
+	 *
+	 * @return  Container  This object for chaining.
+	 */
+	public function registerServiceProvider(ServiceProviderInterface $provider)
+	{
+		$provider->register($this);
+
+		return $this;
+	}
 }
 
