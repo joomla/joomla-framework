@@ -248,6 +248,52 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Testing the `extend` method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testExtend()
+	{
+		$this->fixture->share('foo', function () {
+			return new \stdClass;
+		});
+
+		$value = 42;
+
+		$this->fixture->extend('foo', function ($shared) use ($value) {
+			$shared->value = $value;
+
+			return $shared;
+		});
+
+		$one = $this->fixture->get('foo');
+		$this->assertInstanceOf('stdClass', $one);
+		$this->assertEquals($value, $one->value);
+
+		$two = $this->fixture->get('foo');
+		$this->assertInstanceOf('stdClass', $two);
+		$this->assertEquals($value, $two->value);
+
+		$this->assertSame($one, $two);
+	}
+
+	/**
+	 * Testing the extend method to ensure that a valid key is present to extend.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 *
+	 * @expectedException  \InvalidArgumentException
+	 */
+	public function testExtendValidatesKeyIsPresent()
+	{
+		$this->fixture->extend('foo', function () {});
+	}
+
+	/**
 	 * Test getting method args
 	 *
 	 * @return  void
@@ -373,12 +419,18 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 *
-	 * @expectedException  \UnexpectedValueException
 	 */
-	public function testSetInvalidCallback()
+	public function testSetNotClosure()
 	{
 		$this->fixture->set('foo', 'bar');
+
+		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
+
+		$this->assertInstanceOf(
+			'Closure',
+			$dataStore['foo']['callback'],
+			'Passing a non-closure to set will wrap the item in a closure for easy resolution and extension.'
+		);
 	}
 
 	/**

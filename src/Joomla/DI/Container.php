@@ -121,6 +121,35 @@ class Container
 	}
 
 	/**
+	 * Extend a defined service Closure by wrapping the existing one with a new Closure.  This
+	 * works very similar to a decorator pattern.  Note that this only works on service Closures
+	 * that have been defined in the current Provider, not parent providers.
+	 *
+	 * @param   string   $key       The unique identifier for the Closure or property.
+	 * @param   \Closure  $callable  A Closure to wrap the original service Closure.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
+	 */
+	public function extend($key, \Closure $callable)
+	{
+		$raw = $this->getRaw($key);
+
+		if (is_null($raw))
+		{
+			throw new \InvalidArgumentException(sprintf('The requested key %s does not exist to extend.', $key));
+		}
+
+		$closure = function ($c) use($callable, $raw) {
+			return $callable($raw['callback']($c), $c);
+		};
+
+		$this->set($key, $closure, $raw['shared']);
+	}
+
+	/**
 	 * Build an array of constructor parameters.
 	 *
 	 * @param   \ReflectionMethod  $method  Method for which to build the argument array.
@@ -188,20 +217,23 @@ class Container
 	 *
 	 * @since   1.0
 	 */
-	public function set($key, $callback, $shared = false, $protected = false)
+	public function set($key, $value, $shared = false, $protected = false)
 	{
 		if (isset($this->dataStore[$key]) && $this->dataStore[$key]['protected'] === true)
 		{
 			throw new \OutOfBoundsException(sprintf('Key %s is protected and can\'t be overwritten.', $key));
 		}
 
-		if (!is_callable($callback))
+		// If the provided $value is not a closure, make it one now for easy resolution.
+		if (!($value instanceof \Closure))
 		{
-			throw new \UnexpectedValueException('Provided value is not a valid callable.');
+			$value = function () use ($value) {
+				return $value;
+			};
 		}
 
 		$this->dataStore[$key] = array(
-			'callback' => $callback,
+			'callback' => $value,
 			'shared' => $shared,
 			'protected' => $protected
 		);
