@@ -30,7 +30,7 @@ git subsplit publish "
 	src/Joomla/Oauth2:git@github.com:joomla/joomla-framework-oauth2.git
 	src/Joomla/Profiler:git@github.com:joomla/joomla-framework-profiler.git
 	src/Joomla/Registry:git@github.com:joomla/joomla-framework-registry.git
-	src/Joomla/Router@github.com:joomla/joomla-framework-router.git
+	src/Joomla/Router:git@github.com:joomla/joomla-framework-router.git
 	src/Joomla/Session:git@github.com:joomla/joomla-framework-session.git
 	src/Joomla/String:git@github.com:joomla/joomla-framework-string.git
 	src/Joomla/Test:git@github.com:joomla/joomla-framework-test.git
