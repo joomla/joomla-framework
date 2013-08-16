@@ -11,7 +11,7 @@
         "psr/log": "~1.0"
     },
     "require-dev": {
-        "joomla/test": "1.*"
+        "joomla/test": "1.0-beta2"
     },
     "target-dir": "Joomla/Image",
     "autoload": {

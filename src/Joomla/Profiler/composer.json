@@ -9,7 +9,7 @@
         "php": ">=5.3.10"
     },
     "require-dev": {
-        "joomla/test": "1.*"
+        "joomla/test": "1.0-beta2"
     },
     "target-dir": "Joomla/Profiler",
     "autoload": {

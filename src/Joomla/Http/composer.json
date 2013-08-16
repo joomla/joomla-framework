@@ -7,8 +7,8 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/registry": "1.*",
-        "joomla/uri": "1.*"
+        "joomla/registry": "1.0-beta2",
+        "joomla/uri": "1.0-beta2"
     },
     "target-dir": "Joomla/Http",
     "autoload": {

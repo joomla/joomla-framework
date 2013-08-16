@@ -7,11 +7,11 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/date": "1.*",
-        "joomla/filesystem": "1.*"
+        "joomla/date": "1.0-beta2",
+        "joomla/filesystem": "1.0-beta2"
     },
     "require-dev": {
-        "joomla/database": "1.*"
+        "joomla/database": "1.0-beta2"
     },
     "target-dir": "Joomla/Log",
     "autoload": {

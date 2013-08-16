@@ -7,10 +7,10 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/string": "1.*"
+        "joomla/string": "1.0-beta2"
     },
     "require-dev": {
-        "joomla/language": "1.*"
+        "joomla/language": "1.0-beta2"
     },
     "suggest": {
         "joomla/language": "Required only if you want to use `OutputFilter::stringURLSafe`."

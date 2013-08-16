@@ -7,10 +7,10 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/filter": "1.*"
+        "joomla/filter": "1.0-beta2"
     },
     "require-dev": {
-    	"joomla/test": "1.*"
+    	"joomla/test": "1.0-beta2"
     },
     "target-dir": "Joomla/Input",
     "autoload": {
