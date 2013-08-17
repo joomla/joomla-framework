@@ -34,6 +34,7 @@ git subsplit publish "
 	src/Joomla/Session:git@github.com:joomla/joomla-framework-session.git
 	src/Joomla/String:git@github.com:joomla/joomla-framework-string.git
 	src/Joomla/Test:git@github.com:joomla/joomla-framework-test.git
+	src/Joomla/Twitter:git@github.com:joomla/joomla-framework-twitter.git
 	src/Joomla/Uri:git@github.com:joomla/joomla-framework-uri.git
 	src/Joomla/Utilities:git@github.com:joomla/joomla-framework-utilities.git
 	src/Joomla/View:git@github.com:joomla/joomla-framework-view.git
