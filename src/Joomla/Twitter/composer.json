@@ -1,0 +1,23 @@
+{
+    "name": "joomla/twitter",
+    "type": "joomla-package",
+    "description": "Joomla Twitter Package",
+    "keywords": ["joomla", "framework", "twitter"],
+    "homepage": "https://github.com/joomla/joomla-framework-twitter",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/oauth1": "dev-master",
+        "joomla/input": "dev-master",
+        "joomla/http": "dev-master",
+        "joomla/uri": "dev-master",
+        "joomla/registry": "dev-master"
+    },
+    "target-dir": "Joomla/Twitter",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Twitter": ""
+    	}
+    }
+}
+
