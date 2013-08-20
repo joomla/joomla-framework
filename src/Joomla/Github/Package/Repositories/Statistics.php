@@ -9,6 +9,7 @@
 namespace Joomla\Github\Package\Repositories;
 
 use Joomla\Github\Package;
+use Joomla\Http\Response;
 
 /**
  * GitHub API class for the Joomla Framework.
@@ -146,5 +147,29 @@ class Statistics  extends Package
 
 		// Send the request.
 		return $this->processResponse($this->client->get($this->fetchUrl($path)));
+	}
+
+	/**
+	 * Process the response and decode it.
+	 *
+	 * @param   Response  $response      The response.
+	 * @param   integer   $expectedCode  The expected "good" code.
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
+	 */
+	protected function processResponse(Response $response, $expectedCode = 200)
+	{
+		if (202 == $response->code)
+		{
+			throw new \DomainException(
+				'GitHub is building the statistics data. Please try again in a few moments.',
+				$response->code
+			);
+		}
+
+		return parent::processResponse($response, $expectedCode);
 	}
 }
