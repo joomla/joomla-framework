@@ -33,7 +33,7 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$path = JPATH_BASE . '/language';
+		$path = JPATH_ROOT . '/language';
 
 		if (is_dir($path))
 		{
@@ -54,7 +54,7 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-		Folder::delete(JPATH_BASE . '/language');
+		Folder::delete(JPATH_ROOT . '/language');
 	}
 
 	/**
@@ -1247,9 +1247,9 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 			'Line: ' . __LINE__
 		);
 
-		// With no argument JPATH_BASE should be returned
+		// With no argument JPATH_ROOT should be returned
 		$this->assertEquals(
-			JPATH_BASE . '/language',
+			JPATH_ROOT . '/language',
 			Language::getLanguagePath(),
 			'Line: ' . __LINE__
 		);

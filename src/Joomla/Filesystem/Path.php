@@ -10,8 +10,7 @@ namespace Joomla\Filesystem;
 
 if (!defined('JPATH_ROOT'))
 {
-	// Define a string constant for the root directory of the file system in native format
-	define('JPATH_ROOT', Path::clean(JPATH_SITE));
+	throw new \LogicException('The "JPATH_ROOT" constant must be defined for your application.');
 }
 
 /**
@@ -228,7 +227,7 @@ class Path
 	{
 		$tmp = md5(mt_rand());
 		$ssp = ini_get('session.save_path');
-		$jtp = JPATH_SITE . '/tmp';
+		$jtp = JPATH_ROOT . '/tmp';
 
 		// Try to find a writable directory
 		$dir = is_writable('/tmp') ? '/tmp' : false;

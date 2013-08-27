@@ -22,13 +22,9 @@ if (!defined('JPATH_TESTS'))
 {
 	define('JPATH_TESTS', realpath(__DIR__));
 }
-if (!defined('JPATH_BASE'))
-{
-	define('JPATH_BASE', realpath(JPATH_TESTS . '/tmp'));
-}
 if (!defined('JPATH_ROOT'))
 {
-	define('JPATH_ROOT', JPATH_BASE);
+	define('JPATH_ROOT', realpath(JPATH_TESTS . '/tmp'));
 }
 
 // Search for the Composer autoload file
