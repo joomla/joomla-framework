@@ -19,7 +19,7 @@ require_once realpath('../vendor/autoload.php');
  * @package  Joomla.Platform
  * @since    1.0
  */
-class KeychainManager extends JApplicationCli
+class KeychainManager extends \Joomla\Application\AbstractCliApplication
 {
 	/**
 	 * @var    boolean  A flag if the keychain has been updated to trigger saving the keychain
@@ -28,7 +28,7 @@ class KeychainManager extends JApplicationCli
 	protected $updated = false;
 
 	/**
-	 * @var    JKeychain  The keychain object being manipulated.
+	 * @var    \Joomla\Keychain\Keychain  The keychain object being manipulated.
 	 * @since  1.0
 	 */
 	protected $keychain = null;
@@ -40,7 +40,7 @@ class KeychainManager extends JApplicationCli
 	 *
 	 * @since   1.0
 	 */
-	public function execute( )
+	public function execute()
 	{
 		if (!count($this->input->args))
 		{
@@ -94,7 +94,21 @@ class KeychainManager extends JApplicationCli
 		{
 			$this->saveKeychain();
 		}
-		exit(0);
+
+		$this->close(0);
+	}
+
+	/**
+	 * Method to run the application routines.  Most likely you will want to instantiate a controller
+	 * and execute it, or perform some sort of task directly.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function doExecute()
+	{
+		return;
 	}
 
 	/**
@@ -110,7 +124,7 @@ class KeychainManager extends JApplicationCli
 		$publicKeyFile = $this->input->get('public-key', '', 'raw');
 		$passphraseFile = $this->input->get('passphrase', '', 'raw');
 
-		$this->keychain = new JKeychain;
+		$this->keychain = new \Joomla\Keychain\Keychain;
 
 		if (file_exists($keychain))
 		{
@@ -121,7 +135,7 @@ class KeychainManager extends JApplicationCli
 			else
 			{
 				$this->out('Public key not specified or missing!');
-				exit(1);
+				$this->close(1);
 			}
 		}
 	}
@@ -142,7 +156,7 @@ class KeychainManager extends JApplicationCli
 		if (!file_exists($publicKeyFile))
 		{
 			$this->out("Public key file specified doesn't exist: $publicKeyFile");
-			exit(1);
+			$this->close(1);
 		}
 
 		$this->keychain->saveKeychain($keychain, $passphraseFile, $publicKeyFile);
@@ -157,7 +171,7 @@ class KeychainManager extends JApplicationCli
 	 */
 	protected function initPassphraseFile()
 	{
-		$keychain = new JKeychain;
+		$keychain = new \Joomla\Keychain\Keychain;
 
 		$passphraseFile = $this->input->get('passphrase', '', 'raw');
 		$privateKeyFile = $this->input->get('private-key', '', 'raw');
@@ -165,13 +179,13 @@ class KeychainManager extends JApplicationCli
 		if (!strlen($passphraseFile))
 		{
 			$this->out('A passphrase file must be specified with --passphrase');
-			exit(1);
+			$this->close(1);
 		}
 
 		if (!file_exists($privateKeyFile))
 		{
 			$this->out("protected key file specified doesn't exist: $privateKeyFile");
-			exit(1);
+			$this->close(1);
 		}
 
 		$this->out('Please enter the new passphrase:');
@@ -195,13 +209,13 @@ class KeychainManager extends JApplicationCli
 		if (count($this->input->args) != 3)
 		{
 			$this->out("usage: {$this->input->executable} [options] create entry_name entry_value");
-			exit(1);
+			$this->close(1);
 		}
 
 		if ($this->keychain->exists($this->input->args[1]))
 		{
 			$this->out('error: entry already exists. To change this entry, use "change"');
-			exit(1);
+			$this->close(1);
 		}
 		$this->change();
 	}
@@ -218,7 +232,7 @@ class KeychainManager extends JApplicationCli
 		if (count($this->input->args) != 3)
 		{
 			$this->out("usage: {$this->input->executable} [options] change entry_name entry_value");
-			exit(1);
+			$this->close(1);
 		}
 		$this->updated = true;
 		$this->keychain->setValue($this->input->args[1], $this->input->args[2]);
@@ -236,7 +250,7 @@ class KeychainManager extends JApplicationCli
 		if (count($this->input->args) != 2)
 		{
 			$this->out("usage: {$this->input->executable} [options] read entry_name");
-			exit(1);
+			$this->close(1);
 		}
 
 		$key = $this->input->args[1];
@@ -274,7 +288,7 @@ class KeychainManager extends JApplicationCli
 		if (count($this->input->args) != 2)
 		{
 			$this->out("usage: {$this->input->executable} [options] delete entry_name");
-			exit(1);
+			$this->close(1);
 		}
 
 		$this->updated = true;
@@ -374,9 +388,10 @@ HELP;
 
 try
 {
-	JApplicationCli::getInstance('KeychainManager')->execute();
+	$app = new KeychainManager;
+	$app->execute();
 }
-catch (Exception $e)
+catch (\Exception $e)
 {
 	echo $e->getMessage() . "\n";
 	exit(1);
