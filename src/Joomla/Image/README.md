@@ -24,11 +24,11 @@ $resource = imagecreate(100, 100);
 $image = new JImage($resource);
 
 // Creating a new JImage object, passing it an image path
-$image = new JImage(JPATH_SITE . '/media/com_foo/images/uploads/bar.png');
+$image = new JImage(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
 // Creating a new JImage object then manually calling `loadFile`
 $image = new JImage;
-$image->loadFile(JPATH_SITE . '/media/com_foo/images/uploads/bar.png');
+$image->loadFile(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 ```
 
 ### Usage
@@ -37,7 +37,7 @@ Keep in mind that most public methods return a `JImage` instance with a valid im
 
 ```php
 $image = new JImage();
-$image->loadFile(JPATH_SITE . '/path/to/image.png')->crop(600, 250)->toFile(JPATH_SITE . '/tmp/image.png');
+$image->loadFile(JPATH_ROOT . '/path/to/image.png')->crop(600, 250)->toFile(JPATH_ROOT . '/tmp/image.png');
 ```
 
 Since Platform version 12.3, there is a new `destroy()` method that get's called in appropriate places throughout the class which runs the `imagedestroy` function to free memory associated with an image handle. This method is called before each time an image handle is replaced (when `$createNew` is set to false) as well as in the class `__descruct` method as a final cleanup.
@@ -55,13 +55,13 @@ Example: Using `JImage::resize()` to generate a resized image.
 
 ```php
 // Create our image object
-$image = new JImage(JPATH_SITE . '/media/com_foo/images/uploads/bar.png');
+$image = new JImage(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
 // Resize the image using the SCALE_INSIDE method
 $image->resize(300, 150, true, JImage::SCALE_INSIDE);
 
 // Write it to disk
-$image->toFile(JPATH_SITE . '/tmp/bar_resized.png');
+$image->toFile(JPATH_ROOT . '/tmp/bar_resized.png');
 
 ```
 
@@ -79,13 +79,13 @@ Example: Using `JImage::crop()` to generate a cropped image.
 
 ```php
 // Create our image object
-$image = new JImage(JPATH_SITE . '/media/com_foo/images/uploads/bar.png');
+$image = new JImage(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
 // Crop the image to 150px square, starting 10 pixels from the left, and 20 pixels from the top
 $image->crop(150, null, 10, 20);
 
 // Write it to disk
-$image->toFile(JPATH_SITE . '/tmp/bar_cropped.png');
+$image->toFile(JPATH_ROOT . '/tmp/bar_cropped.png');
 ```
 
 
@@ -93,7 +93,7 @@ $image->toFile(JPATH_SITE . '/tmp/bar_cropped.png');
 __Accepted Parameters__
 
 - `$thumbsizes`: String or array of strings. Example: $thumbSizes = array('150x75','250x150');
-- `$creationMethod`: See __Resize Methods__ below. 
+- `$creationMethod`: See __Resize Methods__ below.
 - `$thumbsFolder`: Destination for thumbnails. Passing null generates a thumbs folder in the loaded image's containing folder.
 
 Example: Using `JImage::createThumbs()` to generate thumbnails of an image.
@@ -103,7 +103,7 @@ Example: Using `JImage::createThumbs()` to generate thumbnails of an image.
 $sizes = array('300x300', '64x64', '250x125');
 
 // Create our object
-$image = new JImage(JPATH_SITE . '/media/com_foo/images/uploads/uploadedImage.jpg');
+$image = new JImage(JPATH_ROOT . '/media/com_foo/images/uploads/uploadedImage.jpg');
 
 // Create the thumbnails
 $image->createThumbs($sizes, JImage::SCALE_INSIDE);
