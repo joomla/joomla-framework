@@ -212,7 +212,7 @@ class Language
 		$class = str_replace('-', '_', $lang . 'Localise');
 		$paths = array();
 
-		$basePath = self::getLanguagePath(JPATH_BASE);
+		$basePath = self::getLanguagePath(JPATH_ROOT);
 
 		$paths[0] = $basePath . "/language/overrides/$lang.localise.php";
 		$paths[1] = $basePath . "/language/$lang/$lang.localise.php";
