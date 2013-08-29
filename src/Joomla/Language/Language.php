@@ -194,7 +194,7 @@ class Language
 		$this->setLanguage($lang);
 		$this->setDebug($debug);
 
-		$filename = JPATH_BASE . "/language/overrides/$lang.override.ini";
+		$filename = JPATH_ROOT . "/language/overrides/$lang.override.ini";
 
 		if (file_exists($filename) && $contents = $this->parse($filename))
 		{
@@ -695,7 +695,7 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public static function exists($lang, $basePath = JPATH_BASE)
+	public static function exists($lang, $basePath = JPATH_ROOT)
 	{
 		static $paths = array();
 
@@ -732,7 +732,7 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public function load($extension = 'joomla', $basePath = JPATH_BASE, $lang = null, $reload = false, $default = true)
+	public function load($extension = 'joomla', $basePath = JPATH_ROOT, $lang = null, $reload = false, $default = true)
 	{
 		if (!$lang)
 		{
@@ -1158,7 +1158,7 @@ class Language
 	 */
 	public static function getMetadata($lang)
 	{
-		$path = self::getLanguagePath(JPATH_BASE, $lang);
+		$path = self::getLanguagePath(JPATH_ROOT, $lang);
 		$file = $lang . '.xml';
 
 		$result = null;
@@ -1185,7 +1185,7 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public static function getKnownLanguages($basePath = JPATH_BASE)
+	public static function getKnownLanguages($basePath = JPATH_ROOT)
 	{
 		$dir = self::getLanguagePath($basePath);
 		$knownLanguages = self::parseLanguageFiles($dir);
@@ -1203,7 +1203,7 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public static function getLanguagePath($basePath = JPATH_BASE, $language = null)
+	public static function getLanguagePath($basePath = JPATH_ROOT, $language = null)
 	{
 		$dir = $basePath . '/language';
 

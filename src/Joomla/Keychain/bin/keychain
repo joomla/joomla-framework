@@ -8,7 +8,7 @@
  */
 
 define('_JEXEC', 1);
-define('JPATH_BASE', __DIR__);
+define('JPATH_ROOT', __DIR__);
 
 // Load the Joomla! Framework
 require_once realpath('../vendor/autoload.php');

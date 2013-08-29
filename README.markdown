@@ -20,6 +20,7 @@ You can discuss Joomla Framework development by joining the mailing list at [htt
 
 - PHP 5.3.10
 - Each package has their own requirements as well. Ex: The Image package requires the PHP GD extension. Please see the `composer.json` in each package repository for these requirements.
+- Applications implementing the Joomla Framework must implement the 'JPATH_ROOT' constant which should be the root path of the application.
 
 
 ## Installation
