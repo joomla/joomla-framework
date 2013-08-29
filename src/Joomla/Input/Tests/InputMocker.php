@@ -111,7 +111,7 @@ class InputMocker
 	{
 		$mockObject = $this->createInput(array('methods' => array('getRaw')));
 
-		Helper::assignMockCallbacks(
+		TestHelper::assignMockCallbacks(
 			$mockObject,
 			$this->test,
 			array(
