@@ -88,6 +88,7 @@ class InputMocker
 			$this->test,
 			array(
 				'get' => array((is_callable(array($this->test, 'mockInputGet')) ? $this->test : $this), 'mockInputGet'),
+				'getArray' => array((is_callable(array($this->test, 'mockInputGetArray')) ? $this->test : $this), 'mockInputGetArray'),
 				'getInt' => array((is_callable(array($this->test, 'mockInputGetInt')) ? $this->test : $this), 'mockInputGetInt'),
 				'set' => array((is_callable(array($this->test, 'mockInputSet')) ? $this->test : $this), 'mockInputSet'),
 			)
@@ -136,6 +137,23 @@ class InputMocker
 	public function mockInputGet($name, $default = null, $filter = 'cmd')
 	{
 		return isset($this->inputs[$name]) ? $this->inputs[$name] : $default;
+	}
+
+	/**
+	 * Callback for the mock getArray method.
+	 *
+	 * @param   array  $vars        Associative array of keys and filter types to apply.
+	 *                              If empty and datasource is null, all the input data will be returned
+	 *                              but filtered using the default case in JFilterInput::clean.
+	 * @param   mixed  $datasource  Array to retrieve data from, or null
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function mockInputGetArray(array $vars = array(), $datasource = null)
+	{
+		return array();
 	}
 
 	/**
