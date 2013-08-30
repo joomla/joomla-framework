@@ -342,6 +342,24 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
 				'this is a "test\' of "odd number" of quotes',
 				'From generic cases'
 			),
+			'raw_01' => array(
+				'raw',
+				'<script type="text/javascript">alert("foo");</script>',
+				'<script type="text/javascript">alert("foo");</script>',
+				'From generic cases'
+			),
+			'raw_02' => array(
+				'raw',
+				'<p>This is a test of a html <b>snippet</b></p>',
+				'<p>This is a test of a html <b>snippet</b></p>',
+				'From generic cases'
+			),
+			'raw_03' => array(
+				'raw',
+				'0123456789',
+				'0123456789',
+				'From generic cases'
+			),
 			'unknown_01' => array(
 				'',
 				'123.567',
