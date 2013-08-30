@@ -43,6 +43,12 @@ class Image implements LoggerAwareInterface
 	const CROP = 4;
 
 	/**
+	 * @const  integer
+	 * @since  1.0
+	 */
+	const CROP_RESIZE = 5;
+
+	/**
 	 * @var    resource  The image resource handle.
 	 * @since  1.0
 	 */
@@ -167,11 +173,11 @@ class Image implements LoggerAwareInterface
 	}
 
 	/**
-	 * Method to generate thumbnails from the current image. It allows creation by resizing
-	 * or croppping the original image.
+	 * Method to generate thumbnails from the current image. It allows
+	 * creation by resizing or cropping the original image.
 	 *
-	 * @param   mixed    $thumbSizes      string or array of strings. Example: $thumbSizes = array('150x75','250x150');
-	 * @param   integer  $creationMethod  1-3 resize $scaleMethod | 4 create croppping
+	 * @param   mixed    $thumbSizes      String or array of strings. Example: $thumbSizes = array('150x75','250x150');
+	 * @param   integer  $creationMethod  1-3 resize $scaleMethod | 4 create croppping | 5 resize then crop
 	 *
 	 * @return  array
 	 *
@@ -211,15 +217,21 @@ class Image implements LoggerAwareInterface
 				$thumbWidth  = $size[0];
 				$thumbHeight = $size[1];
 
-				// Generate thumb cropping image
-				if ($creationMethod == 4)
+				switch ($creationMethod)
 				{
-					$thumb = $this->crop($thumbWidth, $thumbHeight, null, null, true);
-				}
-				else
-				// Generate thumb resizing image
-				{
-					$thumb = $this->resize($thumbWidth, $thumbHeight, true, $creationMethod);
+					// Case for self::CROP
+					case 4:
+						$thumb = $this->crop($thumbWidth, $thumbHeight, null, null, true);
+						break;
+
+					// Case for self::CROP_RESIZE
+					case 5:
+						$thumb = $this->cropResize($thumbWidth, $thumbHeight, true);
+						break;
+
+					default:
+						$thumb = $this->resize($thumbWidth, $thumbHeight, true, $creationMethod);
+						break;
 				}
 
 				// Store the thumb in the results array
@@ -275,8 +287,8 @@ class Image implements LoggerAwareInterface
 			foreach ($thumbs as $thumb)
 			{
 				// Get thumb properties
-				$thumbWidth  = $thumb->getWidth();
-				$thumbHeight = $thumb->getHeight();
+				$thumbWidth     = $thumb->getWidth();
+				$thumbHeight    = $thumb->getHeight();
 
 				// Generate thumb name
 				$filename       = pathinfo($this->getPath(), PATHINFO_FILENAME);
@@ -378,8 +390,8 @@ class Image implements LoggerAwareInterface
 
 			// @codeCoverageIgnoreEnd
 		}
-		else
 		// Swap out the current handle for the new image handle.
+		else
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -699,8 +711,8 @@ class Image implements LoggerAwareInterface
 
 			// @codeCoverageIgnoreEnd
 		}
-		else
 		// Swap out the current handle for the new image handle.
+		else
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -709,6 +721,35 @@ class Image implements LoggerAwareInterface
 
 			return $this;
 		}
+	}
+
+	/**
+	 * Method to crop an image after resizing it to maintain
+	 * proportions without having to do all the set up work.
+	 *
+	 * @param   integer  $width      The desired width of the image in pixels or a percentage.
+	 * @param   integer  $height     The desired height of the image in pixels or a percentage.
+	 * @param   integer  $createNew  If true the current image will be cloned, resized, cropped and returned.
+	 *
+	 * @return  object  JImage Object for chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function cropResize($width, $height, $createNew = true)
+	{
+		$width   = $this->sanitizeWidth($width, $height);
+		$height  = $this->sanitizeHeight($height, $width);
+
+		if (($this->getWidth() / $width) < ($this->getHeight() / $height))
+		{
+			$this->resize($width, 0, false);
+		}
+		else
+		{
+			$this->resize(0, $height, false);
+		}
+
+		return $this->crop($width, $height, null, null, $createNew);
 	}
 
 	/**
@@ -758,8 +799,8 @@ class Image implements LoggerAwareInterface
 
 			// @codeCoverageIgnoreEnd
 		}
-		else
 		// Swap out the current handle for the new image handle.
+		else
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -881,18 +922,8 @@ class Image implements LoggerAwareInterface
 
 			case self::SCALE_INSIDE:
 			case self::SCALE_OUTSIDE:
-				// Both $height or $width cannot be zero
-				if ($width == 0 || $height == 0)
-				{
-					throw new \InvalidArgumentException(' Width or height cannot be zero with this scale method ');
-				}
-
-				// If both $width and $height are not equals to zero
-				else
-				{
-					$rx = $this->getWidth() / $width;
-					$ry = $this->getHeight() / $height;
-				}
+				$rx = ($width > 0) ? ($this->getWidth() / $width) : 0;
+				$ry = ($height > 0) ? ($this->getHeight() / $height) : 0;
 
 				if ($scaleMethod == self::SCALE_INSIDE)
 				{
@@ -935,8 +966,8 @@ class Image implements LoggerAwareInterface
 		{
 			$height = (int) round($this->getHeight() * (float) str_replace('%', '', $height) / 100);
 		}
-		else
 		// Else do some rounding so we come out with a sane integer value.
+		else
 		{
 			$height = (int) round((float) $height);
 		}
@@ -978,8 +1009,8 @@ class Image implements LoggerAwareInterface
 		{
 			$width = (int) round($this->getWidth() * (float) str_replace('%', '', $width) / 100);
 		}
-		else
 		// Else do some rounding so we come out with a sane integer value.
+		else
 		{
 			$width = (int) round((float) $width);
 		}

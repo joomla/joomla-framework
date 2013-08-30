@@ -169,6 +169,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFile()
 	{
+		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFile);
 
@@ -190,6 +191,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFileGif()
 	{
+		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFileGif);
 
@@ -211,6 +213,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFilePng()
 	{
+		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFilePng);
 
@@ -234,6 +237,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFileBmp()
 	{
+		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFileBmp);
 	}
@@ -248,6 +252,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFileWithInvalidFile()
 	{
+		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile('bogus_file');
 	}
@@ -261,6 +266,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testResize()
 	{
+		// Get a new JImage inspector.
 		$image = new JImageInspector;
 		$image->loadFile($this->testFile);
 
@@ -309,6 +315,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testResizeNoFile()
 	{
+		// Get a new JImage inspector.
 		$image = new JImageInspector;
 
 		$image->resize(1000, 682, false);
