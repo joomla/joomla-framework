@@ -62,18 +62,71 @@ class JFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
+	 * Provides the data to test the makeSafe method.
 	 *
-	 * @todo Implement testMakeSafe().
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function dataTestMakeSafe()
+	{
+		return array(
+			array(
+				'joomla.',
+				array('#^\.#'),
+				'joomla',
+				'There should be no fullstop on the end of a filename',
+			),
+			array(
+				'Test j00mla_5-1.html',
+				array('#^\.#'),
+				'Test j00mla_5-1.html',
+				'Alphanumeric symbols, dots, dashes, spaces and underscores should not be filtered',
+			),
+			array(
+				'Test j00mla_5-1.html',
+				array('#^\.#', '/\s+/'),
+				'Testj00mla_5-1.html',
+				'Using strip chars parameter here to strip all spaces',
+			),
+			array(
+				'joomla.php!.',
+				array('#^\.#'),
+				'joomla.php',
+				'Non-alphanumeric symbols should be filtered to avoid disguising file extensions',
+			),
+			array(
+				'joomla.php.!',
+				array('#^\.#'),
+				'joomla.php',
+				'Non-alphanumeric symbols should be filtered to avoid disguising file extensions',
+			),
+			array(
+				'.gitignore',
+				array(),
+				'.gitignore',
+				'Files starting with a fullstop should be allowed when strip chars parameter is empty',
+			),
+		);
+	}
+
+	/**
+	 * Test makeSafe method
+	 *
+	 * @param   string  $name        The name of the file to test filtering of
+	 * @param   array   $stripChars  Whether to filter spaces out the name or not
+	 * @param   string  $expected    The expected safe file name
+	 * @param   string  $message     The message to show on failure of test
 	 *
 	 * @return void
+	 *
+	 * @covers        Joomla\Filesystem\File::makeSafe
+	 * @dataProvider  dataTestMakeSafe
+	 * @since         1.0
 	 */
-	public function testMakeSafe()
+	public function testMakeSafe($name, $stripChars, $expected, $message)
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->assertEquals($this->object->makeSafe($name, $stripChars), $expected, $message);
 	}
 
 	/**

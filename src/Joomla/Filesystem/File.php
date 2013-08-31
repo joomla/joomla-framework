@@ -51,19 +51,25 @@ class File
 	}
 
 	/**
-	 * Makes file name safe to use
+	 * Makes the file name safe to use
 	 *
-	 * @param   string  $file  The name of the file [not full path]
+	 * @param   string  $file        The name of the file [not full path]
+	 * @param   array   $stripChars  Array of regex (by default will remove any leading periods)
 	 *
 	 * @return  string  The sanitised string
 	 *
 	 * @since   1.0
 	 */
-	public static function makeSafe($file)
+	public static function makeSafe($file, array $stripChars = array('#^\.#'))
 	{
-		$regex = array('#(\.){2,}#', '#[^A-Za-z0-9\.\_\- ]#', '#^\.#');
+		$regex = array_merge(array('#(\.){2,}#', '#[^A-Za-z0-9\.\_\- ]#'), $stripChars);
 
-		return preg_replace($regex, '', $file);
+		$file = preg_replace($regex, '', $file);
+
+		// Remove any trailing dots, as those aren't ever valid file names.
+		$file = rtrim($file, '.');
+
+		return $file;
 	}
 
 	/**
