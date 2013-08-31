@@ -63,11 +63,12 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	public function getDetectRequestUriData()
 	{
 		return array(
-			// HTTPS, PHP_SELF, REQUEST_URI, HTTP_HOST, SCRIPT_NAME, QUERY_STRING, (resulting uri)
-			array(null, '/j/index.php', '/j/index.php?foo=bar', 'joom.la:3', '/j/index.php', '', 'http://joom.la:3/j/index.php?foo=bar'),
-			array('on', '/j/index.php', '/j/index.php?foo=bar', 'joom.la:3', '/j/index.php', '', 'https://joom.la:3/j/index.php?foo=bar'),
-			array(null, '', '', 'joom.la:3', '/j/index.php', '', 'http://joom.la:3/j/index.php'),
-			array(null, '', '', 'joom.la:3', '/j/index.php', 'foo=bar', 'http://joom.la:3/j/index.php?foo=bar'),
+			// HTTPS, HTTP_X_FORWARDED_PROTO, PHP_SELF, REQUEST_URI, HTTP_HOST, SCRIPT_NAME, QUERY_STRING, (resulting uri)
+			array(null, null, '/j/index.php', '/j/index.php?foo=bar', 'joom.la:3', '/j/index.php', '', 'http://joom.la:3/j/index.php?foo=bar'),
+			array('on', null, '/j/index.php', '/j/index.php?foo=bar', 'joom.la:3', '/j/index.php', '', 'https://joom.la:3/j/index.php?foo=bar'),
+			array(null, 'https', '/j/index.php', '/j/index.php?foo=bar', 'joom.la:3', '/j/index.php', '', 'https://joom.la:3/j/index.php?foo=bar'),
+			array(null, null, '', '', 'joom.la:3', '/j/index.php', '', 'http://joom.la:3/j/index.php'),
+			array(null, null, '', '', 'joom.la:3', '/j/index.php', 'foo=bar', 'http://joom.la:3/j/index.php?foo=bar'),
 		);
 	}
 
@@ -588,24 +589,30 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Tests the Joomla\Application\AbstractWebApplication::detectRequestUri method.
 	 *
-	 * @param   string  $https        @todo
-	 * @param   string  $phpSelf      @todo
-	 * @param   string  $requestUri   @todo
-	 * @param   string  $httpHost     @todo
-	 * @param   string  $scriptName   @todo
-	 * @param   string  $queryString  @todo
-	 * @param   string  $expects      @todo
+	 * @param   string  $https                   @todo
+	 * @param   string  $http_x_forwarded_proto  @todo
+	 * @param   string  $phpSelf                 @todo
+	 * @param   string  $requestUri              @todo
+	 * @param   string  $httpHost                @todo
+	 * @param   string  $scriptName              @todo
+	 * @param   string  $queryString             @todo
+	 * @param   string  $expects                 @todo
 	 *
 	 * @return  void
 	 *
 	 * @dataProvider getDetectRequestUriData
 	 * @since   1.0
 	 */
-	public function testDetectRequestUri($https, $phpSelf, $requestUri, $httpHost, $scriptName, $queryString, $expects)
+	public function testDetectRequestUri($https, $http_x_forwarded_proto, $phpSelf, $requestUri, $httpHost, $scriptName, $queryString, $expects)
 	{
 		if ($https !== null)
 		{
 			$_SERVER['HTTPS'] = $https;
+		}
+
+		if ($http_x_forwarded_proto !== null)
+		{
+			$_SERVER['HTTP_X_FORWARDED_PROTO'] = $http_x_forwarded_proto;
 		}
 
 		$_SERVER['PHP_SELF'] = $phpSelf;
