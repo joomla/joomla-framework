@@ -75,7 +75,7 @@ class PostgresqlDriver extends DatabaseDriver
 		$options['password'] = (isset($options['password'])) ? $options['password'] : '';
 		$options['database'] = (isset($options['database'])) ? $options['database'] : '';
 		$options['port'] = (isset($options['port'])) ? $options['port'] : null;
-		
+
 		// Finalize initialization
 		parent::__construct($options);
 	}
@@ -113,11 +113,12 @@ class PostgresqlDriver extends DatabaseDriver
 		{
 			throw new \RuntimeException('PHP extension pg_connect is not available.');
 		}
+
 		/*
 		* pg_connect() takes the port as separate argument. Therefore, we
 		* have to extract it from the host string (if povided).
 		*/
-		
+
 		// Check for empty port
 		if (!($this->options['port']))
 		{
@@ -131,16 +132,17 @@ class PostgresqlDriver extends DatabaseDriver
 				{
 					$this->options['port'] = $tmp;
 				}
-				
+
 				// Extract the host name
 				$this->options['host'] = substr($this->options['host'], 0, strlen($this->options['host']) - (strlen($tmp) + 1));
-				
+
 				// This will take care of the following notation: ":5432"
 				if ($this->options['host'] == '')
 				{
 					$this->options['host'] = 'localhost';
 				}
 			}
+
 			// No port annotation (:) found, setting port to default PostgreSQL port 5432
 			else
 			{

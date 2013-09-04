@@ -592,10 +592,12 @@ class ListsTest extends TwitterTestCase
 		{
 			$data['user_id'] = $user_id;
 		}
+
 		if ($screen_name)
 		{
 			$data['screen_name'] = $screen_name;
 		}
+
 		if ($user_id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
@@ -669,10 +671,12 @@ class ListsTest extends TwitterTestCase
 		{
 			$data['user_id'] = $user_id;
 		}
+
 		if ($screen_name)
 		{
 			$data['screen_name'] = $screen_name;
 		}
+
 		if ($user_id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
@@ -1421,10 +1425,12 @@ class ListsTest extends TwitterTestCase
 		{
 			$data['user_id'] = $user_id;
 		}
+
 		if ($screen_name)
 		{
 			$data['screen_name'] = $screen_name;
 		}
+
 		if ($user_id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
@@ -1509,10 +1515,12 @@ class ListsTest extends TwitterTestCase
 		{
 			$data['user_id'] = $user_id;
 		}
+
 		if ($screen_name)
 		{
 			$data['screen_name'] = $screen_name;
 		}
+
 		if ($user_id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
