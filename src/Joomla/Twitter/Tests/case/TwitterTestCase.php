@@ -15,7 +15,7 @@ use Joomla\Test\WebInspector;
 /**
  * Test case for Twitter.
  *
- * since  1.0
+ * @since  1.0
  */
 class TwitterTestCase extends \PHPUnit_Framework_TestCase
 {

@@ -111,10 +111,12 @@ class UsersTest extends TwitterTestCase
 		{
 			$data['user_id'] = $id;
 		}
+
 		if ($screen_name)
 		{
 			$data['screen_name'] = $screen_name;
 		}
+
 		if ($id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
@@ -168,10 +170,12 @@ class UsersTest extends TwitterTestCase
 		{
 			$data['user_id'] = $id;
 		}
+
 		if ($screen_name)
 		{
 			$data['screen_name'] = $screen_name;
 		}
+
 		if ($id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
@@ -442,6 +446,7 @@ class UsersTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getUser($user, $entities);
 		}
+
 		$data['include_entities'] = $entities;
 
 		$path = $this->object->fetchUrl('/users/show.json', $data);
@@ -501,6 +506,7 @@ class UsersTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getUser($user, $entities);
 		}
+
 		$data['include_entities'] = $entities;
 
 		$path = $this->object->fetchUrl('/users/show.json', $data);
@@ -557,6 +563,7 @@ class UsersTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getContributees($user, $entities, $skip_status);
 		}
+
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
@@ -618,6 +625,7 @@ class UsersTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getContributees($user, $entities, $skip_status);
 		}
+
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
@@ -675,6 +683,7 @@ class UsersTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getContributors($user, $entities, $skip_status);
 		}
+
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
@@ -736,6 +745,7 @@ class UsersTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->getContributors($user, $entities, $skip_status);
 		}
+
 		$data['include_entities'] = $entities;
 		$data['skip_status'] = $skip_status;
 
