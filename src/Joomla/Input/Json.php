@@ -47,7 +47,15 @@ class Json extends Input
 
 		if (is_null($source))
 		{
-			$this->raw  = file_get_contents('php://input');
+			$this->raw = file_get_contents('php://input');
+
+			// This is a workaround for where php://input has already been read.
+			// See note under php://input on http://php.net/manual/en/wrappers.php.php
+			if (empty($this->raw) && isset($GLOBALS['HTTP_RAW_POST_DATA']))
+			{
+				$this->raw = $GLOBALS['HTTP_RAW_POST_DATA'];
+			}
+
 			$this->data = json_decode($this->raw, true);
 
 			if (!is_array($this->data))
