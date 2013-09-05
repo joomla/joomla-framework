@@ -155,7 +155,7 @@ class InputFilter
 	 *                           ARRAY:     An array,
 	 *                           PATH:      A sanitised file path,
 	 *                           USERNAME:  Do not use (use an application specific filter),
-	 *                           NONE:      The raw string is returned with no filtering,
+	 *                           RAW:       The raw string is returned with no filtering,
 	 *                           unknown:   An unknown filter will act like STRING. If the input is an array it will return an
 	 *                                      array of fully decoded and sanitised strings.
 	 *
@@ -172,20 +172,20 @@ class InputFilter
 			case 'INTEGER':
 				// Only use the first integer value
 				preg_match('/-?[0-9]+/', (string) $source, $matches);
-				$result = @ (int) $matches[0];
+				$result = isset($matches[0]) ? (int) $matches[0] : null;
 				break;
 
 			case 'UINT':
 				// Only use the first integer value
 				preg_match('/-?[0-9]+/', (string) $source, $matches);
-				$result = @ abs((int) $matches[0]);
+				$result = isset($matches[0]) ? abs((int) $matches[0]) : null;
 				break;
 
 			case 'FLOAT':
 			case 'DOUBLE':
 				// Only use the first floating point value
 				preg_match('/-?[0-9]+(\.[0-9]+)?/', (string) $source, $matches);
-				$result = @ (float) $matches[0];
+				$result = isset($matches[0]) ? (float) $matches[0] : null;
 				break;
 
 			case 'BOOL':
@@ -225,11 +225,15 @@ class InputFilter
 			case 'PATH':
 				$pattern = '/^[A-Za-z0-9_-]+[A-Za-z0-9_\.-]*([\\\\\/][A-Za-z0-9_-]+[A-Za-z0-9_\.-]*)*$/';
 				preg_match($pattern, (string) $source, $matches);
-				$result = @ (string) $matches[0];
+				$result = isset($matches[0]) ? (string) $matches[0] : null;
 				break;
 
 			case 'USERNAME':
 				$result = (string) preg_replace('/[\x00-\x1F\x7F<>"\'%&]/', '', $source);
+				break;
+
+			case 'RAW':
+				$result = $source;
 				break;
 
 			default:

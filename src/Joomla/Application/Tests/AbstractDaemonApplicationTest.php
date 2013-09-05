@@ -37,7 +37,7 @@ class AbstractDaemonApplicationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public static function tearDownAfterClass()
 	{
-		$pidPath = JPATH_BASE . '/japplicationdaemontest.pid';
+		$pidPath = JPATH_ROOT . '/japplicationdaemontest.pid';
 
 		if (file_exists($pidPath))
 		{
@@ -214,7 +214,7 @@ class AbstractDaemonApplicationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testWriteProcessIdFile()
 	{
-		$pidPath = JPATH_BASE . '/japplicationdaemontest.pid';
+		$pidPath = JPATH_ROOT . '/japplicationdaemontest.pid';
 
 		if (file_exists($pidPath))
 		{
@@ -264,7 +264,6 @@ class AbstractDaemonApplicationTest extends \PHPUnit_Framework_TestCase
 
 		// Get a new ConcreteDaemon instance.
 		$this->inspector = new ConcreteDaemon;
-		TestHelper::setValue('Joomla\Application\AbstractDaemonApplication', 'instance', $this->inspector);
 	}
 
 	/**
@@ -282,11 +281,5 @@ class AbstractDaemonApplicationTest extends \PHPUnit_Framework_TestCase
 		ConcreteDaemon::$pcntlFork = 0;
 		ConcreteDaemon::$pcntlSignal = true;
 		ConcreteDaemon::$pcntlWait = 0;
-
-		// Check if the inspector was instantiated.
-		if (isset($this->inspector))
-		{
-			TestHelper::setValue('Joomla\Application\AbstractDaemonApplication', 'instance', null);
-		}
 	}
 }

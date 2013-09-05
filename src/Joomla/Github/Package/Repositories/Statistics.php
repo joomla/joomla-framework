@@ -9,6 +9,7 @@
 namespace Joomla\Github\Package\Repositories;
 
 use Joomla\Github\Package;
+use Joomla\Http\Response;
 
 /**
  * GitHub API class for the Joomla Framework.
@@ -42,7 +43,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function contributors($owner, $repo)
+	public function getListContributors($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/contributors';
@@ -64,7 +65,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function activity($owner, $repo)
+	public function getActivityData($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/commit_activity';
@@ -85,7 +86,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function frequency($owner, $repo)
+	public function getCodeFrequency($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/code_frequency';
@@ -110,7 +111,7 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function participation($owner, $repo)
+	public function getParticipation($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/participation';
@@ -139,12 +140,36 @@ class Statistics  extends Package
 	 *
 	 * @return  object
 	 */
-	public function punchCard($owner, $repo)
+	public function getPunchCard($owner, $repo)
 	{
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/stats/punch_card';
 
 		// Send the request.
 		return $this->processResponse($this->client->get($this->fetchUrl($path)));
+	}
+
+	/**
+	 * Process the response and decode it.
+	 *
+	 * @param   Response  $response      The response.
+	 * @param   integer   $expectedCode  The expected "good" code.
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
+	 */
+	protected function processResponse(Response $response, $expectedCode = 200)
+	{
+		if (202 == $response->code)
+		{
+			throw new \DomainException(
+				'GitHub is building the statistics data. Please try again in a few moments.',
+				$response->code
+			);
+		}
+
+		return parent::processResponse($response, $expectedCode);
 	}
 }

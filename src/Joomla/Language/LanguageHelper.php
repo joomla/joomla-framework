@@ -28,8 +28,9 @@ class LanguageHelper
 	 * @return  array  List of system languages
 	 *
 	 * @since   1.0
+	 * @todo    Decouple from CMS language management
 	 */
-	public static function createLanguageList($actualLanguage, $basePath = JPATH_BASE, $caching = false, $installed = false)
+	public static function createLanguageList($actualLanguage, $basePath = JPATH_ROOT, $caching = false, $installed = false)
 	{
 		$list = array();
 

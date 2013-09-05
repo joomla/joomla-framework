@@ -56,6 +56,7 @@
         "joomla/session": "self.version",
         "joomla/string": "self.version",
         "joomla/test": "self.version",
+        "joomla/twitter": "self.version",
         "joomla/uri": "self.version",
         "joomla/utilities": "self.version",
         "joomla/view": "self.version"

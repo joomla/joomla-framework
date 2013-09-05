@@ -120,6 +120,7 @@ class Bzip2 implements ExtractableInterface
 					}
 				}
 			}
+
 			while ($this->data);
 
 			$output->close();

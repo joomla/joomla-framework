@@ -11,6 +11,7 @@ namespace Joomla\Form;
 use Joomla\Factory;
 use Joomla\Filter;
 use Joomla\Date\Date;
+use Joomla\Language\Language;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Path;
 use Joomla\Registry\Registry;
@@ -885,7 +886,7 @@ class Form
 		}
 
 		// Find the form field element from the definition.
-		$old = &$this->findField((string) $element['name'], $group);
+		$old = $this->findField((string) $element['name'], $group);
 
 		// If an existing field is found and replace flag is false do nothing and return true.
 		if (!$replace && !empty($old))
@@ -1702,7 +1703,7 @@ class Form
 
 			if (($translate = $element['translate_default']) && ((string) $translate == 'true' || (string) $translate == '1'))
 			{
-				$lang = Factory::getLanguage();
+				$lang = Language::getInstance();
 
 				if ($lang->hasKey($default))
 				{

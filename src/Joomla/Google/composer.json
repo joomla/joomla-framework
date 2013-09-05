@@ -7,13 +7,14 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/registry": "dev-master",
-        "joomla/uri": "dev-master",
-        "joomla/oauth2": "dev-master",
-        "joomla/filesystem": "dev-master"
+        "joomla/registry": "1.0-beta2",
+        "joomla/uri": "1.0-beta2",
+        "joomla/oauth2": "1.0-beta2",
+        "joomla/filesystem": "1.0-beta2"
     },
     "require-dev": {
-    	"joomla/input": "dev-master"
+    	"joomla/input": "1.0-beta2",
+    	"joomla/test": "1.0-beta2"
     },
     "target-dir": "Joomla/Google",
     "autoload": {

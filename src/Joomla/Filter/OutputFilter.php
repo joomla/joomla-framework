@@ -8,7 +8,7 @@
 
 namespace Joomla\Filter;
 
-use Joomla\Factory;
+use Joomla\Language\Language;
 use Joomla\String\String;
 
 /**
@@ -98,7 +98,7 @@ class OutputFilter
 		// Remove any '-' from the string since they will be used as concatenaters
 		$str = str_replace('-', ' ', $string);
 
-		$lang = Factory::getLanguage();
+		$lang = Language::getInstance();
 		$str = $lang->transliterate($str);
 
 		// Trim white spaces at beginning and end of alias and make lowercase

@@ -205,15 +205,15 @@ class Patcher
 	/**
 	 * Add a unified diff file to the patcher
 	 *
-	 * @param   string  $filename  Path to the unified diff file
-	 * @param   string  $root      The files root path
-	 * @param   string  $strip     The number of '/' to strip
+	 * @param   string   $filename  Path to the unified diff file
+	 * @param   string   $root      The files root path
+	 * @param   integer  $strip     The number of '/' to strip
 	 *
 	 * @return	Patcher  $this for chaining
 	 *
 	 * @since   1.0
 	 */
-	public function addFile($filename, $root = JPATH_BASE, $strip = 0)
+	public function addFile($filename, $root = JPATH_ROOT, $strip = 0)
 	{
 		return $this->add(file_get_contents($filename), $root, $strip);
 	}
@@ -221,15 +221,15 @@ class Patcher
 	/**
 	 * Add a unified diff string to the patcher
 	 *
-	 * @param   string  $udiff  Unified diff input string
-	 * @param   string  $root   The files root path
-	 * @param   string  $strip  The number of '/' to strip
+	 * @param   string   $udiff  Unified diff input string
+	 * @param   string   $root   The files root path
+	 * @param   integer  $strip  The number of '/' to strip
 	 *
 	 * @return	Patcher  $this for chaining
 	 *
 	 * @since   1.0
 	 */
-	public function add($udiff, $root = JPATH_BASE, $strip = 0)
+	public function add($udiff, $root = JPATH_ROOT, $strip = 0)
 	{
 		$this->patches[] = array(
 			'udiff' => $udiff,
@@ -488,6 +488,7 @@ class Patcher
 
 			$line = next($lines);
 		}
+
 		while ($line !== false);
 
 		throw new \RuntimeException('Unexpected EOF');

@@ -194,7 +194,7 @@ class Language
 		$this->setLanguage($lang);
 		$this->setDebug($debug);
 
-		$filename = JPATH_BASE . "/language/overrides/$lang.override.ini";
+		$filename = JPATH_ROOT . "/language/overrides/$lang.override.ini";
 
 		if (file_exists($filename) && $contents = $this->parse($filename))
 		{
@@ -212,19 +212,10 @@ class Language
 		$class = str_replace('-', '_', $lang . 'Localise');
 		$paths = array();
 
-		if (defined('JPATH_SITE'))
-		{
-			// Note: Manual indexing to enforce load order.
-			$paths[0] = JPATH_SITE . "/language/overrides/$lang.localise.php";
-			$paths[2] = JPATH_SITE . "/language/$lang/$lang.localise.php";
-		}
+		$basePath = self::getLanguagePath(JPATH_ROOT);
 
-		if (defined('JPATH_ADMINISTRATOR'))
-		{
-			// Note: Manual indexing to enforce load order.
-			$paths[1] = JPATH_ADMINISTRATOR . "/language/overrides/$lang.localise.php";
-			$paths[3] = JPATH_ADMINISTRATOR . "/language/$lang/$lang.localise.php";
-		}
+		$paths[0] = $basePath . "/language/overrides/$lang.localise.php";
+		$paths[1] = $basePath . "/language/$lang/$lang.localise.php";
 
 		ksort($paths);
 		$path = reset($paths);
@@ -293,11 +284,23 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public static function getInstance($lang, $debug = false)
+	public static function getInstance($lang = null, $debug = false)
 	{
 		if (!isset(self::$languages[$lang . $debug]))
 		{
-			self::$languages[$lang . $debug] = new self($lang, $debug);
+			$language = new self($lang, $debug);
+
+			self::$languages[$lang . $debug] = $language;
+
+			/*
+			 * Check if Language was instantiated with a null $lang param;
+			 * if so, retrieve the language code from the object and store
+			 * the instance with the language code as well
+			 */
+			if (is_null($lang))
+			{
+				self::$languages[$language->getLanguage() . $debug] = $language;
+			}
 		}
 
 		return self::$languages[$lang . $debug];
@@ -683,7 +686,7 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public static function exists($lang, $basePath = JPATH_BASE)
+	public static function exists($lang, $basePath = JPATH_ROOT)
 	{
 		static $paths = array();
 
@@ -720,7 +723,7 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public function load($extension = 'joomla', $basePath = JPATH_BASE, $lang = null, $reload = false, $default = true)
+	public function load($extension = 'joomla', $basePath = JPATH_ROOT, $lang = null, $reload = false, $default = true)
 	{
 		if (!$lang)
 		{
@@ -1146,7 +1149,7 @@ class Language
 	 */
 	public static function getMetadata($lang)
 	{
-		$path = self::getLanguagePath(JPATH_BASE, $lang);
+		$path = self::getLanguagePath(JPATH_ROOT, $lang);
 		$file = $lang . '.xml';
 
 		$result = null;
@@ -1173,7 +1176,7 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public static function getKnownLanguages($basePath = JPATH_BASE)
+	public static function getKnownLanguages($basePath = JPATH_ROOT)
 	{
 		$dir = self::getLanguagePath($basePath);
 		$knownLanguages = self::parseLanguageFiles($dir);
@@ -1191,7 +1194,7 @@ class Language
 	 *
 	 * @since   1.0
 	 */
-	public static function getLanguagePath($basePath = JPATH_BASE, $language = null)
+	public static function getLanguagePath($basePath = JPATH_ROOT, $language = null)
 	{
 		$dir = $basePath . '/language';
 
@@ -1201,6 +1204,18 @@ class Language
 		}
 
 		return $dir;
+	}
+
+	/**
+	 * Get the current language code.
+	 *
+	 * @return  string  The language code
+	 *
+	 * @since   1.0
+	 */
+	public function getLanguage()
+	{
+		return $this->lang;
 	}
 
 	/**

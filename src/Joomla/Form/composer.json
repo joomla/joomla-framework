@@ -7,13 +7,13 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/language": "dev-master",
-        "joomla/string": "dev-master",
-        "joomla/uri": "dev-master",
-        "joomla/filter": "dev-master",
-        "joomla/filesystem": "dev-master",
-        "joomla/registry": "dev-master",
-        "joomla/utilities": "dev-master"
+        "joomla/language": "1.0-beta2",
+        "joomla/string": "1.0-beta2",
+        "joomla/uri": "1.0-beta2",
+        "joomla/filter": "1.0-beta2",
+        "joomla/filesystem": "1.0-beta2",
+        "joomla/registry": "1.0-beta2",
+        "joomla/utilities": "1.0-beta2"
     },
     "target-dir": "Joomla/Form",
     "autoload": {
