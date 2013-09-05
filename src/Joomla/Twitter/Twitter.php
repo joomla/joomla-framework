@@ -158,6 +158,7 @@ class Twitter
 				{
 					$this->friends = new Friends($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->friends;
 
 			case 'help':
@@ -165,6 +166,7 @@ class Twitter
 				{
 					$this->help = new Help($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->help;
 
 			case 'statuses':
@@ -172,6 +174,7 @@ class Twitter
 				{
 					$this->statuses = new Statuses($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->statuses;
 
 			case 'users':
@@ -179,6 +182,7 @@ class Twitter
 				{
 					$this->users = new Users($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->users;
 
 			case 'search':
@@ -186,6 +190,7 @@ class Twitter
 				{
 					$this->search = new Search($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->search;
 
 			case 'favorites':
@@ -193,6 +198,7 @@ class Twitter
 				{
 					$this->favorites = new Favorites($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->favorites;
 
 			case 'directMessages':
@@ -200,6 +206,7 @@ class Twitter
 				{
 					$this->directMessages = new Directmessages($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->directMessages;
 
 			case 'lists':
@@ -207,6 +214,7 @@ class Twitter
 				{
 					$this->lists = new Lists($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->lists;
 
 			case 'places':
@@ -214,6 +222,7 @@ class Twitter
 				{
 					$this->places = new Places($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->places;
 
 			case 'trends':
@@ -221,6 +230,7 @@ class Twitter
 				{
 					$this->trends = new Trends($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->trends;
 
 			case 'block':
@@ -228,6 +238,7 @@ class Twitter
 				{
 					$this->block = new Block($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->block;
 
 			case 'profile':
@@ -235,6 +246,7 @@ class Twitter
 				{
 					$this->profile = new Profile($this->options, $this->client, $this->oauth);
 				}
+
 				return $this->profile;
 		}
 	}
@@ -259,7 +271,7 @@ class Twitter
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JTwitter  This object for method chaining.
+	 * @return  Twitter  This object for method chaining.
 	 *
 	 * @since   1.0
 	 */
