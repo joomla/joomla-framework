@@ -151,7 +151,7 @@ class Twitter
 	 */
 	public function __get($name)
 	{
-		$class = __NAMESPACE__ . '\\' . strtolower(ucfirst($name));
+		$class = __NAMESPACE__ . '\\' . ucfirst(strtolower($name));
 
 		if (class_exists($class) && property_exists($this, $name))
 		{
