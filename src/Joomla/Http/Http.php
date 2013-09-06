@@ -16,7 +16,7 @@ use Joomla\Uri\Uri;
  *
  * @since  1.0
  */
-class Http
+class Http implements HttpInterface
 {
 	/**
 	 * @var    Registry  Options for the HTTP client.
