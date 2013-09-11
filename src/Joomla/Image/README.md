@@ -123,6 +123,41 @@ This parameter can be one of the following:
 - `JImage::CROP` - Gives you a thumbnail of the exact size, cropped from the center of the full sized image.
 
 
+#### The `toFile` method
+__Accepted Parameters__
+
+- `$path`: The filesystem path to save the image.
+           When null, the raw image stream will be outputted directly.
+- `$type`: The image type to save the file as (`IMAGETYPE_GIF`|`IMAGETYPE_PNG`|`IMAGETYPE_JPEG`).
+- `$options`: The image type options to use in saving the file.
+              Use `quality` key to set compression level (0..9 for PNGs and 0..100 for JPEGs)
+
+Example: Using `JImage::toFile()` to save the image as JPEG with 65 compression level
+
+```php
+// Create our object
+$image = new JImage(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
+
+// Write to disk
+$image->toFile(JPATH_ROOT . '/tmp/bar.jpg', IMAGETYPEJPEG, array('options' => 65));
+
+```
+
+Example: Using `JImage::toFile()` to retrieve data blob of an image.
+
+```php
+// Create our object
+$image = new JImage(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
+
+// Enable output buffering
+ob_start();
+
+// Retrieve data blob
+$image->toFile(null, IMAGETYPE_PNG);
+$imageBlob = ob_get_clean();
+```
+
+
 ## Installation via Composer
 
 Add `"joomla/image": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
