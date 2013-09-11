@@ -132,22 +132,22 @@ __Accepted Parameters__
 - `$options`: The image type options to use in saving the file.
               Use `quality` key to set compression level (0..9 for PNGs and 0..100 for JPEGs)
 
-Example: Using `JImage::toFile()` to save the image as JPEG with 65 compression level
+Example: Using `Image::toFile()` to save the image as JPEG with 65 compression level
 
 ```php
 // Create our object
-$image = new JImage(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
+$image = new Image(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
 // Write to disk
 $image->toFile(JPATH_ROOT . '/tmp/bar.jpg', IMAGETYPEJPEG, array('options' => 65));
 
 ```
 
-Example: Using `JImage::toFile()` to retrieve data blob of an image.
+Example: Using `Image::toFile()` to retrieve data blob of an image.
 
 ```php
 // Create our object
-$image = new JImage(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
+$image = new Image(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
 // Enable output buffering
 ob_start();
