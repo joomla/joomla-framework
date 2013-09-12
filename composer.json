@@ -21,6 +21,9 @@
         },
         "classmap": [
             "src/Joomla/Compat/JsonSerializable.php"
+        ],
+        "files": [
+            "src/Joomla/PHP/methods.php"
         ]
     },
     "replace": {
