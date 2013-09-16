@@ -6,10 +6,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once 'PHPUnit/Extensions/Database/TestCase.php';
-require_once 'PHPUnit/Extensions/Database/DataSet/XmlDataSet.php';
-require_once 'PHPUnit/Extensions/Database/DataSet/QueryDataSet.php';
-require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
+//require_once 'PHPUnit/Extensions/Database/TestCase.php';
+//require_once 'PHPUnit/Extensions/Database/DataSet/XmlDataSet.php';
+//require_once 'PHPUnit/Extensions/Database/DataSet/QueryDataSet.php';
+//require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Factory;
