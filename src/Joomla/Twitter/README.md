@@ -10,7 +10,7 @@ Instantiating Twitter is easy:
 
 ```php
 use Joomla\Twitter\Twitter;
-$twitter = new Twitter;
+$twitter = new JTwitter;
 ```
 
 This creates a basic Twitter object that can be used to access resources on twitter.com, using an active access token.
@@ -25,14 +25,14 @@ use Joomla\Twitter\Twitter;
 use Joomla\Twitter\OAuth;
 use Joomla\Registry\Registry;
 
-$options = new Registry;
+$options = new JRegistry;
 $options->set('consumer_key', $consumer_key);
 $options->set('consumer_secret', $consumer_secret);
 $options->set('callback', $callback_url);
 $options->set('sendheaders', true);
-$oauth = new OAuth($options);
+$oauth = new JTwitterOAuth($options);
 
-$twitter = new Twitter($oauth);
+$twitter = new JTwitter($oauth);
 ```
 
 Now you can authenticate and request the user to authorise your application in order to get an access token, but if you already have an access token stored you can set it to the OAuth object and if it's still valid your application will use it.
@@ -79,21 +79,21 @@ use Joomla\Twitter\Twitter;
 use Joomla\Twitter\OAuth;
 use Joomla\Registry\Registry;
 
-$app_id = "app_id";
-$app_secret = "app_secret";
+$key = "consumer_key";
+$secret = "consumer_secret";
 $my_url = 'http://localhost/twitter_test.php';
 
 
-$options = new Registry;
+$options = new JRegistry;
 $options->set('consumer_key', $key);
 $options->set('consumer_secret', $secret);
 $options->set('callback', $my_url);
 $options->set('sendheaders', true);
 
-$oauth = new OAuth($options);
+$oauth = new JTwitterOAuth($options);
 $oauth->authenticate();
 
-$twitter = new Twitter($oauth);
+$twitter = new JTwitter($oauth);
 
 $statuses = $twitter->statuses;
 $response = $statuses->tweet("The Twitter Package is amazing #joomla");
