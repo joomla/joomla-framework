@@ -6,11 +6,6 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-//require_once 'PHPUnit/Extensions/Database/TestCase.php';
-//require_once 'PHPUnit/Extensions/Database/DataSet/XmlDataSet.php';
-//require_once 'PHPUnit/Extensions/Database/DataSet/QueryDataSet.php';
-//require_once 'PHPUnit/Extensions/Database/DataSet/MysqlXmlDataSet.php';
-
 use Joomla\Database\DatabaseDriver;
 use Joomla\Factory;
 use Joomla\Test\TestHelper;
@@ -21,7 +16,7 @@ use Joomla\Test\TestHelper;
  * @package  Joomla.Test
  * @since    12.1
  */
-abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
+abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 {
 	/**
 	 * @var    Joomla\Database\Driver  The active database driver being used for the tests.
@@ -196,10 +191,10 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	protected function getSetUpOperation()
 	{
 		// Required given the use of InnoDB contraints.
-		return new PHPUnit_Extensions_Database_Operation_Composite(
+		return new \PHPUnit_Extensions_Database_Operation_Composite(
 			array(
-				PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL(),
-				PHPUnit_Extensions_Database_Operation_Factory::INSERT()
+				\PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL(),
+				\PHPUnit_Extensions_Database_Operation_Factory::INSERT()
 			)
 		);
 	}
@@ -214,7 +209,7 @@ abstract class TestCaseDatabase extends PHPUnit_Extensions_Database_TestCase
 	protected function getTearDownOperation()
 	{
 		// Required given the use of InnoDB contraints.
-		return PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL();
+		return \PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL();
 	}
 
 	/**
