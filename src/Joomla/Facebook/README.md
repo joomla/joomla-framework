@@ -10,7 +10,7 @@ Instantiating Facebook is easy:
 
 ```php
 use Joomla\Facebook\Facebook;
-$facebook = new Facebook;
+$facebook = new JFacebook;
 ```
 
 This creates a basic Facebook object that can be used to access publicly available resources on facebook.com which don't require an active access token.
@@ -31,9 +31,9 @@ $options->set('clientsecret', $app_secret);
 $options->set('redirecturi', $callback_url);
 $options->set('sendheaders', true);
 $options->set('authmethod', 'get');
-$oauth = new OAuth($options);
+$oauth = new JFacebookOAuth($options);
 
-$facebook = new Facebook($oauth);
+$facebook = new JFacebook($oauth);
 ```
 Now you can authenticate and request the user to authorise your application in order to get an access token, but if you already have an access token stored you can set it to the OAuth object and if it's still valid your application will use it.
 
@@ -90,17 +90,17 @@ $app_secret = "app_secret";
 $my_url = 'http://localhost/facebook_test.php';
 
 
-$options = new Registry;
+$options = new JRegistry;
 $options->set('clientid', $app_id);
 $options->set('clientsecret', $app_secret);
 $options->set('redirecturi', $my_url);
 $options->set('sendheaders', true);
 $options->set('authmethod', 'get');
 
-$oauth = new OAuth($options);
+$oauth = new JFacebookOAuth($options);
 $oauth->authenticate();
 
-$facebook = new Facebook($oauth);
+$facebook = new JFacebook($oauth);
 
 $user = $facebook->user;
 $response = $user->getFeed("me");
