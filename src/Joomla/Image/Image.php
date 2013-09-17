@@ -812,11 +812,13 @@ class Image implements LoggerAwareInterface
 	}
 
 	/**
-	 * Method to write the current image out to a file.
+	 * Method to write the current image out to a file or output directly.
 	 *
-	 * @param   string   $path     The filesystem path to save the image.
+	 * @param   mixed    $path     The filesystem path to save the image.
+	 *                             When null, the raw image stream will be outputted directly.
 	 * @param   integer  $type     The image type to save the file as.
 	 * @param   array    $options  The image type options to use in saving the file.
+	 *                             For PNG and JPEG formats use `quality` key to set compression level (0..9 and 0..100)
 	 *
 	 * @return  boolean
 	 *
