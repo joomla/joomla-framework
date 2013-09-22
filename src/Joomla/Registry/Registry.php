@@ -494,7 +494,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 		{
 			if ((is_array($v) && ArrayHelper::isAssociative($v)) || is_object($v))
 			{
-				$parent->$k = new \stdClass;
+				$parent->$k = isset($parent->$k) ? $parent->$k : new \stdClass;
 				$this->bindData($parent->$k, $v);
 			}
 			else
