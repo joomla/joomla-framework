@@ -6,6 +6,7 @@ Manipulating images in raw PHP using the `GD` image* functions requires a lot of
 
 All classes in this package are supported by the auto-loader so can be invoked at any time.
 
+
 ### Construction
 
 When creating a new `Image` object, the constructor will check that the `gd` extension is loaded, and throw a `RuntimeException` if it is not.
@@ -37,7 +38,9 @@ Keep in mind that most public methods return a `Image` instance with a valid ima
 
 ```php
 $image = new Image();
-$image->loadFile(JPATH_ROOT . '/path/to/image.png')->crop(600, 250)->toFile(JPATH_ROOT . '/tmp/image.png');
+$image->loadFile(JPATH_ROOT . '/path/to/image.png')
+	->crop(600, 250)
+	->toFile(JPATH_ROOT . '/tmp/image.png');
 ```
 
 Since Platform version 12.3, there is a new `destroy()` method that gets called in appropriate places throughout the class which runs the `imagedestroy` function to free memory associated with an image handle. This method is called before each time an image handle is replaced (when `$createNew` is set to false) as well as in the class `__descruct` method as a final cleanup.
@@ -88,11 +91,13 @@ $image->crop(150, null, 10, 20);
 $image->toFile(JPATH_ROOT . '/tmp/bar_cropped.png');
 ```
 
+To crop in image after resizing it to maintain proportions use `cropResize` method with familiar arguments `$width`, `$height` and `$createNew`.
+
 
 #### The `createThumbs` method
 __Accepted Parameters__
 
-- `$thumbsizes`: String or array of strings. Example: $thumbSizes = array('150x75','250x150');
+- `$thumbSizes`: String or array of strings. Example: $thumbSizes = array('150x75','250x150');
 - `$creationMethod`: See __Resize Methods__ below.
 - `$thumbsFolder`: Destination for thumbnails. Passing null generates a thumbs folder in the loaded image's containing folder.
 
@@ -112,6 +117,9 @@ $image->createThumbs($sizes, Image::SCALE_INSIDE);
 In this example, we use the `createThumbs` method of `Image`. This method takes 2 parameters. The first parameter can be a string containing a single size in `WIDTHxHEIGHT` format, or it can be an array of sizes in the format (as shown in the example). The second parameter specifies the resize method. (See Resize Methods below)
 
 
+To receive Image instances without saving them to disk, use `generateThumbs` method with arguments `$thumbSizes` and `$creationMethod`.
+
+
 #### Resize Methods
 
 The `resize`, `createThumbs` and `generateThumbs` methods take an optional parameter that defines what method to use when scaling an image.
@@ -121,6 +129,7 @@ This parameter can be one of the following:
 - `Image::SCALE_INSIDE` - Fits your thumbnail within your given parameters. It will not be any taller or wider than the size passed, whichever is larger.
 - `Image::SCALE_OUTSIDE` - Fits your thumbnail to the given parameters. It will be as tall or as wide as the size passed, whichever is smaller.
 - `Image::CROP` - Gives you a thumbnail of the exact size, cropped from the center of the full sized image.
+- `Image::CROP_RESIZE` - As above, but gives a clean resize and crop from center.
 
 
 #### The `toFile` method
