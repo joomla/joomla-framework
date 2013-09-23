@@ -40,7 +40,7 @@ $image = new Image();
 $image->loadFile(JPATH_ROOT . '/path/to/image.png')->crop(600, 250)->toFile(JPATH_ROOT . '/tmp/image.png');
 ```
 
-Since Platform version 12.3, there is a new `destroy()` method that get's called in appropriate places throughout the class which runs the `imagedestroy` function to free memory associated with an image handle. This method is called before each time an image handle is replaced (when `$createNew` is set to false) as well as in the class `__descruct` method as a final cleanup.
+Since Platform version 12.3, there is a new `destroy()` method that gets called in appropriate places throughout the class which runs the `imagedestroy` function to free memory associated with an image handle. This method is called before each time an image handle is replaced (when `$createNew` is set to false) as well as in the class `__descruct` method as a final cleanup.
 
 
 #### The `resize` method
@@ -109,7 +109,7 @@ $image = new Image(JPATH_ROOT . '/media/com_foo/images/uploads/uploadedImage.jpg
 $image->createThumbs($sizes, Image::SCALE_INSIDE);
 ```
 
-In this example, we use the `createThumbs` method of `Image`. This method takes 2 parameters. The first parameter can be a string containing a single size in `WIDTHxHEIGHT` format, or it can be an array of sizes in the format (as shown in the example). The second parameter specifizes the resize method. (See Resize Methods below)
+In this example, we use the `createThumbs` method of `Image`. This method takes 2 parameters. The first parameter can be a string containing a single size in `WIDTHxHEIGHT` format, or it can be an array of sizes in the format (as shown in the example). The second parameter specifies the resize method. (See Resize Methods below)
 
 
 #### Resize Methods
