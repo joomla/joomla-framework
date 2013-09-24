@@ -694,7 +694,7 @@ class Image implements LoggerAwareInterface
 		$dimensions = $this->prepareDimensions($width, $height, $scaleMethod);
 
 		// Instantiate offset.
-		$offset = new stdClass;
+		$offset = new \stdClass;
 		$offset->x = $offset->y = 0;
 
 		// Center image if needed and create the new truecolor image handle.
@@ -706,7 +706,7 @@ class Image implements LoggerAwareInterface
 
 			$handle = imagecreatetruecolor($width, $height);
 
-			// Make image transparent, otherwise cavas outside initial image would default to black
+			// Make image transparent, otherwise canvas outside initial image would default to black
 			if (!$this->isTransparent())
 			{
 				$transparency = imagecolorAllocateAlpha($this->handle, 0, 0, 0, 127);
@@ -734,7 +734,10 @@ class Image implements LoggerAwareInterface
 		}
 
 		// Use resampling for better quality
-		imagecopyresampled($handle, $this->handle, $offset->x, $offset->y, 0, 0, $dimensions->width, $dimensions->height, $this->getWidth(), $this->getHeight());
+		imagecopyresampled(
+			$handle, $this->handle, 
+			$offset->x, $offset->y, 0, 0, $dimensions->width, $dimensions->height, $this->getWidth(), $this->getHeight()
+		);
 
 		// If we are resizing to a new image, create a new JImage object.
 		if ($createNew)
