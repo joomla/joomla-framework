@@ -300,7 +300,7 @@ class Image implements LoggerAwareInterface
 
 				if ($thumb->toFile($thumbFileName, $imgProperties->type))
 				{
-					// Return JImage object with thumb path to ease further manipulation
+					// Return Image object with thumb path to ease further manipulation
 					$thumb->path = $thumbFileName;
 					$thumbsCreated[] = $thumb;
 				}
@@ -380,7 +380,7 @@ class Image implements LoggerAwareInterface
 			imagecopyresampled($handle, $this->handle, 0, 0, $left, $top, $width, $height, $width, $height);
 		}
 
-		// If we are cropping to a new image, create a new JImage object.
+		// If we are cropping to a new image, create a new Image object.
 		if ($createNew)
 		{
 			// @codeCoverageIgnoreStart
@@ -519,7 +519,7 @@ class Image implements LoggerAwareInterface
 	}
 
 	/**
-	 * Method to load a file into the JImage object as the resource.
+	 * Method to load a file into the Image object as the resource.
 	 *
 	 * @param   string  $path  The filesystem path to load as an image.
 	 *
@@ -701,7 +701,7 @@ class Image implements LoggerAwareInterface
 			imagecopyresampled($handle, $this->handle, 0, 0, 0, 0, $dimensions->width, $dimensions->height, $this->getWidth(), $this->getHeight());
 		}
 
-		// If we are resizing to a new image, create a new JImage object.
+		// If we are resizing to a new image, create a new Image object.
 		if ($createNew)
 		{
 			// @codeCoverageIgnoreStart
@@ -731,7 +731,7 @@ class Image implements LoggerAwareInterface
 	 * @param   integer  $height     The desired height of the image in pixels or a percentage.
 	 * @param   integer  $createNew  If true the current image will be cloned, resized, cropped and returned.
 	 *
-	 * @return  object  JImage Object for chaining.
+	 * @return  object  Image Object for chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -789,7 +789,7 @@ class Image implements LoggerAwareInterface
 		// Rotate the image
 		$handle = imagerotate($handle, $angle, $background);
 
-		// If we are resizing to a new image, create a new JImage object.
+		// If we are resizing to a new image, create a new Image object.
 		if ($createNew)
 		{
 			// @codeCoverageIgnoreStart
