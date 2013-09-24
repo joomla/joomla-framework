@@ -113,14 +113,14 @@ class Image implements LoggerAwareInterface
 	}
 
 	/**
-     * Sets a logger instance on the object
-     *
-     * @param   LoggerInterface  $logger  A PSR-3 compliant logger.
+	 * Sets a logger instance on the object
 	 *
-     * @return  void
-     *
-     * @since   1.0
-     */
+	 * @param   LoggerInterface  $logger  A PSR-3 compliant logger.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
 	public function setLogger(LoggerInterface $logger)
 	{
 		$this->logger = $logger;
