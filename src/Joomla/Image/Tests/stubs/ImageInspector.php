@@ -7,14 +7,14 @@
 use Joomla\Image\Image;
 
 /**
- * Inspector for the JImage class.
+ * Inspector for the Image class.
  *
  * @since  1.0
  */
-class JImageInspector extends Image
+class ImageInspector extends Image
 {
 	/**
-	 * @var    JImageFilter  A mock image filter to be returned from getFilterInstance().
+	 * @var    ImageFilter  A mock image filter to be returned from getFilterInstance().
 	 * @since  1.0
 	 */
 	public $mockFilter;
@@ -67,7 +67,7 @@ class JImageInspector extends Image
 	 *
 	 * @param   string  $type  The image filter type to get.
 	 *
-	 * @return  JImageFilter
+	 * @return  ImageFilter
 	 *
 	 * @since   1.0
 	 * @throws  RuntimeException

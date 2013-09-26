@@ -7,11 +7,11 @@
 use Joomla\Image\Filter\Brightness as FilterBrightness;
 
 /**
- * Test class for JImage.
+ * Test class for Image.
  *
  * @since  1.0
  */
-class JImageFilterBrightnessTest extends PHPUnit_Framework_TestCase
+class ImageFilterBrightnessTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Setup for testing.
@@ -27,7 +27,7 @@ class JImageFilterBrightnessTest extends PHPUnit_Framework_TestCase
 		// Verify that GD support for PHP is available.
 		if (!extension_loaded('gd'))
 		{
-			$this->markTestSkipped('No GD support so skipping JImage tests.');
+			$this->markTestSkipped('No GD support so skipping Image tests.');
 		}
 	}
 
@@ -45,7 +45,7 @@ class JImageFilterBrightnessTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JImageFilterBrightness::execute method.
+	 * Tests the ImageFilterBrightness::execute method.
 	 *
 	 * This tests to make sure we can brighten the image.
 	 *
@@ -75,7 +75,7 @@ class JImageFilterBrightnessTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JImageFilterBrightness::execute method - invalid argument.
+	 * Tests the ImageFilterBrightness::execute method - invalid argument.
 	 *
 	 * This tests to make sure an exception is properly thrown.
 	 *

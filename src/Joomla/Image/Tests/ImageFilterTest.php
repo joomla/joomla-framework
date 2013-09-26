@@ -9,11 +9,11 @@ use Joomla\Image\Filter\Brightness as FilterBrightness;
 use Joomla\Test\TestHelper;
 
 /**
- * Test class for JImage.
+ * Test class for Image.
  *
  * @since  1.0
  */
-class JImageFilterTest extends PHPUnit_Framework_TestCase
+class ImageFilterTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Setup for testing.
@@ -29,7 +29,7 @@ class JImageFilterTest extends PHPUnit_Framework_TestCase
 		// Verify that GD support for PHP is available.
 		if (!extension_loaded('gd'))
 		{
-			$this->markTestSkipped('No GD support so skipping JImage tests.');
+			$this->markTestSkipped('No GD support so skipping Image tests.');
 		}
 	}
 
@@ -47,7 +47,7 @@ class JImageFilterTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JImage::__construct method - with an invalid argument.
+	 * Tests the Image::__construct method - with an invalid argument.
 	 *
 	 * @return  void
 	 *
@@ -61,7 +61,7 @@ class JImageFilterTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the JImage::__construct method.
+	 * Tests the Image::__construct method.
 	 *
 	 * @return  void
 	 *
