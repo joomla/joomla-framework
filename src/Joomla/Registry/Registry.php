@@ -308,21 +308,16 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 */
 	public function merge($source)
 	{
-		if (!$source instanceof Registry)
-		{
-			return false;
-		}
-
-		// Load the variables into the registry's default namespace.
-		foreach ($source->toArray() as $k => $v)
-		{
-			if (($v !== null) && ($v !== ''))
-			{
-				$this->data->$k = $v;
-			}
-		}
-
-		return true;
+	    if (!$source instanceof Registry)
+	    {
+	        return false;
+	    }
+	
+	    $data = $source->toArray();
+	
+	    $this->bindData($this, $data);
+	
+	    return true;
 	}
 
 	/**
