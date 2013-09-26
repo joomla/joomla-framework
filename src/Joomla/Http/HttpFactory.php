@@ -24,7 +24,7 @@ class HttpFactory
 	 * @param   mixed     $adapters  Adapter (string) or queue of adapters (array) to use for communication.
 	 *
 	 * @return  Http  Joomla Http class
-
+	 *
 	 * @throws  \RuntimeException
 	 *
 	 * @since   1.0

@@ -323,6 +323,7 @@ class MyTest extends \PHPUnit_Framework_TestCase
 The `createInput` method will return a mock of the `Input\Input` class with the following methods mocked to roughly simulate real behaviour albeit with reduced functionality:
 
 * `get($name [, $default, $fitler])`
+* `getArray([$array, $datasource])`
 * `getInt($name [, $default])`
 * `set($name, $value)`
 
@@ -333,6 +334,7 @@ The `createInputJson` method will return a mock of the `Input\Json` class. It ex
 You can provide customised implementations these methods by creating the following methods in your test class respectively:
 
 * `mockInputGet`
+* `mockInputGetArray`
 * `mockInputGetInt`
 * `mockInputSet`
 * `mockInputGetRaw`

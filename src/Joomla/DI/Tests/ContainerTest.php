@@ -80,6 +80,11 @@ class Stub9
 {
 }
 
+/**
+ * Tests for Container class.
+ *
+ * @since  1.0
+ */
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
@@ -178,7 +183,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () {
 			return new Stub1;
-		});
+		}
+		);
 
 		$object = $this->fixture->buildObject('Joomla\\DI\\Tests\\Stub2');
 
@@ -258,7 +264,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->fixture->share('foo', function () {
 			return new \stdClass;
-		});
+		}
+		);
 
 		$value = 42;
 
@@ -266,7 +273,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 			$shared->value = $value;
 
 			return $shared;
-		});
+		}
+		);
 
 		$one = $this->fixture->get('foo');
 		$this->assertInstanceOf('stdClass', $one);
@@ -290,7 +298,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExtendValidatesKeyIsPresent()
 	{
-		$this->fixture->extend('foo', function () {});
+		$this->fixture->extend('foo', function () {
+		}
+		);
 	}
 
 	/**
@@ -304,7 +314,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () {
 			return new Stub1;
-		});
+		}
+		);
 
 		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
 		$reflectionMethod->setAccessible(true);
@@ -402,7 +413,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () {
 			return new Stub9;
-		});
+		}
+		);
 
 		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
 		$reflectionMethod->setAccessible(true);
@@ -444,8 +456,18 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetAlreadySetProtected()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; }, false, true);
-		$this->fixture->set('foo', function () { return new \stdClass; }, false, true);
+		$this->fixture->set(
+			'foo', function () {
+				return new \stdClass;
+			},
+			false, true
+		);
+		$this->fixture->set(
+			'foo', function () {
+				return new \stdClass;
+			},
+			false, true
+		);
 	}
 
 	/**
@@ -457,8 +479,16 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetAlreadySetNotProtected()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; });
-		$this->fixture->set('foo', function () { return 'bar'; });
+		$this->fixture->set(
+			'foo', function () {
+				return new \stdClass;
+			}
+		);
+		$this->fixture->set(
+			'foo', function () {
+				return 'bar';
+			}
+		);
 
 		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
 
@@ -478,7 +508,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetShared()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; }, true);
+		$this->fixture->set(
+			'foo', function () {
+				return new \stdClass;
+			},
+			true
+		);
 
 		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
 
@@ -494,7 +529,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetNotShared()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; }, false);
+		$this->fixture->set(
+			'foo', function () {
+				return new \stdClass;
+			},
+			false
+		);
 
 		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
 
@@ -510,7 +550,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testProtect()
 	{
-		$this->fixture->protect('foo', function () { return new \stdClass; });
+		$this->fixture->protect(
+			'foo', function () {
+				return new \stdClass;
+			}
+		);
 
 		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
 
@@ -534,7 +578,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testProtectShared()
 	{
-		$this->fixture->protect('foo', function () { return new \stdClass; }, true);
+		$this->fixture->protect(
+			'foo', function () {
+				return new \stdClass;
+			},
+			true
+		);
 
 		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
 
@@ -558,7 +607,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testShare()
 	{
-		$this->fixture->share('foo', function () { return new \stdClass; });
+		$this->fixture->share(
+			'foo', function () {
+				return new \stdClass;
+			}
+		);
 
 		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
 
@@ -582,7 +635,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testShareProtected()
 	{
-		$this->fixture->share('foo', function () { return new \stdClass; }, true);
+		$this->fixture->share(
+			'foo', function () {
+				return new \stdClass;
+			},
+			true
+		);
 
 		$dataStore = $this->readAttribute($this->fixture, 'dataStore');
 
@@ -606,8 +664,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetShared()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; }, true);
-
+		$this->fixture->set(
+			'foo', function () {
+				return new \stdClass;
+			},
+			true
+		);
 		$this->assertSame($this->fixture->get('foo'), $this->fixture->get('foo'));
 	}
 
@@ -620,8 +682,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetNotShared()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; }, false);
-
+		$this->fixture->set(
+			'foo', function () {
+				return new \stdClass;
+			},
+			false
+		);
 		$this->assertNotSame($this->fixture->get('foo'), $this->fixture->get('foo'));
 	}
 
@@ -649,7 +715,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetPassesContainerInstanceShared()
 	{
-		$this->fixture->set('foo', function ($c) { return $c; });
+		$this->fixture->set(
+			'foo', function ($c) {
+				return $c;
+			}
+		);
 
 		$this->assertSame($this->fixture, $this->fixture->get('foo'));
 	}
@@ -664,7 +734,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetPassesContainerInstanceNotShared()
 	{
-		$this->fixture->set('foo', function ($c) { return $c; }, false);
+		$this->fixture->set(
+			'foo', function ($c) {
+				return $c;
+			},
+			false
+		);
 
 		$this->assertSame($this->fixture, $this->fixture->get('foo'));
 	}
@@ -681,7 +756,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getRaw');
 		$reflectionMethod->setAccessible(true);
 
-		$function = function () { return 'foo'; };
+		$function = function () {
+			return 'foo';
+		};
 
 		$this->fixture->set('foo', $function);
 
@@ -706,7 +783,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getRaw');
 		$reflectionMethod->setAccessible(true);
 
-		$function = function () { return 'foo'; };
+		$function = function () {
+			return 'foo';
+		};
 
 		$this->fixture->set('foo', $function);
 
@@ -731,7 +810,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetNewInstance()
 	{
-		$this->fixture->set('foo', function () { return new \stdClass; });
+		$this->fixture->set(
+			'foo', function () {
+				return new \stdClass;
+			}
+		);
 
 		$this->assertNotSame($this->fixture->getNewInstance('foo'), $this->fixture->getNewInstance('foo'));
 	}

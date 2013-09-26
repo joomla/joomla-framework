@@ -4,8 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once __DIR__ . '/stubs/JImageInspector.php';
-require_once __DIR__ . '/stubs/JImageFilterInspector.php';
+require_once __DIR__ . '/stubs/ImageInspector.php';
+require_once __DIR__ . '/stubs/ImageFilterInspector.php';
 
 use Joomla\Image\Image;
 
@@ -145,16 +145,16 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Create a 10x10 image handle.
 		$testImageHandle = imagecreatetruecolor(10, 10);
 
-		// Create a new JImageInspector object from the handle.
-		$testImage = new JImageInspector($testImageHandle);
+		// Create a new ImageInspector object from the handle.
+		$testImage = new ImageInspector($testImageHandle);
 
 		// Verify that the handle created is the same one in the ImageInspector.
 		$this->assertSame($testImageHandle, $testImage->getClassProperty('handle'));
 
-		// Create a new JImageInspector with no handle.
-		$testImage2 = new JImageInspector;
+		// Create a new ImageInspector with no handle.
+		$testImage2 = new ImageInspector;
 
-		// Verify that there is no handle in the JImageInspector.
+		// Verify that there is no handle in the ImageInspector.
 		$this->assertNull($testImage2->getClassProperty('handle'));
 	}
 
@@ -169,8 +169,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFile()
 	{
-		// Get a new JImage inspector.
-		$image = new JImageInspector;
+		// Get a new Image inspector.
+		$image = new ImageInspector;
 		$image->loadFile($this->testFile);
 
 		// Verify that the cropped image is the correct size.
@@ -191,8 +191,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFileGif()
 	{
-		// Get a new JImage inspector.
-		$image = new JImageInspector;
+		// Get a new Image inspector.
+		$image = new ImageInspector;
 		$image->loadFile($this->testFileGif);
 
 		// Verify that the cropped image is the correct size.
@@ -213,8 +213,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFilePng()
 	{
-		// Get a new JImage inspector.
-		$image = new JImageInspector;
+		// Get a new Image inspector.
+		$image = new ImageInspector;
 		$image->loadFile($this->testFilePng);
 
 		// Verify that the cropped image is the correct size.
@@ -237,8 +237,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFileBmp()
 	{
-		// Get a new JImage inspector.
-		$image = new JImageInspector;
+		// Get a new Image inspector.
+		$image = new ImageInspector;
 		$image->loadFile($this->testFileBmp);
 	}
 
@@ -252,8 +252,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testloadFileWithInvalidFile()
 	{
-		// Get a new JImage inspector.
-		$image = new JImageInspector;
+		// Get a new Image inspector.
+		$image = new ImageInspector;
 		$image->loadFile('bogus_file');
 	}
 
@@ -266,8 +266,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testResize()
 	{
-		// Get a new JImage inspector.
-		$image = new JImageInspector;
+		// Get a new Image inspector.
+		$image = new ImageInspector;
 		$image->loadFile($this->testFile);
 
 		$image->resize(1000, 682, false);
@@ -293,7 +293,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Set black to be transparent in the image.
 		imagecolortransparent($transparentImage, imagecolorallocate($transparentImage, 0, 0, 0));
 
-		$image = new JImageInspector($transparentImage);
+		$image = new ImageInspector($transparentImage);
 
 		$image->resize(5, 5, false);
 
@@ -315,8 +315,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testResizeNoFile()
 	{
-		// Get a new JImage inspector.
-		$image = new JImageInspector;
+		// Get a new Image inspector.
+		$image = new ImageInspector;
 
 		$image->resize(1000, 682, false);
 	}
@@ -334,7 +334,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	{
 		$outFileGif = JPATH_TESTS . '/tmp/out.gif';
 
-		$image = new JImageInspector;
+		$image = new ImageInspector;
 		$image->toFile($outFileGif, IMAGETYPE_GIF);
 	}
 
@@ -352,7 +352,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	{
 		$outFileGif = JPATH_TESTS . '/tmp/out.gif';
 
-		$image = new JImageInspector($this->testFile);
+		$image = new ImageInspector($this->testFile);
 		$image->toFile($outFileGif, IMAGETYPE_GIF);
 
 		$a = Image::getImageFileProperties($this->testFile);
@@ -387,7 +387,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	{
 		$outFilePng = JPATH_TESTS . '/tmp/out.png';
 
-		$image = new JImageInspector($this->testFile);
+		$image = new ImageInspector($this->testFile);
 		$image->toFile($outFilePng, IMAGETYPE_PNG);
 
 		$a = Image::getImageFileProperties($this->testFile);
@@ -423,7 +423,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Write the file out to a JPG.
 		$outFileJpg = JPATH_TESTS . '/tmp/out.jpg';
 
-		$image = new JImageInspector($this->testFile);
+		$image = new ImageInspector($this->testFile);
 		$image->toFile($outFileJpg, IMAGETYPE_JPEG);
 
 		// Get the file properties for both input and output.
@@ -458,7 +458,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Write the file out to a JPG.
 		$outFileDefault = JPATH_TESTS . '/tmp/out.default';
 
-		$image = new JImageInspector($this->testFile);
+		$image = new ImageInspector($this->testFile);
 		$image->toFile($outFileDefault);
 
 		// Get the file properties for both input and output.
@@ -487,8 +487,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetFilterInstance()
 	{
-		// Create a new JImageInspector object.
-		$image = new JImageInspector(imagecreatetruecolor(1, 1));
+		// Create a new ImageInspector object.
+		$image = new ImageInspector(imagecreatetruecolor(1, 1));
 
 		// Get the filter instance.
 		$filter = $image->getFilterInstance('inspector');
@@ -509,8 +509,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Create a 108x42 image handle and add no transparency.
 		$imageHandle = imagecreatetruecolor(108, 42);
 
-		// Create a new JImageInspector object from the image handle.
-		$image = new JImageInspector($imageHandle);
+		// Create a new ImageInspector object from the image handle.
+		$image = new ImageInspector($imageHandle);
 
 		$this->assertTrue(($image->getHeight() == 42), 'Line: ' . __LINE__);
 	}
@@ -544,8 +544,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Create a 108x42 image handle and add no transparency.
 		$imageHandle = imagecreatetruecolor(108, 42);
 
-		// Create a new JImageInspector object from the image handle.
-		$image = new JImageInspector($imageHandle);
+		// Create a new ImageInspector object from the image handle.
+		$image = new ImageInspector($imageHandle);
 
 		$this->assertTrue(($image->getWidth() == 108), 'Line: ' . __LINE__);
 	}
@@ -611,8 +611,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Set black to be transparent in the image.
 		imagecolortransparent($transparentImage, imagecolorallocate($transparentImage, 0, 0, 0));
 
-		// Create a new JImageInspector object from the image handle.
-		$transparent = new JImageInspector($transparentImage);
+		// Create a new ImageInspector object from the image handle.
+		$transparent = new ImageInspector($transparentImage);
 
 		// Assert that the image has transparency.
 		$this->assertTrue(($transparent->isTransparent()));
@@ -631,8 +631,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Create a 10x10 image handle and add no transparency.
 		$opaqueImage = imagecreatetruecolor(10, 10);
 
-		// Create a new JImageInspector object from the image handle.
-		$opaque = new JImageInspector($opaqueImage);
+		// Create a new ImageInspector object from the image handle.
+		$opaque = new ImageInspector($opaqueImage);
 
 		// Assert that the image does not have transparency.
 		$this->assertFalse(($opaque->isTransparent()));
@@ -695,8 +695,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Draw a white rectangle one pixel inside the crop area.
 		imagefilledrectangle($imageHandle, ($cropLeft + 1), ($cropTop + 1), ($cropLeft + $cropWidth - 2), ($cropTop + $cropHeight - 2), $white);
 
-		// Create a new JImageInspector from the image handle.
-		$image = new JImageInspector($imageHandle);
+		// Create a new ImageInspector from the image handle.
+		$image = new ImageInspector($imageHandle);
 
 		// Crop the image to specifications.
 		$image->crop($cropWidth, $cropHeight, $cropLeft, $cropTop, false);
@@ -764,8 +764,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Draw a white vertical line in the middle of the image.
 		imageline($imageHandle, 50, 5, 50, 95, $white);
 
-		// Create a new JImageInspector from the image handle.
-		$image = new JImageInspector($imageHandle);
+		// Create a new ImageInspector from the image handle.
+		$image = new ImageInspector($imageHandle);
 
 		// Crop the image to specifications.
 		$image->rotate(90, -1, false);
@@ -798,8 +798,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$mockFilter->expects($this->once())
 			->method('execute');
 
-		// Create a new JImageInspector object.
-		$image = new JImageInspector($handle);
+		// Create a new ImageInspector object.
+		$image = new ImageInspector($handle);
 		$image->mockFilter = $mockFilter;
 
 		// Execute the filter.
@@ -832,8 +832,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testFilterWithInvalidFilterType()
 	{
-		// Create a new JImageInspector object.
-		$image = new JImageInspector(imagecreatetruecolor(10, 10));
+		// Create a new ImageInspector object.
+		$image = new ImageInspector(imagecreatetruecolor(10, 10));
 
 		$image->filter('foobar');
 	}
@@ -859,8 +859,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Create a image handle of the correct size.
 		$imageHandle = imagecreatetruecolor($imageWidth, $imageHeight);
 
-		// Create a new JImageInspector from the image handle.
-		$image = new JImageInspector($imageHandle);
+		// Create a new ImageInspector from the image handle.
+		$image = new ImageInspector($imageHandle);
 
 		$dimensions = $image->prepareDimensions($inputWidth, $inputHeight, $inputScale);
 
@@ -882,8 +882,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Create a image handle of the correct size.
 		$imageHandle = imagecreatetruecolor(100, 100);
 
-		// Create a new JImageInspector from the image handle.
-		$image = new JImageInspector($imageHandle);
+		// Create a new ImageInspector from the image handle.
+		$image = new ImageInspector($imageHandle);
 
 		$dimensions = $image->prepareDimensions(123, 456, 42);
 	}
@@ -908,8 +908,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Create a image handle of the correct size.
 		$imageHandle = imagecreatetruecolor($imageWidth, $imageHeight);
 
-		// Create a new JImageInspector from the image handle.
-		$image = new JImageInspector($imageHandle);
+		// Create a new ImageInspector from the image handle.
+		$image = new ImageInspector($imageHandle);
 
 		// Validate the correct response.
 		$this->assertEquals($expectedHeight, $image->sanitizeHeight($inputHeight, $inputWidth));
@@ -935,8 +935,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		// Create a image handle of the correct size.
 		$imageHandle = imagecreatetruecolor($imageWidth, $imageHeight);
 
-		// Create a new JImageInspector from the image handle.
-		$image = new JImageInspector($imageHandle);
+		// Create a new ImageInspector from the image handle.
+		$image = new ImageInspector($imageHandle);
 
 		// Validate the correct response.
 		$this->assertEquals($expectedWidth, $image->sanitizeWidth($inputWidth, $inputHeight));
@@ -955,8 +955,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSanitizeOffset($input, $expected)
 	{
-		// Create a new JImageInspector.
-		$image = new JImageInspector;
+		// Create a new ImageInspector.
+		$image = new ImageInspector;
 
 		// Validate the correct response.
 		$this->assertEquals($expected, $image->sanitizeOffset($input));
