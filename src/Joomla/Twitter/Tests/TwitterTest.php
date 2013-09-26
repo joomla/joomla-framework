@@ -31,7 +31,6 @@ require_once __DIR__ . '/case/TwitterTestCase.php';
  */
 class TwitterTest extends TwitterTestCase
 {
-
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
@@ -81,13 +80,12 @@ class TwitterTest extends TwitterTestCase
 	 * @return  void
 	 *
 	 * @since   1.0
+	 *
+	 * @expectedException  \InvalidArgumentException
 	 */
 	public function test__GetOther()
 	{
-		$this->assertThat(
-			$this->object->other,
-			$this->isNull()
-		);
+		$this->object->other;
 	}
 
 	/**

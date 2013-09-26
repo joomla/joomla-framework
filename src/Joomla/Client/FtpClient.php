@@ -245,8 +245,8 @@ class FtpClient
 	/**
 	 * Method to connect to a FTP server
 	 *
-	 * @param   string  $host  Host to connect to [Default: 127.0.0.1]
-	 * @param   string  $port  Port to connect on [Default: port 21]
+	 * @param   string   $host  Host to connect to [Default: 127.0.0.1]
+	 * @param   integer  $port  Port to connect on [Default: port 21]
 	 *
 	 * @return  boolean  True if successful
 	 *
@@ -1178,6 +1178,7 @@ class FtpClient
 
 				$line = substr($line, $result);
 			}
+
 			while ($line != "");
 		}
 
@@ -1275,6 +1276,7 @@ class FtpClient
 
 			$buffer = substr($buffer, $result);
 		}
+
 		while ($buffer != "");
 
 		// Close the data connection port [Data transfer complete]
@@ -1699,6 +1701,7 @@ class FtpClient
 		{
 			$this->response .= fgets($this->conn, 4096);
 		}
+
 		while (!preg_match("/^([0-9]{3})(-(.*" . CRLF . ")+\\1)? [^" . CRLF . "]+" . CRLF . "$/", $this->response, $parts) && time() < $endTime);
 
 		// Catch a timeout or bad response
@@ -1779,6 +1782,7 @@ class FtpClient
 		{
 			$this->response .= fgets($this->conn, 4096);
 		}
+
 		while (!preg_match("/^([0-9]{3})(-(.*" . CRLF . ")+\\1)? [^" . CRLF . "]+" . CRLF . "$/", $this->response, $parts) && time() < $endTime);
 
 		// Catch a timeout or bad response

@@ -592,6 +592,7 @@ class Stream
 				}
 			}
 		}
+
 		while ($remaining || !$length);
 
 		// Restore error tracking to what it was before
@@ -772,6 +773,7 @@ class Stream
 				$remaining -= $res;
 			}
 		}
+
 		while ($remaining);
 
 		// Restore error tracking to what it was before.

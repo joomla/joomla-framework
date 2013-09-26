@@ -119,14 +119,14 @@ class Image implements LoggerAwareInterface
 	}
 
 	/**
-     * Sets a logger instance on the object
-     *
-     * @param   LoggerInterface  $logger  A PSR-3 compliant logger.
+	 * Sets a logger instance on the object
 	 *
-     * @return  void
-     *
-     * @since   1.0
-     */
+	 * @param   LoggerInterface  $logger  A PSR-3 compliant logger.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
 	public function setLogger(LoggerInterface $logger)
 	{
 		$this->logger = $logger;
@@ -306,7 +306,7 @@ class Image implements LoggerAwareInterface
 
 				if ($thumb->toFile($thumbFileName, $imgProperties->type))
 				{
-					// Return JImage object with thumb path to ease further manipulation
+					// Return Image object with thumb path to ease further manipulation
 					$thumb->path = $thumbFileName;
 					$thumbsCreated[] = $thumb;
 				}
@@ -386,7 +386,7 @@ class Image implements LoggerAwareInterface
 			imagecopyresampled($handle, $this->handle, 0, 0, $left, $top, $width, $height, $width, $height);
 		}
 
-		// If we are cropping to a new image, create a new JImage object.
+		// If we are cropping to a new image, create a new Image object.
 		if ($createNew)
 		{
 			// @codeCoverageIgnoreStart
@@ -525,7 +525,7 @@ class Image implements LoggerAwareInterface
 	}
 
 	/**
-	 * Method to load a file into the JImage object as the resource.
+	 * Method to load a file into the Image object as the resource.
 	 *
 	 * @param   string  $path  The filesystem path to load as an image.
 	 *
@@ -769,7 +769,7 @@ class Image implements LoggerAwareInterface
 	 * @param   integer  $height     The desired height of the image in pixels or a percentage.
 	 * @param   integer  $createNew  If true the current image will be cloned, resized, cropped and returned.
 	 *
-	 * @return  object  JImage Object for chaining.
+	 * @return  object  Image Object for chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -827,7 +827,7 @@ class Image implements LoggerAwareInterface
 		// Rotate the image
 		$handle = imagerotate($handle, $angle, $background);
 
-		// If we are resizing to a new image, create a new JImage object.
+		// If we are resizing to a new image, create a new Image object.
 		if ($createNew)
 		{
 			// @codeCoverageIgnoreStart
@@ -850,11 +850,13 @@ class Image implements LoggerAwareInterface
 	}
 
 	/**
-	 * Method to write the current image out to a file.
+	 * Method to write the current image out to a file or output directly.
 	 *
-	 * @param   string   $path     The filesystem path to save the image.
+	 * @param   mixed    $path     The filesystem path to save the image.
+	 *                             When null, the raw image stream will be outputted directly.
 	 * @param   integer  $type     The image type to save the file as.
 	 * @param   array    $options  The image type options to use in saving the file.
+	 *                             For PNG and JPEG formats use `quality` key to set compression level (0..9 and 0..100)
 	 *
 	 * @return  boolean
 	 *

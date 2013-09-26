@@ -120,7 +120,6 @@ class DirectmessagesTest extends TwitterTestCase
 		$since_id = 12345;
 		$max_id = 54321;
 		$count = 10;
-		$page = 1;
 		$entities = true;
 
 		$returnData = new stdClass;
@@ -301,6 +300,7 @@ class DirectmessagesTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->sendDirectMessages($user, $text);
 		}
+
 		$data['text'] = $text;
 
 		$path = $this->object->fetchUrl('/direct_messages/new.json');
@@ -349,6 +349,7 @@ class DirectmessagesTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->sendDirectMessages($user, $text);
 		}
+
 		$data['text'] = $text;
 
 		$path = $this->object->fetchUrl('/direct_messages/new.json');

@@ -151,92 +151,19 @@ class Twitter
 	 */
 	public function __get($name)
 	{
-		switch ($name)
+		$class = __NAMESPACE__ . '\\' . ucfirst(strtolower($name));
+
+		if (class_exists($class) && property_exists($this, $name))
 		{
-			case 'friends':
-				if ($this->friends == null)
-				{
-					$this->friends = new Friends($this->options, $this->client, $this->oauth);
-				}
-				return $this->friends;
+			if (false == isset($this->$name))
+			{
+				$this->$name = new $class($this->options, $this->client, $this->oauth);
+			}
 
-			case 'help':
-				if ($this->help == null)
-				{
-					$this->help = new Help($this->options, $this->client, $this->oauth);
-				}
-				return $this->help;
-
-			case 'statuses':
-				if ($this->statuses == null)
-				{
-					$this->statuses = new Statuses($this->options, $this->client, $this->oauth);
-				}
-				return $this->statuses;
-
-			case 'users':
-				if ($this->users == null)
-				{
-					$this->users = new Users($this->options, $this->client, $this->oauth);
-				}
-				return $this->users;
-
-			case 'search':
-				if ($this->search == null)
-				{
-					$this->search = new Search($this->options, $this->client, $this->oauth);
-				}
-				return $this->search;
-
-			case 'favorites':
-				if ($this->favorites == null)
-				{
-					$this->favorites = new Favorites($this->options, $this->client, $this->oauth);
-				}
-				return $this->favorites;
-
-			case 'directMessages':
-				if ($this->directMessages == null)
-				{
-					$this->directMessages = new Directmessages($this->options, $this->client, $this->oauth);
-				}
-				return $this->directMessages;
-
-			case 'lists':
-				if ($this->lists == null)
-				{
-					$this->lists = new Lists($this->options, $this->client, $this->oauth);
-				}
-				return $this->lists;
-
-			case 'places':
-				if ($this->places == null)
-				{
-					$this->places = new Places($this->options, $this->client, $this->oauth);
-				}
-				return $this->places;
-
-			case 'trends':
-				if ($this->trends == null)
-				{
-					$this->trends = new Trends($this->options, $this->client, $this->oauth);
-				}
-				return $this->trends;
-
-			case 'block':
-				if ($this->block == null)
-				{
-					$this->block = new Block($this->options, $this->client, $this->oauth);
-				}
-				return $this->block;
-
-			case 'profile':
-				if ($this->profile == null)
-				{
-					$this->profile = new Profile($this->options, $this->client, $this->oauth);
-				}
-				return $this->profile;
+			return $this->$name;
 		}
+
+		throw new \InvalidArgumentException(sprintf('Argument %s produced an invalid class name: %s', $name, $class));
 	}
 
 	/**
@@ -259,7 +186,7 @@ class Twitter
 	 * @param   string  $key    The name of the option to set.
 	 * @param   mixed   $value  The option value to set.
 	 *
-	 * @return  JTwitter  This object for method chaining.
+	 * @return  Twitter  This object for method chaining.
 	 *
 	 * @since   1.0
 	 */

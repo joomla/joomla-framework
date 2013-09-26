@@ -164,6 +164,7 @@ class FavoritesTest extends TwitterTestCase
 		{
 			$data['screen_name'] = $user;
 		}
+
 		$data['count'] = $count;
 
 		$path = $this->object->fetchUrl('/favorites/list.json', $data);

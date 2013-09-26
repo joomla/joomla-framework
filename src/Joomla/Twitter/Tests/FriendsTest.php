@@ -71,12 +71,12 @@ class FriendsTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedUser()
 	{
 		// User ID or screen name
@@ -711,6 +711,7 @@ class FriendsTest extends TwitterTestCase
 			$this->setExpectedException('RuntimeException');
 			$this->object->follow($user, $follow);
 		}
+
 		$data['follow'] = $follow;
 
 		$this->client->expects($this->once())
@@ -734,7 +735,6 @@ class FriendsTest extends TwitterTestCase
 	 * @dataProvider  seedFriendship
 	 *
 	 * @since   1.0
-	 *
 	 * @expectedException  DomainException
 	 */
 	public function testFollowFailure($user)
@@ -819,7 +819,6 @@ class FriendsTest extends TwitterTestCase
 	 * @dataProvider  seedFriendship
 	 *
 	 * @since   1.0
-	 *
 	 * @expectedException  DomainException
 	 */
 	public function testUnfollowFailure($user)
@@ -902,10 +901,12 @@ class FriendsTest extends TwitterTestCase
 		{
 			$data['user_id'] = $id;
 		}
+
 		if ($screen_name)
 		{
 			$data['screen_name'] = $screen_name;
 		}
+
 		if ($id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
@@ -958,10 +959,12 @@ class FriendsTest extends TwitterTestCase
 		{
 			$data['user_id'] = $id;
 		}
+
 		if ($screen_name)
 		{
 			$data['screen_name'] = $screen_name;
 		}
+
 		if ($id == null && $screen_name == null)
 		{
 			$this->setExpectedException('RuntimeException');
@@ -1037,7 +1040,6 @@ class FriendsTest extends TwitterTestCase
 	 * @dataProvider  seedFriendship
 	 *
 	 * @since   1.0
-	 *
 	 * @expectedException  DomainException
 	 */
 	public function testUpdateFriendshipFailure($user)
