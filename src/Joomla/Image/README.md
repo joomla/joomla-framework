@@ -128,6 +128,7 @@ This parameter can be one of the following:
 - `Image::SCALE_FILL` - Gives you a thumbnail of the exact size, stretched or squished to fit the parameters.
 - `Image::SCALE_INSIDE` - Fits your thumbnail within your given parameters. It will not be any taller or wider than the size passed, whichever is larger.
 - `Image::SCALE_OUTSIDE` - Fits your thumbnail to the given parameters. It will be as tall or as wide as the size passed, whichever is smaller.
+- `Image::SCALE_FIT` - Fits your thumbnail to given boundaries maintaining aspect ratio. Result will be aligned vertically to center and horizontally to middle.
 - `Image::CROP` - Gives you a thumbnail of the exact size, cropped from the center of the full sized image.
 - `Image::CROP_RESIZE` - As above, but gives a clean resize and crop from center.
 
