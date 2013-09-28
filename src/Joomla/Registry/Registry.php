@@ -230,7 +230,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 *
 	 * @param   array  $array  Associative array of value to load
 	 *
-	 * @return  boolean  True on success
+	 * @return  Registry  Return this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -238,7 +238,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	{
 		$this->bindData($this->data, $array);
 
-		return true;
+		return $this;
 	}
 
 	/**
@@ -246,7 +246,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 *
 	 * @param   object  $object  The object holding the publics to load
 	 *
-	 * @return  boolean  True on success
+	 * @return  Registry  Return this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -254,7 +254,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	{
 		$this->bindData($this->data, $object);
 
-		return true;
+		return $this;
 	}
 
 	/**
@@ -264,7 +264,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 * @param   string  $format   Format of the file [optional: defaults to JSON]
 	 * @param   array   $options  Options used by the formatter
 	 *
-	 * @return  boolean  True on success
+	 * @return  Registry  Return this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -282,7 +282,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 * @param   string  $format   Format of the string
 	 * @param   array   $options  Options used by the formatter
 	 *
-	 * @return  boolean  True on success
+	 * @return  Registry  Return this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -294,30 +294,24 @@ class Registry implements \JsonSerializable, \ArrayAccess
 		$obj = $handler->stringToObject($data, $options);
 		$this->loadObject($obj);
 
-		return true;
+		return $this;
 	}
 
 	/**
 	 * Merge a Registry object into this one
 	 *
-	 * @param   Registry  $source  Source Registry object to merge.
+	 * @param   Registry  $source     Source Registry object to merge.
+	 * @param   boolean   $recursive  True to support recursive merge the children values.
 	 *
-	 * @return  boolean  True on success
+	 * @return  Registry  Return this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function merge($source)
+	public function merge(Registry $source, $recursive = false)
 	{
-	    if (!$source instanceof Registry)
-	    {
-	        return false;
-	    }
+		$this->bindData($this->data, $source->toArray(), $recursive);
 	
-	    $data = $source->toArray();
-	
-	    $this->bindData($this, $data);
-	
-	    return true;
+	    return $this;
 	}
 
 	/**
@@ -466,14 +460,15 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	/**
 	 * Method to recursively bind data to a parent object.
 	 *
-	 * @param   object  $parent  The parent object on which to attach the data values.
-	 * @param   mixed   $data    An array or object of data to bind to the parent object.
+	 * @param   object   $parent  The parent object on which to attach the data values.
+	 * @param   mixed    $data    An array or object of data to bind to the parent object.
+	 * @param   boolean  $recursive  True to support recursive bindData.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function bindData($parent, $data)
+	protected function bindData($parent, $data, $recursive = true)
 	{
 		// Ensure the input data is an array.
 		if (is_object($data))
@@ -487,7 +482,12 @@ class Registry implements \JsonSerializable, \ArrayAccess
 
 		foreach ($data as $k => $v)
 		{
-			if ((is_array($v) && ArrayHelper::isAssociative($v)) || is_object($v))
+			if($v === '' || $v === null)
+			{
+				continue;
+			}
+			
+			if ((is_array($v) && ArrayHelper::isAssociative($v)) || is_object($v) && $recursive)
 			{
 				if (!isset($parent->$k))
 				{
