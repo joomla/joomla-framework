@@ -50,12 +50,12 @@ abstract class Folder
 		$src = rtrim($src, DIRECTORY_SEPARATOR);
 		$dest = rtrim($dest, DIRECTORY_SEPARATOR);
 
-		if (!self::exists($src))
+		if (!is_dir(Path::clean($src)))
 		{
 			throw new \RuntimeException('Source folder not found', -1);
 		}
 
-		if (self::exists($dest) && !$force)
+		if (is_dir(Path::clean($dest)) && !$force)
 		{
 			throw new \RuntimeException('Destination folder not found', -1);
 		}
@@ -182,7 +182,7 @@ abstract class Folder
 		// Check if parent dir exists
 		$parent = dirname($path);
 
-		if (!self::exists($parent))
+		if (!is_dir(Path::clean($parent)))
 		{
 			// Prevent infinite loops!
 			$nested++;
@@ -209,7 +209,7 @@ abstract class Folder
 		}
 
 		// Check if dir already exists
-		if (self::exists($path))
+		if (is_dir(Path::clean($path)))
 		{
 			return true;
 		}
@@ -413,12 +413,12 @@ abstract class Folder
 			$dest = Path::clean($path . '/' . $dest);
 		}
 
-		if (!self::exists($src))
+		if (!is_dir(Path::clean($src)))
 		{
 			return 'Cannot find source folder';
 		}
 
-		if (self::exists($dest))
+		if (is_dir(Path::clean($dest)))
 		{
 			return 'Folder already exists';
 		}
@@ -465,20 +465,6 @@ abstract class Folder
 		}
 
 		return $ret;
-	}
-
-	/**
-	 * Wrapper for the standard file_exists function
-	 *
-	 * @param   string  $path  Folder name relative to installation dir
-	 *
-	 * @return  boolean  True if path is a folder
-	 *
-	 * @since   1.0
-	 */
-	public static function exists($path)
-	{
-		return is_dir(Path::clean($path));
 	}
 
 	/**
