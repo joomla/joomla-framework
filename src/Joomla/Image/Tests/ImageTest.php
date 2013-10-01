@@ -332,7 +332,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToFileInvalid()
 	{
-		$outFileGif = JPATH_TESTS . '/tmp/out.gif';
+		$outFileGif = __DIR__ . '/tmp/out.gif';
 
 		$image = new ImageInspector;
 		$image->toFile($outFileGif, IMAGETYPE_GIF);
@@ -350,7 +350,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToFileGif()
 	{
-		$outFileGif = JPATH_TESTS . '/tmp/out.gif';
+		$outFileGif = __DIR__ . '/tmp/out.gif';
 
 		$image = new ImageInspector($this->testFile);
 		$image->toFile($outFileGif, IMAGETYPE_GIF);
@@ -385,7 +385,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToFilePng()
 	{
-		$outFilePng = JPATH_TESTS . '/tmp/out.png';
+		$outFilePng = __DIR__ . '/tmp/out.png';
 
 		$image = new ImageInspector($this->testFile);
 		$image->toFile($outFilePng, IMAGETYPE_PNG);
@@ -421,7 +421,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	public function testToFileJpg()
 	{
 		// Write the file out to a JPG.
-		$outFileJpg = JPATH_TESTS . '/tmp/out.jpg';
+		$outFileJpg = __DIR__ . '/tmp/out.jpg';
 
 		$image = new ImageInspector($this->testFile);
 		$image->toFile($outFileJpg, IMAGETYPE_JPEG);
@@ -456,7 +456,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	public function testToFileDefault()
 	{
 		// Write the file out to a JPG.
-		$outFileDefault = JPATH_TESTS . '/tmp/out.default';
+		$outFileDefault = __DIR__ . '/tmp/out.default';
 
 		$image = new ImageInspector($this->testFile);
 		$image->toFile($outFileDefault);
@@ -576,7 +576,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetImageFilePropertiesWithInvalidFile()
 	{
-		Image::getImageFileProperties(JPATH_TESTS . '/suite/joomla/image/stubs/bogus.image');
+		Image::getImageFileProperties(__DIR__ . '/suite/joomla/image/stubs/bogus.image');
 	}
 
 	/**
