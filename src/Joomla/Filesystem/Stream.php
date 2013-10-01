@@ -210,7 +210,7 @@ class Stream
 		}
 		elseif ($detectprocessingmode)
 		{
-			$ext = strtolower(File::getExt($this->filename));
+			$ext = strtolower(pathinfo($this->filename, PATHINFO_EXTENSION));
 
 			switch ($ext)
 			{

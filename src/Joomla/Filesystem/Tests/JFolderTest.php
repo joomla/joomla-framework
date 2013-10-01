@@ -92,20 +92,6 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @covers Joomla\Filesystem\Folder::exists
-	 *
-	 * @return void
-	 */
-	public function testExists()
-	{
-		$this->assertTrue(
-			Folder::exists(__DIR__)
-		);
-	}
-
-	/**
 	 * Tests the Folder::files method.
 	 *
 	 * @return  void
