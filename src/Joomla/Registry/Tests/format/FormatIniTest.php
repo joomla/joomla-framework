@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\AbstractRegistryFormat;
+use Joomla\Registry\Format\IniFormat;
 
 /**
  * Test class for Ini.
@@ -13,6 +13,16 @@ use Joomla\Registry\AbstractRegistryFormat;
  */
 class JRegistryFormatINITest extends PHPUnit_Framework_TestCase
 {
+	/*
+	 * @var  Joomla\Registry\Format\IniFormat
+	 */
+	protected $object;
+
+	public function setUp()
+	{
+		$this->object = new IniFormat;
+	}
+
 	/**
 	 * Test the Ini::objectToString method.
 	 *
@@ -22,8 +32,6 @@ class JRegistryFormatINITest extends PHPUnit_Framework_TestCase
 	 */
 	public function testObjectToString()
 	{
-		$class = AbstractRegistryFormat::getInstance('INI');
-		$options = null;
 		$object = new stdClass;
 		$object->foo = 'bar';
 		$object->booleantrue = true;
@@ -34,7 +42,7 @@ class JRegistryFormatINITest extends PHPUnit_Framework_TestCase
 		$object->section->key = 'value';
 
 		// Test basic object to string.
-		$string = $class->objectToString($object, $options);
+		$string = $this->object->objectToString($object);
 		$this->assertThat(
 			trim($string),
 			$this->equalTo("foo=\"bar\"\nbooleantrue=true\nbooleanfalse=false\nnumericint=42\nnumericfloat=3.1415\n\n[section]\nkey=\"value\"")
@@ -50,7 +58,7 @@ class JRegistryFormatINITest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStringToObject()
 	{
-		$class = AbstractRegistryFormat::getInstance('INI');
+		$class = $this->object;
 
 		$string2 = "[section]\nfoo=bar";
 

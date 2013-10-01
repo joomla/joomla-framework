@@ -8,14 +8,14 @@
 
 namespace Joomla\Registry\Format;
 
-use Joomla\Registry\AbstractRegistryFormat;
+use Joomla\Registry\Format\FormatInterface;
 
 /**
  * JSON format handler for Registry.
  *
  * @since  1.0
  */
-class Json extends AbstractRegistryFormat
+class JsonFormat implements FormatInterface
 {
 	/**
 	 * Converts an object into a JSON formatted string.
@@ -27,15 +27,13 @@ class Json extends AbstractRegistryFormat
 	 *
 	 * @since   1.0
 	 */
-	public function objectToString($object, $options = array())
+	public function objectToString($object, array $options = array())
 	{
 		return json_encode($object);
 	}
 
 	/**
 	 * Parse a JSON formatted string and convert it into an object.
-	 *
-	 * If the string is not in JSON format, this method will attempt to parse it as INI format.
 	 *
 	 * @param   string  $data     JSON formatted string to convert.
 	 * @param   array   $options  Options used by the formatter.
@@ -44,20 +42,22 @@ class Json extends AbstractRegistryFormat
 	 *
 	 * @since   1.0
 	 */
-	public function stringToObject($data, array $options = array('processSections' => false))
+	public function stringToObject($data, array $options = array())
 	{
-		$data = trim($data);
-
-		if ((substr($data, 0, 1) != '{') && (substr($data, -1, 1) != '}'))
-		{
-			$ini = AbstractRegistryFormat::getInstance('Ini');
-			$obj = $ini->stringToObject($data, $options);
-		}
-		else
-		{
-			$obj = json_decode($data);
-		}
+		$obj = json_decode(trim($data));
 
 		return $obj;
+	}
+
+	/**
+	 * Get the name of the format handled by this class.
+	 *
+	 * @return  string  The name
+	 *
+	 * @since   1.0
+	 */
+	public function getName()
+	{
+		return 'JSON';
 	}
 }

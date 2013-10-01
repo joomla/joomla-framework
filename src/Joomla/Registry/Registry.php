@@ -8,6 +8,7 @@
 
 namespace Joomla\Registry;
 
+use Joomla\Registry\Format\FormatInterface;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -20,18 +21,18 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	/**
 	 * Registry Object
 	 *
-	 * @var    object
+	 * @var    stdClass
 	 * @since  1.0
 	 */
 	protected $data;
 
 	/**
-	 * Registry instances container.
+	 * Format instances container.
 	 *
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected static $instances = array();
+	protected $formats = array();
 
 	/**
 	 * Constructor
@@ -50,22 +51,6 @@ class Registry implements \JsonSerializable, \ArrayAccess
 		{
 			$this->bindData($this->data, $data);
 		}
-		elseif (!empty($data) && is_string($data))
-		{
-			$this->loadString($data);
-		}
-	}
-
-	/**
-	 * Magic function to clone the registry object.
-	 *
-	 * @return  Registry
-	 *
-	 * @since   1.0
-	 */
-	public function __clone()
-	{
-		$this->data = unserialize(serialize($this->data));
 	}
 
 	/**
@@ -92,6 +77,20 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	public function jsonSerialize()
 	{
 		return $this->data;
+	}
+
+	/**
+	 * Register a handler for specific format
+	 *
+	 * @param   Joomla\Registry\Format\FormatInterface  $format  Format handler
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function registerFormat(FormatInterface $format)
+	{
+		$this->formats[$format->getName()] = $format;
 	}
 
 	/**
@@ -203,42 +202,17 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	}
 
 	/**
-	 * Returns a reference to a global Registry object, only creating it
-	 * if it doesn't already exist.
-	 *
-	 * This method must be invoked as:
-	 * <pre>$registry = Registry::getInstance($id);</pre>
-	 *
-	 * @param   string  $id  An ID for the registry instance
-	 *
-	 * @return  Registry  The Registry object.
-	 *
-	 * @since   1.0
-	 */
-	public static function getInstance($id)
-	{
-		if (empty(self::$instances[$id]))
-		{
-			self::$instances[$id] = new self;
-		}
-
-		return self::$instances[$id];
-	}
-
-	/**
 	 * Load a associative array of values into the default namespace
 	 *
 	 * @param   array  $array  Associative array of value to load
 	 *
-	 * @return  boolean  True on success
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	public function loadArray($array)
 	{
 		$this->bindData($this->data, $array);
-
-		return true;
 	}
 
 	/**
@@ -246,15 +220,13 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 *
 	 * @param   object  $object  The object holding the publics to load
 	 *
-	 * @return  boolean  True on success
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	public function loadObject($object)
 	{
 		$this->bindData($this->data, $object);
-
-		return true;
 	}
 
 	/**
@@ -282,19 +254,16 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 * @param   string  $format   Format of the string
 	 * @param   array   $options  Options used by the formatter
 	 *
-	 * @return  boolean  True on success
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	public function loadString($data, $format = 'JSON', $options = array())
 	{
-		// Load a string into the given namespace [or default namespace if not given]
-		$handler = AbstractRegistryFormat::getInstance($format);
+		$handler = $this->formats[strtoupper($format)];
 
 		$obj = $handler->stringToObject($data, $options);
 		$this->loadObject($obj);
-
-		return true;
 	}
 
 	/**
@@ -302,17 +271,12 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 *
 	 * @param   Registry  $source  Source Registry object to merge.
 	 *
-	 * @return  boolean  True on success
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function merge($source)
+	public function merge(Registry $source)
 	{
-		if (!$source instanceof Registry)
-		{
-			return false;
-		}
-
 		// Load the variables into the registry's default namespace.
 		foreach ($source->toArray() as $k => $v)
 		{
@@ -321,8 +285,6 @@ class Registry implements \JsonSerializable, \ArrayAccess
 				$this->data->$k = $v;
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -462,8 +424,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 */
 	public function toString($format = 'JSON', $options = array())
 	{
-		// Return a namespace in a given format
-		$handler = AbstractRegistryFormat::getInstance($format);
+		$handler = $this->formats[strtoupper($format)];
 
 		return $handler->objectToString($this->data, $options);
 	}
@@ -530,5 +491,31 @@ class Registry implements \JsonSerializable, \ArrayAccess
 		}
 
 		return $array;
+	}
+
+	/**
+	 * Get a list of all registered formats.
+	 *
+	 * @return  array  Name of the registered formats
+	 *
+	 * @since   1.0
+	 */
+	public function getFormats()
+	{
+		return array_keys($this->formats);
+	}
+
+	/**
+	 * Method to check if a given format is registered.
+	 *
+	 * @param   string  $format  Format to check support for.
+	 *
+	 * @return  bool  True if the format is registered
+	 *
+	 * @since   1.0
+	 */
+	public function hasFormat($format)
+	{
+		return isset($this->formats[strtoupper($format)]);
 	}
 }

@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Registry\AbstractRegistryFormat;
+use Joomla\Registry\Format\JsonFormat;
 
 /**
  * Test class for Json.
@@ -14,6 +14,16 @@ use Joomla\Registry\AbstractRegistryFormat;
  */
 class JRegistryFormatJSONTest extends PHPUnit_Framework_TestCase
 {
+	/*
+	 * @var  Joomla\Registry\Format\JsonFormat
+	 */
+	protected $object;
+
+	public function setUp()
+	{
+		$this->object = new JsonFormat;
+	}
+
 	/**
 	 * Test the Json::objectToString method.
 	 *
@@ -23,8 +33,7 @@ class JRegistryFormatJSONTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testObjectToString()
 	{
-		$class = AbstractRegistryFormat::getInstance('JSON');
-		$options = null;
+		$class = $this->object;
 		$object = new stdClass;
 		$object->foo = 'bar';
 		$object->quoted = '"stringwithquotes"';
@@ -47,7 +56,7 @@ class JRegistryFormatJSONTest extends PHPUnit_Framework_TestCase
 
 		// Test basic object to string.
 		$this->assertThat(
-			$class->objectToString($object, $options),
+			$class->objectToString($object),
 			$this->equalTo($string)
 		);
 	}
@@ -61,7 +70,7 @@ class JRegistryFormatJSONTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testStringToObject()
 	{
-		$class = AbstractRegistryFormat::getInstance('JSON');
+		$class = $this->object;
 
 		$string1 = '{"title":"Joomla Framework","author":"Me","params":{"show_title":1,"show_abstract":0,"show_author":1,"categories":[1,2]}}';
 		$string2 = "[section]\nfoo=bar";
@@ -88,22 +97,6 @@ class JRegistryFormatJSONTest extends PHPUnit_Framework_TestCase
 			$object,
 			$this->equalTo($object1),
 			'Line:' . __LINE__ . ' The complex JSON string should convert into the appropriate object.'
-		);
-
-		// Test INI format string without sections.
-		$object = $class->stringToObject($string2, array('processSections' => false));
-		$this->assertThat(
-			$object,
-			$this->equalTo($object3),
-			'Line:' . __LINE__ . ' The INI string should convert into an object without sections.'
-		);
-
-		// Test INI format string with sections.
-		$object = $class->stringToObject($string2, array('processSections' => true));
-		$this->assertThat(
-			$object,
-			$this->equalTo($object2),
-			'Line:' . __LINE__ . ' The INI string should covert into an object with sections.'
 		);
 
 		/**
