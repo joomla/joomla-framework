@@ -440,7 +440,7 @@ class Album extends Data
 	 */
 	protected function getMIME($file)
 	{
-		switch (strtolower(File::getExt($file)))
+		switch (strtolower(pathinfo($file, PATHINFO_EXTENSION)))
 		{
 			case 'bmp':
 			case 'bm':

@@ -34,21 +34,6 @@ class JFileTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @todo Implement testGetExt().
-	 *
-	 * @return void
-	 */
-	public function testGetExt()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
-	}
-
-	/**
-	 * Test...
-	 *
 	 * @todo Implement testStripExt().
 	 *
 	 * @return void
@@ -163,20 +148,6 @@ class JFileTest extends PHPUnit_Framework_TestCase
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
-		);
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @covers Joomla\Filesystem\File::exists
-	 *
-	 * @return void
-	 */
-	public function testExists()
-	{
-		$this->assertTrue(
-			File::exists(__FILE__)
 		);
 	}
 }

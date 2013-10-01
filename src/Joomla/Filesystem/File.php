@@ -21,22 +21,6 @@ use Joomla\Client\ClientHelper;
 class File
 {
 	/**
-	 * Gets the extension of a file name
-	 *
-	 * @param   string  $file  The file name
-	 *
-	 * @return  string  The file extension
-	 *
-	 * @since   1.0
-	 */
-	public static function getExt($file)
-	{
-		$dot = strrpos($file, '.') + 1;
-
-		return substr($file, $dot);
-	}
-
-	/**
 	 * Strips the last extension off of a file name
 	 *
 	 * @param   string  $file  The file name
@@ -433,19 +417,5 @@ class File
 
 			return $ret;
 		}
-	}
-
-	/**
-	 * Wrapper for the standard file_exists function
-	 *
-	 * @param   string  $file  File path
-	 *
-	 * @return  boolean  True if path is a file
-	 *
-	 * @since   1.0
-	 */
-	public static function exists($file)
-	{
-		return is_file(Path::clean($file));
 	}
 }
