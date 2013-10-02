@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Client;
+namespace Joomla\Filesystem;
 
 /**
  * Generic Buffer stream handler
@@ -194,4 +194,4 @@ class Buffer
 }
 
 // Register the stream
-stream_wrapper_register('buffer', '\\Joomla\\Client\\Buffer');
+stream_wrapper_register('buffer', 'Joomla\\Filesystem\\Buffer');
