@@ -91,7 +91,7 @@ class JGoogleAuthOauth2Test extends \PHPUnit_Framework_TestCase
 
 		$this->object->setOption('clientsecret', 'jeDs8rKw_jDJW8MMf-ff8ejs');
 		$this->input->set('code', '4/wEr_dK8SDkjfpwmc98KejfiwJP-f4wm.kdowmnr82jvmeisjw94mKFIJE48mcEM');
-		$this->http->expects($this->once())->method('post')->will($this->returnCallback('jsonGrantOauthCallback'));
+		$this->http->expects($this->once())->method('post')->will($this->returnCallback(__NAMESPACE__ . '\\jsonGrantOauthCallback'));
 		$result = $this->object->authenticate();
 		$this->assertEquals('accessvalue', $result['access_token']);
 		$this->assertEquals('refreshvalue', $result['refresh_token']);
@@ -138,12 +138,12 @@ class JGoogleAuthOauth2Test extends \PHPUnit_Framework_TestCase
 		$token['expires_in'] = 3600;
 		$this->oauth->setToken($token);
 
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('getOauthCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback(__NAMESPACE__ . '\\getOauthCallback'));
 		$result = $this->object->query('https://www.googleapis.com/auth/calendar', array('param' => 'value'), array(), 'get');
 		$this->assertEquals($result->body, 'Lorem ipsum dolor sit amet.');
 		$this->assertEquals(200, $result->code);
 
-		$this->http->expects($this->once())->method('post')->will($this->returnCallback('queryOauthCallback'));
+		$this->http->expects($this->once())->method('post')->will($this->returnCallback(__NAMESPACE__ . '\\queryOauthCallback'));
 		$result = $this->object->query('https://www.googleapis.com/auth/calendar', array('param' => 'value'), array(), 'post');
 		$this->assertEquals($result->body, 'Lorem ipsum dolor sit amet.');
 		$this->assertEquals(200, $result->code);
@@ -166,7 +166,7 @@ class JGoogleAuthOauth2Test extends \PHPUnit_Framework_TestCase
 		$token['expires_in'] = 3600;
 		$this->oauth->setToken($token);
 
-		$this->http->expects($this->once())->method('get')->will($this->returnCallback('getOauthCallback'));
+		$this->http->expects($this->once())->method('get')->will($this->returnCallback(__NAMESPACE__ . '\\getOauthCallback'));
 		$result = $this->object->query('https://www.googleapis.com/auth/calendar', array('param' => 'value'), array(), 'get');
 
 		$this->assertEquals('https://accounts.google.com/o/oauth2/auth', $this->object->getOption('authurl'));
@@ -205,3 +205,72 @@ class JGoogleAuthOauth2Test extends \PHPUnit_Framework_TestCase
 		);
 	}
 }
+
+/**
+ * Dummy
+ *
+ * @param   string   $url      Path to the resource.
+ * @param   mixed    $data     Either an associative array or a string to be sent with the request.
+ * @param   array    $headers  An array of name-value pairs to include in the header of the request
+ * @param   integer  $timeout  Read timeout in seconds.
+ *
+ * @return  object
+ *
+ * @since   1.0
+ */
+function jsonGrantOauthCallback($url, $data, array $headers = null, $timeout = null)
+{
+	$response = new \stdClass;
+
+	$response->code = 200;
+	$response->headers = array('Content-Type' => 'application/json');
+	$response->body = '{"access_token":"accessvalue","refresh_token":"refreshvalue","expires_in":3600}';
+
+	return $response;
+}
+
+/**
+ * Dummy
+ *
+ * @param   string   $url      Path to the resource.
+ * @param   mixed    $data     Either an associative array or a string to be sent with the request.
+ * @param   array    $headers  An array of name-value pairs to include in the header of the request
+ * @param   integer  $timeout  Read timeout in seconds.
+ *
+ * @return  object
+ *
+ * @since   1.0
+ */
+function queryOauthCallback($url, $data, array $headers = null, $timeout = null)
+{
+	$response = new \stdClass;
+
+	$response->code = 200;
+	$response->headers = array('Content-Type' => 'text/html');
+	$response->body = 'Lorem ipsum dolor sit amet.';
+
+	return $response;
+}
+
+/**
+ * Dummy
+ *
+ * @param   string   $url      Path to the resource.
+ * @param   array    $headers  An array of name-value pairs to include in the header of the request.
+ * @param   integer  $timeout  Read timeout in seconds.
+ *
+ * @return  object
+ *
+ * @since   1.0
+ */
+function getOauthCallback($url, array $headers = null, $timeout = null)
+{
+	$response = new \stdClass;
+
+	$response->code = 200;
+	$response->headers = array('Content-Type' => 'text/html');
+	$response->body = 'Lorem ipsum dolor sit amet.';
+
+	return $response;
+}
+
