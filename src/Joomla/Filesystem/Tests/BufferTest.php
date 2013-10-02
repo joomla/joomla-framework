@@ -4,9 +4,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Client\Tests;
+namespace Joomla\Filesystem\Tests;
 
-use Joomla\Client\Buffer;
+use Joomla\Filesystem\Buffer;
 
 /**
  * Test class for JBuffer.

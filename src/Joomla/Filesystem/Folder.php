@@ -304,7 +304,7 @@ abstract class Folder
 		else
 		{
 			Log::add(sprintf('%1$s: Could not delete folder. Path: %2$s', __METHOD__, $path), Log::WARNING, 'jerror');
-			returnd false;
+			return false;
 		}
 	}
 
