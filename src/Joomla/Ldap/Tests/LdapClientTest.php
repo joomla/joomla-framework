@@ -4,9 +4,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Client\Tests;
+namespace Joomla\Ldap\Tests;
 
-use Joomla\Client\LdapClient;
+use Joomla\Ldap\LdapClient;
 
 /**
  * Test class for LdapClient.
