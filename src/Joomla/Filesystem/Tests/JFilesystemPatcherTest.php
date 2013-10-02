@@ -7,6 +7,9 @@
 use Joomla\Filesystem\Patcher;
 use Joomla\Filesystem\Path;
 
+// We MUST define JPATH_ROOT for Patcher to work. :(
+defined('JPATH_ROOT') or define('JPATH_ROOT', __DIR__);
+
 /**
  * A unit test class for Patcher
  *
