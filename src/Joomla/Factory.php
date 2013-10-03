@@ -14,7 +14,6 @@ use Joomla\Filesystem\Stream;
 use Joomla\Session\Session;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Language\Text;
-use Joomla\Client\ClientHelper;
 use Joomla\Date\Date;
 
 // Legacy classes.
@@ -269,31 +268,12 @@ abstract class Factory
 		$context = array();
 		$version = new JVersion;
 
-		// Set the UA for HTTP and overwrite for FTP
+		// Set the UA for HTTP
 		$context['http']['user_agent'] = $version->getUserAgent($ua, $uamask);
-		$context['ftp']['overwrite'] = true;
 
 		if ($use_prefix)
 		{
-			$FTPOptions = ClientHelper::getCredentials('ftp');
-			$SCPOptions = ClientHelper::getCredentials('scp');
-
-			if ($FTPOptions['enabled'] == 1 && $use_network)
-			{
-				$prefix = 'ftp://' . $FTPOptions['user'] . ':' . $FTPOptions['pass'] . '@' . $FTPOptions['host'];
-				$prefix .= $FTPOptions['port'] ? ':' . $FTPOptions['port'] : '';
-				$prefix .= $FTPOptions['root'];
-			}
-			elseif ($SCPOptions['enabled'] == 1 && $use_network)
-			{
-				$prefix = 'ssh2.sftp://' . $SCPOptions['user'] . ':' . $SCPOptions['pass'] . '@' . $SCPOptions['host'];
-				$prefix .= $SCPOptions['port'] ? ':' . $SCPOptions['port'] : '';
-				$prefix .= $SCPOptions['root'];
-			}
-			else
-			{
-				$prefix = JPATH_ROOT . '/';
-			}
+			$prefix = JPATH_ROOT . '/';
 
 			$retval = new Stream($prefix, JPATH_ROOT, $context);
 		}
