@@ -47,6 +47,21 @@ class StreamTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests getStream()
+	 *
+	 */
+	public function testGetStream()
+	{
+		$this->object = Stream::getStream();
+
+		$this->assertInstanceOf(
+			'Joomla\\Filesystem\\Stream',
+			$this->object,
+			'getStream must return an instance of Joomla\\Filesystem\\Stream'
+		);
+	}
+
+	/**
 	 * Test...
 	 *
 	 * @todo Implement testOpen().

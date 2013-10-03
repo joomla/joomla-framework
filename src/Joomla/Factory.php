@@ -9,18 +9,12 @@
 namespace Joomla;
 
 use Joomla\Registry\Registry;
-use Joomla\Language\Language;
-use Joomla\Filesystem\Stream;
 use Joomla\Session\Session;
 use Joomla\Database\DatabaseDriver;
-use Joomla\Language\Text;
-use Joomla\Client\ClientHelper;
-use Joomla\Date\Date;
 
 // Legacy classes.
 use JApplication;
 use JConfig;
-use JVersion;
 
 /**
  * Joomla Framework Factory class
@@ -248,60 +242,5 @@ abstract class Factory
 		$db->setDebug($debug);
 
 		return $db;
-	}
-
-	/**
-	 * Creates a new stream object with appropriate prefix
-	 *
-	 * @param   boolean  $use_prefix   Prefix the connections for writing
-	 * @param   boolean  $use_network  Use network if available for writing; use false to disable (e.g. FTP, SCP)
-	 * @param   string   $ua           UA User agent to use
-	 * @param   boolean  $uamask       User agent masking (prefix Mozilla)
-	 *
-	 * @return  Stream
-	 *
-	 * @see     Stream
-	 * @since   1.0
-	 */
-	public static function getStream($use_prefix = true, $use_network = true, $ua = null, $uamask = false)
-	{
-		// Setup the context; Joomla! UA and overwrite
-		$context = array();
-		$version = new JVersion;
-
-		// Set the UA for HTTP and overwrite for FTP
-		$context['http']['user_agent'] = $version->getUserAgent($ua, $uamask);
-		$context['ftp']['overwrite'] = true;
-
-		if ($use_prefix)
-		{
-			$FTPOptions = ClientHelper::getCredentials('ftp');
-			$SCPOptions = ClientHelper::getCredentials('scp');
-
-			if ($FTPOptions['enabled'] == 1 && $use_network)
-			{
-				$prefix = 'ftp://' . $FTPOptions['user'] . ':' . $FTPOptions['pass'] . '@' . $FTPOptions['host'];
-				$prefix .= $FTPOptions['port'] ? ':' . $FTPOptions['port'] : '';
-				$prefix .= $FTPOptions['root'];
-			}
-			elseif ($SCPOptions['enabled'] == 1 && $use_network)
-			{
-				$prefix = 'ssh2.sftp://' . $SCPOptions['user'] . ':' . $SCPOptions['pass'] . '@' . $SCPOptions['host'];
-				$prefix .= $SCPOptions['port'] ? ':' . $SCPOptions['port'] : '';
-				$prefix .= $SCPOptions['root'];
-			}
-			else
-			{
-				$prefix = JPATH_ROOT . '/';
-			}
-
-			$retval = new Stream($prefix, JPATH_ROOT, $context);
-		}
-		else
-		{
-			$retval = new Stream('', '', $context);
-		}
-
-		return $retval;
 	}
 }
