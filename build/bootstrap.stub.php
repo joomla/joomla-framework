@@ -69,17 +69,6 @@ require_once JPATH_PLATFORM . '/import.php';
 JLoader::registerPrefix('Test', 'phar://' . __FILE__ . '/core');
 
 /*
- * The following classes still depend on `JVersion` so we must load it until they are dealt with.
- *
- * JInstallerHelper
- * JUpdaterCollection
- * JUpdaterExtension
- * JUpdate
- * JFactory
- */
-require_once 'phar://' . __FILE__ . '/version.php';
-
-/*
  * The PHP garbage collector can be too aggressive in closing circular references before they are no longer needed.  This can cause
  * segfaults during long, memory-intensive processes such as testing large test suites and collecting coverage data.  We explicitly
  * disable garbage collection during the execution of PHPUnit processes so that we (hopefully) don't run into these issues going
