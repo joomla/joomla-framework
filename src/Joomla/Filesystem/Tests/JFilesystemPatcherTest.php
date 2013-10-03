@@ -7,6 +7,9 @@
 use Joomla\Filesystem\Patcher;
 use Joomla\Filesystem\Path;
 
+// We MUST define JPATH_ROOT for Patcher to work. :(
+defined('JPATH_ROOT') or define('JPATH_ROOT', __DIR__);
+
 /**
  * A unit test class for Patcher
  *
@@ -30,7 +33,7 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 		$this->_cleanupTestFiles();
 
 		// Make some test files and folders
-		mkdir(Path::clean(JPATH_TESTS . '/tmp/patcher'), 0777, true);
+		mkdir(Path::clean(__DIR__ . '/tmp/patcher'), 0777, true);
 	}
 
 	/**
@@ -54,10 +57,10 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 	 */
 	private function _cleanupTestFiles()
 	{
-		$this->_cleanupFile(Path::clean(JPATH_TESTS . '/tmp/patcher/lao2tzu.diff'));
-		$this->_cleanupFile(Path::clean(JPATH_TESTS . '/tmp/patcher/lao'));
-		$this->_cleanupFile(Path::clean(JPATH_TESTS . '/tmp/patcher/tzu'));
-		$this->_cleanupFile(Path::clean(JPATH_TESTS . '/tmp/patcher'));
+		$this->_cleanupFile(Path::clean(__DIR__ . '/tmp/patcher/lao2tzu.diff'));
+		$this->_cleanupFile(Path::clean(__DIR__ . '/tmp/patcher/lao'));
+		$this->_cleanupFile(Path::clean(__DIR__ . '/tmp/patcher/tzu'));
+		$this->_cleanupFile(Path::clean(__DIR__ . '/tmp/patcher'));
 	}
 
 	/**
@@ -120,24 +123,24 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 		return array(
 			array(
 				$udiff,
-				realpath(JPATH_TESTS . '/tmp/patcher'),
+				realpath(__DIR__ . '/tmp/patcher'),
 				0,
 				array(
 					array(
 						'udiff' => $udiff,
-						'root' => realpath(JPATH_TESTS . '/tmp/patcher') . DIRECTORY_SEPARATOR,
+						'root' => realpath(__DIR__ . '/tmp/patcher') . DIRECTORY_SEPARATOR,
 						'strip' => 0
 					)
 				)
 			),
 			array(
 				$udiff,
-				realpath(JPATH_TESTS . '/tmp/patcher') . DIRECTORY_SEPARATOR,
+				realpath(__DIR__ . '/tmp/patcher') . DIRECTORY_SEPARATOR,
 				0,
 				array(
 					array(
 						'udiff' => $udiff,
-						'root' => realpath(JPATH_TESTS . '/tmp/patcher') . DIRECTORY_SEPARATOR,
+						'root' => realpath(__DIR__ . '/tmp/patcher') . DIRECTORY_SEPARATOR,
 						'strip' => 0
 					)
 				)
@@ -228,15 +231,15 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 ';
 
 		// Use of realpath to ensure test works for on all platforms
-		file_put_contents(JPATH_TESTS . '/tmp/patcher/lao2tzu.diff', $udiff);
+		file_put_contents(__DIR__ . '/tmp/patcher/lao2tzu.diff', $udiff);
 		$patcher = Patcher::getInstance()->reset();
-		$patcher->addFile(JPATH_TESTS . '/tmp/patcher/lao2tzu.diff', realpath(JPATH_TESTS . '/tmp/patcher'));
+		$patcher->addFile(__DIR__ . '/tmp/patcher/lao2tzu.diff', realpath(__DIR__ . '/tmp/patcher'));
 
 		$this->assertAttributeEquals(
 			array(
 				array(
 					'udiff' => $udiff,
-					'root' => realpath(JPATH_TESTS . '/tmp/patcher') . DIRECTORY_SEPARATOR,
+					'root' => realpath(__DIR__ . '/tmp/patcher') . DIRECTORY_SEPARATOR,
 					'strip' => 0
 				)
 			),
@@ -342,10 +345,10 @@ class PatcherTest extends PHPUnit_Framework_TestCase
 +Deeper and more profound,
 +The door of all subtleties!
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(
-					JPATH_TESTS . '/tmp/patcher/lao' =>
+					__DIR__ . '/tmp/patcher/lao' =>
 					'The Way that can be told of is not the eternal Way;
 The name that can be named is not the eternal name.
 The Nameless is the origin of Heaven and Earth;
@@ -360,7 +363,7 @@ But after they are produced,
 '
 				),
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' =>
+					__DIR__ . '/tmp/patcher/tzu' =>
 					'The Nameless is the origin of Heaven and Earth;
 The named is the mother of all things.
 
@@ -390,10 +393,10 @@ The door of all subtleties!
 -The Way that can be told of is not the eternal Way;
 +The named is the mother of all things.
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(
-					JPATH_TESTS . '/tmp/patcher/lao' =>
+					__DIR__ . '/tmp/patcher/lao' =>
 					'The Way that can be told of is not the eternal Way;
 The name that can be named is not the eternal name.
 The Nameless is the origin of Heaven and Earth;
@@ -408,7 +411,7 @@ But after they are produced,
 '
 				),
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' =>
+					__DIR__ . '/tmp/patcher/tzu' =>
 					'The named is the mother of all things.
 The name that can be named is not the eternal name.
 The Nameless is the origin of Heaven and Earth;
@@ -450,10 +453,10 @@ But after they are produced,
 +Deeper and more profound,
 +The door of all subtleties!
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				null,
 				array(
-					JPATH_TESTS . '/tmp/patcher/lao' =>
+					__DIR__ . '/tmp/patcher/lao' =>
 					'The Way that can be told of is not the eternal Way;
 The name that can be named is not the eternal name.
 The Nameless is the origin of Heaven and Earth;
@@ -468,7 +471,7 @@ But after they are produced,
 '
 				),
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' =>
+					__DIR__ . '/tmp/patcher/tzu' =>
 					'The Nameless is the origin of Heaven and Earth;
 The named is the mother of all things.
 
@@ -512,10 +515,10 @@ The door of all subtleties!
 +Deeper and more profound,
 +The door of all subtleties!
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				3,
 				array(
-					JPATH_TESTS . '/tmp/patcher/lao' =>
+					__DIR__ . '/tmp/patcher/lao' =>
 					'The Way that can be told of is not the eternal Way;
 The name that can be named is not the eternal name.
 The Nameless is the origin of Heaven and Earth;
@@ -530,7 +533,7 @@ But after they are produced,
 '
 				),
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' =>
+					__DIR__ . '/tmp/patcher/tzu' =>
 					'The Nameless is the origin of Heaven and Earth;
 The named is the mother of all things.
 
@@ -572,11 +575,11 @@ The door of all subtleties!
 +The door of all subtleties!
 +
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' =>
+					__DIR__ . '/tmp/patcher/tzu' =>
 					'The Nameless is the origin of Heaven and Earth;
 The named is the mother of all things.
 
@@ -620,10 +623,10 @@ The door of all subtleties!
 +Deeper and more profound,
 +The door of all subtleties!
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' =>
+					__DIR__ . '/tmp/patcher/tzu' =>
 					'The Way that can be told of is not the eternal Way;
 The name that can be named is not the eternal name.
 The Nameless is the origin of Heaven and Earth;
@@ -638,7 +641,7 @@ But after they are produced,
 '
 				),
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' =>
+					__DIR__ . '/tmp/patcher/tzu' =>
 					'The Nameless is the origin of Heaven and Earth;
 The named is the mother of all things.
 
@@ -677,10 +680,10 @@ The door of all subtleties!
 -But after they are produced,
 -  they have different names.
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' =>
+					__DIR__ . '/tmp/patcher/tzu' =>
 					'The Way that can be told of is not the eternal Way;
 The name that can be named is not the eternal name.
 The Nameless is the origin of Heaven and Earth;
@@ -695,7 +698,7 @@ But after they are produced,
 '
 				),
 				array(
-					JPATH_TESTS . '/tmp/patcher/tzu' => null
+					__DIR__ . '/tmp/patcher/tzu' => null
 				),
 				1,
 				false
@@ -708,7 +711,7 @@ But after they are produced,
 --- lao	2011-09-21 16:05:45.086909120 +0200
 +++ tzu	2011-09-21 16:05:41.156878938 +0200
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -722,7 +725,7 @@ But after they are produced,
 ===================================================================
 --- lao	2011-09-21 16:05:45.086909120 +0200
 +++ tzu	2011-09-21 16:05:41.156878938 +0200',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -735,7 +738,7 @@ But after they are produced,
 				'Index: lao
 ===================================================================
 --- lao	2011-09-21 16:05:45.086909120 +0200',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -749,7 +752,7 @@ But after they are produced,
 ===================================================================
 --- lao	2011-09-21 16:05:45.086909120 +0200
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -764,7 +767,7 @@ But after they are produced,
 --- lao	2011-09-21 16:05:45.086909120 +0200
 +++ tzu	2011-09-21 16:05:41.156878938 +0200
 @@ -1,11 +1,0 @@',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -783,7 +786,7 @@ But after they are produced,
 +The name that can be named is not the eternal name.
 -The Nameless is the origin of Heaven and Earth;
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -802,7 +805,7 @@ But after they are produced,
 -The name that can be named is not the eternal name.
 +The Nameless is the origin of Heaven and Earth;
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -821,7 +824,7 @@ But after they are produced,
 +The name that can be named is not the eternal name.
 -The Nameless is the origin of Heaven and Earth;
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -853,7 +856,7 @@ But after they are produced,
 +Deeper and more profound,
 +The door of all subtleties!
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(),
 				array(),
@@ -885,10 +888,10 @@ But after they are produced,
 +Deeper and more profound,
 +The door of all subtleties!
 ',
-				JPATH_TESTS . '/tmp/patcher',
+				__DIR__ . '/tmp/patcher',
 				0,
 				array(
-					JPATH_TESTS . '/tmp/patcher/lao' => ''
+					__DIR__ . '/tmp/patcher/lao' => ''
 				),
 				array(),
 				1,
