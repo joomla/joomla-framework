@@ -8,8 +8,8 @@
 
 namespace Joomla\Archive;
 
-use Joomla\Factory;
 use Joomla\Filesystem\File;
+use Joomla\Filesystem\Stream;
 
 /**
  * Bzip2 format adapter for the JArchive class
@@ -87,7 +87,7 @@ class Bzip2 implements ExtractableInterface
 		else
 		{
 			// New style! streams!
-			$input = Factory::getStream();
+			$input = Stream::getStream();
 
 			// Use bzip
 			$input->set('processingmethod', 'bz');
@@ -97,7 +97,7 @@ class Bzip2 implements ExtractableInterface
 				throw new \RuntimeException('Unable to read archive (bz2)');
 			}
 
-			$output = Factory::getStream();
+			$output = Stream::getStream();
 
 			if (!$output->open($destination, 'w'))
 			{

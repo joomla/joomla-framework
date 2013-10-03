@@ -8,8 +8,8 @@
 
 namespace Joomla\Archive;
 
-use Joomla\Factory;
 use Joomla\Filesystem\File;
+use Joomla\Filesystem\Stream;
 
 /**
  * Gzip format adapter for the JArchive class
@@ -100,7 +100,7 @@ class Gzip implements ExtractableInterface
 		else
 		{
 			// New style! streams!
-			$input = Factory::getStream();
+			$input = Stream::getStream();
 
 			// Use gz
 			$input->set('processingmethod', 'gz');
@@ -110,7 +110,7 @@ class Gzip implements ExtractableInterface
 				throw new \RuntimeException('Unable to read archive (gz)');
 			}
 
-			$output = Factory::getStream();
+			$output = Stream::getStream();
 
 			if (!$output->open($destination, 'w'))
 			{
