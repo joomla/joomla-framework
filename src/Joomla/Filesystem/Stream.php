@@ -164,6 +164,35 @@ class Stream
 	}
 
 	/**
+	 * Creates a new stream object with appropriate prefix
+	 *
+	 * @param   boolean  $use_prefix   Prefix the connections for writing
+	 * @param   boolean  $use_network  Use network if available for writing; use false to disable (e.g. FTP, SCP)
+	 * @param   string   $ua           UA User agent to use
+	 * @param   boolean  $uamask       User agent masking (prefix Mozilla)
+	 *
+	 * @return  Stream
+	 *
+	 * @see     Stream
+	 * @since   1.0
+	 */
+	public static function getStream($use_prefix = true, $ua = null, $uamask = false)
+	{
+		// Setup the context; Joomla! UA and overwrite
+		$context = array();
+
+		// Set the UA for HTTP
+		$context['http']['user_agent'] = $ua ?: 'Joomla! Framework Stream';
+
+		if ($use_prefix)
+		{
+			return new Stream(JPATH_ROOT . '/', JPATH_ROOT, $context);
+		}
+
+		return new Stream('', '', $context);
+	}
+
+	/**
 	 * Generic File Operations
 	 *
 	 * Open a stream with some lazy loading smarts
