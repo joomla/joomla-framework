@@ -6,10 +6,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Client;
+namespace Joomla\Filesystem\Clients;
 
 use Joomla\Log\Log;
-use Joomla\Client\Buffer;
+use Joomla\Filesystem\Buffer;
 
 /** Error Codes:
  * - 30 : Unable to connect to host
@@ -152,7 +152,7 @@ class FtpClient
 		if (FTP_NATIVE)
 		{
 			// Autoloading fails for Buffer as the class is used as a stream handler
-			class_exists('Buffer');
+			class_exists('Joomla\\Filesystem\\Buffer');
 		}
 	}
 

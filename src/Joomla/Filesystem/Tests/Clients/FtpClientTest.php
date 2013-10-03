@@ -4,9 +4,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Client\Tests;
+namespace Joomla\Filesystem\Clients\Tests;
 
-use Joomla\Client\FtpClient;
+use Joomla\Filesystem\Clients\FtpClient;
 
 /**
  * Test class for FtpClient.

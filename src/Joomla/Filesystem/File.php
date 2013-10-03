@@ -10,8 +10,6 @@ namespace Joomla\Filesystem;
 
 use Joomla\Factory;
 use Joomla\Log\Log;
-use Joomla\Client\FtpClient;
-use Joomla\Client\ClientHelper;
 
 /**
  * A File handling class
@@ -94,43 +92,14 @@ class File
 		}
 		else
 		{
-			$FTPOptions = ClientHelper::getCredentials('ftp');
-
-			if ($FTPOptions['enabled'] == 1)
+			if (!@ copy($src, $dest))
 			{
-				// Connect the FTP client
-				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+				Log::add(__METHOD__ . ': Copy failed.', Log::WARNING, 'jerror');
 
-				// If the parent folder doesn't exist we must create it
-				if (!file_exists(dirname($dest)))
-				{
-					Folder::create(dirname($dest));
-				}
-
-				// Translate the destination path for the FTP account
-				$dest = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $dest), '/');
-
-				if (!$ftp->store($src, $dest))
-				{
-					// FTP connector throws an error
-					return false;
-				}
-
-				$ret = true;
-			}
-			else
-			{
-				if (!@ copy($src, $dest))
-				{
-					Log::add(__METHOD__ . ': Copy failed.', Log::WARNING, 'jerror');
-
-					return false;
-				}
-
-				$ret = true;
+				return false;
 			}
 
-			return $ret;
+			return true;
 		}
 	}
 
@@ -145,23 +114,7 @@ class File
 	 */
 	public static function delete($file)
 	{
-		$FTPOptions = ClientHelper::getCredentials('ftp');
-
-		if (is_array($file))
-		{
-			$files = $file;
-		}
-		else
-		{
-			$files[] = $file;
-		}
-
-		// Do NOT use ftp if it is not enabled
-		if ($FTPOptions['enabled'] == 1)
-		{
-			// Connect the FTP client
-			$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
-		}
+		$files = (array) $file;
 
 		foreach ($files as $file)
 		{
@@ -176,17 +129,6 @@ class File
 			if (@unlink($file))
 			{
 				// Do nothing
-			}
-			elseif ($FTPOptions['enabled'] == 1)
-			{
-				$file = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $file), '/');
-
-				if (!$ftp->delete($file))
-				{
-					// FTP connector throws an error
-
-					return false;
-				}
 			}
 			else
 			{
@@ -241,33 +183,11 @@ class File
 		}
 		else
 		{
-			$FTPOptions = ClientHelper::getCredentials('ftp');
-
-			if ($FTPOptions['enabled'] == 1)
+			if (!@ rename($src, $dest))
 			{
-				// Connect the FTP client
-				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
+				Log::add(__METHOD__ . ': Rename failed.', Log::WARNING, 'jerror');
 
-				// Translate path for the FTP account
-				$src = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $src), '/');
-				$dest = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $dest), '/');
-
-				// Use FTP rename to simulate move
-				if (!$ftp->rename($src, $dest))
-				{
-					Log::add(__METHOD__ . ': Rename failed.', Log::WARNING, 'jerror');
-
-					return false;
-				}
-			}
-			else
-			{
-				if (!@ rename($src, $dest))
-				{
-					Log::add(__METHOD__ . ': Rename failed.', Log::WARNING, 'jerror');
-
-					return false;
-				}
+				return false;
 			}
 
 			return true;
@@ -313,22 +233,8 @@ class File
 		}
 		else
 		{
-			$FTPOptions = ClientHelper::getCredentials('ftp');
-
-			if ($FTPOptions['enabled'] == 1)
-			{
-				// Connect the FTP client
-				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
-
-				// Translate path for the FTP account and use FTP write buffer to file
-				$file = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $file), '/');
-				$ret = $ftp->write($file, $buffer);
-			}
-			else
-			{
-				$file = Path::clean($file);
-				$ret = is_int(file_put_contents($file, $buffer)) ? true : false;
-			}
+			$file = Path::clean($file);
+			$ret = is_int(file_put_contents($file, $buffer)) ? true : false;
 
 			return $ret;
 		}
@@ -373,49 +279,24 @@ class File
 		}
 		else
 		{
-			$FTPOptions = ClientHelper::getCredentials('ftp');
-			$ret = false;
-
-			if ($FTPOptions['enabled'] == 1)
+			if (is_writeable($baseDir) && move_uploaded_file($src, $dest))
 			{
-				// Connect the FTP client
-				$ftp = FtpClient::getInstance($FTPOptions['host'], $FTPOptions['port'], array(), $FTPOptions['user'], $FTPOptions['pass']);
-
-				// Translate path for the FTP account
-				$dest = Path::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $dest), '/');
-
-				// Copy the file to the destination directory
-				if (is_uploaded_file($src) && $ftp->store($src, $dest))
+				// Short circuit to prevent file permission errors
+				if (Path::setPermissions($dest))
 				{
-					unlink($src);
-					$ret = true;
+					return true;
 				}
 				else
 				{
-					Log::add(__METHOD__ . ': Failed to move file.', Log::WARNING, 'jerror');
+					Log::add(__METHOD__ . ': Failed to change file permissions.', Log::WARNING, 'jerror');
 				}
 			}
 			else
 			{
-				if (is_writeable($baseDir) && move_uploaded_file($src, $dest))
-				{
-					// Short circuit to prevent file permission errors
-					if (Path::setPermissions($dest))
-					{
-						$ret = true;
-					}
-					else
-					{
-						Log::add(__METHOD__ . ': Failed to change file permissions.', Log::WARNING, 'jerror');
-					}
-				}
-				else
-				{
-					Log::add(__METHOD__ . ': Failed to move file.', Log::WARNING, 'jerror');
-				}
+				Log::add(__METHOD__ . ': Failed to move file.', Log::WARNING, 'jerror');
 			}
 
-			return $ret;
+			return false;
 		}
 	}
 }
