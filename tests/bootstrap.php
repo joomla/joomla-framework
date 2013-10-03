@@ -42,13 +42,6 @@ require_once dirname(__DIR__) . '/src/import.php';
 JLoader::registerPrefix('Test', __DIR__ . '/core');
 
 /*
- * The following classes still depend on `JVersion` so we must load it until they are dealt with.
- *
- * JFactory
- */
-require_once __DIR__ . '/version.php';
-
-/*
  * The PHP garbage collector can be too aggressive in closing circular references before they are no longer needed.  This can cause
  * segfaults during long, memory-intensive processes such as testing large test suites and collecting coverage data.  We explicitly
  * disable garbage collection during the execution of PHPUnit processes so that we (hopefully) don't run into these issues going
