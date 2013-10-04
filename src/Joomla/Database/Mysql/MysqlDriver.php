@@ -268,7 +268,7 @@ class MysqlDriver extends MysqliDriver
 			$this->log(
 				Log\LogLevel::DEBUG,
 				'{sql}',
-				array('sql' => $sql, 'category' => 'databasequery')
+				array('sql' => $sql, 'category' => 'databasequery', 'trace' => debug_backtrace())
 			);
 		}
 

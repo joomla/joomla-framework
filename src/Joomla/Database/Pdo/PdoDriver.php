@@ -392,7 +392,7 @@ abstract class PdoDriver extends DatabaseDriver
 			$this->log(
 				Log\LogLevel::DEBUG,
 				'{sql}',
-				array('sql' => $sql, 'category' => 'databasequery')
+				array('sql' => $sql, 'category' => 'databasequery', 'trace' => debug_backtrace())
 			);
 		}
 
