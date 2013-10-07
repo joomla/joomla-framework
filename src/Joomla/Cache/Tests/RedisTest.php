@@ -122,7 +122,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
         }
         catch (\Exception $e)
         {
-            $this->markTestSkipped();
+            $this->markTestSkipped($e->getMessage());
         }
     }
 }

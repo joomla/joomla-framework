@@ -9,7 +9,7 @@
 namespace Joomla\Cache;
 
 use Psr\Cache\CacheItemInterface;
-use \Redis as RedisDriver;
+use Redis as RedisDriver;
 
 /**
  * Redis cache driver for the Joomla Framework.
@@ -45,12 +45,12 @@ class Redis extends Cache
      */
     public function __construct($options = array())
     {
-        parent::__construct($options);
-
         if (!extension_loaded('redis') || !class_exists('\Redis'))
         {
             throw new \RuntimeException('Redis not supported.');
         }
+
+        parent::__construct($options);
     }
 
     /**
@@ -146,7 +146,7 @@ class Redis extends Cache
      *
      * @since   1.0
      */
-    protected function exists($key)
+    public function exists($key)
     {
         $this->connect();
 
