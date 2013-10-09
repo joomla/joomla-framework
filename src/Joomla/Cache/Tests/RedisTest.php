@@ -122,6 +122,67 @@ class RedisTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->instance->get('foo')->isHit(), 'Item should have been removed');
     }
 
+
+    /**
+     * Tests the Joomla\Cache\Redis::getMultiple method.
+     *
+     * @return  void
+     *
+     * @covers  Joomla\Cache\Redis::getMultiple
+     * @since   1.0
+     */
+    public function testGetMultiple()
+    {
+        $this->instance->set('foo', 'bar');
+        $this->instance->set('boo', 'bar');
+
+        $fooResult = $this->instance->getMultiple(array('foo', 'boo'));
+
+        $this->assertArrayHasKey('foo', $fooResult, 'Missing array key');
+        $this->assertArrayHasKey('boo', $fooResult, 'Missing array key');
+        $this->assertInstanceOf('Joomla\Cache\Item', $fooResult['foo'], 'Expected instance of Joomla\Cache\Item');
+        $this->assertInstanceOf('Joomla\Cache\Item', $fooResult['boo'], 'Expected instance of Joomla\Cache\Item');
+        $this->assertTrue($fooResult['foo']->isHit(), 'Item should be returned from cache');
+        $this->assertTrue($fooResult['boo']->isHit(), 'Item should be returned from cache');
+    }
+
+    /**
+     * Tests the Joomla\Cache\Redis::setMultiple method.
+     *
+     * @return  void
+     *
+     * @covers  Joomla\Cache\Redis::setMultiple
+     * @since   1.0
+     */
+    public function testSetMultiple()
+    {
+        $data = array('foo' => 'bar', 'boo' => 'bar');
+
+        $this->instance->setMultiple($data);
+
+        $this->assertEquals('bar', $this->instance->get('foo')->getValue(), 'Item should be cached');
+        $this->assertEquals('bar', $this->instance->get('boo')->getValue(), 'Item should be cached');
+    }
+
+    /**
+     * Tests the Joomla\Cache\Redis::removeMultiple method.
+     *
+     * @return  void
+     *
+     * @covers  Joomla\Cache\Redis::removeMultiple
+     * @since   1.0
+     */
+    public function removeMultiple()
+    {
+        $this->instance->set('foo', 'bar');
+        $this->instance->set('boo', 'bar');
+
+        $this->instance->removeMultiple(array('foo', 'bar'));
+
+        $this->assertFalse($this->instance->get('foo')->isHit(), 'Item should have been removed');
+        $this->assertFalse($this->instance->get('boo')->isHit(), 'Item should have been removed');
+    }
+
     /**
      * Setup the tests.
      *
