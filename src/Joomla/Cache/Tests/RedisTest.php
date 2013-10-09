@@ -41,6 +41,37 @@ class RedisTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests the Joomla\Cache\Redis::get and Joomla\Cache\Redis::set methods.
+     *
+     * @return  void
+     *
+     * @covers  Joomla\Cache\Redis::get
+     * @covers  Joomla\Cache\Redis::set
+     * @since   1.0
+     */
+    public function testGetAndSet()
+    {
+        $this->assertTrue($this->instance->set('foo', 'bar'), 'Should store the data properly');
+        $this->assertEquals('bar', $this->instance->get('foo')->getValue(), 'Checking get');
+    }
+
+    /**
+     * Tests the Joomla\Cache\Redis::get and Joomla\Cache\Redis::set methods with timeout
+     *
+     * @return  void
+     *
+     * @covers  Joomla\Cache\Redis::get
+     * @covers  Joomla\Cache\Redis::set
+     * @since   1.0
+     */
+    public function testGetAndSetWithTimeout()
+    {
+        $this->assertTrue($this->instance->set('foo', 'bar', 1), 'Should store the data properly');
+        sleep(2);
+        $this->assertFalse($this->instance->get('foo')->isHit(), 'Checks expired get.');
+    }
+
+    /**
      * Tests the Joomla\Cache\Redis::clear method.
      *
      * @return  void
@@ -50,7 +81,13 @@ class RedisTest extends \PHPUnit_Framework_TestCase
      */
     public function testClear()
     {
-        $this->markTestIncomplete();
+        $this->instance->set('foo', 'bar');
+        $this->instance->set('boo', 'car');
+
+        $this->instance->clear();
+
+        $this->assertFalse($this->instance->get('foo')->isHit(), 'Item should have been removed');
+        $this->assertFalse($this->instance->get('goo')->isHit(), 'Item should have been removed');
     }
 
     /**
@@ -63,20 +100,9 @@ class RedisTest extends \PHPUnit_Framework_TestCase
      */
     public function testExists()
     {
-        $this->markTestIncomplete();
-    }
-
-    /**
-     * Tests the Joomla\Cache\Redis::get method.
-     *
-     * @return  void
-     *
-     * @covers  Joomla\Cache\Redis::get
-     * @since   1.0
-     */
-    public function testGet()
-    {
-        $this->markTestIncomplete();
+        $this->assertFalse($this->instance->exists('foo'), 'Item should not exist');
+        $this->instance->set('foo', 'bar');
+        $this->assertTrue($this->instance->exists('foo'), 'Item should exist');
     }
 
     /**
@@ -87,22 +113,13 @@ class RedisTest extends \PHPUnit_Framework_TestCase
      * @covers  Joomla\Cache\Redis::remove
      * @since   1.0
      */
+
     public function testRemove()
     {
-        $this->markTestIncomplete();
-    }
-
-    /**
-     * Tests the Joomla\Cache\Redis::set method.
-     *
-     * @return  void
-     *
-     * @covers  Joomla\Cache\Redis::set
-     * @since   1.0
-     */
-    public function testSet()
-    {
-        $this->markTestIncomplete();
+        $this->instance->set('foo', 'bar');
+        $this->assertTrue($this->instance->get('foo')->isHit(), 'Item should exist');
+        $this->instance->remove('foo');
+        $this->assertFalse($this->instance->get('foo')->isHit(), 'Item should have been removed');
     }
 
     /**
@@ -123,6 +140,36 @@ class RedisTest extends \PHPUnit_Framework_TestCase
         catch (\Exception $e)
         {
             $this->markTestSkipped($e->getMessage());
+        }
+    }
+
+    /**
+     * Flush all data before each test
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function assertPreConditions()
+    {
+        if ($this->instance)
+        {
+            $this->instance->clear();
+        }
+    }
+
+    /**
+     * Teardown the test.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function tearDown()
+    {
+        if ($this->instance)
+        {
+            $this->instance->clear();
         }
     }
 }

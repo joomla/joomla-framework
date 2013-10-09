@@ -83,7 +83,7 @@ class Redis extends Cache
         $value = $this->driver->get($key);
         $item = new Item($key);
 
-        if (is_null($value) == false)
+        if ($value !== false)
         {
             $item->setValue($value);
         }
@@ -174,7 +174,7 @@ class Redis extends Cache
 
         $this->driver = new RedisDriver();
 
-        if (($host == 'localhost' || $this->isIP($host)))
+        if (($host == 'localhost' || filter_var($host, FILTER_VALIDATE_IP)))
         {
             $this->driver->connect('tcp://'. $host.':'.$port, $port);
         }
@@ -182,18 +182,6 @@ class Redis extends Cache
         {
             $this->driver->connect($host, null);
         }
-    }
-
-    /**
-     * Checks is given string is a valid TCP string
-     *
-     * @var string $ip Address to be validated
-     *
-     * @return bool True if given address is valid IP
-     */
-    protected function isIP($ip = '')
-    {
-        return filter_var($ip, FILTER_VALIDATE_IP);
     }
 
 }
