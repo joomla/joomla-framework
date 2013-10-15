@@ -3,7 +3,6 @@ git subsplit publish "
 	src/Joomla/Application:git@github.com:joomla/joomla-framework-application.git
 	src/Joomla/Archive:git@github.com:joomla/joomla-framework-archive.git
 	src/Joomla/Cache:git@github.com:joomla/joomla-framework-cache.git
-	src/Joomla/Client:git@github.com:joomla/joomla-framework-client.git
 	src/Joomla/Compat:git@github.com:joomla/joomla-framework-compat.git
 	src/Joomla/Controller:git@github.com:joomla/joomla-framework-controller.git
 	src/Joomla/Crypt:git@github.com:joomla/joomla-framework-crypt.git
