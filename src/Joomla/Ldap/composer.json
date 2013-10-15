@@ -1,0 +1,18 @@
+{
+    "name": "joomla/ldap",
+    "type": "joomla-package",
+    "description": "Joomla Ldap Package",
+    "keywords": ["joomla", "framework", "ldap"],
+    "homepage": "https://github.com/joomla/joomla-framework-ldap",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/log": "1.0-beta2"
+    },
+    "target-dir": "Joomla/Ldap",
+    "autoload": {
+    	"psr-0": {
+    		"Joomla\\Ldap": ""
+    	}
+    }
+}
