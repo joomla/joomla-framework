@@ -383,10 +383,12 @@ Constants should always be all-uppercase, with underscores to separate words. Al
 
 Regular variables, follow the same conventions as functions and methods.
 
-We discourage adding the variable type to the variable name like in Hungarian notation or similar conventions. So instead of using any of these names:
+We discourage adding the variable type to the variable name like in Hungarian notation or similar conventions. Instead of using any of these names:
 
 ```php
+// Example of Hungarian Notation
 $partsArray
+// Variations that include the type in the variable name
 $arrParts
 $oParts
 ````
