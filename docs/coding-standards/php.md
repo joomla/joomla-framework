@@ -391,12 +391,12 @@ $partsArray
 // Variations that include the type in the variable name
 $arrParts
 $oParts
-````
+```
 
 Use:
 ```php
 $parts
-````
+```
 
 ### Global Variables
 
