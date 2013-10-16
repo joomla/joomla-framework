@@ -379,6 +379,23 @@ class JFooHelper
 
 Constants should always be all-uppercase, with underscores to separate words. Always prefix constants with `J` and use common sense when completing the name to keep it from getting unnecessarily long. You *should* use the name of the class/package they are used in. For example, the constants used by the `Joomla\Application\Web\Router` class could begin with `JROUTE_`.
 
+### Regular Variables and Class Properties
+
+Regular variables, follow the same conventions as functions and methods.
+
+We discourage adding the variable type to the variable name like in Hungarian notation or similar conventions. So instead of using any of these names:
+
+```php
+$partsArray
+$arrParts
+$oParts
+````
+
+Use:
+```php
+$parts
+````
+
 ### Global Variables
 
 Do not use global variables. Use static class properties or constants instead of globals.
