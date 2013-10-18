@@ -36,10 +36,12 @@ class Field_Language extends Field_List
 	 */
 	protected function getOptions()
 	{
+		$basePath = $this->element['base_path'] ? (string) $this->element['base_path'] : JPATH_ROOT;
+
 		// Merge any additional options in the XML definition.
 		$options = array_merge(
 			parent::getOptions(),
-			$this->createLanguageList($this->value)
+			$this->createLanguageList($this->value, $basePath)
 		);
 
 		return $options;
