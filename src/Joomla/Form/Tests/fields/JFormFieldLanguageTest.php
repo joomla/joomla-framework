@@ -77,4 +77,35 @@ class JFormFieldLanguageTest extends \TestCaseDatabase
 
 		// TODO: Should check all the attributes have come in properly.
 	}
+
+	/**
+	 * Test...
+	 *
+	 * @return void
+	 */
+	public function testCreateLanguageList()
+	{
+		$field = new Field_Language(new JFormInspector('form1'));
+		$reflection = new \ReflectionClass($field);
+		$method = $reflection->getMethod('createLanguageList');
+		$method->setAccessible(true);
+
+		$list = $method->invokeArgs($field, array(
+				'en-GB',
+				__DIR__ . '/data'
+			));
+
+		$listCompareEqual = array(
+			array(
+				'text' => 'English (United Kingdom)',
+				'value' => 'en-GB',
+				'selected' => 'selected="selected"'
+			)
+		);
+
+		$this->assertEquals(
+			$listCompareEqual,
+			$list
+		);
+	}
 }
