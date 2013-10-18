@@ -8,7 +8,6 @@
 
 namespace Joomla\Filesystem;
 
-use Joomla\Factory;
 use Joomla\Log\Log;
 
 /**
@@ -79,7 +78,7 @@ class File
 
 		if ($use_streams)
 		{
-			$stream = Factory::getStream();
+			$stream = Stream::getStream();
 
 			if (!$stream->copy($src, $dest))
 			{
@@ -170,7 +169,7 @@ class File
 
 		if ($use_streams)
 		{
-			$stream = Factory::getStream();
+			$stream = Stream::getStream();
 
 			if (!$stream->move($src, $dest))
 			{
@@ -217,7 +216,7 @@ class File
 
 		if ($use_streams)
 		{
-			$stream = Factory::getStream();
+			$stream = Stream::getStream();
 
 			// Beef up the chunk size to a meg
 			$stream->set('chunksize', (1024 * 1024));
@@ -266,7 +265,7 @@ class File
 
 		if ($use_streams)
 		{
-			$stream = Factory::getStream();
+			$stream = Stream::getStream();
 
 			if (!$stream->upload($src, $dest))
 			{

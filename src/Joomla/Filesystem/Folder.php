@@ -8,7 +8,6 @@
 
 namespace Joomla\Filesystem;
 
-use Joomla\Factory;
 use Joomla\Log\Log;
 
 /**
@@ -90,7 +89,7 @@ abstract class Folder
 				case 'file':
 					if ($use_streams)
 					{
-						$stream = Factory::getStream();
+						$stream = Stream::getStream();
 
 						if (!$stream->copy($sfid, $dfid))
 						{
@@ -340,7 +339,7 @@ abstract class Folder
 
 		if ($use_streams)
 		{
-			$stream = Factory::getStream();
+			$stream = Stream::getStream();
 
 			if (!$stream->move($src, $dest))
 			{
