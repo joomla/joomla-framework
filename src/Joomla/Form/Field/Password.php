@@ -8,8 +8,6 @@
 
 namespace Joomla\Form;
 
-use Joomla\Html\Html;
-
 /**
  * Form Field class for the Joomla Framework.
  * Text field for passwords
@@ -44,23 +42,8 @@ class Field_Password extends Field
 		$auto		= ((string) $this->element['autocomplete'] == 'off') ? ' autocomplete="off"' : '';
 		$readonly	= ((string) $this->element['readonly'] == 'true') ? ' readonly="readonly"' : '';
 		$disabled	= ((string) $this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
-		$meter		= ((string) $this->element['strengthmeter'] == 'true');
-		$threshold	= $this->element['threshold'] ? (int) $this->element['threshold'] : 66;
 
 		$script = '';
-
-		if ($meter)
-		{
-			Html::_('script', 'system/passwordstrength.js', true, true);
-			$script = '<script type="text/javascript">new Form.PasswordStrength("' . $this->id . '",
-				{
-					threshold: ' . $threshold . ',
-					onUpdate: function(element, strength, threshold) {
-						element.set("data-passwordstrength", strength);
-					}
-				}
-			);</script>';
-		}
 
 		return '<input type="password" name="' . $this->name . '" id="' . $this->id . '"' .
 			' value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' .

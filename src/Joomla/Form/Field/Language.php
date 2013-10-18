@@ -8,7 +8,6 @@
 
 namespace Joomla\Form;
 
-use Joomla\Html\Html;
 use Joomla\Language\LanguageHelper;
 
 /**

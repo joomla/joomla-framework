@@ -8,8 +8,8 @@
 
 namespace Joomla\Form;
 
-use Joomla\Factory;
 use Joomla\Filter;
+use Joomla\Uri\Uri;
 use Joomla\Date\Date;
 use Joomla\Language\Language;
 use Joomla\Language\Text;
@@ -1144,25 +1144,6 @@ class Form
 
 		switch (strtoupper($filter))
 		{
-			// Access Control Rules.
-			case 'RULES':
-				$return = array();
-
-				foreach ((array) $value as $action => $ids)
-				{
-					// Build the rules array.
-					$return[$action] = array();
-
-					foreach ($ids as $id => $p)
-					{
-						if ($p !== '')
-						{
-							$return[$action][$id] = ($p == '1' || $p == 'true') ? true : false;
-						}
-					}
-				}
-				break;
-
 			// Do nothing, thus leaving the return value as null.
 			case 'UNSET':
 				break;
@@ -1190,40 +1171,6 @@ class Form
 			case 'SAFEHTML':
 				$filterInput = new Filter\InputFilter(null, null, 1, 1);
 				$return = $filterInput->clean($value, 'string');
-				break;
-
-			// Convert a date to UTC based on the server timezone offset.
-			case 'SERVER_UTC':
-				if ((int) $value > 0)
-				{
-					// Get the server timezone setting.
-					$offset = Factory::getConfig()->get('offset');
-
-					// Return an SQL formatted datetime string in UTC.
-					$date = new Date($value, new \DateTimeZone($offset));
-					$return = $date->toSql();
-				}
-				else
-				{
-					$return = '';
-				}
-				break;
-
-			// Convert a date to UTC based on the user timezone offset.
-			case 'USER_UTC':
-				if ((int) $value > 0)
-				{
-					// Get the user timezone setting defaulting to the server timezone setting.
-					$offset = Factory::getUser()->getParam('timezone', Factory::getConfig()->get('offset'));
-
-					// Return a MySQL formatted datetime string in UTC.
-					$date = new Date($value, new \DateTimeZone($offset));
-					$return = $date->toSql();
-				}
-				else
-				{
-					$return = '';
-				}
 				break;
 
 			// Ensures a protocol is present in the saved field. Only use when
