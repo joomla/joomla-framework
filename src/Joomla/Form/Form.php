@@ -121,19 +121,14 @@ class Form
 			return false;
 		}
 
-		// Convert the input to an array.
-		if (is_object($data))
+		// Convert the object to an array.
+		if ($data instanceof Registry)
 		{
-			if ($data instanceof Registry)
-			{
-				// Handle a Registry.
-				$data = $data->toArray();
-			}
-			else
-			{
-				// Handle other types of objects.
-				$data = (array) $data;
-			}
+			$data = $data->toArray();
+		}
+		elseif (is_object($data))
+		{
+			$data = (array) $data;
 		}
 
 		// Process the input data.
@@ -763,7 +758,7 @@ class Form
 		if (!is_file($file))
 		{
 			// Not an absolute path so let's attempt to find one using JPath.
-			$file = Path::find(self::addFormPath(), strtolower($file) . '.xml');
+			$file = Path::find(FormHelper::addFormPath(), strtolower($file) . '.xml');
 
 			// If unable to find the file return false.
 			if (!$file)
@@ -1630,12 +1625,12 @@ class Form
 		$type = $element['type'] ? (string) $element['type'] : 'text';
 
 		// Load the JFormField object for the field.
-		$field = $this->loadFieldType($type);
+		$field = FormHelper::loadFieldType($type);
 
 		// If the object could not be loaded, get a text field object.
 		if ($field === false)
 		{
-			$field = $this->loadFieldType('text');
+			$field = FormHelper::loadFieldType('text');
 		}
 
 		/*
@@ -1681,37 +1676,6 @@ class Form
 	}
 
 	/**
-	 * Proxy for {@link FormHelper::loadFieldType()}.
-	 *
-	 * @param   string   $type  The field type.
-	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
-	 *
-	 * @return  mixed  FormField object on success, false otherwise.
-	 *
-	 * @since   1.0
-	 */
-	protected function loadFieldType($type, $new = true)
-	{
-		return FormHelper::loadFieldType($type, $new);
-	}
-
-	/**
-	 * Proxy for FormHelper::loadRuleType().
-	 *
-	 * @param   string   $type  The rule type.
-	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
-	 *
-	 * @return  mixed  FormRule object on success, false otherwise.
-	 *
-	 * @see     FormHelper::loadRuleType()
-	 * @since   1.0
-	 */
-	protected function loadRuleType($type, $new = true)
-	{
-		return FormHelper::loadRuleType($type, $new);
-	}
-
-	/**
 	 * Method to synchronize any field, form or rule paths contained in the XML document.
 	 *
 	 * @return  boolean  True on success.
@@ -1735,7 +1699,7 @@ class Form
 		foreach ($paths as $path)
 		{
 			$path = JPATH_ROOT . '/' . ltrim($path, '/\\');
-			self::addFieldPath($path);
+			FormHelper::addFieldPath($path);
 		}
 
 		// Get any addformpath attributes from the form definition.
@@ -1746,7 +1710,7 @@ class Form
 		foreach ($paths as $path)
 		{
 			$path = JPATH_ROOT . '/' . ltrim($path, '/\\');
-			self::addFormPath($path);
+			FormHelper::addFormPath($path);
 		}
 
 		// Get any addrulepath attributes from the form definition.
@@ -1757,7 +1721,7 @@ class Form
 		foreach ($paths as $path)
 		{
 			$path = JPATH_ROOT . '/' . ltrim($path, '/\\');
-			self::addRulePath($path);
+			FormHelper::addRulePath($path);
 		}
 
 		return true;
@@ -1809,7 +1773,7 @@ class Form
 		if ($type = (string) $element['validate'])
 		{
 			// Load the JFormRule object for the field.
-			$rule = $this->loadRuleType($type);
+			$rule = FormHelper::loadRuleType($type);
 
 			// If the object could not be loaded return an error message.
 			if ($rule === false)
@@ -1849,50 +1813,6 @@ class Form
 		}
 
 		return true;
-	}
-
-	/**
-	 * Proxy for {@link FormHelper::addFieldPath()}.
-	 *
-	 * @param   mixed  $new  A path or array of paths to add.
-	 *
-	 * @return  array  The list of paths that have been added.
-	 *
-	 * @since   1.0
-	 */
-	public static function addFieldPath($new = null)
-	{
-		return FormHelper::addFieldPath($new);
-	}
-
-	/**
-	 * Proxy for FormHelper::addFormPath().
-	 *
-	 * @param   mixed  $new  A path or array of paths to add.
-	 *
-	 * @return  array  The list of paths that have been added.
-	 *
-	 * @see     FormHelper::addFormPath()
-	 * @since   1.0
-	 */
-	public static function addFormPath($new = null)
-	{
-		return FormHelper::addFormPath($new);
-	}
-
-	/**
-	 * Proxy for FormHelper::addRulePath().
-	 *
-	 * @param   mixed  $new  A path or array of paths to add.
-	 *
-	 * @return  array  The list of paths that have been added.
-	 *
-	 * @see     FormHelper::addRulePath()
-	 * @since   1.0
-	 */
-	public static function addRulePath($new = null)
-	{
-		return FormHelper::addRulePath($new);
 	}
 
 	/**
