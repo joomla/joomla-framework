@@ -73,11 +73,22 @@ class DriverMysqlTest extends DatabaseMysqlCase
 	 */
 	public function testDropTable()
 	{
+		// Create #__bar table first
+		self::$driver->setQuery('CREATE TABLE IF NOT EXISTS `#__bar` (`id` int(10) unsigned NOT NULL);');
+		self::$driver->execute();
+		
+		// Check return self or not.
 		$this->assertThat(
 			self::$driver->dropTable('#__bar', true),
 			$this->isInstanceOf('\\Joomla\\Database\\Mysql\\MysqlDriver'),
 			'The table is dropped if present.'
 		);
+		
+		// Check is table droped.
+		self::$driver->setQuery("SHOW TABLES LIKE '%#__bar%'");
+		$exists = self::$driver->loadResult();
+		
+		$this->assertNull($exists);
 	}
 
 	/**
@@ -556,7 +567,7 @@ class DriverMysqlTest extends DatabaseMysqlCase
 	{
 		self::$driver->setQuery("REPLACE INTO `jos_dbtest` SET `id` = 5, `title` = 'testTitle'");
 
-		$this->assertThat(self::$driver->execute(), $this->isTrue(), __LINE__);
+		$this->assertThat((bool)self::$driver->execute(), $this->isTrue(), __LINE__);
 
 		$this->assertThat(self::$driver->insertid(), $this->equalTo(5), __LINE__);
 	}
