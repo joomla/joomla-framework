@@ -9,6 +9,9 @@
         "php": ">=5.3.10",
         "joomla/filter": "1.0-beta2"
     },
+    "suggest": {
+        "joomla/database": "Install joomla/database if you want to use Database session storage."
+    },
     "target-dir": "Joomla/Session",
     "autoload": {
     	"psr-0": {

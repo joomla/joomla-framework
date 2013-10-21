@@ -73,6 +73,22 @@ class Session implements \IteratorAggregate
 	protected $force_ssl = false;
 
 	/**
+	 * The domain to use when setting cookies.
+	 *
+	 * @var    mixed
+	 * @since  1.0
+	 */
+	protected $cookie_domain;
+
+	/**
+	 * The path to use when setting cookies.
+	 *
+	 * @var    mixed
+	 * @since  1.0
+	 */
+	protected $cookie_path;
+
+	/**
 	 * Session instances container.
 	 *
 	 * @var    Session
@@ -682,10 +698,7 @@ class Session implements \IteratorAggregate
 		 */
 		if (isset($_COOKIE[session_name()]))
 		{
-			$config = Factory::getConfig();
-			$cookie_domain = $config->get('cookie_domain', '');
-			$cookie_path = $config->get('cookie_path', '/');
-			setcookie(session_name(), '', time() - 42000, $cookie_path, $cookie_domain);
+			setcookie(session_name(), '', time() - 42000, $this->cookie_path, $this->cookie_domain);
 		}
 
 		session_unset();
@@ -801,16 +814,14 @@ class Session implements \IteratorAggregate
 			$cookie['secure'] = true;
 		}
 
-		$config = Factory::getConfig();
-
-		if ($config->get('cookie_domain', '') != '')
+		if ($this->cookie_domain)
 		{
-			$cookie['domain'] = $config->get('cookie_domain');
+			$cookie['domain'] = $this->cookie_domain;
 		}
 
-		if ($config->get('cookie_path', '') != '')
+		if ($this->cookie_path)
 		{
-			$cookie['path'] = $config->get('cookie_path');
+			$cookie['path'] = $this->cookie_path;
 		}
 
 		session_set_cookie_params($cookie['lifetime'], $cookie['path'], $cookie['domain'], $cookie['secure'], true);
@@ -919,6 +930,16 @@ class Session implements \IteratorAggregate
 		if (isset($options['force_ssl']))
 		{
 			$this->force_ssl = (bool) $options['force_ssl'];
+		}
+
+		if (isset($options['cookie_domain']))
+		{
+			$this->cookie_domain = $options['cookie_domain'];
+		}
+
+		if (isset($options['cookie_path']))
+		{
+			$this->cookie_path = $options['cookie_path'];
 		}
 
 		// Sync the session maxlifetime

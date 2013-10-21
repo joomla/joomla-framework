@@ -9,8 +9,7 @@
 namespace Joomla\Session\Storage;
 
 use Joomla\Session\Storage;
-use Joomla\Factory;
-use Exception;
+use Joomla\Database\DatabaseDriver;
 
 /**
  * Database session storage handler for PHP
@@ -20,6 +19,35 @@ use Exception;
  */
 class Database extends Storage
 {
+	/**
+	 * The DatabaseDriver to use when querying.
+	 *
+	 * @var \Joomla\Database\DatabaseDriver
+	 */
+	protected $db;
+
+	/**
+	 * Constructor
+	 *
+	 * @param   array  $options  Optional parameters. A `dbo` options is required.
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function construct($options = array())
+	{
+		if (isset($options['db']) && ($options['db'] instanceof DatabaseDriver))
+		{
+			parent::__construct($options);
+		}
+		else
+		{
+			throw new \RuntimeException(
+				sprintf('The %s storage engine requires a `db` option that is an instance of Joomla\\Database\\DatabaseDriver.', __CLASS__)
+			);
+		}
+	}
+
 	/**
 	 * Read the data for a particular session identifier from the SessionHandler backend.
 	 *
@@ -31,22 +59,19 @@ class Database extends Storage
 	 */
 	public function read($id)
 	{
-		// Get the database connection object and verify that it is connected.
-		$db = Factory::getDbo();
-
 		try
 		{
 			// Get the session data from the database table.
-			$query = $db->getQuery(true);
-			$query->select($db->quoteName('data'))
-			->from($db->quoteName('#__session'))
-			->where($db->quoteName('session_id') . ' = ' . $db->quote($id));
+			$query = $this->db->getQuery(true);
+			$query->select($this->db->quoteName('data'))
+			->from($this->db->quoteName('#__session'))
+			->where($this->db->quoteName('session_id') . ' = ' . $this->db->quote($id));
 
-			$db->setQuery($query);
+			$this->db->setQuery($query);
 
-			return (string) $db->loadResult();
+			return (string) $this->db->loadResult();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return false;
 		}
@@ -64,31 +89,28 @@ class Database extends Storage
 	 */
 	public function write($id, $data)
 	{
-		// Get the database connection object and verify that it is connected.
-		$db = Factory::getDbo();
-
 		try
 		{
-			$query = $db->getQuery(true);
-			$query->update($db->quoteName('#__session'))
-			->set($db->quoteName('data') . ' = ' . $db->quote($data))
-			->set($db->quoteName('time') . ' = ' . $db->quote((int) time()))
-			->where($db->quoteName('session_id') . ' = ' . $db->quote($id));
+			$query = $this->db->getQuery(true);
+			$query->update($this->db->quoteName('#__session'))
+			->set($this->db->quoteName('data') . ' = ' . $this->db->quote($data))
+			->set($this->db->quoteName('time') . ' = ' . $this->db->quote((int) time()))
+			->where($this->db->quoteName('session_id') . ' = ' . $this->db->quote($id));
 
 			// Try to update the session data in the database table.
-			$db->setQuery($query);
+			$this->db->setQuery($query);
 
-			if (!$db->execute())
+			if (!$this->db->execute())
 			{
 				return false;
 			}
 
-			// Since $db->execute did not throw an exception the query was successful.
+			// Since $this->db->execute did not throw an exception the query was successful.
 			// Either the data changed, or the data was identical. In either case we are done.
 
 			return true;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return false;
 		}
@@ -105,21 +127,18 @@ class Database extends Storage
 	 */
 	public function destroy($id)
 	{
-		// Get the database connection object and verify that it is connected.
-		$db = Factory::getDbo();
-
 		try
 		{
-			$query = $db->getQuery(true);
-			$query->delete($db->quoteName('#__session'))
-			->where($db->quoteName('session_id') . ' = ' . $db->quote($id));
+			$query = $this->db->getQuery(true);
+			$query->delete($this->db->quoteName('#__session'))
+			->where($this->db->quoteName('session_id') . ' = ' . $this->db->quote($id));
 
 			// Remove a session from the database.
-			$db->setQuery($query);
+			$this->db->setQuery($query);
 
-			return (boolean) $db->execute();
+			return (boolean) $this->db->execute();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return false;
 		}
@@ -136,24 +155,21 @@ class Database extends Storage
 	 */
 	public function gc($lifetime = 1440)
 	{
-		// Get the database connection object and verify that it is connected.
-		$db = Factory::getDbo();
-
 		// Determine the timestamp threshold with which to purge old sessions.
 		$past = time() - $lifetime;
 
 		try
 		{
-			$query = $db->getQuery(true);
-			$query->delete($db->quoteName('#__session'))
-			->where($db->quoteName('time') . ' < ' . $db->quote((int) $past));
+			$query = $this->db->getQuery(true);
+			$query->delete($this->db->quoteName('#__session'))
+			->where($this->db->quoteName('time') . ' < ' . $this->db->quote((int) $past));
 
 			// Remove expired sessions from the database.
-			$db->setQuery($query);
+			$this->db->setQuery($query);
 
-			return (boolean) $db->execute();
+			return (boolean) $this->db->execute();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return false;
 		}
