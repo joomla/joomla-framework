@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Test;
+
 use Joomla\Database\DatabaseDriver;
 use Joomla\Factory;
 use Joomla\Test\TestHelper;
@@ -13,26 +15,25 @@ use Joomla\Test\TestHelper;
 /**
  * Abstract test case class for database testing.
  *
- * @package  Joomla.Test
- * @since    12.1
+ * @since  1.0
  */
-abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
+abstract class TestDatabase extends \PHPUnit_Extensions_Database_TestCase
 {
 	/**
-	 * @var    Joomla\Database\Driver  The active database driver being used for the tests.
-	 * @since  12.1
+	 * @var    DatabaseDriver  The active database driver being used for the tests.
+	 * @since  1.0
 	 */
 	protected static $driver;
 
 	/**
-	 * @var    Joomla\Database\Driver  The saved database driver to be restored after these tests.
-	 * @since  12.1
+	 * @var    DatabaseDriver  The saved database driver to be restored after these tests.
+	 * @since  1.0
 	 */
 	private static $_stash;
 
 	/**
 	 * @var    array  Various Factory static instances stashed away to be restored later.
-	 * @since  12.1
+	 * @since  1.0
 	 */
 	private $_stashedFactoryState = array(
 		'config' => null,
@@ -45,7 +46,7 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function setUpBeforeClass()
 	{
@@ -62,19 +63,19 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 			self::$driver = DatabaseDriver::getInstance($options);
 
 			// Create a new PDO instance for an SQLite memory database and load the test schema into it.
-			$pdo = new PDO('sqlite::memory:');
+			$pdo = new \PDO('sqlite::memory:');
 			$pdo->exec(file_get_contents(JPATH_TESTS . '/schema/ddl.sql'));
 
 			// Set the PDO instance to the driver using reflection whizbangery.
 			TestHelper::setValue(self::$driver, 'connection', $pdo);
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			self::$driver = null;
 		}
 
 		// If for some reason an exception object was returned set our database object to null.
-		if (self::$driver instanceof Exception)
+		if (self::$driver instanceof \Exception)
 		{
 			self::$driver = null;
 		}
@@ -89,7 +90,7 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public static function tearDownAfterClass()
 	{
@@ -102,11 +103,11 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @param   object  $mockObject  The mock object that the callbacks are being assigned to.
 	 * @param   array   $array       An array of methods names to mock with callbacks.
-	 * This method assumes that the mock callback is named {mock}{method name}.
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @note    This method assumes that the mock callback is named {mock}{method name}.
+	 * @since   1.0
 	 */
 	public function assignMockCallbacks($mockObject, $array)
 	{
@@ -124,8 +125,8 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 			}
 
 			$mockObject->expects($this->any())
-			->method($methodName)
-			->will($this->returnCallback($callback));
+				->method($methodName)
+				->will($this->returnCallback($callback));
 		}
 	}
 
@@ -134,28 +135,28 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @param   object  $mockObject  The mock object.
 	 * @param   array   $array       An associative array of methods to mock with return values:<br />
-	 * string (method name) => mixed (return value)
+	 *                               string (method name) => mixed (return value)
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	public function assignMockReturns($mockObject, $array)
 	{
 		foreach ($array as $method => $return)
 		{
 			$mockObject->expects($this->any())
-			->method($method)
-			->will($this->returnValue($return));
+				->method($method)
+				->will($this->returnValue($return));
 		}
 	}
 
 	/**
 	 * Returns the default database connection for running the tests.
 	 *
-	 * @return  PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
+	 * @return  \PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getConnection()
 	{
@@ -172,9 +173,9 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	/**
 	 * Gets the data set to be loaded into the database during setup
 	 *
-	 * @return  xml dataset
+	 * @return  \PHPUnit_Extensions_Database_DataSet_XmlDataSet
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	protected function getDataSet()
 	{
@@ -184,9 +185,9 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	/**
 	 * Returns the database operation executed in test setup.
 	 *
-	 * @return  PHPUnit_Extensions_Database_Operation_DatabaseOperation
+	 * @return  \PHPUnit_Extensions_Database_Operation_Composite
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getSetUpOperation()
 	{
@@ -202,9 +203,9 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	/**
 	 * Returns the database operation executed in test cleanup.
 	 *
-	 * @return  PHPUnit_Extensions_Database_Operation_DatabaseOperation
+	 * @return  \PHPUnit_Extensions_Database_Operation_Factory
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function getTearDownOperation()
 	{
@@ -217,7 +218,7 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function restoreFactoryState()
 	{
@@ -231,7 +232,7 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function saveFactoryState()
 	{
@@ -247,7 +248,7 @@ abstract class TestCaseDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @since   12.1
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{

@@ -99,6 +99,7 @@
 			<arg value="--extensions=php" />
 			<arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
 			<arg value="--standard=${basedir}/build/phpcs/Joomla" />
+			<arg value="--ignore=${basedir}/src/Joomla/String/phputf8" />
 			<arg path="${source}" />
 		</exec>
 	</target>
@@ -107,6 +108,7 @@
 		<exec executable="phpcs${script-suffix}">
 			<arg value="--report=full" />
 			<arg value="--extensions=php" />
+			<arg value="--ignore=${basedir}/src/Joomla/String/phputf8" />
 			<arg value="--standard=${basedir}/build/phpcs/Joomla/ruleset.xml" />
 			<arg path="${source}" />
 		</exec>

@@ -6,7 +6,7 @@
 
 namespace Joomla\Form\Tests;
 
-use Joomla\Test\TestHelper;
+use Joomla\Test\TestDatabase;
 use Joomla\Form\Field_Language;
 
 /**
@@ -14,7 +14,7 @@ use Joomla\Form\Field_Language;
  *
  * @since  1.0
  */
-class JFormFieldLanguageTest extends \TestCaseDatabase
+class JFormFieldLanguageTest extends TestDatabase
 {
 	/**
 	 * Sets up dependencies for the test.
@@ -33,7 +33,7 @@ class JFormFieldLanguageTest extends \TestCaseDatabase
 	/**
 	 * Gets the data set to be loaded into the database during setup
 	 *
-	 * @return  xml  dataset
+	 * @return  \PHPUnit_Extensions_Database_DataSet_XmlDataSet  dataset
 	 *
 	 * @since   1.0
 	 */

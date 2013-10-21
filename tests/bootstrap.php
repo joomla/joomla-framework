@@ -35,12 +35,6 @@ if (file_exists($composerAutoload))
 	include_once $composerAutoload;
 }
 
-// Import the platform.
-require_once dirname(__DIR__) . '/src/import.php';
-
-// Register the core Joomla test classes.
-JLoader::registerPrefix('Test', __DIR__ . '/core');
-
 /*
  * The PHP garbage collector can be too aggressive in closing circular references before they are no longer needed.  This can cause
  * segfaults during long, memory-intensive processes such as testing large test suites and collecting coverage data.  We explicitly
