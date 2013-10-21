@@ -31,8 +31,8 @@ if (function_exists('iconv'))
 /**
  * Include the utf8 package
  */
-jimport('phputf8.utf8');
-jimport('phputf8.strcasecmp');
+require_once __DIR__ . '/phputf8/utf8.php';
+require_once __DIR__ . '/phputf8/strcasecmp.php';
 
 /**
  * String handling class for utf-8 data
@@ -290,7 +290,7 @@ abstract class String
 	 */
 	public static function str_ireplace($search, $replace, $str, $count = null)
 	{
-		jimport('phputf8.str_ireplace');
+		require_once __DIR__ . '/phputf8/str_ireplace.php';
 
 		if ($count === false)
 		{
@@ -316,7 +316,7 @@ abstract class String
 	 */
 	public static function str_split($str, $split_len = 1)
 	{
-		jimport('phputf8.str_split');
+		require_once __DIR__ . '/phputf8/str_split.php';
 
 		return utf8_str_split($str, $split_len);
 	}
@@ -454,7 +454,7 @@ abstract class String
 	 */
 	public static function strcspn($str, $mask, $start = null, $length = null)
 	{
-		jimport('phputf8.strcspn');
+		require_once __DIR__ . '/phputf8/strcspn.php';
 
 		if ($start === false && $length === false)
 		{
@@ -486,7 +486,7 @@ abstract class String
 	 */
 	public static function stristr($str, $search)
 	{
-		jimport('phputf8.stristr');
+		require_once __DIR__ . '/phputf8/stristr.php';
 
 		return utf8_stristr($str, $search);
 	}
@@ -504,7 +504,7 @@ abstract class String
 	 */
 	public static function strrev($str)
 	{
-		jimport('phputf8.strrev');
+		require_once __DIR__ . '/phputf8/strrev.php';
 
 		return utf8_strrev($str);
 	}
@@ -525,7 +525,7 @@ abstract class String
 	 */
 	public static function strspn($str, $mask, $start = null, $length = null)
 	{
-		jimport('phputf8.strspn');
+		require_once __DIR__ . '/phputf8/strspn.php';
 
 		if ($start === null && $length === null)
 		{
@@ -591,7 +591,7 @@ abstract class String
 			return $str;
 		}
 
-		jimport('phputf8.trim');
+		require_once __DIR__ . '/phputf8/trim.php';
 
 		if ($charlist === false)
 		{
@@ -625,7 +625,7 @@ abstract class String
 			return $str;
 		}
 
-		jimport('phputf8.trim');
+		require_once __DIR__ . '/phputf8/trim.php';
 
 		if ($charlist === false)
 		{
@@ -659,7 +659,7 @@ abstract class String
 			return $str;
 		}
 
-		jimport('phputf8.trim');
+		require_once __DIR__ . '/phputf8/trim.php';
 
 		if ($charlist === false)
 		{
@@ -688,7 +688,7 @@ abstract class String
 	 */
 	public static function ucfirst($str, $delimiter = null, $newDelimiter = null)
 	{
-		jimport('phputf8.ucfirst');
+		require_once __DIR__ . '/phputf8/ucfirst.php';
 
 		if ($delimiter === null)
 		{
@@ -718,7 +718,7 @@ abstract class String
 	 */
 	public static function ucwords($str)
 	{
-		jimport('phputf8.ucwords');
+		require_once __DIR__ . '/phputf8/ucwords.php';
 
 		return utf8_ucwords($str);
 	}
