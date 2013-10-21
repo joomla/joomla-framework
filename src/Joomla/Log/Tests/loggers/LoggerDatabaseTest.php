@@ -10,6 +10,7 @@ use Joomla\Log\Log;
 use Joomla\Log\LogEntry;
 use Joomla\Factory;
 use Joomla\Log\Logger\Database as LoggerDatabase;
+use Joomla\Test\TestDatabase;
 use Joomla\Test\TestHelper;
 
 /**
@@ -17,12 +18,12 @@ use Joomla\Test\TestHelper;
  *
  * @since  1.0
  */
-class LoggerDatabaseTest extends TestCaseDatabase
+class LoggerDatabaseTest extends TestDatabase
 {
 	/**
 	 * Gets the data set to be loaded into the database during setup
 	 *
-	 * @return xml dataset
+	 * @return  \PHPUnit_Extensions_Database_DataSet_XmlDataSet
 	 */
 	protected function getDataSet()
 	{
@@ -32,7 +33,9 @@ class LoggerDatabaseTest extends TestCaseDatabase
 	/**
 	 * Test the Joomla\Log\Logger\Database::__construct method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testConstructor01()
 	{
@@ -53,7 +56,9 @@ class LoggerDatabaseTest extends TestCaseDatabase
 	/**
 	 * Test the Joomla\Log\Logger\Database::addEntry method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testAddEntry01()
 	{
@@ -79,7 +84,9 @@ class LoggerDatabaseTest extends TestCaseDatabase
 	/**
 	 * Test the Joomla\Log\Logger\Database::addEntry method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testAddEntry02()
 	{
@@ -110,7 +117,9 @@ class LoggerDatabaseTest extends TestCaseDatabase
 	/**
 	 * Test the Joomla\Log\Logger\Database::connect method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testConnect01()
 	{

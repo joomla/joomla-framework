@@ -15,10 +15,13 @@
         "joomla/registry": "1.0-beta2",
         "joomla/utilities": "1.0-beta2"
     },
+    "require-dev": {
+        "joomla/test": "1.0-beta2"
+    },
     "target-dir": "Joomla/Form",
     "autoload": {
-    	"psr-0": {
-    		"Joomla\\Form": ""
-    	}
+        "psr-0": {
+            "Joomla\\Form": ""
+        }
     }
 }
