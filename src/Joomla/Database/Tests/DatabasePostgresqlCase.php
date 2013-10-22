@@ -6,32 +6,21 @@
 
 namespace Joomla\Database\Tests;
 
-use Joomla\Factory;
+use Joomla\Test\TestDatabase;
+use Joomla\Database\DatabaseDriver;
 
 /**
  * Abstract test case class for PostgreSQL database testing.
  *
  * @since  1.0
  */
-abstract class DatabasePostgresqlCase extends DatabaseCase
+abstract class DatabasePostgresqlCase extends TestDatabase
 {
-	/**
-	 * @var    \Joomla\Database\Postgresql\PostgresqlDriver  The active database driver being used for the tests.
-	 * @since  1.0
-	 */
-	protected static $driver;
-
 	/**
 	 * @var    array  The database driver options for the connection.
 	 * @since  1.0
 	 */
 	private static $options = array('driver' => 'postgresql');
-
-	/**
-	 * @var    \Joomla\Database\Postgresql\PostgresqlDriver  The saved database driver to be restored after these tests.
-	 * @since  1.0
-	 */
-	private static $stash;
 
 	/**
 	 * This method is called before the first test of this test class is run.
@@ -91,7 +80,7 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 		try
 		{
 			// Attempt to instantiate the driver.
-			self::$driver = \Joomla\Database\DatabaseDriver::getInstance(self::$options);
+			self::$driver = DatabaseDriver::getInstance(self::$options);
 		}
 		catch (\RuntimeException $e)
 		{
@@ -103,23 +92,6 @@ abstract class DatabasePostgresqlCase extends DatabaseCase
 		{
 			self::$driver = null;
 		}
-
-		// Setup the factory pointer for the driver and stash the old one.
-		self::$stash = Factory::$database;
-		Factory::$database = self::$driver;
-	}
-
-	/**
-	 * This method is called after the last test of this test class is run.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public static function tearDownAfterClass()
-	{
-		Factory::$database = self::$stash;
-		self::$driver = null;
 	}
 
 	/**

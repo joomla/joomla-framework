@@ -9,7 +9,6 @@
 namespace Joomla\Test;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Factory;
 use Joomla\Test\TestHelper;
 
 /**
@@ -24,22 +23,6 @@ abstract class TestDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 * @since  1.0
 	 */
 	protected static $driver;
-
-	/**
-	 * @var    DatabaseDriver  The saved database driver to be restored after these tests.
-	 * @since  1.0
-	 */
-	private static $_stash;
-
-	/**
-	 * @var    array  Various Factory static instances stashed away to be restored later.
-	 * @since  1.0
-	 */
-	private $_stashedFactoryState = array(
-		'config' => null,
-		'session' => null,
-		'language' => null,
-	);
 
 	/**
 	 * This method is called before the first test of this test class is run.
@@ -79,10 +62,6 @@ abstract class TestDatabase extends \PHPUnit_Extensions_Database_TestCase
 		{
 			self::$driver = null;
 		}
-
-		// Setup the factory pointer for the driver and stash the old one.
-		self::$_stash = Factory::$database;
-		Factory::$database = self::$driver;
 	}
 
 	/**
@@ -94,7 +73,6 @@ abstract class TestDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 */
 	public static function tearDownAfterClass()
 	{
-		Factory::$database = self::$_stash;
 		self::$driver = null;
 	}
 
@@ -211,34 +189,6 @@ abstract class TestDatabase extends \PHPUnit_Extensions_Database_TestCase
 	{
 		// Required given the use of InnoDB contraints.
 		return \PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL();
-	}
-
-	/**
-	 * Sets the Factory pointers
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function restoreFactoryState()
-	{
-		Factory::$config = $this->_stashedFactoryState['config'];
-		Factory::$session = $this->_stashedFactoryState['session'];
-		Factory::$language = $this->_stashedFactoryState['language'];
-	}
-
-	/**
-	 * Saves the Factory pointers
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function saveFactoryState()
-	{
-		$this->_stashedFactoryState['config'] = Factory::$config;
-		$this->_stashedFactoryState['session'] = Factory::$session;
-		$this->_stashedFactoryState['language'] = Factory::$language;
 	}
 
 	/**

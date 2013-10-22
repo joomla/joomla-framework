@@ -57,7 +57,7 @@ The `quote` method will escape a string and wrap it in quotes, however, the esca
 function search($title)
 {
 	// Get the database driver from the factory, or by some other suitable means.
-	$db = JFactory::getDbo();
+	$db = DatabaseDriver::getInstance($options);
 
 	// Search for an exact match of the title, correctly sanitising the untrusted input.
 	$sql1 = 'SELECT * FROM #__content WHERE title = ' . $db->quote($title);
@@ -95,7 +95,7 @@ These shorthand versions are also available when using the `Database\DatabaseQue
 The `Database\DatabaseIterator` class allows iteration over database results
 
 ```php
-$dbo = JFactory::getDbo();
+$db = DatabaseDriver::getInstance($options);
 $iterator = $dbo->setQuery(
 	$dbo->getQuery(true)->select('*')->from('#__content')
 )->getIterator();
