@@ -4,14 +4,15 @@ This document is about creating tests for the Joomla Framework.
 
 ## PHP Unit Tests
 
-This section provides some useful information about making PHP unit
-tests.
+This section provides some useful information about creating PHP unit tests.
 
-It is important to note that unit test code must follow the same coding
-standards as the rest of the platform. To that end, code style must be
-observed and DocBlocks fully completed. The `@since` tag must be
-included when you add a new, full test (not necessary for test stubs
-that are marked as incomplete).
+> **Note**
+>
+> Unit tests should always observe the [Joomla Framework Coding Standards](https://github.com/joomla/coding-standards/).
+> Ensure the code is well formatted and that full DocBlocks are
+> provided. Most importantly, ensure the @since tag reflects the version
+> the test was added. (Not necessary for tests stubs that are marked
+> as incomplete.
 
 ### Accessing and Invoking Protected Properties and Methods
 
@@ -23,7 +24,7 @@ read, modify and invoke protected and private properties and methods.
 
 ```php
 /**
- * Tests the JClass::__construct method
+ * Tests the SomeClass::__construct method
  *
  * @return  void
  *
@@ -31,7 +32,7 @@ read, modify and invoke protected and private properties and methods.
  */
 public function test__construct()
 {
-	$object = new JMyClass('foo');
+	$object = new SomeClass('foo');
 
 	// For the purposes of this example, we are assuming that 'name' is a protected class property
 	// that is set by an argument passed into the class constructor.
@@ -42,8 +43,8 @@ public function test__construct()
 	);
 }
 
-To gain access to a protected method you might do something add a method
-like the following example to your inspector class:
+To gain access to a protected method you might add a method like the
+following example to your inspector class:
 
 /**
  * Test that calls a protected method called 'hidden'
@@ -54,7 +55,7 @@ like the following example to your inspector class:
  */
 public function hidden()
 {
-	$object = new JMyClass('foo');
+	$object = new SomeClass('foo');
 
 	$this->assertThat(
 		TestReflection::invoke($object, 'hidden', 'arg1'),
@@ -63,10 +64,3 @@ public function hidden()
 	);
 }
 ```
-
-> **Note**
->
-> Unit tests should always observe the Joomla Framework Coding Standards.
-> Ensure the code is well formatted and that full DocBlocks are
-> provided. Most importantly, ensure the @since tag reflects the version
-> the test was added.
