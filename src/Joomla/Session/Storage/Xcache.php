@@ -9,7 +9,6 @@
 namespace Joomla\Session\Storage;
 
 use Joomla\Session\Storage;
-use RuntimeException;
 
 /**
  * XCache session storage handler
@@ -24,13 +23,13 @@ class Xcache extends Storage
 	 * @param   array  $options  Optional parameters.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function __construct($options = array())
 	{
 		if (!self::isSupported())
 		{
-			throw new RuntimeException('XCache Extension is not available', 404);
+			throw new \RuntimeException('XCache Extension is not available', 404);
 		}
 
 		parent::__construct($options);

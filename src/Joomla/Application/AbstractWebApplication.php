@@ -758,4 +758,55 @@ abstract class AbstractWebApplication extends AbstractApplication
 			$this->set('uri.media.path', $this->get('uri.base.path') . 'media/');
 		}
 	}
+
+	/**
+	 * Checks for a form token in the request.
+	 *
+	 * Use in conjunction with getFormToken.
+	 *
+	 * @param   string  $method  The request method in which to look for the token key.
+	 *
+	 * @return  boolean  True if found and valid, false otherwise.
+	 *
+	 * @since   1.0
+	 */
+	public function checkToken($method = 'post')
+	{
+		$token = $this->getFormToken();
+
+		if (!$this->input->$method->get($token, '', 'alnum'))
+		{
+			if ($this->session->isNew())
+			{
+				// Redirect to login screen.
+				$this->redirect('index.php');
+				$this->close();
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Method to determine a hash for anti-spoofing variable names
+	 *
+	 * @param   boolean  $forceNew  If true, force a new token to be created
+	 *
+	 * @return  string  Hashed var name
+	 *
+	 * @since   1.0
+	 */
+	public function getFormToken($forceNew = false)
+	{
+		// @todo we need the user id somehow here
+		$userId  = 0;
+
+		return md5($this->get('secret') . $userId . $this->session->getToken($forceNew));
+	}
 }

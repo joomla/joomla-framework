@@ -9,8 +9,6 @@
 namespace Joomla\Session\Storage;
 
 use Joomla\Session\Storage;
-use Joomla\Factory;
-use RuntimeException;
 
 /**
  * Memcached session storage handler for PHP
@@ -25,25 +23,23 @@ class Memcached extends Storage
 	 * @param   array  $options  Optional parameters.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function __construct($options = array())
 	{
 		if (!self::isSupported())
 		{
-			throw new RuntimeException('Memcached Extension is not available', 404);
+			throw new \RuntimeException('Memcached Extension is not available', 404);
 		}
 
 		parent::__construct($options);
-
-		$config = Factory::getConfig();
 
 		// This will be an array of loveliness
 		// @todo: multiple servers
 		$this->_servers = array(
 			array(
-				'host' => $config->get('memcache_server_host', 'localhost'),
-				'port' => $config->get('memcache_server_port', 11211)
+				'host' => isset($options['memcache_server_host']) ? $options['memcache_server_host'] : 'localhost',
+				'port' => isset($options['memcache_server_port']) ? $options['memcache_server_port'] : 11211
 			)
 		);
 	}
@@ -57,7 +53,7 @@ class Memcached extends Storage
 	 */
 	public function register()
 	{
-		ini_set('session.save_path', $this->_servers['host'] . ':' . $this->_servers['port']);
+		ini_set('session.save_path', $this->_servers[0]['host'] . ':' . $this->_servers[0]['port']);
 		ini_set('session.save_handler', 'memcached');
 	}
 
