@@ -70,7 +70,7 @@ class JFormFieldTest extends \PHPUnit_Framework_TestCase
 		);
 
 		// Add custom path.
-		Form::addFieldPath(__DIR__ . '/_testfields');
+		FormHelper::addFieldPath(__DIR__ . '/_testfields');
 
 		FormHelper::loadFieldType('foo.bar');
 		$field = new \Foo\Form\Field_Bar($form);
@@ -306,7 +306,7 @@ class JFormFieldTest extends \PHPUnit_Framework_TestCase
 	 * Test an invalid argument for the Joomla\Form\Field::setup method
 	 *
 	 * @covers Joomla\Form\Field::setup
-	 * @expectedException PHPUnit_Framework_Error
+	 * @expectedException \PHPUnit_Framework_Error
 	 *
 	 * @return void
 	 */
