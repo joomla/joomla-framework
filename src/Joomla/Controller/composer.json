@@ -9,13 +9,13 @@
         "php": ">=5.3.10"
     },
     "require-dev": {
-        "joomla/application": "1.0-beta2",
-        "joomla/input": "1.0-beta2",
-        "joomla/test": "1.0-beta2"
+        "joomla/application": "1.0-beta3",
+        "joomla/input": "1.0-beta3",
+        "joomla/test": "1.0-beta3"
     },
     "suggest": {
-    	"joomla/application": "1.0-beta2",
-    	"joomla/input": "1.0-beta2"
+    	"joomla/application": "1.0-beta3",
+    	"joomla/input": "1.0-beta3"
     },
     "target-dir": "Joomla/Controller",
     "autoload": {
