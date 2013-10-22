@@ -1,7 +1,6 @@
 # The Event Package
 
-The event package provides foundations to build event systems and an implementation supporting
-prioritized listeners.
+The event package provides foundations to build event systems and an implementation supporting prioritized listeners.
 
 ## Events
 
@@ -134,8 +133,7 @@ $dispatcher->addListener(
 	array('onContentSave' => Priority::NORMAL)
 );
 ```
-As you noticed, it is possible to specify a listener's priority for a given Event.
-It is also possible to do so with "object" Listeners.
+As you noticed, it is possible to specify a listener's priority for a given Event. It is also possible to do so with "object" Listeners.
 
 ### Registration with Priority
 
@@ -161,8 +159,7 @@ $dispatcher->addListener(
 
 The default priority is the `Priority::NORMAL`.
 
-When you add an "object" Listener without specifying the event names,
-it is registered with a NORMAL priority to all events.
+When you add an "object" Listener without specifying the event names, it is registered with a NORMAL priority to all events.
 
 ```php
 /**
@@ -308,7 +305,7 @@ class ContentModel implements DispatcherAwareInterface
 
 ## Immutable Events
 
-An immutable event cannot be modified after its instanciation :
+An immutable event cannot be modified after its instanciation:
 
 - its arguments cannot be modified
 - its propagation can't be stopped
@@ -326,8 +323,7 @@ $event = new EventImmutable('onSomething', array('foo' => 'bar'));
 
 ## The Delegating Dispatcher
 
-A dispatcher that delegates its method to an other Dispatcher.
-It is an easy way to achieve immutability for a Dispatcher.
+A dispatcher that delegates its method to an other Dispatcher. It is an easy way to achieve immutability for a Dispatcher.
 
 ```php
 namespace MyApp;

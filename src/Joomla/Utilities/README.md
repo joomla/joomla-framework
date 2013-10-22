@@ -5,6 +5,8 @@
 ### toInteger
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $input = array(
     "width" => "100",
     "height" => "200xxx",
@@ -28,6 +30,8 @@ array(3) {
 ### toObject
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 class Book {
     public $name;
     public $author;
@@ -80,6 +84,8 @@ class Book#1 (4) {
 ### toString
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $input = array(
     "fruit" => "apple",
     "pi" => 3.14
@@ -94,6 +100,8 @@ fruit="apple" pi="3.14"
 ### fromObject
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 class Book {
     public $name;
     public $author;
@@ -138,6 +146,8 @@ array(4) {
 ### getColumn
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $rows = array(
     array("name" => "John", "age" => 20),
     array("name" => "Alex", "age" => 35),
@@ -160,6 +170,8 @@ array(3) {
 
 ### getValue
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $city = array(
     "name" => "Oslo",
     "country" => "Norway"
@@ -175,6 +187,8 @@ echo ArrayHelper::getValue($city, 'mayor', 'unknown mayor');
 ### invert
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $input = array(
     'New' => array('1000', '1500', '1750'),
     'Used' => array('3000', '4000', '5000', '6000')
@@ -206,6 +220,8 @@ array(7) {
 ### isAssociative
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $user = array("id" => 46, "name" => "John");
 echo ArrayHelper::isAssociative($user) ? 'true' : 'false'; // true
 
@@ -216,6 +232,8 @@ echo ArrayHelper::isAssociative($letters) ? 'true' : 'false'; // false
 ### pivot
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $movies = array(
     array('year' => 1972, 'title' => 'The Godfather'),
     array('year' => 2000, 'title' => 'Gladiator'),
@@ -265,6 +283,8 @@ array(3) {
 ### sortObjects
 
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $members = array(
     (object) array('first_name' => 'Carl', 'last_name' => 'Hopkins'),
     (object) array('first_name' => 'Lisa', 'last_name' => 'Smith'),
@@ -302,6 +322,8 @@ array(3) {
 
 ### arrayUnique
 ```php
+use Joomla\Utilities\ArrayHelper;
+
 $names = array(
     array("first_name" => "John", "last_name" => "Adams"),
     array("first_name" => "John", "last_name" => "Adams"),

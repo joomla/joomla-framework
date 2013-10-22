@@ -2,12 +2,14 @@
 
 ## Initialising Applications
 
-`Application\Base` implements an `initialise` method that is called at the end of the constructor. This method is intended to be overriden in derived classes as needed by the developer.
+`AbstractApplication` implements an `initialise` method that is called at the end of the constructor. This method is intended to be overriden in derived classes as needed by the developer.
 
 If you are overriding the `__construct` method in your application class, remember to call the parent constructor last.
 
 ```php
 use Joomla\Application\AbstractApplication;
+use Joomla\Input\Input;
+use Joomla\Registry\Registry;
 
 class MyApplication extends AbstractApplication
 {
@@ -28,6 +30,13 @@ class MyApplication extends AbstractApplication
 		parent::__construct($input, $config);
 	}
 
+	/**
+	 * Method to run the application routines.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
 	protected function doExecute()
 	{
 		// Do stuff.
@@ -51,9 +60,9 @@ class MyApplication extends AbstractApplication
 
 ## Logging within Applications
 
-`Application\Base` implements the `Psr\Log\LoggerAwareInterface` so is ready for intergrating with an logging package that supports that standard.
+`AbstractApplication` implements the `Psr\Log\LoggerAwareInterface` so is ready for intergrating with an logging package that supports that standard.
 
-The following example shows how you could set up logging in your application using `initialise` method from `Application\Base`.
+The following example shows how you could set up logging in your application using `initialise` method from `AbstractApplication`.
 
 ```php
 use Joomla\Application\AbstractApplication;
@@ -108,8 +117,6 @@ class MyApplication extends AbstractApplication
 {
 	protected function doExecute()
 	{
-		// Do stuff.
-
 		// In this case, we always want the logger set.
 		$this->getLogger()->logInfo('Performed this {task}', array('task' => $task));
 
@@ -128,9 +135,9 @@ For more complicated mocking where you need to similate real behaviour, you can 
 
 There are three mocking methods available:
 
-1. `createMockBase` will create a mock for `Application\Base`.
-2. `createMockCli` will create a mock for `Application\Cli`.
-3. `createMockWeb` will create a mock for `Application\Web`.
+1. `createMockBase` will create a mock for `AbstractApplication`.
+2. `createMockCli` will create a mock for `AbstractCliApplication`.
+3. `createMockWeb` will create a mock for `AbstractWebApplication`.
 
 ```php
 use Joomla\Application\Tests\Mocker as AppMocker;
@@ -146,6 +153,7 @@ class MyTest extends \PHPUnit_Framework_TestCase
 		// Create the mock input object.
 		$appMocker = new AppMocker($this);
 		$mockApp = $appMocker->createMockWeb();
+
 		// Create the test instance injecting the mock dependency.
 		$this->instance = new MyClass($mockApp);
 	}
@@ -180,8 +188,6 @@ The Joomla Framework provides an application class for making command line appli
 An example command line application skeleton:
 
 ```php
-<?php
-
 use Joomla\Application\AbstractCliApplication;
 
 // Bootstrap the autoloader (adjust path as appropriate to your situation).
@@ -205,6 +211,8 @@ $app->execute();
 It is possible to use colors on an ANSI enabled terminal.
 
 ```php
+use Joomla\Application\AbstractCliApplication;
+
 class MyCli extends AbstractCliApplication
 {
 	protected function doExecute()
@@ -227,6 +235,7 @@ class MyCli extends AbstractCliApplication
 You can also create your own styles.
 
 ```php
+use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\Colorstyle;
 
 class MyCli extends AbstractCliApplication
@@ -243,7 +252,7 @@ class MyCli extends AbstractCliApplication
 		$style = new Colorstyle('yellow', 'red', array('bold', 'blink'));
 		$this->getOutput()->addStyle('fire', $style);
 	}
-	
+
 	protected function doExecute()
 	{
 		$this->out('<fire>foo</fire>');
@@ -259,6 +268,8 @@ And available options are: bold, underscore, blink and reverse.
 You can also set these colors and options inside the tagname:
 
 ```php
+use Joomla\Application\AbstractCliApplication;
+
 class MyCli extends AbstractCliApplication
 {
 	protected function doExecute()

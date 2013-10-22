@@ -1,7 +1,6 @@
 ## The Profiler Package
 
-The Joomla Framework provides you a Profiler to profile the time
-that it takes to do certain tasks or reach various milestones as your extension runs.
+The Joomla Framework provides you a Profiler to profile the time that it takes to do certain tasks or reach various milestones as your extension runs.
 
 ### Usage
 
@@ -63,18 +62,15 @@ Notes 1.000 seconds (+1.000); 3.00 MB (+3.000) - Middle
 Notes 1.813 seconds (+0.813); 6.24 MB (+3.240) - End
 ```
 
-You can see each line is qualified by the name you used when creating your profiler,
-and then the names you used for the mark.
+You can see each line is qualified by the name you used when creating your profiler, and then the names you used for the mark.
 
 The start point (the first marked point) is the reference, and by consequence has a null time and memory usage.
 
-We can see that the code executed between the "Start" and the "Middle" point took 1 second to perform and
-increased the memory usage by 3 Mega Bytes.
+We can see that the code executed between the "Start" and the "Middle" point took 1 second to perform and increased the memory usage by 3 Mega Bytes.
 
 ## Writing your own Renderer
 
-You can write your own renderer if you need an other formatting.
-In order to do so, you need to implement the ProfilerRendererInterface.
+You can write your own renderer if you need an other formatting. In order to do so, you need to implement the ProfilerRendererInterface.
 
 ```php
 namespace MyApp;

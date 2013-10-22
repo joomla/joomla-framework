@@ -2,8 +2,7 @@
 
 ## Introduction
 
-The *Database* package is designed to manage the operations of data
-management through the use of a generic database engine.
+The *Database* package is designed to manage the operations of data management through the use of a generic database engine.
 
 ```php
 // Example for initialising a database driver in a custom application class.
@@ -16,7 +15,7 @@ class MyApplication extends AbstractApplication
 	/**
 	 * Database driver.
 	 *
-	 * @var    Database\Driver
+	 * @var    Database\DatabaseDriver
 	 * @since  1.0
 	 */
 	protected $db;
@@ -26,10 +25,10 @@ class MyApplication extends AbstractApplication
 		// Do stuff
 	}
 
-	protected function initiliase()
+	protected function initialise()
 	{
 		// Make the database driver.
-		$dbFactory = new Database\Factory;
+		$dbFactory = new Database\DatabaseFactory;
 
 		$this->db = $dbFactory->getDriver(
 			$this->get('database.driver'),
@@ -67,7 +66,6 @@ function search($title)
 	$search = $db->quote($db->escape($title, true) . '%', false);
 	$sql2 = 'SELECT * FROM #__content WHERE title LIKE ' . $search;
 
-	//
 	if (is_array($title))
 	{
 		$sql3 = 'SELECT * FROM #__content WHERE title IN ('
@@ -87,20 +85,21 @@ In the third case, the title variable is an array so the whole array can be pass
 Shorthand versions are  available the these methods:
 
 * `q` can be used instead of `quote`
+* `qn` can be used instead of `quoteName`
 * `e` can be used instead of `escape`
 
-These shorthand versions are also available when using the `Database\Query` class.
+These shorthand versions are also available when using the `Database\DatabaseQuery` class.
 
 ## Iterating Over Results
 
-The `JDatabaseIterator` class allows iteration over
-database results
+The `Database\DatabaseIterator` class allows iteration over database results
 
 ```php
 $dbo = JFactory::getDbo();
 $iterator = $dbo->setQuery(
 	$dbo->getQuery(true)->select('*')->from('#__content')
 )->getIterator();
+
 foreach ($iterator as $row)
 {
     // Deal with $row
@@ -114,7 +113,7 @@ $count = count($iterator);
 ```
 ## Logging
 
-`Database\Driver` implements the `Psr\Log\LoggerAwareInterface` so is ready for intergrating with an logging package that supports that standard.
+`Database\DatabaseDriver` implements the `Psr\Log\LoggerAwareInterface` so is ready for intergrating with a logging package that supports that standard.
 
 Drivers log all errors with a log level of `LogLevel::ERROR`.
 
@@ -122,7 +121,6 @@ If debugging is enabled (using `setDebug(true)`), all queries are logged with a 
 
 * **sql** : The query that was executed.
 * **category** : A value of "databasequery" is used.
-*
 
 
 ## Installation via Composer

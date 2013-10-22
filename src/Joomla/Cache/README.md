@@ -1,6 +1,6 @@
 # The Cache Package
 
-This cache package complies with the `Psr\Cache` standard.
+This cache package complies with the proposed `Psr\Cache` standard.
 
 ## Options and General Usage
 
@@ -8,7 +8,7 @@ Following option as available across a cache storage types:
 
 * ttl - Time to live.
 
-```
+```php
 use Joomla\Cache;
 
 $options = array(
@@ -37,7 +37,6 @@ $values = $cache->setMultiple(array('key1' => 'value1, 'key2' => 'value2'));
 
 // Remove multiple values from the cache at once.
 $values = $cache->removeMultiple(array('key1', 'key2'));
-
 ```
 
 ## Cache Storage Types
@@ -46,7 +45,7 @@ The following storage types are supported.
 
 ### Apc
 
-```
+```php
 use Joomla\Cache;
 
 $cache = new Cache\Apc;
@@ -123,7 +122,7 @@ use Joomla\Cache\Tests\Mocker as CacheMocker;
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
 	private $instance;
-	
+
 	//
 	// The following mocking methods are optional.
 	//

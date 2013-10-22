@@ -2,24 +2,21 @@
 
 ## Interfaces
 
-### `Model\Model`
+### `Model\ModelInterface`
 
-`Model\Model` is an interface that requires a class to be implemented with a
-`getState` and a `setState` method.
+`Model\ModelInterface` is an interface that requires a class to be implemented with a `getState` and a `setState` method.
 
 ## Classes
 
-# `Model\Base`
+# `Model\AbstractModel`
 
 #### Construction
 
-The contructor for a new `Model\Base` object takes an optional `Registry` object that
-defines the state of the model. If omitted, an empty `Registry` object will be assigned automatically.
+The contructor for a new `Model\AbstractModel` object takes an optional `Registry` object that defines the state of the model. If omitted, an empty `Registry` object will be assigned automatically.
 
 #### Usage
 
-The `Model\Base` class can be instantiated directly if required. All
-requirements of the interface are already satisfied by the base class.
+The `Model\AbstractModel` class is abstract. All requirements of the interface are already satisfied by the base class.
 
 ```php
 
@@ -50,16 +47,15 @@ class MyModel extends AbstractModel
 }
 ```
 
-# `Model\Database`
+# `Model\AbstractDatabaseModel`
 
 #### Construction
 
-`Model\Database` is extended from `Model\Base` and the contructor takes a required `Database\Driver` object and an optional `Registry` object.
+`Model\AbstractDatabaseModel` is extended from `Model\AbstractModel` and the contructor takes a required `Database\DatabaseDriver` object and an optional `Registry` object.
 
 #### Usage
 
-The `Model\Database` class is abstract so cannot be used directly. It
-forms a base for any model that needs to interact with a database.
+The `Model\AbstractDatabaseModel` class is abstract so cannot be used directly. It forms a base for any model that needs to interact with a database.
 
 ```php
 
@@ -75,7 +71,7 @@ use Joomla\Database;
  *
  * @since   1.0
  */
-class MyDatabaseModel extends Model\Database
+class MyDatabaseModel extends Model\AbstractDatabaseModel
 {
 	/**
 	 * Get the content count.
@@ -102,7 +98,7 @@ class MyDatabaseModel extends Model\Database
 
 try
 {
-	$driver = Database\Factory::getInstance()->getDriver('mysqli');
+	$driver = Database\DatabaseFactory::getInstance()->getDriver('mysqli');
 	$model = new MyDatabaseModel($driver);
 	$count = $model->getCount();
 }
