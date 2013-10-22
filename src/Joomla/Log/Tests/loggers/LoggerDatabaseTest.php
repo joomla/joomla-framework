@@ -8,10 +8,7 @@ require_once __DIR__ . '/stubs/database/inspector.php';
 
 use Joomla\Log\Log;
 use Joomla\Log\LogEntry;
-use Joomla\Factory;
-use Joomla\Log\Logger\Database as LoggerDatabase;
 use Joomla\Test\TestDatabase;
-use Joomla\Test\TestHelper;
 
 /**
  * Test class for LoggerDatabase.
@@ -39,18 +36,32 @@ class LoggerDatabaseTest extends TestDatabase
 	 */
 	public function testConstructor01()
 	{
-		// Setup the basic configuration.
 		$config = array(
-			'db_driver' => 'mysqli',
-			'db_host' => 'db.domain.com'
+			'db' => self::$driver
 		);
+
 		$logger = new JLogLoggerDatabaseInspector($config);
 
-		// Verify some internal values.
-		$this->assertEquals($logger->driver, 'mysqli', 'Line: ' . __LINE__);
-		$this->assertEquals($logger->host, 'db.domain.com', 'Line: ' . __LINE__);
-		$this->assertEquals($logger->user, 'root', 'Line: ' . __LINE__);
-		$this->assertEquals($logger->dbo, null, 'Line: ' . __LINE__);
+		$this->assertInstanceOf(
+			'Joomla\\Database\\DatabaseDriver',
+			$logger->db,
+			'The $db property of a properly configured Database storage must be an instance of Joomla\\Database\\DatabaseDriver'
+		);
+	}
+
+	/**
+	 * Test that the constructor throws an exception when
+	 * it's not passed a configured database driver.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @expectedException  \RuntimeException
+	 */
+	public function testConstructorException()
+	{
+		$config = array();
+		$logger = new JLogLoggerDatabaseInspector($config);
 	}
 
 	/**
@@ -62,8 +73,9 @@ class LoggerDatabaseTest extends TestDatabase
 	 */
 	public function testAddEntry01()
 	{
-		// Setup the basic configuration.
-		$config = array();
+		$config = array(
+			'db' => self::$driver
+		);
 		$logger = new JLogLoggerDatabaseInspector($config);
 
 		// Get the expected database from XML.
@@ -79,87 +91,5 @@ class LoggerDatabaseTest extends TestDatabase
 
 		// Verify that the data sets are equal.
 		$this->assertDataSetsEqual($expected, $actual);
-	}
-
-	/**
-	 * Test the Joomla\Log\Logger\Database::addEntry method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testAddEntry02()
-	{
-		// Setup the logger.
-		$config = array(
-			'db_driver' => 'sqlite',
-			'db_database' => ':memory:',
-			'db_prefix' => 'jos_'
-		);
-		$logger = new LoggerDatabase($config);
-		TestHelper::setValue($logger, 'dbo', Factory::$database);
-
-		// Get the expected database from XML.
-		$expected = $this->createXMLDataSet(__DIR__ . '/stubs/database/S01E01.xml');
-
-		// Add the new entries to the database.
-		$logger->addEntry(new LogEntry('Testing Entry 02', Log::INFO, null, '2009-12-01 12:30:00'));
-		$logger->addEntry(new LogEntry('Testing3', Log::EMERGENCY, 'deprecated', '2010-12-01 02:30:00'));
-
-		// Get the actual dataset from the database.
-		$actual = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
-		$actual->addTable('jos_log_entries');
-
-		// Verify that the data sets are equal.
-		$this->assertDataSetsEqual($expected, $actual);
-	}
-
-	/**
-	 * Test the Joomla\Log\Logger\Database::connect method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testConnect01()
-	{
-		// Setup the basic configuration.
-		$config = array(
-			'db_driver' => 'sqlite',
-			'db_database' => ':memory:',
-			'db_prefix' => 'jos_'
-		);
-
-		$logger = new JLogLoggerDatabaseInspector($config);
-		$logger->connect();
-
-		$this->assertInstanceOf(
-			'Joomla\\Database\\DatabaseDriver',
-			$logger->dbo,
-			'Line: ' . __LINE__
-		);
-	}
-
-	/**
-	 * Failing test for the Joomla\Log\Logger\Database::connect method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 *
-	 * @expectedException RuntimeException
-	 */
-	public function testConnect02()
-	{
-		// Setup the basic configuration.
-		$config = array(
-			'db_driver' => 'failure',
-			'db_host' => 'foo',
-			'db_database' => 'bar',
-			'db_prefix' => 'blah_'
-		);
-
-		$logger = new JLogLoggerDatabaseInspector($config);
-		$logger->connect();
 	}
 }

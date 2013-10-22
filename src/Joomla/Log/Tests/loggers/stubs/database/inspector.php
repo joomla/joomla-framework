@@ -27,15 +27,5 @@ class JLogLoggerDatabaseInspector extends Joomla\Log\Logger\Database
 
 	public $table;
 
-	public $dbo;
-
-	/**
-	 * Test...
-	 *
-	 * @return void
-	 */
-	public function connect()
-	{
-		parent::connect();
-	}
+	public $db;
 }
