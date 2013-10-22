@@ -1272,7 +1272,7 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test getFormToken
 	 *
-	 * @covers  JSession::getFormToken
+	 * @covers  Joomla\Application\AbstractWebApplication::getFormToken
 	 *
 	 * @return void
 	 */
