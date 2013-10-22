@@ -96,8 +96,8 @@ The `Database\DatabaseIterator` class allows iteration over database results
 
 ```php
 $db = DatabaseDriver::getInstance($options);
-$iterator = $dbo->setQuery(
-	$dbo->getQuery(true)->select('*')->from('#__content')
+$iterator = $db->setQuery(
+	$db->getQuery(true)->select('*')->from('#__content')
 )->getIterator();
 
 foreach ($iterator as $row)
