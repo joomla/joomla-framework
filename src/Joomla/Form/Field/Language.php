@@ -8,7 +8,7 @@
 
 namespace Joomla\Form;
 
-use Joomla\Language\LanguageHelper;
+use Joomla\Language\Language;
 
 /**
  * Form Field class for the Joomla Framework.
@@ -36,20 +36,49 @@ class Field_Language extends Field_List
 	 */
 	protected function getOptions()
 	{
-		// Initialize some field attributes.
-		$client = (string) $this->element['client'];
-
-		if ($client != 'site' && $client != 'administrator')
-		{
-			$client = 'site';
-		}
+		$basePath = $this->element['base_path'] ? (string) $this->element['base_path'] : JPATH_ROOT;
 
 		// Merge any additional options in the XML definition.
 		$options = array_merge(
 			parent::getOptions(),
-			LanguageHelper::createLanguageList($this->value, constant('JPATH_' . strtoupper($client)), true, true)
+			$this->createLanguageList($this->value, $basePath)
 		);
 
 		return $options;
+	}
+
+	/**
+	 * Builds a list of the system languages which can be used in a select option
+	 *
+	 * @param   string   $selected  Client key for the area
+	 * @param   string   $basePath  Base path to use
+	 *
+	 * @return  array  List of system languages
+	 *
+	 * @since   1.0
+	 */
+	protected function createLanguageList($selected, $basePath = JPATH_ROOT)
+	{
+		$list = array();
+
+		// Cache activation
+		$langs = Language::getKnownLanguages($basePath);
+
+		foreach ($langs as $lang => $metadata)
+		{
+			$option = array();
+
+			$option['text'] = $metadata['name'];
+			$option['value'] = $lang;
+
+			if ($lang == $selected)
+			{
+				$option['selected'] = 'selected="selected"';
+			}
+
+			$list[] = $option;
+		}
+
+		return $list;
 	}
 }
