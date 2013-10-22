@@ -12,8 +12,6 @@ use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
 use Joomla\Application\AbstractWebApplication;
-use Joomla\Factory;
-use \DomainException;
 
 /**
  * Joomla Framework class for interacting with an OAuth 1.0 and 1.0a server.
@@ -69,14 +67,13 @@ abstract class Client
 	 *
 	 * @since 1.0
 	 */
-	public function __construct(Registry $options = null, Http $client = null, Input $input = null, AbstractWebApplication $application = null,
-		$version = null)
+	public function __construct(Registry $options, Http $client, Input $input, AbstractWebApplication $application, $version = '1.0a')
 	{
-		$this->options = isset($options) ? $options : new Registry;
-		$this->client = isset($client) ? $client : new Http($this->options);
-		$this->application = isset($application) ? $application : Factory::$application;
-		$this->input = isset($input) ? $input : $this->application->input;
-		$this->version = isset($version) ? $version : '1.0a';
+		$this->options = $options;
+		$this->client = $client;
+		$this->input = $input;
+		$this->application = $application;
+		$this->version = $version;
 	}
 
 	/**
@@ -127,7 +124,7 @@ abstract class Client
 		// Callback
 		else
 		{
-			$session = Factory::getSession();
+			$session = $this->application->getSession();
 
 			// Get token form session.
 			$this->token = array('key' => $session->get('key', null, 'oauth_token'), 'secret' => $session->get('secret', null, 'oauth_token'));
@@ -135,7 +132,7 @@ abstract class Client
 			// Verify the returned request token.
 			if (strcmp($this->token['key'], $this->input->get('oauth_token')) !== 0)
 			{
-				throw new DomainException('Bad session!');
+				throw new \DomainException('Bad session!');
 			}
 
 			// Set token verifier for 1.0a.
@@ -181,14 +178,14 @@ abstract class Client
 
 		if (strcmp($this->version, '1.0a') === 0 && strcmp($params['oauth_callback_confirmed'], 'true') !== 0)
 		{
-			throw new DomainException('Bad request token!');
+			throw new \DomainException('Bad request token!');
 		}
 
 		// Save the request token.
 		$this->token = array('key' => $params['oauth_token'], 'secret' => $params['oauth_token_secret']);
 
 		// Save the request token in session
-		$session = Factory::getSession();
+		$session = $this->application->getSession();
 		$session->set('key', $this->token['key'], 'oauth_token');
 		$session->set('secret', $this->token['secret'], 'oauth_token');
 	}

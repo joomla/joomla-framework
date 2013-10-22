@@ -9,11 +9,8 @@ namespace Joomla\Oauth1\Tests;
 use Joomla\Oauth1\Client;
 use Joomla\Registry\Registry;
 use Joomla\Input\Input;
-use Joomla\Http\Http;
 use Joomla\Test\WebInspector;
-use Joomla\Factory;
-use stdClass;
-use Joomla\Test\TestHelper as TestHelper;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/stubs/ClientInspector.php';
 
@@ -38,7 +35,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    Http  Mock http object.
+	 * @var    object  Mock http object.
 	 * @since  1.0
 	 */
 	protected $client;
@@ -49,10 +46,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	 * @var    ClientInspector
 	 * @since  1.0
 	 */
-	protected $class;
+	protected $object;
 
 	/**
-	 * @var   AbstractWebApplication  The application object to send HTTP headers for redirects.
+	 * @var   \Joomla\Application\AbstractWebApplication  The application object to send HTTP headers for redirects.
 	 */
 	protected $application;
 
@@ -90,20 +87,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$this->input = new Input;
 		$this->application = new WebInspector;
 
+		$this->application->setSession($this->getMock('Joomla\\Session\\Session'));
+
 		$this->options->set('consumer_key', $key);
 		$this->options->set('consumer_secret', $secret);
 		$this->object = new ClientInspector($this->options, $this->client, $this->input, $this->application);
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 *
-	 * @return void
-	 */
-	protected function tearDown()
-	{
-		Factory::$session = null;
 	}
 
 	/**
@@ -152,7 +140,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			$this->object->setOption('accessTokenURL', 'https://example.com/access_token');
 
 			// Request token.
-			$returnData = new stdClass;
+			$returnData = new \stdClass;
 			$returnData->code = 200;
 			$returnData->body = 'oauth_token=token&oauth_token_secret=secret&oauth_callback_confirmed=true';
 
@@ -207,7 +195,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 							->with('secret', null, 'oauth_token')
 							->will($this->returnValue('session'));
 
-				Factory::$session = $mockSession;
+				$this->application->setSession($mockSession);
 
 				$this->setExpectedException('DomainException');
 				$result = $this->object->authenticate();
@@ -223,9 +211,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 						->with('secret', null, 'oauth_token')
 						->will($this->returnValue('secret'));
 
-			Factory::$session = $mockSession;
+			$this->application->setSession($mockSession);
 
-			$returnData = new stdClass;
+			$returnData = new \stdClass;
 			$returnData->code = 200;
 			$returnData->body = 'oauth_token=token_key&oauth_token_secret=token_secret';
 
@@ -253,7 +241,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->object->setOption('requestTokenURL', 'https://example.com/request_token');
 
-		$returnData = new stdClass;
+		$returnData = new \stdClass;
 		$returnData->code = 200;
 		$returnData->body = 'oauth_token=token&oauth_token_secret=secret&oauth_callback_confirmed=false';
 
@@ -294,7 +282,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOauthRequest($method)
 	{
-		$returnData = new stdClass;
+		$returnData = new \stdClass;
 		$returnData->code = 200;
 		$returnData->body = $this->sampleString;
 

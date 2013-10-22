@@ -13,7 +13,6 @@ use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
 use Joomla\Application\AbstractWebApplication;
-use \DomainException;
 
 /**
  * Joomla Framework class for generating Twitter API access token.
@@ -38,9 +37,9 @@ class OAuth extends Client
 	 *
 	 * @since 1.0
 	 */
-	public function __construct(Registry $options = null, Http $client = null, Input $input = null, AbstractWebApplication $application = null)
+	public function __construct(Registry $options, Http $client, Input $input, AbstractWebApplication $application)
 	{
-		$this->options = isset($options) ? $options : new Registry;
+		$this->options = $options;
 
 		$this->options->def('accessTokenURL', 'https://api.twitter.com/oauth/access_token');
 		$this->options->def('authenticateURL', 'https://api.twitter.com/oauth/authenticate');
@@ -108,13 +107,13 @@ class OAuth extends Client
 	/**
 	 * Method to validate a response.
 	 *
-	 * @param   string         $url       The request URL.
-	 * @param   JHttpResponse  $response  The response to validate.
+	 * @param   string                 $url       The request URL.
+	 * @param   \Joomla\Http\Response  $response  The response to validate.
 	 *
 	 * @return  void
 	 *
 	 * @since  1.0
-	 * @throws DomainException
+	 * @throws \DomainException
 	 */
 	public function validateResponse($url, $response)
 	{
@@ -124,12 +123,12 @@ class OAuth extends Client
 
 			if (property_exists($error, 'error'))
 			{
-				throw new DomainException($error->error);
+				throw new \DomainException($error->error);
 			}
 			else
 			{
 				$error = $error->errors;
-				throw new DomainException($error[0]->message, $error[0]->code);
+				throw new \DomainException($error[0]->message, $error[0]->code);
 			}
 		}
 	}

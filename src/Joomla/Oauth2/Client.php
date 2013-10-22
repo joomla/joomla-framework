@@ -12,10 +12,6 @@ use Joomla\Registry\Registry;
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Input\Input;
 use Joomla\Http\Http;
-use Joomla\Factory;
-use InvalidArgumentException;
-use RuntimeException;
-use Exception;
 
 /**
  * Joomla Framework class for interacting with an OAuth 2.0 server.
@@ -58,12 +54,12 @@ class Client
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Http $http = null, Input $input = null, AbstractWebApplication $application = null)
+	public function __construct(Registry $options, Http $http, Input $input, AbstractWebApplication $application)
 	{
-		$this->options = isset($options) ? $options : new Registry;
-		$this->http = isset($http) ? $http : new Http($this->options);
-		$this->application = isset($application) ? $application : Factory::$application;
-		$this->input = isset($input) ? $input : $this->application->input;
+		$this->options = $options;
+		$this->http = $http;
+		$this->input = $input;
+		$this->application = $application;
 	}
 
 	/**
@@ -72,7 +68,7 @@ class Client
 	 * @return  string  The access token
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function authenticate()
 	{
@@ -102,7 +98,7 @@ class Client
 			}
 			else
 			{
-				throw new RuntimeException('Error code ' . $response->code . ' received requesting access token: ' . $response->body . '.');
+				throw new \RuntimeException('Error code ' . $response->code . ' received requesting access token: ' . $response->body . '.');
 			}
 		}
 
@@ -145,13 +141,13 @@ class Client
 	 * @return  \Joomla\Http\Response  The HTTP response
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function createUrl()
 	{
 		if (!$this->getOption('authurl') || !$this->getOption('clientid'))
 		{
-			throw new InvalidArgumentException('Authorization URL and client_id are required');
+			throw new \InvalidArgumentException('Authorization URL and client_id are required');
 		}
 
 		$url = $this->getOption('authurl');
@@ -207,8 +203,8 @@ class Client
 	 * @return  string  The URL.
 	 *
 	 * @since   1.0
-	 * @throws  InvalidArgumentException
-	 * @throws  RuntimeException
+	 * @throws  \InvalidArgumentException
+	 * @throws  \RuntimeException
 	 */
 	public function query($url, $data = null, $headers = array(), $method = 'get', $timeout = null)
 	{
@@ -259,12 +255,12 @@ class Client
 				break;
 
 			default:
-				throw new InvalidArgumentException('Unknown HTTP request method: ' . $method . '.');
+				throw new \InvalidArgumentException('Unknown HTTP request method: ' . $method . '.');
 		}
 
 		if ($response->code < 200 || $response->code >= 400)
 		{
-			throw new RuntimeException('Error code ' . $response->code . ' received requesting data: ' . $response->body . '.');
+			throw new \RuntimeException('Error code ' . $response->code . ' received requesting data: ' . $response->body . '.');
 		}
 
 		return $response;
@@ -343,14 +339,14 @@ class Client
 	 * @return  array  The new access token
 	 *
 	 * @since   1.0
-	 * @throws  Exception
-	 * @throws  RuntimeException
+	 * @throws  \Exception
+	 * @throws  \RuntimeException
 	 */
 	public function refreshToken($token = null)
 	{
 		if (!$this->getOption('userefresh'))
 		{
-			throw new RuntimeException('Refresh token is not supported for this OAuth instance.');
+			throw new \RuntimeException('Refresh token is not supported for this OAuth instance.');
 		}
 
 		if (!$token)
@@ -359,7 +355,7 @@ class Client
 
 			if (!array_key_exists('refresh_token', $token))
 			{
-				throw new RuntimeException('No refresh token is available.');
+				throw new \RuntimeException('No refresh token is available.');
 			}
 
 			$token = $token['refresh_token'];
@@ -389,7 +385,7 @@ class Client
 		}
 		else
 		{
-			throw new Exception('Error code ' . $response->code . ' received refreshing token: ' . $response->body . '.');
+			throw new \Exception('Error code ' . $response->code . ' received refreshing token: ' . $response->body . '.');
 		}
 	}
 }
