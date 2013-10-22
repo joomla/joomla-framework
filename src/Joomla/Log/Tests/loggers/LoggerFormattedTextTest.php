@@ -8,7 +8,6 @@ require_once __DIR__ . '/stubs/formattedtext/inspector.php';
 
 use Joomla\Log\Log;
 use Joomla\Log\LogEntry;
-use Joomla\Factory;
 
 /**
  * Test class for JLogLoggerFormattedText.
@@ -99,13 +98,9 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testConstructor04()
 	{
-		// Temporarily override the config cache in JFactory.
-		$temp = Factory::$config;
-		Factory::$config = (object) array('log_path' => '/var/logs');
-
 		// Setup the basic configuration.
 		$config = array(
-			'text_file_path' => '',
+			'text_file_path' => '/var/logs',
 			'text_file' => '',
 			'text_entry_format' => '{DATETIME}	{PRIORITY}	{MESSAGE}'
 		);
@@ -119,8 +114,6 @@ class JLogLoggerFormattedTextTest extends PHPUnit_Framework_TestCase
 
 		// Default file name.
 		$this->assertEquals($logger->path, '/var/logs/error.php', 'Line: ' . __LINE__);
-
-		Factory::$config = $temp;
 	}
 
 	/**
