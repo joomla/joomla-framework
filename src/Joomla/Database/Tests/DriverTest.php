@@ -7,6 +7,7 @@
 namespace Joomla\Database\Tests;
 
 use Joomla\Test\TestHelper;
+use Joomla\Test\TestDatabase;
 use Psr\Log;
 
 require_once __DIR__ . '/Stubs/nosqldriver.php';
@@ -17,7 +18,7 @@ require_once __DIR__ . '/Stubs/nosqldriver.php';
  *
  * @since  1.0
  */
-class DriverTest extends DatabaseCase
+class DriverTest extends TestDatabase
 {
 	/**
 	 * @var    \Joomla\Database\DatabaseDriver

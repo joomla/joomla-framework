@@ -8,13 +8,14 @@ namespace Joomla\Database\Tests;
 
 use Joomla\Database\DatabaseFactory;
 use Joomla\Test\TestHelper;
+use Joomla\Test\TestDatabase;
 
 /**
  * Test class for Joomla\Database\DatabaseFactory.
  *
  * @since  1.0
  */
-class DatabaseFactoryTest extends DatabaseCase
+class DatabaseFactoryTest extends TestDatabase
 {
 	/**
 	 * Object being tested
