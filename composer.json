@@ -30,7 +30,6 @@
         "joomla/application": "self.version",
         "joomla/archive": "self.version",
         "joomla/cache": "self.version",
-        "joomla/client": "self.version",
         "joomla/compat": "self.version",
         "joomla/controller": "self.version",
         "joomla/crypt": "self.version",
