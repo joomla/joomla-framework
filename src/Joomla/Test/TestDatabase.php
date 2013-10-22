@@ -157,7 +157,7 @@ abstract class TestDatabase extends \PHPUnit_Extensions_Database_TestCase
 	 */
 	protected function getDataSet()
 	{
-		return $this->createXMLDataSet(JPATH_TESTS . '/suites/unit/stubs/empty.xml');
+		return $this->createXMLDataSet(__DIR__ . '/Stubs/empty.xml');
 	}
 
 	/**

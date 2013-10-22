@@ -92,6 +92,18 @@ abstract class DatabaseMysqlCase extends TestDatabase
 	}
 
 	/**
+	 * Gets the data set to be loaded into the database during setup
+	 *
+	 * @return  \PHPUnit_Extensions_Database_DataSet_XmlDataSet
+	 *
+	 * @since   1.0
+	 */
+	protected function getDataSet()
+	{
+		return $this->createXMLDataSet(__DIR__ . '/Stubs/database.xml');
+	}
+
+	/**
 	 * Returns the default database connection for running the tests.
 	 *
 	 * @return  \PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection

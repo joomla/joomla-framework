@@ -6,12 +6,14 @@
 
 namespace Joomla\Database\Tests;
 
+use Joomla\Test\TestDatabase;
+
 /**
  * Test class for Joomla\Database\Sqlite\SqliteDriver.
  *
  * @since  1.0
  */
-class DriverSqliteTest extends DatabaseCase
+class DriverSqliteTest extends TestDatabase
 {
 	/**
 	 * Data for the testEscape test.
