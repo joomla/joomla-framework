@@ -11,12 +11,13 @@
         "joomla/filesystem": "1.0-beta2"
     },
     "require-dev": {
-        "joomla/database": "1.0-beta2"
+        "joomla/database": "1.0-beta2",
+        "joomla/test": "1.0-beta2"
     },
     "target-dir": "Joomla/Log",
     "autoload": {
-    	"psr-0": {
-    		"Joomla\\Log": ""
-    	}
+        "psr-0": {
+            "Joomla\\Log": ""
+        }
     }
 }

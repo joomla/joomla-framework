@@ -9,6 +9,7 @@ namespace Joomla\Form\Tests;
 use Joomla\Language\Language;
 use Joomla\Language\Text;
 use Joomla\Form\Form;
+use Joomla\Form\FormHelper;
 use Joomla\Form\Rule;
 
 /**
@@ -54,105 +55,6 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-	}
-
-	/**
-	 * Tests the Form::addFieldPath method.
-	 *
-	 * This method is used to add additional lookup paths for field helpers.
-	 *
-	 * @return void
-	 */
-	public function testAddFieldPath()
-	{
-		// Check the default behaviour.
-		$paths = Form::addFieldPath();
-
-		// The default path is the class file folder/forms
-		// use of realpath to ensure test works for on all platforms
-		$valid = dirname(__DIR__) . '/field';
-
-		$this->assertThat(
-			in_array($valid, $paths),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' The libraries fields path should be included by default.'
-		);
-
-		// Test adding a custom folder.
-		Form::addFieldPath(__DIR__);
-		$paths = Form::addFieldPath();
-
-		$this->assertThat(
-			in_array(__DIR__, $paths),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' An added path should be in the returned array.'
-		);
-	}
-
-	/**
-	 * Tests the Form::addFormPath method.
-	 *
-	 * This method is used to add additional lookup paths for form XML files.
-	 *
-	 * @return void
-	 */
-	public function testAddFormPath()
-	{
-		// Check the default behaviour.
-		$paths = Form::addFormPath();
-
-		// The default path is the class file folder/forms
-		// use of realpath to ensure test works for on all platforms
-		$valid = dirname(__DIR__) . '/form';
-
-		$this->assertThat(
-			in_array($valid, $paths),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' The libraries forms path should be included by default.'
-		);
-
-		// Test adding a custom folder.
-		Form::addFormPath(__DIR__);
-		$paths = Form::addFormPath();
-
-		$this->assertThat(
-			in_array(__DIR__, $paths),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' An added path should be in the returned array.'
-		);
-	}
-
-	/**
-	 * Tests the Form::addRulePath method.
-	 *
-	 * This method is used to add additional lookup paths for form XML files.
-	 *
-	 * @return void
-	 */
-	public function testAddRulePath()
-	{
-		// Check the default behaviour.
-		$paths = Form::addRulePath();
-
-		// The default path is the class file folder/rules
-		// use of realpath to ensure test works for on all platforms
-		$valid = dirname(__DIR__) . '/rule';
-
-		$this->assertThat(
-			in_array($valid, $paths),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' The libraries rule path should be included by default.'
-		);
-
-		// Test adding a custom folder.
-		Form::addRulePath(__DIR__);
-		$paths = Form::addRulePath();
-
-		$this->assertThat(
-			in_array(__DIR__, $paths),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' An added path should be in the returned array.'
-		);
 	}
 
 	/**
@@ -488,70 +390,6 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 			$this->equalTo(''),
 			'Line:' . __LINE__ . ' The tel filter should be correctly applied.'
 		);
-
-		$this->assertThat(
-			$form->filterField($form->findField('server_utc'), 'foo'),
-			$this->equalTo(''),
-			'Line:' . __LINE__ . ' A non-date for a server_utc filter should return nothing.'
-		);
-
-		$this->assertThat(
-			$form->filterField($form->findField('server_utc'), ''),
-			$this->equalTo(''),
-			'Line:' . __LINE__ . ' An empty date for a server_utc filter should return nothing.'
-		);
-
-		$this->assertThat(
-			$form->filterField($form->findField('user_utc'), 'foo'),
-			$this->equalTo(''),
-			'Line:' . __LINE__ . ' A non-date for a user_utc filter should return nothing.'
-		);
-
-		$this->assertThat(
-			$form->filterField($form->findField('user_utc'), ''),
-			$this->equalTo(''),
-			'Line:' . __LINE__ . ' An empty date for a user_utc filter should return nothing.'
-		);
-
-		$this->markTestIncomplete('Need to deal with SERVER_UTC and USER_UTC filters');
-
-		/**
-			include_once JPATH_BASE . '/libraries/joomla/user/user.php';
-
-			$user = new JUser;
-			$mockSession = $this->getMock('Joomla\\Session\\Session', array('_start', 'get'));
-			$mockSession->expects($this->once())->method('get')->will(
-				$this->returnValue($user)
-			);
-			Factory::$session = $mockSession;
-			// Adjust the timezone offset to a known value.
-			$config = Factory::getConfig();
-			$config->setValue('config.offset', 10);
-
-			// TODO: Mock Factory and JUser
-			$user = Factory::getUser();
-			$user->setParam('timezone', 5);
-
-			$form = new JForm;
-			$form->load('example');
-
-			$text = '<script>alert();</script> <p>Some text</p>';
-			$data = array(
-				'f_svr_date' => '2009-01-01 00:00:00',
-				'f_usr_date' => '2009-01-01 00:00:00',
-			);
-
-			// Check the date filters.
-			$this->assertThat(
-				$result['f_svr_date'],
-				$this->equalTo('2008-12-31 14:00:00')
-			);
-
-			$this->assertThat(
-				$result['f_usr_date'],
-				$this->equalTo('2009-01-01 05:00:00')
-			);
-		*/
 	}
 
 	/**
@@ -1500,57 +1338,6 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the Form::loadFieldType method.
-	 *
-	 * @return void
-	 */
-	public function testLoadFieldType()
-	{
-		$this->assertThat(
-			JFormInspector::loadFieldType('bogus'),
-			$this->isFalse(),
-			'Line:' . __LINE__ . ' loadFieldType should return false if class not found.'
-		);
-
-		$this->assertThat(
-			(JFormInspector::loadFieldType('list') instanceof \Joomla\Form\Field_List),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' loadFieldType should return the correct class.'
-		);
-
-		// Add custom path.
-		Form::addFieldPath(__DIR__ . '/_testfields');
-
-		include_once '_testfields/test.php';
-		$this->assertThat(
-			(JFormInspector::loadFieldType('test') instanceof \Joomla\Form\Field_Test),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' loadFieldType should return the correct custom class.'
-		);
-
-		include_once '_testfields/bar.php';
-		$this->assertThat(
-			(JFormInspector::loadFieldType('foo.bar') instanceof \Foo\Form\Field_Bar),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' loadFieldType should return the correct custom class.'
-		);
-
-		include_once '_testfields/modal/foo.php';
-		$this->assertThat(
-			(JFormInspector::loadFieldType('modal_foo') instanceof \Joomla\Form\Field_Modal_Foo),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' loadFieldType should return the correct custom class.'
-		);
-
-		include_once '_testfields/modal/bar.php';
-		$this->assertThat(
-			(JFormInspector::loadFieldType('foo.modal_bar') instanceof \Foo\Form\Field_Modal_Bar),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' loadFieldType should return the correct custom class.'
-		);
-	}
-
-	/**
 	 * Test the Form::loadFile method.
 	 *
 	 * This method loads a file and passes the string to the Form::load method.
@@ -1592,7 +1379,7 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 		// Testing loading a file by file name.
 
 		$form = new JFormInspector('form1');
-		Form::addFormPath(__DIR__);
+		FormHelper::addFormPath(__DIR__);
 
 		$this->assertThat(
 			$form->loadFile('example'),
@@ -1604,72 +1391,6 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 			($form->getXML() instanceof \SimpleXMLElement),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' XML string should parse successfully.'
-		);
-	}
-
-	/**
-	 * Test for Form::loadRuleType method.
-	 *
-	 * @return void
-	 */
-	public function testLoadRuleType()
-	{
-		$form = new JFormInspector('form1');
-
-		// Test error handling.
-
-		$this->assertThat(
-			$form->loadRuleType('bogus'),
-			$this->isFalse(),
-			'Line:' . __LINE__ . ' Loading an unknown rule should return false.'
-		);
-
-		// Test loading a custom rule.
-
-		Form::addRulePath(__DIR__ . '/_testrules');
-
-		$this->assertThat(
-			($form->loadRuleType('custom') instanceof Rule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading a known rule should return a rule object.'
-		);
-
-		// Test all the stock rules load.
-
-		$this->assertThat(
-			($form->loadRuleType('boolean') instanceof Rule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading the boolean rule should return a rule object.'
-		);
-
-		$this->assertThat(
-			($form->loadRuleType('email') instanceof Rule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading the email rule should return a rule object.'
-		);
-
-		$this->assertThat(
-			($form->loadRuleType('equals') instanceof Rule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading the equals rule should return a rule object.'
-		);
-
-		$this->assertThat(
-			($form->loadRuleType('options') instanceof Rule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading the options rule should return a rule object.'
-		);
-
-		$this->assertThat(
-			($form->loadRuleType('color') instanceof Rule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading the color rule should return a rule object.'
-		);
-
-		$this->assertThat(
-			($form->loadRuleType('tel') instanceof Rule),
-			$this->isTrue(),
-			'Line:' . __LINE__ . ' Loading the tel rule should return a rule object.'
 		);
 	}
 
@@ -2094,9 +1815,9 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 			'Line:' . __LINE__ . ' XML string should load successfully.'
 		);
 
-		$fieldPaths = Form::addFieldPath();
-		$formPaths = Form::addFormPath();
-		$rulePaths = Form::addRulePath();
+		$fieldPaths = FormHelper::addFieldPath();
+		$formPaths = FormHelper::addFormPath();
+		$rulePaths = FormHelper::addRulePath();
 
 		$this->assertThat(
 			in_array(JPATH_ROOT . '/field1', $fieldPaths),
@@ -2283,7 +2004,7 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 	 * @covers  Joomla\Form\Form::validateField
 	 * @since   1.0
 	 *
-	 * @expectedException  UnexpectedValueException
+	 * @expectedException  \UnexpectedValueException
 	 *
 	 * @return void
 	 */

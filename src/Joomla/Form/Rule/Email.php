@@ -8,7 +8,6 @@
 
 namespace Joomla\Form\Rule;
 
-use Joomla\Factory;
 use Joomla\Form\Rule;
 use Joomla\Form\Form;
 use Joomla\Registry\Registry;
@@ -88,34 +87,6 @@ class Email extends Rule
 				{
 					return false;
 				}
-			}
-		}
-
-		// Check if we should test for uniqueness. This only can be used if multiple is not true
-		$unique = ((string) $element['unique'] == 'true' || (string) $element['unique'] == 'unique');
-
-		if ($unique && !$multiple)
-		{
-			// Get the database object and a new query object.
-			$db = Factory::getDBO();
-			$query = $db->getQuery(true);
-
-			// Build the query.
-			$query->select('COUNT(*)');
-			$query->from('#__users');
-			$query->where('email = ' . $db->quote($value));
-
-			// Get the extra field check attribute.
-			$userId = ($form instanceof Form) ? $form->getValue('id') : '';
-			$query->where($db->quoteName('id') . ' <> ' . (int) $userId);
-
-			// Set and query the database.
-			$db->setQuery($query);
-			$duplicate = (bool) $db->loadResult();
-
-			if ($duplicate)
-			{
-				return false;
 			}
 		}
 

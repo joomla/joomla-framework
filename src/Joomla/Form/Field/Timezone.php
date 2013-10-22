@@ -8,8 +8,7 @@
 
 namespace Joomla\Form;
 
-use Joomla\Factory;
-use Joomla\Html\Html;
+use Joomla\Form\Html\Select;
 
 /**
  * Form Field class for the Joomla Framework.
@@ -46,15 +45,6 @@ class Field_Timezone extends Field_GroupedList
 	{
 		$groups = array();
 
-		$keyField = $this->element['key_field'] ? (string) $this->element['key_field'] : 'id';
-		$keyValue = $this->form->getValue($keyField);
-
-		// If the timezone is not set use the server setting.
-		if (strlen($this->value) == 0 && empty($keyValue))
-		{
-			$this->value = Factory::getConfig()->get('offset');
-		}
-
 		// Get the list of time zones from the server.
 		$zones = \DateTimeZone::listIdentifiers();
 
@@ -82,7 +72,7 @@ class Field_Timezone extends Field_GroupedList
 				// Only add options where a locale exists.
 				if (!empty($locale))
 				{
-					$groups[$group][$zone] = Html::_('select.option', $zone, str_replace('_', ' ', $locale), 'value', 'text', false);
+					$groups[$group][$zone] = Select::option($zone, str_replace('_', ' ', $locale), 'value', 'text', false);
 				}
 			}
 		}

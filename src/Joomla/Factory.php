@@ -83,7 +83,7 @@ abstract class Factory
 		{
 			if ($file === null)
 			{
-				$file = JPATH_FRAMEWORK . '/config.php';
+				$file = JPATH_ROOT . '/config.php';
 			}
 
 			self::$config = self::createConfig($file, $type, $namespace);

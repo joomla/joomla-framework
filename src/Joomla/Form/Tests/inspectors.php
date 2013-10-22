@@ -188,36 +188,6 @@ class JFormInspector extends \Joomla\Form\Form
 	/**
 	 * Test...
 	 *
-	 * @param   string   $type  The field type.
-	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
-	 *
-	 * @return  \Joomla\Form\Field
-	 *
-	 * @since   1.0
-	 */
-	public function loadFieldType($type, $new = true)
-	{
-		return parent::loadFieldType($type, $new);
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @param   string   $type  The rule type.
-	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
-	 *
-	 * @return  \Joomla\Form\Rule
-	 *
-	 * @since   1.0
-	 */
-	public function loadRuleType($type, $new = true)
-	{
-		return parent::loadRuleType($type, $new);
-	}
-
-	/**
-	 * Test...
-	 *
 	 * @param   \SimpleXMLElement          $element  The XML element object representation of the form field.
 	 * @param   string                     $group    The optional dot-separated form group path on which to find the field.
 	 * @param   mixed                      $value    The optional value to use as the default for the field.
