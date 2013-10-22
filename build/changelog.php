@@ -15,27 +15,28 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-// Setup the path related constants.
-define('JPATH_BASE', __DIR__);
+use Joomla\Github\Github;
+use Joomla\Registry\Registry;
+use Joomla\Application\AbstractCliApplication;
 
 // Bootstrap the application.
-require realpath('../vendor/autoload.php');
+require realpath(__DIR__ . '/../vendor/autoload.php');
 
 /**
  * Joomla Framework Changelog builder.
  *
- * This application builds the HTML version of the Joomla Framework change log from the Github API
- * that is used in news annoucements.
+ * This application builds the HTML version of the Joomla Framework
+ * change log from the GitHub API that is used in news announcements.
  *
  * @package  Joomla.Examples
- * @since    12.1
+ * @since    1.0
  */
-class Changelog extends JApplicationCli
+class Changelog extends AbstractCliApplication
 {
 	/**
 	 * The github API object.
 	 *
-	 * @var    JGithub
+	 * @var    Github
 	 * @since  12.1
 	 */
 	protected $api;
@@ -73,13 +74,13 @@ class Changelog extends JApplicationCli
 	 * @see     loadDispatcher()
 	 * @since   11.1
 	 */
-	public function __construct(JInputCli $input = null, JRegistry $config = null, JDispatcher $dispatcher = null)
+	public function __construct()
 	{
-		parent::__construct($input, $config, $dispatcher);
+		parent::__construct();
 
-		$options = new JRegistry;
+		$options = new Registry;
 		$options->set('headers.Accept', 'application/vnd.github.html+json');
-		$this->api = new JGithub($options);
+		$this->api = new Github($options);
 	}
 
 	/**
@@ -89,7 +90,7 @@ class Changelog extends JApplicationCli
 	 *
 	 * @since   12.1
 	 */
-	public function execute()
+	public function doExecute()
 	{
 		// Check if we just want the help page.
 		if ($this->input->get('h'))
@@ -111,11 +112,7 @@ class Changelog extends JApplicationCli
 
 		// Initialise the version cutoffs.
 		$versions = array(
-			0 => '12.1',
-			653 => '11.4',
-			310 => '11.3',
-			140 => '11.2',
-			72 => '11.1',
+			0 => '1.0',
 		);
 
 		// Initialise arrays and metrics.
@@ -227,13 +224,13 @@ class Changelog extends JApplicationCli
 		}
 
 		// Check if the output folder exists.
-		if (!is_dir('./docs'))
+		if (!is_dir(__DIR__ . '/../docs'))
 		{
-			mkdir('./docs');
+			mkdir(__DIR__ . '/../docs');
 		}
 
 		// Write the file.
-		file_put_contents('./docs/changelog.html', $this->render($latestOnly ? array($versions[0]) : $versions));
+		file_put_contents(__DIR__ . '/../docs/changelog.html', $this->render($latestOnly ? array($versions[0]) : $versions));
 
 		// Close normally.
 		$this->close();
@@ -297,7 +294,7 @@ class Changelog extends JApplicationCli
 		$this->out(str_pad('', 40, '-'));
 
 		$issues = $this->api->issues
-			->getListByRepository('joomla', 'joomla-platform', null, 'closed', null, null, null, 'updated', 'desc', null, $page, 100);
+			->getListByRepository('joomla', 'joomla-framework', null, 'closed', null, null, null, 'updated', 'desc', null, $page, 100);
 
 		$this->out(sprintf('Got %s issues.', count($issues)));
 
@@ -317,7 +314,7 @@ class Changelog extends JApplicationCli
 	{
 		$this->out(sprintf('Getting info for pull %6d', $id), false);
 
-		return $this->api->pulls->get('joomla', 'joomla-platform', $id);
+		return $this->api->pulls->get('joomla', 'joomla-framework', $id);
 	}
 
 	/**
@@ -440,7 +437,7 @@ class Changelog extends JApplicationCli
 // Catch any exceptions thrown.
 try
 {
-	JApplicationCli::getInstance('Changelog')->execute();
+	with(new ChangeLog)->execute();
 }
 catch (Exception $e)
 {
