@@ -20,32 +20,32 @@ use Joomla\Test\WebInspector;
 class JGoogleAuthOauth2Test extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the Client object.
+	 * @var  Registry  Options for the Client object.
 	 */
 	protected $options;
 
 	/**
-	 * @var    JHttp  Mock client object.
+	 * @var  object  Mock client object.
 	 */
 	protected $http;
 
 	/**
-	 * @var    Input  The input object to use in retrieving GET/POST data.
+	 * @var  Input  The input object to use in retrieving GET/POST data.
 	 */
 	protected $input;
 
 	/**
-	 * @var    Client  The OAuth client for sending requests to Google.
+	 * @var  Client  The OAuth client for sending requests to Google.
 	 */
 	protected $oauth;
 
 	/**
-	 * @var    JApplicationWeb  The application object to send HTTP headers for redirects.
+	 * @var  WebInspector  The application object to send HTTP headers for redirects.
 	 */
 	protected $application;
 
 	/**
-	 * @var    OAuth2  Object under test.
+	 * @var  OAuth2  Object under test.
 	 */
 	protected $object;
 

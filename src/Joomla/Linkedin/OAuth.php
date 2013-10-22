@@ -14,7 +14,6 @@ use Joomla\Http\Http;
 use Joomla\Http\Response;
 use Joomla\Input\Input;
 use Joomla\Application\AbstractWebApplication;
-use \DomainException;
 
 /**
  * Joomla Framework class for generating Linkedin API access token.
@@ -39,9 +38,9 @@ class OAuth extends Client
 	 *
 	 * @since 1.0
 	 */
-	public function __construct(Registry $options = null, Http $client = null, Input $input = null, AbstractWebApplication $application = null)
+	public function __construct(Registry $options, Http $client, Input $input, AbstractWebApplication $application)
 	{
-		$this->options = isset($options) ? $options : new Registry;
+		$this->options = $options;
 
 		$this->options->def('accessTokenURL', 'https://www.linkedin.com/uas/oauth/accessToken');
 		$this->options->def('authenticateURL', 'https://www.linkedin.com/uas/oauth/authenticate');
@@ -96,7 +95,7 @@ class OAuth extends Client
 	 * @return  void
 	 *
 	 * @since  1.0
-	 * @throws DomainException
+	 * @throws \DomainException
 	 */
 	public function validateResponse($url, $response)
 	{
@@ -109,11 +108,11 @@ class OAuth extends Client
 		{
 			if ($error = json_decode($response->body))
 			{
-				throw new DomainException('Error code ' . $error->errorCode . ' received with message: ' . $error->message . '.');
+				throw new \DomainException('Error code ' . $error->errorCode . ' received with message: ' . $error->message . '.');
 			}
 			else
 			{
-				throw new DomainException($response->body);
+				throw new \DomainException($response->body);
 			}
 		}
 	}

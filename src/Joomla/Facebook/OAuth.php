@@ -22,7 +22,7 @@ use Joomla\Input\Input;
 class OAuth extends Client
 {
 	/**
-	 * @var Joomla\Registry\Registry Options for the OAuth object.
+	 * @var \Joomla\Registry\Registry Options for the OAuth object.
 	 * @since 1.0
 	 */
 	protected $options;
@@ -37,9 +37,9 @@ class OAuth extends Client
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Http $client = null, Input $input = null, WebInspector $application = null)
+	public function __construct(Registry $options, Http $client, Input $input, WebInspector $application)
 	{
-		$this->options = isset($options) ? $options : new Registry;
+		$this->options = $options;
 
 		// Setup the authentication and token urls if not already set.
 		$this->options->def('authurl', 'http://www.facebook.com/dialog/oauth');
