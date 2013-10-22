@@ -10,7 +10,6 @@ namespace Joomla\Session;
 
 use Joomla\Event\Dispatcher;
 use Joomla\Input\Input;
-use Joomla\Factory;
 
 /**
  * Class for managing HTTP sessions
@@ -276,26 +275,6 @@ class Session implements \IteratorAggregate
 	}
 
 	/**
-	 * Method to determine a hash for anti-spoofing variable names
-	 *
-	 * @param   boolean  $forceNew  If true, force a new token to be created
-	 *
-	 * @return  string  Hashed var name
-	 *
-	 * @since   1.0
-	 */
-	public static function getFormToken($forceNew = false)
-	{
-		// @todo we need the user id somehow here
-		$userId  = 0;
-		$session = Factory::getSession();
-
-		$hash = md5(Factory::getApplication()->get('secret') . $userId . $session->getToken($forceNew));
-
-		return $hash;
-	}
-
-	/**
 	 * Retrieve an external iterator.
 	 *
 	 * @return  \ArrayIterator  Return an ArrayIterator of $_SESSION.
@@ -305,43 +284,6 @@ class Session implements \IteratorAggregate
 	public function getIterator()
 	{
 		return new \ArrayIterator($_SESSION);
-	}
-
-	/**
-	 * Checks for a form token in the request.
-	 *
-	 * Use in conjunction with Joomla\Session\Session::getFormToken.
-	 *
-	 * @param   string  $method  The request method in which to look for the token key.
-	 *
-	 * @return  boolean  True if found and valid, false otherwise.
-	 *
-	 * @since   1.0
-	 */
-	public static function checkToken($method = 'post')
-	{
-		$token = self::getFormToken();
-		$app = Factory::getApplication();
-
-		if (!$app->input->$method->get($token, '', 'alnum'))
-		{
-			$session = Factory::getSession();
-
-			if ($session->isNew())
-			{
-				// Redirect to login screen.
-				$app->redirect('index.php');
-				$app->close();
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
-			return true;
-		}
 	}
 
 	/**
