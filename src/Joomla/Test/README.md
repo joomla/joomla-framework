@@ -4,7 +4,7 @@ This package is a collection of tools that make some of the jobs of unit testing
 
 ## TestHelper
 
-`\Joomla\Test\TestHelper` is a static helper class that can be used to take some of the pain out of repetitive tasks whilst unit testing with PHPUnit.
+`Joomla\Test\TestHelper` is a static helper class that can be used to take some of the pain out of repetitive tasks whilst unit testing with PHPUnit.
 
 ### Mocking
 
@@ -33,16 +33,16 @@ class FooTest extends \PHPUnit_Framework_TestCase
 			// Call original constructor.
 			false
 		);
-		
+
 		$mockCallbacks = array(
 			// 'Method Name' => <callback>
 			'method1' => array('\mockFoo', 'method1'),
 			'method2' => array($this, 'mockMethod2'),
 		);
-		
+
 		TestHelper::assignMockReturns($mockFoo, $this, $mockReturns);
 	}
-	
+
 	public function mockMethod2($value)
 	{
 		return strtolower($value);
@@ -74,14 +74,14 @@ class FooTest extends \PHPUnit_Framework_TestCase
 			// Call original constructor.
 			false
 		);
-		
+
 		$mockReturns = array(
 			// 'Method Name' => 'Canned return value'
 			'method1' => 'canned result 1',
 			'method2' => 'canned result 2',
 			'method3' => 'canned result 3',
 		);
-		
+
 		TestHelper::assignMockReturns($mockFoo, $this, $mockReturns);
 	}
 }
@@ -104,7 +104,7 @@ class FooTest extends \PHPUnit_Framework_TestCase
 	public function testFoo()
 	{
 		$instance = new \Foo;
-		
+
 		// Get the value of a protected `bar` property.
 		$value = TestHelper::getValue($instance, 'bar');
 	}
@@ -126,7 +126,7 @@ class FooTest extends \PHPUnit_Framework_TestCase
 	public function testFoo()
 	{
 		$instance = new \Foo;
-		
+
 		// Set the value of a protected `bar` property.
 		TestHelper::getValue($instance, 'bar', 'New Value');
 	}
@@ -148,7 +148,7 @@ class FooTest extends \PHPUnit_Framework_TestCase
 	public function testFoo()
 	{
 		$instance = new \Foo;
-		
+
 		// Invoke the protected `bar` method.
 		$value1 = TestHelper::invoke($instance, 'bar');
 

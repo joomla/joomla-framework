@@ -40,7 +40,7 @@ $keychain2 = new Keychain(array('username' => 'foo', 'password' => 'bar'));
 
 ##### Usage
 
-A `Keychain` object operates in the same way as a Registry object. What `Keychain` provides is a way to load data from, and store data to an encrypted data source.
+A `Keychain` object operates in the same way as a `Registry` object. What `Keychain` provides is a way to load data from, and store data to an encrypted data source.
 
 When using this class, the private and public keys must already exist on the server. The third required element is the passphrase file and the following example shows how to create it.
 

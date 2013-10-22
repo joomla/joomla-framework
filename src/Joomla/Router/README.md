@@ -4,7 +4,7 @@
 
 ### Construction
 
-The standard router optionally takes a `\Jooomla\Input\Input` object. If not provided, the router will create a new `Input` object which imports its data from `$_REQUEST`.
+The standard router optionally takes a `Joomla\Input\Input` object. If not provided, the router will create a new `Input` object which imports its data from `$_REQUEST`.
 
 ```
 use Joomla\Router\Router;
@@ -51,7 +51,7 @@ $router->addMap('/articles/*/published', 'PublishedController');
 $controller = $router->getController('/articles/foo/bar/published');
 ```
 
-Wildcards can be used within segments. In the second example if the "/published" suffix is used, a `PublishedController` will be returned instead of an `ArticlesController`. 
+Wildcards can be used within segments. In the second example if the "/published" suffix is used, a `PublishedController` will be returned instead of an `ArticlesController`.
 
 #### Matching any segments to named variables
 

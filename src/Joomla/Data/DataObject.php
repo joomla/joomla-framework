@@ -11,7 +11,7 @@ namespace Joomla\Data;
 use Joomla\Registry\Registry;
 
 /**
- * Data\Object is a class that is used to store data but allowing you to access the data
+ * Data\DataObject is a class that is used to store data but allowing you to access the data
  * by mimicking the way PHP handles class properties.
  *
  * @since  1.0

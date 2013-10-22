@@ -10,6 +10,7 @@ Instantiating Twitter is easy:
 
 ```php
 use Joomla\Twitter\Twitter;
+
 $twitter = new Twitter;
 ```
 
@@ -17,8 +18,7 @@ This creates a basic Twitter object that can be used to access resources on twit
 
 Generating an access token can be done by instantiating OAuth.
 
-Create a Twitter application at [https://dev.twitter.com/apps](https://dev.twitter.com/apps) in order to request permissions.
-Instantiate OAuth, passing the Registry options needed. By default you have to set and send headers manually in your application, but if you want this to be done automatically you can set Registry option 'sendheaders' to true.
+Create a Twitter application at [https://dev.twitter.com/apps](https://dev.twitter.com/apps) in order to request permissions. Instantiate OAuth, passing the Registry options needed. By default you have to set and send headers manually in your application, but if you want this to be done automatically you can set Registry option 'sendheaders' to true.
 
 ```php
 use Joomla\Twitter\Twitter;

@@ -10,6 +10,7 @@ Instantiating Linkedin is easy:
 
 ```php
 use Joomla\Linkedin\Linkedin;
+
 $linkedin = new Linkedin;
 ```
 

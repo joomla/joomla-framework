@@ -2,10 +2,9 @@
 
 ## Interfaces
 
-### `View\View`
+### `View\ViewInterface`
 
-`View\View` is an interface that requires a class to be implemented with an
-`escape` and a `render` method.
+`View\ViewInterface` is an interface that requires a class to be implemented with an `escape` and a `render` method.
 
 ## Classes
 
@@ -13,24 +12,19 @@
 
 ##### Construction
 
-The contructor for `View\AbstractView` takes a mandatory `Model\Model` parameter.
+The contructor for `View\AbstractView` takes a mandatory `Model\ModelInterface` parameter.
 
-Note that `Model\Model` is an interface so the actual object passed does
-necessarily have to extend from `Model\Base` class. Given that, the view
-should only rely on the API that is exposed by the interface and not
-concrete classes unless the constructor is changed in a derived class to
-take more explicit classes or interfaces as required by the developer.
+Note that `Model\ModelInterface` is an interface so the actual object passed does necessarily have to extend from `Model\AbstractModel` class. Given that, the view should only rely on the API that is exposed by the interface and not concrete classes unless the constructor is changed in a derived class to take more explicit classes or interfaces as required by the developer.
 
 ##### Usage
 
-The `View\AbstractView` class is abstract so cannot be used directly. It forms a
-simple base for rendering any kind of data. The class already implements
-the escape method so only a render method need to be added. Views
-derived from this class would be used to support very simple cases, well
-suited to supporting web services returning JSON, XML or possibly binary
-data types. This class does not support layouts.
+The `View\AbstractView` class is abstract so cannot be used directly. It forms a simple base for rendering any kind of data. The class already implements the escape method so only a render method need to be added. Views derived from this class would be used to support very simple cases, well suited to supporting web services returning JSON, XML or possibly binary data types. This class does not support layouts.
 
 ```php
+namespace myApp;
+
+use Joomla\View\AbstractView;
+
 /**
  * My custom view.
  *
@@ -38,11 +32,6 @@ data types. This class does not support layouts.
  *
  * @since   1.0
  */
- 
-namespace myApp;
-
-use Joomla\View\AbstractView;
-
 class MyView extends AbstractView
 {
 	/**
@@ -51,7 +40,7 @@ class MyView extends AbstractView
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException on database error.
+	 * @throws  \RuntimeException on database error.
 	 */
 	public function render()
 	{
@@ -74,32 +63,17 @@ catch (RuntimeException $e)
 }
 ```
 
-## `View\Html`
+## `View\AbstractHtmlView`
 
 ##### Construction
 
-`View\Html` is extended from `View\AbstractBase`. The constructor, in addition to
-the required model argument, take an optional `SplPriorityQueue` object
-that serves as a lookup for layouts. If omitted, the view defers to the
-protected loadPaths method.
+`View\AbstractHtmlView` is extended from `View\AbstractView`. The constructor, in addition to the required model argument, take an optional `SplPriorityQueue` object that serves as a lookup for layouts. If omitted, the view defers to the protected loadPaths method.
 
 ##### Usage
 
-The `View\Html` class is abstract so cannot be used directly. This view
-class implements render. It will try to find the layout, include it
-using output buffering and return the result. The following examples
-show a layout file that is assumed to be stored in a generic layout
-folder not stored under the web-server root.
+The `View\AbstractHtmlView` class is abstract so cannot be used directly. This view class implements render. It will try to find the layout, include it using output buffering and return the result. The following examples show a layout file that is assumed to be stored in a generic layout folder not stored under the web-server root.
 
 ```php
-<?php
-/**
- * Example layout "layouts/count.php".
- *
- * @package  Examples
- * @since    1.0
- */
-
 namespace myApp;
 
 use Joomla\View;
@@ -116,13 +90,17 @@ use Joomla\View;
 ```
 
 ```php
+namespace myApp;
+
+use Joomla\View;
+
 /**
  * My custom HTML view.
  *
  * @package  Examples
  * @since    1.0
  */
-class MyHtmlView extends View\Html
+class MyHtmlView extends View\AbstractHtmlView
 {
 	/**
 	 * Redefine the model so the correct type hinting is available in the layout.
@@ -135,7 +113,7 @@ class MyHtmlView extends View\Html
 
 try
 {
-	$paths = new SplPriorityQueue;
+	$paths = new \SplPriorityQueue;
 	$paths->insert(__DIR__ . '/layouts');
 
 	$view = new MyView(new MyDatabaseModel, $paths);
@@ -160,18 +138,17 @@ catch (RuntimeException $e)
 The default extension for layouts is ".php". This can be modified in derived views by changing the default value for the extension argument. For example:
 
 ```php
+namespace myApp;
+
+use Joomla\View;
+
 /**
  * My custom HTML view.
  *
  * @package  Examples
  * @since    1.0
  */
- 
-namespace myApp;
-
-use Joomla\View;
-
-class MyHtmlView extends View\Html
+class MyHtmlView extends View\AbstractHtmlView
 {
 	/**
 	 * Override the parent method to use the '.phtml' extension for layout files.
@@ -181,7 +158,7 @@ class MyHtmlView extends View\Html
 	 *
 	 * @return  mixed  The layout file name if found, false otherwise.
 	 *
-	 * @see     JViewHtml::getPath
+	 * @see     View\AbstractHtmlView::getPath
 	 * @since   1.0
 	 */
 	public function getPath($layout, $ext = 'phtml')

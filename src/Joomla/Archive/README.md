@@ -18,10 +18,9 @@ Loading files of the `t*` archive type will uncompress the archive using the app
 ## Usage
 
 ```php
-
 $options = array('tmp_path' => '/tmp');
 
-$archive = new Archive($options)
+$archive = new Joomla\Archive\Archive($options)
 
 $archive->extract(__DIR__ . '/archive.zip', __DIR__ . '/destination');
 ```
@@ -51,7 +50,7 @@ $archive = new Archive;
 // You need to pass the fully qualified class name.
 $archive->setAdapter('zip', '\\MyZipAdapter');
 
-// This will use your 
+// This will use your
 $archive->extract('archive.zip', 'destination');
 ```
 

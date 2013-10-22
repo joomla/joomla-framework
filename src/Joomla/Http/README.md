@@ -1,56 +1,47 @@
 ## The HTTP Package
 
-The HTTP package includes a suite of classes to facilitate RESTful HTTP
-requests over a variety of transport protocols.
+The HTTP package includes a suite of classes to facilitate RESTful HTTP requests over a variety of transport protocols.
 
-The JHttpFactory class is used to build the classes required for HTTP
-requests.
+The `Http\HttpFactory` class is used to build the classes required for HTTP requests.
 
 ### Interfaces
 
-#### JHttpTransport
+#### `Http\TransportInterface`
 
 > Can you help improve this section of the manual?
 
 ### Classes
 
-#### JHttp
+#### `Http\Http`
 
-The JHttp class provides methods for making RESTful requests.
+The `Http\Http` class provides methods for making RESTful requests.
 
 ##### Construction
 
-Construction of JHttp object is generally done using the JHttpFactory
-class. However, JHttp is not abstract and can be instantiated directly
-passing an optional Registry object of options and an optional
-JHttpTransport object. If the transport is omitted, the default
-transport will be used. The default is determined by looking up the
-transports folder and selecting the first transport that is supported
-(this will usually be the "curl" transport).
+Construction of `Http\Http` object is generally done using the `Http\HttpFactory` class. However, `Http\Http` is not abstract and can be instantiated directly passing an optional Registry object of options and an optional `Http\TransportInterface` object. If the transport is omitted, the default transport will be used. The default is determined by looking up the transports folder and selecting the first transport that is supported (this will usually be the "curl" transport).
 
 ```php
+use Joomla\Http\Http;
+use Joomla\Http\Transport\Stream as StreamTransport;
 use Joomla\Registry\Registry;
-
-// Create an instance of a default JHttp object.
-$http = new JHttp;
 
 $options = new Registry;
 
-$transport = new JHttpTransportStream($options);
+$transport = new StreamTransport($options);
 
 // Create a 'stream' transport.
-$http = new JHttp($options, $transport);
+$http = new Http($options, $transport);
 ```
 
 ##### Making a HEAD request
 
-An HTTP HEAD request can be made using the head method passing a URL and
-an optional key-value array of header variables. The method will return
-a JHttpResponse object.
+An HTTP HEAD request can be made using the head method passing a URL and an optional key-value array of header variables. The method will return a `Http\Response` object.
 
 ```php
-// Create an instance of a default JHttp object.
-$http = JHttpFactory::getHttp();
+use Joomla\Http\HttpFactory;
+
+// Create an instance of a default Http object.
+$http = `Http\HttpFactory`::getHttp();
 
 // Invoke the HEAD request.
 $response = $http->head('http://example.com');
@@ -68,10 +59,7 @@ var_dump($response->body);
 
 ##### Making a GET request
 
-An HTTP GET request can be made using the get method passing a URL, an
-optional key-value array of header variables and an optional timeout
-value. In RESTful terms, a GET request is sent to read data from the
-server.
+An HTTP GET request can be made using the get method passing a URL, an optional key-value array of header variables and an optional timeout value. In RESTful terms, a GET request is sent to read data from the server.
 
 ```php
 // Invoke the GET request.
@@ -80,11 +68,7 @@ $response = $http->get('http://api.example.com/cars');
 
 ##### Making a POST request
 
-An HTTP POST request can be made using the post method passing a URL, a
-data variable, an optional key-value array of header variables and an
-optional timeout value. The data can be either an associative array of
-POST variables, or a string to be sent with the request. In RESTful
-terms, a POST request is sent to create new data on the server.
+An HTTP POST request can be made using the post method passing a URL, a data variable, an optional key-value array of header variables and an optional timeout value. The data can be either an associative array of POST variables, or a string to be sent with the request. In RESTful terms, a POST request is sent to create new data on the server.
 
 ```php
 // Prepare the update data.
@@ -96,12 +80,7 @@ $response = $http->post('http://api.example.com/cars/1', $data);
 
 ##### Making a PUT request
 
-An HTTP POST request can be made using the post method passing a URL, a
-data variable, an optional key-value array of header variables and an
-optional timeout value. The data can be either an associative array of
-POST variables, or a string to be sent with the request. In RESTful
-terms, a PUT request is typically sent to update existing data on the
-server.
+An HTTP POST request can be made using the post method passing a URL, a data variable, an optional key-value array of header variables and an optional timeout value. The data can be either an associative array of POST variables, or a string to be sent with the request. In RESTful terms, a PUT request is typically sent to update existing data on the server.
 
 ```php
 // Prepare the update data.
@@ -113,10 +92,7 @@ $response = $http->put('http://api.example.com/cars/1', $data);
 
 ##### Making a DELETE request
 
-An HTTP DELETE request can be made using the delete method passing a
-URL, an optional key-value array of header variables and an optional
-timeout value. In RESTful terms, a DELETE request is typically sent to
-delete existing data on the server.
+An HTTP DELETE request can be made using the delete method passing a URL, an optional key-value array of header variables and an optional timeout value. In RESTful terms, a DELETE request is typically sent to delete existing data on the server.
 
 ```php
 // Invoke the DELETE request.
@@ -125,17 +101,11 @@ $response = $http->delete('http://api.example.com/cars/1');
 
 ##### Making a TRACE request
 
-An HTTP TRACE request can be made using the trace method passing a URL
-and an optional key-value array of header variables. In RESTful terms, a
-TRACE request is to echo data back to the client for debugging or
-testing purposes.
+An HTTP TRACE request can be made using the trace method passing a URL and an optional key-value array of header variables. In RESTful terms, a TRACE request is to echo data back to the client for debugging or testing purposes.
 
 ##### Working with options
 
-Customs headers can be pased into each REST request, but they can also
-be set globally in the constructor options where the registry path
-starts with "headers.". In the case where a request method passes
-additional headers, those will override the headers set in the options.
+Customs headers can be pased into each REST request, but they can also be set globally in the constructor options where the registry path starts with "headers.". In the case where a request method passes additional headers, those will override the headers set in the options.
 
 ```php
 use Joomla\Registry\Registry;
@@ -156,31 +126,31 @@ $headers = array('Accept' => 'application/foo');
 $pull = $http->get('https://api.github.com/repos/joomla/joomla-platform/pulls/1', $headers);
 ```
 
-#### JHttpFactory
+#### `Http\HttpFactory`
 
-JHttp objects are created by using the JHttpFactory::getHttp method.
+`Http\Http` objects are created by using the `Http\HttpFactory::getHttp` method.
 
 ```php
 // The default transport will be 'curl' because this is the first transport.
-$http = JHttpFactory::getHttp();
+$http = Http\HttpFactory::getHttp();
 
 // Create a 'stream' transport.
-$http = JHttpFactory::getHttp(null, 'stream');
+$http = Http\HttpFactory::getHttp(null, 'stream');
 ```
 
 #### Joomla\Http\Response
 
 > Can you help improve this section of the manual?
 
-#### Joomla\Http\TransportCurl
+#### Joomla\Http\Transport\Curl
 
 > Can you help improve this section of the manual?
 
-#### Joomla\Http\TransportSocket
+#### Joomla\Http\Transport\Socket
 
 > Can you help improve this section of the manual?
 
-#### Joomla\Http\TransportStream
+#### Joomla\Http\Transport\Stream
 
 > Can you help improve this section of the manual?
 

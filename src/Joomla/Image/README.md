@@ -20,6 +20,8 @@ If you choose the first option, the class sets the protected property `$handle` 
 If you choose the second option, the class will call the `loadFile` method, passing along the `$source` parameter.
 
 ```php
+use Joomla\Image\Image;
+
 // Creating a new Image object, passing it an existing handle.
 $resource = imagecreate(100, 100);
 $image = new Image($resource);
@@ -37,6 +39,8 @@ $image->loadFile(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 Keep in mind that most public methods return a `Image` instance with a valid image handle for easy method chaining. The examples for each method will break each method call out to be able to comment on what the code is doing, but production code can be chained like so (if you prefer):
 
 ```php
+use Joomla\Image\Image;
+
 $image = new Image();
 $image->loadFile(JPATH_ROOT . '/path/to/image.png')
 	->crop(600, 250)
@@ -44,7 +48,6 @@ $image->loadFile(JPATH_ROOT . '/path/to/image.png')
 ```
 
 Since Platform version 12.3, there is a new `destroy()` method that gets called in appropriate places throughout the class which runs the `imagedestroy` function to free memory associated with an image handle. This method is called before each time an image handle is replaced (when `$createNew` is set to false) as well as in the class `__descruct` method as a final cleanup.
-
 
 #### The `resize` method
 __Accepted Parameters__
@@ -57,6 +60,8 @@ __Accepted Parameters__
 Example: Using `Image::resize()` to generate a resized image.
 
 ```php
+use Joomla\Image\Image;
+
 // Create our image object
 $image = new Image(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
@@ -81,6 +86,8 @@ __Accepted Parameters__
 Example: Using `Image::crop()` to generate a cropped image.
 
 ```php
+use Joomla\Image\Image;
+
 // Create our image object
 $image = new Image(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
@@ -104,6 +111,8 @@ __Accepted Parameters__
 Example: Using `Image::createThumbs()` to generate thumbnails of an image.
 
 ```php
+use Joomla\Image\Image;
+
 // Set the desired sizes for our thumbnails.
 $sizes = array('300x300', '64x64', '250x125');
 
@@ -115,7 +124,6 @@ $image->createThumbs($sizes, Image::SCALE_INSIDE);
 ```
 
 In this example, we use the `createThumbs` method of `Image`. This method takes 2 parameters. The first parameter can be a string containing a single size in `WIDTHxHEIGHT` format, or it can be an array of sizes in the format (as shown in the example). The second parameter specifies the resize method. (See Resize Methods below)
-
 
 To receive Image instances without saving them to disk, use `generateThumbs` method with arguments `$thumbSizes` and `$creationMethod`.
 
@@ -145,6 +153,8 @@ __Accepted Parameters__
 Example: Using `Image::toFile()` to save the image as JPEG with 65 compression level
 
 ```php
+use Joomla\Image\Image;
+
 // Create our object
 $image = new Image(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
@@ -156,6 +166,8 @@ $image->toFile(JPATH_ROOT . '/tmp/bar.jpg', IMAGETYPEJPEG, array('options' => 65
 Example: Using `Image::toFile()` to retrieve data blob of an image.
 
 ```php
+use Joomla\Image\Image;
+
 // Create our object
 $image = new Image(JPATH_ROOT . '/media/com_foo/images/uploads/bar.png');
 
