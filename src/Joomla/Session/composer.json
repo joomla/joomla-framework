@@ -7,7 +7,7 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/filter": "1.0-beta3"
+        "joomla/filter": "~1.0"
     },
     "suggest": {
         "joomla/database": "Install joomla/database if you want to use Database session storage."
@@ -17,5 +17,6 @@
     	"psr-0": {
     		"Joomla\\Session": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }

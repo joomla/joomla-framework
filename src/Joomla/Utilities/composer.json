@@ -7,12 +7,13 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-         "joomla/string": "1.0-beta3"
+         "joomla/string": "~1.0"
     },
     "target-dir": "Joomla/Utilities",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Utilities": ""
     	}
-    }
+    },
+    "minimum-stability": "dev"
 }

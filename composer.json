@@ -63,5 +63,5 @@
         "joomla/utilities": "self.version",
         "joomla/view": "self.version"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "beta"
 }

@@ -9,12 +9,13 @@
         "php": ">=5.3.10"
     },
     "require-dev": {
-        "joomla/test": "1.0-beta3"
+        "joomla/test": "~1.0"
     },
     "target-dir": "Joomla/Profiler",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Profiler": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }

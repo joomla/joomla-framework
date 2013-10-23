@@ -7,15 +7,16 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/application": "1.0-beta3",
-        "joomla/http": "1.0-beta3",
-        "joomla/input": "1.0-beta3",
-        "joomla/registry": "1.0-beta3"
+        "joomla/application": "~1.0",
+        "joomla/http": "~1.0",
+        "joomla/input": "~1.0",
+        "joomla/registry": "~1.0"
     },
     "target-dir": "Joomla/OAuth1",
     "autoload": {
     	"psr-0": {
     		"Joomla\\OAuth1": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }

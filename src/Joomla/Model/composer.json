@@ -7,16 +7,17 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/registry": "1.0-beta3",
-        "joomla/database": "1.0-beta3"
+        "joomla/registry": "~1.0",
+        "joomla/database": "~1.0"
     },
     "require-dev": {
-        "joomla/test": "1.0-beta3"
+        "joomla/test": "~1.0"
     },
     "target-dir": "Joomla/Model",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Model": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }
