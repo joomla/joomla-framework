@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="vendor/autoload.php" colors="false">
+	<!-- These constants help setup environment configurations for running optional tests.
+	<php>
+		<const name="JTEST_HTTP_STUB" value="http://localhost/joomla-framework/src/Joomla/Http/Tests/stubs/jhttp_stub.php" />
+	</php>
+	-->
 	<testsuites>
 		<testsuite name="Unit">
 			<directory>Tests</directory>
