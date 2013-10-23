@@ -22,9 +22,9 @@ use Joomla\Application\AbstractWebApplication;
 class OAuth extends Client
 {
 	/**
-	* @var   Registry Options for the Twitter Oauth object.
-	* @since 1.0
-	*/
+	 * @var    Registry Options for the Twitter Oauth object.
+	 * @since  1.0
+	 */
 	protected $options;
 
 	/**

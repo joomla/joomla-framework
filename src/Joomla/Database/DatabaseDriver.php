@@ -211,7 +211,8 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 			self::$connectors = array();
 
 			// Get an iterator and loop trough the driver classes.
-			$iterator = new \DirectoryIterator(__DIR__);
+			$dir = __DIR__;
+			$iterator = new \DirectoryIterator($dir);
 
 			/* @var  $file  \DirectoryIterator */
 			foreach ($iterator as $file)

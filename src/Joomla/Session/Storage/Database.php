@@ -34,7 +34,7 @@ class Database extends Storage
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function construct($options = array())
+	public function __construct($options = array())
 	{
 		if (isset($options['db']) && ($options['db'] instanceof DatabaseDriver))
 		{

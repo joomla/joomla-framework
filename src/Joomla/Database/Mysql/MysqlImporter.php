@@ -34,7 +34,7 @@ class MysqlImporter extends DatabaseImporter
 
 		return $sql;
 	}
-	
+
 	/**
 	 * Get the SQL syntax to add a key.
 	 *
@@ -51,7 +51,7 @@ class MysqlImporter extends DatabaseImporter
 
 		return $sql;
 	}
-	
+
 	/**
 	 * Get alters for table if there is a difference.
 	 *
@@ -340,6 +340,7 @@ class MysqlImporter extends DatabaseImporter
 	{
 		// First pass, create a lookup of the keys.
 		$lookup = array();
+
 		foreach ($keys as $key)
 		{
 			if ($key instanceof \SimpleXMLElement)
@@ -350,10 +351,12 @@ class MysqlImporter extends DatabaseImporter
 			{
 				$kName = $key->Key_name;
 			}
+
 			if (empty($lookup[$kName]))
 			{
 				$lookup[$kName] = array();
 			}
+
 			$lookup[$kName][] = $key;
 		}
 
@@ -378,6 +381,7 @@ class MysqlImporter extends DatabaseImporter
 		$kColumn = (string) $columns[0]['Column_name'];
 
 		$prefix = '';
+
 		if ($kName == 'PRIMARY')
 		{
 			$prefix = 'PRIMARY ';
@@ -406,7 +410,7 @@ class MysqlImporter extends DatabaseImporter
 
 		return $sql;
 	}
-	
+
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *

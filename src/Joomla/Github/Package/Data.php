@@ -16,7 +16,6 @@ use Joomla\Github\Package;
  * @documentation http://developer.github.com/v3/git/
  *
  * @since  1.0
-
  * http://developer.github.com/v3/git/
  *
  * Git DB API.

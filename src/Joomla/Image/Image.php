@@ -735,7 +735,7 @@ class Image implements LoggerAwareInterface
 
 		// Use resampling for better quality
 		imagecopyresampled(
-			$handle, $this->handle, 
+			$handle, $this->handle,
 			$offset->x, $offset->y, 0, 0, $dimensions->width, $dimensions->height, $this->getWidth(), $this->getHeight()
 		);
 

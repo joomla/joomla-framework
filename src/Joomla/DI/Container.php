@@ -10,6 +10,11 @@ namespace Joomla\DI;
 
 use Joomla\DI\Exception\DependencyResolutionException;
 
+/**
+ * The Container class.
+ *
+ * @since  1.0
+ */
 class Container
 {
 	/**
@@ -79,7 +84,9 @@ class Container
 		// If there are no parameters, just return a new object.
 		if (is_null($constructor))
 		{
-			$callback = function () use ($key) { return new $key; };
+			$callback = function () use ($key) {
+				return new $key;
+			};
 		}
 		else
 		{
@@ -208,10 +215,10 @@ class Container
 	/**
 	 * Method to set the key and callback to the dataStore array.
 	 *
-	 * @param   string    $key        Name of dataStore key to set.
-	 * @param   callable  $callback   Callable function to run when requesting the specified $key.
-	 * @param   boolean   $shared     True to create and store a shared instance.
-	 * @param   boolean   $protected  True to protect this item from being overwritten. Useful for services.
+	 * @param   string   $key        Name of dataStore key to set.
+	 * @param   mixed    $value      Callable function to run or string to retrive when requesting the specified $key.
+	 * @param   boolean  $shared     True to create and store a shared instance.
+	 * @param   boolean  $protected  True to protect this item from being overwritten. Useful for services.
 	 *
 	 * @return  \Joomla\DI\Container  This instance to support chaining.
 	 *
@@ -348,7 +355,7 @@ class Container
 	/**
 	 * Register a service provider to the container.
 	 *
-	 * @param   ServiceProviderInterface $provider
+	 * @param   ServiceProviderInterface  $provider  The service provider to register.w
 	 *
 	 * @return  Container  This object for chaining.
 	 *

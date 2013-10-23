@@ -310,8 +310,8 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	public function merge(Registry $source, $recursive = false)
 	{
 		$this->bindData($this->data, $source->toArray(), $recursive);
-	
-	    return $this;
+
+		return $this;
 	}
 
 	/**
@@ -460,8 +460,8 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	/**
 	 * Method to recursively bind data to a parent object.
 	 *
-	 * @param   object   $parent  The parent object on which to attach the data values.
-	 * @param   mixed    $data    An array or object of data to bind to the parent object.
+	 * @param   object   $parent     The parent object on which to attach the data values.
+	 * @param   mixed    $data       An array or object of data to bind to the parent object.
 	 * @param   boolean  $recursive  True to support recursive bindData.
 	 *
 	 * @return  void
@@ -482,18 +482,18 @@ class Registry implements \JsonSerializable, \ArrayAccess
 
 		foreach ($data as $k => $v)
 		{
-			if($v === '' || $v === null)
+			if ($v === '' || $v === null)
 			{
 				continue;
 			}
-			
+
 			if ((is_array($v) && ArrayHelper::isAssociative($v)) || is_object($v) && $recursive)
 			{
 				if (!isset($parent->$k))
 				{
-				    $parent->$k = new \stdClass;
+					$parent->$k = new \stdClass;
 				}
-				
+
 				$this->bindData($parent->$k, $v);
 			}
 			else
