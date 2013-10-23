@@ -166,10 +166,9 @@ class Stream
 	/**
 	 * Creates a new stream object with appropriate prefix
 	 *
-	 * @param   boolean  $use_prefix   Prefix the connections for writing
-	 * @param   boolean  $use_network  Use network if available for writing; use false to disable (e.g. FTP, SCP)
-	 * @param   string   $ua           UA User agent to use
-	 * @param   boolean  $uamask       User agent masking (prefix Mozilla)
+	 * @param   boolean  $use_prefix  Prefix the connections for writing
+	 * @param   string   $ua          UA User agent to use
+	 * @param   boolean  $uamask      User agent masking (prefix Mozilla)
 	 *
 	 * @return  Stream
 	 *

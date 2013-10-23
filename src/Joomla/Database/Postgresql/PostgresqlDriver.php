@@ -151,7 +151,8 @@ class PostgresqlDriver extends DatabaseDriver
 		}
 
 		// Build the DSN for the connection.
-		$dsn = "host={$this->options['host']} port={$this->options['port']} dbname={$this->options['database']} user={$this->options['user']} password={$this->options['password']}";
+		$dsn = "host={$this->options['host']} port={$this->options['port']} dbname={$this->options['database']} " .
+			"user={$this->options['user']} password={$this->options['password']}";
 
 		// Attempt to connect to the server.
 		if (!($this->connection = @pg_connect($dsn)))

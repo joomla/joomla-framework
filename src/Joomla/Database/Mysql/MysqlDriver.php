@@ -3,7 +3,7 @@
  * Part of the Joomla Framework Database Package
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license	   GNU General Public License version 2 or later; see LICENSE
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Database\Mysql;
@@ -200,6 +200,7 @@ class MysqlDriver extends PdoDriver
 
 		// Sanitize input to an array and iterate over the list.
 		settype($tables, 'array');
+
 		foreach ($tables as $table)
 		{
 			$this->setQuery('SHOW CREATE TABLE ' . $this->quoteName($table));

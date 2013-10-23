@@ -8,6 +8,11 @@
 
 namespace Joomla\DI;
 
+/**
+ * Defines the interface for a Container Aware class.
+ *
+ * @since  1.0
+ */
 interface ContainerAwareInterface
 {
 	/**
@@ -25,6 +30,8 @@ interface ContainerAwareInterface
 	 * Set the DI container.
 	 *
 	 * @param   Container  $container  The DI container.
+	 *
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */

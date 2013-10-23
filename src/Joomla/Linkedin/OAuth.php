@@ -23,9 +23,9 @@ use Joomla\Application\AbstractWebApplication;
 class OAuth extends Client
 {
 	/**
-	* @var    Registry  Options for the JLinkedinOauth object.
-	* @since  1.0
-	*/
+	 * @var    Registry  Options for the \Joomla\Linkedin\Oauth object.
+	 * @since  1.0
+	 */
 	protected $options;
 
 	/**

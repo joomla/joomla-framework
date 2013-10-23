@@ -19,93 +19,93 @@ use Joomla\Http\Http;
 class Facebook
 {
 	/**
-	 * @var    Joomla\Registry\Registry  Options for the Facebook object.
+	 * @var    \Joomla\Registry\Registry  Options for the Facebook object.
 	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    Joomla\Http\Http  The HTTP client object to use in sending HTTP requests.
+	 * @var    \Joomla\Http\Http  The HTTP client object to use in sending HTTP requests.
 	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    Joomla\Facebook\OAuth  The OAuth client.
+	 * @var    \Joomla\Facebook\OAuth  The OAuth client.
 	 * @since  1.0
 	 */
 	protected $oauth;
 
 	/**
-	 * @var    Joomla\Facebook\User  Facebook API object for user.
+	 * @var    \Joomla\Facebook\User  Facebook API object for user.
 	 * @since  1.0
 	 */
 	protected $user;
 
 	/**
-	* @var    Joomla\Facebook\Status  Facebook API object for status.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Status  Facebook API object for status.
+	 * @since  1.0
+	 */
 	protected $status;
 
 	/**
-	* @var    Jooomla\Facebook\Checkin  Facebook API object for checkin.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Checkin  Facebook API object for checkin.
+	 * @since  1.0
+	 */
 	protected $checkin;
 
 	/**
-	* @var    Joomla\Facebook\Event  Facebook API object for event.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Event  Facebook API object for event.
+	 * @since  1.0
+	 */
 	protected $event;
 
 	/**
-	* @var    Joomla\Facebook\Group  Facebook API object for group.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Group  Facebook API object for group.
+	 * @since  1.0
+	 */
 	protected $group;
 
 	/**
-	* @var    Joomla\Facebook\Link  Facebook API object for link.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Link  Facebook API object for link.
+	 * @since  1.0
+	 */
 	protected $link;
 
 	/**
-	* @var    Joomla\Facebook\Note  Facebook API object for note.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Note  Facebook API object for note.
+	 * @since  1.0
+	 */
 	protected $note;
 
 	/**
-	* @var    Joomla\Facebook\Post  Facebook API object for post.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Post  Facebook API object for post.
+	 * @since  1.0
+	 */
 	protected $post;
 
 	/**
-	* @var    Joomla\Facebook\Comment  Facebook API object for comment.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Comment  Facebook API object for comment.
+	 * @since  1.0
+	 */
 	protected $comment;
 
 	/**
-	* @var    Joomla\Facebook\Photo  Facebook API object for photo.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Photo  Facebook API object for photo.
+	 * @since  1.0
+	 */
 	protected $photo;
 
 	/**
-	* @var    Joomla\Facebook\Video  Facebook API object for video.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Video  Facebook API object for video.
+	 * @since  1.0
+	 */
 	protected $video;
 
 	/**
-	* @var    Joomla\Facebook\Album  Facebook API object for album.
-	* @since  1.0
-	*/
+	 * @var    \Joomla\Facebook\Album  Facebook API object for album.
+	 * @since  1.0
+	 */
 	protected $album;
 
 	/**
@@ -171,13 +171,13 @@ class Facebook
 	/**
 	 * Set an option for the Facebook instance.
 	 *
-	* @param   string  $key    The name of the option to set.
-	* @param   mixed   $value  The option value to set.
-	*
-	* @return  Facebook  This object for method chaining.
-	*
-	* @since   1.0
-	*/
+	 * @param   string  $key    The name of the option to set.
+	 * @param   mixed   $value  The option value to set.
+	 *
+	 * @return  Facebook  This object for method chaining.
+	 *
+	 * @since   1.0
+	 */
 	public function setOption($key, $value)
 	{
 		$this->options->set($key, $value);

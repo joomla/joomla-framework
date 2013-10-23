@@ -50,8 +50,8 @@ class Field_Language extends Field_List
 	/**
 	 * Builds a list of the system languages which can be used in a select option
 	 *
-	 * @param   string   $selected  Client key for the area
-	 * @param   string   $basePath  Base path to use
+	 * @param   string  $selected  Client key for the area
+	 * @param   string  $basePath  Base path to use
 	 *
 	 * @return  array  List of system languages
 	 *

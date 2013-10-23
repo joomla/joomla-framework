@@ -8,4 +8,12 @@
 
 namespace Joomla\DI\Exception;
 
-class DependencyResolutionException extends \Exception {}
+/**
+ * Defines the interface for a Container Aware class.
+ *
+ * @since  1.0
+ */
+class DependencyResolutionException extends \Exception
+{
+	// Noop
+}

@@ -20,21 +20,21 @@ use Joomla\Registry\Registry;
 class Plus extends Data
 {
 	/**
-	* @var    Plus\People  Google+ API object for people.
-	* @since  1.0
-	*/
+	 * @var    Plus\People  Google+ API object for people.
+	 * @since  1.0
+	 */
 	protected $people;
 
 	/**
-	* @var    Plus\Activities  Google+ API object for people.
-	* @since  1.0
-	*/
+	 * @var    Plus\Activities  Google+ API object for people.
+	 * @since  1.0
+	 */
 	protected $activities;
 
 	/**
-	* @var    Plus\Comments  Google+ API object for people.
-	* @since  1.0
-	*/
+	 * @var    Plus\Comments  Google+ API object for people.
+	 * @since  1.0
+	 */
 	protected $comments;
 
 	/**

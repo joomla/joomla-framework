@@ -166,6 +166,7 @@ class Patcher
 		foreach ($this->destinations as $file => $content)
 		{
 			$content = implode("\n", $content);
+
 			if (File::write($file, $content))
 			{
 				if (isset($this->sources[$file]))

@@ -41,7 +41,7 @@ class MysqlExporter extends DatabaseExporter
 
 		return implode("\n", $buffer);
 	}
-	
+
 	/**
 	 * Builds the XML structure to export.
 	 *
@@ -85,7 +85,7 @@ class MysqlExporter extends DatabaseExporter
 
 		return $buffer;
 	}
-	
+
 	/**
 	 * Checks if all data and options are in order prior to exporting.
 	 *
