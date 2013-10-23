@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Joomla Framework Logger Package
+ * Part of the Joomla Framework Log Package
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -22,6 +22,7 @@ class LogEntry
 {
 	/**
 	 * Application responsible for log entry.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
@@ -29,6 +30,7 @@ class LogEntry
 
 	/**
 	 * The date the message was logged.
+	 *
 	 * @var    Date
 	 * @since  1.0
 	 */
@@ -36,6 +38,7 @@ class LogEntry
 
 	/**
 	 * Message to be logged.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
@@ -43,6 +46,7 @@ class LogEntry
 
 	/**
 	 * The priority of the message to be logged.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 * @see    $priorities
@@ -51,6 +55,7 @@ class LogEntry
 
 	/**
 	 * List of available log priority levels [Based on the Syslog default levels].
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
@@ -93,7 +98,7 @@ class LogEntry
 			$this->category = (string) strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $category));
 		}
 
-		// Get the date as a JDate object.
+		// Get the date as a Date object.
 		$this->date = new Date($date ? $date : 'now');
 	}
 }

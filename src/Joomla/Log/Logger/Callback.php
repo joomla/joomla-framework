@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Joomla Framework Logger Package
+ * Part of the Joomla Framework Log Package
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -10,7 +10,6 @@ namespace Joomla\Log\Logger;
 
 use Joomla\Log\LogEntry;
 use Joomla\Log\AbstractLogger;
-use Exception;
 
 /**
  * Joomla! Callback Log class
@@ -34,7 +33,7 @@ class Callback extends AbstractLogger
 	 * @param   array  &$options  Log object options.
 	 *
 	 * @since   1.0
-	 * @throws  Exception
+	 * @throws  \Exception
 	 */
 	public function __construct(array &$options)
 	{
@@ -48,7 +47,7 @@ class Callback extends AbstractLogger
 		}
 		else
 		{
-			throw new Exception(__CLASS__ . ' created without valid callback function.');
+			throw new \Exception(__CLASS__ . ' created without valid callback function.');
 		}
 	}
 
@@ -60,7 +59,7 @@ class Callback extends AbstractLogger
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
-	 * @throws  Exception
+	 * @throws  \Exception
 	 */
 	public function addEntry(LogEntry $entry)
 	{
