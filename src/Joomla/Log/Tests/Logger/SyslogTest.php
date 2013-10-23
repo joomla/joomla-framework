@@ -4,17 +4,21 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Tests\Logger;
+
 /**
- * Test class for JLogLoggerSysLog.
+ * Test class for Joomla\Log\Logger\Syslog.
  *
  * @since  1.0
  */
-class JLogLoggerSysLogTest extends PHPUnit_Framework_TestCase
+class SyslogTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JLogLoggerSysLog::addEntry method.
+	 * Test the Joomla\Log\Logger\Syslog::addEntry method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testAddEntry()
 	{

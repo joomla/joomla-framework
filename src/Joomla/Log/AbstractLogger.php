@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Joomla Framework Logger Package
+ * Part of the Joomla Framework Log Package
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -19,14 +19,15 @@ namespace Joomla\Log;
 abstract class AbstractLogger
 {
 	/**
-	 * Options array for the JLog instance.
+	 * Options array for the Log instance.
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	protected $options = array();
 
 	/**
-	 * @var    array  Translation array for JLogEntry priorities to text strings.
+	 * @var    array  Translation array for LogEntry priorities to text strings.
 	 * @since  1.0
 	 */
 	protected $priorities = array(

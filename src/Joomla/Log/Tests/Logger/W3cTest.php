@@ -4,37 +4,76 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once __DIR__ . '/stubs/w3c/inspector.php';
+namespace Joomla\Log\Tests\Logger;
 
 use Joomla\Log\Log;
 use Joomla\Log\LogEntry;
+use Joomla\Log\Logger\W3c;
+use Joomla\Test\TestHelper;
 
 /**
- * Test class for JLogLoggerW3C.
+ * Test class for Joomla\Log\Logger\W3c.
  *
  * @since  1.0
  */
-class JLogLoggerW3CTest extends PHPUnit_Framework_TestCase
+class W3cTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * Test the JLogLoggerW3C::addEntry method.
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setUp()
+	{
+		parent::setUp();
+
+		// Create tmp directory for tests.
+		if (!is_dir(__DIR__ . '/tmp'))
+		{
+			mkdir(__DIR__ . '/tmp');
+		}
+	}
+
+	/**
+	 * Tears down the fixture, for example, close a network connection.
+	 * This method is called after a test is executed.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function tearDown()
+	{
+		// Remove tmp directory.
+		@rmdir(__DIR__ . '/tmp');
+
+		parent::tearDown();
+	}
+
+	/**
+	 * Test the Joomla\Log\Logger\W3c::addEntry method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testAddEntry()
 	{
 		// Setup the basic configuration.
 		$config = array(
-			'text_file_path' => JPATH_TESTS . '/tmp',
+			'text_file_path' => __DIR__ . '/tmp',
 		);
-		$logger = new JLogLoggerW3CInspector($config);
+		$logger = new W3c($config);
 
 		// Remove the log file if it exists.
-		@ unlink($logger->path);
+		@ unlink(TestHelper::getValue($logger, 'path'));
 
 		$logger->addEntry(new LogEntry('Testing Entry 01', Log::INFO, null, '1980-04-18'));
 		$this->assertEquals(
-			$this->getLastLine($logger->path),
+			$this->getLastLine(TestHelper::getValue($logger, 'path')),
 			'1980-04-18	00:00:00	INFO	-	-	Testing Entry 01',
 			'Line: ' . __LINE__
 		);
@@ -43,7 +82,7 @@ class JLogLoggerW3CTest extends PHPUnit_Framework_TestCase
 
 		$logger->addEntry(new LogEntry('Testing 02', Log::ERROR, null, '1982-12-15'));
 		$this->assertEquals(
-			$this->getLastLine($logger->path),
+			$this->getLastLine(TestHelper::getValue($logger, 'path')),
 			'1982-12-15	00:00:00	ERROR	192.168.0.1	-	Testing 02',
 			'Line: ' . __LINE__
 		);
@@ -52,13 +91,13 @@ class JLogLoggerW3CTest extends PHPUnit_Framework_TestCase
 
 		$logger->addEntry(new LogEntry('Testing3', Log::EMERGENCY, 'deprecated', '1980-04-18'));
 		$this->assertEquals(
-			$this->getLastLine($logger->path),
+			$this->getLastLine(TestHelper::getValue($logger, 'path')),
 			'1980-04-18	00:00:00	EMERGENCY	127.0.0.1	deprecated	Testing3',
 			'Line: ' . __LINE__
 		);
 
 		// Remove the log file if it exists.
-		@ unlink($logger->path);
+		@ unlink(TestHelper::getValue($logger, 'path'));
 	}
 
 	/**

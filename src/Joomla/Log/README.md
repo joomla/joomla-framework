@@ -4,7 +4,7 @@
 
 The Joomla Framework includes a Log package that allows for configurable, hook-driven logging to a variety of formats.
 
-The classes included in the Log package are `Joomla\Log\Log`, `Joomla\Log\LogEntry`, `Joomla\Log\AbstractLogger` as well as the classes `Joomla\Log\Logger\Database`, `Joomla\Log\Logger\Echo`, `Joomla\Log\Logger\FormattedText`, `Joomla\Log\Logger\Syslog` and `Joomla\Log\Logger\W3c` which support formatting and storage. Of all these classes, you will generally only use `Joomla\Log\Log` in your projects.
+The classes included in the Log package are `Joomla\Log\Log`, `Joomla\Log\LogEntry`, `Joomla\Log\AbstractLogger` as well as the classes `Joomla\Log\Logger\Callback`, `Joomla\Log\Logger\Database`, `Joomla\Log\Logger\Echoo`, `Joomla\Log\Logger\FormattedText`, `Joomla\Log\Logger\Syslog` and `Joomla\Log\Logger\W3c` which support formatting and storage. Of all these classes, you will generally only use `Joomla\Log\Log` in your projects.
 
 Logging is a two-step process.
 

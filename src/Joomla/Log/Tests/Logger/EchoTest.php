@@ -4,19 +4,22 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Tests\Logger;
+
 use Joomla\Log\Log;
 use Joomla\Log\LogEntry;
 use Joomla\Log\Logger\Echoo as LoggerEcho;
 
 /**
- * Test class for JLogLoggerEcho.
+ * Test class for Joomla\Log\Logger\Echoo.
  *
  * @since  1.0
  */
-class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
+class EchoTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var Joomla\Log\Logger\Echoo
+	 * @var    LoggerEcho
+	 * @since  1.0
 	 */
 	protected $object;
 
@@ -24,7 +27,9 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
@@ -40,7 +45,9 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test the Joomla\Log\Logger\Echoo::addEntry method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testAddEntry01()
 	{
@@ -51,7 +58,9 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test the Joomla\Log\Logger\Echoo::addEntry method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testAddEntry02()
 	{
@@ -62,7 +71,9 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test the Joomla\Log\Logger\Echoo::addEntry method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testAddEntry03()
 	{
@@ -73,7 +84,9 @@ class JLogLoggerEchoTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test the Joomla\Log\Logger\Echoo::addEntry method.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function testAddEntry04()
 	{

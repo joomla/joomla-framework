@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Joomla Framework Logger Package
+ * Part of the Joomla Framework Log Package
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -25,8 +25,10 @@ use Joomla\Log\Log;
 class Syslog extends AbstractLogger
 {
 	/**
-	 * @var array Translation array for JLogEntry priorities to SysLog priority names.
-	 * @since 11.1
+	 * Translation array for LogEntry priorities to SysLog priority names.
+	 *
+	 * @var    array
+	 * @since  1.0
 	 */
 	protected $priorities = array(
 		Log::EMERGENCY => 'EMERG',

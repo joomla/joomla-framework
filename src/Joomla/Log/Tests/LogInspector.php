@@ -4,19 +4,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-/**
- * Inspector classes for the JLog package.
- */
+namespace Joomla\Log\Tests;
 
 use Joomla\Log\Log;
 use Joomla\Log\LogEntry;
 
 /**
- * JLogInspector class.
+ * LogInspector class.
  *
  * @since  1.0
  */
-class JLogInspector extends Log
+class LogInspector extends Log
 {
 	public $configurations;
 
@@ -28,6 +26,8 @@ class JLogInspector extends Log
 
 	/**
 	 * Constructor.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct()
 	{
@@ -35,36 +35,42 @@ class JLogInspector extends Log
 	}
 
 	/**
-	 * Test...
+	 * Clear the static global instance
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public static function clearInstance()
 	{
-		JLog::$instance = null;
+		static::$instance = null;
 	}
 
 	/**
-	 * Test...
+	 * Method to add an entry to the appropriate loggers.
 	 *
-	 * @param   Entry  $entry  The entry to add.
+	 * @param   LogEntry  $entry  The entry to add.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function addLogEntry(LogEntry $entry)
 	{
 		$this->queue[] = $entry;
 
-		return parent::addLogEntry($entry);
+		parent::addLogEntry($entry);
 	}
 
 	/**
-	 * Test...
+	 * Method to find the loggers to use based on priority and category values.
 	 *
-	 * @param   int     $priority  Priority.
-	 * @param   string  $category  Category.
+	 * @param   integer  $priority  Message priority.
+	 * @param   string   $category  Type of entry
 	 *
-	 * @return void
+	 * @return  array  The array of loggers to use for the given priority and category values.
+	 *
+	 * @since   1.0
 	 */
 	public function findLoggers($priority, $category)
 	{

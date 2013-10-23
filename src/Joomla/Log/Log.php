@@ -1,14 +1,12 @@
 <?php
 /**
- * Part of the Joomla Framework Logger Package
+ * Part of the Joomla Framework Log Package
  *
  * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Log;
-
-use RuntimeException;
 
 /**
  * Joomla! Log Class
@@ -25,6 +23,7 @@ class Log
 {
 	/**
 	 * All log priorities.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -32,6 +31,7 @@ class Log
 
 	/**
 	 * The system is unusable.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -39,6 +39,7 @@ class Log
 
 	/**
 	 * Action must be taken immediately.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -46,6 +47,7 @@ class Log
 
 	/**
 	 * Critical conditions.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -53,6 +55,7 @@ class Log
 
 	/**
 	 * Error conditions.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -60,6 +63,7 @@ class Log
 
 	/**
 	 * Warning conditions.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -67,6 +71,7 @@ class Log
 
 	/**
 	 * Normal, but significant condition.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -74,6 +79,7 @@ class Log
 
 	/**
 	 * Informational message.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -81,6 +87,7 @@ class Log
 
 	/**
 	 * Debugging message.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -88,20 +95,23 @@ class Log
 
 	/**
 	 * The global Log instance.
+	 *
 	 * @var    Log
 	 * @since  1.0
 	 */
 	protected static $instance;
 
 	/**
-	 * Container for JLogLogger configurations.
+	 * Container for AbstractLogger configurations.
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	protected $configurations = array();
 
 	/**
-	 * Container for JLogLogger objects.
+	 * Container for AbstractLogger objects.
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
@@ -109,6 +119,7 @@ class Log
 
 	/**
 	 * Lookup array for loggers.
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
@@ -153,7 +164,7 @@ class Log
 	}
 
 	/**
-	 * Add a logger to the JLog instance.  Loggers route log entries to the correct files/systems to be logged.
+	 * Add a logger to the Log instance.  Loggers route log entries to the correct files/systems to be logged.
 	 *
 	 * @param   array    $options     The object configuration array.
 	 * @param   integer  $priorities  Message priority
@@ -180,7 +191,7 @@ class Log
 
 		$options['logger'] = strtolower($options['logger']);
 
-		// Special case - if a Closure object is sent as the callback (in case of JLogLoggerCallback)
+		// Special case - if a Closure object is sent as the callback (in case of Logger\Callback)
 		// Closure objects are not serializable so swap it out for a unique id first then back again later
 		if (isset($options['callback']) && is_a($options['callback'], 'closure'))
 		{
@@ -188,7 +199,7 @@ class Log
 			$options['callback'] = spl_object_hash($options['callback']);
 		}
 
-		// Generate a unique signature for the JLog instance based on its options.
+		// Generate a unique signature for the Log instance based on its options.
 		$signature = md5(serialize($options));
 
 		// Now that the options array has been serialized, swap the callback back in
@@ -206,11 +217,12 @@ class Log
 		self::$instance->lookup[$signature] = (object) array(
 			'priorities' => $priorities,
 			'categories' => array_map('strtolower', (array) $categories),
-			'exclude' => (bool) $exclude);
+			'exclude' => (bool) $exclude
+		);
 	}
 
 	/**
-	 * Returns a reference to the a JLog object, only creating it if it doesn't already exist.
+	 * Returns a reference to the a Log object, only creating it if it doesn't already exist.
 	 * Note: This is principally made available for testing and internal purposes.
 	 *
 	 * @param   Log  $instance  The logging object instance to be used by the static methods.
@@ -235,7 +247,7 @@ class Log
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function addLogEntry(LogEntry $entry)
 	{
@@ -255,7 +267,7 @@ class Log
 				}
 				else
 				{
-					throw new RuntimeException('Unable to create a JLogLogger instance: ' . $class);
+					throw new \RuntimeException('Unable to create a Joomla\\Log\\AbstractLogger instance: ' . $class);
 				}
 			}
 
