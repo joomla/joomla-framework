@@ -18,13 +18,9 @@ ini_set('display_errors', 1);
  * Ensure that required path constants are defined.  These can be overridden within the phpunit.xml file
  * if you chose to create a custom version of that file.
  */
-if (!defined('JPATH_TESTS'))
-{
-	define('JPATH_TESTS', realpath(__DIR__));
-}
 if (!defined('JPATH_ROOT'))
 {
-	define('JPATH_ROOT', realpath(JPATH_TESTS . '/tmp'));
+	define('JPATH_ROOT', realpath(__DIR__));
 }
 
 // Search for the Composer autoload file
