@@ -4,6 +4,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Log\Tests;
+
 use Joomla\Log\LogEntry;
 use Joomla\Log\Log;
 use Joomla\Date\Date;
@@ -13,14 +15,15 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  */
-class JLogEntryTest extends PHPUnit_Framework_TestCase
+class LogEntryTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Verify the default values for the log entry object.
 	 *
-	 * @covers  Joomla\Log\LogEntry::__construct
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @covers  Joomla\Log\LogEntry::__construct
 	 */
 	public function testDefaultValues()
 	{
@@ -59,9 +62,10 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Verify the priority for the entry object cannot be something not in the approved list.
 	 *
-	 * @covers  Joomla\Log\LogEntry::__construct
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @covers  Joomla\Log\LogEntry::__construct
 	 */
 	public function testBadPriorityValues()
 	{
@@ -90,9 +94,10 @@ class JLogEntryTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test that non-standard category values are sanitized.
 	 *
-	 * @covers  Joomla\Log\LogEntry::__construct
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @covers  Joomla\Log\LogEntry::__construct
 	 */
 	public function testCategorySanitization()
 	{
