@@ -9,7 +9,7 @@
         "php": ">=5.3.10"
     },
     "require-dev": {
-         "joomla/test": "1.0-beta3"
+         "joomla/test": "~1.0"
     },
     "suggest": {
         "joomla/registry": "Registry can be used as an alternative to using an array for the caching options."
@@ -19,5 +19,6 @@
     	"psr-0": {
     		"Joomla\\Cache": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }

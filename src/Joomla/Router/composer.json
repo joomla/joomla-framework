@@ -7,16 +7,17 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-    	"joomla/controller": "1.0-beta3",
-    	"joomla/input": "1.0-beta3"
+    	"joomla/controller": "~1.0",
+    	"joomla/input": "~1.0"
     },
     "require-dev": {
-    	"joomla/test": "1.0-beta3"
+    	"joomla/test": "~1.0"
     },
     "target-dir": "Joomla/Router",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Router": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }

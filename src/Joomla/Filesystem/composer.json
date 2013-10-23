@@ -5,14 +5,16 @@
     "keywords": ["joomla", "framework", "filesystem"],
     "homepage": "https://github.com/joomla/joomla-framework-filesystem",
     "license": "GPL-2.0+",
+    "version": "1.0-beta3",
     "require": {
         "php": ">=5.3.10",
-        "joomla/log": "1.0-beta3"
+        "joomla/log": "~1.0"
     },
     "target-dir": "Joomla/Filesystem",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Filesystem": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }

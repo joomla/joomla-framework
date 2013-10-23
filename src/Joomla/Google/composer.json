@@ -7,19 +7,20 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/registry": "1.0-beta3",
-        "joomla/uri": "1.0-beta3",
-        "joomla/oauth2": "1.0-beta3",
-        "joomla/filesystem": "1.0-beta3"
+        "joomla/registry": "~1.0",
+        "joomla/uri": "~1.0",
+        "joomla/oauth2": "~1.0",
+        "joomla/filesystem": "~1.0"
     },
     "require-dev": {
-    	"joomla/input": "1.0-beta3",
-    	"joomla/test": "1.0-beta3"
+    	"joomla/input": "~1.0",
+    	"joomla/test": "~1.0"
     },
     "target-dir": "Joomla/Google",
     "autoload": {
     	"psr-0": {
     		"Joomla\\Google": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }

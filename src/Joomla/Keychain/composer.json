@@ -7,7 +7,7 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/registry": "1.0-beta3"
+        "joomla/registry": "~1.0"
     },
     "target-dir": "Joomla/Keychain",
     "autoload": {
@@ -15,5 +15,6 @@
     		"Joomla\\Keychain": ""
     	}
     },
-    "bin": ["bin/keychain"]
+    "bin": ["bin/keychain"],
+    "minimum-stability": "beta"
 }

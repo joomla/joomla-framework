@@ -7,16 +7,17 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/filesystem": "1.0-beta3",
-        "joomla/model": "1.0-beta3"
+        "joomla/filesystem": "~1.0",
+        "joomla/model": "~1.0"
     },
     "require-dev": {
-        "joomla/test": "1.0-beta3"
+        "joomla/test": "~1.0"
     },
     "target-dir": "Joomla/View",
     "autoload": {
     	"psr-0": {
     		"Joomla\\View": ""
     	}
-    }
+    },
+    "minimum-stability": "beta"
 }
