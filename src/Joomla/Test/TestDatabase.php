@@ -47,7 +47,7 @@ abstract class TestDatabase extends \PHPUnit_Extensions_Database_TestCase
 
 			// Create a new PDO instance for an SQLite memory database and load the test schema into it.
 			$pdo = new \PDO('sqlite::memory:');
-			$pdo->exec(file_get_contents(JPATH_TESTS . '/schema/ddl.sql'));
+			$pdo->exec(file_get_contents(__DIR__ . '/Schema/ddl.sql'));
 
 			// Set the PDO instance to the driver using reflection whizbangery.
 			TestHelper::setValue(self::$driver, 'connection', $pdo);
