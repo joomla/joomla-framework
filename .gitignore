@@ -10,7 +10,6 @@ composer.lock
 /vendor/*
 
 # But keep packages shipped with Framework
-!/vendor/phputf8/
 !/vendor/psr/cache/
 
 
