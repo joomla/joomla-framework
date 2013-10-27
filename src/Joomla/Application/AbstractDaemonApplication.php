@@ -185,8 +185,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 			throw new \RuntimeException('Cannot find the application instance.');
 		}
 
-		// Fire the onReceiveSignal event.
-		$this->triggerEvent('onReceiveSignal', array($signal));
+		// @event onReceiveSignal
 
 		switch ($signal)
 		{
@@ -393,8 +392,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 */
 	public function execute()
 	{
-		// Trigger the onBeforeExecute event.
-		$this->triggerEvent('onBeforeExecute');
+		// @event onBeforeExecute
 
 		// Enable basic garbage collection.
 		gc_enable();
@@ -433,8 +431,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 			}
 		}
 
-		// Trigger the onAfterExecute event.
-		$this->triggerEvent('onAfterExecute');
+		// @event onAfterExecute
 	}
 
 	/**
@@ -950,8 +947,7 @@ abstract class AbstractDaemonApplication extends AbstractCliApplication implemen
 	 */
 	protected function postFork()
 	{
-		// Trigger the onFork event.
-		$this->triggerEvent('onFork');
+		// @event onFork
 	}
 
 	/**

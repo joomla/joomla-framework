@@ -26,7 +26,8 @@ abstract class AbstractCliApplication extends AbstractApplication
 	private static $instance;
 
 	/**
-	 * @var CliOutput
+	 * @var    CliOutput  Output object
+	 * @since  1.0
 	 */
 	protected $output;
 
@@ -70,7 +71,9 @@ abstract class AbstractCliApplication extends AbstractApplication
 	/**
 	 * Get an output object.
 	 *
-	 * @return CliOutput
+	 * @return  CliOutput
+	 *
+	 * @since   1.0
 	 */
 	public function getOutput()
 	{
