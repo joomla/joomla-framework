@@ -6,9 +6,9 @@ php:
 
 before_install:
   - composer self-update
-  - sh -e .travis/scripts/apt-get.sh
-  - sh -e .travis/scripts/apache2-vhost.sh
-  - sh -e .travis/scripts/apache2-configure.sh
+  - sh -e build/travis/scripts/apt-get.sh
+  - sh -e build/travis/scripts/apache2-vhost.sh
+  - sh -e build/travis/scripts/apache2-configure.sh
 
 before_script:
   - composer update --dev

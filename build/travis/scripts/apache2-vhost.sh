@@ -2,7 +2,7 @@
 
 BASEDIR=$(dirname $0)
 BASEDIR=$(readlink -f "$BASEDIR/..")
-ROOTDIR=$(readlink -f "$BASEDIR/..")
+ROOTDIR=$(readlink -f "$BASEDIR/../..")
 
 VHOSTNAME="virtualhost.local"
 if [ "$1" ]
