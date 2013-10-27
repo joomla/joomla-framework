@@ -6,6 +6,7 @@
 
 use Joomla\Session\Storage\Database as StorageDatabase;
 use Joomla\Session\Storage;
+use Joomla\Test\TestDatabase;
 
 /**
  * Test class for JSessionStorageDatabase.
@@ -13,10 +14,10 @@ use Joomla\Session\Storage;
  *
  * @since  1.0
  */
-class JSessionStorageDatabaseTest extends PHPUnit_Framework_TestCase
+class JSessionStorageDatabaseTest extends TestDatabase
 {
 	/**
-	 * @var JSessionStorageDatabase
+	 * @var StorageDatabase
 	 */
 	protected $object;
 
@@ -30,7 +31,9 @@ class JSessionStorageDatabaseTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->object = Storage::getInstance('Database');
+		$this->object = Storage::getInstance('Database', array(
+				'db' => self::$driver
+			));
 	}
 
 	/**
