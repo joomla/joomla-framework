@@ -7,7 +7,6 @@
 namespace Joomla\Http\Tests;
 
 use Joomla\Http\HttpFactory;
-use Joomla\Registry\Registry;
 
 /**
  * Test class for Joomla\Http\HttpFactory.
@@ -27,7 +26,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			HttpFactory::getHttp(),
-			$this->isInstanceOf('\\Joomla\\Http\\Http')
+			$this->isInstanceOf('Joomla\\Http\\Http')
 		);
 	}
 
@@ -41,13 +40,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 	public function testGetAvailableDriver()
 	{
 		$this->assertThat(
-			HttpFactory::getAvailableDriver(new Registry, array()),
+			HttpFactory::getAvailableDriver(array(), array()),
 			$this->isFalse(),
 			'Passing an empty array should return false due to there being no adapters to test'
 		);
 
 		$this->assertThat(
-			HttpFactory::getAvailableDriver(new Registry, array('fopen')),
+			HttpFactory::getAvailableDriver(array(), array('fopen')),
 			$this->isFalse(),
 			'A false should be returned if a class is not present or supported'
 		);

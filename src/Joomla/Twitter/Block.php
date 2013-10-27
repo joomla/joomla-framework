@@ -8,9 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Object;
-use \RuntimeException;
-
 /**
  * Twitter API Block class for the Joomla Framework.
  *
@@ -67,7 +64,7 @@ class Block extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function blockUser($user, $entities = null, $skip_status = null)
 	{
@@ -86,7 +83,7 @@ class Block extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Check if entities is specified
@@ -119,7 +116,7 @@ class Block extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function unblock($user, $entities = null, $skip_status = null)
 	{
@@ -138,7 +135,7 @@ class Block extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Check if entities is specified

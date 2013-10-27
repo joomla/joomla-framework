@@ -10,7 +10,6 @@ namespace Joomla\Github;
 
 use Joomla\Http\Http as BaseHttp;
 use Joomla\Http\TransportInterface;
-use Joomla\Registry\Registry;
 
 /**
  * HTTP client class for connecting to a GitHub instance.
@@ -40,20 +39,26 @@ class Http extends BaseHttp
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry            $options    Client options object.
+	 * @param   array               $options    Client options array.
 	 * @param   TransportInterface  $transport  The HTTP transport object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, TransportInterface $transport = null)
+	public function __construct($options = array(), TransportInterface $transport = null)
 	{
 		// Call the JHttp constructor to setup the object.
 		parent::__construct($options, $transport);
 
 		// Make sure the user agent string is defined.
-		$this->options->def('userAgent', 'JGitHub/2.0');
+		if (!isset($this->options['userAgent']))
+		{
+			$this->options['userAgent'] = 'JGitHub/2.0';
+		}
 
 		// Set the default timeout to 120 seconds.
-		$this->options->def('timeout', 120);
+		if (!isset($this->options['timeout']))
+		{
+			$this->options['timeout'] = 120;
+		}
 	}
 }

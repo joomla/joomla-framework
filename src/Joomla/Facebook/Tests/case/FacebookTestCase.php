@@ -7,12 +7,8 @@
 namespace Joomla\Facebook\Tests;
 
 use Joomla\Facebook\OAuth;
-use Joomla\Registry\Registry;
-use Joomla\Http\Http;
 use Joomla\Input\Input;
 use Joomla\Test\WebInspector;
-use stdClass;
-use RuntimeException;
 
 /**
  * Test case for Facebook.
@@ -22,31 +18,31 @@ use RuntimeException;
 class FacebookTestCase extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    JRegistry  Options for the Facebook object.
+	 * @var    array  Options for the Facebook object.
 	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    JFacebookOauth  OAuth client for Facebook.
+	 * @var    OAuth  OAuth client for Facebook.
 	 * @since  1.0
 	 */
 	protected $oauth;
 
 	/**
-	 * @var    JHttp  Mock client object.
+	 * @var    object  Mock client object.
 	 * @since  1.0
 	 */
 	protected $client;
 
 	/**
-	 * @var    JFacebookAlbum  Object under test.
+	 * @var    object  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
 
 	/**
-	 * @var    JApplicationWeb  The application object to send HTTP headers for redirects.
+	 * @var    WebInspector  The application object to send HTTP headers for redirects.
 	 */
 	protected $application;
 
@@ -88,18 +84,19 @@ class FacebookTestCase extends \PHPUnit_Framework_TestCase
 				'access_token' => 'token',
 				'expires' => '51837673', 'created' => '2443672521');
 
-		$this->options = new Registry;
-		$this->client = $this->getMock('\\Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
+		$this->options = array();
+
+		$this->options['clientid'] = $app_id;
+		$this->options['clientsecret'] = $app_secret;
+		$this->options['redirecturi'] = $my_url;
+		$this->options['sendheaders'] = true;
+		$this->options['authmethod'] = 'get';
+
+		$this->client = $this->getMock('Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
 		$this->input = new Input;
 		$this->application = new WebInspector;
 		$this->oauth = new OAuth($this->options, $this->client, $this->input, $this->application);
 		$this->oauth->setToken($access_token);
-
-		$this->options->set('clientid', $app_id);
-		$this->options->set('clientsecret', $app_secret);
-		$this->options->set('redirecturi', $my_url);
-		$this->options->set('sendheaders', true);
-		$this->options->set('authmethod', 'get');
 	}
 
 	/**

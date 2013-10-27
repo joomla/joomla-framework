@@ -21,7 +21,6 @@ use Joomla\Twitter\Search;
 use Joomla\Twitter\Statuses;
 use Joomla\Twitter\Trends;
 use Joomla\Twitter\Users;
-use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 
 /**
@@ -32,7 +31,7 @@ use Joomla\Http\Http;
 class Twitter
 {
 	/**
-	 * @var    Registry  Options for the Twitter object.
+	 * @var    array  Options for the Twitter object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -124,20 +123,23 @@ class Twitter
 	/**
 	 * Constructor.
 	 *
-	 * @param   OAuth     $oauth    The oauth client.
-	 * @param   Registry  $options  Twitter options object.
-	 * @param   Http      $client   The HTTP client object.
+	 * @param   OAuth  $oauth    The oauth client.
+	 * @param   array  $options  Twitter options array.
+	 * @param   Http   $client   The HTTP client object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(OAuth $oauth = null, Registry $options = null, Http $client = null)
+	public function __construct(OAuth $oauth = null, $options = array(), Http $client = null)
 	{
 		$this->oauth = $oauth;
-		$this->options = isset($options) ? $options : new Registry;
-		$this->client  = isset($client) ? $client : new Http($this->options);
+		$this->options = $options;
+		$this->client  = $client;
 
 		// Setup the default API url if not already set.
-		$this->options->def('api.url', 'https://api.twitter.com/1.1');
+		if (!isset($this->options['api.url']))
+		{
+			$this->options['api.url'] = 'https://api.twitter.com/1.1';
+		}
 	}
 
 	/**
@@ -177,7 +179,7 @@ class Twitter
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -192,7 +194,7 @@ class Twitter
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

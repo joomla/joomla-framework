@@ -8,9 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Object;
-use \RuntimeException;
-
 /**
  * Twitter API Users class for the Joomla Framework.
  *
@@ -29,12 +26,14 @@ class Users extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getUsersLookup($screen_name = null, $id = null, $entities = null)
 	{
 		// Check the rate limit for remaining hits
 		$this->checkRateLimit('users', 'lookup');
+
+		$data = array();
 
 		// Set user IDs and screen names.
 		if ($id)
@@ -50,7 +49,7 @@ class Users extends Object
 		if ($id == null && $screen_name == null)
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('You must specify either a comma separated list of screen names, user IDs, or a combination of the two');
+			throw new \RuntimeException('You must specify either a comma separated list of screen names, user IDs, or a combination of the two');
 		}
 
 		// Set the API path
@@ -95,7 +94,7 @@ class Users extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Send the request.
@@ -114,7 +113,7 @@ class Users extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function searchUsers($query, $page = 0, $count = 0, $entities = null)
 	{
@@ -157,7 +156,7 @@ class Users extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getUser($user, $entities = null)
 	{
@@ -176,7 +175,7 @@ class Users extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -202,7 +201,7 @@ class Users extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getContributees($user, $entities = null, $skip_status = null)
 	{
@@ -221,7 +220,7 @@ class Users extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -253,7 +252,7 @@ class Users extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getContributors($user, $entities = null, $skip_status = null)
 	{
@@ -272,7 +271,7 @@ class Users extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path

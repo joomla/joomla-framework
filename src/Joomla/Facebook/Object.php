@@ -8,10 +8,8 @@
 
 namespace Joomla\Facebook;
 
-use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Uri\Uri;
-use RuntimeException;
 
 /**
  * Facebook API object class for the Joomla Framework.
@@ -21,13 +19,13 @@ use RuntimeException;
 abstract class Object
 {
 	/**
-	 * @var    Joomla\Registry\Registry  Options for the Facebook object.
+	 * @var    array  Options for the Facebook object.
 	 * @since  1.0
 	 */
 	protected $options;
 
 	/**
-	 * @var    Joomla\Http\Http  The HTTP client object to use in sending HTTP requests.
+	 * @var    \Joomla\Http\Http  The HTTP client object to use in sending HTTP requests.
 	 * @since  1.0
 	 */
 	protected $client;
@@ -41,16 +39,16 @@ abstract class Object
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Facebook options object.
-	 * @param   Http      $client   The HTTP client object.
-	 * @param   OAuth     $oauth    The OAuth client.
+	 * @param   array  $options  Facebook options array.
+	 * @param   Http   $client   The HTTP client object.
+	 * @param   OAuth  $oauth    The OAuth client.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Http $client = null, OAuth $oauth = null)
+	public function __construct($options = array(), Http $client = null, OAuth $oauth = null)
 	{
-		$this->options = isset($options) ? $options : new Registry;
-		$this->client = isset($client) ? $client : new Http($this->options);
+		$this->options = $options;
+		$this->client = $client;
 		$this->oauth = $oauth;
 	}
 
@@ -72,7 +70,8 @@ abstract class Object
 	protected function fetchUrl($path, $limit = 0, $offset = 0, $until = null, $since = null)
 	{
 		// Get a new Uri object fousing the api url and given path.
-		$uri = new Uri($this->options->get('api.url') . $path);
+		$apiUrl = isset($this->options['api.url']) ? $this->options['api.url'] : null;
+		$uri = new Uri($apiUrl . $path);
 
 		if ($limit > 0)
 		{
@@ -280,7 +279,7 @@ abstract class Object
 	 *
 	 * @param   OAuth  $oauth  The OAuth client object.
 	 *
-	 * @return  FacebookObject  This object for method chaining.
+	 * @return  Object  This object for method chaining.
 	 *
 	 * @since   1.0
 	 */

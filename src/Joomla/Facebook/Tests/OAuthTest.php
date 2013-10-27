@@ -7,9 +7,9 @@
 namespace Joomla\Facebook\Tests;
 
 use Joomla\Facebook\OAuth;
-use Joomla\Registry\Registry;
 use Joomla\Input\Input;
 use Joomla\Test\WebInspector;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/case/FacebookTestCase.php';
 
@@ -21,7 +21,7 @@ require_once __DIR__ . '/case/FacebookTestCase.php';
 class OAuthTest extends FacebookTestCase
 {
 	/**
-	 * @var    JApplicationWeb  The application object to send HTTP headers for redirects.
+	 * @var    WebInspector  The application object to send HTTP headers for redirects.
 	 */
 	protected $application;
 
@@ -42,8 +42,8 @@ class OAuthTest extends FacebookTestCase
 		$_SERVER['REQUEST_URI'] = '/index.php';
 		$_SERVER['SCRIPT_NAME'] = '/index.php';
 
-		$this->options = new Registry;
-		$this->client = $this->getMock('\\Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
+		$this->options = array();
+		$this->client = $this->getMock('Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
 		$this->input = new Input;
 
 		$this->application = new WebInspector;
@@ -61,8 +61,10 @@ class OAuthTest extends FacebookTestCase
 	{
 		$this->object->setScope('read_stream');
 
+		$value = TestHelper::getValue($this->object, 'options');
+
 		$this->assertThat(
-			$this->options->get('scope'),
+			$value['scope'],
 			$this->equalTo('read_stream')
 		);
 	}
@@ -76,7 +78,9 @@ class OAuthTest extends FacebookTestCase
 	 */
 	public function testGetScope()
 	{
-		$this->options->set('scope', 'read_stream');
+		TestHelper::setValue($this->object, 'options', array(
+				'scope' => 'read_stream'
+			));
 
 		$this->assertThat(
 			$this->object->getScope(),

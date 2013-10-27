@@ -9,7 +9,6 @@
 namespace Joomla\Twitter;
 
 use Joomla\Oauth1\Client;
-use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
 use Joomla\Application\AbstractWebApplication;
@@ -22,7 +21,7 @@ use Joomla\Application\AbstractWebApplication;
 class OAuth extends Client
 {
 	/**
-	 * @var    Registry Options for the Twitter Oauth object.
+	 * @var    array  Options for the Twitter OAuth object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -30,21 +29,36 @@ class OAuth extends Client
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry                $options      JTwitterOauth options object.
+	 * @param   array                   $options      OAuth options array.
 	 * @param   Http                    $client       The HTTP client object.
 	 * @param   Input                   $input        The input object.
 	 * @param   AbstractWebApplication  $application  The application object.
 	 *
 	 * @since 1.0
 	 */
-	public function __construct(Registry $options, Http $client, Input $input, AbstractWebApplication $application)
+	public function __construct($options = array(), Http $client, Input $input, AbstractWebApplication $application)
 	{
 		$this->options = $options;
 
-		$this->options->def('accessTokenURL', 'https://api.twitter.com/oauth/access_token');
-		$this->options->def('authenticateURL', 'https://api.twitter.com/oauth/authenticate');
-		$this->options->def('authoriseURL', 'https://api.twitter.com/oauth/authorize');
-		$this->options->def('requestTokenURL', 'https://api.twitter.com/oauth/request_token');
+		if (!isset($this->options['accessTokenURL']))
+		{
+			$this->options['accessTokenURL'] = 'https://api.twitter.com/oauth/access_token';
+		}
+
+		if (!isset($this->options['authenticateURL']))
+		{
+			$this->options['authenticateURL'] = 'https://api.twitter.com/oauth/authenticate';
+		}
+
+		if (!isset($this->options['authoriseURL']))
+		{
+			$this->options['authoriseURL'] = 'https://api.twitter.com/oauth/authorize';
+		}
+
+		if (!isset($this->options['requestTokenURL']))
+		{
+			$this->options['requestTokenURL'] = 'https://api.twitter.com/oauth/request_token';
+		}
 
 		// Call the OAuth1 Client constructor to setup the object.
 		parent::__construct($this->options, $client, $input, $application);

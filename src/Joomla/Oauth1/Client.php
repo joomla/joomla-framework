@@ -8,7 +8,6 @@
 
 namespace Joomla\Oauth1;
 
-use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
 use Joomla\Application\AbstractWebApplication;
@@ -21,7 +20,7 @@ use Joomla\Application\AbstractWebApplication;
 abstract class Client
 {
 	/**
-	 * @var    Registry  Options for the Client object.
+	 * @var    array  Options for the Client object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -59,7 +58,7 @@ abstract class Client
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry                $options      OAuth1 Client options object.
+	 * @param   array                   $options      OAuth1 Client options array.
 	 * @param   Http                    $client       The HTTP client object.
 	 * @param   Input                   $input        The input object
 	 * @param   AbstractWebApplication  $application  The application object
@@ -67,7 +66,7 @@ abstract class Client
 	 *
 	 * @since 1.0
 	 */
-	public function __construct(Registry $options, Http $client, Input $input, AbstractWebApplication $application, $version = '1.0a')
+	public function __construct($options = array(), Http $client, Input $input, AbstractWebApplication $application, $version = '1.0a')
 	{
 		$this->options = $options;
 		$this->client = $client;
@@ -559,7 +558,7 @@ abstract class Client
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -574,7 +573,7 @@ abstract class Client
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

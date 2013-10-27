@@ -8,7 +8,6 @@
 
 namespace Joomla\Cache;
 
-use Joomla\Registry\Registry;
 use Psr\Cache\CacheItemInterface;
 
 /**
@@ -21,12 +20,12 @@ class XCache extends Cache
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Caching options object.
+	 * @param   array  $options  Caching options object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct($options = null)
+	public function __construct($options = array())
 	{
 		parent::__construct($options);
 

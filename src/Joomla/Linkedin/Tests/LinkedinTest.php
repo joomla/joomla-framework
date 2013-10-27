@@ -6,6 +6,7 @@
 
 namespace Joomla\Linkedin\Tests;
 
+use Joomla\Test\TestHelper;
 use Joomla\Linkedin\Linkedin;
 use Joomla\Linkedin\People;
 use Joomla\Linkedin\Groups;
@@ -151,8 +152,10 @@ class LinkedinTest extends LinkedinTestCase
 	{
 		$this->object->setOption('api.url', 'https://example.com/settest');
 
+		$value = TestHelper::getValue($this->object, 'options');
+
 		$this->assertThat(
-			$this->options->get('api.url'),
+			$value['api.url'],
 			$this->equalTo('https://example.com/settest')
 		);
 	}
@@ -166,10 +169,12 @@ class LinkedinTest extends LinkedinTestCase
 	 */
 	public function testGetOption()
 	{
-		$this->options->set('api.url', 'https://example.com/gettest');
+		TestHelper::setValue($this->object, 'options', array(
+				'api.url' => 'https://example.com/gettest'
+			));
 
 		$this->assertThat(
-			$this->object->getOption('api.url', 'https://example.com/gettest'),
+			$this->object->getOption('api.url'),
 			$this->equalTo('https://example.com/gettest')
 		);
 	}

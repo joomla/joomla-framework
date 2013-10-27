@@ -8,8 +8,6 @@
 
 namespace Joomla\Google;
 
-use Joomla\Registry\Registry;
-
 /**
  * Joomla Framework class for interacting with the Google APIs.
  *
@@ -21,7 +19,7 @@ use Joomla\Registry\Registry;
 class Google
 {
 	/**
-	 * @var    Registry  Options for the Google object.
+	 * @var    array  Options for the Google object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -52,9 +50,9 @@ class Google
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Auth $auth = null)
+	public function __construct($options = array(), Auth $auth = null)
 	{
-		$this->options = isset($options) ? $options : new Registry;
+		$this->options = $options;
 		$this->auth  = isset($auth) ? $auth : new Auth\Oauth2($this->options);
 	}
 
@@ -141,7 +139,7 @@ class Google
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -156,7 +154,7 @@ class Google
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

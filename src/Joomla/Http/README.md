@@ -18,14 +18,13 @@ The `Http\Http` class provides methods for making RESTful requests.
 
 ##### Construction
 
-Construction of `Http\Http` object is generally done using the `Http\HttpFactory` class. However, `Http\Http` is not abstract and can be instantiated directly passing an optional Registry object of options and an optional `Http\TransportInterface` object. If the transport is omitted, the default transport will be used. The default is determined by looking up the transports folder and selecting the first transport that is supported (this will usually be the "curl" transport).
+Construction of `Http\Http` object is generally done using the `Http\HttpFactory` class. However, `Http\Http` is not abstract and can be instantiated directly passing an optional array of options and an optional `Http\TransportInterface` object. If the transport is omitted, the default transport will be used. The default is determined by looking up the transports folder and selecting the first transport that is supported (this will usually be the "curl" transport).
 
 ```php
 use Joomla\Http\Http;
 use Joomla\Http\Transport\Stream as StreamTransport;
-use Joomla\Registry\Registry;
 
-$options = new Registry;
+$options = array();
 
 $transport = new StreamTransport($options);
 
@@ -105,16 +104,14 @@ An HTTP TRACE request can be made using the trace method passing a URL and an op
 
 ##### Working with options
 
-Customs headers can be pased into each REST request, but they can also be set globally in the constructor options where the registry path starts with "headers.". In the case where a request method passes additional headers, those will override the headers set in the options.
+Customs headers can be pased into each REST request, but they can also be set globally in the constructor options where the option path starts with "headers.". In the case where a request method passes additional headers, those will override the headers set in the options.
 
 ```php
-use Joomla\Registry\Registry;
-
-// Create the options.
-$options = new Registry;
 
 // Configure a custom Accept header for all requests.
-$options->set('headers.Accept', 'application/vnd.github.html+json');
+$options = array(
+    'headers.Accept' => 'application/vnd.github.html+json'
+);
 
 // Make the request, knowing the custom Accept header will be used.
 $pull = $http->get('https://api.github.com/repos/joomla/joomla-platform/pulls/1');

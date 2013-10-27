@@ -7,7 +7,6 @@
 namespace Joomla\Cache\Tests;
 
 use Joomla\Cache;
-use Joomla\Registry\Registry;
 use Joomla\Test\TestHelper;
 
 /**
@@ -223,8 +222,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
 		// Clean up the test folder.
 		$this->tearDown();
 
-		$options = new Registry;
-		$options->set('file.path', __DIR__ . '/tmp');
+		$options = array(
+			'file.path' => __DIR__ . '/tmp'
+		);
 
 		$this->instance = new Cache\File($options);
 	}

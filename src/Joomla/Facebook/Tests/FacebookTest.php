@@ -7,6 +7,7 @@
 namespace Joomla\Facebook\Tests;
 
 use Joomla\Facebook\Facebook;
+use Joomla\Test\TestHelper;
 
 require_once __DIR__ . '/case/FacebookTestCase.php';
 
@@ -238,8 +239,10 @@ class FacebookTest extends FacebookTestCase
 	{
 		$this->object->setOption('api.url', 'https://example.com/settest');
 
+		$value = TestHelper::getValue($this->object, 'options');
+
 		$this->assertThat(
-			$this->options->get('api.url'),
+			$value['api.url'],
 			$this->equalTo('https://example.com/settest')
 		);
 	}
@@ -253,10 +256,12 @@ class FacebookTest extends FacebookTestCase
 	 */
 	public function testGetOption()
 	{
-		$this->options->set('api.url', 'https://example.com/gettest');
+		TestHelper::setValue($this->object, 'options', array(
+				'api.url' => 'https://example.com/gettest'
+			));
 
 		$this->assertThat(
-			$this->object->getOption('api.url', 'https://example.com/gettest'),
+			$this->object->getOption('api.url'),
 			$this->equalTo('https://example.com/gettest')
 		);
 	}

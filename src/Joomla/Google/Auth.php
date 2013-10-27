@@ -16,7 +16,7 @@ namespace Joomla\Google;
 abstract class Auth
 {
 	/**
-	 * @var    \Joomla\Registry\Registry  Options for the Google authentication object.
+	 * @var    array  Options for the Google authentication object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -64,7 +64,7 @@ abstract class Auth
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -79,7 +79,7 @@ abstract class Auth
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

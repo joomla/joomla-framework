@@ -7,8 +7,8 @@
 namespace Joomla\Http\Tests;
 
 use Joomla\Http\Http;
-use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
+use Joomla\Test\TestHelper;
 
 /**
  * Test class for Joomla\Http\Http.
@@ -18,7 +18,7 @@ use Joomla\Uri\Uri;
 class HttpTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the Http object.
+	 * @var    array  Options for the Http object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -48,7 +48,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		static $classNumber = 1;
-		$this->options = $this->getMock('Joomla\\Registry\\Registry', array('get', 'set'));
+		$this->options = array();
 		$this->transport = $this->getMock(
 			'Joomla\Http\Transport\Stream',
 			array('request'),
@@ -69,14 +69,13 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetOption()
 	{
-		$this->options->expects($this->once())
-			->method('get')
-			->with('testkey')
-			->will($this->returnValue('testResult'));
+		$this->object->setOption('testKey', 'testValue');
+
+		$value = TestHelper::getValue($this->object, 'options');
 
 		$this->assertThat(
-			$this->object->getOption('testkey'),
-			$this->equalTo('testResult')
+			$value['testKey'],
+			$this->equalTo('testValue')
 		);
 	}
 
@@ -89,13 +88,13 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetOption()
 	{
-		$this->options->expects($this->once())
-			->method('set')
-			->with('testkey', 'testvalue');
+		TestHelper::setValue($this->object, 'options', array(
+				'testKey' => 'testValue'
+			));
 
 		$this->assertThat(
-			$this->object->setOption('testkey', 'testvalue'),
-			$this->equalTo($this->object)
+			$this->object->getOption('testKey'),
+			$this->equalTo('testValue')
 		);
 	}
 

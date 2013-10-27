@@ -9,7 +9,6 @@
 namespace Joomla\Google;
 
 use Joomla\Uri\Uri;
-use Joomla\Registry\Registry;
 
 /**
  * Google API object class for the Joomla Framework.
@@ -38,9 +37,9 @@ abstract class Embed
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Uri $uri = null)
+	public function __construct($options = array(), Uri $uri = null)
 	{
-		$this->options = $options ? $options : new Registry;
+		$this->options = $options;
 		$this->uri = $uri ? $uri : new Uri;
 	}
 
@@ -109,7 +108,7 @@ abstract class Embed
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -124,7 +123,7 @@ abstract class Embed
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

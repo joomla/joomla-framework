@@ -18,18 +18,19 @@ This creates a basic Twitter object that can be used to access resources on twit
 
 Generating an access token can be done by instantiating OAuth.
 
-Create a Twitter application at [https://dev.twitter.com/apps](https://dev.twitter.com/apps) in order to request permissions. Instantiate OAuth, passing the Registry options needed. By default you have to set and send headers manually in your application, but if you want this to be done automatically you can set Registry option 'sendheaders' to true.
+Create a Twitter application at [https://dev.twitter.com/apps](https://dev.twitter.com/apps) in order to request permissions. Instantiate OAuth, passing the options needed. By default you have to set and send headers manually in your application, but if you want this to be done automatically you can set option 'sendheaders' to true.
 
 ```php
 use Joomla\Twitter\Twitter;
 use Joomla\Twitter\OAuth;
-use Joomla\Registry\Registry;
 
-$options = new Registry;
-$options->set('consumer_key', $consumer_key);
-$options->set('consumer_secret', $consumer_secret);
-$options->set('callback', $callback_url);
-$options->set('sendheaders', true);
+$options = array(
+    'consumer_key' => $consumer_key,
+    'consumer_secret' => $consumer_secret,
+    'callback' => $callback_url,
+    'sendheaders' => true
+);
+
 $oauth = new OAuth($options);
 
 $twitter = new Twitter($oauth);
@@ -77,18 +78,17 @@ Below is an example demonstrating more of the Twitter package.
 ```php
 use Joomla\Twitter\Twitter;
 use Joomla\Twitter\OAuth;
-use Joomla\Registry\Registry;
 
 $app_id = "app_id";
 $app_secret = "app_secret";
 $my_url = 'http://localhost/twitter_test.php';
 
-
-$options = new Registry;
-$options->set('consumer_key', $key);
-$options->set('consumer_secret', $secret);
-$options->set('callback', $my_url);
-$options->set('sendheaders', true);
+$options = array(
+    'consumer_key' => $consumer_key,
+    'consumer_secret' => $consumer_secret,
+    'callback' => $callback_url,
+    'sendheaders' => true
+);
 
 $oauth = new OAuth($options);
 $oauth->authenticate();

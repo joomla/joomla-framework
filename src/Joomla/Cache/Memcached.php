@@ -8,7 +8,6 @@
 
 namespace Joomla\Cache;
 
-use Joomla\Registry\Registry;
 use Psr\Cache\CacheItemInterface;
 
 /**
@@ -32,11 +31,11 @@ class Memcached extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct($options = null)
+	public function __construct($options = array())
 	{
 		parent::__construct($options);
 
-		if (!extension_loaded('memcached') || !class_exists('\\Memcached'))
+		if (!extension_loaded('memcached') || !class_exists('Memcached'))
 		{
 			throw new \RuntimeException('Memcached not supported.');
 		}

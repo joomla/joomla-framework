@@ -8,7 +8,6 @@
 
 namespace Joomla\Linkedin;
 
-use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Linkedin\OAuth;
 use Joomla\Linkedin\People;
@@ -26,7 +25,7 @@ use Joomla\Linkedin\Jobs;
 class Linkedin
 {
 	/**
-	 * @var    JRegistry  Options for the Linkedin object.
+	 * @var    array  Options for the Linkedin object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -44,37 +43,37 @@ class Linkedin
 	protected $oauth;
 
 	/**
-	 * @var    JLinkedinPeople  Linkedin API object for people.
+	 * @var    People  Linkedin API object for people.
 	 * @since  1.0
 	 */
 	protected $people;
 
 	/**
-	 * @var    JLinkedinGroups  Linkedin API object for groups.
+	 * @var    Groups  Linkedin API object for groups.
 	 * @since  1.0
 	 */
 	protected $groups;
 
 	/**
-	 * @var    JLinkedinCompanies  Linkedin API object for companies.
+	 * @var    Companies  Linkedin API object for companies.
 	 * @since  1.0
 	 */
 	protected $companies;
 
 	/**
-	 * @var    JLinkedinJobs  Linkedin API object for jobs.
+	 * @var    Jobs  Linkedin API object for jobs.
 	 * @since  1.0
 	 */
 	protected $jobs;
 
 	/**
-	 * @var    JLinkedinStream  Linkedin API object for social stream.
+	 * @var    Stream  Linkedin API object for social stream.
 	 * @since  1.0
 	 */
 	protected $stream;
 
 	/**
-	 * @var    JLinkedinCommunications  Linkedin API object for communications.
+	 * @var    Communications  Linkedin API object for communications.
 	 * @since  1.0
 	 */
 	protected $communications;
@@ -82,20 +81,23 @@ class Linkedin
 	/**
 	 * Constructor.
 	 *
-	 * @param   OAuth     $oauth    The Linkedin OAuth client.
-	 * @param   Registry  $options  Linkedin options object.
-	 * @param   Http      $client   The HTTP client object.
+	 * @param   OAuth  $oauth    The Linkedin OAuth client.
+	 * @param   array  $options  Linkedin options array.
+	 * @param   Http   $client   The HTTP client object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(OAuth $oauth = null, Registry $options = null, Http $client = null)
+	public function __construct(OAuth $oauth = null, $options = array(), Http $client = null)
 	{
 		$this->oauth = $oauth;
-		$this->options = isset($options) ? $options : new Registry;
-		$this->client  = isset($client) ? $client : new Http($this->options);
+		$this->options = $options;
+		$this->client  = $client;
 
 		// Setup the default API url if not already set.
-		$this->options->def('api.url', 'https://api.linkedin.com');
+		if (!isset($this->options['api.url']))
+		{
+			$this->options['api.url'] = 'https://api.linkedin.com';
+		}
 	}
 
 	/**
@@ -110,9 +112,9 @@ class Linkedin
 	 */
 	public function __get($name)
 	{
-		$class = '\\Joomla\\Linkedin\\' . ucfirst($name);
+		$class = __NAMESPACE__ . '\\' . ucfirst(strtolower($name));
 
-		if (class_exists($class))
+		if (class_exists($class) && property_exists($this, $name))
 		{
 			if (false == isset($this->$name))
 			{
@@ -136,7 +138,7 @@ class Linkedin
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -151,7 +153,7 @@ class Linkedin
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

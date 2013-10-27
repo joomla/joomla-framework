@@ -8,7 +8,6 @@
 
 namespace Joomla\Linkedin;
 
-use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Linkedin\OAuth;
 
@@ -20,7 +19,7 @@ use Joomla\Linkedin\OAuth;
 abstract class Object
 {
 	/**
-	 * @var    Registry  Options for the Linkedin object.
+	 * @var    array  Options for the Linkedin object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -40,15 +39,15 @@ abstract class Object
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Linkedin options object.
-	 * @param   Http      $client   The HTTP client object.
-	 * @param   OAuth     $oauth    The OAuth client.
+	 * @param   array  $options  Linkedin options array.
+	 * @param   Http   $client   The HTTP client object.
+	 * @param   OAuth  $oauth    The OAuth client.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Http $client = null, OAuth $oauth = null)
+	public function __construct($options = array(), Http $client = null, OAuth $oauth = null)
 	{
-		$this->options = isset($options) ? $options : new Registry;
+		$this->options = $options;
 		$this->client = isset($client) ? $client : new Http($this->options);
 		$this->oauth = $oauth;
 	}
@@ -85,7 +84,7 @@ abstract class Object
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -100,7 +99,7 @@ abstract class Object
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

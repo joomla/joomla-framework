@@ -8,9 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Object;
-use \RuntimeException;
-
 /**
  * Twitter API Places & Geo class for the Joomla Framework.
  *
@@ -115,7 +112,7 @@ class Places extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function search($lat = null, $long = null, $query = null, $ip = null, $granularity = null, $accuracy = null, $max_results = 0,
 		$within = null, $attribute = null, $callback = null)
@@ -129,7 +126,7 @@ class Places extends Object
 		// At least one of the following parameters must be provided: lat, long, ip, or query.
 		if ($lat == null && $long == null && $ip == null && $query == null)
 		{
-			throw new RuntimeException('At least one of the following parameters must be provided: lat, long, ip, or query.');
+			throw new \RuntimeException('At least one of the following parameters must be provided: lat, long, ip, or query.');
 		}
 
 		// Check if lat is specified.

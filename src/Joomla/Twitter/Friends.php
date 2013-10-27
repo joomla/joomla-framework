@@ -8,9 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Object;
-use \RuntimeException;
-
 /**
  * Twitter API Friends class for the Joomla Framework.
  *
@@ -31,7 +28,7 @@ class Friends extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getFriendIds($user, $cursor = null, $string_ids = null, $count = 0)
 	{
@@ -50,7 +47,7 @@ class Friends extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Check if cursor is specified
@@ -87,7 +84,7 @@ class Friends extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getFriendshipDetails($user_a, $user_b)
 	{
@@ -106,7 +103,7 @@ class Friends extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The first specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The first specified username is not in the correct format; must use integer or string');
 		}
 
 		// Determine which type of data was passed for $user_b
@@ -121,7 +118,7 @@ class Friends extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The second specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The second specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -144,7 +141,7 @@ class Friends extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getFollowerIds($user, $cursor = null, $string_ids = null, $count = 0)
 	{
@@ -163,7 +160,7 @@ class Friends extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -276,7 +273,7 @@ class Friends extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function follow($user, $follow = false)
 	{
@@ -292,7 +289,7 @@ class Friends extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Check if follow is true
@@ -316,7 +313,7 @@ class Friends extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function unfollow($user)
 	{
@@ -332,7 +329,7 @@ class Friends extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -351,12 +348,14 @@ class Friends extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getFriendshipsLookup($screen_name = null, $id = null)
 	{
 		// Check the rate limit for remaining hits
 		$this->checkRateLimit('friendships', 'lookup');
+
+		$data = array();
 
 		// Set user IDs and screen names.
 		if ($id)
@@ -372,7 +371,7 @@ class Friends extends Object
 		if ($id == null && $screen_name == null)
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('You must specify either a comma separated list of screen names, user IDs, or a combination of the two');
+			throw new \RuntimeException('You must specify either a comma separated list of screen names, user IDs, or a combination of the two');
 		}
 
 		// Set the API path
@@ -392,7 +391,7 @@ class Friends extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function updateFriendship($user, $device = null, $retweets = null)
 	{
@@ -408,7 +407,7 @@ class Friends extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Check if device is specified.

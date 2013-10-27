@@ -6,6 +6,7 @@
 
 namespace Joomla\Twitter\Tests;
 
+use Joomla\Test\TestHelper;
 use Joomla\Twitter\Object;
 use \stdClass;
 
@@ -46,7 +47,7 @@ class ObjectTest extends TwitterTestCase
 	 * @return void
 	 *
 	 * @since 1.0
-	 * @expectedException RuntimeException
+	 * @expectedException \RuntimeException
 	 */
 	public function testCheckRateLimit()
 	{
@@ -159,8 +160,10 @@ class ObjectTest extends TwitterTestCase
 	{
 		$this->object->setOption('api.url', 'https://example.com/settest');
 
+		$value = TestHelper::getValue($this->object, 'options');
+
 		$this->assertThat(
-			$this->options->get('api.url'),
+			$value['api.url'],
 			$this->equalTo('https://example.com/settest')
 		);
 	}
@@ -174,11 +177,13 @@ class ObjectTest extends TwitterTestCase
 	 */
 	public function testGetOption()
 	{
-		$this->options->set('api.url', 'https://example.com/settest');
+		TestHelper::setValue($this->object, 'options', array(
+				'api.url' => 'https://example.com/gettest'
+			));
 
 		$this->assertThat(
-				$this->object->getOption('api.url'),
-				$this->equalTo('https://example.com/settest')
+			$this->object->getOption('api.url'),
+			$this->equalTo('https://example.com/gettest')
 		);
 	}
 }

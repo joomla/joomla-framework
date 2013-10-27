@@ -33,7 +33,7 @@ use Joomla\Registry\Registry;
 class Github
 {
 	/**
-	 * @var    Registry  Options for the GitHub object.
+	 * @var    array  Options for the GitHub object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -58,7 +58,10 @@ class Github
 		$this->client  = isset($client) ? $client : new Http($this->options);
 
 		// Setup the default API url if not already set.
-		$this->options->def('api.url', 'https://api.github.com');
+		if (!$this->getOption('api.url'))
+		{
+			$this->setOption('api.url', 'https://api.github.com');
+		}
 	}
 
 	/**
@@ -73,7 +76,7 @@ class Github
 	 */
 	public function __get($name)
 	{
-		$class = '\\Joomla\\Github\\Package\\' . ucfirst($name);
+		$class = 'Joomla\\Github\\Package\\' . ucfirst($name);
 
 		if (class_exists($class))
 		{
@@ -99,7 +102,7 @@ class Github
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -114,7 +117,7 @@ class Github
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}
