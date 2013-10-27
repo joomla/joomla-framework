@@ -8,7 +8,6 @@
 
 namespace Joomla\Facebook;
 
-use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 
 /**
@@ -19,7 +18,7 @@ use Joomla\Http\Http;
 class Facebook
 {
 	/**
-	 * @var    \Joomla\Registry\Registry  Options for the Facebook object.
+	 * @var    array  Options for the Facebook object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -111,20 +110,23 @@ class Facebook
 	/**
 	 * Constructor.
 	 *
-	 * @param   OAuth     $oauth    OAuth client.
-	 * @param   Registry  $options  Facebook options object.
-	 * @param   Http      $client   The HTTP client object.
+	 * @param   OAuth  $oauth    OAuth client.
+	 * @param   array  $options  Facebook options array.
+	 * @param   Http   $client   The HTTP client object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(OAuth $oauth = null, Registry $options = null, Http $client = null)
+	public function __construct(OAuth $oauth = null, $options = array(), Http $client = null)
 	{
 		$this->oauth = $oauth;
-		$this->options = isset($options) ? $options : new Registry;
-		$this->client  = isset($client) ? $client : new Http($this->options);
+		$this->options = $options;
+		$this->client  = $client;
 
 		// Setup the default API url if not already set.
-		$this->options->def('api.url', 'https://graph.facebook.com/');
+		if (!isset($this->options['api.url']))
+		{
+			$this->options['api.url'] = 'https://graph.facebook.com/';
+		}
 	}
 
 	/**
@@ -139,9 +141,9 @@ class Facebook
 	 */
 	public function __get($name)
 	{
-		$class = '\\Joomla\\Facebook\\' . ucfirst($name);
+		$class = __NAMESPACE__ . '\\' . ucfirst(strtolower($name));
 
-		if (class_exists($class))
+		if (class_exists($class) && property_exists($this, $name))
 		{
 			if (false == isset($this->$name))
 			{
@@ -165,7 +167,7 @@ class Facebook
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -180,7 +182,7 @@ class Facebook
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

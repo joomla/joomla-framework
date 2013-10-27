@@ -120,7 +120,7 @@ class VideoTest extends FacebookTestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @expectedException  RuntimeException
+	 * @expectedException  \RuntimeException
 	 */
 	public function testGetCommentsFailure()
 	{

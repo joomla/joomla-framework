@@ -23,14 +23,15 @@ Create a Facebook application at [https://developers.facebook.com/apps](https://
 ```php
 use Joomla\Facebook\Facebook;
 use Joomla\Facebook\OAuth;
-use Joomla\Registry\Registry;
 
-$options = new Registry;
-$options->set('clientid', $app_id);
-$options->set('clientsecret', $app_secret);
-$options->set('redirecturi', $callback_url);
-$options->set('sendheaders', true);
-$options->set('authmethod', 'get');
+$options = array(
+    'clientid' => $app_id,
+    'clientsecret' => $app_secret,
+    'redirecturi' => $callback_url,
+    'sendheaders' => true,
+    'authmethod' => 'get'
+);
+
 $oauth = new OAuth($options);
 
 $facebook = new Facebook($oauth);
@@ -83,18 +84,18 @@ Below is an example demonstrating more of the Facebook package.
 ```php
 use Joomla\Facebook\Facebook;
 use Joomla\Facebook\OAuth;
-use Joomla\Registry\Registry;
 
 $app_id = "app_id";
 $app_secret = "app_secret";
 $my_url = 'http://localhost/facebook_test.php';
 
-$options = new Registry;
-$options->set('clientid', $app_id);
-$options->set('clientsecret', $app_secret);
-$options->set('redirecturi', $my_url);
-$options->set('sendheaders', true);
-$options->set('authmethod', 'get');
+$options = array(
+    'clientid' => $app_id,
+    'clientsecret' => $app_secret,
+    'redirecturi' => $callback_url,
+    'sendheaders' => true,
+    'authmethod' => 'get'
+);
 
 $oauth = new OAuth($options);
 $oauth->authenticate();

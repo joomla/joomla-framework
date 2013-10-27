@@ -6,6 +6,7 @@
 
 namespace Joomla\Twitter\Tests;
 
+use Joomla\Test\TestHelper;
 use Joomla\Twitter\Twitter;
 use Joomla\Twitter\Block;
 use Joomla\Twitter\Directmessages;
@@ -249,8 +250,10 @@ class TwitterTest extends TwitterTestCase
 	{
 		$this->object->setOption('api.url', 'https://example.com/settest');
 
+		$value = TestHelper::getValue($this->object, 'options');
+
 		$this->assertThat(
-			$this->options->get('api.url'),
+			$value['api.url'],
 			$this->equalTo('https://example.com/settest')
 		);
 	}
@@ -264,10 +267,12 @@ class TwitterTest extends TwitterTestCase
 	 */
 	public function testGetOption()
 	{
-		$this->options->set('api.url', 'https://example.com/gettest');
+		TestHelper::setValue($this->object, 'options', array(
+				'api.url' => 'https://example.com/gettest'
+			));
 
 		$this->assertThat(
-			$this->object->getOption('api.url', 'https://example.com/gettest'),
+			$this->object->getOption('api.url'),
 			$this->equalTo('https://example.com/gettest')
 		);
 	}

@@ -8,8 +8,6 @@
 
 namespace Joomla\Http;
 
-use Joomla\Registry\Registry;
-
 /**
  * HTTP factory class.
  *
@@ -18,10 +16,10 @@ use Joomla\Registry\Registry;
 class HttpFactory
 {
 	/**
-	 * Method to recieve Http instance.
+	 * Method to receive Http instance.
 	 *
-	 * @param   Registry  $options   Client options object.
-	 * @param   mixed     $adapters  Adapter (string) or queue of adapters (array) to use for communication.
+	 * @param   array  $options   Client options array.
+	 * @param   mixed  $adapters  Adapter (string) or queue of adapters (array) to use for communication.
 	 *
 	 * @return  Http  Joomla Http class
 	 *
@@ -29,13 +27,8 @@ class HttpFactory
 	 *
 	 * @since   1.0
 	 */
-	public static function getHttp(Registry $options = null, $adapters = null)
+	public static function getHttp($options = array(), $adapters = null)
 	{
-		if (empty($options))
-		{
-			$options = new Registry;
-		}
-
 		if (!$driver = self::getAvailableDriver($options, $adapters))
 		{
 			throw new \RuntimeException('No transport driver available.');
@@ -47,14 +40,14 @@ class HttpFactory
 	/**
 	 * Finds an available http transport object for communication
 	 *
-	 * @param   Registry  $options  Option for creating http transport object
-	 * @param   mixed     $default  Adapter (string) or queue of adapters (array) to use
+	 * @param   array  $options  Option for creating http transport object
+	 * @param   mixed  $default  Adapter (string) or queue of adapters (array) to use
 	 *
 	 * @return  TransportInterface  Interface sub-class
 	 *
 	 * @since   1.0
 	 */
-	public static function getAvailableDriver(Registry $options, $default = null)
+	public static function getAvailableDriver($options, $default = null)
 	{
 		if (is_null($default))
 		{
@@ -75,7 +68,7 @@ class HttpFactory
 		foreach ($availableAdapters as $adapter)
 		{
 			/* @var  $class  TransportInterface */
-			$class = '\\Joomla\\Http\\Transport\\' . ucfirst($adapter);
+			$class = 'Joomla\\Http\\Transport\\' . ucfirst($adapter);
 
 			if (class_exists($class))
 			{

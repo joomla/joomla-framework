@@ -8,9 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Object;
-use \RuntimeException;
-
 /**
  * Twitter API Lists class for the Joomla Framework.
  *
@@ -28,7 +25,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getLists($user, $reverse = null)
 	{
@@ -47,7 +44,7 @@ class Lists extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Check if reverse is specified.
@@ -79,7 +76,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getStatuses($list, $owner = null, $since_id = 0, $max_id = 0, $count = 0, $entities = null, $include_rts = null)
 	{
@@ -107,13 +104,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -166,7 +163,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getSubscribers($list, $owner = null, $cursor = null, $entities = null, $skip_status = null)
 	{
@@ -194,13 +191,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -239,7 +236,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function deleteMembers($list, $user_id = null, $screen_name = null, $owner = null)
 	{
@@ -264,13 +261,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username for owner is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username for owner is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		if ($user_id)
@@ -286,7 +283,7 @@ class Lists extends Object
 		if ($user_id == null && $screen_name == null)
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('You must specify either a comma separated list of screen names, user IDs, or a combination of the two');
+			throw new \RuntimeException('You must specify either a comma separated list of screen names, user IDs, or a combination of the two');
 		}
 
 		// Set the API path
@@ -305,7 +302,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function subscribe($list, $owner = null)
 	{
@@ -333,13 +330,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username for owner is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username for owner is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -362,7 +359,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function isMember($list, $user, $owner = null, $entities = null, $skip_status = null)
 	{
@@ -390,13 +387,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		if (is_numeric($user))
@@ -410,7 +407,7 @@ class Lists extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -445,7 +442,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function isSubscriber($list, $user, $owner = null, $entities = null, $skip_status = null)
 	{
@@ -473,13 +470,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		if (is_numeric($user))
@@ -493,7 +490,7 @@ class Lists extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -524,7 +521,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function unsubscribe($list, $owner = null)
 	{
@@ -552,13 +549,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -579,7 +576,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function addMembers($list, $user_id = null, $screen_name = null, $owner = null)
 	{
@@ -607,13 +604,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		if ($user_id)
@@ -629,7 +626,7 @@ class Lists extends Object
 		if ($user_id == null && $screen_name == null)
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('You must specify either a comma separated list of screen names, user IDs, or a combination of the two');
+			throw new \RuntimeException('You must specify either a comma separated list of screen names, user IDs, or a combination of the two');
 		}
 
 		// Set the API path
@@ -651,7 +648,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getMembers($list, $owner = null, $entities = null, $skip_status = null)
 	{
@@ -679,13 +676,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -716,7 +713,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getListById($list, $owner = null)
 	{
@@ -744,13 +741,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path
@@ -770,7 +767,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getSubscriptions($user, $count = 0, $cursor = null)
 	{
@@ -789,7 +786,7 @@ class Lists extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Check if count is specified.
@@ -824,7 +821,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function update($list, $owner = null, $name = null, $mode = null, $description = null)
 	{
@@ -852,13 +849,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		// Check if name is specified.
@@ -903,6 +900,8 @@ class Lists extends Object
 		// Check the rate limit for remaining hits
 		$this->checkRateLimit('lists', 'create');
 
+		$data = array();
+
 		// Check if name is specified.
 		if ($name)
 		{
@@ -937,7 +936,7 @@ class Lists extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function delete($list, $owner = null)
 	{
@@ -965,13 +964,13 @@ class Lists extends Object
 			else
 			{
 				// We don't have a valid entry
-				throw new RuntimeException('The specified username for owner is not in the correct format; must use integer or string');
+				throw new \RuntimeException('The specified username for owner is not in the correct format; must use integer or string');
 			}
 		}
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified list is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified list is not in the correct format; must use integer or string');
 		}
 
 		// Set the API path

@@ -12,7 +12,7 @@
          "joomla/test": "~1.0"
     },
     "suggest": {
-        "joomla/registry": "Registry can be used as an alternative to using an array for the caching options."
+        "joomla/registry": "Registry can be used as an alternative to using an array for the package options."
     },
     "target-dir": "Joomla/Cache",
     "autoload": {

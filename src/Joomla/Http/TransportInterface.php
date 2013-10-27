@@ -8,7 +8,6 @@
 
 namespace Joomla\Http;
 
-use Joomla\Registry\Registry;
 use Joomla\Uri\UriInterface;
 
 /**
@@ -21,11 +20,11 @@ interface TransportInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Client options object.
+	 * @param   array  $options  Client options object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options);
+	public function __construct($options = array());
 
 	/**
 	 * Send a request to the server and return a JHttpResponse object with the response.

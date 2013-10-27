@@ -8,9 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Object;
-use \RuntimeException;
-
 /**
  * Twitter API Direct Messages class for the Joomla Framework.
  *
@@ -39,6 +36,8 @@ class Directmessages extends Object
 
 		// Set the API path
 		$path = '/direct_messages.json';
+
+		$data = array();
 
 		// Check if since_id is specified.
 		if ($since_id)
@@ -96,6 +95,8 @@ class Directmessages extends Object
 		// Set the API path
 		$path = '/direct_messages/sent.json';
 
+		$data = array();
+
 		// Check if since_id is specified.
 		if ($since_id)
 		{
@@ -139,7 +140,7 @@ class Directmessages extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function sendDirectMessages($user, $text)
 	{
@@ -158,7 +159,7 @@ class Directmessages extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		$data['text'] = $text;

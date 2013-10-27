@@ -10,11 +10,13 @@
         "joomla/oauth2": "~1.0",
         "joomla/input": "~1.0",
         "joomla/http": "~1.0",
-        "joomla/registry": "~1.0",
         "joomla/uri": "~1.0"
     },
     "require-dev": {
         "joomla/test": "~1.0"
+    },
+    "suggest": {
+        "joomla/registry": "Registry can be used as an alternative to using an array for the package options."
     },
     "target-dir": "Joomla/Facebook",
     "autoload": {

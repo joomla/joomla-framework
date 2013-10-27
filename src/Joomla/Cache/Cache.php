@@ -8,7 +8,6 @@
 
 namespace Joomla\Cache;
 
-use Joomla\Registry\Registry;
 use Psr\Cache\CacheInterface;
 use Psr\Cache\CacheItemInterface;
 
@@ -104,7 +103,7 @@ abstract class Cache implements CacheInterface
 	 */
 	public function getOption($key)
 	{
-		return $this->options[$key];
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**

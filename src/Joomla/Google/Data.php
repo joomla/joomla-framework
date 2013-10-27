@@ -8,7 +8,6 @@
 
 namespace Joomla\Google;
 
-use Joomla\Registry\Registry;
 use UnexpectedValueException;
 use SimpleXMLElement;
 use Exception;
@@ -21,7 +20,7 @@ use Exception;
 abstract class Data
 {
 	/**
-	 * @var    Registry  Options for the Google data object.
+	 * @var    array  Options for the Google data object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -40,9 +39,9 @@ abstract class Data
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, Auth $auth = null)
+	public function __construct($options = array(), Auth $auth = null)
 	{
-		$this->options = isset($options) ? $options : new Registry;
+		$this->options = $options;
 		$this->auth = isset($auth) ? $auth : new Auth\Oauth2($this->options);
 	}
 
@@ -167,7 +166,7 @@ abstract class Data
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -182,7 +181,7 @@ abstract class Data
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

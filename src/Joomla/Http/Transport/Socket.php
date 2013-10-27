@@ -8,7 +8,6 @@
 
 namespace Joomla\Http\Transport;
 
-use Joomla\Registry\Registry;
 use Joomla\Http\TransportInterface;
 use Joomla\Http\Response;
 use Joomla\Uri\UriInterface;
@@ -27,7 +26,7 @@ class Socket implements TransportInterface
 	protected $connections;
 
 	/**
-	 * @var    Registry  The client options.
+	 * @var    array  The client options.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -35,12 +34,12 @@ class Socket implements TransportInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Client options object.
+	 * @param   array  $options  Client options object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $options)
+	public function __construct($options = array())
 	{
 		if (!self::isSupported())
 		{

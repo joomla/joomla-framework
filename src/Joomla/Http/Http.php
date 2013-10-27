@@ -8,7 +8,6 @@
 
 namespace Joomla\Http;
 
-use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
@@ -19,7 +18,7 @@ use Joomla\Uri\Uri;
 class Http
 {
 	/**
-	 * @var    Registry  Options for the HTTP client.
+	 * @var    array  Options for the HTTP client.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -33,15 +32,15 @@ class Http
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry            $options    Client options object. If the registry contains any headers.* elements,
+	 * @param   array               $options    Client options array. If the registry contains any headers.* elements,
 	 *                                          these will be added to the request headers.
 	 * @param   TransportInterface  $transport  The HTTP transport object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry $options = null, TransportInterface $transport = null)
+	public function __construct($options = array(), TransportInterface $transport = null)
 	{
-		$this->options   = isset($options) ? $options : new Registry;
+		$this->options   = $options;
 		$this->transport = isset($transport) ? $transport : HttpFactory::getAvailableDriver($this->options);
 	}
 
@@ -56,7 +55,7 @@ class Http
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -71,7 +70,7 @@ class Http
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}
@@ -89,24 +88,7 @@ class Http
 	 */
 	public function options($url, array $headers = null, $timeout = null)
 	{
-		// Look for headers set in the options.
-		$temp = (array) $this->options->get('headers');
-
-		foreach ($temp as $key => $val)
-		{
-			if (!isset($headers[$key]))
-			{
-				$headers[$key] = $val;
-			}
-		}
-
-		// Look for timeout set in the options.
-		if ($timeout === null && $this->options->exists('timeout'))
-		{
-			$timeout = $this->options->get('timeout');
-		}
-
-		return $this->transport->request('OPTIONS', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->makeTransportRequest('OPTIONS', $url, null, $headers, $timeout);
 	}
 
 	/**
@@ -122,24 +104,7 @@ class Http
 	 */
 	public function head($url, array $headers = null, $timeout = null)
 	{
-		// Look for headers set in the options.
-		$temp = (array) $this->options->get('headers');
-
-		foreach ($temp as $key => $val)
-		{
-			if (!isset($headers[$key]))
-			{
-				$headers[$key] = $val;
-			}
-		}
-
-		// Look for timeout set in the options.
-		if ($timeout === null && $this->options->exists('timeout'))
-		{
-			$timeout = $this->options->get('timeout');
-		}
-
-		return $this->transport->request('HEAD', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->makeTransportRequest('HEAD', $url, null, $headers, $timeout);
 	}
 
 	/**
@@ -155,24 +120,7 @@ class Http
 	 */
 	public function get($url, array $headers = null, $timeout = null)
 	{
-		// Look for headers set in the options.
-		$temp = (array) $this->options->get('headers');
-
-		foreach ($temp as $key => $val)
-		{
-			if (!isset($headers[$key]))
-			{
-				$headers[$key] = $val;
-			}
-		}
-
-		// Look for timeout set in the options.
-		if ($timeout === null && $this->options->exists('timeout'))
-		{
-			$timeout = $this->options->get('timeout');
-		}
-
-		return $this->transport->request('GET', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->makeTransportRequest('GET', $url, null, $headers, $timeout);
 	}
 
 	/**
@@ -189,24 +137,7 @@ class Http
 	 */
 	public function post($url, $data, array $headers = null, $timeout = null)
 	{
-		// Look for headers set in the options.
-		$temp = (array) $this->options->get('headers');
-
-		foreach ($temp as $key => $val)
-		{
-			if (!isset($headers[$key]))
-			{
-				$headers[$key] = $val;
-			}
-		}
-
-		// Look for timeout set in the options.
-		if ($timeout === null && $this->options->exists('timeout'))
-		{
-			$timeout = $this->options->get('timeout');
-		}
-
-		return $this->transport->request('POST', new Uri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->makeTransportRequest('POST', $url, $data, $headers, $timeout);
 	}
 
 	/**
@@ -223,24 +154,7 @@ class Http
 	 */
 	public function put($url, $data, array $headers = null, $timeout = null)
 	{
-		// Look for headers set in the options.
-		$temp = (array) $this->options->get('headers');
-
-		foreach ($temp as $key => $val)
-		{
-			if (!isset($headers[$key]))
-			{
-				$headers[$key] = $val;
-			}
-		}
-
-		// Look for timeout set in the options.
-		if ($timeout === null && $this->options->exists('timeout'))
-		{
-			$timeout = $this->options->get('timeout');
-		}
-
-		return $this->transport->request('PUT', new Uri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->makeTransportRequest('PUT', $url, $data, $headers, $timeout);
 	}
 
 	/**
@@ -257,24 +171,7 @@ class Http
 	 */
 	public function delete($url, array $headers = null, $timeout = null, $data = null)
 	{
-		// Look for headers set in the options.
-		$temp = (array) $this->options->get('headers');
-
-		foreach ($temp as $key => $val)
-		{
-			if (!isset($headers[$key]))
-			{
-				$headers[$key] = $val;
-			}
-		}
-
-		// Look for timeout set in the options.
-		if ($timeout === null && $this->options->exists('timeout'))
-		{
-			$timeout = $this->options->get('timeout');
-		}
-
-		return $this->transport->request('DELETE', new Uri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->makeTransportRequest('DELETE', $url, $data, $headers, $timeout);
 	}
 
 	/**
@@ -290,24 +187,7 @@ class Http
 	 */
 	public function trace($url, array $headers = null, $timeout = null)
 	{
-		// Look for headers set in the options.
-		$temp = (array) $this->options->get('headers');
-
-		foreach ($temp as $key => $val)
-		{
-			if (!isset($headers[$key]))
-			{
-				$headers[$key] = $val;
-			}
-		}
-
-		// Look for timeout set in the options.
-		if ($timeout === null && $this->options->exists('timeout'))
-		{
-			$timeout = $this->options->get('timeout');
-		}
-
-		return $this->transport->request('TRACE', new Uri($url), null, $headers, $timeout, $this->options->get('userAgent', null));
+		return $this->makeTransportRequest('TRACE', $url, null, $headers, $timeout);
 	}
 
 	/**
@@ -324,23 +204,46 @@ class Http
 	 */
 	public function patch($url, $data, array $headers = null, $timeout = null)
 	{
-		// Look for headers set in the options.
-		$temp = (array) $this->options->get('headers');
+		return $this->makeTransportRequest('PATCH', $url, $data, $headers, $timeout);
+	}
 
-		foreach ($temp as $key => $val)
+	/**
+	 * Send a request to the server and return a JHttpResponse object with the response.
+	 *
+	 * @param   string   $method     The HTTP method for sending the request.
+	 * @param   string   $uri        The URI to the resource to request.
+	 * @param   mixed    $data       Either an associative array or a string to be sent with the request.
+	 * @param   array    $headers    An array of request headers to send with the request.
+	 * @param   integer  $timeout    Read timeout in seconds.
+	 *
+	 * @return  Response
+	 *
+	 * @since   1.0
+	 */
+	protected function makeTransportRequest($method, $url, $data = null, array $headers = null, $timeout = null)
+	{
+		// Look for headers set in the options.
+		if (isset($this->options['headers']))
 		{
-			if (!isset($headers[$key]))
+			$temp = (array) $this->options['headers'];
+
+			foreach ($temp as $key => $val)
 			{
-				$headers[$key] = $val;
+				if (!isset($headers[$key]))
+				{
+					$headers[$key] = $val;
+				}
 			}
 		}
 
 		// Look for timeout set in the options.
-		if ($timeout === null && $this->options->exists('timeout'))
+		if ($timeout === null && isset($this->options['timeout']))
 		{
-			$timeout = $this->options->get('timeout');
+			$timeout = $this->options['timeout'];
 		}
 
-		return $this->transport->request('PATCH', new Uri($url), $data, $headers, $timeout, $this->options->get('userAgent', null));
+		$userAgent = isset($this->options['userAgent']) ? $this->options['userAgent'] : null;
+
+		return $this->transport->request($method, new Uri($url), $data, $headers, $timeout, $userAgent);
 	}
 }

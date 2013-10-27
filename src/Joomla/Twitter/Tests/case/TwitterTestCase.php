@@ -6,7 +6,6 @@
 
 namespace Joomla\Twitter\Tests;
 
-use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
 use Joomla\Twitter\OAuth;
@@ -20,7 +19,7 @@ use Joomla\Test\WebInspector;
 class TwitterTestCase extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var    Registry  Options for the Linkedin object.
+	 * @var    array  Options for the object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -50,7 +49,7 @@ class TwitterTestCase extends \PHPUnit_Framework_TestCase
 	protected $oauth;
 
 	/**
-	 * @var    Linkedin  Object under test (companies, groups, jobs ..).
+	 * @var    object  Object under test (companies, groups, jobs ..).
 	 * @since  1.0
 	 */
 	protected $object;
@@ -82,17 +81,18 @@ class TwitterTestCase extends \PHPUnit_Framework_TestCase
 
 		$access_token = array('key' => 'token_key', 'secret' => 'token_secret');
 
-		$this->options = new Registry;
+		$this->options = array();
+
+		$this->options['consumer_key'] = $key;
+		$this->options['consumer_secret'] = $secret;
+		$this->options['callback'] = $my_url;
+		$this->options['sendheaders'] = true;
+
 		$this->input = new Input;
-		$this->client = $this->getMock('\\Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
+		$this->client = $this->getMock('Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
 		$this->application = new WebInspector;
 		$this->oauth = new OAuth($this->options, $this->client, $this->input, $this->application);
 		$this->oauth->setToken($access_token);
-
-		$this->options->set('consumer_key', $key);
-		$this->options->set('consumer_secret', $secret);
-		$this->options->set('callback', $my_url);
-		$this->options->set('sendheaders', true);
 	}
 
 	/**

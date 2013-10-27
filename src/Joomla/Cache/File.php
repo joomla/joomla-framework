@@ -8,7 +8,6 @@
 
 namespace Joomla\Cache;
 
-use Joomla\Registry\Registry;
 use Psr\Cache\CacheItemInterface;
 
 /**
@@ -31,7 +30,7 @@ class File extends Cache
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct($options = null)
+	public function __construct($options = array())
 	{
 		parent::__construct($options);
 

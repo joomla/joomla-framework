@@ -8,7 +8,6 @@
 
 namespace Joomla\Http\Transport;
 
-use Joomla\Registry\Registry;
 use Joomla\Http\TransportInterface;
 use Joomla\Http\Response;
 use Joomla\Uri\UriInterface;
@@ -21,7 +20,7 @@ use Joomla\Uri\UriInterface;
 class Curl implements TransportInterface
 {
 	/**
-	 * @var    Registry  The client options.
+	 * @var    array  The client options.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -29,13 +28,13 @@ class Curl implements TransportInterface
 	/**
 	 * Constructor. CURLOPT_FOLLOWLOCATION must be disabled when open_basedir or safe_mode are enabled.
 	 *
-	 * @param   Registry  $options  Client options object.
+	 * @param   array  $options  Client options array.
 	 *
 	 * @see     http://www.php.net/manual/en/function.curl-setopt.php
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $options)
+	public function __construct($options = array())
 	{
 		if (!function_exists('curl_init') || !is_callable('curl_init'))
 		{
@@ -72,7 +71,7 @@ class Curl implements TransportInterface
 		$options[CURLOPT_NOBODY] = ($method === 'HEAD');
 
 		// Initialize the certificate store
-		$options[CURLOPT_CAINFO] = $this->options->get('curl.certpath', __DIR__ . '/cacert.pem');
+		$options[CURLOPT_CAINFO] = isset($this->options['curl.certpath']) ? $this->options['curl.certpath'] : __DIR__ . '/cacert.pem';
 
 		// If data exists let's encode it and make sure our Content-type header is set.
 		if (isset($data))
@@ -141,7 +140,7 @@ class Curl implements TransportInterface
 		$options[CURLOPT_HTTPHEADER][] = 'Expect:';
 
 		// Follow redirects.
-		$options[CURLOPT_FOLLOWLOCATION] = (bool) $this->options->get('follow_location', true);
+		$options[CURLOPT_FOLLOWLOCATION] = (bool) (isset($this->options['follow_location']) ? $this->options['follow_location'] : true);
 
 		// Set the cURL options.
 		curl_setopt_array($ch, $options);

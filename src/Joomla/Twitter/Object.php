@@ -8,11 +8,8 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Registry\Registry;
-use Joomla\Http\Http;
-use Joomla\Twitter\OAuth;
 use Joomla\Uri\Uri;
-use \RuntimeException;
+use Joomla\Http\Http;
 
 /**
  * Twitter API object class for the Joomla Framework.
@@ -22,7 +19,7 @@ use \RuntimeException;
 abstract class Object
 {
 	/**
-	 * @var    Registry  Options for the Twitter object.
+	 * @var    array  Options for the Twitter object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -42,16 +39,16 @@ abstract class Object
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  &$options  Twitter options object.
-	 * @param   Http      $client    The HTTP client object.
-	 * @param   OAuth     $oauth     The OAuth client.
+	 * @param   array  &$options  Twitter options array.
+	 * @param   Http   $client    The HTTP client object.
+	 * @param   OAuth  $oauth     The OAuth client.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Registry &$options = null, Http $client = null, OAuth $oauth = null)
+	public function __construct(&$options = array(), Http $client, OAuth $oauth)
 	{
-		$this->options = isset($options) ? $options : new Registry;
-		$this->client = isset($client) ? $client : new Http($this->options);
+		$this->options = $options;
+		$this->client = $client;
 		$this->oauth = $oauth;
 	}
 
@@ -64,7 +61,7 @@ abstract class Object
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function checkRateLimit($resource = null, $action = null)
 	{
@@ -81,7 +78,7 @@ abstract class Object
 		if ($rate_limit->resources->$resource->$property->remaining == 0)
 		{
 			// The IP has exceeded the Twitter API rate limit
-			throw new RuntimeException('This server has exceed the Twitter API rate limit for the given period.  The limit will reset at '
+			throw new \RuntimeException('This server has exceed the Twitter API rate limit for the given period.  The limit will reset at '
 						. $rate_limit->resources->$resource->$property->reset
 			);
 		}
@@ -116,10 +113,11 @@ abstract class Object
 			}
 		}
 
-		// Get a new JUri object fousing the api url and given path.
+		// Get a new Uri object using the api url and given path.
 		if (strpos($path, 'http://search.twitter.com/search.json') === false)
 		{
-			$uri = new Uri($this->options->get('api.url') . $path);
+			$apiUrl = isset($this->options['api.url']) ? $this->options['api.url'] : null;
+			$uri = new Uri($apiUrl . $path);
 		}
 		else
 		{
@@ -182,7 +180,7 @@ abstract class Object
 			if ($response_headers['x-mediaratelimit-remaining'] == 0)
 			{
 				// The IP has exceeded the Twitter API media rate limit
-				throw new RuntimeException('This server has exceed the Twitter API media rate limit for the given period.  The limit will reset in '
+				throw new \RuntimeException('This server has exceed the Twitter API media rate limit for the given period.  The limit will reset in '
 						. $response_headers['x-mediaratelimit-reset'] . 'seconds.'
 				);
 			}
@@ -207,7 +205,7 @@ abstract class Object
 	 */
 	public function getOption($key)
 	{
-		return $this->options->get($key);
+		return isset($this->options[$key]) ? $this->options[$key] : null;
 	}
 
 	/**
@@ -222,7 +220,7 @@ abstract class Object
 	 */
 	public function setOption($key, $value)
 	{
-		$this->options->set($key, $value);
+		$this->options[$key] = $value;
 
 		return $this;
 	}

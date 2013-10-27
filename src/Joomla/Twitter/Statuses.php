@@ -8,9 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Object;
-use \RuntimeException;
-
 /**
  * Twitter API Statuses class for the Joomla Framework.
  *
@@ -84,7 +81,7 @@ class Statuses extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getUserTimeline($user, $count = 20, $include_rts = null, $no_replies = null, $since_id = 0, $max_id = 0, $trim_user = null,
 		$contributor = null)
@@ -106,7 +103,7 @@ class Statuses extends Object
 		else
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('The specified username is not in the correct format; must use integer or string');
+			throw new \RuntimeException('The specified username is not in the correct format; must use integer or string');
 		}
 
 		// Set the API base
@@ -238,7 +235,7 @@ class Statuses extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getMentions($count = 20, $include_rts = null, $entities = null, $since_id = 0, $max_id = 0,
 		$trim_user = null, $contributor = null)
@@ -504,7 +501,7 @@ class Statuses extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function tweetWithMedia($status, $media, $in_reply_to_status_id = null, $lat = null, $long = null, $place_id = null,
 		$display_coordinates = null, $sensitive = null)
@@ -583,7 +580,7 @@ class Statuses extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getOembed($id = null, $url = null, $maxwidth = null, $hide_media = null, $hide_thread = null, $omit_script = null,
 		$align = null, $related = null, $lang = null)
@@ -606,7 +603,7 @@ class Statuses extends Object
 		else
 		{
 			// We don't have a valid entry.
-			throw new RuntimeException('Either the id or url parameters must be specified in a request.');
+			throw new \RuntimeException('Either the id or url parameters must be specified in a request.');
 		}
 
 		// Check if maxwidth is specified.

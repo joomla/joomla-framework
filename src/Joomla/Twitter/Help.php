@@ -8,8 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Object;
-
 /**
  * Twitter API Help class for the Joomla Framework.
  *
