@@ -140,17 +140,21 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\AbstractApplication::getLogger for an expected exception.
+	 * Tests the Joomla\Application\AbstractApplication::getLogger for a NullLogger.
 	 *
 	 * @return  void
 	 *
-	 * @covers             Joomla\Application\AbstractApplication::getLogger
-	 * @expectedException  UnexpectedValueException
-	 * @since              1.0
+	 * @since   1.0
 	 */
-	public function testGetLogger_exception()
+	public function testGetNullLogger()
 	{
-		$this->instance->getLogger();
+		$logger = $this->instance->getLogger();
+
+		$this->assertInstanceOf(
+			'Psr\\Log\\NullLogger',
+			$logger,
+			'When a logger has not been set, an instance of NullLogger should be returned.'
+		);
 	}
 
 	/**

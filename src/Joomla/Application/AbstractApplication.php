@@ -12,6 +12,7 @@ use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Joomla Framework Base Application Class
@@ -127,16 +128,16 @@ abstract class AbstractApplication implements LoggerAwareInterface
 	 * @return  LoggerInterface
 	 *
 	 * @since   1.0
-	 * @throws  \UnexpectedValueException
 	 */
 	public function getLogger()
 	{
-		if ($this->hasLogger())
+		// If a logger hasn't been set, use NullLogger
+		if (! $this->hasLogger())
 		{
-			return $this->logger;
+			$this->logger = new NullLogger;
 		}
 
-		throw new \UnexpectedValueException('Logger not set in ' . __CLASS__);
+		return $this->logger;
 	}
 
 	/**
