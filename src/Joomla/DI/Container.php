@@ -18,13 +18,22 @@ use Joomla\DI\Exception\DependencyResolutionException;
 class Container
 {
 	/**
+	 * Holds the key aliases.
+	 *
+	 * @var    array  $aliases
+	 *
+	 * @since  1.0
+	 */
+	protected $aliases = array();
+
+	/**
 	 * Holds the shared instances.
 	 *
 	 * @var    array  $instances
 	 *
 	 * @since  1.0
 	 */
-	private $instances = array();
+	protected $instances = array();
 
 	/**
 	 * Holds the keys, their callbacks, and whether or not
@@ -34,7 +43,7 @@ class Container
 	 *
 	 * @since  1.0
 	 */
-	private $dataStore = array();
+	protected $dataStore = array();
 
 	/**
 	 * Parent for hierarchical containers.
@@ -43,7 +52,7 @@ class Container
 	 *
 	 * @since  1.0
 	 */
-	private $parent;
+	protected $parent;
 
 	/**
 	 * Constructor for the DI Container
@@ -55,6 +64,40 @@ class Container
 	public function __construct(Container $parent = null)
 	{
 		$this->parent = $parent;
+	}
+
+	/**
+	 * Create an alias for a given key for easy access.
+	 *
+	 * @param   string  $alias  The alias name
+	 * @param   string  $key    The key to alias
+	 *
+	 * @return  Container
+	 */
+	public function alias($alias, $key)
+	{
+		$this->aliases[$alias] = $key;
+
+		return $this;
+	}
+
+	/**
+	 * Search the aliases property for a matching alias key.
+	 *
+	 * @param   string  $key  The key to search for.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function resolveAlias($key)
+	{
+		if (isset($this->aliases[$key]))
+		{
+			return $this->aliases[$key];
+		}
+
+		return $key;
 	}
 
 	/**
@@ -223,7 +266,6 @@ class Container
 	 * @return  \Joomla\DI\Container  This instance to support chaining.
 	 *
 	 * @throws  \OutOfBoundsException      Thrown if the provided key is already set and is protected.
-	 * @throws  \UnexpectedValueException  Thrown if the provided callback is not valid.
 	 *
 	 * @since   1.0
 	 */
@@ -325,6 +367,8 @@ class Container
 	 */
 	protected function getRaw($key)
 	{
+		$key = $this->resolveAlias($key);
+
 		if (isset($this->dataStore[$key]))
 		{
 			return $this->dataStore[$key];

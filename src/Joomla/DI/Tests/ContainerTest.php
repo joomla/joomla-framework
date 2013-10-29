@@ -155,6 +155,67 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test the alias method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testAlias()
+	{
+		$this->fixture->alias('foo', 'bar');
+
+		$aliases = $this->readAttribute($this->fixture, 'aliases');
+
+		$this->assertEquals(
+			array('foo' => 'bar'),
+			$aliases,
+			'When setting an alias, it should be set in the $aliases Container property.'
+		);
+	}
+
+	/**
+	 * Test resolving an alias that has been set.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testResolveAliasSet()
+	{
+		$reflection = new \ReflectionProperty($this->fixture, 'aliases');
+		$reflection->setAccessible(true);
+
+		$reflection->setValue($this->fixture, array('foo' => 'bar'));
+
+		$alias = $this->fixture->resolveAlias('foo');
+
+		$this->assertEquals(
+			'bar',
+			$alias,
+			'When resolving an alias that has been set, the aliased key should be returned.'
+		);
+	}
+
+	/**
+	 * Test resolving an alias that has not been set.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testResolveAliasNotSet()
+	{
+		$alias = $this->fixture->resolveAlias('foo');
+
+		$this->assertEquals(
+			'foo',
+			$alias,
+			'When resolving an alias that has not been set, the requested key should be returned.'
+		);
+	}
+
+	/**
 	 * Tests the buildObject with no dependencies.
 	 *
 	 * @return  void
@@ -242,7 +303,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 			'Joomla\\DI\\Container',
 			'parent',
 			$child,
-			'When create a child container, the $parent property should be an instance of Joomla\\DI\\Container.'
+			'When creating a child container, the $parent property should be an instance of Joomla\\DI\\Container.'
 		);
 
 		$this->assertAttributeSame(
@@ -442,6 +503,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 			'Closure',
 			$dataStore['foo']['callback'],
 			'Passing a non-closure to set will wrap the item in a closure for easy resolution and extension.'
+		);
+
+		$this->assertEquals(
+			'bar',
+			$dataStore['foo']['callback']($this->fixture),
+			'Resolving a non-closure should return the set value.'
 		);
 	}
 
