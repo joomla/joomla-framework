@@ -996,23 +996,6 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Image::hasLogger method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testHasLogger()
-	{
-		$this->assertFalse($this->instance->hasLogger());
-
-		$mockLogger = $this->getMock('Psr\\Log\\AbstractLogger', array('log'), array(), '', false);
-		$this->instance->setLogger($mockLogger);
-
-		$this->assertTrue($this->instance->hasLogger());
-	}
-
-	/**
 	 * Tests the Image::setLogger and Image::getLogger.
 	 *
 	 * @return  void

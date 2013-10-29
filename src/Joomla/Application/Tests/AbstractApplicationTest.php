@@ -158,24 +158,6 @@ class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Application\AbstractApplication::hasLogger for an expected exception.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Application\AbstractApplication::hasLogger
-	 * @since   1.0
-	 */
-	public function testHasLogger()
-	{
-		$this->assertFalse($this->instance->hasLogger());
-
-		$mockLogger = $this->getMock('Psr\Log\AbstractLogger', array('log'), array(), '', false);
-		$this->instance->setLogger($mockLogger);
-
-		$this->assertTrue($this->instance->hasLogger());
-	}
-
-	/**
 	 * Tests the set method.
 	 *
 	 * @return  void

@@ -74,24 +74,12 @@ abstract class ImageFilter implements LoggerAwareInterface
 	public function getLogger()
 	{
 		// If a logger hasn't been set, use NullLogger
-		if (! $this->hasLogger())
+		if (! ($this->logger instanceof LoggerInterface))
 		{
 			$this->logger = new NullLogger;
 		}
 
 		return $this->logger;
-	}
-
-	/**
-	 * Checks if a logger is available.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function hasLogger()
-	{
-		return ($this->logger instanceof LoggerInterface);
 	}
 
 	/**

@@ -90,23 +90,6 @@ class ImageFilterTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the ImageFilter::hasLogger method.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function testHasLogger()
-	{
-		$this->assertFalse($this->instance->hasLogger());
-
-		$mockLogger = $this->getMock('Psr\\Log\\AbstractLogger', array('log'), array(), '', false);
-		$this->instance->setLogger($mockLogger);
-
-		$this->assertTrue($this->instance->hasLogger());
-	}
-
-	/**
 	 * Tests the ImageFilter::setLogger and Image::getLogger.
 	 *
 	 * @return  void
