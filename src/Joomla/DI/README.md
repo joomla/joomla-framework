@@ -6,56 +6,58 @@ Read more about [why you should be using dependency injection](docs/why-dependen
 
 An Inversion of Control (IoC) Container helps you to manage these dependencies in a controlled fashion.
 
-## Automatic Dependency Resolution
+## Using the Container
 
-The DI Container is able to recursively resolve objects and their dependencies. It does this by inspecting the type hints on the object's constructor. As such, this method of resolution has a small limitation; you are limited to constructor injection. There is no support for setter injection.
+### Creating a Container
 
-```php
-include 'Container.php';
+@TODO
+- Creation
+- Creating a Child Container
 
-class Foo
-{
-    public $bar;
-    public $baz;
+### Setting an Item
 
-    public function __construct(Bar $bar, Baz $baz)
-    {
-        $this->bar = $bar;
-        $this->baz = $baz;
-    }
-}
+@TODO
+- Basic
+- Shared
+- Protected
+- Binding an implementation to an interface
 
-class Bar
-{
-    public $qux;
+### Item Aliases
 
-    public function __construct(Qux $qux)
-    {
-        $this->qux = $qux;
-    }
-}
+@TODO
+- Setting an alias
+- Resolving an alias
+- Resolving an alias that hasn't been set
 
-class Baz {}
+### Getting an Item
 
-class Qux {}
+@TODO
+- Fetch shared item
+- fetch unshared item (resolves each time)
+- getNewInstance
+- Recurses into parent containers
 
-$container = new Joomla\DI\Container;
+### Instantiate an object from the Container
 
-var_dump($container['Foo']);
-```
-Running the above will give you the following result:
+@TODO
+- Automatic constructor injection
+- Build Shared Object
+- DependencyResolutionException
 
-```
-class Foo#5 (2) {
-  public $bar =>
-  class Bar#9 (1) {
-    public $qux =>
-    class Qux#13 (0) {
-    }
-  }
-  public $baz =>
-  class Baz#14 (0) {
-  }
-}
+### Extending an Item
 
-```
+@TODO
+- Detailed explanation
+- Decorator pattern
+- Exception is thrown
+
+### Service Providers
+
+@TODO
+- ServiceProviderInterface
+- Example Service Provider
+
+### Container Aware Objects
+
+@TODO
+- How to make an object container aware
