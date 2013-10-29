@@ -24,6 +24,43 @@ class Text
 	protected static $strings = array();
 
 	/**
+	 * Language instance
+	 *
+	 * @var    Language
+	 * @since  1.0
+	 */
+	protected static $lang;
+
+	/**
+	 * Get Text Language
+	 *
+	 * @return  Language
+	 */
+	public static function getLanguage()
+	{
+		if (is_null(static::$lang))
+		{
+			static::$lang = Language::getInstance();
+		}
+
+		return static::$lang;
+	}
+
+	/**
+	 * Set Text languge
+	 *
+	 * @param   Language  $lang
+	 *
+	 * @return  void
+	 */
+	public static function setLanguage(Language $lang)
+	{
+		static::$lang = $lang;
+
+		return;
+	}
+
+	/**
 	 * Translates a string into the current language.
 	 *
 	 * Examples:
@@ -42,7 +79,7 @@ class Text
 	 */
 	public static function _($string, $jsSafe = false, $interpretBackSlashes = true, $script = false)
 	{
-		$lang = Language::getInstance();
+		$lang = static::getLanguage();
 
 		if (is_array($jsSafe))
 		{
@@ -97,7 +134,7 @@ class Text
 	 */
 	public static function alt($string, $alt, $jsSafe = false, $interpretBackSlashes = true, $script = false)
 	{
-		$lang = Language::getInstance();
+		$lang = static::getLanguage();
 
 		if ($lang->hasKey($string . '_' . $alt))
 		{
@@ -138,7 +175,7 @@ class Text
 	 */
 	public static function plural($string, $n)
 	{
-		$lang = Language::getInstance();
+		$lang = static::getLanguage();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -221,7 +258,7 @@ class Text
 	 */
 	public static function sprintf($string)
 	{
-		$lang = Language::getInstance();
+		$lang = static::getLanguage();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -265,7 +302,7 @@ class Text
 	 */
 	public static function printf($string)
 	{
-		$lang = Language::getInstance();
+		$lang = static::getLanguage();
 		$args = func_get_args();
 		$count = count($args);
 
@@ -323,7 +360,7 @@ class Text
 		if ($string !== null)
 		{
 			// Normalize the key and translate the string.
-			self::$strings[strtoupper($string)] = Language::getInstance()->_($string, $jsSafe, $interpretBackSlashes);
+			self::$strings[strtoupper($string)] = static::getLanguage()->_($string, $jsSafe, $interpretBackSlashes);
 		}
 
 		return self::$strings;
