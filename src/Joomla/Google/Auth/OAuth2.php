@@ -9,7 +9,7 @@
 namespace Joomla\Google\Auth;
 
 use Joomla\Google\Auth;
-use Joomla\Oauth2\Client;
+use Joomla\OAuth2\Client;
 use Joomla\Registry\Registry;
 
 /**
@@ -87,7 +87,7 @@ class OAuth2 extends Auth
 	/**
 	 * Method to fill in Google-specific OAuth settings
 	 *
-	 * @return  Client  Google-configured Oauth2 client.
+	 * @return  Client  Google-configured OAuth2 client.
 	 *
 	 * @since   1.0
 	 */

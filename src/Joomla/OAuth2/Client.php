@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Oauth2;
+namespace Joomla\OAuth2;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Input\Input;

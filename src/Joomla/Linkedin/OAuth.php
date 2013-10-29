@@ -8,7 +8,7 @@
 
 namespace Joomla\Linkedin;
 
-use Joomla\Oauth1\Client;
+use Joomla\OAuth1\Client;
 use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Http\Response;
@@ -23,7 +23,7 @@ use Joomla\Application\AbstractWebApplication;
 class OAuth extends Client
 {
 	/**
-	 * @var    Registry  Options for the \Joomla\Linkedin\Oauth object.
+	 * @var    Registry  Options for the \Joomla\Linkedin\OAuth object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -47,7 +47,7 @@ class OAuth extends Client
 		$this->options->def('authoriseURL', 'https://www.linkedin.com/uas/oauth/authorize');
 		$this->options->def('requestTokenURL', 'https://www.linkedin.com/uas/oauth/requestToken');
 
-		// Call the Oauth1 Client constructor to setup the object.
+		// Call the OAuth1 Client constructor to setup the object.
 		parent::__construct($this->options, $client, $input, $application);
 	}
 

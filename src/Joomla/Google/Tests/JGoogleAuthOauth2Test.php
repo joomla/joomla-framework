@@ -7,7 +7,7 @@
 namespace Joomla\Google\Tests;
 
 use Joomla\Google\Auth\OAuth2;
-use Joomla\Oauth2\Client;
+use Joomla\OAuth2\Client;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Joomla\Test\WebInspector;

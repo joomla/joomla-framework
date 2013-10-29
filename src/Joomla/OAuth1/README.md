@@ -11,7 +11,7 @@ The Client is abstract, it must be extended and have the two abstract methods im
 By default the client will act as an OAuth 1.0a client. If you need an OAuth 1.0 client, than you have to set the constructor $version parameter to '1.0'. The client requires additional options and this can be done by injecting in a Registry object:
 
 ```php
-use Joomla\Oauth1\Client;
+use Joomla\OAuth1\Client;
 use Joomla\Registry\Registry;
 
 $options = new Registry;
