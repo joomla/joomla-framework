@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Oauth2\Client;
+use Joomla\OAuth2\Client;
 use Joomla\Registry\Registry;
 use Joomla\Input\Input;
 use Joomla\Http\Http;

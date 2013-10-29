@@ -4,9 +4,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Oauth1\Tests;
+namespace Joomla\OAuth1\Tests;
 
-use Joomla\Oauth1\Client;
+use Joomla\OAuth1\Client;
 
 /**
  * Inspector for the Client class.
@@ -47,7 +47,7 @@ class ClientInspector extends Client
 	{
 		if ($response->code < 200 || $response->code > 399)
 		{
-				throw new DomainException($response->body);
+				throw new \DomainException($response->body);
 		}
 	}
 }

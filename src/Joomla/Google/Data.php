@@ -42,7 +42,7 @@ abstract class Data
 	public function __construct($options = array(), Auth $auth = null)
 	{
 		$this->options = $options;
-		$this->auth = isset($auth) ? $auth : new Auth\Oauth2($this->options);
+		$this->auth = isset($auth) ? $auth : new Auth\OAuth2($this->options);
 	}
 
 	/**

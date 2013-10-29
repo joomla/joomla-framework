@@ -8,7 +8,7 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Oauth1\Client;
+use Joomla\OAuth1\Client;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
 use Joomla\Application\AbstractWebApplication;

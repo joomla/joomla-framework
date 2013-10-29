@@ -9,7 +9,7 @@
 namespace Joomla\Facebook;
 
 use Joomla\Application\AbstractWebApplication;
-use Joomla\Oauth2\Client;
+use Joomla\OAuth2\Client;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
 
@@ -29,7 +29,7 @@ class OAuth extends Client
 	/**
 	 * Constructor.
 	 *
-	 * @param   array                   $options      Oauth options array.
+	 * @param   array                   $options      OAuth options array.
 	 * @param   Http                    $client       The HTTP client object.
 	 * @param   Input                   $input        The input object.
 	 * @param   AbstractWebApplication  $application  The application object.
@@ -51,7 +51,7 @@ class OAuth extends Client
 			$this->options['tokenurl'] = 'https://graph.facebook.com/oauth/access_token';
 		}
 
-		// Call the Joomla\Oauth2\Client constructor to setup the object.
+		// Call the \Joomla\OAuth2\Client constructor to setup the object.
 		parent::__construct($this->options, $client, $input, $application);
 	}
 

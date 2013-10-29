@@ -6,8 +6,8 @@
 
 namespace Joomla\Google\Tests;
 
-use Joomla\Oauth2\Client;
-use Joomla\Google\Auth\Oauth2;
+use Joomla\OAuth2\Client;
+use Joomla\Google\Auth\OAuth2;
 use Joomla\Registry\Registry;
 use Joomla\Http\Http;
 use Joomla\Input\Input;
@@ -36,12 +36,12 @@ class GoogleTestCase extends \PHPUnit_Framework_TestCase
 	protected $input;
 
 	/**
-	 * @var    Client  The OAuth client for sending requests to Google.
+	 * @var    Client  The OAuth2 client for sending requests to Google.
 	 */
 	protected $oauth;
 
 	/**
-	 * @var    Oauth2  The Google OAuth client for sending requests.
+	 * @var    OAuth2  The Google OAuth client for sending requests.
 	 */
 	protected $auth;
 
@@ -66,7 +66,7 @@ class GoogleTestCase extends \PHPUnit_Framework_TestCase
 		$this->input = new Input;
 		$this->application = new WebInspector;
 		$this->oauth = new Client($this->options, $this->http, $this->input, $this->application);
-		$this->auth = new Oauth2($this->options, $this->oauth);
+		$this->auth = new OAuth2($this->options, $this->oauth);
 
 		$token['access_token'] = 'accessvalue';
 		$token['refresh_token'] = 'refreshvalue';

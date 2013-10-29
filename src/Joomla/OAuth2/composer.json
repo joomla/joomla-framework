@@ -18,7 +18,7 @@
     "target-dir": "Joomla/OAuth2",
     "autoload": {
     	"psr-0": {
-    		"Joomla\\Oauth2": ""
+    		"Joomla\\OAuth2": ""
     	}
     },
     "minimum-stability": "beta"
