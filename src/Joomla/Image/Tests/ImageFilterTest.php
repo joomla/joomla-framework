@@ -5,7 +5,7 @@
  */
 
 use Joomla\Image\Filter\Brightness as FilterBrightness;
-
+use Joomla\Image\Filter\Inspector as FilterInspector;
 use Joomla\Test\TestHelper;
 
 /**
@@ -15,6 +15,11 @@ use Joomla\Test\TestHelper;
  */
 class ImageFilterTest extends PHPUnit_Framework_TestCase
 {
+	/**
+	 * @var  FilterInspector  The object to test.
+	 */
+	protected $instance;
+
 	/**
 	 * Setup for testing.
 	 *
@@ -31,19 +36,8 @@ class ImageFilterTest extends PHPUnit_Framework_TestCase
 		{
 			$this->markTestSkipped('No GD support so skipping Image tests.');
 		}
-	}
 
-	/**
-	 * Overrides the parent tearDown method.
-	 *
-	 * @return  void
-	 *
-	 * @see     PHPUnit_Framework_TestCase::tearDown()
-	 * @since   1.0
-	 */
-	protected function tearDown()
-	{
-		parent::tearDown();
+		$this->instance = new FilterInspector(imagecreate(10, 10));
 	}
 
 	/**
@@ -75,5 +69,63 @@ class ImageFilterTest extends PHPUnit_Framework_TestCase
 		$filter = new FilterBrightness($imageHandle);
 
 		$this->assertEquals(TestHelper::getValue($filter, 'handle'), $imageHandle);
+	}
+
+	/**
+	 * Tests the ImageFilter::getLogger for a NullLogger.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetNullLogger()
+	{
+		$logger = $this->instance->getLogger();
+
+		$this->assertInstanceOf(
+			'Psr\\Log\\NullLogger',
+			$logger,
+			'When a logger has not been set, an instance of NullLogger should be returned.'
+		);
+	}
+
+	/**
+	 * Tests the ImageFilter::hasLogger method.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testHasLogger()
+	{
+		$this->assertFalse($this->instance->hasLogger());
+
+		$mockLogger = $this->getMock('Psr\\Log\\AbstractLogger', array('log'), array(), '', false);
+		$this->instance->setLogger($mockLogger);
+
+		$this->assertTrue($this->instance->hasLogger());
+	}
+
+	/**
+	 * Tests the ImageFilter::setLogger and Image::getLogger.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testSetLogger()
+	{
+		$mockLogger = $this->getMock('Psr\\Log\\AbstractLogger', array('log'), array(), '', false);
+
+		$this->assertSame(
+			$this->instance,
+			$this->instance->setLogger($mockLogger),
+			'The current instance of the application is returned when using setLogger. This is to support chaining.'
+		);
+		$this->assertSame(
+			$mockLogger,
+			$this->instance->getLogger(),
+			'The getLogger method should return the same logger instance that was set via setLogger.'
+		);
 	}
 }
