@@ -261,12 +261,21 @@ $container->set(
     }
 );
 
-$userProfile = $container->build('UserProfile');
+$userProfile = $container->buildObject('UserProfile');
 
 // Use reflection to get the $user property from $userProfile
 var_dump($user instanceof User); // prints bool(true)
 var_dump($user instanceof UserRepositoryInterface); // prints bool(true)
 ```
+
+When you build an object, the information required to actually build it (dependencies, etc) are
+stored in a callable and set in the container with the class name as the key. You can then fetch
+the item from the container by name later on. Alias support applies here as well.
+
+You can also specify to build a shared object by using the function `buildSharedObject($key)`. This
+works exactly as you would expect. The information required to build it is discovered, stored in a
+callable, then the callable is executed and the result returned. The result is stored as an instance
+within the container and is returned on subsequent requests.
 
 
 ### Extending an Item
@@ -279,8 +288,7 @@ and the second will be the container itself. When extending an item, the new ext
 the existing item in the container. If you try to extend an item that does not exist, an `\InvalidArgumentException`
 will be thrown.
 
-> When extending the items, the normal rules apply. Since a protected object cannot be overwritten,
-> you also can not extend a protected item.
+> When extending an item, normal rules apply. A protected object cannot be overwritten, so you also can not extend them.
 
 ```php
 // Assume a created $container
@@ -348,5 +356,5 @@ the MVC pattern as recommended by Joomla, this can be at the application or cont
 in Joomla are responsible for creating Models and Views, and linking them together. In this case, it would
 be reasonable for the controllers to have access to the container in order to build these objects.
 
-> __NOTE:__ The business layer of you app (eg: Models) should _never_ be container aware. Doing so will
+> __NOTE:__ The business layer of your app (eg: Models) should _never_ be container aware. Doing so will
 > make your code harder to test, and is a far cry from best practices.
