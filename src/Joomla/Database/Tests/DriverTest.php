@@ -370,6 +370,18 @@ class DriverTest extends TestDatabase
 			$this->equalTo('SELECT * FROM &dbtest'),
 			'replacePrefix method should return the query string with the #__ prefix replaced by the actual table prefix.'
 		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM #_dbtest'),
+			$this->equalTo('SELECT * FROM #_dbtest'),
+			'replacePrefix method should return the query string without the #_ prefix replaced.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM #___dbtest'),
+			$this->equalTo('SELECT * FROM &_dbtest'),
+			'replacePrefix method should return the query string with the `#__` prefix (first 2 of 3 underscores) replaced.'
+		);
 	}
 
 	/**
