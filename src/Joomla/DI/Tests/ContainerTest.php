@@ -8,77 +8,7 @@ namespace Joomla\DI\Tests;
 
 use Joomla\DI\Container;
 
-interface StubInterface {}
-
-class Stub1 implements StubInterface {}
-
-class Stub2 implements StubInterface
-{
-	protected $stub;
-
-	public function __construct(StubInterface $stub)
-	{
-		$this->stub = $stub;
-	}
-}
-
-class Stub3
-{
-	protected $stub;
-	protected $stub2;
-
-	public function __construct(StubInterface $stub, StubInterface $stub2)
-	{
-		$this->stub = $stub;
-		$this->stub2 = $stub2;
-	}
-}
-
-class Stub4 implements StubInterface {}
-
-class Stub5
-{
-	protected $stub;
-
-	public function __construct(Stub4 $stub)
-	{
-		$this->stub = $stub;
-	}
-}
-
-class Stub6
-{
-	protected $stub;
-
-	public function __construct($stub = 'foo')
-	{
-		$this->stub = $stub;
-	}
-}
-
-class Stub7
-{
-	protected $stub;
-
-	public function __construct($stub)
-	{
-		$this->stub = $stub;
-	}
-}
-
-class Stub8
-{
-	protected $stub;
-
-	public function __construct(DoesntExist $stub)
-	{
-		$this->stub = $stub;
-	}
-}
-
-class Stub9
-{
-}
+include_once 'Stubs/stubs.php';
 
 /**
  * Tests for Container class.
@@ -329,18 +259,24 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExtend()
 	{
-		$this->fixture->share('foo', function () {
-			return new \stdClass;
-		}
+		$this->fixture->share(
+			'foo',
+			function ()
+			{
+				return new \stdClass;
+			}
 		);
 
 		$value = 42;
 
-		$this->fixture->extend('foo', function ($shared) use ($value) {
-			$shared->value = $value;
+		$this->fixture->extend(
+			'foo',
+			function ($shared) use ($value)
+			{
+				$shared->value = $value;
 
-			return $shared;
-		}
+				return $shared;
+			}
 		);
 
 		$one = $this->fixture->get('foo');
@@ -365,8 +301,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExtendValidatesKeyIsPresent()
 	{
-		$this->fixture->extend('foo', function () {
-		}
+		$this->fixture->extend(
+			'foo',
+			function ()
+			{
+				// noop
+			}
 		);
 	}
 
@@ -379,9 +319,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetMethodArgsFromContainer()
 	{
-		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () {
-			return new Stub1;
-		}
+		$this->fixture->set(
+			'Joomla\\DI\\Tests\\StubInterface',
+			function ()
+			{
+				return new Stub1;
+			}
 		);
 
 		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
@@ -478,9 +421,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetMethodArgsResolvedIsNotInstanceOfHintedDependency()
 	{
-		$this->fixture->set('Joomla\\DI\\Tests\\StubInterface', function () {
-			return new Stub9;
-		}
+		$this->fixture->set(
+			'Joomla\\DI\\Tests\\StubInterface',
+			function ()
+			{
+				return new Stub9;
+			}
 		);
 
 		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getMethodArgs');
@@ -530,16 +476,23 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testSetAlreadySetProtected()
 	{
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			},
-			false, true
+			false,
+			true
 		);
+
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			},
-			false, true
+			false,
+			true
 		);
 	}
 
@@ -553,12 +506,17 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testSetAlreadySetNotProtected()
 	{
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			}
 		);
+
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return 'bar';
 			}
 		);
@@ -582,7 +540,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testSetShared()
 	{
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			},
 			true
@@ -603,7 +563,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testSetNotShared()
 	{
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			},
 			false
@@ -624,7 +586,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testProtect()
 	{
 		$this->fixture->protect(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			}
 		);
@@ -652,7 +616,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testProtectShared()
 	{
 		$this->fixture->protect(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			},
 			true
@@ -681,7 +647,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testShare()
 	{
 		$this->fixture->share(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			}
 		);
@@ -709,7 +677,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testShareProtected()
 	{
 		$this->fixture->share(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			},
 			true
@@ -738,7 +708,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testGetShared()
 	{
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			},
 			true
@@ -756,7 +728,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testGetNotShared()
 	{
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			},
 			false
@@ -789,7 +763,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testGetPassesContainerInstanceShared()
 	{
 		$this->fixture->set(
-			'foo', function ($c) {
+			'foo',
+			function ($c)
+			{
 				return $c;
 			}
 		);
@@ -808,7 +784,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testGetPassesContainerInstanceNotShared()
 	{
 		$this->fixture->set(
-			'foo', function ($c) {
+			'foo',
+			function ($c)
+			{
 				return $c;
 			},
 			false
@@ -829,7 +807,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getRaw');
 		$reflectionMethod->setAccessible(true);
 
-		$function = function () {
+		$function = function ()
+		{
 			return 'foo';
 		};
 
@@ -856,7 +835,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		$reflectionMethod = new \ReflectionMethod($this->fixture, 'getRaw');
 		$reflectionMethod->setAccessible(true);
 
-		$function = function () {
+		$function = function ()
+		{
 			return 'foo';
 		};
 
@@ -884,7 +864,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testGetNewInstance()
 	{
 		$this->fixture->set(
-			'foo', function () {
+			'foo',
+			function ()
+			{
 				return new \stdClass;
 			}
 		);
