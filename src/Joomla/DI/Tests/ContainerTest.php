@@ -183,12 +183,15 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testResolveAliasSet()
 	{
-		$reflection = new \ReflectionProperty($this->fixture, 'aliases');
-		$reflection->setAccessible(true);
+		$reflection = new \ReflectionClass($this->fixture);
+		$refProp = $reflection->getProperty('aliases');
+		$refProp->setAccessible(true);
+		$refProp->setValue($this->fixture, array('foo' => 'bar'));
 
-		$reflection->setValue($this->fixture, array('foo' => 'bar'));
+		$refMethod = $reflection->getMethod('resolveAlias');
+		$refMethod->setAccessible(true);
 
-		$alias = $this->fixture->resolveAlias('foo');
+		$alias = $refMethod->invoke($this->fixture, 'foo');
 
 		$this->assertEquals(
 			'bar',
@@ -206,7 +209,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testResolveAliasNotSet()
 	{
-		$alias = $this->fixture->resolveAlias('foo');
+		$refMethod = new \ReflectionMethod($this->fixture, 'resolveAlias');
+		$refMethod->setAccessible(true);
+
+		$alias = $refMethod->invoke($this->fixture, 'foo');
 
 		$this->assertEquals(
 			'foo',

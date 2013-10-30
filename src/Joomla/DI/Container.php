@@ -90,7 +90,7 @@ class Container
 	 *
 	 * @since   1.0
 	 */
-	public function resolveAlias($key)
+	protected function resolveAlias($key)
 	{
 		if (isset($this->aliases[$key]))
 		{
