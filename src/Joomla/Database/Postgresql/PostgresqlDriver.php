@@ -1381,7 +1381,7 @@ class PostgresqlDriver extends DatabaseDriver
 	 *
 	 * @param   string   $table    The name of the database table to update.
 	 * @param   object   &$object  A reference to an object whose public properties match the table fields.
-	 * @param   string   $key      The name of the primary key.
+	 * @param   array    $key      The name of the primary key.
 	 * @param   boolean  $nulls    True to update null fields or false to ignore them.
 	 *
 	 * @return  boolean  True on success.
@@ -1392,13 +1392,21 @@ class PostgresqlDriver extends DatabaseDriver
 	public function updateObject($table, &$object, $key, $nulls = false)
 	{
 		$columns = $this->getTableColumns($table);
-		$fields = array();
-		$where = '';
+		$fields  = array();
+		$where   = array();
+
+		if (is_string($key))
+		{
+			$key = array($key);
+		}
+
+		if (is_object($key))
+		{
+			$key = (array) $key;
+		}
 
 		// Create the base update statement.
-		$query = $this->getQuery(true);
-		$query->update($table);
-		$stmt = '%s WHERE %s';
+		$statement = 'UPDATE ' . $this->quoteName($table) . ' SET %s WHERE %s';
 
 		// Iterate over the object variables to build the query fields/value pairs.
 		foreach (get_object_vars($object) as $k => $v)
@@ -1410,10 +1418,10 @@ class PostgresqlDriver extends DatabaseDriver
 			}
 
 			// Set the primary key to the WHERE clause instead of a field to update.
-			if ($k == $key)
+			if (in_array($k, $key))
 			{
 				$key_val = $this->sqlValue($columns, $k, $v);
-				$where = $this->quoteName($k) . '=' . $key_val;
+				$where[] = $this->quoteName($k) . '=' . $key_val;
 				continue;
 			}
 
@@ -1448,8 +1456,7 @@ class PostgresqlDriver extends DatabaseDriver
 		}
 
 		// Set the query and execute the update.
-		$query->set(sprintf($stmt, implode(",", $fields), $where));
-		$this->setQuery($query);
+		$this->setQuery(sprintf($statement, implode(",", $fields), implode(' AND ', $where)));
 
 		return $this->execute();
 	}
