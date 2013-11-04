@@ -571,7 +571,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	protected function detectRequestUri()
 	{
 		// First we need to detect the URI scheme.
-		if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off'))
+		if ($this->isSSLConnection())
 		{
 			$scheme = 'https://';
 		}
@@ -638,7 +638,7 @@ abstract class AbstractWebApplication extends AbstractApplication
 	 */
 	public function isSSLConnection()
 	{
-		return ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) || getenv('SSL_PROTOCOL_VERSION'));
+		return (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off');
 	}
 
 	/**
