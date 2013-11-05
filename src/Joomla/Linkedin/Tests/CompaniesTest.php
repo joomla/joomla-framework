@@ -33,12 +33,12 @@ class CompaniesTest extends LinkedinTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedGetCompanies()
 	{
 		// Company id, company name, email-domain

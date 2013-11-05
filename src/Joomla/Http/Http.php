@@ -210,11 +210,11 @@ class Http
 	/**
 	 * Send a request to the server and return a JHttpResponse object with the response.
 	 *
-	 * @param   string   $method     The HTTP method for sending the request.
-	 * @param   string   $uri        The URI to the resource to request.
-	 * @param   mixed    $data       Either an associative array or a string to be sent with the request.
-	 * @param   array    $headers    An array of request headers to send with the request.
-	 * @param   integer  $timeout    Read timeout in seconds.
+	 * @param   string   $method   The HTTP method for sending the request.
+	 * @param   string   $url      The URI to the resource to request.
+	 * @param   mixed    $data     Either an associative array or a string to be sent with the request.
+	 * @param   array    $headers  An array of request headers to send with the request.
+	 * @param   integer  $timeout  Read timeout in seconds.
 	 *
 	 * @return  Response
 	 *

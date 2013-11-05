@@ -78,9 +78,11 @@ class OAuthTest extends FacebookTestCase
 	 */
 	public function testGetScope()
 	{
-		TestHelper::setValue($this->object, 'options', array(
+		TestHelper::setValue(
+			$this->object, 'options', array(
 				'scope' => 'read_stream'
-			));
+			)
+		);
 
 		$this->assertThat(
 			$this->object->getScope(),

@@ -42,12 +42,12 @@ class ObjectTest extends FacebookTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedFetchUrl()
 	{
 		// Limit, offset, until, since and expected
@@ -82,9 +82,11 @@ class ObjectTest extends FacebookTestCase
 		$apiUrl = 'https://graph.facebook.com/';
 		$path = '456431243/likes?access_token=235twegsdgsdhtry3tgwgf';
 
-		TestHelper::setValue($this->object, 'options', array(
+		TestHelper::setValue(
+			$this->object, 'options', array(
 				'api.url' => $apiUrl
-			));
+			)
+		);
 
 		$this->assertThat(
 			$this->object->fetchUrl($path, $limit, $offset, $until, $since),

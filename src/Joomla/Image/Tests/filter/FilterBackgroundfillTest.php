@@ -9,7 +9,7 @@ use Joomla\Image\Filter\Backgroundfill as FilterBackgroundfill;
 /**
  * Test class for Image.
  *
- * @since       1.0
+ * @since  1.0
  */
 class ImageFilterBackgroundfillTest extends PHPUnit_Framework_TestCase
 {
@@ -115,5 +115,5 @@ class ImageFilterBackgroundfillTest extends PHPUnit_Framework_TestCase
 		$filter = new FilterBackgroundfill($imageHandle);
 
 		$filter->execute(array());
-	}	
+	}
 }
