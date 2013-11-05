@@ -7,6 +7,7 @@
  */
 
 namespace Joomla\Console\Descriptor;
+
 use Joomla\Console\Option\Option;
 
 /**
@@ -17,13 +18,23 @@ use Joomla\Console\Option\Option;
  */
 class OptionDescriptor extends Descriptor
 {
-	const TEMPLATE = <<<EOF
+	/**
+	 * Option description template.
+	 *
+	 * @var string
+	 */
+	protected $template = <<<EOF
   <info>%s</info>
 %s
 
 EOF;
 
-	const TEMPLATE_LINE_BODY = '      %s';
+	/**
+	 * The template of every description line.
+	 *
+	 * @var string
+	 */
+	protected $templateLineBody = '      %s';
 
 	/**
 	 * Render an item description.
@@ -33,14 +44,14 @@ EOF;
 	 * @throws  \InvalidArgumentException
 	 * @return  string  Rendered description.
 	 */
-	public function renderItem($option)
+	protected function renderItem($option)
 	{
 		if (!($option instanceof Option))
 		{
-			throw new \InvalidArgumentException('Command descriptor need Command object to describe it.');
+			throw new \InvalidArgumentException('Option descriptor need Command object to describe it.');
 		}
 
-		/** @var Command $command */
+		/** @var Option $option */
 		$name        = $option->getName();
 		$aliases     = $option->getAlias();
 		$description = $option->getDescription() ?: 'No description';
@@ -61,20 +72,10 @@ EOF;
 		foreach ($description as $line)
 		{
 			$line = trim($line);
-			$line = sprintf(self::TEMPLATE_LINE_BODY, $line);
+			$line = sprintf($this->templateLineBody, $line);
 			$body[] = $line;
 		}
 
-		return sprintf(self::TEMPLATE, implode(' / ', $aliases), implode("\n", $body));
-	}
-
-	/**
-	 * Render all items description.
-	 *
-	 * @return  string
-	 */
-	public function render()
-	{
-		return parent::render();
+		return sprintf($this->template, implode(' / ', $aliases), implode("\n", $body));
 	}
 }

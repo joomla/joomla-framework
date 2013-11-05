@@ -7,6 +7,7 @@
  */
 
 namespace Joomla\Console\Descriptor;
+
 use Joomla\Console\Command\Command;
 
 /**
@@ -17,9 +18,19 @@ use Joomla\Console\Command\Command;
  */
 class CommandDescriptor extends Descriptor
 {
-	const OFFSET_AFTER_COMMAND = 4;
+	/**
+	 * Offset that between every commands and their descriptions.
+	 *
+	 * @var int
+	 */
+	protected $offsetAfterCommand = 4;
 
-	const TEMPLATE = <<<EOF
+	/**
+	 * Template of every commands.
+	 *
+	 * @var string
+	 */
+	protected $template = <<<EOF
   <info>%-{WIDTH}s</info>%s
 EOF;
 
@@ -38,7 +49,7 @@ EOF;
 	 * @throws  \InvalidArgumentException
 	 * @return  string  Rendered description.
 	 */
-	public function renderItem($command)
+	protected function renderItem($command)
 	{
 		if (!($command instanceof Command))
 		{
@@ -49,7 +60,7 @@ EOF;
 		$name        = $command->getName();
 		$description = $command->getDescription() ?: 'No description';
 
-		$template = str_replace('{WIDTH}', $this->maxLength + self::OFFSET_AFTER_COMMAND, self::TEMPLATE);
+		$template = str_replace('{WIDTH}', $this->maxLength + $this->offsetAfterCommand, $this->template);
 
 		// Sets the body indent.
 		$body = array();
@@ -66,7 +77,7 @@ EOF;
 			$body[] = $line;
 		}
 
-		return implode("\n", $body);
+		return implode("\n", $body) . "\n";
 	}
 
 	/**

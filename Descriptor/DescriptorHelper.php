@@ -81,7 +81,17 @@ class DescriptorHelper implements DescriptorHelperInterface
 
 		$render['command'] = $commandDescriptor->render();
 
-		return implode("\n\n", $render);
+		// Describe Console
+		$consoleDescriptor = $this->getConsoleDescriptor();
+
+		$template = $consoleDescriptor->addItem($command->getApplication())
+			->render();
+
+		return str_replace(
+			array('{OPTIONS}', '{COMMANDS}'),
+			$render,
+			$template
+		);
 	}
 
 	/**

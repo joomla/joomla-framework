@@ -44,7 +44,7 @@ abstract class Descriptor implements DescriptorInterface
 	 *
 	 * @return  string
 	 */
-	abstract public function renderItem($item);
+	abstract protected function renderItem($item);
 
 	/**
 	 * Render all items description.

@@ -8,7 +8,9 @@
 
 namespace Joomla\Console\Command;
 
+use Joomla\Application\Cli\ColorStyle;
 use Joomla\Console;
+use Joomla\Console\Descriptor\ConsoleDescriptor;
 use Joomla\Console\Descriptor\DescriptorHelper;
 use Joomla\Console\Descriptor\CommandDescriptor;
 use Joomla\Console\Descriptor\DescriptorHelperInterface;
@@ -41,6 +43,12 @@ class ListCommand extends Command
 	 */
 	protected function doExecute()
 	{
+		// Add a blue style <option>
+		$this->output
+			->getProcessor()
+			->addStyle('option', new Colorstyle('cyan', '', array('bold')))
+			->addStyle('cmd', new Colorstyle('magenta', '', array('bold')));
+
 		$args = $this->input->args;
 
 		$command = $this->getDescribedCommand($args);
@@ -90,7 +98,8 @@ class ListCommand extends Command
 		{
 			$this->descriptor = new DescriptorHelper(
 				new CommandDescriptor,
-				new OptionDescriptor
+				new OptionDescriptor,
+				new ConsoleDescriptor
 			);
 		}
 
