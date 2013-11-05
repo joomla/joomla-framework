@@ -62,14 +62,6 @@ abstract class AbstractWebApplication extends AbstractApplication
 	protected $response;
 
 	/**
-	 * The application instance.
-	 *
-	 * @var    AbstractWebApplication
-	 * @since  1.0
-	 */
-	private static $instance;
-
-	/**
 	 * The application session object.
 	 *
 	 * @var    Session
