@@ -9,9 +9,19 @@
 namespace Joomla\Console\Command;
 
 use Joomla\Console;
+use Joomla\Console\Descriptor\DescriptorHelper;
+use Joomla\Console\Descriptor\CommandDescriptor;
+use Joomla\Console\Descriptor\DescriptorHelperInterface;
 
 class ListCommand extends Command
 {
+	/**
+	 * The Descriptor Helper.
+	 *
+	 * @var  DescriptorHelperInterface
+	 */
+	protected $descriptor;
+
 	/**
 	 * Configure command.
 	 *
@@ -29,6 +39,72 @@ class ListCommand extends Command
 	 */
 	protected function doExecute()
 	{
-		echo 'List Command';
+		$args = $this->input->args;
+
+		$command = $this->getDescribedCommand($args);
+
+		$descriptor = $this->getDescriptor();
+
+		$rendered = $descriptor->describe($command);
+
+		$this->output->out($rendered);
+
+		return 255;
+	}
+
+	/**
+	 * getDescribedCommand
+	 *
+	 * @param $args
+	 *
+	 * @return Command|null
+	 * @throws \LogicException
+	 */
+	protected function getDescribedCommand($args)
+	{
+		$command = $this->getParent();
+
+		foreach ($args as $arg)
+		{
+			$command = $command->getArgument($arg);
+
+			if (!$command)
+			{
+				throw new \LogicException(sprintf('Command: %s not found.', implode(' ', $args)));
+			}
+		}
+
+		return $command;
+	}
+
+	/**
+	 * getDescriptor
+	 *
+	 * @return DescriptorHelperInterface|DescriptorHelper
+	 */
+	public function getDescriptor()
+	{
+		if (!$this->descriptor)
+		{
+			$this->descriptor = new DescriptorHelper(
+				new CommandDescriptor
+			);
+		}
+
+		return $this->descriptor;
+	}
+
+	/**
+	 * setDescriptor
+	 *
+	 * @param $descriptor
+	 *
+	 * @return $this
+	 */
+	public function setDescriptor(DescriptorHelperInterface $descriptor)
+	{
+		$this->descriptor = $descriptor;
+
+		return $this;
 	}
 }

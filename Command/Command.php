@@ -264,6 +264,16 @@ class Command implements CommandInterface
 	}
 
 	/**
+	 * Get Parent Command.
+	 *
+	 * @return  Command
+	 */
+	public function getParent()
+	{
+		return $this->parent;
+	}
+
+	/**
 	 * Add an argument(sub command) setting.
 	 *
 	 * @param   string|Command  $argument     The argument name or Console object.
@@ -308,6 +318,23 @@ class Command implements CommandInterface
 		$this->arguments[$name] = $argument;
 
 		return $this;
+	}
+
+	/**
+	 * Get a argument(command) by name.
+	 *
+	 * @param   string  $name  Argument name.
+	 *
+	 * @return Command|null  Return command or null.
+	 */
+	public function getArgument($name)
+	{
+		if (!empty($this->arguments[$name]))
+		{
+			return $this->arguments[$name];
+		}
+
+		return null;
 	}
 
 	/**
