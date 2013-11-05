@@ -46,12 +46,27 @@ EOF;
 		}
 
 		/** @var Command $command */
-		$name = $command->getName();
+		$name        = $command->getName();
 		$description = $command->getDescription() ?: 'No description';
 
 		$template = str_replace('{WIDTH}', $this->maxLength + self::OFFSET_AFTER_COMMAND, self::TEMPLATE);
 
-		return sprintf($template, $name, $description);
+		// Sets the body indent.
+		$body = array();
+
+		$description = explode("\n", $description);
+
+		$line1  = array_shift($description);
+		$body[] = sprintf($template, $name, $line1);
+
+		foreach ($description as $line)
+		{
+			$line = trim($line);
+			$line = sprintf($template, '', $line);
+			$body[] = $line;
+		}
+
+		return implode("\n", $body);
 	}
 
 	/**

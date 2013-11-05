@@ -57,18 +57,31 @@ class DescriptorHelper implements DescriptorHelperInterface
 	 */
 	public function describe(Command $command)
 	{
+		// Describe Options
+		$options = $command->getAllOptions();
+
+		$optionDescriptor = $this->getOptionDescriptor();
+
+		foreach ($options as $option)
+		{
+			$optionDescriptor->addItem($option);
+		}
+
+		$render['option'] = $optionDescriptor->render();
+
+		// Describe Commands
 		$commands = $command->getArguments();
 
-		$ds = $this->getCommendDescriptor();
+		$commandDescriptor = $this->getCommendDescriptor();
 
 		foreach ($commands as $command)
 		{
-			$ds->addItem($command);
+			$commandDescriptor->addItem($command);
 		}
 
-		$render = $ds->render();
+		$render['command'] = $commandDescriptor->render();
 
-		return $render;
+		return implode("\n\n", $render);
 	}
 
 	/**

@@ -127,7 +127,6 @@ class Console extends AbstractCliApplication
 		$command->addArgument(
 			with(new ListCommand('list', $input, $this->output))
 				->setApplication($this)
-				->setDescription('Lists commands')
 		);
 
 		$this->defaultCommand = $command;

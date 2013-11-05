@@ -292,11 +292,22 @@ class Command implements CommandInterface
 		}
 
 		// Set argument detail
-		$argument
-			->setApplication($this->application)
-			->setDescription($description)
-			->setOptions($options)
-			->setCode($code);
+		$argument->setApplication($this->application);
+
+		if ($description !== null)
+		{
+			$argument->setDescription($description);
+		}
+
+		if (count($options))
+		{
+			$argument->setOptions($options);
+		}
+
+		if ($code)
+		{
+			$argument->setCode($code);
+		}
 
 		// Set global options to sub command
 		/** @var $option Option */
@@ -470,6 +481,16 @@ class Command implements CommandInterface
 	public function getOptions()
 	{
 		return $this->options;
+	}
+
+	/**
+	 * Get all options include global.
+	 *
+	 * @return array  The options array.
+	 */
+	public function getAllOptions()
+	{
+		return array_merge($this->globalOptions, $this->options);
 	}
 
 	/**

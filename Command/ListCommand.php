@@ -12,6 +12,7 @@ use Joomla\Console;
 use Joomla\Console\Descriptor\DescriptorHelper;
 use Joomla\Console\Descriptor\CommandDescriptor;
 use Joomla\Console\Descriptor\DescriptorHelperInterface;
+use Joomla\Console\Descriptor\OptionDescriptor;
 
 class ListCommand extends Command
 {
@@ -30,7 +31,8 @@ class ListCommand extends Command
 	protected function configure()
 	{
 		$this->setName('list')
-			->setDescription('Lists commands');
+			->setDescription('Lists commands Lists commands Lists commands
+			Lists commands Lists commands');
 	}
 
 	/**
@@ -87,7 +89,8 @@ class ListCommand extends Command
 		if (!$this->descriptor)
 		{
 			$this->descriptor = new DescriptorHelper(
-				new CommandDescriptor
+				new CommandDescriptor,
+				new OptionDescriptor
 			);
 		}
 
