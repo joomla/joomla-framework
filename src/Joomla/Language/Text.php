@@ -49,7 +49,7 @@ class Text
 	/**
 	 * Set Text languge
 	 *
-	 * @param   Language  $lang
+	 * @param   Language  $lang  Language instance
 	 *
 	 * @return  void
 	 */

@@ -88,9 +88,11 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetOption()
 	{
-		TestHelper::setValue($this->object, 'options', array(
+		TestHelper::setValue(
+			$this->object, 'options', array(
 				'testKey' => 'testValue'
-			));
+			)
+		);
 
 		$this->assertThat(
 			$this->object->getOption('testKey'),
