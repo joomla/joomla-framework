@@ -11,6 +11,8 @@ namespace Joomla\Console;
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\Output;
 use Joomla\Console\Command\Command;
+use Joomla\Console\Command\ListCommand;
+use Joomla\Console\Option\Option;
 use Joomla\Input;
 
 /**
@@ -21,11 +23,11 @@ use Joomla\Input;
 class Console extends AbstractCliApplication
 {
 	/**
-	 * Save all commands here.
+	 * A default command to run as application.
 	 *
-	 * @var array
+	 * @var  Command
 	 */
-	public $commands = array();
+	protected $defaultCommand;
 
 	/**
 	 * True to set this app auto exit.
@@ -33,6 +35,19 @@ class Console extends AbstractCliApplication
 	 * @var boolean
 	 */
 	protected $autoExit;
+
+	/**
+	 * Initialisation method.
+	 *
+	 * @return  void
+	 *
+	 * @codeCoverageIgnore
+	 * @since   1.0
+	 */
+	protected function initialise()
+	{
+		$this->registerDefaultCommand();
+	}
 
 	/**
 	 * Method to run the application routines.
@@ -47,19 +62,11 @@ class Console extends AbstractCliApplication
 	 */
 	public function doExecute()
 	{
-		/** @var $input Input\Cli */
-		$input = $this->input;
+		$command = $this->getDefaultCommand();
 
-		if (!count($input->args))
+		if (!$command->getCode() && !count($this->input->args))
 		{
-			$input->args[0] = 'help';
-		}
-
-		$name = $this->input->args[0];
-
-		if (empty($this->commands[$name]))
-		{
-			throw new \LogicException(sprintf('Command %s not found', $name));
+			array_unshift($this->input->args, 'list');
 		}
 
 		try
@@ -70,7 +77,7 @@ class Console extends AbstractCliApplication
 			 *
 			 * @see  http://tldp.org/LDP/abs/html/exitcodes.html
 			 */
-			$exitCode = $this->commands[$name]->execute();
+			$exitCode = $command->execute();
 		}
 		catch (\Exception $e)
 		{
@@ -89,6 +96,43 @@ class Console extends AbstractCliApplication
 		}
 
 		return $exitCode;
+	}
+
+	/**
+	 * registerDefaultCommand
+	 *
+	 * @return $this
+	 */
+	public function registerDefaultCommand()
+	{
+		/** @var Input\Cli $input */
+		$input = $this->input;
+
+		$command = with(new Command('default', $input, $this->output))
+			->setApplication($this)
+			->setDescription('The default application command')
+			->addOption(
+				array('h', 'help'),
+				0,
+				'Display this help message.',
+				Option::IS_GLOBAL
+			)
+			->addOption(
+				array('q', 'quiet'),
+				0,
+				'Do not output any message.',
+				Option::IS_GLOBAL
+			);
+
+		$command->addArgument(
+			with(new ListCommand('list', $input, $this->output))
+				->setApplication($this)
+				->setDescription('Lists commands')
+		);
+
+		$this->defaultCommand = $command;
+
+		return $this;
 	}
 
 	/**
@@ -114,9 +158,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function addCommand(Command $command)
 	{
-		$command->setApplication($this);
-
-		$this->commands[$command->getName()] = $command;
+		$this->getDefaultCommand()->addArgument($command);
 
 		return $command;
 	}
@@ -131,6 +173,28 @@ class Console extends AbstractCliApplication
 	public function setAutoExit($boolean)
 	{
 		$this->autoExit = (boolean) $boolean;
+
+		return $this;
+	}
+
+	/**
+	 * @return Command
+	 */
+	public function getDefaultCommand()
+	{
+		return $this->defaultCommand;
+	}
+
+	/**
+	 * setCode
+	 *
+	 * @param   \Closure  $closure
+	 *
+	 * @return $this
+	 */
+	public function setCode(\Closure $closure)
+	{
+		$this->getDefaultCommand()->setCode($closure);
 
 		return $this;
 	}

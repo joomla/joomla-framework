@@ -11,7 +11,7 @@ namespace Joomla\Console\Command;
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\Output\Stdout;
 use Joomla\Application\Cli\CliOutput;
-use Joomla\Console\Command\Option\Option;
+use Joomla\Console\Option\Option;
 use Joomla\Input;
 
 /**
@@ -199,9 +199,10 @@ class Command implements CommandInterface
 		/** @var $subCommand Command */
 		$subCommand = $this->arguments[$name];
 
+		// Remove first argument and send it to child
 		if (!$input)
 		{
-			$input = clone $this->input;
+			$input = $this->input;
 
 			array_shift($input->args);
 		}
@@ -210,7 +211,7 @@ class Command implements CommandInterface
 
 		if (!$output)
 		{
-			$output = clone $this->output;
+			$output = $this->output;
 		}
 
 		$subCommand->setOutput($output);
@@ -269,13 +270,11 @@ class Command implements CommandInterface
 	 *                                         If we just send a string, the object will auto create.
 	 * @param   null            $description  Console description.
 	 * @param   array           $options      Console options.
-	 * @param   null            $code         The closure to execute.
+	 * @param   \Closure        $code         The closure to execute.
 	 *
-	 * @internal param    null  $input
-	 * @internal param    null  $output
 	 * @return   Command  Return this object to support chaining.
 	 */
-	public function addArgument($argument, $description = null, $options = array(), $code = null)
+	public function addArgument($argument, $description = null, $options = array(), \Closure $code = null)
 	{
 		if (!($argument instanceof Command))
 		{
@@ -283,7 +282,9 @@ class Command implements CommandInterface
 		}
 
 		// Set argument detail
-		$argument->setDescription($description)
+		$argument
+			->setApplication($this->application)
+			->setDescription($description)
 			->setOptions($options)
 			->setCode($code);
 
@@ -528,9 +529,12 @@ class Command implements CommandInterface
 	 *
 	 * @return  Command  Return this object to support chaining.
 	 */
-	public function setCode(\Closure $code)
+	public function setCode(\Closure $code = null)
 	{
-		$this->code = $code;
+		if ($code)
+		{
+			$this->code = $code;
+		}
 
 		return $this;
 	}

@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Console\Command\Option;
+namespace Joomla\Console\Option;
 
 use Joomla\Input\Cli as Input;
 

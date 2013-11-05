@@ -12,5 +12,23 @@ use Joomla\Console;
 
 class ListCommand extends Command
 {
+	/**
+	 * Configure command.
+	 *
+	 * @return void
+	 */
+	protected function configure()
+	{
+		$this->setName('list')
+			->setDescription('Lists commands');
+	}
 
+	/**
+	 * doExecute
+	 *
+	 */
+	protected function doExecute()
+	{
+		echo 'List Command';
+	}
 }
