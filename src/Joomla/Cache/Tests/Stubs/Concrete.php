@@ -39,7 +39,7 @@ class ConcreteCache extends Cache
 	 * @return  CacheItemInterface
 	 *
 	 * @since   1.0
-	*/
+	 */
 	public function get($key)
 	{
 		return new Item($key);
@@ -53,7 +53,7 @@ class ConcreteCache extends Cache
 	 * @return  boolean
 	 *
 	 * @since   1.0
-	*/
+	 */
 	public function remove($key)
 	{
 		return true;
@@ -69,7 +69,7 @@ class ConcreteCache extends Cache
 	 * @return  boolean
 	 *
 	 * @since   1.0
-	*/
+	 */
 	public function set($key, $value, $ttl = null)
 	{
 		return true;
