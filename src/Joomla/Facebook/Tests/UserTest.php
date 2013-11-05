@@ -43,12 +43,12 @@ class UserTest extends FacebookTestCase
 	}
 
 	/**
-	* Provides test data.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
 	public function seedOauth()
 	{
 		// Use oauth.
