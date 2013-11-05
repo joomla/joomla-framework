@@ -8,6 +8,7 @@
 
 namespace Joomla\Image;
 
+use Psr\Log\NullLogger;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerAwareInterface;
 
@@ -45,10 +46,7 @@ abstract class ImageFilter implements LoggerAwareInterface
 		if (!function_exists('imagefilter'))
 		{
 			// @codeCoverageIgnoreStart
-			if ($this->logger)
-			{
-				$this->logger->error('The imagefilter function for PHP is not available.');
-			}
+			$this->getLogger()->error('The imagefilter function for PHP is not available.');
 
 			throw new \RuntimeException('The imagefilter function for PHP is not available.');
 
@@ -58,10 +56,7 @@ abstract class ImageFilter implements LoggerAwareInterface
 		// Make sure the file handle is valid.
 		if (!is_resource($handle) || (get_resource_type($handle) != 'gd'))
 		{
-			if ($this->logger)
-			{
-				$this->logger->error('The image handle is invalid for the image filter.');
-			}
+			$this->getLogger()->error('The image handle is invalid for the image filter.');
 
 			throw new \InvalidArgumentException('The image handle is invalid for the image filter.');
 		}
@@ -70,17 +65,37 @@ abstract class ImageFilter implements LoggerAwareInterface
 	}
 
 	/**
+	 * Get the logger.
+	 *
+	 * @return  LoggerInterface
+	 *
+	 * @since   1.0
+	 */
+	public function getLogger()
+	{
+		// If a logger hasn't been set, use NullLogger
+		if (! ($this->logger instanceof LoggerInterface))
+		{
+			$this->logger = new NullLogger;
+		}
+
+		return $this->logger;
+	}
+
+	/**
 	 * Sets a logger instance on the object
 	 *
 	 * @param   LoggerInterface  $logger  A PSR-3 compliant logger.
 	 *
-	 * @return  void
+	 * @return  Image  This object for message chaining.
 	 *
 	 * @since   1.0
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
 		$this->logger = $logger;
+
+		return $this;
 	}
 
 	/**
