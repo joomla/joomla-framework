@@ -81,6 +81,8 @@ class ListCommand extends Command
 
 			if (!$command)
 			{
+				$this->input->args = array($arg);
+
 				throw new \InvalidArgumentException(sprintf('Command: "%s" not found.', implode(' ', $args)));
 			}
 		}
