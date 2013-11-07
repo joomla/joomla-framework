@@ -86,6 +86,20 @@ class Command implements CommandInterface
 	protected $description;
 
 	/**
+	 * The manual about this command.
+	 *
+	 * @var  string
+	 */
+	protected $help;
+
+	/**
+	 * The usage to tell user how to use this command.
+	 *
+	 * @var string
+	 */
+	protected $usage = '%s <cmd><command></cmd> <option>[option]</option>';
+
+	/**
 	 * The closure to execute.
 	 *
 	 * @var  \Closure
@@ -111,7 +125,7 @@ class Command implements CommandInterface
 	 */
 	public function __construct($name = null, Input\Cli $input = null, CliOutput $output = null, Command $parent = null)
 	{
-		$this->name   = $name;
+		$this->name   = $name   ?: $this->name;
 		$this->input  = $input  ?: new Input\Cli;
 		$this->output = $output ?: new Stdout;
 		$this->parent = $parent;
@@ -292,7 +306,8 @@ class Command implements CommandInterface
 		}
 
 		// Set argument detail
-		$argument->setApplication($this->application);
+		$argument->setApplication($this->application)
+			->setInput($this->input);
 
 		if ($description !== null)
 		{
@@ -635,11 +650,59 @@ class Command implements CommandInterface
 	 *
 	 * @param   AbstractCliApplication  $application  Application object.
 	 *
-	 * @return   Command  Return this object to support chaining.
+	 * @return  Command  Return this object to support chaining.
 	 */
 	public function setApplication($application)
 	{
 		$this->application = $application;
+
+		return $this;
+	}
+
+	/**
+	 * Get the help manual.
+	 *
+	 * @return string
+	 */
+	public function getHelp()
+	{
+		return $this->help;
+	}
+
+	/**
+	 * Sets the help manual
+	 *
+	 * @param   string  $help  The help manual.
+	 *
+	 * @return  Command  Return this object to support chaining.
+	 */
+	public function setHelp($help)
+	{
+		$this->help = $help;
+
+		return $this;
+	}
+
+	/**
+	 * Get the usage.
+	 *
+	 * @return string
+	 */
+	public function getUsage()
+	{
+		return sprintf($this->usage, $this->getName());
+	}
+
+	/**
+	 * Sets the usage to tell user how to use this command.
+	 *
+	 * @param   string  $usage  Usage of this command.
+	 *
+	 * @return  Command  Return this object to support chaining.
+	 */
+	public function setUsage($usage)
+	{
+		$this->usage = $usage;
 
 		return $this;
 	}

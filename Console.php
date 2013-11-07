@@ -13,6 +13,7 @@ use Joomla\Application\Cli\CliOutput;
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\Application\Cli\Output;
 use Joomla\Console\Command\Command;
+use Joomla\Console\Command\DefaultCommand;
 use Joomla\Console\Command\ListCommand;
 use Joomla\Console\Option\Option;
 use Joomla\Input;
@@ -141,26 +142,8 @@ class Console extends AbstractCliApplication
 		/** @var Input\Cli $input */
 		$input = $this->input;
 
-		$command = with(new Command('default', $input, $this->output))
-			->setApplication($this)
-			->setDescription('The default application command')
-			->addOption(
-				array('h', 'help'),
-				0,
-				'Display this help message.',
-				Option::IS_GLOBAL
-			)
-			->addOption(
-				array('q', 'quiet'),
-				0,
-				'Do not output any message.',
-				Option::IS_GLOBAL
-			);
-
-		$command->addArgument(
-			with(new ListCommand('list', $input, $this->output))
-				->setApplication($this)
-		);
+		$command = with(new DefaultCommand('default', $this->input, $this->output))
+			->setApplication($this);
 
 		$this->defaultCommand = $command;
 

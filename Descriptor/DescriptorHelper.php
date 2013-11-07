@@ -20,32 +20,36 @@ class DescriptorHelper implements DescriptorHelperInterface
 	/**
 	 * @var DescriptorInterface
 	 */
-
-	private $commendDescriptor;
-
-	/**
-	 * @var DescriptorInterface
-	 */
-	private $optionDescriptor;
+	protected $commendDescriptor;
 
 	/**
 	 * @var DescriptorInterface
 	 */
-	private $consoleDescriptor;
+	protected $optionDescriptor;
+
+	/**
+	 * @var DescriptorInterface
+	 */
+	protected $consoleDescriptor;
+
+	/**
+	 * @var DescriptorInterface
+	 */
+	protected $helpDescriptor;
 
 	/**
 	 * The class constructor.
 	 *
 	 * @param   DescriptorInterface  $commendDescriptor  Command descriptor.
 	 * @param   DescriptorInterface  $optionDescriptor   Option descriptor.
-	 * @param   DescriptorInterface  $consoleDescriptor  Console descriptor..
+	 * @param   DescriptorInterface  $helpDescriptor     Help descriptor.
 	 */
 	public function __construct(DescriptorInterface $commendDescriptor = null,
-		DescriptorInterface $optionDescriptor = null, DescriptorInterface $consoleDescriptor = null)
+		DescriptorInterface $optionDescriptor = null, DescriptorInterface $helpDescriptor = null)
 	{
 		$this->commendDescriptor = $commendDescriptor;
 		$this->optionDescriptor  = $optionDescriptor;
-		$this->consoleDescriptor = $consoleDescriptor;
+		$this->helpDescriptor    = $helpDescriptor;
 	}
 
 	/**
@@ -58,8 +62,7 @@ class DescriptorHelper implements DescriptorHelperInterface
 	public function describe(Command $command)
 	{
 		// Describe Options
-		$options = $command->getAllOptions();
-
+		$options          = $command->getAllOptions();
 		$optionDescriptor = $this->getOptionDescriptor();
 
 		foreach ($options as $option)
@@ -70,21 +73,20 @@ class DescriptorHelper implements DescriptorHelperInterface
 		$render['option'] = $optionDescriptor->render();
 
 		// Describe Commands
-		$commands = $command->getArguments();
-
+		$commands          = $command->getArguments();
 		$commandDescriptor = $this->getCommendDescriptor();
 
-		foreach ($commands as $command)
+		foreach ($commands as $cmd)
 		{
-			$commandDescriptor->addItem($command);
+			$commandDescriptor->addItem($cmd);
 		}
 
 		$render['command'] = $commandDescriptor->render();
 
-		// Describe Console
-		$consoleDescriptor = $this->getConsoleDescriptor();
+		// Describe Help
+		$helpDescriptor = $this->getHelpDescriptor();
 
-		$template = $consoleDescriptor->addItem($command->getApplication())
+		$template = $helpDescriptor->addItem($command)
 			->render();
 
 		return str_replace(
@@ -133,17 +135,17 @@ class DescriptorHelper implements DescriptorHelperInterface
 	/**
 	 * @return \Joomla\Console\Descriptor\DescriptorInterface
 	 */
-	public function getConsoleDescriptor()
+	public function getHelpDescriptor()
 	{
-		return $this->consoleDescriptor;
+		return $this->helpDescriptor;
 	}
 
 	/**
-	 * @param \Joomla\Console\Descriptor\DescriptorInterface $consoleDescriptor
+	 * @param \Joomla\Console\Descriptor\DescriptorInterface $helpDescriptor
 	 */
-	public function setConsoleDescriptor($consoleDescriptor)
+	public function setHelpDescriptor($helpDescriptor)
 	{
-		$this->consoleDescriptor = $consoleDescriptor;
+		$this->helpDescriptor = $helpDescriptor;
 
 		return $this;
 	}

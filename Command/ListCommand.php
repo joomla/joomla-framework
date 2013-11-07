@@ -14,6 +14,7 @@ use Joomla\Console\Descriptor\ConsoleDescriptor;
 use Joomla\Console\Descriptor\DescriptorHelper;
 use Joomla\Console\Descriptor\CommandDescriptor;
 use Joomla\Console\Descriptor\DescriptorHelperInterface;
+use Joomla\Console\Descriptor\HelpDescriptor;
 use Joomla\Console\Descriptor\OptionDescriptor;
 
 class ListCommand extends Command
@@ -99,7 +100,7 @@ class ListCommand extends Command
 			$this->descriptor = new DescriptorHelper(
 				new CommandDescriptor,
 				new OptionDescriptor,
-				new ConsoleDescriptor
+				new HelpDescriptor
 			);
 		}
 
