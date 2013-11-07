@@ -727,7 +727,7 @@ class Command implements CommandInterface
 	 *
 	 * @return  void
 	 */
-	protected function renderAlternatives($name, $exception)
+	public function renderAlternatives($name, $exception)
 	{
 		/** @var $exception \InvalidArgumentException */
 		$message      = $exception->getMessage();
@@ -767,7 +767,7 @@ class Command implements CommandInterface
 	 *
 	 * @return void
 	 */
-	protected function renderException($exception)
+	public function renderException($exception)
 	{
 		/** @var $exception \Exception */
 		$class = get_class($exception);

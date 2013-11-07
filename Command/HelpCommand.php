@@ -17,8 +17,15 @@ use Joomla\Console\Descriptor\DescriptorHelperInterface;
 use Joomla\Console\Descriptor\HelpDescriptor;
 use Joomla\Console\Descriptor\OptionDescriptor;
 
-class ListCommand extends Command
+class HelpCommand extends Command
 {
+	/**
+	 * Console(Argument) name.
+	 *
+	 * @var  string
+	 */
+	protected $name = 'help';
+
 	/**
 	 * The Descriptor Helper.
 	 *
@@ -33,9 +40,7 @@ class ListCommand extends Command
 	 */
 	protected function configure()
 	{
-		$this->setName('list')
-			->setDescription('Lists commands Lists commands Lists commands
-			Lists commands Lists commands');
+		$this->setDescription('List all arguments and show usage & manual.');
 	}
 
 	/**

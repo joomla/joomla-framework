@@ -33,30 +33,12 @@ class DefaultCommand extends Command
 
 		$this->setName($file)
 			->setDescription('The default application command')
-			->addArgument(
-				with(new ListCommand('list', $this->input, $this->output))
-			)
-			->addOption(
-				array('h', 'help'),
-				0,
-				'Display this help message.',
-				Option::IS_GLOBAL
-			)
-			->addOption(
-				array('q', 'quiet'),
-				0,
-				'Do not output any message.',
-				Option::IS_GLOBAL
-			)
+			->addArgument(new HelpCommand)
+			->addOption(array('h', 'help'),  0, 'Display this help message.', Option::IS_GLOBAL)
+			->addOption(array('q', 'quiet'), 0, 'Do not output any message.', Option::IS_GLOBAL)
 			->setHelp(
 <<<HELP
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sollicitudin
-pellentesque nulla in lobortis. Mauris ullamcorper dapibus diam eu mattis.
-Mauris vitae nisi mi.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sollicitudin
-pellentesque nulla in lobortis. Mauris ullamcorper dapibus diam eu mattis.
-Mauris vitae nisi mi.
+Welcome to Joomla! Console.
 HELP
 			);
 	}

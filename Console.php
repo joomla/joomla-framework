@@ -14,7 +14,7 @@ use Joomla\Application\Cli\ColorStyle;
 use Joomla\Application\Cli\Output;
 use Joomla\Console\Command\Command;
 use Joomla\Console\Command\DefaultCommand;
-use Joomla\Console\Command\ListCommand;
+use Joomla\Console\Command\HelpCommand;
 use Joomla\Console\Option\Option;
 use Joomla\Input;
 use Joomla\Registry\Registry;
@@ -98,9 +98,9 @@ class Console extends AbstractCliApplication
 	{
 		$command = $this->getDefaultCommand();
 
-		if (!$command->getCode() && !count($this->input->args))
+		if ((!$command->getCode() && !count($this->input->args)) || $command->getOption('h'))
 		{
-			array_unshift($this->input->args, 'list');
+			array_unshift($this->input->args, 'help');
 		}
 
 		try
@@ -115,8 +115,7 @@ class Console extends AbstractCliApplication
 		}
 		catch (\Exception $e)
 		{
-			// @TODO Write an exception renderer.
-			throw $e;
+			$command->renderException($e);
 		}
 
 		if ($this->autoExit)
