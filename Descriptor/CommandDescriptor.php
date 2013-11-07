@@ -44,7 +44,7 @@ EOF;
 	/**
 	 * Render an item description.
 	 *
-	 * @param   mixed  $command  The item to br described.
+	 * @param   mixed  $command  The item to be described.
 	 *
 	 * @throws  \InvalidArgumentException
 	 * @return  string  Rendered description.

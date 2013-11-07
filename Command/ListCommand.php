@@ -81,7 +81,7 @@ class ListCommand extends Command
 
 			if (!$command)
 			{
-				throw new \LogicException(sprintf('Command: %s not found.', implode(' ', $args)));
+				throw new \InvalidArgumentException(sprintf('Command: "%s" not found.', implode(' ', $args)));
 			}
 		}
 

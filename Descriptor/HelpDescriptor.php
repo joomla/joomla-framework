@@ -57,23 +57,27 @@ EOF;
 	/**
 	 * Render an item description.
 	 *
-	 * @param   Command  $console  The item to br described.
+	 * @param   Command  $command  The default parent command.
 	 *
 	 * @throws  \InvalidArgumentException
 	 * @return  string  Rendered description.
 	 */
 	protected function renderItem($command)
 	{
-
 		/** @var $command Command */
 		if (!($command instanceof Command))
 		{
 			throw new \InvalidArgumentException('Help descriptor need Command object to describe it.');
 		}
 
+		/** @var Console $console */
 		$console = $command->getApplication();
 
-		/** @var Console $console */
+		if (!($console instanceof Console))
+		{
+			throw new \InvalidArgumentException('Help descriptor need Console object in default command.');
+		}
+
 		$consoleName = $console->getName();
 		$version     = $console->getVersion();
 

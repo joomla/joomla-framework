@@ -149,9 +149,21 @@ class Command implements CommandInterface
 		{
 			$name = $this->input->args[0];
 
-			if (!empty($this->arguments[$name]))
+			try
 			{
 				return $this->executeSubCommand($name);
+			}
+			catch (\InvalidArgumentException $e)
+			{
+				$this->renderAlternatives($this->input->args[0], $e);
+
+				return 2;
+			}
+			catch (\Exception $e)
+			{
+				$this->renderException($e);
+
+				return 2;
 			}
 		}
 
@@ -207,7 +219,7 @@ class Command implements CommandInterface
 	{
 		if (empty($this->arguments[$name]))
 		{
-			throw new \LogicException(sprintf('Command %s not found.', $name));
+			throw new \InvalidArgumentException(sprintf('Command "%s" not found.', $name));
 		}
 
 		/** @var $subCommand Command */
@@ -705,5 +717,59 @@ class Command implements CommandInterface
 		$this->usage = $usage;
 
 		return $this;
+	}
+
+	/**
+	 * renderMisus
+	 *
+	 * @param $exception
+	 */
+	protected function renderAlternatives($name, $exception)
+	{
+		/** @var $exception \InvalidArgumentException */
+		$message = $exception->getMessage();
+
+		$alternatives = array();
+
+		// Autocomplete
+		foreach ($this->arguments as $command)
+		{
+			$commandName = $command->getName();
+
+			$lev = levenshtein($name, $commandName);
+
+			if ($lev <= strlen($name) / 3 || false !== strpos($commandName, $name))
+			{
+				$alternatives[] = "    " . $commandName;
+			}
+		}
+
+		if (count($alternatives))
+		{
+			$output = "Did you mean one of this?\n";
+			$output .= implode($alternatives);
+		}
+
+		$this->output->out('');
+		$this->output->out("<error>{$message}</error>");
+		$this->output->out('');
+		$this->output->out($output);
+	}
+
+	protected function renderException($exception)
+	{
+		/** @var $exception \Exception */
+		$class = get_class($exception);
+
+		$output = <<<EOF
+<error>Exception '{$class}' with message:</error> <fg=cyan;options=bold>{$exception->getMessage()}</fg=cyan;options=bold>
+<info>in {$exception->getFile()}:{$exception->getLine()}</info>
+
+<error>Stack trace:</error>
+{$exception->getTraceAsString()}
+EOF;
+
+		$this->output->out('');
+		$this->output->out($output);
 	}
 }
