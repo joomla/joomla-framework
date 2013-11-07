@@ -720,20 +720,24 @@ class Command implements CommandInterface
 	}
 
 	/**
-	 * renderMisus
+	 * Render auto complete alternatives.
 	 *
-	 * @param $exception
+	 * @param   string                     $name       The command name to auto completed.
+	 * @param   \InvalidArgumentException  $exception  The exception of wrong argument.
+	 *
+	 * @return  void
 	 */
 	protected function renderAlternatives($name, $exception)
 	{
 		/** @var $exception \InvalidArgumentException */
-		$message = $exception->getMessage();
-
+		$message      = $exception->getMessage();
+		$autoComplete = '';
 		$alternatives = array();
 
 		// Autocomplete
 		foreach ($this->arguments as $command)
 		{
+			/** @var $command Command */
 			$commandName = $command->getName();
 
 			$lev = levenshtein($name, $commandName);
@@ -746,16 +750,23 @@ class Command implements CommandInterface
 
 		if (count($alternatives))
 		{
-			$output = "Did you mean one of this?\n";
-			$output .= implode($alternatives);
+			$autoComplete = "Did you mean one of this?\n";
+			$autoComplete .= implode($alternatives);
 		}
 
 		$this->output->out('');
 		$this->output->out("<error>{$message}</error>");
 		$this->output->out('');
-		$this->output->out($output);
+		$this->output->out($autoComplete);
 	}
 
+	/**
+	 * Render exception for debugging.
+	 *
+	 * @param   \Exception  $exception  The exception we want to render.
+	 *
+	 * @return void
+	 */
 	protected function renderException($exception)
 	{
 		/** @var $exception \Exception */
