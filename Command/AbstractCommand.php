@@ -155,7 +155,7 @@ abstract class AbstractCommand
 			}
 			catch (\InvalidArgumentException $e)
 			{
-				$this->renderAlternatives($this->input->args[0], $e);
+				$this->renderAlternatives($name, $e);
 
 				return 2;
 			}

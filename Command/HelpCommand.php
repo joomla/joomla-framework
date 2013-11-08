@@ -34,6 +34,13 @@ class HelpCommand extends Command
 	protected $descriptor;
 
 	/**
+	 * The command we want to described.
+	 *
+	 * @var  Command
+	 */
+	protected $describedCommand;
+
+	/**
 	 * Configure command.
 	 *
 	 * @return void
@@ -52,12 +59,24 @@ class HelpCommand extends Command
 		// Add a blue style <option>
 		$this->output
 			->getProcessor()
-			->addStyle('option', new Colorstyle('cyan', '', array('bold')))
-			->addStyle('cmd', new Colorstyle('magenta', '', array('bold')));
+			->addStyle('option', new Colorstyle('cyan',    '', array('bold')))
+			->addStyle('cmd',    new Colorstyle('magenta', '', array('bold')));
 
 		$args = $this->input->args;
 
-		$command = $this->getDescribedCommand($args);
+		try
+		{
+			$command = $this->getDescribedCommand($args);
+		}
+		catch (\InvalidArgumentException $e)
+		{
+			if ($this->describedCommand instanceof Command)
+			{
+				$this->describedCommand->renderAlternatives($this->input->get('lastArgument'), $e);
+			}
+
+			return 2;
+		}
 
 		$descriptor = $this->getDescriptor();
 
@@ -73,12 +92,13 @@ class HelpCommand extends Command
 	 *
 	 * @param $args
 	 *
-	 * @return Command|null
-	 * @throws \LogicException
+	 * @return Command
+	 *
+	 * @throws \InvalidArgumentException
 	 */
 	protected function getDescribedCommand($args)
 	{
-		$command = $this->getParent();
+		$this->describedCommand = $command = $this->getParent();
 
 		foreach ($args as $arg)
 		{
@@ -86,10 +106,13 @@ class HelpCommand extends Command
 
 			if (!$command)
 			{
-				$this->input->args = array($arg);
+				$this->input->set('lastArgument', $arg);
 
 				throw new \InvalidArgumentException(sprintf('Command: "%s" not found.', implode(' ', $args)));
 			}
+
+			// Set current to describedCommand that we can use it auto complete wrong args.
+			$this->describedCommand = $command;
 		}
 
 		return $command;
