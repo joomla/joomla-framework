@@ -769,8 +769,10 @@ class Command implements CommandInterface
 	 */
 	public function renderException($exception)
 	{
-		if ($this->getOption('verbose', 0))
+		if (!$this->getOption('v', 0))
 		{
+			$this->out('')->out($exception->getMessage());
+
 			return;
 		}
 

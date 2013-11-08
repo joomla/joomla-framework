@@ -34,8 +34,9 @@ class DefaultCommand extends Command
 		$this->setName($file)
 			->setDescription('The default application command')
 			->addArgument(new HelpCommand)
-			->addOption(array('h', 'help'),  0, 'Display this help message.', Option::IS_GLOBAL)
-			->addOption(array('q', 'quiet'), 0, 'Do not output any message.', Option::IS_GLOBAL)
+			->addOption(array('h', 'help'),    0, 'Display this help message.',          Option::IS_GLOBAL)
+			->addOption(array('q', 'quiet'),   0, 'Do not output any message.',          Option::IS_GLOBAL)
+			->addOption(array('v', 'verbose'), 0, 'Increase the verbosity of messages.', Option::IS_GLOBAL)
 			->setHelp(
 <<<HELP
 Welcome to Joomla! Console.
