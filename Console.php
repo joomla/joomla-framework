@@ -98,7 +98,7 @@ class Console extends AbstractCliApplication
 	{
 		$command = $this->getDefaultCommand();
 
-		if ((!$command->getCode() && !count($this->input->args)) || $command->getOption('h'))
+		if ((!$command->getCode() && !count($this->input->args)))
 		{
 			array_unshift($this->input->args, 'help');
 		}

@@ -41,6 +41,21 @@ class Command extends AbstractCommand
 	}
 
 	/**
+	 * Execute this command.
+	 *
+	 * @return  mixed  Executed result or exit code.
+	 */
+	public function execute()
+	{
+		if (count($this->input->args) && $this->input->args[0] != 'help' && $this->getOption('h'))
+		{
+			array_unshift($this->input->args, 'help');
+		}
+
+		return parent::execute();
+	}
+
+	/**
 	 * Write a string to standard output.
 	 *
 	 * @param   string   $text  The text to display.

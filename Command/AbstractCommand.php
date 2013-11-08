@@ -141,7 +141,7 @@ abstract class AbstractCommand
 	/**
 	 * Execute this command.
 	 *
-	 * @return mixed
+	 * @return  mixed  Executed result or exit code.
 	 */
 	public function execute()
 	{
@@ -328,6 +328,7 @@ abstract class AbstractCommand
 
 		if (count($options))
 		{
+			$argument->setOptions($options);
 			$argument->setOptions($options);
 		}
 
