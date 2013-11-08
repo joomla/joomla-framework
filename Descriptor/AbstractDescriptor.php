@@ -9,12 +9,12 @@
 namespace Joomla\Console\Descriptor;
 
 /**
- * Class Descriptor
+ * Class AbstractDescriptor
  *
- * @package  Joomla\Console\Descriptor
+ * @package  Joomla\Console\AbstractDescriptor
  * @since    1.0
  */
-abstract class Descriptor implements DescriptorInterface
+abstract class AbstractDescriptor implements DescriptorInterface
 {
 	/**
 	 * Waiting described items.

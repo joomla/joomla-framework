@@ -6,26 +6,19 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Console\Descriptor;
+namespace Joomla\Console\Descriptor\Text;
 
 use Joomla\Console\Command\Command;
 use Joomla\Console\Console;
+use Joomla\Console\Descriptor\AbstractDescriptorHelper;
 
 /**
- * Class ConsoleDescriptor
+ * A descriptor helper to get different descriptor and render it.
  *
- * @package  Joomla\Console\Descriptor
- * @since    1.0
+ * @since  1.0
  */
-class HelpDescriptor extends Descriptor
+class TextDescriptorHelper extends AbstractDescriptorHelper
 {
-	/**
-	 * The Console to describe.
-	 *
-	 * @var  Console
-	 */
-	protected $console;
-
 	/**
 	 * Template of console.
 	 *
@@ -55,27 +48,44 @@ Available commands:
 EOF;
 
 	/**
-	 * Render an item description.
+	 * Describe a command detail.
 	 *
-	 * @param   Command  $command  The default parent command.
+	 * @param   Command  $command  The command to described.
 	 *
-	 * @throws  \InvalidArgumentException
-	 * @return  string  Rendered description.
+	 * @throws \RuntimeException
+	 * @return  string  Return the described text.
 	 */
-	protected function renderItem($command)
+	public function describe(Command $command)
 	{
-		/** @var $command Command */
-		if (!($command instanceof Command))
+		// Describe Options
+		$options          = $command->getAllOptions();
+		$optionDescriptor = $this->getOptionDescriptor();
+
+		foreach ($options as $option)
 		{
-			throw new \InvalidArgumentException('Help descriptor need Command object to describe it.');
+			$optionDescriptor->addItem($option);
 		}
 
+		$render['option'] = $optionDescriptor->render();
+
+		// Describe Commands
+		$commands          = $command->getArguments();
+		$commandDescriptor = $this->getCommendDescriptor();
+
+		foreach ($commands as $cmd)
+		{
+			$commandDescriptor->addItem($cmd);
+		}
+
+		$render['command'] = $commandDescriptor->render();
+
+		// Render Help template
 		/** @var Console $console */
 		$console = $command->getApplication();
 
 		if (!($console instanceof Console))
 		{
-			throw new \InvalidArgumentException('Help descriptor need Console object in default command.');
+			throw new \RuntimeException('Help descriptor need Console object in default command.');
 		}
 
 		$consoleName = $console->getName();
@@ -97,7 +107,7 @@ EOF;
 		$description = implode("\n", $description);
 		$description = $description ? $description . "\n" : '';
 
-		return sprintf(
+		$template = sprintf(
 			$this->template,
 			$consoleName,
 			$version,
@@ -105,6 +115,12 @@ EOF;
 			$description,
 			$usage,
 			$help
+		);
+
+		return str_replace(
+			array('{OPTIONS}', '{COMMANDS}'),
+			$render,
+			$template
 		);
 	}
 }

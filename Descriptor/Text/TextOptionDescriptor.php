@@ -6,17 +6,18 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Console\Descriptor;
+namespace Joomla\Console\Descriptor\Text;
 
+use Joomla\Console\Descriptor\AbstractDescriptor;
 use Joomla\Console\Option\Option;
 
 /**
- * Class Option Descriptor
+ * Class Option AbstractDescriptor
  *
- * @package  Joomla\Console\Descriptor
+ * @package  Joomla\Console\AbstractDescriptor
  * @since    1.0
  */
-class OptionDescriptor extends Descriptor
+class TextOptionDescriptor extends AbstractDescriptor
 {
 	/**
 	 * Option description template.

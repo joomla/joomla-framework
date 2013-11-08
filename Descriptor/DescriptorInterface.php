@@ -11,7 +11,7 @@ namespace Joomla\Console\Descriptor;
 /**
  * Interface DescriptorInterface
  *
- * @package  Joomla\Console\Descriptor
+ * @package  Joomla\Console\AbstractDescriptor
  * @since    1.0
  */
 interface DescriptorInterface

@@ -6,17 +6,18 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Console\Descriptor;
+namespace Joomla\Console\Descriptor\Text;
 
 use Joomla\Console\Command\Command;
+use Joomla\Console\Descriptor\AbstractDescriptor;
 
 /**
- * Class CommandDescriptor
+ * Class TextCommandDescriptor
  *
- * @package  Joomla\Console\Descriptor
+ * @package  Joomla\Console\AbstractDescriptor
  * @since    1.0
  */
-class CommandDescriptor extends Descriptor
+class TextCommandDescriptor extends AbstractDescriptor
 {
 	/**
 	 * Offset that between every commands and their descriptions.

@@ -11,11 +11,11 @@ namespace Joomla\Console\Command;
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\Console;
 use Joomla\Console\Descriptor\ConsoleDescriptor;
-use Joomla\Console\Descriptor\DescriptorHelper;
-use Joomla\Console\Descriptor\CommandDescriptor;
+use Joomla\Console\Descriptor\AbstractDescriptorHelper;
 use Joomla\Console\Descriptor\DescriptorHelperInterface;
-use Joomla\Console\Descriptor\HelpDescriptor;
-use Joomla\Console\Descriptor\OptionDescriptor;
+use Joomla\Console\Descriptor\Text\TextCommandDescriptor;
+use Joomla\Console\Descriptor\Text\TextDescriptorHelper;
+use Joomla\Console\Descriptor\Text\TextOptionDescriptor;
 
 class HelpCommand extends Command
 {
@@ -27,7 +27,7 @@ class HelpCommand extends Command
 	protected $name = 'help';
 
 	/**
-	 * The Descriptor Helper.
+	 * The AbstractDescriptor Helper.
 	 *
 	 * @var  DescriptorHelperInterface
 	 */
@@ -120,17 +120,17 @@ class HelpCommand extends Command
 
 	/**
 	 * getDescriptor
+
 	 *
-	 * @return DescriptorHelperInterface|DescriptorHelper
+*@return DescriptorHelperInterface|AbstractDescriptorHelper
 	 */
 	public function getDescriptor()
 	{
 		if (!$this->descriptor)
 		{
-			$this->descriptor = new DescriptorHelper(
-				new CommandDescriptor,
-				new OptionDescriptor,
-				new HelpDescriptor
+			$this->descriptor = new TextDescriptorHelper(
+				new TextCommandDescriptor,
+				new TextOptionDescriptor
 			);
 		}
 
