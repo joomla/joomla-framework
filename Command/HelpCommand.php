@@ -8,6 +8,7 @@
 
 namespace Joomla\Console\Command;
 
+
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\Console;
 use Joomla\Console\Descriptor\ConsoleDescriptor;
@@ -16,6 +17,7 @@ use Joomla\Console\Descriptor\DescriptorHelperInterface;
 use Joomla\Console\Descriptor\Text\TextCommandDescriptor;
 use Joomla\Console\Descriptor\Text\TextDescriptorHelper;
 use Joomla\Console\Descriptor\Text\TextOptionDescriptor;
+use Joomla\Console\Exception\CommandNotFoundException;
 
 class HelpCommand extends Command
 {
@@ -64,19 +66,7 @@ class HelpCommand extends Command
 
 		$args = $this->input->args;
 
-		try
-		{
-			$command = $this->getDescribedCommand($args);
-		}
-		catch (\InvalidArgumentException $e)
-		{
-			if ($this->describedCommand instanceof Command)
-			{
-				$this->describedCommand->renderAlternatives($this->input->get('lastArgument'), $e);
-			}
-
-			return 2;
-		}
+		$command = $this->getDescribedCommand($args);
 
 		$descriptor = $this->getDescriptor();
 
@@ -106,9 +96,7 @@ class HelpCommand extends Command
 
 			if (!$command)
 			{
-				$this->input->set('lastArgument', $arg);
-
-				throw new \InvalidArgumentException(sprintf('Command: "%s" not found.', implode(' ', $args)));
+				throw new CommandNotFoundException(sprintf('Command: "%s" not found.', implode(' ', $args)), $this->describedCommand, $arg);
 			}
 
 			// Set current to describedCommand that we can use it auto complete wrong args.

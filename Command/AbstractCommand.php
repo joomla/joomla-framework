@@ -11,6 +11,7 @@ namespace Joomla\Console\Command;
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\Output\Stdout;
 use Joomla\Application\Cli\CliOutput;
+use Joomla\Console\Exception\CommandNotFoundException;
 use Joomla\Console\Option\Option;
 use Joomla\Input;
 
@@ -153,17 +154,17 @@ abstract class AbstractCommand
 			{
 				return $this->executeSubCommand($name);
 			}
-			catch (\InvalidArgumentException $e)
+			catch (CommandNotFoundException $e)
 			{
-				$this->renderAlternatives($name, $e);
+				$e->getCommand()->renderAlternatives($e->getArgument(), $e);
 
-				return 2;
+				return $e->getCode();
 			}
 			catch (\Exception $e)
 			{
 				$this->renderException($e);
 
-				return 2;
+				return $e->getCode();
 			}
 		}
 
@@ -212,14 +213,14 @@ abstract class AbstractCommand
 	 * @param   Input\Cli  $input   The Cli Input object.
 	 * @param   CliOutput  $output  The Cli output object.
 	 *
-	 * @throws  \LogicException
+	 * @throws  CommandNotFoundException
 	 * @return  mixed
 	 */
 	protected function executeSubCommand($name, Input\Cli $input = null, CliOutput $output = null)
 	{
 		if (empty($this->arguments[$name]))
 		{
-			throw new \InvalidArgumentException(sprintf('Command "%s" not found.', $name));
+			throw new CommandNotFoundException(sprintf('Command "%s" not found.', $name), $this, $name);
 		}
 
 		/** @var $subCommand AbstractCommand */
@@ -723,8 +724,8 @@ abstract class AbstractCommand
 	/**
 	 * Render auto complete alternatives.
 	 *
-	 * @param   string                     $name       The command name to auto completed.
-	 * @param   \InvalidArgumentException  $exception  The exception of wrong argument.
+	 * @param   string                    $name       The command name to auto completed.
+	 * @param   CommandNotFoundException  $exception  The exception of wrong argument.
 	 *
 	 * @return  void
 	 */
@@ -766,7 +767,7 @@ abstract class AbstractCommand
 	 *
 	 * @param   \Exception  $exception  The exception we want to render.
 	 *
-	 * @return void
+	 * @return  void
 	 */
 	public function renderException($exception)
 	{
