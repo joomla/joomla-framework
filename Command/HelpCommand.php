@@ -8,9 +8,7 @@
 
 namespace Joomla\Console\Command;
 
-
 use Joomla\Application\Cli\ColorStyle;
-use Joomla\Console;
 use Joomla\Console\Descriptor\ConsoleDescriptor;
 use Joomla\Console\Descriptor\AbstractDescriptorHelper;
 use Joomla\Console\Descriptor\DescriptorHelperInterface;
@@ -19,10 +17,15 @@ use Joomla\Console\Descriptor\Text\TextDescriptorHelper;
 use Joomla\Console\Descriptor\Text\TextOptionDescriptor;
 use Joomla\Console\Exception\CommandNotFoundException;
 
+/**
+ * Command to list all arguments.
+ *
+ * @since  1.0
+ */
 class HelpCommand extends Command
 {
 	/**
-	 * Console(Argument) name.
+	 * Command(Argument) name.
 	 *
 	 * @var  string
 	 */
@@ -53,8 +56,9 @@ class HelpCommand extends Command
 	}
 
 	/**
-	 * doExecute
+	 * Execute this command.
 	 *
+	 * @return int The exit code.
 	 */
 	protected function doExecute()
 	{
@@ -74,7 +78,7 @@ class HelpCommand extends Command
 
 		$this->out($rendered);
 
-		return 255;
+		return 0;
 	}
 
 	/**

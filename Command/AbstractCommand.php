@@ -757,9 +757,9 @@ abstract class AbstractCommand
 		}
 
 		$this->out('');
-		$this->out("<error>{$message}</error>");
+		$this->err("<error>{$message}</error>");
 		$this->out('');
-		$this->out($autoComplete);
+		$this->err($autoComplete);
 	}
 
 	/**
@@ -783,7 +783,7 @@ abstract class AbstractCommand
 EOF;
 
 		$this->out('');
-		$this->out($output);
+		$this->err($output);
 	}
 
 	/**
@@ -799,6 +799,23 @@ EOF;
 	public function out($text = '', $nl = true)
 	{
 		$this->output->out($text, $nl);
+
+		return $this;
+	}
+
+	/**
+	 * Write a string to standard error output.
+	 *
+	 * @param   string   $text  The text to display.
+	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
+	 *
+	 * @return  AbstractCommand  Instance of $this to allow chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function err($text = '', $nl = true)
+	{
+		$this->output->err($text, $nl);
 
 		return $this;
 	}

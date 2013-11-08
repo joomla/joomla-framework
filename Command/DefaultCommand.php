@@ -38,6 +38,7 @@ class DefaultCommand extends Command
 			->addOption(array('q', 'quiet'),   0, 'Do not output any message.',          Option::IS_GLOBAL)
 			->addOption(array('v', 'verbose'), 0, 'Increase the verbosity of messages.', Option::IS_GLOBAL)
 			->setHelp(
+			// @TODO: Complete the help.
 <<<HELP
 Welcome to Joomla! Console.
 HELP
