@@ -9,11 +9,9 @@
 namespace Joomla\Console\Command;
 
 use Joomla\Application\Cli\ColorStyle;
-use Joomla\Console\Descriptor\ConsoleDescriptor;
-use Joomla\Console\Descriptor\AbstractDescriptorHelper;
 use Joomla\Console\Descriptor\DescriptorHelperInterface;
-use Joomla\Console\Descriptor\Text\TextCommandDescriptor;
 use Joomla\Console\Descriptor\Text\TextDescriptorHelper;
+use Joomla\Console\Descriptor\Text\TextCommandDescriptor;
 use Joomla\Console\Descriptor\Text\TextOptionDescriptor;
 use Joomla\Console\Exception\CommandNotFoundException;
 
@@ -74,6 +72,7 @@ class HelpCommand extends Command
 
 		$descriptor = $this->getDescriptor();
 
+		/** @var $command Command */
 		$rendered = $descriptor->describe($command);
 
 		$this->out($rendered);
@@ -82,13 +81,13 @@ class HelpCommand extends Command
 	}
 
 	/**
-	 * getDescribedCommand
+	 * Get the command we want to describe.
 	 *
-	 * @param $args
+	 * @param   array  $args  Arguments of this execute.
 	 *
-	 * @return Command
+	 * @return  AbstractCommand|null
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws  CommandNotFoundException
 	 */
 	protected function getDescribedCommand($args)
 	{
@@ -111,10 +110,9 @@ class HelpCommand extends Command
 	}
 
 	/**
-	 * getDescriptor
-
+	 * Get or create descriptor.
 	 *
-*@return DescriptorHelperInterface|AbstractDescriptorHelper
+	 * @return DescriptorHelperInterface|TextDescriptorHelper
 	 */
 	public function getDescriptor()
 	{
@@ -130,11 +128,11 @@ class HelpCommand extends Command
 	}
 
 	/**
-	 * setDescriptor
+	 * Set descriptor helper.
 	 *
-	 * @param $descriptor
+	 * @param   DescriptorHelperInterface  $descriptor  Descriptor helper.
 	 *
-	 * @return $this
+	 * @return  $this
 	 */
 	public function setDescriptor(DescriptorHelperInterface $descriptor)
 	{

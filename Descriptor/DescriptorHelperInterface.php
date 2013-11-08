@@ -8,7 +8,7 @@
 
 namespace Joomla\Console\Descriptor;
 
-use Joomla\Console\Command\Command;
+use Joomla\Console\Command\AbstractCommand;
 
 /**
  * A descriptor helper to get different descriptor and render it.
@@ -20,9 +20,9 @@ interface DescriptorHelperInterface
 	/**
 	 * Describe a command detail.
 	 *
-	 * @param   Command  $command  The command to described.
+	 * @param   AbstractCommand  $command  The command to described.
 	 *
 	 * @return  string  Return the described text.
 	 */
-	public function describe(Command $command);
+	public function describe(AbstractCommand $command);
 }

@@ -8,8 +8,8 @@
 
 namespace Joomla\Console\Descriptor\Text;
 
-use Joomla\Console\Command\Command;
 use Joomla\Console\Console;
+use Joomla\Console\Command\AbstractCommand;
 use Joomla\Console\Descriptor\AbstractDescriptorHelper;
 
 /**
@@ -50,12 +50,13 @@ EOF;
 	/**
 	 * Describe a command detail.
 	 *
-	 * @param   Command  $command  The command to described.
+	 * @param   AbstractCommand  $command  The command to described.
 	 *
-	 * @throws \RuntimeException
 	 * @return  string  Return the described text.
+	 *
+	 * @throws  \RuntimeException
 	 */
-	public function describe(Command $command)
+	public function describe(AbstractCommand $command)
 	{
 		// Describe Options
 		$options          = $command->getAllOptions();

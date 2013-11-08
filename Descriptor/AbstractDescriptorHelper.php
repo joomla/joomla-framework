@@ -8,9 +8,6 @@
 
 namespace Joomla\Console\Descriptor;
 
-use Joomla\Console\Command\Command;
-use Joomla\Console\Console;
-
 /**
  * A descriptor helper to get different descriptor and render it.
  *
@@ -46,7 +43,9 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	}
 
 	/**
-	 * @return \Joomla\Console\Descriptor\DescriptorInterface
+	 * Command descriptor getter.
+	 *
+	 * @return  DescriptorInterface
 	 */
 	public function getCommendDescriptor()
 	{
@@ -54,7 +53,11 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	}
 
 	/**
-	 * @param \Joomla\Console\Descriptor\DescriptorInterface $commendDescriptor
+	 * Command descriptor setter.
+	 *
+	 * @param   DescriptorInterface  $commendDescriptor  Command descriptor.
+	 *
+	 * @return  $this
 	 */
 	public function setCommendDescriptor($commendDescriptor)
 	{
@@ -64,6 +67,8 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	}
 
 	/**
+	 * Option descriptor getter.
+	 *
 	 * @return \Joomla\Console\Descriptor\DescriptorInterface
 	 */
 	public function getOptionDescriptor()
@@ -72,11 +77,15 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	}
 
 	/**
-	 * @param \Joomla\Console\Descriptor\DescriptorInterface $helpDescriptor
+	 * Option descriptor setter.
+	 *
+	 * @param   DescriptorInterface  $optionDescriptor  Option descriptor.
+	 *
+	 * @return  $this
 	 */
-	public function setHelpDescriptor($helpDescriptor)
+	public function setOptionDescriptor($optionDescriptor)
 	{
-		$this->helpDescriptor = $helpDescriptor;
+		$this->optionDescriptor = $optionDescriptor;
 
 		return $this;
 	}

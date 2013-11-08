@@ -10,12 +10,10 @@ namespace Joomla\Console;
 
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\CliOutput;
-use Joomla\Application\Cli\ColorStyle;
 use Joomla\Application\Cli\Output;
+use Joomla\Console\Command\AbstractCommand;
 use Joomla\Console\Command\Command;
 use Joomla\Console\Command\DefaultCommand;
-use Joomla\Console\Command\HelpCommand;
-use Joomla\Console\Option\Option;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 
@@ -26,6 +24,14 @@ use Joomla\Registry\Registry;
  */
 class Console extends AbstractCliApplication
 {
+	/**
+	 * The application cli input object.
+	 *
+	 * @var    Input\Cli
+	 * @since  1.0
+	 */
+	public $input = null;
+
 	/**
 	 * The Console title.
 	 *
@@ -50,7 +56,7 @@ class Console extends AbstractCliApplication
 	/**
 	 * A default command to run as application.
 	 *
-	 * @var  Command
+	 * @var  AbstractCommand
 	 */
 	protected $defaultCommand;
 
@@ -96,7 +102,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function doExecute()
 	{
-		$command = $this->getDefaultCommand();
+		$command  = $this->getDefaultCommand();
 
 		if ((!$command->getCode() && !count($this->input->args)))
 		{
@@ -116,6 +122,8 @@ class Console extends AbstractCliApplication
 		catch (\Exception $e)
 		{
 			$command->renderException($e);
+
+			$exitCode = $e->getCode();
 		}
 
 		if ($this->autoExit)
@@ -138,13 +146,8 @@ class Console extends AbstractCliApplication
 	 */
 	public function registerDefaultCommand()
 	{
-		/** @var Input\Cli $input */
-		$input = $this->input;
-
-		$command = with(new DefaultCommand('default', $this->input, $this->output))
+		$this->defaultCommand = with(new DefaultCommand('default', $this->input, $this->output))
 			->setApplication($this);
-
-		$this->defaultCommand = $command;
 
 		return $this;
 	}
@@ -154,7 +157,7 @@ class Console extends AbstractCliApplication
 	 *
 	 * @param   string  $name  The command name.
 	 *
-	 * @return Command The created commend.
+	 * @return  AbstractCommand The created commend.
 	 */
 	public function register($name)
 	{
@@ -166,11 +169,11 @@ class Console extends AbstractCliApplication
 	 *
 	 * If a command with the same name already exists, it will be overridden.
 	 *
-	 * @param   Command  $command  A Console object
+	 * @param   AbstractCommand  $command  A Console object
 	 *
-	 * @return  Command  The registered command
+	 * @return  AbstractCommand  The registered command
 	 */
-	public function addCommand(Command $command)
+	public function addCommand(AbstractCommand $command)
 	{
 		$this->getDefaultCommand()->addArgument($command);
 
@@ -192,7 +195,9 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
-	 * @return Command
+	 * Get the default command.
+	 *
+	 * @return AbstractCommand
 	 */
 	public function getDefaultCommand()
 	{
@@ -200,6 +205,8 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
+	 * Get name of this application.
+	 *
 	 * @return string
 	 */
 	public function getName()
@@ -208,7 +215,11 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
-	 * @param string $name
+	 * Set name of this application.
+	 *
+	 * @param   string  $name  Name of this application.
+	 *
+	 * @return  Console  Return this object to support chaining.
 	 */
 	public function setName($name)
 	{
@@ -218,6 +229,8 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
+	 * Get version.
+	 *
 	 * @return string
 	 */
 	public function getVersion()
@@ -226,7 +239,11 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
-	 * @param string $version
+	 * Set version.
+	 *
+	 * @param   string  $version  Set version of this application.
+	 *
+	 * @return  Console  Return this object to support chaining.
 	 */
 	public function setVersion($version)
 	{
@@ -236,6 +253,8 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
+	 * Get description.
+	 *
 	 * @return string
 	 */
 	public function getDescription()
@@ -244,7 +263,11 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
-	 * @param string $description
+	 * Set description.
+	 *
+	 * @param   string  $description  description of this application.
+	 *
+	 * @return  Console  Return this object to support chaining.
 	 */
 	public function setDescription($description)
 	{
@@ -254,11 +277,11 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
-	 * setCode
+	 * Set execute code to default command.
 	 *
-	 * @param   \Closure  $closure
+	 * @param   \Closure  $closure  Console execute code.
 	 *
-	 * @return $this
+	 * @return  Console  Return this object to support chaining.
 	 */
 	public function setCode(\Closure $closure)
 	{

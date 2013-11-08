@@ -8,6 +8,7 @@
 
 namespace Joomla\Console\Descriptor\Text;
 
+use Joomla\Console\Command\AbstractCommand;
 use Joomla\Console\Command\Command;
 use Joomla\Console\Descriptor\AbstractDescriptor;
 
@@ -52,7 +53,7 @@ EOF;
 	 */
 	protected function renderItem($command)
 	{
-		if (!($command instanceof Command))
+		if (!($command instanceof AbstractCommand))
 		{
 			throw new \InvalidArgumentException('Command descriptor need Command object to describe it.');
 		}
@@ -91,6 +92,7 @@ EOF;
 		// Count the max command length as column width.
 		foreach ($this->items as $item)
 		{
+			/** @var $item AbstractCommand */
 			$length = strlen($item->getName());
 
 			if ($length > $this->maxLength)
