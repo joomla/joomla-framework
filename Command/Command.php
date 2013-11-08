@@ -754,10 +754,10 @@ class Command implements CommandInterface
 			$autoComplete .= implode($alternatives);
 		}
 
-		$this->output->out('');
-		$this->output->out("<error>{$message}</error>");
-		$this->output->out('');
-		$this->output->out($autoComplete);
+		$this->out('');
+		$this->out("<error>{$message}</error>");
+		$this->out('');
+		$this->out($autoComplete);
 	}
 
 	/**
@@ -769,6 +769,11 @@ class Command implements CommandInterface
 	 */
 	public function renderException($exception)
 	{
+		if ($this->getOption('verbose', 0))
+		{
+			return;
+		}
+
 		/** @var $exception \Exception */
 		$class = get_class($exception);
 
@@ -780,7 +785,46 @@ class Command implements CommandInterface
 {$exception->getTraceAsString()}
 EOF;
 
-		$this->output->out('');
-		$this->output->out($output);
+		$this->out('');
+		$this->out($output);
+	}
+
+	/**
+	 * Write a string to standard output.
+	 *
+	 * @param   string   $text  The text to display.
+	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
+	 *
+	 * @return  Command  Instance of $this to allow chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function out($text = '', $nl = true)
+	{
+		if (!$this->getOption('q', 0))
+		{
+			$this->output->out($text, $nl);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get a value from standard input.
+	 *
+	 * @param   string  $question  The question you want to ask user.
+	 *
+	 * @return  string  The input string from standard input.
+	 *
+	 * @since   1.0
+	 */
+	public function in($question = '')
+	{
+		if ($question)
+		{
+			$this->out($question, false);
+		}
+
+		return rtrim(fread(STDIN, 8192), "\n");
 	}
 }

@@ -63,7 +63,7 @@ class HelpCommand extends Command
 
 		$rendered = $descriptor->describe($command);
 
-		$this->output->out($rendered);
+		$this->out($rendered);
 
 		return 255;
 	}
