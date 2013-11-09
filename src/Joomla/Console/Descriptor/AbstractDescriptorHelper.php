@@ -16,25 +16,30 @@ namespace Joomla\Console\Descriptor;
 abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 {
 	/**
+	 * Command descriptor.
+	 *
 	 * @var DescriptorInterface
+	 *
+	 * @since  1.0
 	 */
 	protected $commendDescriptor;
 
 	/**
+	 * Option descriptor.
+	 *
 	 * @var DescriptorInterface
+	 *
+	 * @since  1.0
 	 */
 	protected $optionDescriptor;
-
-	/**
-	 * @var DescriptorInterface
-	 */
-	protected $consoleDescriptor;
 
 	/**
 	 * The class constructor.
 	 *
 	 * @param   DescriptorInterface  $commendDescriptor  Command descriptor.
 	 * @param   DescriptorInterface  $optionDescriptor   Option descriptor.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(DescriptorInterface $commendDescriptor = null, DescriptorInterface $optionDescriptor = null)
 	{
@@ -46,6 +51,8 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	 * Command descriptor getter.
 	 *
 	 * @return  DescriptorInterface
+	 *
+	 * @since   1.0
 	 */
 	public function getCommendDescriptor()
 	{
@@ -57,7 +64,9 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	 *
 	 * @param   DescriptorInterface  $commendDescriptor  Command descriptor.
 	 *
-	 * @return  $this
+	 * @return  $this Support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setCommendDescriptor($commendDescriptor)
 	{
@@ -70,6 +79,8 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	 * Option descriptor getter.
 	 *
 	 * @return \Joomla\Console\Descriptor\DescriptorInterface
+	 *
+	 * @since   1.0
 	 */
 	public function getOptionDescriptor()
 	{
@@ -81,7 +92,9 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	 *
 	 * @param   DescriptorInterface  $optionDescriptor  Option descriptor.
 	 *
-	 * @return  $this
+	 * @return  $this  Support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setOptionDescriptor($optionDescriptor)
 	{

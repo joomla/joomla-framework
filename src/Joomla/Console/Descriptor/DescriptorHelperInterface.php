@@ -23,6 +23,8 @@ interface DescriptorHelperInterface
 	 * @param   AbstractCommand  $command  The command to described.
 	 *
 	 * @return  string  Return the described text.
+	 *
+	 * @since   1.0
 	 */
 	public function describe(AbstractCommand $command);
 }

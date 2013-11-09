@@ -11,7 +11,7 @@ namespace Joomla\Console\Tests\Output;
 use Joomla\Application\Cli\Output\Stdout;
 
 /**
- * Class Stdout.
+ * Class Stdout test.
  *
  * @since  1.0
  */
@@ -26,6 +26,7 @@ class TestStdout extends Stdout
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
 	 * @since   1.0
+	 *
 	 * @return $this
 	 */
 	public function out($text = '', $nl = true)
@@ -42,6 +43,7 @@ class TestStdout extends Stdout
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
 	 * @since   1.0
+	 *
 	 * @return $this
 	 */
 	public function err($text = '', $nl = true)
@@ -52,9 +54,11 @@ class TestStdout extends Stdout
 	}
 
 	/**
-	 * getOutput
+	 * Get test output.
 	 *
 	 * @return string
+	 *
+	 * @since  1.0
 	 */
 	public function getOutput()
 	{
@@ -62,11 +66,13 @@ class TestStdout extends Stdout
 	}
 
 	/**
-	 * setOutput
+	 * Set test outpur.
 	 *
-	 * @param $output
+	 * @param   string  $output  The output string.
 	 *
 	 * @return $this
+	 *
+	 * @since  1.0
 	 */
 	public function setOutput($output)
 	{

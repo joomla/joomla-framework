@@ -9,10 +9,9 @@
 namespace Joomla\Console\Descriptor;
 
 /**
- * Interface DescriptorInterface
+ * Interface of Descriptor.
  *
- * @package  Joomla\Console\AbstractDescriptor
- * @since    1.0
+ * @since  1.0
  */
 interface DescriptorInterface
 {
@@ -22,13 +21,17 @@ interface DescriptorInterface
 	 * @param   mixed  $item  The item you want to describe.
 	 *
 	 * @return  DescriptorInterface  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function addItem($item);
 
 	/**
 	 * Render all items description.
 	 *
-	 * @return  string
+	 * @return  string  Rendered result.
+	 *
+	 * @since   1.0
 	 */
 	public function render();
 }

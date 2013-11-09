@@ -21,6 +21,9 @@ class CommandNotFoundException extends \RuntimeException
 	 * Current command to provide information for debug.
 	 *
 	 * @var AbstractCommand
+	 *
+	 * @since  1.0
+	 *
 	 */
 	protected $command;
 
@@ -28,6 +31,8 @@ class CommandNotFoundException extends \RuntimeException
 	 * The last argument to auto complete.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $argument;
 
@@ -37,6 +42,8 @@ class CommandNotFoundException extends \RuntimeException
 	 * @param   string           $message   The Exception message to throw.
 	 * @param   AbstractCommand  $command   Current command to provide information for debug.
 	 * @param   string           $argument  The last argument to auto complete.
+	 *
+	 * @since  1.0
 	 */
 	public function __construct($message, AbstractCommand $command, $argument)
 	{
@@ -52,6 +59,8 @@ class CommandNotFoundException extends \RuntimeException
 	 * @param   string  $argument  The last argument to auto complete.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function setArgument($argument)
 	{
@@ -62,6 +71,8 @@ class CommandNotFoundException extends \RuntimeException
 	 * Argument getter.
 	 *
 	 * @return string
+	 *
+	 * @since  1.0
 	 */
 	public function getArgument()
 	{
@@ -74,6 +85,8 @@ class CommandNotFoundException extends \RuntimeException
 	 * @param   AbstractCommand  $command  Current command to provide information for debug.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function setCommand($command)
 	{
@@ -83,7 +96,9 @@ class CommandNotFoundException extends \RuntimeException
 	/**
 	 * Command getter.
 	 *
-	 * @return   AbstractCommand  $command  Current command to provide information for debug.
+	 * @return AbstractCommand  $command  Current command to provide information for debug.
+	 *
+	 * @since  1.0
 	 */
 	public function getCommand()
 	{

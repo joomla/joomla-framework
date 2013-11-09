@@ -14,7 +14,6 @@ use Joomla\Console\Option\Option;
 /**
  * Class Option AbstractDescriptor
  *
- * @package  Joomla\Console\AbstractDescriptor
  * @since    1.0
  */
 class TextOptionDescriptor extends AbstractDescriptor
@@ -23,6 +22,8 @@ class TextOptionDescriptor extends AbstractDescriptor
 	 * Option description template.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $template = <<<EOF
   <info>%s</info>
@@ -34,6 +35,8 @@ EOF;
 	 * The template of every description line.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $templateLineBody = '      %s';
 
@@ -44,6 +47,8 @@ EOF;
 	 *
 	 * @throws  \InvalidArgumentException
 	 * @return  string  Rendered description.
+	 *
+	 * @since   1.0
 	 */
 	protected function renderItem($option)
 	{

@@ -9,10 +9,9 @@
 namespace Joomla\Console\Descriptor;
 
 /**
- * Class AbstractDescriptor
+ * The abstract base descriptor.
  *
- * @package  Joomla\Console\AbstractDescriptor
- * @since    1.0
+ * @since  1.0
  */
 abstract class AbstractDescriptor implements DescriptorInterface
 {
@@ -20,6 +19,8 @@ abstract class AbstractDescriptor implements DescriptorInterface
 	 * Waiting described items.
 	 *
 	 * @var  array
+	 *
+	 * @since  1.0
 	 */
 	public $items = array();
 
@@ -29,6 +30,8 @@ abstract class AbstractDescriptor implements DescriptorInterface
 	 * @param   mixed  $item  The item you want to describe.
 	 *
 	 * @return  DescriptorInterface  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function addItem($item)
 	{
@@ -43,6 +46,8 @@ abstract class AbstractDescriptor implements DescriptorInterface
 	 * @param   mixed  $item  The item to br described.
 	 *
 	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	abstract protected function renderItem($item);
 
@@ -50,6 +55,8 @@ abstract class AbstractDescriptor implements DescriptorInterface
 	 * Render all items description.
 	 *
 	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function render()
 	{

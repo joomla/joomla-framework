@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Ezio
- * Date: 2013/11/9
- * Time: 下午 1:44
+ * Part of the Joomla Framework Application Package
+ *
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Console\Tests;
@@ -15,15 +15,28 @@ use Joomla\Console\Tests\Stubs\FooCommand;
 use Joomla\Input;
 use Joomla\Test\TestHelper;
 
+/**
+ * Class ConsoleTest
+ *
+ * @since  1.0
+ */
 class ConsoleTest extends \PHPUnit_Framework_TestCase
 {
 	/**
+	 * Test instance.
+	 *
 	 * @var Console
+	 *
+	 * @since 1.0
 	 */
 	public $instance;
 
 	/**
 	 * Set up test.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	protected function setUp()
 	{
@@ -41,6 +54,13 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 		$this->instance = $console;
 	}
 
+	/**
+	 * Nested call the command.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
+	 */
 	public function testNestedCall()
 	{
 		$this->instance->addCommand(new FooCommand);
@@ -57,7 +77,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testSetAutoExit
+	 * Test autoexit.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testSetAutoExit()
 	{
@@ -69,7 +93,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testAddCommand
+	 * test add command.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testAddCommand()
 	{
@@ -79,7 +107,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testConstruct
+	 * test construct.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testConstruct()
 	{
@@ -91,7 +123,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testDoExecute
+	 * Test doExecute.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testDoExecute()
 	{
@@ -103,13 +139,24 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(123, $result, 'Return value wrong');
 	}
 
+	/**
+	 * Test register default command.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
+	 */
 	public function testRegisterDefaultCommand()
 	{
 		$this->assertInstanceOf('Joomla\\Console\\Command\\DefaultCommand', $this->instance->getDefaultCommand(), 'Default Command wrong');
 	}
 
 	/**
-	 * testRegister
+	 * Test register.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testRegister()
 	{
@@ -119,7 +166,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testGetName
+	 * Test get name.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testGetName()
 	{
@@ -127,7 +178,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testSetName
+	 * Test set name.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testSetName()
 	{
@@ -137,7 +192,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testGetVersion
+	 * Test get version.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testGetVersion()
 	{
@@ -145,7 +204,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testSetVersion
+	 * Test set version.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testSetVersion()
 	{
@@ -155,7 +218,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testGetDescription
+	 * Test get description.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testGetDescription()
 	{
@@ -163,7 +230,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testSetDescription
+	 * Test set description.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testSetDescription()
 	{
@@ -173,7 +244,11 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * testSetCode
+	 * Test set code.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	public function testSetCode()
 	{

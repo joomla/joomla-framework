@@ -23,6 +23,8 @@ class TextDescriptorHelper extends AbstractDescriptorHelper
 	 * Template of console.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $template = <<<EOF
 
@@ -55,6 +57,8 @@ EOF;
 	 * @return  string  Return the described text.
 	 *
 	 * @throws  \RuntimeException
+	 *
+	 * @since  1.0
 	 */
 	public function describe(AbstractCommand $command)
 	{

@@ -28,6 +28,7 @@ class Console extends AbstractCliApplication
 	 * The application cli input object.
 	 *
 	 * @var    Input\Cli
+	 *
 	 * @since  1.0
 	 */
 	public $input = null;
@@ -36,6 +37,8 @@ class Console extends AbstractCliApplication
 	 * The Console title.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $name = 'Joomla! Console';
 
@@ -43,6 +46,8 @@ class Console extends AbstractCliApplication
 	 * Version of this application.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $version = '1.0';
 
@@ -50,6 +55,8 @@ class Console extends AbstractCliApplication
 	 * Console description.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $description = '';
 
@@ -57,6 +64,8 @@ class Console extends AbstractCliApplication
 	 * A default command to run as application.
 	 *
 	 * @var  AbstractCommand
+	 *
+	 * @since  1.0
 	 */
 	protected $defaultCommand;
 
@@ -64,6 +73,8 @@ class Console extends AbstractCliApplication
 	 * True to set this app auto exit.
 	 *
 	 * @var boolean
+	 *
+	 * @since  1.0
 	 */
 	protected $autoExit;
 
@@ -159,9 +170,11 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
-	 * registerDefaultCommand
+	 * Register default command.
 	 *
-	 * @return $this
+	 * @return  Console  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function registerDefaultCommand()
 	{
@@ -177,6 +190,8 @@ class Console extends AbstractCliApplication
 	 * @param   string  $name  The command name.
 	 *
 	 * @return  AbstractCommand The created commend.
+	 *
+	 * @since  1.0
 	 */
 	public function register($name)
 	{
@@ -188,9 +203,11 @@ class Console extends AbstractCliApplication
 	 *
 	 * If a command with the same name already exists, it will be overridden.
 	 *
-	 * @param   AbstractCommand  $command  A Console object
+	 * @param   AbstractCommand  $command  A Console object.
 	 *
-	 * @return  AbstractCommand  The registered command
+	 * @return  AbstractCommand  The registered command.
+	 *
+	 * @since  1.0
 	 */
 	public function addCommand(AbstractCommand $command)
 	{
@@ -205,6 +222,8 @@ class Console extends AbstractCliApplication
 	 * @param   boolean  $boolean  Whether to automatically exit after a command execution or not.
 	 *
 	 * @return  Console  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setAutoExit($boolean)
 	{
@@ -216,7 +235,9 @@ class Console extends AbstractCliApplication
 	/**
 	 * Get the default command.
 	 *
-	 * @return AbstractCommand
+	 * @return AbstractCommand  Default command.
+	 *
+	 * @since  1.0
 	 */
 	public function getDefaultCommand()
 	{
@@ -226,7 +247,9 @@ class Console extends AbstractCliApplication
 	/**
 	 * Get name of this application.
 	 *
-	 * @return string
+	 * @return string  Application name.
+	 *
+	 * @since  1.0
 	 */
 	public function getName()
 	{
@@ -239,6 +262,8 @@ class Console extends AbstractCliApplication
 	 * @param   string  $name  Name of this application.
 	 *
 	 * @return  Console  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setName($name)
 	{
@@ -250,7 +275,7 @@ class Console extends AbstractCliApplication
 	/**
 	 * Get version.
 	 *
-	 * @return string
+	 * @return string Application version.
 	 */
 	public function getVersion()
 	{
@@ -263,6 +288,8 @@ class Console extends AbstractCliApplication
 	 * @param   string  $version  Set version of this application.
 	 *
 	 * @return  Console  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setVersion($version)
 	{
@@ -274,7 +301,9 @@ class Console extends AbstractCliApplication
 	/**
 	 * Get description.
 	 *
-	 * @return string
+	 * @return string  Application description.
+	 *
+	 * @since  1.0
 	 */
 	public function getDescription()
 	{
@@ -287,6 +316,8 @@ class Console extends AbstractCliApplication
 	 * @param   string  $description  description of this application.
 	 *
 	 * @return  Console  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setDescription($description)
 	{
@@ -301,6 +332,8 @@ class Console extends AbstractCliApplication
 	 * @param   \Closure  $closure  Console execute code.
 	 *
 	 * @return  Console  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setCode(\Closure $closure)
 	{

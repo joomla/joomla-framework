@@ -15,7 +15,6 @@ use Joomla\Console\Descriptor\AbstractDescriptor;
 /**
  * Class TextCommandDescriptor
  *
- * @package  Joomla\Console\AbstractDescriptor
  * @since    1.0
  */
 class TextCommandDescriptor extends AbstractDescriptor
@@ -24,6 +23,8 @@ class TextCommandDescriptor extends AbstractDescriptor
 	 * Offset that between every commands and their descriptions.
 	 *
 	 * @var int
+	 *
+	 * @since  1.0
 	 */
 	protected $offsetAfterCommand = 4;
 
@@ -31,6 +32,8 @@ class TextCommandDescriptor extends AbstractDescriptor
 	 * Template of every commands.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $template = <<<EOF
   <info>%-{WIDTH}s</info>%s
@@ -40,6 +43,8 @@ EOF;
 	 * The max length of command.
 	 *
 	 * @var int
+	 *
+	 * @since  1.0
 	 */
 	protected $maxLength = 0;
 
@@ -50,6 +55,8 @@ EOF;
 	 *
 	 * @throws  \InvalidArgumentException
 	 * @return  string  Rendered description.
+	 *
+	 * @since  1.0
 	 */
 	protected function renderItem($command)
 	{
@@ -86,6 +93,8 @@ EOF;
 	 * Render all items description.
 	 *
 	 * @return  string
+	 *
+	 * @since  1.0
 	 */
 	public function render()
 	{

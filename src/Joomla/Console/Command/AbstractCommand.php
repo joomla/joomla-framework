@@ -23,7 +23,11 @@ use Joomla\Input;
 abstract class AbstractCommand
 {
 	/**
+	 * Console application.
+	 *
 	 * @var  AbstractCliApplication
+	 *
+	 * @since  1.0
 	 */
 	public $application;
 
@@ -31,6 +35,8 @@ abstract class AbstractCommand
 	 * The Cli input object.
 	 *
 	 * @var Input\Cli
+	 *
+	 * @since  1.0
 	 */
 	protected $input;
 
@@ -38,6 +44,8 @@ abstract class AbstractCommand
 	 * The cli output object.
 	 *
 	 * @var CliOutput
+	 *
+	 * @since  1.0
 	 */
 	protected $output;
 
@@ -45,6 +53,8 @@ abstract class AbstractCommand
 	 * Console(Argument) name.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $name;
 
@@ -52,6 +62,8 @@ abstract class AbstractCommand
 	 * The Arguments(SubCommends) storage.
 	 *
 	 * @var array
+	 *
+	 * @since  1.0
 	 */
 	protected $arguments;
 
@@ -59,6 +71,8 @@ abstract class AbstractCommand
 	 * The Options storage.
 	 *
 	 * @var array
+	 *
+	 * @since  1.0
 	 */
 	protected $options = array();
 
@@ -66,6 +80,8 @@ abstract class AbstractCommand
 	 * Global Options.
 	 *
 	 * @var array
+	 *
+	 * @since  1.0
 	 */
 	protected $globalOptions = array();
 
@@ -73,6 +89,8 @@ abstract class AbstractCommand
 	 * Alias of options.
 	 *
 	 * @var array
+	 *
+	 * @since  1.0
 	 */
 	protected $optionAlias = array(
 		'global' => array(),
@@ -83,6 +101,8 @@ abstract class AbstractCommand
 	 * The command description.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $description;
 
@@ -90,6 +110,8 @@ abstract class AbstractCommand
 	 * The manual about this command.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $help;
 
@@ -97,6 +119,8 @@ abstract class AbstractCommand
 	 * The usage to tell user how to use this command.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $usage = '%s <cmd><command></cmd> <option>[option]</option>';
 
@@ -104,6 +128,8 @@ abstract class AbstractCommand
 	 * The closure to execute.
 	 *
 	 * @var  \Closure
+	 *
+	 * @since  1.0
 	 */
 	protected $code;
 
@@ -111,6 +137,8 @@ abstract class AbstractCommand
 	 * The parent Console if this is a sub comment.
 	 *
 	 * @var AbstractCommand
+	 *
+	 * @since  1.0
 	 */
 	protected $parent;
 
@@ -123,6 +151,8 @@ abstract class AbstractCommand
 	 * @param   AbstractCommand  $parent  Parent Console.
 	 *
 	 * @throws \LogicException
+	 *
+	 * @since  1.0
 	 */
 	public function __construct($name = null, Input\Cli $input = null, CliOutput $output = null, AbstractCommand $parent = null)
 	{
@@ -143,6 +173,8 @@ abstract class AbstractCommand
 	 * Execute this command.
 	 *
 	 * @return  mixed  Executed result or exit code.
+	 *
+	 * @since  1.0
 	 */
 	public function execute()
 	{
@@ -191,6 +223,8 @@ abstract class AbstractCommand
 	 * @throws \LogicException
 	 *
 	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	protected function doExecute()
 	{
@@ -201,6 +235,8 @@ abstract class AbstractCommand
 	 * Configure command.
 	 *
 	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	protected function configure()
 	{
@@ -215,6 +251,8 @@ abstract class AbstractCommand
 	 *
 	 * @throws  CommandNotFoundException
 	 * @return  mixed
+	 *
+	 * @since  1.0
 	 */
 	protected function executeSubCommand($name, Input\Cli $input = null, CliOutput $output = null)
 	{
@@ -254,6 +292,8 @@ abstract class AbstractCommand
 	 * @param   Input\Cli  $input  The Cli Input object.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setInput(Input\Cli $input)
 	{
@@ -266,6 +306,8 @@ abstract class AbstractCommand
 	 * Get Input object.
 	 *
 	 * @return Input\Cli
+	 *
+	 * @since  1.0
 	 */
 	public function getInput()
 	{
@@ -278,6 +320,8 @@ abstract class AbstractCommand
 	 * @param   CliOutput  $output  The Cli Output object.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setOutput(CliOutput $output)
 	{
@@ -290,6 +334,8 @@ abstract class AbstractCommand
 	 * Get Output object.
 	 *
 	 * @return CliOutput
+	 *
+	 * @since  1.0
 	 */
 	public function getOutput()
 	{
@@ -302,6 +348,8 @@ abstract class AbstractCommand
 	 * @param   AbstractCommand  $parent  The parent comment.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setParent(AbstractCommand $parent = null)
 	{
@@ -314,6 +362,8 @@ abstract class AbstractCommand
 	 * Get Parent Command.
 	 *
 	 * @return  AbstractCommand
+	 *
+	 * @since  1.0
 	 */
 	public function getParent()
 	{
@@ -329,7 +379,9 @@ abstract class AbstractCommand
 	 * @param   array                   $options      Console options.
 	 * @param   \Closure                $code         The closure to execute.
 	 *
-	 * @return   Command  Return this object to support chaining.
+	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function addArgument($argument, $description = null, $options = array(), \Closure $code = null)
 	{
@@ -385,7 +437,9 @@ abstract class AbstractCommand
 	 *
 	 * @param   string  $name  Argument name.
 	 *
-	 * @return Command|null  Return command or null.
+	 * @return  AbstractCommand|null  Return command or null.
+	 *
+	 * @since  1.0
 	 */
 	public function getArgument($name)
 	{
@@ -401,6 +455,8 @@ abstract class AbstractCommand
 	 * Get arguments array.
 	 *
 	 * @return array  Arguments.
+	 *
+	 * @since  1.0
 	 */
 	public function getArguments()
 	{
@@ -413,6 +469,8 @@ abstract class AbstractCommand
 	 * @param   array  $arguments  An array include argument objects.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setArguments($arguments)
 	{
@@ -436,6 +494,8 @@ abstract class AbstractCommand
 	 * @param   bool    $global       If true, this option will be a global option that sub commends will extends it.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function addOption($option, $default = null, $description = null, $global = false)
 	{
@@ -479,6 +539,8 @@ abstract class AbstractCommand
 	 * @param   string  $default  The default value when option not setted.
 	 *
 	 * @return  mixed  The option value we want to get or default value if option not exists.
+	 *
+	 * @since   1.0
 	 */
 	public function getOption($name, $default = null)
 	{
@@ -526,6 +588,8 @@ abstract class AbstractCommand
 	 * Get options.
 	 *
 	 * @return mixed  The options array.
+	 *
+	 * @since  1.0
 	 */
 	public function getOptions()
 	{
@@ -536,6 +600,8 @@ abstract class AbstractCommand
 	 * Get all options include global.
 	 *
 	 * @return array  The options array.
+	 *
+	 * @since  1.0
 	 */
 	public function getAllOptions()
 	{
@@ -548,6 +614,8 @@ abstract class AbstractCommand
 	 * @param   mixed  $options  An options array.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since  1.0
 	 */
 	public function setOptions($options)
 	{
@@ -565,6 +633,8 @@ abstract class AbstractCommand
 	 * The command description getter.
 	 *
 	 * @return string  Console description.
+	 *
+	 * @since  1.0
 	 */
 	public function getDescription()
 	{
@@ -577,6 +647,8 @@ abstract class AbstractCommand
 	 * @param   string  $description  Console description.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setDescription($description)
 	{
@@ -589,6 +661,8 @@ abstract class AbstractCommand
 	 * Console name getter.
 	 *
 	 * @return string  Console name.
+	 *
+	 * @since  1.0
 	 */
 	public function getName()
 	{
@@ -601,6 +675,8 @@ abstract class AbstractCommand
 	 * @param   string  $name  Console name.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setName($name)
 	{
@@ -613,6 +689,8 @@ abstract class AbstractCommand
 	 * Console execute code getter.
 	 *
 	 * @return  \Closure  Console execute code.
+	 *
+	 * @since   1.0
 	 */
 	public function getCode()
 	{
@@ -625,6 +703,8 @@ abstract class AbstractCommand
 	 * @param   \Closure  $code  Console execute code.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setCode(\Closure $code = null)
 	{
@@ -637,6 +717,8 @@ abstract class AbstractCommand
 	 * Get the options alias.
 	 *
 	 * @return  array  The option alias.
+	 *
+	 * @since   1.0
 	 */
 	public function getOptionAlias()
 	{
@@ -651,6 +733,8 @@ abstract class AbstractCommand
 	 * @param   bool    $global  Is global option?
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setOptionAlias($name, $alias, $global = false)
 	{
@@ -669,7 +753,9 @@ abstract class AbstractCommand
 	/**
 	 * Get the application.
 	 *
-	 * @return AbstractCliApplication
+	 * @return AbstractCliApplication  Console application.
+	 *
+	 * @since  1.0
 	 */
 	public function getApplication()
 	{
@@ -682,6 +768,8 @@ abstract class AbstractCommand
 	 * @param   AbstractCliApplication  $application  Application object.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setApplication($application)
 	{
@@ -693,7 +781,9 @@ abstract class AbstractCommand
 	/**
 	 * Get the help manual.
 	 *
-	 * @return string
+	 * @return string  Help of this Command.
+	 *
+	 * @since  1.0
 	 */
 	public function getHelp()
 	{
@@ -706,6 +796,8 @@ abstract class AbstractCommand
 	 * @param   string  $help  The help manual.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setHelp($help)
 	{
@@ -717,7 +809,9 @@ abstract class AbstractCommand
 	/**
 	 * Get the usage.
 	 *
-	 * @return string
+	 * @return string  Usage of this command.
+	 *
+	 * @since  1.0
 	 */
 	public function getUsage()
 	{
@@ -730,6 +824,8 @@ abstract class AbstractCommand
 	 * @param   string  $usage  Usage of this command.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setUsage($usage)
 	{
@@ -745,6 +841,8 @@ abstract class AbstractCommand
 	 * @param   CommandNotFoundException  $exception  The exception of wrong argument.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function renderAlternatives($name, $exception)
 	{
@@ -785,6 +883,8 @@ abstract class AbstractCommand
 	 * @param   \Exception  $exception  The exception we want to render.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function renderException($exception)
 	{

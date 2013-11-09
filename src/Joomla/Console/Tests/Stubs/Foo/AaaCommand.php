@@ -1,13 +1,36 @@
 <?php
+/**
+ * Part of the Joomla Framework Application Package
+ *
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
 
 namespace Joomla\Console\Tests\Stubs\Foo;
 
 use Joomla\Console\Command\Command;
 
+/**
+ * Class AaaCommand
+ *
+ * @since  1.0
+ */
 class AaaCommand extends Command
 {
+	/**
+	 * Command name.
+	 *
+	 * @var string
+	 */
 	protected $name = 'aaa';
 
+	/**
+	 * Configure command.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
+	 */
 	public function configure()
 	{
 		$this->addArgument(new Aaa\BbbCommand)
@@ -19,6 +42,13 @@ class AaaCommand extends Command
 			);
 	}
 
+	/**
+	 * doExecute
+	 *
+	 * @return int
+	 *
+	 * @since  1.0
+	 */
 	public function doExecute()
 	{
 		echo 'Aaa';

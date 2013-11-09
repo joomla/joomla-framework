@@ -22,6 +22,8 @@ class DefaultCommand extends Command
 	 * Configure command.
 	 *
 	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	protected function configure()
 	{

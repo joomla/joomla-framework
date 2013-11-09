@@ -25,6 +25,8 @@ class Option
 	 * Option name.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $name;
 
@@ -32,6 +34,8 @@ class Option
 	 * Option alias.
 	 *
 	 * @var  array
+	 *
+	 * @since  1.0
 	 */
 	protected $alias = array();
 
@@ -39,6 +43,8 @@ class Option
 	 * Option description.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $description;
 
@@ -46,6 +52,8 @@ class Option
 	 * Global option or not.
 	 *
 	 * @var  boolean
+	 *
+	 * @since  1.0
 	 */
 	protected $global;
 
@@ -53,6 +61,8 @@ class Option
 	 * The default when option not sent.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $default;
 
@@ -60,6 +70,8 @@ class Option
 	 * Cli Input object.
 	 *
 	 * @var Input
+	 *
+	 * @since  1.0
 	 */
 	protected $input;
 
@@ -67,6 +79,8 @@ class Option
 	 * The option value cache.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected $value;
 
@@ -78,6 +92,8 @@ class Option
 	 * @param   mixed    $default      The default value when we get a non-exists option.
 	 * @param   string   $description  The option description.
 	 * @param   boolean  $global       True is a global option.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct($alias, $default = null, $description = null, $global = false)
 	{
@@ -101,6 +117,8 @@ class Option
 	 * @param   string  $alias  The option alias.
 	 *
 	 * @return  Option  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setAlias($alias)
 	{
@@ -113,6 +131,8 @@ class Option
 	 * Alias getter.
 	 *
 	 * @return array  The option alias.
+	 *
+	 * @since  1.0
 	 */
 	public function getAlias()
 	{
@@ -125,6 +145,8 @@ class Option
 	 * @param   mixed  $default  The default value.
 	 *
 	 * @return  Option  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setDefault($default)
 	{
@@ -137,6 +159,8 @@ class Option
 	 * Default value getter.
 	 *
 	 * @return string  The default value.
+	 *
+	 * @since  1.0
 	 */
 	public function getDefault()
 	{
@@ -149,6 +173,8 @@ class Option
 	 * @param   string  $description  The description.
 	 *
 	 * @return  Option  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setDescription($description)
 	{
@@ -161,6 +187,8 @@ class Option
 	 * Description getter.
 	 *
 	 * @return  string  The description.
+	 *
+	 * @since   1.0
 	 */
 	public function getDescription()
 	{
@@ -173,6 +201,8 @@ class Option
 	 * @param   string  $name  Name of this option.
 	 *
 	 * @return  Option  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setName($name)
 	{
@@ -185,6 +215,8 @@ class Option
 	 * Name getter.
 	 *
 	 * @return  string  Name of this option.
+	 *
+	 * @since   1.0
 	 */
 	public function getName()
 	{
@@ -195,6 +227,8 @@ class Option
 	 * Get Cli Input object.
 	 *
 	 * @return  Input  The Cli Input object.
+	 *
+	 * @since   1.0
 	 */
 	public function getInput()
 	{
@@ -212,6 +246,8 @@ class Option
 	 * @param   Input  $input  The Cli Input object.
 	 *
 	 * @return  Option  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setInput(Input $input)
 	{
@@ -224,6 +260,8 @@ class Option
 	 * Get the value of this option which sent from command line.
 	 *
 	 * @return  mixed  The value of this option.
+	 *
+	 * @since   1.0
 	 */
 	public function getValue()
 	{
@@ -251,6 +289,8 @@ class Option
 	 * Is this a global option?
 	 *
 	 * @return  bool  True is a global option.
+	 *
+	 * @since   1.0
 	 */
 	public function isGlobal()
 	{
@@ -263,6 +303,8 @@ class Option
 	 * @param   boolean  $global  True is a global option.
 	 *
 	 * @return  Option  Return this object to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setGlobal($global)
 	{

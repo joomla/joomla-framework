@@ -9,7 +9,7 @@
 namespace Joomla\Console\Command;
 
 /**
- * Base Console class.
+ * Base Command class.
  *
  * @since  1.0
  */
@@ -21,6 +21,8 @@ class Command extends AbstractCommand
 	 * @param   \Exception  $exception  The exception we want to render.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function renderException($exception)
 	{
@@ -38,6 +40,8 @@ class Command extends AbstractCommand
 	 * Execute this command.
 	 *
 	 * @return  mixed  Executed result or exit code.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{

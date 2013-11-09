@@ -26,6 +26,8 @@ class HelpCommand extends Command
 	 * Command(Argument) name.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $name = 'help';
 
@@ -33,6 +35,8 @@ class HelpCommand extends Command
 	 * The AbstractDescriptor Helper.
 	 *
 	 * @var  DescriptorHelperInterface
+	 *
+	 * @since  1.0
 	 */
 	protected $descriptor;
 
@@ -40,6 +44,8 @@ class HelpCommand extends Command
 	 * The command we want to described.
 	 *
 	 * @var  Command
+	 *
+	 * @since  1.0
 	 */
 	protected $describedCommand;
 
@@ -47,6 +53,8 @@ class HelpCommand extends Command
 	 * Configure command.
 	 *
 	 * @return void
+	 *
+	 * @since  1.0
 	 */
 	protected function configure()
 	{
@@ -57,6 +65,8 @@ class HelpCommand extends Command
 	 * Execute this command.
 	 *
 	 * @return int The exit code.
+	 *
+	 * @since  1.0
 	 */
 	protected function doExecute()
 	{
@@ -87,6 +97,8 @@ class HelpCommand extends Command
 	 *
 	 * @return  AbstractCommand|null
 	 *
+	 * @since  1.0
+	 *
 	 * @throws  CommandNotFoundException
 	 */
 	protected function getDescribedCommand($args)
@@ -113,6 +125,8 @@ class HelpCommand extends Command
 	 * Get or create descriptor.
 	 *
 	 * @return DescriptorHelperInterface|TextDescriptorHelper
+	 *
+	 * @since  1.0
 	 */
 	public function getDescriptor()
 	{
@@ -133,6 +147,8 @@ class HelpCommand extends Command
 	 * @param   DescriptorHelperInterface  $descriptor  Descriptor helper.
 	 *
 	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	public function setDescriptor(DescriptorHelperInterface $descriptor)
 	{

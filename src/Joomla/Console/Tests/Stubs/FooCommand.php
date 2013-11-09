@@ -1,14 +1,37 @@
 <?php
+/**
+ * Part of the Joomla Framework Application Package
+ *
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
 
 namespace Joomla\Console\Tests\Stubs;
 
 use Joomla\Console\Command\Command;
 use Joomla\Console\Tests\Stubs\Foo\AaaCommand;
 
+/**
+ * Class FooCommand
+ *
+ * @since  1.0
+ */
 class FooCommand extends Command
 {
+	/**
+	 * Command name.
+	 *
+	 * @var string
+	 */
 	protected $name = 'foo';
 
+	/**
+	 * Configure command.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
+	 */
 	protected function configure()
 	{
 		$this->setDescription('Foo command desc')
@@ -17,6 +40,13 @@ class FooCommand extends Command
 			->addArgument(new AaaCommand);
 	}
 
+	/**
+	 * doExecute
+	 *
+	 * @return int
+	 *
+	 * @since  1.0
+	 */
 	public function doExecute()
 	{
 		return 123;
