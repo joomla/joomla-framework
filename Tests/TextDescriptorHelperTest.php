@@ -62,6 +62,8 @@ Options:
 
 Available commands:
 
+  <info>aaa    </info>No description
+
   <info>bar    </info>Foo command desc
 
   <info>yoo    </info>Foo command desc

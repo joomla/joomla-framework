@@ -10,6 +10,7 @@ namespace Joomla\Console\Tests;
 
 use Joomla\Console\Console;
 use Joomla\Console\Output\Stdout;
+use Joomla\Console\Tests\Output\TestStdout;
 use Joomla\Console\Tests\Stubs\FooCommand;
 use Joomla\Input;
 use Joomla\Test\TestHelper;
@@ -31,13 +32,28 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 		$input->args = array('foo');
 
 		/** @var $console Console */
-		$console = with(new Console($input, null, new Stdout))
+		$console = with(new Console($input, null, new TestStdout))
 			->setName('Test Console')
 			->setVersion('1.2.3')
 			->setDescription('Test desc.')
 			->setAutoExit(false);
 
 		$this->instance = $console;
+	}
+
+	public function testNestedCall()
+	{
+		$this->instance->addCommand(new FooCommand);
+
+		$this->instance->input->args = array('foo', 'aaa', 'bbb');
+
+		$code = $this->instance->execute();
+
+		$output = $this->instance->getOutput()->getOutput();
+
+		$this->assertEquals(99, $code, 'return code not matched.');
+
+		$this->assertEquals('Bbb Command', $output, 'Output not matched.');
 	}
 
 	/**
