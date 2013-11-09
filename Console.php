@@ -90,6 +90,25 @@ class Console extends AbstractCliApplication
 	}
 
 	/**
+	 * Execute the application.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function execute()
+	{
+		// @event onBeforeExecute
+
+		// Perform application routines.
+		$exitCode = $this->doExecute();
+
+		// @event onAfterExecute
+
+		return $exitCode;
+	}
+
+	/**
 	 * Method to run the application routines.
 	 *
 	 * @return  int  The Unix Console/Shell exit code.
@@ -161,7 +180,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function register($name)
 	{
-		return $this->addCommand(new Command($name, $this->input));
+		return $this->addCommand(new Command($name, $this->input, $this->output));
 	}
 
 	/**

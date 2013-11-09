@@ -174,11 +174,11 @@ abstract class AbstractCommand
 			{
 				$code = $this->code;
 
-				return $code($this, $this->input, $this->output);
+				return $code($this);
 			}
 			elseif (is_callable($this->code))
 			{
-				return call_user_func_array($this->code, array($this, $this->input, $this->output));
+				return call_user_func_array($this->code, array($this));
 			}
 		}
 
