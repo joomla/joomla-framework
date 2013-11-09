@@ -9,7 +9,6 @@
 namespace Joomla\Console\Tests;
 
 use Joomla\Console\Console;
-use Joomla\Console\Output\Stdout;
 use Joomla\Console\Tests\Output\TestStdout;
 use Joomla\Console\Tests\Stubs\FooCommand;
 use Joomla\Input;
@@ -115,7 +114,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testConstruct()
 	{
-		$console = new Console(null, null, new Stdout);
+		$console = new Console(null, null, new TestStdout);
 
 		$this->assertInstanceOf('Joomla\\Input\\Cli', $console->input);
 

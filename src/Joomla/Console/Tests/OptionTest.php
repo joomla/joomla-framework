@@ -150,13 +150,15 @@ class OptionTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @param   array  $inputs  The input option.
 	 *
+	 * @dataProvider  optionProvider
+	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	public function testGetValue($inputs)
 	{
-		foreach($inputs as $key => $vals)
+		foreach ($inputs as $key => $vals)
 		{
 			$this->instance->getInput()->set($key, 1);
 

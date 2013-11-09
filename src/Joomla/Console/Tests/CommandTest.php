@@ -251,7 +251,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	public function testAddAndGetOption()
 	{
 		$cmd = $this->instance;
-		
+
 		$cmd->addOption(
 			array('y', 'yell', 'Y'),
 			false,
@@ -266,7 +266,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 		$this->assertSame(1, (int) $cmd->getOption('yell'), 'Long option value not matched.');
 
 		$this->assertSame(1, (int) $cmd->getOption('Y'), 'uppercase option value not matched.');
-		
+
 		// Test for global option
 		$cmd->addArgument(new FooCommand);
 
