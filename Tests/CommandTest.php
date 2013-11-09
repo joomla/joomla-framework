@@ -66,7 +66,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getParent
-	 * @todo   Implement testGetParent().
 	 */
 	public function testGetParent()
 	{
@@ -89,7 +88,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::addArgument
-	 * @todo   Implement testAddArgument().
 	 */
 	public function testAddArgument()
 	{
@@ -134,7 +132,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getArgument
-	 * @todo   Implement testGetArgument().
 	 */
 	public function testGetArgument()
 	{
@@ -145,7 +142,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getArguments
-	 * @todo   Implement testGetArguments().
 	 */
 	public function testGetArguments()
 	{
@@ -158,7 +154,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::addOption
-	 * @todo   Implement testAddOption().
 	 */
 	public function testAddAndGetOption()
 	{
@@ -187,7 +182,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getOptions
-	 * @todo   Implement testGetOptions().
 	 */
 	public function testGetOptions()
 	{
@@ -209,7 +203,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getAllOptions
-	 * @todo   Implement testGetAllOptions().
 	 */
 	public function testSetAndGetAllOptions()
 	{
@@ -234,7 +227,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getDescription
-	 * @todo   Implement testGetDescription().
 	 */
 	public function testSetAndGetDescription()
 	{
@@ -245,7 +237,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getName
-	 * @todo   Implement testGetName().
 	 */
 	public function testSetAndGetName()
 	{
@@ -256,7 +247,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getCode
-	 * @todo   Implement testGetCode().
 	 */
 	public function testSetAndGetCode()
 	{
@@ -271,7 +261,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getOptionAlias
-	 * @todo   Implement testGetOptionAlias().
 	 */
 	public function testGetOptionAlias()
 	{
@@ -283,7 +272,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::setOptionAlias
-	 * @todo   Implement testSetOptionAlias().
 	 */
 	public function testSetOptionAlias()
 	{
@@ -295,7 +283,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getApplication
-	 * @todo   Implement testGetApplication().
 	 */
 	public function testSetAndGetApplication()
 	{
@@ -306,7 +293,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getHelp
-	 * @todo   Implement testGetHelp().
 	 */
 	public function testSetAndGetHelp()
 	{
@@ -317,7 +303,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::getUsage
-	 * @todo   Implement testGetUsage().
 	 */
 	public function testSetAndGetUsage()
 	{
@@ -329,7 +314,6 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::renderAlternatives
-	 * @todo   Implement testRenderAlternatives().
 	 */
 	public function testRenderAlternatives()
 	{
@@ -352,7 +336,6 @@ Did you mean one of this?
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::renderException
-	 * @todo   Implement testRenderException().
 	 */
 	public function testRenderException()
 	{
@@ -364,7 +347,6 @@ Did you mean one of this?
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::out
-	 * @todo   Implement testOut().
 	 */
 	public function testOut()
 	{
@@ -377,7 +359,6 @@ Did you mean one of this?
 
 	/**
 	 * @covers Joomla\Console\Command\AbstractCommand::err
-	 * @todo   Implement testErr().
 	 */
 	public function testErr()
 	{
