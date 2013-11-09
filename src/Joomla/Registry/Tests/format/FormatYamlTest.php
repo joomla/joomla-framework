@@ -79,7 +79,10 @@ array:
     nestedarray: { test1: value1 }
 ';
 
-		$this->assertEquals($this->fixture->objectToString($object), $yaml);
+		$this->assertEquals(
+			str_replace(array("\n", "\r"), '', trim($this->fixture->objectToString($object))),
+			str_replace(array("\n", "\r"), '', trim($yaml))
+		);
 	}
 
 	/**
@@ -114,7 +117,10 @@ array:
     nestedarray: { test1: value1 }
 ';
 
-		$this->assertEquals($this->fixture->objectToString($object), $yaml);
+		$this->assertEquals(
+			str_replace(array("\n", "\r"), '', trim($this->fixture->objectToString($object))),
+			str_replace(array("\n", "\r"), '', trim($yaml))
+		);
 	}
 
 	/**
