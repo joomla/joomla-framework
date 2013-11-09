@@ -92,7 +92,7 @@ class Console extends AbstractCliApplication
 	/**
 	 * Execute the application.
 	 *
-	 * @return  void
+	 * @return  int  The Unix Console/Shell exit code.
 	 *
 	 * @since   1.0
 	 */

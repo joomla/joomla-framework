@@ -46,6 +46,11 @@ class Command extends AbstractCommand
 			array_unshift($this->input->args, 'help');
 		}
 
+		if ($this->getOption('no-ansi'))
+		{
+			$this->output->getProcessor()->noColors = true;
+		}
+
 		return parent::execute();
 	}
 

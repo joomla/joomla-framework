@@ -263,6 +263,16 @@ abstract class AbstractCommand
 	}
 
 	/**
+	 * Get Input object.
+	 *
+	 * @return Input\Cli
+	 */
+	public function getInput()
+	{
+		return $this->input;
+	}
+
+	/**
 	 * Output setter.
 	 *
 	 * @param   CliOutput  $output  The Cli Output object.
@@ -277,13 +287,23 @@ abstract class AbstractCommand
 	}
 
 	/**
+	 * Get Output object.
+	 *
+	 * @return CliOutput
+	 */
+	public function getOutput()
+	{
+		return $this->output;
+	}
+
+	/**
 	 * Parent command setter.
 	 *
 	 * @param   AbstractCommand  $parent  The parent comment.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
 	 */
-	public function setParent(AbstractCommand $parent)
+	public function setParent(AbstractCommand $parent = null)
 	{
 		$this->parent = $parent;
 
@@ -608,10 +628,7 @@ abstract class AbstractCommand
 	 */
 	public function setCode(\Closure $code = null)
 	{
-		if ($code)
-		{
-			$this->code = $code;
-		}
+		$this->code = $code;
 
 		return $this;
 	}

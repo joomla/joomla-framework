@@ -26,10 +26,17 @@ class DefaultCommand extends Command
 	protected function configure()
 	{
 		// Get application file name
-		$file = $_SERVER['argv'][0];
-		$file = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $file);
-		$file = explode(DIRECTORY_SEPARATOR, $file);
-		$file = array_pop($file);
+		if (!$this->name)
+		{
+			$file = $_SERVER['argv'][0];
+			$file = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $file);
+			$file = explode(DIRECTORY_SEPARATOR, $file);
+			$file = array_pop($file);
+		}
+		else
+		{
+			$file = $this->name;
+		}
 
 		$this->setName($file)
 			->setDescription('The default application command')
@@ -37,6 +44,7 @@ class DefaultCommand extends Command
 			->addOption(array('h', 'help'),    0, 'Display this help message.',          Option::IS_GLOBAL)
 			->addOption(array('q', 'quiet'),   0, 'Do not output any message.',          Option::IS_GLOBAL)
 			->addOption(array('v', 'verbose'), 0, 'Increase the verbosity of messages.', Option::IS_GLOBAL)
+			->addOption('no-ansi', 0, 'Suppress ANSI colors on unsupported terminals.',   Option::IS_GLOBAL)
 			->setHelp(
 			// @TODO: Complete the help.
 <<<HELP
