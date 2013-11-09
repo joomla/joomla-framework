@@ -54,7 +54,7 @@ $command->setDescription('This is first level command description')
 		['y', 'yell', 'Y'], // First element will be option name, others will be alias
 		0,
 		'Yell will make output upper case.',
-		Option::IS_NORMAL // sub command will not extends normal option
+		Option::IS_PRIVATE // sub command will not extends normal option
 	)
 	->setCode(
 		function($command, $input, $output)

@@ -19,7 +19,7 @@ class Option
 {
 	const IS_GLOBAL = true;
 
-	const IS_NORMAL = false;
+	const IS_PRIVATE = false;
 
 	/**
 	 * Option name.

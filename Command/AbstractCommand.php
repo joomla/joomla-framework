@@ -76,7 +76,7 @@ abstract class AbstractCommand
 	 */
 	protected $optionAlias = array(
 		'global' => array(),
-		'normal' => array()
+		'private' => array()
 	);
 
 	/**
@@ -454,14 +454,14 @@ abstract class AbstractCommand
 		{
 			$this->globalOptions[$name] = $option;
 
-			// Global option should not equal to normal option
+			// Global option should not equal to private option
 			unset($this->options[$name]);
 		}
 		else
 		{
 			$this->options[$name] = $option;
 
-			// Global option should not equal to normal option
+			// Global option should not equal to private option
 			unset($this->globalOptions[$name]);
 		}
 
@@ -484,13 +484,13 @@ abstract class AbstractCommand
 	{
 		$options = $this->options;
 
-		// Get from normal
+		// Get from private
 		if (empty($this->options[$name]))
 		{
-			// Get from normal alias
-			if (!empty($this->optionAlias['normal'][$name]))
+			// Get from private alias
+			if (!empty($this->optionAlias['private'][$name]))
 			{
-				$name = $this->optionAlias['normal'][$name];
+				$name = $this->optionAlias['private'][$name];
 			}
 			// Get from global
 			else
@@ -654,7 +654,7 @@ abstract class AbstractCommand
 	 */
 	public function setOptionAlias($name, $alias, $global = false)
 	{
-		$subKey = $global ? 'global' : 'normal';
+		$subKey = $global ? 'global' : 'private';
 
 		$alias = (array) $alias;
 
