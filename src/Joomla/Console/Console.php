@@ -178,8 +178,9 @@ class Console extends AbstractCliApplication
 	 */
 	public function registerDefaultCommand()
 	{
-		$this->defaultCommand = with(new DefaultCommand(null, $this->input, $this->output))
-			->setApplication($this);
+		$this->defaultCommand = new DefaultCommand(null, $this->input, $this->output);
+
+		$this->defaultCommand->setApplication($this);
 
 		return $this;
 	}
