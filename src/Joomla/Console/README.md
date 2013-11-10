@@ -2,7 +2,7 @@
 
 The Joomla Console package provide an elegant and nested command structure for your cli application.
 
-## The Coomand Calling Flow
+## The Command Calling Flow
 
 If we type:
 
@@ -261,7 +261,7 @@ This is an example FooCommand:
 <?php
 // src/Myapp/Command/FooCommand.php
 
-namespace Myapp/Command;
+namespace Myapp\Command;
 
 use Joomla\Console\Command\Command;
 
@@ -312,8 +312,7 @@ public function configure()
             array('y', 'yell', 'Y'), // First element will be option name, others will be alias
             0,
             'Yell will make output upper case.',
-            Option::IS_PRIVATE // sub command will not extends private option,
-            // this is default value, we don't need set private.
+            Option::IS_PRIVATE // sub command will not extends private option, this is default value, we don't need set private manually.
         )
         ->setHelp('foo help');
 }
@@ -364,16 +363,23 @@ The `getOption()` method will auto detect option aliases, then we can get:
 HELLO: ASIKA
 ```
 
-> Note: We have to `addOption()` first, then the `getOption('x')` can get the input option we want.
+> Note: We have to `addOption()` first, then the `getOption('x')` is able to get the input option which we wanted.
+>
 > If we don't do this first, we have to use `$this->input->get('x')` to get option value,
 > but this way do not support option aliases.
 
 ## Add Second Level Commands and more...
 
-If we want to add several commands after FooCommand, we can use `AddArgument()` method. Now add two `bar` and `yoo`
-command to FooCommand.
+If we want to add several commands after FooCommand, we can use `AddArgument()` method. Now we add two `bar` and `yoo`
+command to `FooCommand`.
 
 ### Adding command in runtime.
+
+We use `addArgument()` to add commands.
+
+If a command has one or more sub commands, the arguments means to call sub command which name equals to first argument.
+
+If a command has on sub commands, Command object will run executing code if set, or run `doExecute()` if executing code not set. Then the remaining arguments will save in `$this->input->args`.
 
 ``` php
 <?php
@@ -497,7 +503,7 @@ make sure you have `"minimum-stability": "dev"` and then run composer install.
 ``` json
 {
     "require": {
-        "joomla/application": "dev-master"
+        "joomla/console": "dev-master"
     },
     "minimum-stability": "dev"
 }
@@ -507,5 +513,5 @@ Alternatively, you can simply run the following from the command line:
 
 ```
 composer init --stability="dev"
-composer require joomla/application "dev-master"
+composer require joomla/console "dev-master"
 ```
