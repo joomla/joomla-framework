@@ -88,13 +88,16 @@ EOF;
 		/** @var Console $console */
 		$console = $command->getApplication();
 
-		if (!($console instanceof Console))
+		if ($console instanceof Console)
 		{
-			throw new \RuntimeException('Help descriptor need Console object in default command.');
+			$consoleName = $console->getName();
+			$version     = $console->getVersion();
 		}
-
-		$consoleName = $console->getName();
-		$version     = $console->getVersion();
+		else
+		{
+			$consoleName = $command->getName();
+			$version     = isset($command->version) ? $command->version : '1.0';
+		}
 
 		$commandName = $command->getName();
 		$description = $command->getDescription();

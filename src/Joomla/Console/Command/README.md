@@ -35,57 +35,66 @@ We can using `Command` without `CliApplicaion`, just create this object.
 ### Simple One Command
 
 ``` php
+<?php
 // cli/app.php
 
 use Joomla\Command\Command;
 use Joomla\Command\Option;
 use Joomla\Input\Cli as Input;
 
-$command = new Command('app', new Input);
+try
+{
+    $command = new Command('app', new Input);
 
-$command->setDescription('This is first level command description')
-	->addOption(
-		'q', // option name
-		0,   // default value
-		'Add this option can make output lower case.', // option description
-		Option::IS_GLOBAL // sub command will extends this global option
-	)
-	->addOption(
-		['y', 'yell', 'Y'], // First element will be option name, others will be alias
-		0,
-		'Yell will make output upper case.',
-		Option::IS_PRIVATE // sub command will not extends normal option
-	)
-	->setCode(
-		function($command, $input, $output)
-		{
-			if (empty($input->args[0]))
-			{
-				$output->out('Please enter a name: ');
-				$name = fread(STDIN, 8792);
-			}
-			else
-			{
-				$name = $input->args[0];
-			}
+    $command->setDescription('This is first level command description')
+        ->addOption(
+            'q', // option name
+            0,   // default value
+            'Add this option can make output lower case.', // option description
+            Option::IS_GLOBAL // sub command will extends this global option
+        )
+        ->addOption(
+            ['y', 'yell', 'Y'], // First element will be option name, others will be alias
+            0,
+            'Yell will make output upper case.',
+            Option::IS_PRIVATE // sub command will not extends normal option
+        )
+        ->setCode(
+            function($command, $input, $output)
+            {
+                if (empty($input->args[0]))
+                {
+                    $output->out('Please enter a name: ');
+                    $name = fread(STDIN, 8792);
+                }
+                else
+                {
+                    $name = $input->args[0];
+                }
 
-			$reply = 'Hello ' . $name;
+                $reply = 'Hello ' . $name;
 
-			if ($command->getOption('y'))
-			{
-				$reply = strtoupper($reply);
-			}
+                if ($command->getOption('y'))
+                {
+                    $reply = strtoupper($reply);
+                }
 
-			if ($command->getOption('q'))
-			{
-				$reply = strtolower($reply);
-			}
+                if ($command->getOption('q'))
+                {
+                    $reply = strtolower($reply);
+                }
 
-			$output->out($reply);
-		}
-	);
+                $output->out($reply);
+            }
+        );
 
-$command->execute();
+    $command->execute();
+}
+catch(Exception $e)
+{
+    $command->renderException($e);
+}
+
 ```
 
 The `execute()` method will execute your command code. We set a `Closure` into `Command` and execute it.
@@ -132,47 +141,56 @@ HELLO ASIKA
 ### Nested Command
 
 ``` php
+<?php
 // cli/app.php
 
 use Joomla\Command\Command;
 use Joomla\Command\Option;
 use Joomla\Input\Cli as Input;
 
-$command = new Command('app', new Input);
+try
+{
+    $command = new Command('app', new Input);
 
-// Default Command
-$command->setDescription('This is first level command description')
-	->addOption(
-		'q',
-		0,
-		'Add this option can make output lower case.',
-		Option::IS_GLOBAL
-	)
-	// First level code
-	->setCode(
-		function($command, $input, $output)
-		{
-			$output->out('First level command.');
-		}
-	)
-	// Second level commend
-	->addArgument(
-		'second',
-		'The second level argument',
-		array(
-			new Option(
-				array('a', 'A', 'ask'),
-				'a default',
-				'a desc'
-			)
-		),
-		function($command, $input, $output)
-		{
-			echo 'Second level commend.';
-		}
-	);
+    // Default Command
+    $command->setDescription('This is first level command description')
+        ->addOption(
+            'q',
+            0,
+            'Add this option can make output lower case.',
+            Option::IS_GLOBAL
+        )
+        // First level code
+        ->setCode(
+            function($command, $input, $output)
+            {
+                $output->out('First level command.');
+            }
+        )
+        // Second level commend
+        ->addArgument(
+            'second',
+            'The second level argument',
+            array(
+                new Option(
+                    array('a', 'A', 'ask'),
+                    'a default',
+                    'a desc'
+                )
+            ),
+            function($command, $input, $output)
+            {
+                echo 'Second level commend.';
+            }
+        );
 
-$command->execute();
+    $command->execute();
+}
+catch(Exception $e)
+{
+    $command->renderException($e);
+}
+
 ```
 
 Type:
@@ -286,6 +304,38 @@ Output
 ``` text
 Bar
 ```
+
+## Using DefaultCommand and Help
+
+You can use the `DefaultCommand` instead base `Command`, it provides some useful functions like `--help`, `--verbose`, `--quiet`.
+
+If we catched an exception, the `--verbose|-v` option can help us print backtrace information.
+
+``` php
+<?php
+
+use Joomla\Console\Command\DefaultCommand;
+
+try
+{
+	$command = new DefaultCommand;
+
+	$command->execute();
+}
+catch(Exception $e)
+{
+	$command->renderException($e);
+}
+
+```
+
+typing:
+
+``` bash
+php cli/app.php --help
+```
+
+We can get the help information.
 
 ## About Console Package
 
