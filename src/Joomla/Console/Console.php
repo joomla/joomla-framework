@@ -178,7 +178,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function registerDefaultCommand()
 	{
-		$this->defaultCommand = with(new DefaultCommand('default', $this->input, $this->output))
+		$this->defaultCommand = with(new DefaultCommand(null, $this->input, $this->output))
 			->setApplication($this);
 
 		return $this;
@@ -338,6 +338,38 @@ class Console extends AbstractCliApplication
 	public function setCode(\Closure $closure)
 	{
 		$this->getDefaultCommand()->setCode($closure);
+
+		return $this;
+	}
+
+	/**
+	 * Set usage to default command.
+	 *
+	 * @param   string  $usage  Default command usage.
+	 *
+	 * @return  Console  Return this object to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setUsage($usage)
+	{
+		$this->getDefaultCommand()->setUsage($usage);
+
+		return $this;
+	}
+
+	/**
+	 * Set help to default command.
+	 *
+	 * @param   string  $help  Default command help.
+	 *
+	 * @return  Console  Return this object to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setHelp($help)
+	{
+		$this->getDefaultCommand()->setHelp($help);
 
 		return $this;
 	}

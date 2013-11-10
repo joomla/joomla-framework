@@ -494,6 +494,30 @@ The Console information:
 * `Usage` (DefaultCommand usage.)
 * `Help` (DefaultCommand help)
 
+### Use Your Own Descriptor
+
+If you want to override the `Descriptor` for your apps, you can do this:
+
+``` php
+<?php
+use Myapp\Command\Descriptor\XmlDescriptorHelper;
+use Myapp\Command\Descriptor\XmlCommandDescriptor;
+use Myapp\Command\Descriptor\XmlOptionDescriptor;
+
+// ...
+
+$descriptor = new new XmlDescriptorHelper(
+    new XmlCommandDescriptor,
+    new XmlOptionDescriptor
+);
+
+$console->getDefaultCommand()
+    ->getArgument('help')
+    ->setDescriptor($descriptor);
+
+// ...
+```
+
 
 ## Installation via Composer
 
