@@ -35,7 +35,7 @@ class AaaCommand extends Command
 	{
 		$this->addArgument(new Aaa\BbbCommand)
 			->addOption(
-				['a', 'aaa', 'a3'],
+				array('a', 'aaa', 'a3'),
 				true,
 				'AAA options',
 				true
