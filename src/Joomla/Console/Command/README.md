@@ -1,4 +1,4 @@
-# JFramework Command Interface
+# Joomla Console Package Command Interface
 
 A Joomla Framework Command package that support nested commend calling.
 
@@ -201,7 +201,7 @@ Output
 Second level commend.
 ```
 
-### Extends Class
+### Extends Classes
 
 If you want to execute Command by your class, you can extends it from `Command`:
 
@@ -286,3 +286,8 @@ Output
 ``` text
 Bar
 ```
+
+## About Console Package
+
+This is part of Joomla Console package documentation, please see [Console Package](..).
+

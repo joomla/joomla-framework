@@ -518,6 +518,10 @@ $console->getDefaultCommand()
 // ...
 ```
 
+## Use Command Without Console
+
+We can using `Command` without `Console` or `CliApplicaion`, please see [Command README](Command).
+
 
 ## Installation via Composer
 
