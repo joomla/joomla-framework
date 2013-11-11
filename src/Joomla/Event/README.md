@@ -135,6 +135,15 @@ $dispatcher->addListener(
 ```
 As you noticed, it is possible to specify a listener's priority for a given Event. It is also possible to do so with "object" Listeners.
 
+### Filtering Listeners
+
+Listeners class can become quite complex, and may support public methods other than those required for event handling. The `setListenerFilter` method can be used to set a regular expression that is used to check the method names of objects being added as listeners.
+
+```php
+// Ensure the dispatcher only registers "on*" methods.
+$dispatcher->setListenerFilter('^on');
+```
+
 ### Registration with Priority
 
 ```php
