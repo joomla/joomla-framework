@@ -59,6 +59,26 @@ class Command extends AbstractCommand
 	}
 
 	/**
+	 * Execute this command.
+	 *
+	 * @return int
+	 *
+	 * @since  1.0
+	 */
+	public function doExecute()
+	{
+		$output = $this->application
+			->getDefaultCommand()
+			->getArgument('help')
+			->getDescriptor()
+			->describe($this);
+
+		$this->out($output);
+
+		return 0;
+	}
+
+	/**
 	 * Write a string to standard output.
 	 *
 	 * @param   string   $text  The text to display.
