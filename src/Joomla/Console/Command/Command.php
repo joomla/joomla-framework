@@ -68,9 +68,13 @@ class Command extends AbstractCommand
 	 */
 	protected function doExecute()
 	{
+		$this->input->args = array($this->name);
+
 		$output = $this->application
 			->getDefaultCommand()
 			->getArgument('help')
+			->setInput($this->input)
+			->setOutput($this->output)
 			->execute();
 
 		$this->out($output);
