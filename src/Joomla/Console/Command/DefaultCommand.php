@@ -8,6 +8,7 @@
 
 namespace Joomla\Console\Command;
 
+use Joomla\Application\Cli\ColorStyle;
 use Joomla\Console;
 use Joomla\Console\Option\Option;
 
@@ -42,7 +43,6 @@ class DefaultCommand extends Command
 
 		$this->setName($file)
 			->setDescription('The default application command')
-			->addArgument(new HelpCommand)
 			->addOption(array('h', 'help'),    0, 'Display this help message.',          Option::IS_GLOBAL)
 			->addOption(array('q', 'quiet'),   0, 'Do not output any message.',          Option::IS_GLOBAL)
 			->addOption(array('v', 'verbose'), 0, 'Increase the verbosity of messages.', Option::IS_GLOBAL)
@@ -53,5 +53,11 @@ class DefaultCommand extends Command
 Welcome to Joomla! Console.
 HELP
 			);
+
+		// Add a style <option> & <cmd>
+		$this->output
+			->getProcessor()
+			->addStyle('option', new ColorStyle('cyan',    '', array('bold')))
+			->addStyle('cmd',    new Colorstyle('magenta', '', array('bold')));
 	}
 }

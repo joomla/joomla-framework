@@ -84,4 +84,16 @@ EOF;
 
 		return sprintf($this->template, implode(' / ', $aliases), implode("\n", $body));
 	}
+
+	/**
+	 * Render all items description.
+	 *
+	 * @return  string
+	 *
+	 * @since  1.0
+	 */
+	public function render()
+	{
+		return parent::render();
+	}
 }

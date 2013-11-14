@@ -14,6 +14,7 @@ use Joomla\Application\Cli\Output;
 use Joomla\Console\Command\AbstractCommand;
 use Joomla\Console\Command\Command;
 use Joomla\Console\Command\DefaultCommand;
+use Joomla\Console\Command\HelpCommand;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 
@@ -180,7 +181,8 @@ class Console extends AbstractCliApplication
 	{
 		$this->defaultCommand = new DefaultCommand(null, $this->input, $this->output);
 
-		$this->defaultCommand->setApplication($this);
+		$this->defaultCommand->setApplication($this)
+			->addArgument(new HelpCommand);
 
 		return $this;
 	}
@@ -308,7 +310,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function getDescription()
 	{
-		return $this->description;
+		return $this->getDefaultCommand()->getDescription();
 	}
 
 	/**
@@ -322,7 +324,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function setDescription($description)
 	{
-		$this->description = $description;
+		$this->getDefaultCommand()->setDescription($description);
 
 		return $this;
 	}
@@ -343,15 +345,6 @@ class Console extends AbstractCliApplication
 		return $this;
 	}
 
-	/**
-	 * Set usage to default command.
-	 *
-	 * @param   string  $usage  Default command usage.
-	 *
-	 * @return  Console  Return this object to support chaining.
-	 *
-	 * @since   1.0
-	 */
 	public function setUsage($usage)
 	{
 		$this->getDefaultCommand()->setUsage($usage);
@@ -359,15 +352,6 @@ class Console extends AbstractCliApplication
 		return $this;
 	}
 
-	/**
-	 * Set help to default command.
-	 *
-	 * @param   string  $help  Default command help.
-	 *
-	 * @return  Console  Return this object to support chaining.
-	 *
-	 * @since   1.0
-	 */
 	public function setHelp($help)
 	{
 		$this->getDefaultCommand()->setHelp($help);

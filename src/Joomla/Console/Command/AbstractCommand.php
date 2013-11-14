@@ -65,7 +65,7 @@ abstract class AbstractCommand
 	 *
 	 * @since  1.0
 	 */
-	protected $arguments;
+	protected $arguments = array();
 
 	/**
 	 * The Options storage.
@@ -281,7 +281,10 @@ abstract class AbstractCommand
 
 		$subCommand->setOutput($output);
 
-		$subCommand->setParent($this);
+		if (!$this->getApplication())
+		{
+			$subCommand->setApplication($this->application);
+		}
 
 		return $subCommand->execute();
 	}
@@ -409,6 +412,9 @@ abstract class AbstractCommand
 		{
 			$argument->setCode($code);
 		}
+
+		// Set parent
+		$argument->setParent($this);
 
 		// Set global options to sub command
 		/** @var $option Option */

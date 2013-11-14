@@ -8,7 +8,6 @@
 
 namespace Joomla\Console\Command;
 
-use Joomla\Application\Cli\ColorStyle;
 use Joomla\Console\Descriptor\DescriptorHelperInterface;
 use Joomla\Console\Descriptor\Text\TextDescriptorHelper;
 use Joomla\Console\Descriptor\Text\TextCommandDescriptor;
@@ -70,15 +69,14 @@ class HelpCommand extends Command
 	 */
 	protected function doExecute()
 	{
-		// Add a blue style <option>
-		$this->output
-			->getProcessor()
-			->addStyle('option', new Colorstyle('cyan',    '', array('bold')))
-			->addStyle('cmd',    new Colorstyle('magenta', '', array('bold')));
-
 		$args = $this->input->args;
 
 		$command = $this->getDescribedCommand($args);
+
+		if (!$command->getApplication())
+		{
+			$command->setApplication($this->application);
+		}
 
 		$descriptor = $this->getDescriptor();
 
@@ -87,7 +85,7 @@ class HelpCommand extends Command
 
 		$this->out($rendered);
 
-		return 0;
+		return;
 	}
 
 	/**
