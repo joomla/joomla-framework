@@ -36,11 +36,8 @@ class TextDescriptorHelper extends AbstractDescriptorHelper
 %s
 Usage:
   %s
-
 {OPTIONS}
-
 {COMMANDS}
-
 %s
 EOF;
 
@@ -66,7 +63,7 @@ EOF;
 			$optionDescriptor->addItem($option);
 		}
 
-		$render['option'] = count($options) ? "Options:\n\n" . $optionDescriptor->render() : '';
+		$render['option'] = count($options) ? "\n\nOptions:\n\n" . $optionDescriptor->render() : '';
 
 		// Describe Commands
 		$commands          = $command->getArguments();
@@ -77,7 +74,7 @@ EOF;
 			$commandDescriptor->addItem($cmd);
 		}
 
-		$render['command'] = count($commands) ? "Available commands:\n\n" . $commandDescriptor->render() : '';
+		$render['command'] = count($commands) ? "\n\nAvailable commands:\n\n" . $commandDescriptor->render() : '';
 
 		// Render Help template
 		/** @var Console $console */
