@@ -277,7 +277,7 @@ class Container
 		}
 
 		// If the provided $value is not a closure, make it one now for easy resolution.
-		if (!($value instanceof \Closure))
+		if (!($value instanceof \Closure) && !is_callable($value))
 		{
 			$value = function () use ($value) {
 				return $value;
@@ -355,7 +355,7 @@ class Container
 			return $this->instances[$key];
 		}
 
-		return $raw['callback']($this);
+		return ($raw['callback'] instanceof \Closure) ? $raw['callback']($this) : call_user_func($raw['callback'], $this);
 	}
 
 	/**

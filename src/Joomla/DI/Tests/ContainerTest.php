@@ -25,6 +25,18 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	protected $fixture;
 
 	/**
+	 * Callable object method.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function callMe()
+	{
+		return 'called';
+	}
+
+	/**
 	 * Setup the tests.
 	 *
 	 * @return  void
@@ -439,13 +451,26 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the set method a callable value.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testSetCallable()
+	{
+		$this->fixture->set('foo', array($this, 'callMe'));
+		$this->assertEquals('called', $this->fixture->get('foo'));
+	}
+
+	/**
 	 * Tests the set method with bad callback.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testSetNotClosure()
+	public function testSetNotCallable()
 	{
 		$this->fixture->set('foo', 'bar');
 
@@ -854,7 +879,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the getNew method which will always return a 
+	 * Tests the getNew method which will always return a
 	 * new instance, even if the $key was set to be shared.
 	 *
 	 * @return  void
