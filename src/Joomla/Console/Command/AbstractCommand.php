@@ -281,7 +281,7 @@ abstract class AbstractCommand
 
 		$subCommand->setOutput($output);
 
-		if (!$this->getApplication())
+		if (!$subCommand->getApplication())
 		{
 			$subCommand->setApplication($this->application);
 		}
