@@ -405,7 +405,6 @@ abstract class AbstractCommand
 		if (count($options))
 		{
 			$argument->setOptions($options);
-			$argument->setOptions($options);
 		}
 
 		if ($code)
