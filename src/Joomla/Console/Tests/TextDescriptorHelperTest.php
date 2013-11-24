@@ -73,9 +73,9 @@ Available commands:
 
   <info>aaa    </info>No description
 
-  <info>bar    </info>Foo command desc
+  <info>bar    </info>Bar command desc
 
-  <info>yoo    </info>Foo command desc
+  <info>yoo    </info>No description
 
 foo help';
 
@@ -91,7 +91,10 @@ foo help';
 			->setDescription('foo desc')
 			->setUsage('foo command option')
 			->setHelp('foo help')
-			->addArgument('bar')
+			->addArgument(
+				'bar',
+				'Bar command desc'
+			)
 			->addArgument('yoo')
 			->addOption(array('q', 'quiet'), 'default', 'q desc');
 
