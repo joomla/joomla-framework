@@ -15,12 +15,32 @@ namespace Joomla\Application\Cli;
  */
 class ColorProcessor
 {
+	/**
+	 * Option to use colors for output.
+	 *
+	 * @var  boolean
+	 */
 	public $noColors = false;
 
+	/**
+	 * Regex for style tags Lookup.
+	 *
+	 * @var  string
+	 */
 	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/\\1>/s';
 
+	/**
+	 * Regex for style tags removal.
+	 *
+	 * @var  string
+	 */
 	protected static $stripFilter = '/<[\/]?[a-z=;]+>/';
 
+	/**
+	 * Processor styles.
+	 *
+	 * @var  array
+	 */
 	protected $styles = array();
 
 	/**
@@ -29,7 +49,7 @@ class ColorProcessor
 	 * @param   string      $name   The style name.
 	 * @param   ColorStyle  $style  The color style.
 	 *
-	 * @return $this
+	 * @return  $this
 	 */
 	public function addStyle($name, ColorStyle $style)
 	{
@@ -43,7 +63,7 @@ class ColorProcessor
 	 *
 	 * @param   string  $string  The string.
 	 *
-	 * @return string
+	 * @return  string
 	 */
 	public static function stripColors($string)
 	{
@@ -55,7 +75,7 @@ class ColorProcessor
 	 *
 	 * @param   string  $string  The string to process.
 	 *
-	 * @return string
+	 * @return  string
 	 */
 	public function process($string)
 	{
@@ -94,7 +114,7 @@ class ColorProcessor
 	 * @param   ColorStyle  $style  The color style to apply.
 	 *
 	 * @internal param array $matches The matching tags
-	 * @return mixed
+	 * @return  mixed
 	 */
 	private function replaceColors($text, $tag, $match, Colorstyle $style)
 	{
