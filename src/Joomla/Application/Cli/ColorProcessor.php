@@ -17,7 +17,7 @@ class ColorProcessor
 {
 	public $noColors = false;
 
-	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/([a-z=;]+)>/';
+	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/\\1>/';
 
 	protected static $stripFilter = '/<[\/]?[a-z=;]+>/';
 
@@ -68,11 +68,6 @@ class ColorProcessor
 
 		foreach ($matches[0] as $i => $m)
 		{
-			if ($matches[1][$i] != $matches[3][$i])
-			{
-				continue;
-			}
-
 			if (array_key_exists($matches[1][$i], $this->styles))
 			{
 				// A named style.
