@@ -17,7 +17,7 @@ class ColorProcessor
 {
 	public $noColors = false;
 
-	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/\\1>/';
+	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/\\1>/s';
 
 	protected static $stripFilter = '/<[\/]?[a-z=;]+>/';
 
