@@ -19,8 +19,6 @@ use Joomla\Application\Cli\ColorProcessor;
  */
 class Stdout extends CliOutput
 {
-	public $noColors = false;
-
 	/**
 	 * Constructor.
 	 */
