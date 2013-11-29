@@ -18,28 +18,32 @@ class ColorProcessor
 	/**
 	 * Option to use colors for output.
 	 *
-	 * @var  boolean
+	 * @var    boolean
+	 * @since  1.0
 	 */
 	public $noColors = false;
 
 	/**
 	 * Regex for style tags Lookup.
 	 *
-	 * @var  string
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/\\1>/s';
 
 	/**
 	 * Regex for style tags removal.
 	 *
-	 * @var  string
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected static $stripFilter = '/<[\/]?[a-z=;]+>/';
 
 	/**
 	 * Processor styles.
 	 *
-	 * @var  array
+	 * @var    array
+	 * @since  1.0
 	 */
 	protected $styles = array();
 
@@ -50,6 +54,8 @@ class ColorProcessor
 	 * @param   ColorStyle  $style  The color style.
 	 *
 	 * @return  ColorProcessor  Returns itself to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function addStyle($name, ColorStyle $style)
 	{
@@ -64,6 +70,8 @@ class ColorProcessor
 	 * @param   string  $string  The string.
 	 *
 	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public static function stripColors($string)
 	{
@@ -76,6 +84,8 @@ class ColorProcessor
 	 * @param   string  $string  The string to process.
 	 *
 	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function process($string)
 	{
@@ -115,6 +125,8 @@ class ColorProcessor
 	 *
 	 * @internal param array $matches The matching tags
 	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	private function replaceColors($text, $tag, $match, Colorstyle $style)
 	{

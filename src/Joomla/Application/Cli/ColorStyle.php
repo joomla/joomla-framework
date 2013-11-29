@@ -18,7 +18,8 @@ final class ColorStyle
 	/**
 	 * Known colors.
 	 *
-	 * @var array
+	 * @var    array
+	 * @since  1.0
 	 */
 	private static $knownColors = array(
 		'black'   => 0,
@@ -34,7 +35,8 @@ final class ColorStyle
 	/**
 	 * Known styles.
 	 *
-	 * @var array
+	 * @var    array
+	 * @since  1.0
 	 */
 	private static $knownOptions = array(
 		'bold'       => 1,
@@ -46,35 +48,40 @@ final class ColorStyle
 	/**
 	 * Foreground base value.
 	 *
-	 * @var int
+	 * @var    int
+	 * @since  1.0
 	 */
 	private static $fgBase = 30;
 
 	/**
 	 * Background base value.
 	 *
-	 * @var int
+	 * @var    int
+	 * @since  1.0
 	 */
 	private static $bgBase = 40;
 
 	/**
 	 * Foreground color.
 	 *
-	 * @var int
+	 * @var    int
+	 * @since  1.0
 	 */
 	private $fgColor = 0;
 
 	/**
 	 * Background color.
 	 *
-	 * @var int
+	 * @var    int
+	 * @since  1.0
 	 */
 	private $bgColor = 0;
 
 	/**
 	 * Style options.
 	 *
-	 * @var array
+	 * @var    array
+	 * @since  1.0
 	 */
 	private $options = array();
 
@@ -85,7 +92,8 @@ final class ColorStyle
 	 * @param   string  $bg       Background color.
 	 * @param   array   $options  Style options.
 	 *
-	 * @throws \InvalidArgumentException
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function __construct($fg = '', $bg = '', $options = array())
 	{
@@ -142,8 +150,8 @@ final class ColorStyle
 	 *
 	 * @param   string  $string  The parameter string.
 	 *
-	 * @throws \RuntimeException
-	 * @return ColorStyle
+	 * @return  ColorStyle  Returns new self
+	 * @throws  \RuntimeException
 	 */
 	public static function fromString($string)
 	{
@@ -188,7 +196,9 @@ final class ColorStyle
 	/**
 	 * Get the translated color code.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getStyle()
 	{
@@ -215,7 +225,9 @@ final class ColorStyle
 	/**
 	 * Convert to a string.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function __toString()
 	{
@@ -225,7 +237,9 @@ final class ColorStyle
 	/**
 	 * Get the known colors.
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public function getKnownColors()
 	{
@@ -235,7 +249,9 @@ final class ColorStyle
 	/**
 	 * Get the known options.
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public function getKnownOptions()
 	{

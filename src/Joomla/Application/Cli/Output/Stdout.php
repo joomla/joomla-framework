@@ -21,6 +21,8 @@ class Stdout extends CliOutput
 {
 	/**
 	 * Constructor.
+	 *
+	 * @since  1.0
 	 */
 	public function __construct()
 	{
@@ -34,7 +36,9 @@ class Stdout extends CliOutput
 	 *
 	 * @param   ColorProcessor  $processor  The color processor.
 	 *
-	 * @return $this
+	 * @return  Stdout  Returns itself to support chainig.
+	 *
+	 * @since   1.0
 	 */
 	public function setProcessor(ColorProcessor $processor)
 	{
@@ -46,7 +50,9 @@ class Stdout extends CliOutput
 	/**
 	 * Get a processor.
 	 *
-	 * @return ColorProcessor
+	 * @return  ColorProcessor
+	 *
+	 * @since   1.0
 	 */
 	public function getProcessor()
 	{
@@ -59,8 +65,9 @@ class Stdout extends CliOutput
 	 * @param   string   $text  The text to display.
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
+	 * @return  Stdout  Returns itself to support chaining.
+	 *
 	 * @since   1.0
-	 * @return $this
 	 */
 	public function out($text = '', $nl = true)
 	{
@@ -72,7 +79,9 @@ class Stdout extends CliOutput
 	/**
 	 * Add some predefined styles.
 	 *
-	 * @return $this
+	 * @return  Stdout  Returns itself to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	private function addPredefinedStyles()
 	{
