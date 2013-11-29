@@ -66,34 +66,22 @@ class Plus extends Data
 	 * @return  Plus  Google+ API object (people, activities, comments).
 	 *
 	 * @since   1.0
+	 * @throws  \InvalidArgumentException If $name is not a valid sub class.
 	 */
 	public function __get($name)
 	{
-		switch (strtolower($name))
+		$class = 'Joomla\\Google\\Data\\Plus\\' . ucfirst($name);
+
+		if (class_exists($class))
 		{
-			case 'people':
-				if ($this->people == null)
-				{
-					$this->people = new Plus\People($this->options, $this->auth);
-				}
+			if (false == isset($this->$name))
+			{
+				$this->$name = new $class($this->options, $this->client);
+			}
 
-				return $this->people;
-
-			case 'activities':
-				if ($this->activities == null)
-				{
-					$this->activities = new Plus\Activities($this->options, $this->auth);
-				}
-
-				return $this->activities;
-
-			case 'comments':
-				if ($this->comments == null)
-				{
-					$this->comments = new Plus\Comments($this->options, $this->auth);
-				}
-
-				return $this->comments;
+			return $this->$name;
 		}
+
+		throw new \InvalidArgumentException(sprintf('Argument %s produced an invalid class name: %s', $name, $class));
 	}
 }

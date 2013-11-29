@@ -8,7 +8,6 @@
 
 namespace Joomla\Database\Mysql;
 
-use Joomla\Database\Mysql\MysqlDriver;
 use Joomla\Database\DatabaseImporter;
 
 /**

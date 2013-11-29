@@ -23,10 +23,10 @@ class Xml extends CliOutput
 	 * @param   string   $text  The text to display.
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
-	 * @throws \RuntimeException
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 * @codeCoverageIgnore
 	 */
 	public function out($text = '', $nl = true)

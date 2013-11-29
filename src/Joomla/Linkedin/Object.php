@@ -9,7 +9,6 @@
 namespace Joomla\Linkedin;
 
 use Joomla\Http\Http;
-use Joomla\Linkedin\OAuth;
 
 /**
  * Linkedin API object class for the Joomla Framework.
@@ -31,7 +30,7 @@ abstract class Object
 	protected $client;
 
 	/**
-	 * @var    OAuth The OAuth client.
+	 * @var    OAuth  The OAuth client.
 	 * @since  1.0
 	 */
 	protected $oauth;
@@ -59,7 +58,7 @@ abstract class Object
 	 *
 	 * @return  string  String with the converted boolean.
 	 *
-	 * @since 1.0
+	 * @since   1.0
 	 */
 	public function booleanToString($bool)
 	{

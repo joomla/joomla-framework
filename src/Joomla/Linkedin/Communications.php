@@ -8,9 +8,6 @@
 
 namespace Joomla\Linkedin;
 
-use Joomla\Linkedin\Object;
-use \DomainException;
-
 /**
  * Linkedin API Social Communications class for the Joomla Framework.
  *
@@ -90,7 +87,7 @@ class Communications extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  DomainException
+	 * @throws  \DomainException
 	 */
 	public function inviteById($id, $first_name, $last_name, $subject, $body, $connection = 'friend')
 	{
@@ -116,7 +113,7 @@ class Communications extends Object
 
 		if (strpos($response->body, 'apiStandardProfileRequest') === false)
 		{
-			throw new DomainException($response->body);
+			throw new \DomainException($response->body);
 		}
 
 		// Get header value.

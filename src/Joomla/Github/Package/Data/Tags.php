@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Data;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Data Tags class for the Joomla Platform.
+ * GitHub API Data Tags class for the Joomla Framework.
  *
  * This tags API only deals with tag objects - so only annotated tags, not lightweight tags.
  *

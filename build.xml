@@ -2,7 +2,6 @@
 
 <project name="joomla-framework" default="build" basedir=".">
 	<property name="source" value="src" />
-	<property name="joomlasource" value="src/Joomla,src/loader.php,src/import.php" />
 	<property name="testsource" value="${basedir}/src/Joomla/*/Tests,${basedir}/src/Joomla/*/_Tests" />
 
 	<condition property="script-suffix" value=".bat" else="">
@@ -63,7 +62,7 @@
 
 	<target name="phpmd" description="Generate pmd.xml using PHPMD">
 		<exec executable="phpmd${script-suffix}">
-			<arg path="${joomlasource}" />
+			<arg path="${source}" />
 			<arg value="xml" />
 			<arg value="${basedir}/build/phpmd.xml" />
 			<arg value="--exclude" />
@@ -114,16 +113,18 @@
 		</exec>
 	</target>
 
-	<target name="phpdoc" description="Generate API documentation using PHPDocumentor">
-		<exec executable="phpdox${script-suffix}">
-			<arg value="-c" />
-			<arg path="${source}" />
+	<target name="phpdoc" description="Generate API documentation using phpDocumentor">
+		<exec executable="phpdoc${script-suffix}">
+			<arg value="-i" />
+			<arg path="${source}/Joomla/*/Tests/,${source}/Joomla/*/_Tests/,${source}/Joomla/*/tests/,${source}/Joomla/String/phputf8/" />
 			<arg value="-d" />
-			<arg path="${basedir}/build/api" />
-			<arg value="-x" />
-			<arg path="${basedir}/build/docs" />
-			<arg value="-g" />
-			<arg value="html" />
+			<arg path="${source}" />
+			<arg value="-t" />
+			<arg path="${basedir}/build/api/" />
+			<arg value="--template" />
+			<arg value="joomla" />
+			<arg value="--title" />
+			<arg value="Joomla! Framework API" />
 		</exec>
 	</target>
 

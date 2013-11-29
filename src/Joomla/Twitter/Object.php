@@ -160,6 +160,7 @@ abstract class Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function sendRequest($path, $method = 'GET', $data = array(), $headers = array())
 	{

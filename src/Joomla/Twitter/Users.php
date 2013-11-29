@@ -73,6 +73,7 @@ class Users extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getUserProfileBanner($user)
 	{

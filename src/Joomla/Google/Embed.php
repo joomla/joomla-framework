@@ -18,7 +18,7 @@ use Joomla\Uri\Uri;
 abstract class Embed
 {
 	/**
-	 * @var    Registry  Options for the Google data object.
+	 * @var    array  Options for the Google data object.
 	 * @since  1.0
 	 */
 	protected $options;
@@ -32,8 +32,8 @@ abstract class Embed
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Google options object
-	 * @param   Uri       $uri      URL of the page being rendered
+	 * @param   array  $options  Google options object
+	 * @param   Uri    $uri      URL of the page being rendered
 	 *
 	 * @since   1.0
 	 */

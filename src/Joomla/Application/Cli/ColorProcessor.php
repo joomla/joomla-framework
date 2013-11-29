@@ -15,12 +15,36 @@ namespace Joomla\Application\Cli;
  */
 class ColorProcessor
 {
+	/**
+	 * Flag to remove color codes from the output
+	 *
+	 * @var    boolean
+	 * @since  1.0
+	 */
 	public $noColors = false;
 
+	/**
+	 * Regex to match tags
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/([a-z=;]+)>/';
 
+	/**
+	 * Regex used for removing color codes
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected static $stripFilter = '/<[\/]?[a-z=;]+>/';
 
+	/**
+	 * Array of ColorStyle objects
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
 	protected $styles = array();
 
 	/**
@@ -29,7 +53,7 @@ class ColorProcessor
 	 * @param   string      $name   The style name.
 	 * @param   ColorStyle  $style  The color style.
 	 *
-	 * @return $this
+	 * @return  ColorProcessor  Instance of $this to allow chaining.
 	 */
 	public function addStyle($name, ColorStyle $style)
 	{
@@ -43,11 +67,13 @@ class ColorProcessor
 	 *
 	 * @param   string  $string  The string.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public static function stripColors($string)
 	{
-		return preg_replace(self::$stripFilter, '', $string);
+		return preg_replace(static::$stripFilter, '', $string);
 	}
 
 	/**
@@ -55,7 +81,9 @@ class ColorProcessor
 	 *
 	 * @param   string  $string  The string to process.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function process($string)
 	{
@@ -73,16 +101,14 @@ class ColorProcessor
 				continue;
 			}
 
+			// A named style.
 			if (array_key_exists($matches[1][$i], $this->styles))
 			{
-				// A named style.
-
 				$string = $this->replaceColors($string, $matches[1][$i], $matches[2][$i], $this->styles[$matches[1][$i]]);
 			}
+			// Custom format
 			elseif (strpos($matches[1][$i], '='))
 			{
-				// Custom format
-
 				$string = $this->replaceColors($string, $matches[1][$i], $matches[2][$i], ColorStyle::fromString($matches[1][$i]));
 			}
 		}
@@ -98,8 +124,9 @@ class ColorProcessor
 	 * @param   string      $match  The match.
 	 * @param   ColorStyle  $style  The color style to apply.
 	 *
-	 * @internal param array $matches The matching tags
-	 * @return mixed
+	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	private function replaceColors($text, $tag, $match, Colorstyle $style)
 	{

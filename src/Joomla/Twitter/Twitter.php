@@ -8,19 +8,6 @@
 
 namespace Joomla\Twitter;
 
-use Joomla\Twitter\Block;
-use Joomla\Twitter\Directmessages;
-use Joomla\Twitter\Favorites;
-use Joomla\Twitter\Friends;
-use Joomla\Twitter\Help;
-use Joomla\Twitter\Lists;
-use Joomla\Twitter\OAuth;
-use Joomla\Twitter\Places;
-use Joomla\Twitter\Profile;
-use Joomla\Twitter\Search;
-use Joomla\Twitter\Statuses;
-use Joomla\Twitter\Trends;
-use Joomla\Twitter\Users;
 use Joomla\Http\Http;
 
 /**
@@ -150,6 +137,7 @@ class Twitter
 	 * @return  Object  Twitter API object (statuses, users, favorites, etc.).
 	 *
 	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function __get($name)
 	{

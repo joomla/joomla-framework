@@ -9,13 +9,6 @@
 namespace Joomla\Linkedin;
 
 use Joomla\Http\Http;
-use Joomla\Linkedin\OAuth;
-use Joomla\Linkedin\People;
-use Joomla\Linkedin\Groups;
-use Joomla\Linkedin\Communications;
-use Joomla\Linkedin\Companies;
-use Joomla\Linkedin\Stream;
-use Joomla\Linkedin\Jobs;
 
 /**
  * Joomla Framework class for interacting with a Linkedin API instance.

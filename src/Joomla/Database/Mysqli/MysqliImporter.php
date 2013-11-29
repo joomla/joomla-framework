@@ -9,7 +9,6 @@
 namespace Joomla\Database\Mysqli;
 
 use Joomla\Database\DatabaseImporter;
-use Joomla\Database\Mysqli\MysqliDriver;
 
 /**
  * MySQLi import driver.

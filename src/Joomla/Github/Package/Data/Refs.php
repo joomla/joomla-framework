@@ -12,7 +12,7 @@ use DomainException;
 use Joomla\Github\Package;
 
 /**
- * GitHub API References class for the Joomla Platform.
+ * GitHub API References class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/git/refs/
  *

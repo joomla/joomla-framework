@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Activity;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Activity Events class for the Joomla Platform.
+ * GitHub API Activity Events class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/activity/starring/
  *
@@ -25,9 +25,9 @@ class Starring extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since  1.0
+	 * @return  mixed
 	 *
-	 * @return mixed
+	 * @since   1.0
 	 */
 	public function getList($owner, $repo)
 	{
@@ -46,9 +46,9 @@ class Starring extends Package
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function getRepositories($user = '')
 	{
@@ -70,10 +70,10 @@ class Starring extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function check($owner, $repo)
 	{
@@ -106,9 +106,9 @@ class Starring extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function star($owner, $repo)
 	{
@@ -129,9 +129,9 @@ class Starring extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function unstar($owner, $repo)
 	{

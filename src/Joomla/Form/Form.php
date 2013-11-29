@@ -10,7 +10,6 @@ namespace Joomla\Form;
 
 use Joomla\Filter;
 use Joomla\Uri\Uri;
-use Joomla\Date\Date;
 use Joomla\Language\Language;
 use Joomla\Language\Text;
 use Joomla\Filesystem\Path;
@@ -255,13 +254,13 @@ class Form
 	}
 
 	/**
-	 * Method to get a form field represented as a JFormField object.
+	 * Method to get a form field represented as a Field object.
 	 *
 	 * @param   string  $name   The name of the form field.
 	 * @param   string  $group  The optional dot-separated form group path on which to find the field.
 	 * @param   mixed   $value  The optional value to use as the default for the field.
 	 *
-	 * @return  mixed  The FormField object for the field or boolean false on error.
+	 * @return  mixed  The Field object for the field or boolean false on error.
 	 *
 	 * @since   1.0
 	 */
@@ -301,7 +300,7 @@ class Form
 	 */
 	public function getFieldAttribute($name, $attribute, $default = null, $group = null)
 	{
-		// Make sure there is a valid JForm XML document.
+		// Make sure there is a valid Form XML document.
 		if (!($this->xml instanceof \SimpleXMLElement))
 		{
 			throw new \UnexpectedValueException(sprintf('%s::getFieldAttribute `xml` is not an instance of SimpleXMLElement', get_class($this)));
@@ -1045,7 +1044,7 @@ class Form
 	/**
 	 * Method to validate form data.
 	 *
-	 * Validation warnings will be pushed into JForm::errors and should be
+	 * Validation warnings will be pushed into Form::errors and should be
 	 * retrieved with Form::getErrors() when validate returns boolean false.
 	 *
 	 * @param   array   $data   An array of field values to validate.
@@ -1169,7 +1168,7 @@ class Form
 				break;
 
 			// Ensures a protocol is present in the saved field. Only use when
-			// the only permitted protocols requre '://'. See JFormRuleUrl for list of these.
+			// the only permitted protocols requre '://'. See Rule\Url for list of these.
 
 			case 'URL':
 				if (empty($value))
@@ -1624,7 +1623,7 @@ class Form
 		// Get the field type.
 		$type = $element['type'] ? (string) $element['type'] : 'text';
 
-		// Load the JFormField object for the field.
+		// Load the Field object for the field.
 		$field = FormHelper::loadFieldType($type);
 
 		// If the object could not be loaded, get a text field object.
@@ -1662,7 +1661,7 @@ class Form
 			$value = $this->getValue((string) $element['name'], $group, $default);
 		}
 
-		// Setup the JFormField object.
+		// Setup the Field object.
 		$field->setForm($this);
 
 		if ($field->setup($element, $value, $group))
@@ -1728,7 +1727,7 @@ class Form
 	}
 
 	/**
-	 * Method to validate a JFormField object based on field data.
+	 * Method to validate a Field object based on field data.
 	 *
 	 * @param   \SimpleXMLElement  $element  The XML element object representation of the form field.
 	 * @param   string             $group    The optional dot-separated form group path on which to find the field.
@@ -1772,7 +1771,7 @@ class Form
 		// Get the field validation rule.
 		if ($type = (string) $element['validate'])
 		{
-			// Load the JFormRule object for the field.
+			// Load the Rule object for the field.
 			$rule = FormHelper::loadRuleType($type);
 
 			// If the object could not be loaded return an error message.
@@ -1843,7 +1842,7 @@ class Form
 
 			if (empty($data))
 			{
-				throw new \InvalidArgumentException(sprintf('JForm::getInstance(name, *%s*)', gettype($data)));
+				throw new \InvalidArgumentException(sprintf('%s(name, *%s*)', __METHOD__, gettype($data)));
 			}
 
 			// Instantiate the form.
@@ -1854,14 +1853,14 @@ class Form
 			{
 				if ($forms[$name]->load($data, $replace, $xpath) == false)
 				{
-					throw new \RuntimeException('JForm::getInstance could not load form');
+					throw new \RuntimeException(__METHOD__ . ' could not load form');
 				}
 			}
 			else
 			{
 				if ($forms[$name]->loadFile($data, $replace, $xpath) == false)
 				{
-					throw new \RuntimeException('JForm::getInstance could not load file');
+					throw new \RuntimeException(__METHOD__ . ' could not load file');
 				}
 			}
 		}
