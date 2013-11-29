@@ -76,7 +76,7 @@ class Plus extends Data
 		{
 			if (false == isset($this->$name))
 			{
-				$this->$name = new $class($this->options, $this->client);
+				$this->$name = new $class($this->options, $this->auth);
 			}
 
 			return $this->$name;
