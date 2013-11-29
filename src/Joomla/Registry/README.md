@@ -188,7 +188,7 @@ $registry->loadString('foo: bar', 'yaml');
 $registry->toString('yaml');
 ```
 
-## Using `XML`
+## Using XML
 
 Keep in mind that due to XML complexity, special format must be kept when loading into Registry.
 
@@ -218,28 +218,23 @@ $registry = new Registry;
 // Load file or string
 $registry->loadFile($xmlFilem 'xml');
 $registry->loadString($xmlString, 'xml');
-
-// Convert to an array 
-print_r($registry->toAarray());
 ```
 
 Outputs
 
 ```
-Array
-(
-	[foo_1] => bar
-	[foo_2] => 1
-	[foo_3] => 42
-	[foo_4] => 3.1415
-	[foo_5] => Array
-		(
-			[foo_5_a] => value
-		)
-	[foo_6] => Array
-		(
-			[foo_6_a] => value
-		)
+Array(
+	foo_1 => bar
+	foo_2 => 1
+	foo_3 => 42
+	foo_4 => 3.1415
+	foo_5 => Array(
+		foo_5_a => value
+	)
+	foo_6 => Array(
+		foo_6_a => value
+	)
+)
 ```
 
 ## Installation via Composer
