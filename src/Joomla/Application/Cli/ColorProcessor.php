@@ -49,7 +49,7 @@ class ColorProcessor
 	 * @param   string      $name   The style name.
 	 * @param   ColorStyle  $style  The color style.
 	 *
-	 * @return  $this
+	 * @return  ColorProcessor  Returns itself to support chaining.
 	 */
 	public function addStyle($name, ColorStyle $style)
 	{
