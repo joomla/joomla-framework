@@ -478,7 +478,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	{
 		$compare = 'Command "yo" not found.
 
-Did you mean one of this?
+Did you mean one of these?
     yoo';
 
 		$this->instance->getInput()->args = array('yo');

@@ -842,14 +842,14 @@ abstract class AbstractCommand
 	/**
 	 * Render auto complete alternatives.
 	 *
-	 * @param   string                    $name       The command name to auto completed.
+	 * @param   string                    $wrongName  The wrong command name to auto completed.
 	 * @param   CommandNotFoundException  $exception  The exception of wrong argument.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function renderAlternatives($name, $exception)
+	public function renderAlternatives($wrongName, $exception)
 	{
 		/** @var $exception \InvalidArgumentException */
 		$message      = $exception->getMessage();
@@ -862,9 +862,15 @@ abstract class AbstractCommand
 			/** @var $command Command */
 			$commandName = $command->getName();
 
-			$lev = levenshtein($name, $commandName);
-
-			if ($lev <= strlen($name) / 3 || false !== strpos($commandName, $name))
+			/*
+			 * Here we use "Levenshtein distance" to compare wrong name with every command names.
+			 *
+			 * If the difference number less than 1/3 of wrong name which user typed, means this is a similar name,
+			 * we can prompt user to choose these similar names.
+			 *
+			 * And if the string of wrong name can be found in a command name, we also prompt user to choose it.
+			 */
+			if (levenshtein($wrongName, $commandName) <= (strlen($wrongName) / 3) || strpos($commandName, $wrongName) !== false)
 			{
 				$alternatives[] = "    " . $commandName;
 			}
@@ -872,7 +878,7 @@ abstract class AbstractCommand
 
 		if (count($alternatives))
 		{
-			$autoComplete = "Did you mean one of this?\n";
+			$autoComplete = "Did you mean one of these?\n";
 			$autoComplete .= implode($alternatives);
 		}
 
