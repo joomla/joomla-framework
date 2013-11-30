@@ -9,6 +9,7 @@
 namespace Joomla\OAuth1;
 
 use Joomla\Http\Http;
+use Joomla\Http\Response;
 use Joomla\Input\Input;
 use Joomla\Application\AbstractWebApplication;
 

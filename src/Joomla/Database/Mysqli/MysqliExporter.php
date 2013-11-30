@@ -9,7 +9,6 @@
 namespace Joomla\Database\Mysqli;
 
 use Joomla\Database\DatabaseExporter;
-use Joomla\Database\Mysqli\MysqliDriver;
 
 /**
  * MySQLi export driver.

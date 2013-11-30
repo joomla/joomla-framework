@@ -40,9 +40,10 @@ class Repositories extends Package
 	 * @param   string  $sort       Sort field. created, updated, pushed, full_name, default: full_name.
 	 * @param   string  $direction  Sort direction. asc or desc, default: when using full_name: asc, otherwise desc.
 	 *
-	 * @throws \RuntimeException
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getListOwn($type = 'all', $sort = 'full_name', $direction = '')
 	{
@@ -86,9 +87,10 @@ class Repositories extends Package
 	 * @param   string  $sort       Sort field. created, updated, pushed, full_name, default: full_name.
 	 * @param   string  $direction  Sort direction. asc or desc, default: when using full_name: asc, otherwise desc.
 	 *
-	 * @throws \RuntimeException
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getListUser($user, $type = 'all', $sort = 'full_name', $direction = '')
 	{
@@ -130,9 +132,10 @@ class Repositories extends Package
 	 * @param   string  $org   The name of the organization.
 	 * @param   string  $type  Sort type. all, public, private, forks, sources, member. Default: all.
 	 *
-	 * @throws \RuntimeException
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getListOrg($org, $type = 'all')
 	{
@@ -158,9 +161,10 @@ class Repositories extends Package
 	 *
 	 * @param   integer  $id  The integer ID of the last Repository that you’ve seen.
 	 *
-	 * @throws \RuntimeException
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getList($id = 0)
 	{
@@ -195,7 +199,9 @@ class Repositories extends Package
 	 *                                        Use the name of the template without the extension.
 	 *                                        For example, “Haskell” Ignored if auto_init parameter is not provided.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function create($name, $org = '', $description = '', $homepage = '', $private = false, $has_issues = false,
 		$has_wiki = false, $has_downloads = false, $team_id = 0, $auto_init = false, $gitignore_template = '')
@@ -232,7 +238,9 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function get($owner, $repo)
 	{
@@ -260,7 +268,9 @@ class Repositories extends Package
 	 * @param   boolean  $has_downloads   Set true to enable downloads for this repository, false to disable them.
 	 * @param   string   $default_branch  Update the default branch for this repository
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function edit($owner, $repo, $name, $description = '', $homepage = '', $private = false, $has_issues = false,
 		$has_wiki = false, $has_downloads = false, $default_branch = '')
@@ -291,7 +301,9 @@ class Repositories extends Package
 	 * @param   string   $repo   Repository name.
 	 * @param   boolean  $anon   Set to 1 or true to include anonymous contributors in results.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getListContributors($owner, $repo, $anon = false)
 	{
@@ -315,7 +327,9 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getListLanguages($owner, $repo)
 	{
@@ -334,7 +348,9 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getListTeams($owner, $repo)
 	{
@@ -353,7 +369,9 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getListTags($owner, $repo)
 	{
@@ -372,7 +390,9 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getListBranches($owner, $repo)
 	{
@@ -392,7 +412,9 @@ class Repositories extends Package
 	 * @param   string  $repo    Repository name.
 	 * @param   string  $branch  Branch name.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getBranch($owner, $repo, $branch)
 	{
@@ -413,7 +435,9 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function delete($owner, $repo)
 	{

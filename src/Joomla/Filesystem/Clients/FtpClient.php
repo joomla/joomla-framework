@@ -9,7 +9,6 @@
 namespace Joomla\Filesystem\Clients;
 
 use Joomla\Log\Log;
-use Joomla\Filesystem\Buffer;
 
 /** Error Codes:
  * - 30 : Unable to connect to host

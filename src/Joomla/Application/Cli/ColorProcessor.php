@@ -16,7 +16,7 @@ namespace Joomla\Application\Cli;
 class ColorProcessor
 {
 	/**
-	 * Option to use colors for output.
+	 * Flag to remove color codes from the output
 	 *
 	 * @var    boolean
 	 * @since  1.0
@@ -24,7 +24,7 @@ class ColorProcessor
 	public $noColors = false;
 
 	/**
-	 * Regex for style tags Lookup.
+	 * Regex to match tags
 	 *
 	 * @var    string
 	 * @since  1.0
@@ -32,7 +32,7 @@ class ColorProcessor
 	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/\\1>/s';
 
 	/**
-	 * Regex for style tags removal.
+	 * Regex used for removing color codes
 	 *
 	 * @var    string
 	 * @since  1.0
@@ -40,7 +40,7 @@ class ColorProcessor
 	protected static $stripFilter = '/<[\/]?[a-z=;]+>/';
 
 	/**
-	 * Processor styles.
+	 * Array of ColorStyle objects
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -53,7 +53,7 @@ class ColorProcessor
 	 * @param   string      $name   The style name.
 	 * @param   ColorStyle  $style  The color style.
 	 *
-	 * @return  ColorProcessor  Returns itself to support chaining.
+	 * @return  ColorProcessor  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -75,7 +75,7 @@ class ColorProcessor
 	 */
 	public static function stripColors($string)
 	{
-		return preg_replace(self::$stripFilter, '', $string);
+		return preg_replace(static::$stripFilter, '', $string);
 	}
 
 	/**
@@ -100,14 +100,11 @@ class ColorProcessor
 		{
 			if (array_key_exists($matches[1][$i], $this->styles))
 			{
-				// A named style.
-
 				$string = $this->replaceColors($string, $matches[1][$i], $matches[2][$i], $this->styles[$matches[1][$i]]);
 			}
+			// Custom format
 			elseif (strpos($matches[1][$i], '='))
 			{
-				// Custom format
-
 				$string = $this->replaceColors($string, $matches[1][$i], $matches[2][$i], ColorStyle::fromString($matches[1][$i]));
 			}
 		}
@@ -123,7 +120,6 @@ class ColorProcessor
 	 * @param   string      $match  The match.
 	 * @param   ColorStyle  $style  The color style to apply.
 	 *
-	 * @internal param array $matches The matching tags
 	 * @return  mixed
 	 *
 	 * @since   1.0

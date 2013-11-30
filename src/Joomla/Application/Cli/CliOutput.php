@@ -16,6 +16,8 @@ namespace Joomla\Application\Cli;
 abstract class CliOutput
 {
 	/**
+	 * Color processing object
+	 *
 	 * @var    ColorProcessor
 	 * @since  1.0
 	 */

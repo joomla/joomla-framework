@@ -112,7 +112,7 @@ class MysqlDriver extends PdoDriver
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  JDatabaseDriverMysql  Returns this object to support chaining.
+	 * @return  MysqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -320,7 +320,7 @@ class MysqlDriver extends PdoDriver
 	 *
 	 * @param   string  $table  The name of the table to unlock.
 	 *
-	 * @return  JDatabaseMySQL  Returns this object to support chaining.
+	 * @return  MysqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -344,7 +344,7 @@ class MysqlDriver extends PdoDriver
 	 * @param   string  $backup    Not used by MySQL.
 	 * @param   string  $prefix    Not used by MySQL.
 	 *
-	 * @return  JDatabaseDriverMysql  Returns this object to support chaining.
+	 * @return  MysqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -403,7 +403,7 @@ class MysqlDriver extends PdoDriver
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  JDatabaseMySQL  Returns this object to support chaining.
+	 * @return  MysqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

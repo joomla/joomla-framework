@@ -12,9 +12,9 @@ use Joomla\Github\Package;
 use Joomla\Uri\Uri;
 
 /**
- * GitHub API Authorization class for the Joomla Platform.
+ * GitHub API Authorization class for the Joomla Framework.
  *
- * @documentation http://developer.github.com/v3/oauth/
+ * @documentation  http://developer.github.com/v3/oauth/
  *
  * @since  1.0
  */
@@ -27,10 +27,10 @@ class Authorization extends Package
 	 * @param   string  $note    A note to remind you what the OAuth token is for.
 	 * @param   string  $url     A URL to remind you what app the OAuth token is for.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function create(array $scopes = array(), $note = '', $url = '')
 	{
@@ -60,10 +60,10 @@ class Authorization extends Package
 	 *
 	 * @param   integer  $id  ID of the authorization to delete
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function delete($id)
 	{
@@ -94,11 +94,11 @@ class Authorization extends Package
 	 * @param   string   $note          A note to remind you what the OAuth token is for.
 	 * @param   string   $url           A URL to remind you what app the OAuth token is for.
 	 *
-	 * @throws \RuntimeException
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
+	 * @throws  \RuntimeException
 	 */
 	public function edit($id, array $scopes = array(), array $addScopes = array(), array $removeScopes = array(), $note = '', $url = '')
 	{
@@ -164,11 +164,11 @@ class Authorization extends Package
 	 *
 	 * @param   integer  $id  ID of the authorization to retrieve
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 * @note    This method will only accept Basic Authentication
-	 *
 	 * @return  object
+	 *
+	 * @note    This method will only accept Basic Authentication
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function get($id)
 	{
@@ -192,11 +192,11 @@ class Authorization extends Package
 	/**
 	 * Method to get the authorised applications for the authenticated user.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 * @note    This method will only accept Basic Authentication
-	 *
 	 * @return  object
+	 *
+	 * @note    This method will only accept Basic Authentication
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getList()
 	{
@@ -220,10 +220,10 @@ class Authorization extends Package
 	/**
 	 * Method to get the rate limit for the authenticated user.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getRateLimit()
 	{
@@ -253,9 +253,9 @@ class Authorization extends Package
 	 * @param   string  $state         An unguessable random string. It is used to protect against
 	 *                                 cross-site request forgery attacks.
 	 *
-	 * @since  1.0
+	 * @return  string
 	 *
-	 * @return Uri
+	 * @since   1.0
 	 */
 	public function getAuthorizationLink($client_id, $redirect_uri = '', $scope = '', $state = '')
 	{
@@ -290,10 +290,10 @@ class Authorization extends Package
 	 * @param   string  $redirect_uri   URL in your app where users will be sent after authorization.
 	 * @param   string  $format         The response format (json, xml, ).
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since  1.0
+	 * @return  string
 	 *
-	 * @return string
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function requestToken($client_id, $client_secret, $code, $redirect_uri = '', $format = '')
 	{

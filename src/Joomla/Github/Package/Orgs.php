@@ -11,7 +11,7 @@ namespace Joomla\Github\Package;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Activity class for the Joomla Platform.
+ * GitHub API Activity class for the Joomla Framework.
  *
  * @since  1.0
  *
@@ -29,9 +29,9 @@ class Orgs extends Package
 	 *
 	 * @param   string  $user  The user name.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getList($user = '')
 	{
@@ -51,9 +51,9 @@ class Orgs extends Package
 	 *
 	 * @param   string  $org  The organization name.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function get($org)
 	{
@@ -76,9 +76,9 @@ class Orgs extends Package
 	 * @param   string  $location      The location name.
 	 * @param   string  $name          The name.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function edit($org, $billingEmail = '', $company = '', $email = '', $location = '', $name = '')
 	{

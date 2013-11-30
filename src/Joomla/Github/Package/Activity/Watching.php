@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Activity;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Activity Watching Events class for the Joomla Platform.
+ * GitHub API Activity Watching Events class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/activity/watching/
  *
@@ -25,9 +25,9 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since  1.0
+	 * @return  mixed
 	 *
-	 * @return mixed
+	 * @since   1.0
 	 */
 	public function getList($owner, $repo)
 	{
@@ -46,9 +46,9 @@ class Watching extends Package
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since  1.0
+	 * @return  mixed
 	 *
-	 * @return mixed
+	 * @since   1.0
 	 */
 	public function getRepositories($user = '')
 	{
@@ -68,9 +68,9 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return mixed
+	 * @since   1.0
 	 */
 	public function getSubscription($owner, $repo)
 	{
@@ -90,9 +90,9 @@ class Watching extends Package
 	 * @param   boolean  $subscribed  Determines if notifications should be received from this thread.
 	 * @param   boolean  $ignored     Determines if all notifications should be blocked from this thread.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function setSubscription($owner, $repo, $subscribed, $ignored)
 	{
@@ -115,9 +115,9 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function deleteSubscription($owner, $repo)
 	{
@@ -138,10 +138,10 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function check($owner, $repo)
 	{
@@ -174,9 +174,9 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function watch($owner, $repo)
 	{
@@ -197,9 +197,9 @@ class Watching extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function unwatch($owner, $repo)
 	{

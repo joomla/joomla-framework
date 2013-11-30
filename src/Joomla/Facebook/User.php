@@ -304,7 +304,7 @@ class User extends Object
 	 * @param   mixed   $user         Either an integer containing the user ID or a string containing the username.
 	 * @param   string  $name         Album name.
 	 * @param   string  $description  Album description.
-	 * @param   json    $privacy      A JSON-encoded object that defines the privacy setting for the album.
+	 * @param   string  $privacy      A JSON-encoded object that defines the privacy setting for the album.
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *
@@ -536,7 +536,7 @@ class User extends Object
 	 *
 	 * @param   mixed   $user     Either an integer containing the user ID or a string containing the username.
 	 * @param   string  $link     Link URL.
-	 * @param   strin   $message  Link message.
+	 * @param   string  $message  Link message.
 	 *
 	 * @return  mixed   The decoded JSON response or false if the client is not authenticated.
 	 *

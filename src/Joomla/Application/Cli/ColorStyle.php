@@ -16,7 +16,7 @@ namespace Joomla\Application\Cli;
 final class ColorStyle
 {
 	/**
-	 * Known colors.
+	 * Known colors
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -29,11 +29,11 @@ final class ColorStyle
 		'blue'    => 4,
 		'magenta' => 5,
 		'cyan'    => 6,
-		'white'   => 7,
+		'white'   => 7
 	);
 
 	/**
-	 * Known styles.
+	 * Known styles
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -46,39 +46,39 @@ final class ColorStyle
 	);
 
 	/**
-	 * Foreground base value.
+	 * Foreground base value
 	 *
-	 * @var    int
+	 * @var    integer
 	 * @since  1.0
 	 */
 	private static $fgBase = 30;
 
 	/**
-	 * Background base value.
+	 * Background base value
 	 *
-	 * @var    int
+	 * @var    integer
 	 * @since  1.0
 	 */
 	private static $bgBase = 40;
 
 	/**
-	 * Foreground color.
+	 * Foreground color
 	 *
-	 * @var    int
+	 * @var    integer
 	 * @since  1.0
 	 */
 	private $fgColor = 0;
 
 	/**
-	 * Background color.
+	 * Background color
 	 *
-	 * @var    int
+	 * @var    integer
 	 * @since  1.0
 	 */
 	private $bgColor = 0;
 
 	/**
-	 * Style options.
+	 * Array of style options
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -86,7 +86,7 @@ final class ColorStyle
 	private $options = array();
 
 	/**
-	 * Constructor.
+	 * Constructor
 	 *
 	 * @param   string  $fg       Foreground color.
 	 * @param   string  $bg       Background color.
@@ -99,7 +99,7 @@ final class ColorStyle
 	{
 		if ($fg)
 		{
-			if (false == array_key_exists($fg, self::$knownColors))
+			if (false == array_key_exists($fg, static::$knownColors))
 			{
 				throw new \InvalidArgumentException(
 					sprintf('Invalid foreground color "%1$s" [%2$s]',
@@ -109,12 +109,12 @@ final class ColorStyle
 				);
 			}
 
-			$this->fgColor = self::$fgBase + self::$knownColors[$fg];
+			$this->fgColor = static::$fgBase + static::$knownColors[$fg];
 		}
 
 		if ($bg)
 		{
-			if (false == array_key_exists($bg, self::$knownColors))
+			if (false == array_key_exists($bg, static::$knownColors))
 			{
 				throw new \InvalidArgumentException(
 					sprintf('Invalid background color "%1$s" [%2$s]',
@@ -124,12 +124,12 @@ final class ColorStyle
 				);
 			}
 
-			$this->bgColor = self::$bgBase + self::$knownColors[$bg];
+			$this->bgColor = static::$bgBase + static::$knownColors[$bg];
 		}
 
 		foreach ($options as $option)
 		{
-			if (false == array_key_exists($option, self::$knownOptions))
+			if (false == array_key_exists($option, static::$knownOptions))
 			{
 				throw new \InvalidArgumentException(
 					sprintf('Invalid option "%1$s" [%2$s]',
@@ -144,13 +144,27 @@ final class ColorStyle
 	}
 
 	/**
+	 * Convert to a string.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function __toString()
+	{
+		return $this->getStyle();
+	}
+
+	/**
 	 * Create a color style from a parameter string.
 	 *
 	 * Example: fg=red;bg=blue;options=bold,blink
 	 *
 	 * @param   string  $string  The parameter string.
 	 *
-	 * @return  ColorStyle  Returns new self
+	 * @return  ColorStyle  Instance of $this to allow chaining.
+	 *
+	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
 	public static function fromString($string)
@@ -216,34 +230,22 @@ final class ColorStyle
 
 		foreach ($this->options as $option)
 		{
-			$values[] = self::$knownOptions[$option];
+			$values[] = static::$knownOptions[$option];
 		}
 
 		return implode(';', $values);
 	}
 
 	/**
-	 * Convert to a string.
+	 * Get the known colors.
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	public function __toString()
-	{
-		return $this->getStyle();
-	}
-
-	/**
-	 * Get the known colors.
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
 	public function getKnownColors()
 	{
-		return array_keys(self::$knownColors);
+		return array_keys(static::$knownColors);
 	}
 
 	/**
@@ -255,6 +257,6 @@ final class ColorStyle
 	 */
 	public function getKnownOptions()
 	{
-		return array_keys(self::$knownOptions);
+		return array_keys(static::$knownOptions);
 	}
 }

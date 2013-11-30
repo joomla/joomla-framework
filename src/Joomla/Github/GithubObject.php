@@ -32,7 +32,7 @@ abstract class GithubObject
 	protected $client;
 
 	/**
-	 * @var string
+	 * @var    string  The package in which the object belongs.
 	 * @since  1.0
 	 */
 	protected $package = '';
@@ -80,7 +80,6 @@ abstract class GithubObject
 		else
 		{
 			// Use basic authentication
-
 			if ($this->options->get('api.username', false))
 			{
 				$uri->setUser($this->options->get('api.username'));

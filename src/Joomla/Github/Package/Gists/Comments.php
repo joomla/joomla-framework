@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Gists;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Gists Comments class for the Joomla Platform.
+ * GitHub API Gists Comments class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/gists/comments/
  *

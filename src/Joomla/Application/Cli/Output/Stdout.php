@@ -20,9 +20,9 @@ use Joomla\Application\Cli\ColorProcessor;
 class Stdout extends CliOutput
 {
 	/**
-	 * Constructor.
+	 * Constructor
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct()
 	{
@@ -32,11 +32,11 @@ class Stdout extends CliOutput
 	}
 
 	/**
-	 * Set a processor.
+	 * Set a processor
 	 *
 	 * @param   ColorProcessor  $processor  The color processor.
 	 *
-	 * @return  Stdout  Returns itself to support chainig.
+	 * @return  Stdout  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -48,7 +48,7 @@ class Stdout extends CliOutput
 	}
 
 	/**
-	 * Get a processor.
+	 * Get a processor
 	 *
 	 * @return  ColorProcessor
 	 *
@@ -60,12 +60,12 @@ class Stdout extends CliOutput
 	}
 
 	/**
-	 * Write a string to standard output.
+	 * Write a string to standard output
 	 *
 	 * @param   string   $text  The text to display.
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
-	 * @return  Stdout  Returns itself to support chaining.
+	 * @return  Stdout  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -77,9 +77,9 @@ class Stdout extends CliOutput
 	}
 
 	/**
-	 * Add some predefined styles.
+	 * Adds predefined color styles to the ColorProcessor object
 	 *
-	 * @return  Stdout  Returns itself to support chaining.
+	 * @return  Stdout  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
