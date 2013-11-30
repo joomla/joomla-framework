@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Issues;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Assignees class for the Joomla Platform.
+ * GitHub API Assignees class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/issues/assignees/
  *

@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Pulls;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Pulls Comments class for the Joomla Platform.
+ * GitHub API Pulls Comments class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/pulls/comments/
  *

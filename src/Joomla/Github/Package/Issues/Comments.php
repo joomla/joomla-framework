@@ -12,7 +12,7 @@ use Joomla\Github\Package;
 use Joomla\Date\Date;
 
 /**
- * GitHub API Comments class for the Joomla Platform.
+ * GitHub API Comments class for the Joomla Framework.
  *
  * The Issue Comments API supports listing, viewing, editing, and creating comments
  * on issues and pull requests.

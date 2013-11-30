@@ -11,7 +11,7 @@ namespace Joomla\Github\Package;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Search class for the Joomla Platform.
+ * GitHub API Search class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/search
  *
@@ -27,11 +27,10 @@ class Search extends Package
 	 * @param   string  $state    The state - open or closed.
 	 * @param   string  $keyword  The search term.
 	 *
-	 * @throws \UnexpectedValueException
+	 * @return  object
 	 *
-	 * @since  1.0
-	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function issues($owner, $repo, $state, $keyword)
 	{
@@ -61,9 +60,9 @@ class Search extends Package
 	 * @param   string   $language    Filter results by language https://github.com/languages
 	 * @param   integer  $start_page  Page number to fetch
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function repositories($keyword, $language = '', $start_page = 0)
 	{
@@ -87,9 +86,9 @@ class Search extends Package
 	 * @param   string   $keyword     The search term.
 	 * @param   integer  $start_page  Page number to fetch
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function users($keyword, $start_page = 0)
 	{
@@ -114,9 +113,9 @@ class Search extends Package
 	 *
 	 * @param   string  $email  The email address(es).
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function email($email)
 	{

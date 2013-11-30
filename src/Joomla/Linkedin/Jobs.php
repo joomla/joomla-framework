@@ -8,8 +8,6 @@
 
 namespace Joomla\Linkedin;
 
-use Joomla\Linkedin\Object;
-
 /**
  * Linkedin API Jobs class for the Joomla Framework.
  *

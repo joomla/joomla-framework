@@ -11,12 +11,12 @@ namespace Joomla\Github\Package;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Gitignore class for the Joomla Platform.
+ * GitHub API Gitignore class for the Joomla Framework.
  *
  * The .gitignore Templates API lists and fetches templates from the GitHub .gitignore repository.
  *
- * @documentation http://developer.github.com/v3/gitignore/
- * @documentation https://github.com/github/gitignore
+ * @documentation  http://developer.github.com/v3/gitignore
+ * @documentation  https://github.com/github/gitignore
  *
  * @since  1.0
  */
@@ -27,9 +27,9 @@ class Gitignore extends Package
 	 *
 	 * List all templates available to pass as an option when creating a repository.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function getList()
 	{
@@ -47,10 +47,10 @@ class Gitignore extends Package
 	 * @param   string   $name  The name of the template
 	 * @param   boolean  $raw   Raw output
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
+	 * @return  mixed|string
 	 *
-	 * @return mixed|string
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function get($name, $raw = false)
 	{

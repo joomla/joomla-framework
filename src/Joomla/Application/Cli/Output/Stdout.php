@@ -19,10 +19,18 @@ use Joomla\Application\Cli\ColorProcessor;
  */
 class Stdout extends CliOutput
 {
+	/**
+	 * Flag to remove color codes from the output
+	 *
+	 * @var    boolean
+	 * @since  1.0
+	 */
 	public $noColors = false;
 
 	/**
-	 * Constructor.
+	 * Constructor
+	 *
+	 * @since   1.0
 	 */
 	public function __construct()
 	{
@@ -32,11 +40,13 @@ class Stdout extends CliOutput
 	}
 
 	/**
-	 * Set a processor.
+	 * Set a processor
 	 *
 	 * @param   ColorProcessor  $processor  The color processor.
 	 *
-	 * @return $this
+	 * @return  Stdout  Instance of $this to allow chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setProcessor(ColorProcessor $processor)
 	{
@@ -46,9 +56,11 @@ class Stdout extends CliOutput
 	}
 
 	/**
-	 * Get a processor.
+	 * Get a processor
 	 *
-	 * @return ColorProcessor
+	 * @return  ColorProcessor
+	 *
+	 * @since   1.0
 	 */
 	public function getProcessor()
 	{
@@ -56,13 +68,14 @@ class Stdout extends CliOutput
 	}
 
 	/**
-	 * Write a string to standard output.
+	 * Write a string to standard output
 	 *
 	 * @param   string   $text  The text to display.
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
+	 * @return  Stdout  Instance of $this to allow chaining.
+	 *
 	 * @since   1.0
-	 * @return $this
 	 */
 	public function out($text = '', $nl = true)
 	{
@@ -72,9 +85,11 @@ class Stdout extends CliOutput
 	}
 
 	/**
-	 * Add some predefined styles.
+	 * Adds predefined color styles to the ColorProcessor object
 	 *
-	 * @return $this
+	 * @return  Stdout  Instance of $this to allow chaining.
+	 *
+	 * @since   1.0
 	 */
 	private function addPredefinedStyles()
 	{

@@ -97,17 +97,15 @@ class JGoogleDataPlusTest extends GoogleTestCase
 	}
 
 	/**
-	 * Tests the magic __get method - other (non existent)
+	 * Tests the magic __get method - failure
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since              1.0
+	 * @expectedException  \InvalidArgumentException
 	 */
-	public function test__GetOther()
+	public function test__GetFailure()
 	{
-		$this->assertThat(
-			$this->object->other,
-			$this->isNull()
-		);
+		$this->object->other;
 	}
 }

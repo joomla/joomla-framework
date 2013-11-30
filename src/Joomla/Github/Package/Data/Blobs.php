@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Data;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Data Blobs class for the Joomla Platform.
+ * GitHub API Data Blobs class for the Joomla Framework.
  *
  * Since blobs can be any arbitrary binary data, the input and responses for the blob API
  * takes an encoding parameter that can be either utf-8 or base64. If your data cannot be
@@ -30,7 +30,9 @@ class Blobs extends Package
 	 * @param   string  $repo   Repository name.
 	 * @param   string  $sha    The commit SHA.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function get($owner, $repo, $sha)
 	{
@@ -50,7 +52,9 @@ class Blobs extends Package
 	 * @param   string  $content   The content of the blob.
 	 * @param   string  $encoding  The encoding to use.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function create($owner, $repo, $content, $encoding = 'utf-8')
 	{

@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Issues;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Issues Events class for the Joomla Platform.
+ * GitHub API Issues Events class for the Joomla Framework.
  *
  * Records various events that occur around an Issue or Pull Request.
  * This is useful both for display on issue/pull request information pages and also

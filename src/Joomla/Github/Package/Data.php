@@ -11,7 +11,7 @@ namespace Joomla\Github\Package;
 use Joomla\Github\Package;
 
 /**
- * GitHub API DB class for the Joomla Platform.
+ * GitHub API DB class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/git/
  *

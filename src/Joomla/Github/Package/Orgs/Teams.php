@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Orgs;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Orgs Teams class for the Joomla Platform.
+ * GitHub API Orgs Teams class for the Joomla Framework.
  *
  * All actions against teams require at a minimum an authenticated user who is a member
  * of the owner’s team in the :org being managed. Additionally, OAuth users require “user” scope.

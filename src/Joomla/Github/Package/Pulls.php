@@ -11,7 +11,7 @@ namespace Joomla\Github\Package;
 use Joomla\Github\Package;
 
 /**
- * GitHub API Pull Requests class for the Joomla Platform.
+ * GitHub API Pull Requests class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/pulls
  *
@@ -32,10 +32,10 @@ class Pulls extends Package
 	 * @param   string  $head   The branch (or git ref) where your changes are implemented.
 	 * @param   string  $body   The body text for the new pull request.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function create($user, $repo, $title, $base, $head, $body = '')
 	{
@@ -78,10 +78,10 @@ class Pulls extends Package
 	 *                             of another repo.
 	 * @param   string   $head     The branch (or git ref) where your changes are implemented.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function createFromIssue($user, $repo, $issueId, $base, $head)
 	{
@@ -121,10 +121,10 @@ class Pulls extends Package
 	 * @param   string   $body    The optional new body text for the pull request.
 	 * @param   string   $state   The optional new state for the pull request. [open, closed]
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function edit($user, $repo, $pullId, $title = null, $body = null, $state = null)
 	{
@@ -176,10 +176,10 @@ class Pulls extends Package
 	 * @param   string   $repo    The name of the GitHub repository.
 	 * @param   integer  $pullId  The pull request number.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function get($user, $repo, $pullId)
 	{
@@ -209,10 +209,10 @@ class Pulls extends Package
 	 * @param   integer  $page    The page number from which to get items.
 	 * @param   integer  $limit   The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getCommits($user, $repo, $pullId, $page = 0, $limit = 0)
 	{
@@ -242,10 +242,10 @@ class Pulls extends Package
 	 * @param   integer  $page    The page number from which to get items.
 	 * @param   integer  $limit   The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getFiles($user, $repo, $pullId, $page = 0, $limit = 0)
 	{
@@ -275,10 +275,10 @@ class Pulls extends Package
 	 * @param   integer  $page   The page number from which to get items.
 	 * @param   integer  $limit  The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getList($user, $repo, $state = 'open', $page = 0, $limit = 0)
 	{
@@ -312,10 +312,10 @@ class Pulls extends Package
 	 * @param   string   $repo    The name of the GitHub repository.
 	 * @param   integer  $pullId  The pull request number.  The pull request number.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
+	 * @return  boolean  True if the pull request has been merged
 	 *
-	 * @return  boolean  True if the pull request has been merged.
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function isMerged($user, $repo, $pullId)
 	{
@@ -350,10 +350,10 @@ class Pulls extends Package
 	 * @param   integer  $pullId   The pull request number.
 	 * @param   string   $message  The message that will be used for the merge commit.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function merge($user, $repo, $pullId, $message = '')
 	{
