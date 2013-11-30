@@ -20,14 +20,6 @@ use Joomla\Application\Cli\ColorProcessor;
 class Stdout extends CliOutput
 {
 	/**
-	 * Flag to remove color codes from the output
-	 *
-	 * @var    boolean
-	 * @since  1.0
-	 */
-	public $noColors = false;
-
-	/**
 	 * Constructor
 	 *
 	 * @since   1.0

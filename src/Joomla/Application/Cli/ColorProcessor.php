@@ -29,7 +29,7 @@ class ColorProcessor
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/([a-z=;]+)>/';
+	protected $tagFilter = '/<([a-z=;]+)>(.*?)<\/\\1>/s';
 
 	/**
 	 * Regex used for removing color codes
@@ -54,6 +54,8 @@ class ColorProcessor
 	 * @param   ColorStyle  $style  The color style.
 	 *
 	 * @return  ColorProcessor  Instance of $this to allow chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function addStyle($name, ColorStyle $style)
 	{
@@ -96,12 +98,6 @@ class ColorProcessor
 
 		foreach ($matches[0] as $i => $m)
 		{
-			if ($matches[1][$i] != $matches[3][$i])
-			{
-				continue;
-			}
-
-			// A named style.
 			if (array_key_exists($matches[1][$i], $this->styles))
 			{
 				$string = $this->replaceColors($string, $matches[1][$i], $matches[2][$i], $this->styles[$matches[1][$i]]);
