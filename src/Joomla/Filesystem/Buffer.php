@@ -45,14 +45,17 @@ class Buffer
 	/**
 	 * Function to open file or url
 	 *
-	 * @param   string   $path  The URL that was passed
+	 * @param   string   $path          The URL that was passed
+	 * @param   string   $mode          Mode used to open the file @see fopen
+	 * @param   integer  $options       Flags used by the API, may be STREAM_USE_PATH and STREAM_REPORT_ERRORS
+	 * @param   string   &$opened_path  Full path of the resource. Used with STREAN_USE_PATH option
 	 *
 	 * @return  boolean
 	 *
 	 * @since   1.0
 	 * @see     streamWrapper::stream_open
 	 */
-	public function stream_open($path)
+	public function stream_open($path, $mode, $options, &$opened_path)
 	{
 		$url = parse_url($path);
 		$this->name = $url['host'];
