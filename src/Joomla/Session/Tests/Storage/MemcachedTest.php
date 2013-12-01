@@ -4,18 +4,23 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Session\Storage\Apc as StorageApc;
+namespace Joomla\Session\Tests\Storage;
+
+use Joomla\Session\Storage\Memcached as StorageMemcached;
 use Joomla\Session\Storage;
 
 /**
- * Test class for JSessionStorageApc.
+ * Test class for Joomla\Session\Storage\Memcached.
  *
  * @since  1.0
  */
-class JSessionStorageApcTest extends PHPUnit_Framework_TestCase
+class MemcachedTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var JSessionStorageApc
+	 * Test object
+	 *
+	 * @var    StorageMemcached
+	 * @since  1.0
 	 */
 	protected $object;
 
@@ -23,19 +28,47 @@ class JSessionStorageApcTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function setUp()
 	{
 		parent::setUp();
 
-		// Skip these tests if APC isn't available.
-		if (!StorageAPC::isSupported())
+		// Skip these tests if Memcache isn't available.
+		if (!StorageMemcached::isSupported())
 		{
-			$this->markTestSkipped('APC storage is not enabled on this system.');
+			$this->markTestSkipped('Memcached storage is not enabled on this system.');
 		}
 
-		$this->object = Storage::getInstance('APC');
+		$this->object = Storage::getInstance('Memcached');
+	}
+
+	/**
+	 * Test...
+	 *
+	 * @todo Implement testOpen().
+	 *
+	 * @return void
+	 */
+	public function testOpen()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test has not been implemented yet.');
+	}
+
+	/**
+	 * Test...
+	 *
+	 * @todo Implement testClose().
+	 *
+	 * @return void
+	 */
+	public function testClose()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test has not been implemented yet.');
 	}
 
 	/**
@@ -72,6 +105,19 @@ class JSessionStorageApcTest extends PHPUnit_Framework_TestCase
 	 * @return void
 	 */
 	public function testDestroy()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete('This test has not been implemented yet.');
+	}
+
+	/**
+	 * Test...
+	 *
+	 * @todo Implement testGc().
+	 *
+	 * @return void
+	 */
+	public function testGc()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');

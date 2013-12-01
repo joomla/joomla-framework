@@ -116,7 +116,7 @@
 	<target name="phpdoc" description="Generate API documentation using phpDocumentor">
 		<exec executable="phpdoc${script-suffix}">
 			<arg value="-i" />
-			<arg path="${source}/Joomla/*/Tests/,${source}/Joomla/*/_Tests/,${source}/Joomla/*/tests/,${source}/Joomla/String/phputf8/" />
+			<arg path="${source}/Joomla/String/phputf8/,${source}/Joomla/*/Tests/,${source}/Joomla/*/_Tests/" />
 			<arg value="-d" />
 			<arg path="${source}" />
 			<arg value="-t" />
@@ -125,6 +125,8 @@
 			<arg value="joomla" />
 			<arg value="--title" />
 			<arg value="Joomla! Framework API" />
+			<arg value="--force" />
+			<arg value="--log" />
 		</exec>
 	</target>
 
