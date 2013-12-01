@@ -12,7 +12,7 @@ use Joomla\Database\Pdo\PdoDriver;
 use Psr\Log;
 
 /**
- * MySQL database driver
+ * MySQL database driver supporting PDO based connections
  *
  * @see    http://dev.mysql.com/doc/
  * @since  1.0
@@ -48,7 +48,9 @@ class MysqlDriver extends PdoDriver
 	protected $nullDate = '0000-00-00 00:00:00';
 
 	/**
-	 * @var    string  The minimum supported database version.
+	 * The minimum supported database version.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected static $dbMinimum = '5.0.4';
@@ -63,14 +65,8 @@ class MysqlDriver extends PdoDriver
 	public function __construct($options)
 	{
 		// Get some basic values from the options.
-		$options['driver']	 = 'mysql';
-		$options['charset'] = (isset($options['charset'])) ? $options['charset']   : 'utf8';
-
-		// Setting the charset in the DSN doesn't work until PHP 5.3.6
-		if (version_compare(PHP_VERSION, '5.3.6', '<'))
-		{
-			$options['driverOptions'] = array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-		}
+		$options['driver']	= 'mysql';
+		$options['charset'] = (isset($options['charset'])) ? $options['charset'] : 'utf8';
 
 		$this->charset = $options['charset'];
 
