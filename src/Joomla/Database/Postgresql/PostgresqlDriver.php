@@ -218,11 +218,14 @@ class PostgresqlDriver extends DatabaseDriver
 	/**
 	 * Test to see if the PostgreSQL connector is available
 	 *
-	 * @return boolean  True on success, false otherwise.
+	 * @return  boolean  True on success, false otherwise.
+	 *
+	 * @since   1.0
+	 * @deprecated  2.0  Use isSupported() instead
 	 */
 	public static function test()
 	{
-		return (function_exists('pg_connect'));
+		return static::isSupported();
 	}
 
 	/**
