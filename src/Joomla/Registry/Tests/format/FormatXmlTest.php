@@ -58,9 +58,9 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 			"</registry>\n";
 
 		// Test basic object to string.
-		$this->assertThat(
+		$this->assertXmlStringEqualsXmlString(
 			$class->objectToString($object, $options),
-			$this->equalTo($string)
+			$string
 		);
 	}
 
