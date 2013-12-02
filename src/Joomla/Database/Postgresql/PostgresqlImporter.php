@@ -11,7 +11,7 @@ namespace Joomla\Database\Postgresql;
 use Joomla\Database\DatabaseImporter;
 
 /**
- * PostgreSQL import driver.
+ * PostgreSQL Database Importer.
  *
  * @since  1.0
  */
@@ -30,13 +30,13 @@ class PostgresqlImporter extends DatabaseImporter
 		// Check if the db connector has been set.
 		if (!($this->db instanceof PostgresqlDriver))
 		{
-			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('Database connection wrong type.');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('ERROR: No Tables Specified');
 		}
 
 		return $this;
@@ -106,7 +106,7 @@ class PostgresqlImporter extends DatabaseImporter
 				// The field exists, check it's the same.
 				$column = $oldSeq[$kSeqName][0];
 
-				/* For older database version that doesn't support these fields use default values */
+				// For older database version that doesn't support these fields use default values
 				if (version_compare($this->db->getVersion(), '9.1.0') < 0)
 				{
 					$column->Min_Value = '1';
@@ -287,13 +287,11 @@ class PostgresqlImporter extends DatabaseImporter
 			$field['Start_Value'] = '1';
 		}
 
-		$sql = 'CREATE SEQUENCE ' . (string) $field['Name'] .
-				' INCREMENT BY ' . (string) $field['Increment'] . ' MINVALUE ' . $field['Min_Value'] .
-				' MAXVALUE ' . (string) $field['Max_Value'] . ' START ' . (string) $field['Start_Value'] .
-				(((string) $field['Cycle_option'] == 'NO' ) ? ' NO' : '' ) . ' CYCLE' .
-				' OWNED BY ' . $this->db->quoteName(
-									(string) $field['Schema'] . '.' . (string) $field['Table'] . '.' . (string) $field['Column']
-								);
+		$sql = 'CREATE SEQUENCE ' . (string) $field['Name']
+			. ' INCREMENT BY ' . (string) $field['Increment'] . ' MINVALUE ' . $field['Min_Value']
+			. ' MAXVALUE ' . (string) $field['Max_Value'] . ' START ' . (string) $field['Start_Value']
+			. (((string) $field['Cycle_option'] == 'NO' ) ? ' NO' : '' ) . ' CYCLE'
+			. ' OWNED BY ' . $this->db->quoteName((string) $field['Schema'] . '.' . (string) $field['Table'] . '.' . (string) $field['Column']);
 
 		return $sql;
 	}
@@ -319,12 +317,10 @@ class PostgresqlImporter extends DatabaseImporter
 			$field['Start_Value'] = '1';
 		}
 
-		$sql = 'ALTER SEQUENCE ' . (string) $field['Name'] .
-				' INCREMENT BY ' . (string) $field['Increment'] . ' MINVALUE ' . (string) $field['Min_Value'] .
-				' MAXVALUE ' . (string) $field['Max_Value'] . ' START ' . (string) $field['Start_Value'] .
-				' OWNED BY ' . $this->db->quoteName(
-									(string) $field['Schema'] . '.' . (string) $field['Table'] . '.' . (string) $field['Column']
-								);
+		$sql = 'ALTER SEQUENCE ' . (string) $field['Name']
+			. ' INCREMENT BY ' . (string) $field['Increment'] . ' MINVALUE ' . (string) $field['Min_Value']
+			. ' MAXVALUE ' . (string) $field['Max_Value'] . ' START ' . (string) $field['Start_Value']
+			. ' OWNED BY ' . $this->db->quoteName((string) $field['Schema'] . '.' . (string) $field['Table'] . '.' . (string) $field['Column']);
 
 		return $sql;
 	}
@@ -366,7 +362,7 @@ class PostgresqlImporter extends DatabaseImporter
 		$fType = (string) $field['Type'];
 		$fNull = (string) $field['Null'];
 		$fDefault = (isset($field['Default']) && $field['Default'] != 'NULL' ) ?
-						preg_match('/^[0-9]$/', $field['Default']) ? $field['Default'] : $this->db->quote((string) $field['Default'])
+					preg_match('/^[0-9]$/', $field['Default']) ? $field['Default'] : $this->db->quote((string) $field['Default'])
 					: null;
 
 		$sql = ' TYPE ' . $fType;
@@ -375,25 +371,25 @@ class PostgresqlImporter extends DatabaseImporter
 		{
 			if (in_array($fType, $blobs) || $fDefault === null)
 			{
-				$sql .= ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' SET NOT NULL' .
-						",\nALTER COLUMN " . $this->db->quoteName($fName) . ' DROP DEFAULT';
+				$sql .= ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' SET NOT NULL'
+					. ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' DROP DEFAULT';
 			}
 			else
 			{
-				$sql .= ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' SET NOT NULL' .
-						",\nALTER COLUMN " . $this->db->quoteName($fName) . ' SET DEFAULT ' . $fDefault;
+				$sql .= ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' SET NOT NULL'
+					. ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' SET DEFAULT ' . $fDefault;
 			}
 		}
 		else
 		{
 			if ($fDefault !== null)
 			{
-				$sql .= ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' DROP NOT NULL' .
-						",\nALTER COLUMN " . $this->db->quoteName($fName) . ' SET DEFAULT ' . $fDefault;
+				$sql .= ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' DROP NOT NULL'
+					. ",\nALTER COLUMN " . $this->db->quoteName($fName) . ' SET DEFAULT ' . $fDefault;
 			}
 		}
 
-		/* sequence was created in other function, here is associated a default value but not yet owner */
+		// Sequence was created in other function, here is associated a default value but not yet owner
 		if (strpos($fDefault, 'nextval') !== false)
 		{
 			$sql .= ";\nALTER SEQUENCE " . $this->db->quoteName($table . '_' . $fName . '_seq') . ' OWNED BY ' . $this->db->quoteName($table . '.' . $fName);
@@ -420,10 +416,10 @@ class PostgresqlImporter extends DatabaseImporter
 		$fType = (string) $field['Type'];
 		$fNull = (string) $field['Null'];
 		$fDefault = (isset($field['Default']) && $field['Default'] != 'NULL' ) ?
-						preg_match('/^[0-9]$/', $field['Default']) ? $field['Default'] : $this->db->quote((string) $field['Default'])
+					preg_match('/^[0-9]$/', $field['Default']) ? $field['Default'] : $this->db->quote((string) $field['Default'])
 					: null;
 
-		/* nextval() as default value means that type field is serial */
+		// nextval() as default value means that type field is serial
 		if (strpos($fDefault, 'nextval') !== false)
 		{
 			$sql = $this->db->quoteName($fName) . ' SERIAL';

@@ -143,7 +143,8 @@ abstract class AbstractApplication implements LoggerAwareInterface
 	/**
 	 * Custom initialisation method.
 	 *
-	 * Called at the end of the Base::__construct method. This is for developers to inject initialisation code for their application classes.
+	 * Called at the end of the AbstractApplication::__construct method.
+	 * This is for developers to inject initialisation code for their application classes.
 	 *
 	 * @return  void
 	 *

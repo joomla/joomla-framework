@@ -12,7 +12,7 @@ use Joomla\Github\AbstractPackage;
 use Joomla\Date\Date;
 
 /**
- * GitHub API Activity Events class for the Joomla Platform.
+ * GitHub API Activity Events class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/activity/notifications/
  *
@@ -31,9 +31,9 @@ class Notifications extends AbstractPackage
 	 * @param   Date     $since          filters out any notifications updated before the given time. The time should be passed in
 	 *                                   as UTC in the ISO 8601 format.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function getList($all = true, $participating = true, Date $since = null)
 	{
@@ -62,9 +62,9 @@ class Notifications extends AbstractPackage
 	 * @param   Date     $since          filters out any notifications updated before the given time. The time should be passed in
 	 *                                   as UTC in the ISO 8601 format.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function getListRepository($owner, $repo, $all = true, $participating = true, Date $since = null)
 	{
@@ -90,9 +90,9 @@ class Notifications extends AbstractPackage
 	 * @param   Date     $last_read_at  Describes the last point that notifications were checked.
 	 *                                  Anything updated since this time will not be updated. Default: Now. Expected in ISO 8601 format.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function markRead($unread = true, $read = true, Date $last_read_at = null)
 	{
@@ -127,9 +127,9 @@ class Notifications extends AbstractPackage
 	 * @param   Date     $last_read_at  Describes the last point that notifications were checked.
 	 *                                  Anything updated since this time will not be updated. Default: Now. Expected in ISO 8601 format.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function markReadRepository($owner, $repo, $unread, $read, Date $last_read_at = null)
 	{
@@ -157,9 +157,9 @@ class Notifications extends AbstractPackage
 	 *
 	 * @param   integer  $id  The thread id.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function viewThread($id)
 	{
@@ -178,9 +178,9 @@ class Notifications extends AbstractPackage
 	 * @param   boolean  $unread  Changes the unread status of the threads.
 	 * @param   boolean  $read    Inverse of “unread”.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function markReadThread($id, $unread = true, $read = true)
 	{
@@ -206,9 +206,9 @@ class Notifications extends AbstractPackage
 	 *
 	 * @param   integer  $id  The thread id.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function getThreadSubscription($id)
 	{
@@ -231,9 +231,9 @@ class Notifications extends AbstractPackage
 	 * @param   boolean  $subscribed  Determines if notifications should be received from this thread.
 	 * @param   boolean  $ignored     Determines if all notifications should be blocked from this thread.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function setThreadSubscription($id, $subscribed, $ignored)
 	{
@@ -255,9 +255,9 @@ class Notifications extends AbstractPackage
 	 *
 	 * @param   integer  $id  The thread id.
 	 *
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
 	 */
 	public function deleteThreadSubscription($id)
 	{

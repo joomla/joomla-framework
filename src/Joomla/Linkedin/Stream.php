@@ -8,9 +8,6 @@
 
 namespace Joomla\Linkedin;
 
-use Joomla\Linkedin\Object;
-use \RuntimeException;
-
 /**
  * Linkedin API Social Stream class for the Joomla Framework.
  *
@@ -32,7 +29,7 @@ class Stream extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function share($visibility, $comment = null, $title = null, $url = null, $image = null, $description = null, $twitter = false)
 	{
@@ -90,7 +87,7 @@ class Stream extends Object
 		}
 		elseif (!$comment)
 		{
-			throw new RuntimeException('Post must contain comment and/or (title and url).');
+			throw new \RuntimeException('Post must contain comment and/or (title and url).');
 		}
 
 		$xml .= '</share>';
@@ -117,7 +114,6 @@ class Stream extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
 	 */
 	public function reshare($visibility, $id, $comment = null, $twitter = false)
 	{

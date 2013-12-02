@@ -11,7 +11,7 @@ namespace Joomla\Github\Package;
 use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Gists class for the Joomla Platform.
+ * GitHub API Gists class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/gists
  *
@@ -28,10 +28,10 @@ class Gists extends AbstractPackage
 	 * @param   boolean  $public       True if the gist should be public.
 	 * @param   string   $description  The optional description of the gist.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function create($files, $public = false, $description = null)
 	{
@@ -66,10 +66,10 @@ class Gists extends AbstractPackage
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function delete($gistId)
 	{
@@ -96,10 +96,10 @@ class Gists extends AbstractPackage
 	 * @param   boolean  $public       True if the gist should be public.
 	 * @param   string   $description  The description of the gist.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function edit($gistId, $files = null, $public = null, $description = null)
 	{
@@ -149,10 +149,10 @@ class Gists extends AbstractPackage
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function fork($gistId)
 	{
@@ -179,10 +179,10 @@ class Gists extends AbstractPackage
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function get($gistId)
 	{
@@ -210,10 +210,10 @@ class Gists extends AbstractPackage
 	 * @param   integer  $page   The page number from which to get items.
 	 * @param   integer  $limit  The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getList($page = 0, $limit = 0)
 	{
@@ -241,10 +241,10 @@ class Gists extends AbstractPackage
 	 * @param   integer  $page   The page number from which to get items.
 	 * @param   integer  $limit  The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getListByUser($user, $page = 0, $limit = 0)
 	{
@@ -271,10 +271,10 @@ class Gists extends AbstractPackage
 	 * @param   integer  $page   The page number from which to get items.
 	 * @param   integer  $limit  The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getListPublic($page = 0, $limit = 0)
 	{
@@ -301,10 +301,10 @@ class Gists extends AbstractPackage
 	 * @param   integer  $page   The page number from which to get items.
 	 * @param   integer  $limit  The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getListStarred($page = 0, $limit = 0)
 	{
@@ -330,10 +330,10 @@ class Gists extends AbstractPackage
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
+	 * @return  boolean  True if gist is starred
 	 *
-	 * @return  boolean  True if the gist is starred.
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function isStarred($gistId)
 	{
@@ -365,10 +365,10 @@ class Gists extends AbstractPackage
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function star($gistId)
 	{
@@ -392,10 +392,10 @@ class Gists extends AbstractPackage
 	 *
 	 * @param   integer  $gistId  The gist number.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function unstar($gistId)
 	{
@@ -420,10 +420,10 @@ class Gists extends AbstractPackage
 	 *
 	 * @param   array  $files  The list of file paths or filenames and content.
 	 *
-	 * @throws \InvalidArgumentException
-	 * @since  1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	protected function buildFileData(array $files)
 	{

@@ -11,9 +11,9 @@ namespace Joomla\Database\Oracle;
 use Joomla\Database\Pdo\PdoDriver;
 
 /**
- * Oracle database driver
+ * Oracle Database Driver supporting PDO based connections
  *
- * @see    http://php.net/pdo
+ * @see    http://php.net/manual/en/ref.pdo-oci.php
  * @since  1.0
  */
 class OracleDriver extends PdoDriver
@@ -139,6 +139,7 @@ class OracleDriver extends PdoDriver
 	{
 		$this->connect();
 
+		/* @type  OracleQuery  $query */
 		$query = $this->getQuery(true);
 
 		$query->setQuery('DROP TABLE :tableName');
@@ -209,6 +210,8 @@ class OracleDriver extends PdoDriver
 		$this->connect();
 
 		$result = array();
+
+		/* @type  OracleQuery  $query */
 		$query = $this->getQuery(true);
 
 		$query->select('dbms_metadata.get_ddl(:type, :tableName)');
@@ -246,6 +249,8 @@ class OracleDriver extends PdoDriver
 		$this->connect();
 
 		$columns = array();
+
+		/* @type  OracleQuery  $query */
 		$query = $this->getQuery(true);
 
 		$fieldCasing = $this->getOption(\PDO::ATTR_CASE);
@@ -298,6 +303,7 @@ class OracleDriver extends PdoDriver
 	{
 		$this->connect();
 
+		/* @type  OracleQuery  $query */
 		$query = $this->getQuery(true);
 
 		$fieldCasing = $this->getOption(\PDO::ATTR_CASE);
@@ -334,6 +340,7 @@ class OracleDriver extends PdoDriver
 	{
 		$this->connect();
 
+		/* @type  OracleQuery  $query */
 		$query = $this->getQuery(true);
 
 		if ($includeDatabaseName)
@@ -380,7 +387,7 @@ class OracleDriver extends PdoDriver
 	{
 		$this->connect();
 
-		$this->setQuery("select value from nls_database_parameters where parameter = 'NLS_RDBMS_VERSION'");
+		$this->setQuery("SELECT value FROM nls_database_parameters WHERE parameter = 'NLS_RDBMS_VERSION'");
 
 		return $this->loadResult();
 	}
@@ -682,15 +689,17 @@ class OracleDriver extends PdoDriver
 
 		if (!$asSavepoint || !$this->transactionDepth)
 		{
-			return parent::transactionStart($asSavepoint);
+			parent::transactionStart($asSavepoint);
 		}
-
-		$savepoint = 'SP_' . $this->transactionDepth;
-		$this->setQuery('SAVEPOINT ' . $this->quoteName($savepoint));
-
-		if ($this->execute())
+		else
 		{
-			$this->transactionDepth++;
+			$savepoint = 'SP_' . $this->transactionDepth;
+			$this->setQuery('SAVEPOINT ' . $this->quoteName($savepoint));
+
+			if ($this->execute())
+			{
+				$this->transactionDepth++;
+			}
 		}
 	}
 }

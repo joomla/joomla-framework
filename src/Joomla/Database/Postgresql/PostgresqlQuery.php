@@ -13,50 +13,62 @@ use Joomla\Database\Query\QueryElement;
 use Joomla\Database\Query\LimitableInterface;
 
 /**
- * Query Building Class.
+ * PostgreSQL Query Building Class.
  *
  * @since  1.0
  */
 class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 {
 	/**
-	 * @var    object  The FOR UPDATE element used in "FOR UPDATE"  lock
+	 * The FOR UPDATE element used in "FOR UPDATE" lock
+	 *
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $forUpdate = null;
 
 	/**
-	 * @var    object  The FOR SHARE element used in "FOR SHARE"  lock
+	 * The FOR SHARE element used in "FOR SHARE" lock
+	 *
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $forShare = null;
 
 	/**
-	 * @var    object  The NOWAIT element used in "FOR SHARE" and "FOR UPDATE" lock
+	 * The NOWAIT element used in "FOR SHARE" and "FOR UPDATE" lock
+	 *
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $noWait = null;
 
 	/**
-	 * @var    object  The LIMIT element
+	 * The LIMIT element
+	 *
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $limit = null;
 
 	/**
-	 * @var    object  The OFFSET element
+	 * The OFFSET element
+	 *
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $offset = null;
 
 	/**
-	 * @var    object  The RETURNING element of INSERT INTO
+	 * The RETURNING element of INSERT INTO
+	 *
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $returning = null;
 
 	/**
-	 * Magic function to convert the query to a string, only for postgresql specific query
+	 * Magic function to convert the query to a string, only for PostgreSQL specific queries
 	 *
 	 * @return  string	The completed query.
 	 *
@@ -323,7 +335,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	 *
 	 * @since   1.0
 	 */
-	public function forUpdate ($table_name, $glue = ',')
+	public function forUpdate($table_name, $glue = ',')
 	{
 		$this->type = 'forUpdate';
 
@@ -350,7 +362,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	 *
 	 * @since   1.0
 	 */
-	public function forShare ($table_name, $glue = ',')
+	public function forShare($table_name, $glue = ',')
 	{
 		$this->type = 'forShare';
 
@@ -491,7 +503,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	/**
 	 * Set the LIMIT clause to the query
 	 *
-	 * @param   int  $limit  An int of how many row will be returned
+	 * @param   integer  $limit  Number of rows to return
 	 *
 	 * @return  PostgresqlQuery  Returns this object to allow chaining.
 	 *
@@ -510,7 +522,7 @@ class PostgresqlQuery extends DatabaseQuery implements LimitableInterface
 	/**
 	 * Set the OFFSET clause to the query
 	 *
-	 * @param   int  $offset  An int for skipping row
+	 * @param   integer  $offset  An integer for skipping rows
 	 *
 	 * @return  PostgresqlQuery  Returns this object to allow chaining.
 	 *

@@ -12,9 +12,9 @@ use Psr\Log;
 use Joomla\Database\DatabaseDriver;
 
 /**
- * SQL Server database driver
+ * SQL Server Database Driver
  *
- * @see    http://msdn.microsoft.com/en-us/library/cc296152(SQL.90).aspx
+ * @see    http://php.net/manual/en/book.sqlsrv.php
  * @since  1.0
  */
 class SqlsrvDriver extends DatabaseDriver
@@ -48,7 +48,9 @@ class SqlsrvDriver extends DatabaseDriver
 	protected $nullDate = '1900-01-01 00:00:00';
 
 	/**
-	 * @var    string  The minimum supported database version.
+	 * The minimum supported database version.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected static $dbMinimum = '10.50.1600.1';
@@ -122,7 +124,7 @@ class SqlsrvDriver extends DatabaseDriver
 			'ReturnDatesAsStrings' => true);
 
 		// Make sure the SQLSRV extension for PHP is installed and enabled.
-		if (!function_exists('sqlsrv_connect'))
+		if (!static::isSupported())
 		{
 			throw new \RuntimeException('PHP extension sqlsrv_connect is not available.');
 		}
@@ -174,10 +176,8 @@ class SqlsrvDriver extends DatabaseDriver
 	{
 		$this->connect();
 
-		$query = $this->getQuery(true);
-
 		$this->setQuery(
-			'SELECT CONSTRAINT_NAME FROM' . ' INFORMATION_SCHEMA.TABLE_CONSTRAINTS' . ' WHERE TABLE_NAME = ' . $query->quote($tableName)
+			'SELECT CONSTRAINT_NAME FROM' . ' INFORMATION_SCHEMA.TABLE_CONSTRAINTS' . ' WHERE TABLE_NAME = ' . $this->quote($tableName)
 		);
 
 		return $this->loadColumn();
@@ -266,7 +266,7 @@ class SqlsrvDriver extends DatabaseDriver
 		if ($ifExists)
 		{
 			$this->setQuery(
-				'IF EXISTS(SELECT TABLE_NAME FROM' . ' INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ' . $query->quote($tableName) . ') DROP TABLE ' . $tableName
+				'IF EXISTS(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ' . $query->quote($tableName) . ') DROP TABLE ' . $tableName
 			);
 		}
 		else
@@ -445,7 +445,7 @@ class SqlsrvDriver extends DatabaseDriver
 	 * @param   object  &$object  A reference to an object whose public properties match the table fields.
 	 * @param   string  $key      The name of the primary key. If provided the object property is updated.
 	 *
-	 * @return  boolean    True on success.
+	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

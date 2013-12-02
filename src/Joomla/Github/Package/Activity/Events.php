@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Activity;
 use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Activity Events class for the Joomla Platform.
+ * GitHub API Activity Events class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/activity/events/
  *
@@ -22,8 +22,9 @@ class Events extends AbstractPackage
 	/**
 	 * List public events.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getPublic()
 	{
@@ -41,9 +42,9 @@ class Events extends AbstractPackage
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getRepository($owner, $repo)
 	{
@@ -61,8 +62,9 @@ class Events extends AbstractPackage
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getIssue($owner, $repo)
 	{
@@ -80,8 +82,9 @@ class Events extends AbstractPackage
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getNetwork($owner, $repo)
 	{
@@ -94,12 +97,13 @@ class Events extends AbstractPackage
 	}
 
 	/**
-	 * List public events for an organization.
+	 * List public events for an organisation.
 	 *
 	 * @param   string  $org  Organisation.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getOrg($org)
 	{
@@ -120,8 +124,9 @@ class Events extends AbstractPackage
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getUser($user)
 	{
@@ -138,8 +143,9 @@ class Events extends AbstractPackage
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getUserPublic($user)
 	{
@@ -159,8 +165,9 @@ class Events extends AbstractPackage
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getByUser($user)
 	{
@@ -177,8 +184,9 @@ class Events extends AbstractPackage
 	 *
 	 * @param   string  $user  User name.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getByUserPublic($user)
 	{
@@ -199,8 +207,9 @@ class Events extends AbstractPackage
 	 * @param   string  $user  User name.
 	 * @param   string  $org   Organisation.
 	 *
-	 * @since   1.0
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getUserOrg($user, $org)
 	{

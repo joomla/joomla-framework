@@ -159,7 +159,7 @@ class Tar implements ExtractableInterface
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function getTarInfo(& $data)
+	protected function getTarInfo(&$data)
 	{
 		$position = 0;
 		$return_array = array();

@@ -11,7 +11,7 @@ namespace Joomla\Github\Package\Data;
 use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Data Commits class for the Joomla Platform.
+ * GitHub API Data Commits class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/git/commits/
  *

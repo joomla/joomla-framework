@@ -13,7 +13,7 @@ use Joomla\Date\Date;
 use Joomla\Uri\Uri;
 
 /**
- * GitHub API Issues class for the Joomla Platform.
+ * GitHub API Issues class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/issues
  *
@@ -38,10 +38,10 @@ class Issues extends AbstractPackage
 	 * @param   integer  $milestone  The milestone to associate this issue with.
 	 * @param   array    $labels     The labels to associate with this issue.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = null)
 	{
@@ -92,10 +92,10 @@ class Issues extends AbstractPackage
 	 * @param   integer  $milestone  The milestone to associate this issue with.
 	 * @param   array    $labels     The labels to associate with this issue.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function edit($user, $repo, $issueId, $state = null, $title = null, $body = null, $assignee = null, $milestone = null, array $labels = null)
 	{
@@ -171,10 +171,10 @@ class Issues extends AbstractPackage
 	 * @param   string   $repo     The name of the GitHub repository.
 	 * @param   integer  $issueId  The issue number.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function get($user, $repo, $issueId)
 	{
@@ -207,10 +207,10 @@ class Issues extends AbstractPackage
 	 * @param   integer  $page       The page number from which to get items.
 	 * @param   integer  $limit      The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return  array
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getList($filter = null, $state = null, $labels = null, $sort = null,
 		$direction = null, Date $since = null, $page = 0, $limit = 0)
@@ -250,10 +250,10 @@ class Issues extends AbstractPackage
 	 * @param   integer  $page       The page number from which to get items.
 	 * @param   integer  $limit      The number of items on a page.
 	 *
-	 * @throws \DomainException
-	 * @since  1.0
+	 * @return  object
 	 *
-	 * @return  array
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getListByRepository($user, $repo, $milestone = null, $state = null, $assignee = null, $mentioned = null, $labels = null,
 		$sort = null, $direction = null, Date $since = null, $page = 0, $limit = 0)

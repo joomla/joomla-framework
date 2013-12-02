@@ -11,9 +11,9 @@ namespace Joomla\Github\Package\Issues;
 use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Milestones class for the Joomla Platform.
+ * GitHub API Milestones class for the Joomla Framework.
  *
- * @documentation http://developer.github.com/v3/issues/labels/
+ * @documentation  http://developer.github.com/v3/issues/labels/
  *
  * @since  1.0
  */
@@ -25,9 +25,9 @@ class Labels extends AbstractPackage
 	 * @param   string  $owner  The name of the owner of the GitHub repository.
 	 * @param   string  $repo   The name of the GitHub repository.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public function getList($owner, $repo)
 	{
@@ -47,9 +47,9 @@ class Labels extends AbstractPackage
 	 * @param   string  $repo  The name of the GitHub repository.
 	 * @param   string  $name  The label name to get.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function get($user, $repo, $name)
 	{
@@ -70,10 +70,10 @@ class Labels extends AbstractPackage
 	 * @param   string  $name   The label name.
 	 * @param   string  $color  The label color.
 	 *
-	 * @throws \DomainException
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function create($owner, $repo, $name, $color)
 	{
@@ -134,9 +134,9 @@ class Labels extends AbstractPackage
 	 * @param   string  $name   The new label name.
 	 * @param   string  $color  The new label color.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function update($user, $repo, $label, $name, $color)
 	{
@@ -164,9 +164,9 @@ class Labels extends AbstractPackage
 	 * @param   string   $repo    The name of the GitHub repository.
 	 * @param   integer  $number  The issue number.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getListByIssue($owner, $repo, $number)
 	{
@@ -187,9 +187,9 @@ class Labels extends AbstractPackage
 	 * @param   string  $number  The issue number.
 	 * @param   array   $labels  An array of labels to add.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function add($owner, $repo, $number, array $labels)
 	{
@@ -210,9 +210,9 @@ class Labels extends AbstractPackage
 	 * @param   string  $number  The issue number.
 	 * @param   string  $name    The name of the label to remove.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function removeFromIssue($owner, $repo, $number, $name)
 	{
@@ -225,7 +225,8 @@ class Labels extends AbstractPackage
 		);
 	}
 
-	/** Replace all labels for an issue.
+	/**
+	 * Replace all labels for an issue.
 	 *
 	 * Sending an empty array ([]) will remove all Labels from the Issue.
 	 *
@@ -234,9 +235,9 @@ class Labels extends AbstractPackage
 	 * @param   string  $number  The issue number.
 	 * @param   array   $labels  New labels
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function replace($owner, $repo, $number, array $labels)
 	{
@@ -250,15 +251,15 @@ class Labels extends AbstractPackage
 	}
 
 	/**
-	.* Remove all labels from an issue.
+	 * Remove all labels from an issue.
 	 *
 	 * @param   string  $owner   The name of the owner of the GitHub repository.
 	 * @param   string  $repo    The name of the GitHub repository.
 	 * @param   string  $number  The issue number.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function removeAllFromIssue($owner, $repo, $number)
 	{
@@ -279,9 +280,9 @@ class Labels extends AbstractPackage
 	 * @param   string  $repo    The name of the GitHub repository.
 	 * @param   string  $number  The issue number.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function getListByMilestone($owner, $repo, $number)
 	{

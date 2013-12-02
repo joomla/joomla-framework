@@ -11,7 +11,7 @@ namespace Joomla\Github\Package;
 use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Activity class for the Joomla Platform.
+ * GitHub API Activity class for the Joomla Framework.
  *
  * @since  1.0
  *

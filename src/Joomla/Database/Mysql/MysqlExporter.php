@@ -8,11 +8,10 @@
 
 namespace Joomla\Database\Mysql;
 
-use Joomla\Database\Mysql\MysqlDriver;
 use Joomla\Database\DatabaseExporter;
 
 /**
- * MySQL export driver.
+ * MySQL Database Exporter.
  *
  * @since  1.0
  */

@@ -12,9 +12,9 @@ use Joomla\Database\Pdo\PdoDriver;
 use Psr\Log;
 
 /**
- * MySQL database driver
+ * MySQL database driver supporting PDO based connections
  *
- * @see    http://dev.mysql.com/doc/
+ * @see    http://php.net/manual/en/ref.pdo-mysql.php
  * @since  1.0
  */
 class MysqlDriver extends PdoDriver
@@ -48,7 +48,9 @@ class MysqlDriver extends PdoDriver
 	protected $nullDate = '0000-00-00 00:00:00';
 
 	/**
-	 * @var    string  The minimum supported database version.
+	 * The minimum supported database version.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected static $dbMinimum = '5.0.4';
@@ -63,14 +65,8 @@ class MysqlDriver extends PdoDriver
 	public function __construct($options)
 	{
 		// Get some basic values from the options.
-		$options['driver']	 = 'mysql';
-		$options['charset'] = (isset($options['charset'])) ? $options['charset']   : 'utf8';
-
-		// Setting the charset in the DSN doesn't work until PHP 5.3.6
-		if (version_compare(PHP_VERSION, '5.3.6', '<'))
-		{
-			$options['driverOptions'] = array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-		}
+		$options['driver']	= 'mysql';
+		$options['charset'] = (isset($options['charset'])) ? $options['charset'] : 'utf8';
 
 		$this->charset = $options['charset'];
 
@@ -112,7 +108,7 @@ class MysqlDriver extends PdoDriver
 	 * @param   string   $tableName  The name of the database table to drop.
 	 * @param   boolean  $ifExists   Optionally specify that the table must exist before it is dropped.
 	 *
-	 * @return  JDatabaseDriverMysql  Returns this object to support chaining.
+	 * @return  MysqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -231,8 +227,6 @@ class MysqlDriver extends PdoDriver
 
 		$result = array();
 
-		$query = $this->getQuery(true);
-
 		// Set the query to get the table fields statement.
 		$this->setQuery('SHOW FULL COLUMNS FROM ' . $this->quoteName($table));
 
@@ -271,8 +265,6 @@ class MysqlDriver extends PdoDriver
 	public function getTableKeys($table)
 	{
 		$this->connect();
-
-		$query = $this->getQuery(true);
 
 		// Get the details columns information.
 		$this->setQuery('SHOW KEYS FROM ' . $this->quoteName($table));
@@ -320,7 +312,7 @@ class MysqlDriver extends PdoDriver
 	 *
 	 * @param   string  $table  The name of the table to unlock.
 	 *
-	 * @return  JDatabaseMySQL  Returns this object to support chaining.
+	 * @return  MysqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -331,7 +323,7 @@ class MysqlDriver extends PdoDriver
 
 		$this->setQuery('LOCK TABLES ' . $this->quoteName($table) . ' WRITE');
 
-		$this->setQuery($query)->exec();
+		$this->setQuery($query)->execute();
 
 		return $this;
 	}
@@ -344,15 +336,13 @@ class MysqlDriver extends PdoDriver
 	 * @param   string  $backup    Not used by MySQL.
 	 * @param   string  $prefix    Not used by MySQL.
 	 *
-	 * @return  JDatabaseDriverMysql  Returns this object to support chaining.
+	 * @return  MysqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
 	{
-		$query = $this->getQuery(true);
-
 		$this->setQuery('RENAME TABLE ' . $this->quoteName($oldTable) . ' TO ' . $this->quoteName($newTable));
 
 		$this->execute();
@@ -403,7 +393,7 @@ class MysqlDriver extends PdoDriver
 	/**
 	 * Unlocks tables in the database.
 	 *
-	 * @return  JDatabaseMySQL  Returns this object to support chaining.
+	 * @return  MysqlDriver  Returns this object to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -485,15 +475,17 @@ class MysqlDriver extends PdoDriver
 
 		if (!$asSavepoint || !$this->transactionDepth)
 		{
-			return parent::transactionStart($asSavepoint);
+			parent::transactionStart($asSavepoint);
 		}
-
-		$savepoint = 'SP_' . $this->transactionDepth;
-		$this->setQuery('SAVEPOINT ' . $this->quoteName($savepoint));
-
-		if ($this->execute())
+		else
 		{
-			$this->transactionDepth++;
+			$savepoint = 'SP_' . $this->transactionDepth;
+			$this->setQuery('SAVEPOINT ' . $this->quoteName($savepoint));
+
+			if ($this->execute())
+			{
+				$this->transactionDepth++;
+			}
 		}
 	}
 }

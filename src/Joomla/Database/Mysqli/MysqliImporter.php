@@ -9,10 +9,9 @@
 namespace Joomla\Database\Mysqli;
 
 use Joomla\Database\DatabaseImporter;
-use Joomla\Database\Mysqli\MysqliDriver;
 
 /**
- * MySQLi import driver.
+ * MySQLi Database Importer.
  *
  * @since  1.0
  */
@@ -31,13 +30,13 @@ class MysqliImporter extends DatabaseImporter
 		// Check if the db connector has been set.
 		if (!($this->db instanceof MysqliDriver))
 		{
-			throw new \Exception('JPLATFORM_ERROR_DATABASE_CONNECTOR_WRONG_TYPE');
+			throw new \Exception('Database connection wrong type.');
 		}
 
 		// Check if the tables have been specified.
 		if (empty($this->from))
 		{
-			throw new \Exception('JPLATFORM_ERROR_NO_TABLES_SPECIFIED');
+			throw new \Exception('ERROR: No Tables Specified');
 		}
 
 		return $this;
