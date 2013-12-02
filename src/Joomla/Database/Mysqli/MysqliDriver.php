@@ -12,7 +12,7 @@ use Joomla\Database\DatabaseDriver;
 use Psr\Log;
 
 /**
- * MySQLi database driver
+ * MySQLi Database Driver
  *
  * @see    http://php.net/manual/en/book.mysqli.php
  * @since  1.0
@@ -48,7 +48,9 @@ class MysqliDriver extends DatabaseDriver
 	protected $nullDate = '0000-00-00 00:00:00';
 
 	/**
-	 * @var    string  The minimum supported database version.
+	 * The minimum supported database version.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected static $dbMinimum = '5.0.4';
@@ -158,9 +160,9 @@ class MysqliDriver extends DatabaseDriver
 		}
 
 		// Make sure the MySQLi extension for PHP is installed and enabled.
-		if (!function_exists('mysqli_connect'))
+		if (!static::isSupported())
 		{
-			throw new \RuntimeException('The MySQL adapter mysqli is not available');
+			throw new \RuntimeException('The MySQLi extension is not available');
 		}
 
 		$this->connection = @mysqli_connect(
@@ -229,7 +231,7 @@ class MysqliDriver extends DatabaseDriver
 	}
 
 	/**
-	 * Test to see if the MySQL connector is available.
+	 * Test to see if the MySQLi connector is available.
 	 *
 	 * @return  boolean  True on success, false otherwise.
 	 *
@@ -272,9 +274,7 @@ class MysqliDriver extends DatabaseDriver
 	{
 		$this->connect();
 
-		$query = $this->getQuery(true);
-
-		$this->setQuery('DROP TABLE ' . ($ifExists ? 'IF EXISTS ' : '') . $query->quoteName($tableName));
+		$this->setQuery('DROP TABLE ' . ($ifExists ? 'IF EXISTS ' : '') . $this->quoteName($tableName));
 
 		$this->execute();
 
@@ -359,7 +359,7 @@ class MysqliDriver extends DatabaseDriver
 		foreach ($tables as $table)
 		{
 			// Set the query to get the table CREATE statement.
-			$this->setQuery('SHOW CREATE table ' . $this->quoteName($this->escape($table)));
+			$this->setQuery('SHOW CREATE TABLE ' . $this->quoteName($this->escape($table)));
 			$row = $this->loadRow();
 
 			// Populate the result array based on the create statements.

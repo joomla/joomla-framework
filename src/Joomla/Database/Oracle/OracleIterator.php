@@ -11,7 +11,7 @@ namespace Joomla\Database\Oracle;
 use Joomla\Database\Pdo\PdoIterator;
 
 /**
- * Oracle database iterator.
+ * Oracle Database Iterator.
  *
  * @since  1.0
  */

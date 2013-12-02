@@ -20,19 +20,25 @@ use Joomla\Database\Query\LimitableInterface;
 class SqliteQuery extends PdoQuery implements PreparableInterface, LimitableInterface
 {
 	/**
-	 * @var    integer  The limit for the result set.
+	 * The limit for the result set.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $limit;
 
 	/**
-	 * @var    integer  The offset for the result set.
+	 * The offset for the result set.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $offset;
 
 	/**
-	 * @var    mixed  Holds key / value pair of bound objects.
+	 * Holds key / value pair of bound objects.
+	 *
+	 * @var    mixed
 	 * @since  1.0
 	 */
 	protected $bounded = array();
@@ -49,7 +55,7 @@ class SqliteQuery extends PdoQuery implements PreparableInterface, LimitableInte
 	 * @param   integer         $length         The length of the variable. Usually required for OUTPUT parameters.
 	 * @param   array           $driverOptions  Optional driver options to be used.
 	 *
-	 * @return  SqliteQuery
+	 * @return  SqliteQuery  Returns this object to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -130,9 +136,7 @@ class SqliteQuery extends PdoQuery implements PreparableInterface, LimitableInte
 				break;
 		}
 
-		parent::clear($clause);
-
-		return $this;
+		return parent::clear($clause);
 	}
 
 	/**

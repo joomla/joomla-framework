@@ -11,7 +11,7 @@ namespace Joomla\Database\Sqlite;
 use Joomla\Database\Pdo\PdoIterator;
 
 /**
- * SQLite database iterator.
+ * SQLite Database Iterator.
  *
  * @since  1.0
  */

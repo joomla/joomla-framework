@@ -11,7 +11,7 @@ namespace Joomla\Database\Sqlazure;
 use Joomla\Database\Sqlsrv\SqlsrvDriver;
 
 /**
- * SQL Server database driver
+ * SQL Azure Database Driver
  *
  * @see    http://msdn.microsoft.com/en-us/library/ee336279.aspx
  * @since  1.0

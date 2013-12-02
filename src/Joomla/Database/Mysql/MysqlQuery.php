@@ -12,20 +12,24 @@ use Joomla\Database\DatabaseQuery;
 use Joomla\Database\Query\LimitableInterface;
 
 /**
- * Query Building Class.
+ * MySQL Query Building Class.
  *
  * @since  1.0
  */
 class MysqlQuery extends DatabaseQuery implements LimitableInterface
 {
 	/**
-	 * @var    integer  The offset for the result set.
+	 * The offset for the result set.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $offset;
 
 	/**
-	 * @var    integer  The limit for the result set.
+	 * The limit for the result set.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $limit;

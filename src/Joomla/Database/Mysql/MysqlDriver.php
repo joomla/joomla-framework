@@ -14,7 +14,7 @@ use Psr\Log;
 /**
  * MySQL database driver supporting PDO based connections
  *
- * @see    http://dev.mysql.com/doc/
+ * @see    http://php.net/manual/en/ref.pdo-mysql.php
  * @since  1.0
  */
 class MysqlDriver extends PdoDriver
@@ -227,8 +227,6 @@ class MysqlDriver extends PdoDriver
 
 		$result = array();
 
-		$query = $this->getQuery(true);
-
 		// Set the query to get the table fields statement.
 		$this->setQuery('SHOW FULL COLUMNS FROM ' . $this->quoteName($table));
 
@@ -267,8 +265,6 @@ class MysqlDriver extends PdoDriver
 	public function getTableKeys($table)
 	{
 		$this->connect();
-
-		$query = $this->getQuery(true);
 
 		// Get the details columns information.
 		$this->setQuery('SHOW KEYS FROM ' . $this->quoteName($table));
@@ -327,7 +323,7 @@ class MysqlDriver extends PdoDriver
 
 		$this->setQuery('LOCK TABLES ' . $this->quoteName($table) . ' WRITE');
 
-		$this->setQuery($query)->exec();
+		$this->setQuery($query)->execute();
 
 		return $this;
 	}
@@ -347,8 +343,6 @@ class MysqlDriver extends PdoDriver
 	 */
 	public function renameTable($oldTable, $newTable, $backup = null, $prefix = null)
 	{
-		$query = $this->getQuery(true);
-
 		$this->setQuery('RENAME TABLE ' . $this->quoteName($oldTable) . ' TO ' . $this->quoteName($newTable));
 
 		$this->execute();
@@ -481,15 +475,17 @@ class MysqlDriver extends PdoDriver
 
 		if (!$asSavepoint || !$this->transactionDepth)
 		{
-			return parent::transactionStart($asSavepoint);
+			parent::transactionStart($asSavepoint);
 		}
-
-		$savepoint = 'SP_' . $this->transactionDepth;
-		$this->setQuery('SAVEPOINT ' . $this->quoteName($savepoint));
-
-		if ($this->execute())
+		else
 		{
-			$this->transactionDepth++;
+			$savepoint = 'SP_' . $this->transactionDepth;
+			$this->setQuery('SAVEPOINT ' . $this->quoteName($savepoint));
+
+			if ($this->execute())
+			{
+				$this->transactionDepth++;
+			}
 		}
 	}
 }

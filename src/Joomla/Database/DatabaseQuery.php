@@ -9,7 +9,7 @@
 namespace Joomla\Database;
 
 /**
- * Query Building Class.
+ * Joomla Framework Query Building Class.
  *
  * @since  1.0
  *
@@ -1298,14 +1298,13 @@ abstract class DatabaseQuery
 	}
 
 	/**
-	 * Allows a direct query to be provided to the database
-	 * driver's setQuery() method, but still allow queries
+	 * Allows a direct query to be provided to the database driver's setQuery() method, but still allow queries
 	 * to have bounded variables.
 	 *
 	 * Usage:
 	 * $query->setQuery('select * from #__users');
 	 *
-	 * @param   mixed  $sql  An SQL Query
+	 * @param   mixed  $sql  A SQL query string or DatabaseQuery object
 	 *
 	 * @return  DatabaseQuery  Returns this object to allow chaining.
 	 *
@@ -1398,8 +1397,7 @@ abstract class DatabaseQuery
 	}
 
 	/**
-	 * Method to provide deep copy support to nested objects and
-	 * arrays when cloning.
+	 * Method to provide deep copy support to nested objects and arrays when cloning.
 	 *
 	 * @return  void
 	 *

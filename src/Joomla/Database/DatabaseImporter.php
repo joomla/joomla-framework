@@ -16,7 +16,9 @@ namespace Joomla\Database;
 abstract class DatabaseImporter
 {
 	/**
-	 * @var    array  An array of cached data.
+	 * An array of cached data.
+	 *
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected $cache = array();
@@ -38,7 +40,7 @@ abstract class DatabaseImporter
 	protected $from = array();
 
 	/**
-	 * The type of input format (XML).
+	 * The type of input format.
 	 *
 	 * @var    string
 	 * @since  1.0

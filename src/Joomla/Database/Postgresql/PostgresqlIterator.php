@@ -11,7 +11,7 @@ namespace Joomla\Database\Postgresql;
 use Joomla\Database\DatabaseIterator;
 
 /**
- * PostgreSQL database iterator.
+ * PostgreSQL Database Iterator.
  *
  * @since  1.0
  */

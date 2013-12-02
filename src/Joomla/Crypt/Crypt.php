@@ -92,7 +92,7 @@ class Crypt
 	 *
 	 * @param   Key  $key  The key object to set.
 	 *
-	 * @return  Key
+	 * @return  Crypt  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -110,7 +110,7 @@ class Crypt
 	 *
 	 * @return  string  Random binary data
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public static function genRandomBytes($length = 16)
 	{
