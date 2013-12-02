@@ -188,6 +188,54 @@ $registry->loadString('foo: bar', 'yaml');
 $registry->toString('yaml');
 ```
 
+## Using XML
+
+Keep in mind that due to XML complexity, special format must be kept when loading into Registry.
+
+Loading input
+
+``` xml
+<?xml version="1.0"?>
+<registry>
+	<node name="foo_1" type="string">bar</node>
+	<node name="foo_2" type="boolean">1</node>
+	<node name="foo_3" type="integer">42</node>
+	<node name="foo_4" type="double">3.1415</node>
+	<node name="foo_5" type="object">
+		<node name="foo_5_a" type="string">value</node>
+	</node>
+	<node name="foo_6" type="array">
+		<node name="foo_6_a" type="string">value</node>
+	</node>
+</registry>
+```
+
+with `Registry`
+
+``` php
+$registry = new Registry;
+
+// Load file or string
+$registry->loadFile($xmlFilem 'xml');
+$registry->loadString($xmlString, 'xml');
+```
+
+Outputs
+
+```
+Array(
+	foo_1 => bar
+	foo_2 => 1
+	foo_3 => 42
+	foo_4 => 3.1415
+	foo_5 => Array(
+		foo_5_a => value
+	)
+	foo_6 => Array(
+		foo_6_a => value
+	)
+)
+```
 
 ## Installation via Composer
 
