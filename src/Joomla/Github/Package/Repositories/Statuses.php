@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Repositories;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API References class for the Joomla Framework.
@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Statuses extends Package
+class Statuses extends AbstractPackage
 {
 	/**
 	 * Method to create a status.

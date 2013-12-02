@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Search class for the Joomla Platform.
@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Search extends Package
+class Search extends AbstractPackage
 {
 	/**
 	 * Search issues.

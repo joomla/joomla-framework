@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Repositories;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Repositories Downloads class for the Joomla Framework.
@@ -21,7 +21,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Downloads extends Package
+class Downloads extends AbstractPackage
 {
 	/**
 	 * List downloads for a repository.

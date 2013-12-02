@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Activity;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Activity Events class for the Joomla Platform.
@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Starring extends Package
+class Starring extends AbstractPackage
 {
 	/**
 	 * List Stargazers.

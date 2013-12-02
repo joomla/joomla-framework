@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Activity;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Activity Watching Events class for the Joomla Platform.
@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Watching extends Package
+class Watching extends AbstractPackage
 {
 	/**
 	 * List watchers

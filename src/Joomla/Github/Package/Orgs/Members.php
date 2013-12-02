@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Orgs;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Orgs Members class for the Joomla Platform.
@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Members extends Package
+class Members extends AbstractPackage
 {
 	/**
 	 * Members list.

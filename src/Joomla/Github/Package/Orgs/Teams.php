@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Orgs;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Orgs Teams class for the Joomla Platform.
@@ -20,7 +20,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Teams extends Package
+class Teams extends AbstractPackage
 {
 	/**
 	 * List teams.
@@ -302,18 +302,19 @@ class Teams extends Package
 	/**
 	 * Check if the repo is managed by this team.
 	 *
-	 * @param   integer  $id    The team id.
-	 * @param   string   $repo  The name of the GitHub repository.
+	 * @param   integer  $id     The team id.
+	 * @param   string   $owner  The owner of the GitHub repository.
+	 * @param   string   $repo   The name of the GitHub repository.
 	 *
 	 * @throws \UnexpectedValueException
 	 * @since  1.0
 	 *
 	 * @return object
 	 */
-	public function checkRepo($id, $repo)
+	public function checkRepo($id, $owner, $repo)
 	{
 		// Build the request path.
-		$path = '/teams/' . $id . '/repos/' . $repo;
+		$path = '/teams/' . $id . '/repos/' . $owner . '/' . $repo;
 
 		$response = $this->client->get($this->fetchUrl($path));
 

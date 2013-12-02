@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Gists;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Gists Comments class for the Joomla Platform.
@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Comments extends Package
+class Comments extends AbstractPackage
 {
 	/**
 	 * Method to create a comment on a gist.

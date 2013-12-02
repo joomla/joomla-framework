@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Issues;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 use Joomla\Date\Date;
 
 /**
@@ -21,7 +21,7 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  */
-class Comments extends Package
+class Comments extends AbstractPackage
 {
 	/**
 	 * Method to get the list of comments on an issue.

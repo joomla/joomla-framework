@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Users;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API References class for the Joomla Platform.
@@ -20,7 +20,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Emails extends Package
+class Emails extends AbstractPackage
 {
 	/**
 	 * List email addresses for a user.

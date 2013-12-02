@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Repositories;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Repositories Contents class for the Joomla Framework.
@@ -20,7 +20,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Contents extends Package
+class Contents extends AbstractPackage
 {
 	/**
 	 * Get the README.

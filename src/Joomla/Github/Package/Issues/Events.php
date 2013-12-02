@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Issues;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Issues Events class for the Joomla Platform.
@@ -21,7 +21,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Events extends Package
+class Events extends AbstractPackage
 {
 	/**
 	 * List events for an issue.

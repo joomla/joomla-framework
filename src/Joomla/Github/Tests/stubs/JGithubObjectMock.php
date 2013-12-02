@@ -6,14 +6,14 @@
 
 namespace Joomla\Github\Tests;
 
-use Joomla\Github\GithubObject;
+use Joomla\Github\AbstractGithubObject;
 
 /**
  * JGithubObjectMock class.
  *
  * @since  1.0
  */
-class ObjectMock extends GithubObject
+class ObjectMock extends AbstractGithubObject
 {
 	/**
 	 * Method to build and return a full request URL for the request.  This method will

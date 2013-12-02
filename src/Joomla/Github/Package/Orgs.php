@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Activity class for the Joomla Platform.
@@ -20,7 +20,7 @@ use Joomla\Github\Package;
  * @property-read  Orgs\Members  $members  GitHub API object for members.
  * @property-read  Orgs\Teams    $teams    GitHub API object for teams.
  */
-class Orgs extends Package
+class Orgs extends AbstractPackage
 {
 	/**
 	 * List User Organizations.

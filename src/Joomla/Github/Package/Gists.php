@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Gists class for the Joomla Platform.
@@ -19,7 +19,7 @@ use Joomla\Github\Package;
  *
  * @property-read  Gists\Comments  $comments  GitHub API object for gist comments.
  */
-class Gists extends Package
+class Gists extends AbstractPackage
 {
 	/**
 	 * Method to create a gist.
