@@ -12,7 +12,7 @@ use Joomla\Filesystem\File;
 use Joomla\Filesystem\Stream;
 
 /**
- * Bzip2 format adapter for the JArchive class
+ * Bzip2 format adapter for the Archive package
  *
  * @since  1.0
  */

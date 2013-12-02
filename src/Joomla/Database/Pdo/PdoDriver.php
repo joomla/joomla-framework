@@ -50,7 +50,9 @@ abstract class PdoDriver extends DatabaseDriver
 	protected $nullDate = '0000-00-00 00:00:00';
 
 	/**
-	 * @var    resource  The prepared statement.
+	 * The prepared statement.
+	 *
+	 * @var    resource
 	 * @since  1.0
 	 */
 	protected $prepared;
@@ -117,10 +119,6 @@ abstract class PdoDriver extends DatabaseDriver
 		{
 			throw new \RuntimeException('PDO Extension is not available.', 1);
 		}
-
-		// Initialize the connection string variable:
-		$replace = array();
-		$with = array();
 
 		// Find the correct PDO DSN Format to use:
 		switch ($this->options['driver'])

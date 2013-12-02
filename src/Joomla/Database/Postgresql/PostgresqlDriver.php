@@ -12,7 +12,7 @@ use Psr\Log;
 use Joomla\Database\DatabaseDriver;
 
 /**
- * PostgreSQL database driver
+ * PostgreSQL Database Driver
  *
  * @since  1.0
  */
@@ -21,26 +21,35 @@ class PostgresqlDriver extends DatabaseDriver
 	/**
 	 * The database driver name
 	 *
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	public $name = 'postgresql';
 
 	/**
-	 * Quote for named objects
+	 * The character(s) used to quote SQL statement names such as table names or field names,
+	 * etc. The child classes should define this as necessary.  If a single character string the
+	 * same character is used for both sides of the quoted name, else the first character will be
+	 * used for the opening quote and the second for the closing quote.
 	 *
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $nameQuote = '"';
 
 	/**
-	 *  The null/zero date string
+	 * The null or zero representation of a timestamp for the database driver.  This should be
+	 * defined in child classes to hold the appropriate value for the engine.
 	 *
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $nullDate = '1970-01-01 00:00:00';
 
 	/**
-	 * @var    string  The minimum supported database version.
+	 * The minimum supported database version.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected static $dbMinimum = '8.3.18';
@@ -56,7 +65,7 @@ class PostgresqlDriver extends DatabaseDriver
 	/**
 	 * Query object returned by getQuery
 	 *
-	 * @var    \Joomla\Database\Postgresql\PostgresqlQuery
+	 * @var    PostgresqlQuery
 	 * @since  1.0
 	 */
 	protected $queryObject = null;
@@ -109,15 +118,15 @@ class PostgresqlDriver extends DatabaseDriver
 		}
 
 		// Make sure the postgresql extension for PHP is installed and enabled.
-		if (!function_exists('pg_connect'))
+		if (!static::isSupported())
 		{
 			throw new \RuntimeException('PHP extension pg_connect is not available.');
 		}
 
 		/*
-		* pg_connect() takes the port as separate argument. Therefore, we
-		* have to extract it from the host string (if povided).
-		*/
+		 * pg_connect() takes the port as separate argument. Therefore, we
+		 * have to extract it from the host string (if povided).
+		 */
 
 		// Check for empty port
 		if (!($this->options['port']))
@@ -310,7 +319,7 @@ class PostgresqlDriver extends DatabaseDriver
 	 * @param   boolean  $new    False to return the last query set, True to return a new Query object.
 	 * @param   boolean  $asObj  False to return last query as string, true to get Postgresql query object.
 	 *
-	 * @return  \Joomla\Database\Postgresql\PostgresqlQuery  The current query object or a new object extending the Query class.
+	 * @return  PostgresqlQuery  The current query object or a new object extending the Query class.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -379,29 +388,29 @@ class PostgresqlDriver extends DatabaseDriver
 		$tableSub = $this->replacePrefix($table);
 
 		$this->setQuery('
-				SELECT a.attname AS "column_name",
-					pg_catalog.format_type(a.atttypid, a.atttypmod) as "type",
-					CASE WHEN a.attnotnull IS TRUE
-						THEN \'NO\'
-						ELSE \'YES\'
-					END AS "null",
-					CASE WHEN pg_catalog.pg_get_expr(adef.adbin, adef.adrelid, true) IS NOT NULL
-						THEN pg_catalog.pg_get_expr(adef.adbin, adef.adrelid, true)
-					END as "Default",
-					CASE WHEN pg_catalog.col_description(a.attrelid, a.attnum) IS NULL
-					THEN \'\'
-					ELSE pg_catalog.col_description(a.attrelid, a.attnum)
-					END  AS "comments"
-				FROM pg_catalog.pg_attribute a
-				LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
-				LEFT JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
-				WHERE a.attrelid =
-					(SELECT oid FROM pg_catalog.pg_class WHERE relname=' . $this->quote($tableSub) . '
-						AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE
-						nspname = \'public\')
-					)
-				AND a.attnum > 0 AND NOT a.attisdropped
-				ORDER BY a.attnum'
+			SELECT a.attname AS "column_name",
+				pg_catalog.format_type(a.atttypid, a.atttypmod) as "type",
+				CASE WHEN a.attnotnull IS TRUE
+					THEN \'NO\'
+					ELSE \'YES\'
+				END AS "null",
+				CASE WHEN pg_catalog.pg_get_expr(adef.adbin, adef.adrelid, true) IS NOT NULL
+					THEN pg_catalog.pg_get_expr(adef.adbin, adef.adrelid, true)
+				END as "Default",
+				CASE WHEN pg_catalog.col_description(a.attrelid, a.attnum) IS NULL
+				THEN \'\'
+				ELSE pg_catalog.col_description(a.attrelid, a.attnum)
+				END  AS "comments"
+			FROM pg_catalog.pg_attribute a
+			LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
+			LEFT JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
+			WHERE a.attrelid =
+				(SELECT oid FROM pg_catalog.pg_class WHERE relname=' . $this->quote($tableSub) . '
+					AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE
+					nspname = \'public\')
+				)
+			AND a.attnum > 0 AND NOT a.attisdropped
+			ORDER BY a.attnum'
 		);
 
 		$fields = $this->loadObjectList();
@@ -454,16 +463,16 @@ class PostgresqlDriver extends DatabaseDriver
 		{
 			// Get the details columns information.
 			$this->setQuery('
-					SELECT indexname AS "idxName", indisprimary AS "isPrimary", indisunique  AS "isUnique",
-						CASE WHEN indisprimary = true THEN
-							( SELECT \'ALTER TABLE \' || tablename || \' ADD \' || pg_catalog.pg_get_constraintdef(const.oid, true)
-								FROM pg_constraint AS const WHERE const.conname= pgClassFirst.relname )
-						ELSE pg_catalog.pg_get_indexdef(indexrelid, 0, true)
-						END AS "Query"
-					FROM pg_indexes
-					LEFT JOIN pg_class AS pgClassFirst ON indexname=pgClassFirst.relname
-					LEFT JOIN pg_index AS pgIndex ON pgClassFirst.oid=pgIndex.indexrelid
-					WHERE tablename=' . $this->quote($table) . ' ORDER BY indkey'
+				SELECT indexname AS "idxName", indisprimary AS "isPrimary", indisunique  AS "isUnique",
+					CASE WHEN indisprimary = true THEN
+						( SELECT \'ALTER TABLE \' || tablename || \' ADD \' || pg_catalog.pg_get_constraintdef(const.oid, true)
+							FROM pg_constraint AS const WHERE const.conname= pgClassFirst.relname )
+					ELSE pg_catalog.pg_get_indexdef(indexrelid, 0, true)
+					END AS "Query"
+				FROM pg_indexes
+				LEFT JOIN pg_class AS pgClassFirst ON indexname=pgClassFirst.relname
+				LEFT JOIN pg_index AS pgIndex ON pgClassFirst.oid=pgIndex.indexrelid
+				WHERE tablename=' . $this->quote($table) . ' ORDER BY indkey'
 			);
 			$keys = $this->loadObjectList();
 
@@ -487,12 +496,12 @@ class PostgresqlDriver extends DatabaseDriver
 
 		$query = $this->getQuery(true);
 		$query->select('table_name')
-				->from('information_schema.tables')
-				->where('table_type=' . $this->quote('BASE TABLE'))
-				->where(
-					'table_schema NOT IN (' . $this->quote('pg_catalog') . ', ' . $this->quote('information_schema') . ')'
-				)
-				->order('table_name ASC');
+			->from('information_schema.tables')
+			->where('table_type=' . $this->quote('BASE TABLE'))
+			->where(
+				'table_schema NOT IN (' . $this->quote('pg_catalog') . ', ' . $this->quote('information_schema') . ')'
+			)
+			->order('table_name ASC');
 
 		$this->setQuery($query);
 		$tables = $this->loadColumn();
@@ -533,13 +542,13 @@ class PostgresqlDriver extends DatabaseDriver
 			// Get the details columns information.
 			$query = $this->getQuery(true);
 			$query->select($this->quoteName($name, $as))
-					->from('pg_class AS s')
-					->leftJoin("pg_depend d ON d.objid=s.oid AND d.classid='pg_class'::regclass AND d.refclassid='pg_class'::regclass")
-					->leftJoin('pg_class t ON t.oid=d.refobjid')
-					->leftJoin('pg_namespace n ON n.oid=t.relnamespace')
-					->leftJoin('pg_attribute a ON a.attrelid=t.oid AND a.attnum=d.refobjsubid')
-					->leftJoin('information_schema.sequences AS info ON info.sequence_name=s.relname')
-					->where("s.relkind='S' AND d.deptype='a' AND t.relname=" . $this->quote($table));
+				->from('pg_class AS s')
+				->leftJoin("pg_depend d ON d.objid=s.oid AND d.classid='pg_class'::regclass AND d.refclassid='pg_class'::regclass")
+				->leftJoin('pg_class t ON t.oid=d.refobjid')
+				->leftJoin('pg_namespace n ON n.oid=t.relnamespace')
+				->leftJoin('pg_attribute a ON a.attrelid=t.oid AND a.attnum=d.refobjsubid')
+				->leftJoin('information_schema.sequences AS info ON info.sequence_name=s.relname')
+				->where("s.relkind='S' AND d.deptype='a' AND t.relname=" . $this->quote($table));
 			$this->setQuery($query);
 			$seq = $this->loadObjectList();
 
@@ -603,13 +612,13 @@ class PostgresqlDriver extends DatabaseDriver
 		/* find sequence column name */
 		$colNameQuery = $this->getQuery(true);
 		$colNameQuery->select('column_default')
-						->from('information_schema.columns')
-						->where(
-								"table_name=" . $this->quote(
-									$this->replacePrefix(str_replace('"', '', $table[0]))
-								), 'AND'
-						)
-						->where("column_default LIKE '%nextval%'");
+			->from('information_schema.columns')
+			->where(
+				"table_name=" . $this->quote(
+					$this->replacePrefix(str_replace('"', '', $table[0]))
+				), 'AND'
+			)
+			->where("column_default LIKE '%nextval%'");
 
 		$this->setQuery($colNameQuery);
 		$colName = $this->loadRow();
@@ -773,13 +782,13 @@ class PostgresqlDriver extends DatabaseDriver
 		{
 			/* Rename indexes */
 			$this->setQuery(
-							'SELECT relname
-								FROM pg_class
-								WHERE oid IN (
-									SELECT indexrelid
-									FROM pg_index, pg_class
-									WHERE pg_class.relname=' . $this->quote($oldTable, true) . '
-									AND pg_class.oid=pg_index.indrelid );'
+				'SELECT relname
+					FROM pg_class
+					WHERE oid IN (
+						SELECT indexrelid
+						FROM pg_index, pg_class
+						WHERE pg_class.relname=' . $this->quote($oldTable, true) . '
+						AND pg_class.oid=pg_index.indrelid );'
 			);
 
 			$oldIndexes = $this->loadColumn();
@@ -793,16 +802,16 @@ class PostgresqlDriver extends DatabaseDriver
 
 			/* Rename sequence */
 			$this->setQuery(
-							'SELECT relname
-								FROM pg_class
-								WHERE relkind = \'S\'
-								AND relnamespace IN (
-									SELECT oid
-									FROM pg_namespace
-									WHERE nspname NOT LIKE \'pg_%\'
-									AND nspname != \'information_schema\'
-								)
-								AND relname LIKE \'%' . $oldTable . '%\' ;'
+				'SELECT relname
+					FROM pg_class
+					WHERE relkind = \'S\'
+					AND relnamespace IN (
+						SELECT oid
+						FROM pg_namespace
+						WHERE nspname NOT LIKE \'pg_%\'
+						AND nspname != \'information_schema\'
+					)
+					AND relname LIKE \'%' . $oldTable . '%\' ;'
 			);
 
 			$oldSequences = $this->loadColumn();
@@ -1103,8 +1112,8 @@ class PostgresqlDriver extends DatabaseDriver
 		$query = $this->getQuery(true);
 
 		$query->insert($this->quoteName($table))
-				->columns($fields)
-				->values(implode(',', $values));
+			->columns($fields)
+			->values(implode(',', $values));
 
 		$retVal = false;
 
@@ -1162,11 +1171,11 @@ class PostgresqlDriver extends DatabaseDriver
 
 		$query = $this->getQuery(true);
 		$query->select('table_name')
-				->from('information_schema.tables')
-				->where('table_type=' . $this->quote('BASE TABLE'))
-				->where(
-					'table_schema NOT IN (' . $this->quote('pg_catalog') . ', ' . $this->quote('information_schema') . ' )'
-				);
+			->from('information_schema.tables')
+			->where('table_type=' . $this->quote('BASE TABLE'))
+			->where(
+				'table_schema NOT IN (' . $this->quote('pg_catalog') . ', ' . $this->quote('information_schema') . ' )'
+			);
 
 		$this->setQuery($query);
 		$tableList = $this->loadColumn();

@@ -21,7 +21,6 @@ class Container
 	 * Holds the key aliases.
 	 *
 	 * @var    array  $aliases
-	 *
 	 * @since  1.0
 	 */
 	protected $aliases = array();
@@ -30,7 +29,6 @@ class Container
 	 * Holds the shared instances.
 	 *
 	 * @var    array  $instances
-	 *
 	 * @since  1.0
 	 */
 	protected $instances = array();
@@ -40,7 +38,6 @@ class Container
 	 * the item is meant to be a shared resource.
 	 *
 	 * @var    array  $dataStore
-	 *
 	 * @since  1.0
 	 */
 	protected $dataStore = array();
@@ -49,7 +46,6 @@ class Container
 	 * Parent for hierarchical containers.
 	 *
 	 * @var    Container
-	 *
 	 * @since  1.0
 	 */
 	protected $parent;
@@ -59,7 +55,7 @@ class Container
 	 *
 	 * @param   Container  $parent  Parent for hierarchical containers.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(Container $parent = null)
 	{
@@ -72,7 +68,9 @@ class Container
 	 * @param   string  $alias  The alias name
 	 * @param   string  $key    The key to alias
 	 *
-	 * @return  Container
+	 * @return  Container  This object for chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function alias($alias, $key)
 	{
@@ -162,9 +160,9 @@ class Container
 	 * Create a child Container with a new property scope that
 	 * that has the ability to access the parent scope when resolving.
 	 *
-	 * @return Container
+	 * @return  Container  This object for chaining.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function createChild()
 	{
@@ -263,9 +261,9 @@ class Container
 	 * @param   boolean  $shared     True to create and store a shared instance.
 	 * @param   boolean  $protected  True to protect this item from being overwritten. Useful for services.
 	 *
-	 * @return  \Joomla\DI\Container  This instance to support chaining.
+	 * @return  Container  This object for chaining.
 	 *
-	 * @throws  \OutOfBoundsException      Thrown if the provided key is already set and is protected.
+	 * @throws  \OutOfBoundsException  Thrown if the provided key is already set and is protected.
 	 *
 	 * @since   1.0
 	 */
@@ -300,7 +298,7 @@ class Container
 	 * @param   callable  $callback  Callable function to run when requesting the specified $key.
 	 * @param   bool      $shared    True to create and store a shared instance.
 	 *
-	 * @return  \Joomla\DI\Container  This instance to support chaining.
+	 * @return  Container  This object for chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -316,7 +314,7 @@ class Container
 	 * @param   callable  $callback   Callable function to run when requesting the specified $key.
 	 * @param   bool      $protected  True to create and store a shared instance.
 	 *
-	 * @return  \Joomla\DI\Container  This instance to support chaining.
+	 * @return  Container  This object for chaining.
 	 *
 	 * @since   1.0
 	 */
@@ -364,6 +362,8 @@ class Container
 	 * @param   string  $key  The key for which to get the stored item.
 	 *
 	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	protected function getRaw($key)
 	{

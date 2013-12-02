@@ -11,7 +11,7 @@ namespace Joomla\Database\Sqlsrv;
 use Joomla\Database\DatabaseIterator;
 
 /**
- * SQL server database iterator.
+ * SQL Server Database Iterator.
  *
  * @since  1.0
  */
@@ -33,7 +33,7 @@ class SqlsrvIterator extends DatabaseIterator
 	/**
 	 * Method to fetch a row from the result set cursor as an object.
 	 *
-	 * @return  mixed   Either the next row from the result set or false if there are no more rows.
+	 * @return  mixed  Either the next row from the result set or false if there are no more rows.
 	 *
 	 * @since   1.0
 	 */

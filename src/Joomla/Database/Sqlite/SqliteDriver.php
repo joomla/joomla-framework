@@ -12,9 +12,9 @@ use Sqlite3;
 use Joomla\Database\Pdo\PdoDriver;
 
 /**
- * SQLite database driver
+ * SQLite database driver supporting PDO based connections
  *
- * @see    http://php.net/pdo
+ * @see    http://php.net/manual/en/ref.pdo-sqlite.php
  * @since  1.0
  */
 class SqliteDriver extends PdoDriver
@@ -88,8 +88,7 @@ class SqliteDriver extends PdoDriver
 	/**
 	 * Method to escape a string for usage in an SQLite statement.
 	 *
-	 * Note: Using query objects with bound variables is
-	 * preferable to the below.
+	 * Note: Using query objects with bound variables is preferable to the below.
 	 *
 	 * @param   string   $text   The string to be escaped.
 	 * @param   boolean  $extra  Unused optional parameter to provide extra escaping.
@@ -253,6 +252,7 @@ class SqliteDriver extends PdoDriver
 	{
 		$this->connect();
 
+		/* @type  SqliteQuery  $query */
 		$query = $this->getQuery(true);
 
 		$type = 'table';
@@ -451,15 +451,17 @@ class SqliteDriver extends PdoDriver
 
 		if (!$asSavepoint || !$this->transactionDepth)
 		{
-			return parent::transactionStart($asSavepoint);
+			parent::transactionStart($asSavepoint);
 		}
-
-		$savepoint = 'SP_' . $this->transactionDepth;
-		$this->setQuery('SAVEPOINT ' . $this->quoteName($savepoint));
-
-		if ($this->execute())
+		else
 		{
-			$this->transactionDepth++;
+			$savepoint = 'SP_' . $this->transactionDepth;
+			$this->setQuery('SAVEPOINT ' . $this->quoteName($savepoint));
+
+			if ($this->execute())
+			{
+				$this->transactionDepth++;
+			}
 		}
 	}
 }

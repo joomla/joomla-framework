@@ -20,19 +20,25 @@ use Joomla\Database\Query\LimitableInterface;
 class OracleQuery extends PdoQuery implements PreparableInterface, LimitableInterface
 {
 	/**
-	 * @var    integer  The limit for the result set.
+	 * The limit for the result set.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $limit;
 
 	/**
-	 * @var    integer  The offset for the result set.
+	 * The offset for the result set.
+	 *
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $offset;
 
 	/**
-	 * @var    mixed  Holds key / value pair of bound objects.
+	 * Holds key / value pair of bound objects.
+	 *
+	 * @var    mixed
 	 * @since  1.0
 	 */
 	protected $bounded = array();
@@ -130,9 +136,7 @@ class OracleQuery extends PdoQuery implements PreparableInterface, LimitableInte
 				break;
 		}
 
-		parent::clear($clause);
-
-		return $this;
+		return parent::clear($clause);
 	}
 
 	/**

@@ -54,19 +54,19 @@ class Simple implements PasswordInterface
 			case PasswordInterface::BLOWFISH:
 				$salt = '$2y$' . str_pad($this->cost, 2, '0', STR_PAD_LEFT) . '$' . $this->getSalt(22);
 
-			return crypt($password, $salt);
+				return crypt($password, $salt);
 
 			case PasswordInterface::MD5:
 				$salt = $this->getSalt(12);
 
 				$salt = '$1$' . $salt;
 
-			return crypt($password, $salt);
+				return crypt($password, $salt);
 
 			case PasswordInterface::JOOMLA:
 				$salt = $this->getSalt(32);
 
-			return md5($password . $salt) . ':' . $salt;
+				return md5($password . $salt) . ':' . $salt;
 
 			default:
 				throw new \InvalidArgumentException(sprintf('Hash type %s is not supported', $type));
@@ -170,7 +170,7 @@ class Simple implements PasswordInterface
 	/**
 	 * Gets the default type
 	 *
-	 * @return   string  $type  The default type
+	 * @return  string  $type  The default type
 	 *
 	 * @since   1.0
 	 */

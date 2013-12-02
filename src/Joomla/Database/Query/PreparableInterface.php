@@ -10,6 +10,7 @@ namespace Joomla\Database\Query;
 
 /**
  * Joomla Database Query Preparable Interface.
+ *
  * Adds bind/unbind methods as well as a getBounded() method
  * to retrieve the stored bounded variables on demand prior to
  * query execution.
