@@ -49,6 +49,7 @@ class StreamTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests getStream()
 	 *
+	 * @return  void
 	 */
 	public function testGetStream()
 	{

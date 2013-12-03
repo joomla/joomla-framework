@@ -252,12 +252,12 @@ class DirectmessagesTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedUser()
 	{
 		// User ID or screen name

@@ -417,8 +417,8 @@ class Image implements LoggerAwareInterface
 
 			// @codeCoverageIgnoreEnd
 		}
-		// Swap out the current handle for the new image handle.
 		else
+		// Swap out the current handle for the new image handle.
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -758,8 +758,8 @@ class Image implements LoggerAwareInterface
 
 			// @codeCoverageIgnoreEnd
 		}
-		// Swap out the current handle for the new image handle.
 		else
+		// Swap out the current handle for the new image handle.
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -846,8 +846,8 @@ class Image implements LoggerAwareInterface
 
 			// @codeCoverageIgnoreEnd
 		}
-		// Swap out the current handle for the new image handle.
 		else
+		// Swap out the current handle for the new image handle.
 		{
 			// Free the memory from the current handle
 			$this->destroy();
@@ -1010,8 +1010,8 @@ class Image implements LoggerAwareInterface
 		{
 			$height = (int) round($this->getHeight() * (float) str_replace('%', '', $height) / 100);
 		}
-		// Else do some rounding so we come out with a sane integer value.
 		else
+		// Else do some rounding so we come out with a sane integer value.
 		{
 			$height = (int) round((float) $height);
 		}
@@ -1053,8 +1053,8 @@ class Image implements LoggerAwareInterface
 		{
 			$width = (int) round($this->getWidth() * (float) str_replace('%', '', $width) / 100);
 		}
-		// Else do some rounding so we come out with a sane integer value.
 		else
+		// Else do some rounding so we come out with a sane integer value.
 		{
 			$width = (int) round((float) $width);
 		}

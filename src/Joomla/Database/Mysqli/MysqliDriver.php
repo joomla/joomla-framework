@@ -111,7 +111,11 @@ class MysqliDriver extends DatabaseDriver
 		 */
 		$port = isset($this->options['port']) ? $this->options['port'] : 3306;
 
-		if (preg_match('/^(?P<host>((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(:(?P<port>.+))?$/', $this->options['host'], $matches))
+		if (preg_match(
+			'/^(?P<host>((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(:(?P<port>.+))?$/',
+			$this->options['host'],
+			$matches
+			))
 		{
 			// It's an IPv4 address with or without port
 			$this->options['host'] = $matches['host'];
@@ -147,6 +151,7 @@ class MysqliDriver extends DatabaseDriver
 			$this->options['host'] = 'localhost';
 			$port = $matches['port'];
 		}
+
 		// ... else we assume normal (naked) IPv6 address, so host and port stay as they are or default
 
 		// Get the port number or socket name

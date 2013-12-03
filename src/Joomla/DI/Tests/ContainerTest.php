@@ -18,7 +18,7 @@ include_once 'Stubs/stubs.php';
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
- 	 * Holds the Container instance for testing.
+	 * Holds the Container instance for testing.
 	 *
 	 * @var  \Joomla\DI\Container
 	 */
@@ -317,7 +317,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 			'foo',
 			function ()
 			{
-				// noop
+				// Noop.
 			}
 		);
 	}

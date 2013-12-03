@@ -273,4 +273,3 @@ function getOauthCallback($url, array $headers = null, $timeout = null)
 
 	return $response;
 }
-

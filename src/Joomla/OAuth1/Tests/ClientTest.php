@@ -95,12 +95,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	* Provides test data.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedAuthenticate()
 	{
 		// Token, fail and oauth version.
@@ -254,12 +254,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	* Provides test data.
-	*
-	* @return array
-	*
-	* @since  1.0
-	*/
+	 * Provides test data.
+	 *
+	 * @return array
+	 *
+	 * @since  1.0
+	 */
 	public function seedOauthRequest()
 	{
 		// Method

@@ -18,16 +18,16 @@ class GzipTest extends \PHPUnit_Framework_TestCase
 	protected static $outputPath;
 
 	/**
-     * @var Joomla\Archive\Gzip
-     */
+	 * @var Joomla\Archive\Gzip
+	 */
 	protected $object;
 
 	/**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
 	 *
 	 * @return void
-     */
+	 */
 	protected function setUp()
 	{
 		parent::setUp();
@@ -122,10 +122,10 @@ class GzipTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-     * @todo Implement test_getFilePosition().
+	 * @todo Implement test_getFilePosition().
 	 *
 	 * @return void
-     */
+	 */
 	public function test_getFilePosition()
 	{
 		// Remove the following lines when you implement this test.

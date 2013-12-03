@@ -212,12 +212,12 @@ class FriendsTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedFriendshipDetails()
 	{
 		// User IDs or screen names
@@ -662,12 +662,12 @@ class FriendsTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedFriendship()
 	{
 		// User ID or screen name
@@ -851,12 +851,12 @@ class FriendsTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedFriendshipsLookup()
 	{
 		// User ID and screen name
