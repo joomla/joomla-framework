@@ -191,8 +191,18 @@ $registry->toString('yaml');
 ## Using XML
 
 Keep in mind that due to XML complexity, special format must be kept when loading into Registry.
+By default, the parent XML element should be named "registry" and all child elements should be named "node".
+The nodes should include a "name" attribute, for the name of the value. The nodes can be optionally filtered with a "type"
+attribute. Valid types are:
 
-Loading input
+* array
+* boolean
+* double
+* integer
+* object (default)
+* string
+
+**Loading input**
 
 ``` xml
 <?xml version="1.0"?>
@@ -216,7 +226,7 @@ with `Registry`
 $registry = new Registry;
 
 // Load file or string
-$registry->loadFile($xmlFilem 'xml');
+$registry->loadFile($xmlFile, 'xml');
 $registry->loadString($xmlString, 'xml');
 ```
 
@@ -235,6 +245,17 @@ Array(
 		foo_6_a => value
 	)
 )
+```
+
+The names of the XML import nodes can be customised using options. For example:
+
+``` php
+$registry = new Registry(array(
+    'name' => 'data',
+    'nodeName' => 'value'
+));
+
+$registry->loadString('<data><value name="foo" type="string">bar</value></data>, 'xml');
 ```
 
 ## Installation via Composer
