@@ -6,6 +6,8 @@
 
 namespace Joomla\DI\Tests;
 
+// @codingStandardsIgnoreStart
+
 interface StubInterface {}
 
 class Stub1 implements StubInterface {}

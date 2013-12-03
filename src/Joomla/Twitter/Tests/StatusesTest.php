@@ -14,10 +14,10 @@ use \stdClass;
 require_once __DIR__ . '/case/TwitterTestCase.php';
 
 /**
-* Test class for Twitter Statuses.
-*
-* @since  1.0
-*/
+ * Test class for Twitter Statuses.
+ *
+ * @since  1.0
+ */
 class StatusesTest extends TwitterTestCase
 {
 	/**
@@ -142,12 +142,12 @@ class StatusesTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedUser()
 	{
 		// User ID or screen name
@@ -851,12 +851,12 @@ class StatusesTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedTweetWithMedia()
 	{
 		// User ID or screen name
@@ -1009,12 +1009,12 @@ class StatusesTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedGetoembed()
 	{
 		// URL

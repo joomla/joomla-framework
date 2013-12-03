@@ -45,7 +45,7 @@ abstract class Object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(&$options = array(), Http $client, OAuth $oauth)
+	public function __construct(&$options, Http $client, OAuth $oauth)
 	{
 		$this->options = $options;
 		$this->client = $client;

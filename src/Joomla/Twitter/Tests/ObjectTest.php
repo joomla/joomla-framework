@@ -177,9 +177,13 @@ class ObjectTest extends TwitterTestCase
 	 */
 	public function testGetOption()
 	{
-		TestHelper::setValue($this->object, 'options', array(
+		TestHelper::setValue(
+			$this->object,
+			'options',
+			array(
 				'api.url' => 'https://example.com/gettest'
-			));
+			)
+		);
 
 		$this->assertThat(
 			$this->object->getOption('api.url'),

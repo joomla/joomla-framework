@@ -36,7 +36,7 @@ class OAuth extends Client
 	 *
 	 * @since 1.0
 	 */
-	public function __construct($options = array(), Http $client, Input $input, AbstractWebApplication $application)
+	public function __construct($options, Http $client, Input $input, AbstractWebApplication $application)
 	{
 		$this->options = $options;
 

@@ -372,12 +372,12 @@ class NosqlDriver extends DatabaseDriver
 	}
 
 	/**
-	* Set the connection to use UTF-8 character encoding.
-	*
-	* @return  boolean  True on success.
-	*
-	* @since   1.0
-	*/
+	 * Set the connection to use UTF-8 character encoding.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   1.0
+	 */
 	public function setUTF()
 	{
 		return false;

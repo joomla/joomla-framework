@@ -344,7 +344,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 
 		// Checking result is self that we can chaining
 		$this->assertEquals($result, $registry, '$result should be $registry self that support chaining');
-		
+
 		// Test getting a known value.
 		$this->assertThat(
 			$registry->get('section.foo'),
@@ -367,7 +367,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	{
 		$registry = new Registry;
 		$result = $registry->loadString('foo="testloadini1"', 'INI');
-		
+
 		// Test getting a known value.
 		$this->assertThat(
 			$registry->get('foo'),
@@ -437,7 +437,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 
 		// Test that loadObject will auto recursive merge
 		$registry = new Registry;
-		
+
 		$object1 = '{
 			"foo" : "foo value",
 			"bar" : {
@@ -445,19 +445,19 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 				"bar2" : "bar value 2"
 			}
 		}';
-		
+
 		$object2 = '{
 			"foo" : "foo value",
 			"bar" : {
 				"bar2" : "new bar value 2"
 			}
 		}';
-		
+
 		$registry->loadObject(json_decode($object1));
 		$registry->loadObject(json_decode($object2));
-		
-		$this->assertEquals($registry->get('bar.bar2'), 'new bar value 2' , 'Line: ' . __LINE__ . '. bar.bar2 shuould be override.');
-		$this->assertEquals($registry->get('bar.bar1'), 'bar value 1' , 'Line: ' . __LINE__ . '. bar.bar1 should not be overrided.');
+
+		$this->assertEquals($registry->get('bar.bar2'), 'new bar value 2', 'Line: ' . __LINE__ . '. bar.bar2 shuould be override.');
+		$this->assertEquals($registry->get('bar.bar1'), 'bar value 1', 'Line: ' . __LINE__ . '. bar.bar1 should not be overrided.');
 	}
 
 	/**
@@ -529,7 +529,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 
 		// Test recursive merge
 		$registry = new Registry;
-		
+
 		$object1 = '{
 			"foo" : "foo value",
 			"bar" : {
@@ -537,31 +537,31 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 				"bar2" : "bar value 2"
 			}
 		}';
-		
+
 		$object2 = '{
 			"foo" : "foo value",
 			"bar" : {
 				"bar2" : "new bar value 2"
 			}
 		}';
-		
+
 		$registry1 = new Registry(json_decode($object1));
 		$registry2 = new Registry(json_decode($object2));
-		
+
 		$registry1->merge($registry2, true);
-		
-		$this->assertEquals($registry1->get('bar.bar2'), 'new bar value 2' , 'Line: ' . __LINE__ . '. bar.bar2 shuould be override.');
-		$this->assertEquals($registry1->get('bar.bar1'), 'bar value 1' , 'Line: ' . __LINE__ . '. bar.bar1 should not be overrided.');
-		
+
+		$this->assertEquals($registry1->get('bar.bar2'), 'new bar value 2', 'Line: ' . __LINE__ . '. bar.bar2 shuould be override.');
+		$this->assertEquals($registry1->get('bar.bar1'), 'bar value 1', 'Line: ' . __LINE__ . '. bar.bar1 should not be overrided.');
+
 		// Chicking we merge a non Registry object will return error.
 		$a = new Registry;
 		$b = new stdClass;
-		
+
 		try
 		{
 			$a->merge($b);
 		}
-		catch(Exception $e)
+		catch (Exception $e)
 		{
 			$this->assertInstanceOf('PHPUnit_Framework_Error', $e, 'Line: ' . __LINE__ . '. Attempt to merge non Registry should return Error');
 		}

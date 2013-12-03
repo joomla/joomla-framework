@@ -90,10 +90,13 @@ class JFormFieldLanguageTest extends TestDatabase
 		$method = $reflection->getMethod('createLanguageList');
 		$method->setAccessible(true);
 
-		$list = $method->invokeArgs($field, array(
+		$list = $method->invokeArgs(
+			$field,
+			array(
 				'en-GB',
 				__DIR__ . '/data'
-			));
+			)
+		);
 
 		$listCompareEqual = array(
 			array(

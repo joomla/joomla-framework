@@ -419,7 +419,7 @@ class PostgresqlImporter extends DatabaseImporter
 					preg_match('/^[0-9]$/', $field['Default']) ? $field['Default'] : $this->db->quote((string) $field['Default'])
 					: null;
 
-		// nextval() as default value means that type field is serial
+		// Note, nextval() as default value means that type field is serial.
 		if (strpos($fDefault, 'nextval') !== false)
 		{
 			$sql = $this->db->quoteName($fName) . ' SERIAL';
