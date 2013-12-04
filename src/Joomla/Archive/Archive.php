@@ -160,7 +160,13 @@ class Archive
 	{
 		if (!($class instanceof ExtractableInterface))
 		{
-			throw new \InvalidArgumentException(sprintf('The provided %s adapter %s must implement Joomla\\Archive\\ExtractableInterface', $type), 500);
+			throw new \InvalidArgumentException(
+				sprintf(
+					'The provided adapter "%s" (class "%s") must implement Joomla\\Archive\\ExtractableInterface',
+					$type,
+					$class
+				)
+			);
 		}
 
 		if ($override || !isset($this->adapters[$type]))
@@ -179,7 +185,7 @@ class Archive
 	 * @return  ExtractableInterface  Adapter for the requested type
 	 *
 	 * @since   1.0
-	 * @throws  \UnexpectedValueException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function getAdapter($type)
 	{
@@ -193,7 +199,13 @@ class Archive
 
 			if (!class_exists($class) || !$class::isSupported())
 			{
-				throw new \UnexpectedValueException(sprintf('Archive adapter %s not found or supported.', $type), 500);
+				throw new \InvalidArgumentException(
+					sprintf(
+						'Archive adapter "%s" (class "%s") not found or supported.',
+						$type,
+						$class
+					)
+				);
 			}
 
 			$this->adapters[$type] = new $class($this->options);
