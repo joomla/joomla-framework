@@ -220,7 +220,8 @@ class Authorization extends Package
 	/**
 	 * Method to get the rate limit for the authenticated user.
 	 *
-	 * @return  object
+	 * @return  object  Returns an object with the properties of `limit` and `remaining`. If there is no limit, the
+	 *                  `limit` property will be false.
 	 *
 	 * @since   1.0
 	 * @throws  \DomainException
@@ -236,6 +237,12 @@ class Authorization extends Package
 		// Validate the response code.
 		if ($response->code != 200)
 		{
+			if ($response->code == 404)
+			{
+				// Unlimited rate for Github Enterprise sites and trusted users.
+				return (object) array('limit' => false, 'remaining' => null);
+			}
+
 			// Decode the error response and throw an exception.
 			$error = json_decode($response->body);
 			throw new \DomainException($error->message, $response->code);
