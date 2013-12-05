@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 use Joomla\Date\Date;
 use Joomla\Uri\Uri;
 
@@ -25,7 +25,7 @@ use Joomla\Uri\Uri;
  * @property-read  Issues\Labels      $labels      GitHub API object for labels.
  * @property-read  Issues\Milestones  $milestones  GitHub API object for milestones.
  */
-class Issues extends Package
+class Issues extends AbstractPackage
 {
 	/**
 	 * Method to create an issue.

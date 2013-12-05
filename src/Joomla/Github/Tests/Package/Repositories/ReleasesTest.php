@@ -6,7 +6,7 @@
 
 namespace Joomla\Github\Tests;
 
-use Joomla\Github\Package\Data\Tags;
+use Joomla\Github\Package\Repositories\Releases;
 use Joomla\Registry\Registry;
 
 /**
@@ -14,7 +14,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class TagsTest extends \PHPUnit_Framework_TestCase
+class ReleasesTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
@@ -29,7 +29,7 @@ class TagsTest extends \PHPUnit_Framework_TestCase
 	protected $client;
 
 	/**
-	 * @var    Tags  Object under test.
+	 * @var    Releases  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;
@@ -68,7 +68,7 @@ class TagsTest extends \PHPUnit_Framework_TestCase
 		$this->client   = $this->getMock('\\Joomla\\Github\\Http', array('get', 'post', 'delete', 'patch', 'put'));
 		$this->response = $this->getMock('\\Joomla\\Http\\Response');
 
-		$this->object = new Tags($this->options, $this->client);
+		$this->object = new Releases($this->options, $this->client);
 	}
 
 	/**
@@ -83,7 +83,7 @@ class TagsTest extends \PHPUnit_Framework_TestCase
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/repos/joomla/joomla-platform/git/tags/12345', 0, 0)
+			->with('/repos/joomla/joomla-platform/releases/12345', 0, 0)
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
@@ -102,14 +102,14 @@ class TagsTest extends \PHPUnit_Framework_TestCase
 		$this->response->code = 201;
 		$this->response->body = $this->sampleString;
 
-		$data = '{"tag":"0.1","message":"Message","object":"12345","type":"commit","tagger":{"name":"elkuku","email":"email@example.com","date":"123456789"}}';
+		$data = '{"tag_name":"0.1","target_commitish":"targetCommitish","name":"master","body":"New release","draft":false,"prerelease":false}';
 		$this->client->expects($this->once())
 			->method('post')
-			->with('/repos/joomla/joomla-platform/git/tags', $data, 0, 0)
+			->with('/repos/joomla/joomla-platform/releases', $data, 0, 0)
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->create('joomla', 'joomla-platform', '0.1', 'Message', '12345', 'commit', 'elkuku', 'email@example.com', '123456789'),
+			$this->object->create('joomla', 'joomla-platform', '0.1', 'targetCommitish', 'master', 'New release', false, false),
 			$this->equalTo(json_decode($this->response->body))
 		);
 	}

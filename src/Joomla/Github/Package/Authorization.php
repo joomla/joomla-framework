@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 use Joomla\Uri\Uri;
 
 /**
@@ -18,7 +18,7 @@ use Joomla\Uri\Uri;
  *
  * @since  1.0
  */
-class Authorization extends Package
+class Authorization extends AbstractPackage
 {
 	/**
 	 * Method to create an authorization.

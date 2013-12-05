@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Zen class for the Joomla Framework.
@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @documentation  http://developer.github.com/guides/getting-started/
  */
-class Zen extends Package
+class Zen extends AbstractPackage
 {
 	/**
 	 * Get a random response about one of our design philosophies.

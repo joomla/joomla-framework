@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Activity;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 use Joomla\Date\Date;
 
 /**
@@ -18,7 +18,7 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  */
-class Notifications extends Package
+class Notifications extends AbstractPackage
 {
 	/**
 	 * List your notifications.

@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Repositories;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Hooks class for the Joomla Framework.
@@ -17,7 +17,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Hooks extends Package
+class Hooks extends AbstractPackage
 {
 	/**
 	 * Array containing the allowed hook events

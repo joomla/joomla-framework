@@ -15,7 +15,7 @@ require_once __DIR__ . '/stubs/JGithubObjectMock.php';
  *
  * @since  1.0
  */
-class ObjectTest extends \PHPUnit_Framework_TestCase
+class AbstractGithubObjectTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.
@@ -30,7 +30,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 	protected $client;
 
 	/**
-	 * @var    \Joomla\Github\Object  Object under test.
+	 * @var    \Joomla\Github\Tests\ObjectMock  Object under test.
 	 * @since  1.0
 	 */
 	protected $object;

@@ -8,14 +8,14 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Meta class for the Joomla Framework.
  *
  * @since  1.0
  */
-class Meta extends Package
+class Meta extends AbstractPackage
 {
 	/**
 	 * Method to get the authorized IP addresses for services

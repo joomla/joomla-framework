@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Activity class for the Joomla Framework.
@@ -26,10 +26,11 @@ use Joomla\Github\Package;
  * @property-read  Repositories\Hooks          $hooks          GitHub API object for hooks.
  * @property-read  Repositories\Keys           $keys           GitHub API object for keys.
  * @property-read  Repositories\Merging        $merging        GitHub API object for merging.
+ * @property-read  Repositories\Releases       $releases       GitHub API object for releases.
  * @property-read  Repositories\Statuses       $statuses       GitHub API object for statuses.
  * @property-read  Repositories\Statistics     $statistics     GitHub API object for statistics.
  */
-class Repositories extends Package
+class Repositories extends AbstractPackage
 {
 	/**
 	 * List your repositories.
@@ -86,6 +87,7 @@ class Repositories extends Package
 	 * @param   string  $type       Sort type. all, owner, member. Default: all.
 	 * @param   string  $sort       Sort field. created, updated, pushed, full_name, default: full_name.
 	 * @param   string  $direction  Sort direction. asc or desc, default: when using full_name: asc, otherwise desc.
+	 *
 	 *
 	 * @return  object
 	 *
@@ -301,9 +303,7 @@ class Repositories extends Package
 	 * @param   string   $repo   Repository name.
 	 * @param   boolean  $anon   Set to 1 or true to include anonymous contributors in results.
 	 *
-	 * @return  object
-	 *
-	 * @since   1.0
+	 * @return object
 	 */
 	public function getListContributors($owner, $repo, $anon = false)
 	{
@@ -327,9 +327,7 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return  object
-	 *
-	 * @since   1.0
+	 * @return object
 	 */
 	public function getListLanguages($owner, $repo)
 	{
@@ -348,9 +346,7 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return  object
-	 *
-	 * @since   1.0
+	 * @return object
 	 */
 	public function getListTeams($owner, $repo)
 	{
@@ -369,9 +365,7 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return  object
-	 *
-	 * @since   1.0
+	 * @return object
 	 */
 	public function getListTags($owner, $repo)
 	{
@@ -390,9 +384,7 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return  object
-	 *
-	 * @since   1.0
+	 * @return object
 	 */
 	public function getListBranches($owner, $repo)
 	{
@@ -412,9 +404,7 @@ class Repositories extends Package
 	 * @param   string  $repo    Repository name.
 	 * @param   string  $branch  Branch name.
 	 *
-	 * @return  object
-	 *
-	 * @since   1.0
+	 * @return object
 	 */
 	public function getBranch($owner, $repo, $branch)
 	{
@@ -435,9 +425,7 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return  object
-	 *
-	 * @since   1.0
+	 * @return object
 	 */
 	public function delete($owner, $repo)
 	{
