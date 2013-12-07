@@ -821,6 +821,35 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test exists
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testExists()
+	{
+		$this->fixture->set(
+			'foo',
+			function()
+			{
+				return new \stdClass;
+			}
+		);
+
+		$this->assertTrue(
+			$this->fixture->exists('foo'),
+			'exists sould return true'
+		);
+
+		$this->assertFalse(
+			$this->fixture->exists('bar'),
+			'exists sould return false'
+		);
+	}
+	
+
+	/**
 	 * Test getRaw
 	 *
 	 * @return  void
