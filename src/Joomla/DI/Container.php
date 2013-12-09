@@ -367,9 +367,7 @@ class Container
 	 */
 	public function exists($key)
 	{
-		$raw = $this->getRaw($key);
-
-		return (!is_null($raw));
+		return (bool) $this->getRaw($key);
 	}
 
 	/**

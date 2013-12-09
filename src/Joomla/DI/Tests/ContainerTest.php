@@ -829,22 +829,18 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testExists()
 	{
-		$this->fixture->set(
-			'foo',
-			function()
-			{
-				return new \stdClass;
-			}
-		);
+		$reflection = new \ReflectionProperty($this->fixture, 'dataStore');
+		$reflection->setAccessible(true);
+		$reflection->setValue($this->fixture, array('foo' => 'bar'));
 
 		$this->assertTrue(
 			$this->fixture->exists('foo'),
-			'exists sould return true'
+			'When calling exists on an item that has been set in the container, it should return true.'
 		);
 
 		$this->assertFalse(
-			$this->fixture->exists('bar'),
-			'exists sould return false'
+			$this->fixture->exists('baz'),
+			'When calling exists on an item that has not been set in the container, it should return false.'
 		);
 	}
 	
