@@ -821,6 +821,31 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test exists
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testExists()
+	{
+		$reflection = new \ReflectionProperty($this->fixture, 'dataStore');
+		$reflection->setAccessible(true);
+		$reflection->setValue($this->fixture, array('foo' => 'bar'));
+
+		$this->assertTrue(
+			$this->fixture->exists('foo'),
+			'When calling exists on an item that has been set in the container, it should return true.'
+		);
+
+		$this->assertFalse(
+			$this->fixture->exists('baz'),
+			'When calling exists on an item that has not been set in the container, it should return false.'
+		);
+	}
+	
+
+	/**
 	 * Test getRaw
 	 *
 	 * @return  void

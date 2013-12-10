@@ -357,6 +357,20 @@ class Container
 	}
 
 	/**
+	 * Method to check if specified dataStore key exists.
+	 *
+	 * @param   string  $key  Name of the dataStore key to check.
+	 *
+	 * @return  boolean  True for success
+	 *
+	 * @since   1.0
+	 */
+	public function exists($key)
+	{
+		return (bool) $this->getRaw($key);
+	}
+
+	/**
 	 * Get the raw data assigned to a key.
 	 *
 	 * @param   string  $key  The key for which to get the stored item.
