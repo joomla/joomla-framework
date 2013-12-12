@@ -61,7 +61,7 @@ abstract class DatabaseGcloudsqliCase extends DatabaseMysqliCase
 			{
 				case 'host':
 					// Add in our extra seperator to ensure it is ignored
-					self::$options['host'] = $v.'|/cloudsql/app-id:dbname';
+					self::$options['host'] = $v . '|/cloudsql/app-id:dbname';
 					break;
 				case 'dbname':
 					self::$options['database'] = $v;
@@ -91,6 +91,4 @@ abstract class DatabaseGcloudsqliCase extends DatabaseMysqliCase
 			self::$driver = null;
 		}
 	}
-
-
 }

@@ -15,7 +15,6 @@ namespace Joomla\Database\Tests;
  */
 class DriverGcloudsqliTest extends DriverMysqliTest
 {
-
 	/**
 	 * Test isSupported method.
 	 *
@@ -27,5 +26,4 @@ class DriverGcloudsqliTest extends DriverMysqliTest
 	{
 		$this->assertThat(\Joomla\Database\Gcloudsqli\GcloudsqliDriver::isSupported(), $this->isTrue(), __LINE__);
 	}
-
 }

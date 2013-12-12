@@ -27,8 +27,6 @@ class GcloudsqliDriver extends Mysqli\MysqliDriver
 	 * @since  1.0
 	 */
 	public $name = 'Gcloudsqli';
-
-
 	/**
 	 * Constructor.
 	 *
@@ -38,17 +36,19 @@ class GcloudsqliDriver extends Mysqli\MysqliDriver
 	 */
 	public function __construct($options)
 	{
-
 		// Pass initialisation through ancestry first.
 		parent::__construct($options);
 
 		// Retrieve configured options
 		$options = $this->options;
+
 		// Retrieve Google Cloud SQL socket for GAE from host string
 		list($host, $socket) = explode('|', $options['host']);
 
 		// If running from a GAE server, use socket
-		if(isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'],'Google App Engine') !== false) {
+		if( (isset($_SERVER['SERVER_SOFTWARE'])) &&
+			(strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine') !== false))
+		{
 			$host = 'localhost';
 		} else
 		{
@@ -76,15 +76,16 @@ class GcloudsqliDriver extends Mysqli\MysqliDriver
 	{
 		if ($this->connection)
 		{
+
 			return;
 		}
 
 		// If we are not running under Google App Engine we can use the regular MySQLi driver
 		if(!isset($_SERVER['SERVER_SOFTWARE']) || strpos($_SERVER['SERVER_SOFTWARE'],'Google App Engine') === false) {
 			parent::connect();
+
 			return;
 		}
-
 
 		// Make sure the mysqli extension for PHP is installed and enabled.
 		if (!static::isSupported())
@@ -113,6 +114,8 @@ class GcloudsqliDriver extends Mysqli\MysqliDriver
 
 		// Set charactersets (needed for MySQL 4.1.2+).
 		$this->setUTF();
+
+		return;
 	}
 
 
