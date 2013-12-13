@@ -45,14 +45,21 @@ class GcloudsqliDriver extends Mysqli\MysqliDriver
 		// Retrieve Google Cloud SQL socket for GAE from host string
 		list($host, $socket) = explode('|', $options['host']);
 
-		// If running from a GAE server, use socket
-		if( (isset($_SERVER['SERVER_SOFTWARE'])) &&
-			(strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine') !== false))
-		{
-			$host = 'localhost';
-		} else
+		// If not running from AppEngine, do not use the socket
+		if( !isset($_SERVER['APPENGINE_RUNTIME']))
 		{
 			$socket = null;
+		} else
+		{
+			// Only use the socket if running on a deployed instance, do not use when running from the SDK
+			if (strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine') === false)
+			{
+				$socket = null;
+			} else
+			{
+				// App Engine app running on a GAE instance, set host equal to localhost to force socket usage
+				$host = 'localhost';
+			}
 		}
 
 		// Reset host and socket options for GAE
