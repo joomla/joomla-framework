@@ -56,11 +56,10 @@ class Gaememcached extends Memcached
 	 */
 	static public function isSupported()
 	{
-
 		// Make sure we are running on Google App Engine
 		if ( !isset($_SERVER['APPENGINE_RUNTIME']))
 		{
-			//Gaememcached is supported if the Memcached class exists
+			// Gaememcached is supported if the Memcached class exists
 			return class_exists('Memcached');
 		}
 

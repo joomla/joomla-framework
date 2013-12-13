@@ -33,7 +33,7 @@ class Gaememcached extends Memcached
 	 */
 	public function __construct($options = array())
 	{
-		//Skip Memcached parent because memcached extension check will fail
+		// Skip Memcached parent because memcached extension check will fail
 		Cache::__construct($options);
 
 		// Make sure we are running on Google App Engine
@@ -48,7 +48,6 @@ class Gaememcached extends Memcached
 			throw new \RuntimeException('Google App Engine Memcached class does not exist.');
 		}
 	}
-
 
 	/**
 	 * Connect to the Google App Engine Memcached server if the connection does not already exist.
@@ -70,6 +69,5 @@ class Gaememcached extends Memcached
 		// Set Memcached options
 		$this->driver->setOption(\Memcached::OPT_COMPRESSION, $this->options['memcache.compress'] ?: false);
 		$this->driver->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
-
 	}
 }

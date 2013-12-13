@@ -6,7 +6,7 @@
 
 namespace Joomla\Session\Tests\Storage;
 
-use Joomla\Session\Storage\Memcached as StorageMemcached;
+use Joomla\Session\Storage\Gaememcached as StorageGaememcached;
 use Joomla\Session\Storage;
 
 /**
