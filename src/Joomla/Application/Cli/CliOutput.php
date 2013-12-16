@@ -8,6 +8,9 @@
 
 namespace Joomla\Application\Cli;
 
+use Joomla\Application\Cli\Output\Stdout;
+use Joomla\Application\Cli\Output\Processors\ProcessorInterface;
+
 /**
  * Class CliOutput
  *
@@ -18,10 +21,38 @@ abstract class CliOutput
 	/**
 	 * Color processing object
 	 *
-	 * @var    ColorProcessor
+	 * @var    ProcessorInterface
 	 * @since  1.0
 	 */
 	protected $processor;
+
+	/**
+	 * Set a processor
+	 *
+	 * @param   ProcessorInterface  $processor  The output processor.
+	 *
+	 * @return  Stdout  Instance of $this to allow chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function setProcessor(ProcessorInterface $processor)
+	{
+		$this->processor = $processor;
+
+		return $this;
+	}
+
+	/**
+	 * Get a processor
+	 *
+	 * @return  ProcessorInterface
+	 *
+	 * @since   1.0
+	 */
+	public function getProcessor()
+	{
+		return $this->processor;
+	}
 
 	/**
 	 * Write a string to an output handler.
