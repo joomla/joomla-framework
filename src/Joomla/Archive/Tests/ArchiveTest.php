@@ -225,16 +225,76 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
+	 * Test getAdapter exception.
 	 *
-	 * @return  mixed
+	 * @return  void
 	 *
 	 * @covers             Joomla\Archive\Archive::getAdapter
-	 * @expectedException  \UnexpectedValueException
+	 * @expectedException  \InvalidArgumentException
 	 * @since              1.0
 	 */
 	public function testGetAdapterException()
 	{
 		$this->fixture->getAdapter('unknown');
+	}
+
+	/**
+	 * Test getAdapter exception message.
+	 *
+	 * @return  void
+	 *
+	 * @since  1.0
+	 */
+	public function testGetAdapterExceptionMessage()
+	{
+		try
+		{
+			$this->fixture->getAdapter('unknown');
+		}
+
+		catch (\InvalidArgumentException $e)
+		{
+			$this->assertEquals(
+				'Archive adapter "unknown" (class "Joomla\\Archive\\Unknown") not found or supported.',
+				$e->getMessage()
+			);
+		}
+	}
+
+	/**
+	 * Test setAdapter exception.
+	 *
+	 * @return  void
+	 *
+	 * @covers             Joomla\Archive\Archive::setAdapter
+	 * @expectedException  \InvalidArgumentException
+	 * @since              1.0
+	 */
+	public function testSetAdapterException()
+	{
+		$this->fixture->setAdapter('unknown', 'unknown-class');
+	}
+
+	/**
+	 * Test setAdapter exception message.
+	 *
+	 * @return  void
+	 *
+	 * @since  1.0
+	 */
+	public function testSetAdapterExceptionMessage()
+	{
+		try
+		{
+			$this->fixture->setAdapter('unknown', 'FooArchiveAdapter');
+		}
+
+		catch (\InvalidArgumentException $e)
+		{
+			$this->assertEquals(
+				'The provided adapter "unknown" (class "FooArchiveAdapter") must implement Joomla\\Archive\\ExtractableInterface',
+				$e->getMessage()
+			);
+		}
 	}
 }
