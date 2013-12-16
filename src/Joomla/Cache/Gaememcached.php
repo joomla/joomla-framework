@@ -33,12 +33,22 @@ class Gaememcached extends Memcached
 	 */
 	public function __construct($options = array())
 	{
-		// Skip Memcached parent because memcached extension check will fail
-		Cache::__construct($options);
 
-		// Make sure we are running on Google App Engine
-		if ( !isset($_SERVER['APPENGINE_RUNTIME']))
+		/**
+		 *  Google App Engine Server Software is either
+		 * Development or
+		 * Google App Engine
+		 */
+		if ( !isset($_SERVER['SERVER_SOFTWARE']) )
 		{
+			throw new \RuntimeException('This script is not running on Google App Engine.');
+		}
+
+		$beginsWith = substr($_SERVER['SERVER_SOFTWARE'],11);
+		if ( ($beginsWith == 'Development') ||
+			( $beginsWith == 'Google App '))
+		{
+			// Gaememcached is supported if the Memcached class exists
 			throw new \RuntimeException('This script is not running on Google App Engine.');
 		}
 
@@ -47,6 +57,9 @@ class Gaememcached extends Memcached
 		{
 			throw new \RuntimeException('Google App Engine Memcached class does not exist.');
 		}
+
+		// Skip Memcached parent because memcached extension check will fail
+		Cache::__construct($options);
 	}
 
 	/**
