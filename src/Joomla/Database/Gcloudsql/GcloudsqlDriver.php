@@ -13,7 +13,7 @@ use Joomla\Database\Mysqli;
 use Psr\Log;
 
 /**
- * Gcloudsqli Database Driver
+ * Google Cloud SQL Database Driver based on mysqli
  *
  * @see    https://developers.google.com/appengine/docs/php/cloud-sql/
  * @since  1.0
@@ -21,12 +21,15 @@ use Psr\Log;
 class GcloudsqliDriver extends Mysqli\MysqliDriver
 {
 	/**
-	 * The name of the database driver.
+	 * The name of the database driver -
+	 * this is used to build.other class names
+	 * and function calls, so it must match
+	 * the actual php database driver in use
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
-	public $name = 'Gcloudsqli';
+	public $name = 'mysqli';
 	/**
 	 * Constructor.
 	 *
@@ -43,25 +46,25 @@ class GcloudsqliDriver extends Mysqli\MysqliDriver
 		$options = $this->options;
 
 		// Retrieve Google Cloud SQL socket for GAE from host string
-		list($host, $socket) = explode('|', $options['host']);
+		list($host, $s) = explode('|', $options['host']);
 
-		// If not running from AppEngine, do not use the socket
-		if( !isset($_SERVER['APPENGINE_RUNTIME']))
+		// Assume we are n ot running on GAE
+		$socket = null;
+		/**
+		 *  Google App Engine Server Software is either
+		 * Development or
+		 * Google App Engine
+		 */
+		if ( isset($_SERVER['SERVER_SOFTWARE']) )
 		{
-			$socket = null;
-		} else
-		{
-			// Only use the socket if running on a deployed instance, do not use when running from the SDK
-			if (strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine') === false)
+			// Only GAE Instance uses socket
+			$beginsWith = substr($_SERVER['SERVER_SOFTWARE'],11);
+			if ( $beginsWith == 'Google App ')
 			{
-				$socket = null;
-			} else
-			{
-				// App Engine app running on a GAE instance, set host equal to localhost to force socket usage
 				$host = 'localhost';
+				$socket = $s;
 			}
 		}
-
 		// Reset host and socket options for GAE
 		$options['host'] = $host;
 		$options['socket'] = $socket;
