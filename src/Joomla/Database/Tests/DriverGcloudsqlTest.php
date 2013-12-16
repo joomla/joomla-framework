@@ -7,13 +7,13 @@
 namespace Joomla\Database\Tests;
 
 /**
- * Test class for Joomla\Database\GCloudsqli\GCloudsqliDriver.
+ * Test class for Joomla\Database\GCloudsql\GCloudsqlDriver.
  * We can re-use all tests from MySQLi except for isSupported
  * which needs a class name change
  *
  * @since  1.0
  */
-class DriverGcloudsqliTest extends DriverMysqliTest
+class DriverGcloudsqlTest extends DriverMysqliTest
 {
 	/**
 	 * Test isSupported method.
@@ -24,6 +24,6 @@ class DriverGcloudsqliTest extends DriverMysqliTest
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(\Joomla\Database\Gcloudsqli\GcloudsqliDriver::isSupported(), $this->isTrue(), __LINE__);
+		$this->assertThat(\Joomla\Database\Gcloudsql\GcloudsqlDriver::isSupported(), $this->isTrue(), __LINE__);
 	}
 }

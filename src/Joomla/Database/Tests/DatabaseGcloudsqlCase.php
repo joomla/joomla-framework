@@ -10,11 +10,11 @@ use Joomla\Test\TestDatabase;
 use Joomla\Database\DatabaseDriver;
 
 /**
- * Abstract test case class for Gcloudsqli testing, simply reuse MySQLi since the only change is when we are running under Google App Engine.
+ * Abstract test case class for Gcloudsql testing, simply reuse MySQLi since the only change is when we are running under Google App Engine.
  *
  * @since  1.0
  */
-abstract class DatabaseGcloudsqliCase extends DatabaseMysqliCase
+abstract class DatabaseGcloudsqlCase extends DatabaseMysqliCase
 {
 	/**
 	 * @var    array  The database driver options for the connection.

@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Database\Gcloudsqli;
+namespace Joomla\Database\Gcloudsql;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\Mysqli;
@@ -18,7 +18,7 @@ use Psr\Log;
  * @see    https://developers.google.com/appengine/docs/php/cloud-sql/
  * @since  1.0
  */
-class GcloudsqliDriver extends Mysqli\MysqliDriver
+class GcloudsqlDriver extends Mysqli\MysqliDriver
 {
 	/**
 	 * The name of the database driver -
