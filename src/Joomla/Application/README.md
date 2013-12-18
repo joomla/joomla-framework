@@ -39,7 +39,16 @@ class MyApplication extends AbstractApplication
 	 */
 	protected function doExecute()
 	{
-		// Do stuff.
+		try
+		{
+			// Do stuff.
+		}
+		catch(\Exception $e)
+		{
+			// Set status header of exception code and response body of exception message
+			$this->setHeader('status', $e->getCode() ?: 500);
+			$this->setBody($e->getMessage());
+		}
 	}
 
 	/**
@@ -66,7 +75,7 @@ The following example shows how you could set up logging in your application usi
 
 ```php
 use Joomla\Application\AbstractApplication;
-use Monolog\Monolog;
+use Monolog\Logger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 
@@ -181,6 +190,52 @@ You can provide customised implementations these methods by creating the followi
 * `mockWebSetBody`
 * `mockWebSetHeader`
 
+
+## Web Application
+
+### Configuration options
+
+The `AbstractWebApplication` sets following application configuration:
+
+- Exection datetime and timestamp
+  - `execution.datetime` - Execution datetime
+  - `execution.timestamp` - Execution timestamp
+
+- URIs
+  - `uri.request` - The request URI
+  - `uri.base.full` - full URI
+  - `uri.base.host` - URI host
+  - `uri.base.path` - URI path
+  - `uri.route` - Extended (non-base) part of the request URI
+  - `uri.media.full` - full media URI
+  - `uri.media.path` - relative media URI
+
+and uses following ones during object construction:
+
+- `gzip` to compress the output
+- `site_uri` to see if an explicit base URI has been set
+  (helpful when chaning request uri using mod_rewrite)
+- `media_uri` to get an explicitly set media URI (relative values are appended to `uri.base` ).
+  If it's not set explicitly, it defaults to a `media/` path of `uri.base`.
+
+#### The `setHeader` method
+__Accepted parameters__
+
+- `$name` - The name of the header to set.
+- `$value` - The value of the header to set.
+- `$replace` - True to replace any headers with the same name.
+
+Example: Using `WebApplication::setHeader` to set a status header.
+
+```PHP
+$app->setHeader('status', '401 Auhtorization required', true);
+```
+
+Will result in response containing header
+```
+Status Code: 401 Auhtorization required
+```
+
 ## Command Line Applications
 
 The Joomla Framework provides an application class for making command line applications.
@@ -197,7 +252,14 @@ class MyCli extends AbstractCliApplication
 {
 	protected function doExecute()
 	{
+		// Output string
 		$this->out('It works');
+
+		// Get user input
+		$this->out('What is your name? ', false);
+
+		$userInput = $this->in();
+		$this->out('Hello ' . $userInput);
 	}
 }
 
