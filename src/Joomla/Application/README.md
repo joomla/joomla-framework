@@ -190,6 +190,54 @@ You can provide customised implementations these methods by creating the followi
 * `mockWebSetBody`
 * `mockWebSetHeader`
 
+
+## Web Application
+
+### Configuration options
+
+The `AbstractWebApplication` sets following application configuration:
+
+- Exection datetime and timestamp
+  - `execution.datetime` - Execution datetime
+  - `execution.timestamp` - Execution timestamp
+
+- URIs
+  - `uri.request` - The request URI
+  - `uri.base.full` - full URI
+  - `uri.base.host` - URI host
+  - `uri.base.path` - URI path
+  - `uri.route` - Extended (non-base) part of the request URI
+  - `uri.media.full` - full media URI
+  - `uri.media.path` - relative media URI
+
+and uses following ones during object construction:
+
+- `gzip` to compress the output
+- `site_uri` to see if an explicit base URI has been set
+  (helpful when chaning request uri using mod_rewrite)
+- `media_uri` to get an explicitly set media URI (relative values are appended to `uri.base` ).
+  If it's not set explicitly, it defaults to a `media/` path of `uri.base`.
+
+
+#### The `redirect` method
+__Accepted parameters__
+
+ - `$url` - The URL to redirect to. Can only be http/https URL
+ - `$moved` - True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
+
+#### The `setHeader` method
+__Accepted parameters__
+
+- `$name` - The name of the header to set.
+- `$value` - The value of the header to set.
+- `$replace` - True to replace any headers with the same name.
+
+Example: Using `WebApplication::setHeader` to set a status header.
+
+```PHP
+$app->setHeader('status', '403 Forbidden', true);
+```
+
 ## Command Line Applications
 
 The Joomla Framework provides an application class for making command line applications.
