@@ -75,7 +75,7 @@ The following example shows how you could set up logging in your application usi
 
 ```php
 use Joomla\Application\AbstractApplication;
-use Monolog\Monolog;
+use Monolog\Logger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 
