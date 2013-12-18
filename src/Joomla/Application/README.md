@@ -218,13 +218,6 @@ and uses following ones during object construction:
 - `media_uri` to get an explicitly set media URI (relative values are appended to `uri.base` ).
   If it's not set explicitly, it defaults to a `media/` path of `uri.base`.
 
-
-#### The `redirect` method
-__Accepted parameters__
-
- - `$url` - The URL to redirect to. Can only be http/https URL
- - `$moved` - True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
-
 #### The `setHeader` method
 __Accepted parameters__
 
@@ -235,7 +228,12 @@ __Accepted parameters__
 Example: Using `WebApplication::setHeader` to set a status header.
 
 ```PHP
-$app->setHeader('status', '403 Forbidden', true);
+$app->setHeader('status', '401 Auhtorization required', true);
+```
+
+Will result in response containing header
+```
+Status Code: 401 Auhtorization required
 ```
 
 ## Command Line Applications
