@@ -39,7 +39,16 @@ class MyApplication extends AbstractApplication
 	 */
 	protected function doExecute()
 	{
-		// Do stuff.
+		try
+		{
+			// Do stuff.
+		}
+		catch(\Exception $e)
+		{
+			// Set status header of exception code and response body of exception message
+			$this->setHeader('status', $e->getCode() ?: 500);
+			$this->setBody($e->getMessage());
+		}
 	}
 
 	/**
@@ -197,7 +206,14 @@ class MyCli extends AbstractCliApplication
 {
 	protected function doExecute()
 	{
+		// Output string
 		$this->out('It works');
+
+		// Get user input
+		$this->out('What is your name? ', false);
+
+		$userInput = $this->in();
+		$this->out('Hello ' . $userInput);
 	}
 }
 
