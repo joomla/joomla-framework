@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Application\Cli\Output\Processors;
+namespace Joomla\Application\Cli\Output\Processor;
 
 /**
  * Class ProcessorInterface.

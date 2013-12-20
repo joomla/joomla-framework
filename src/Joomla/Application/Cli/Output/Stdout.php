@@ -9,7 +9,6 @@
 namespace Joomla\Application\Cli\Output;
 
 use Joomla\Application\Cli\CliOutput;
-use Joomla\Application\Cli\Output\Processors\ProcessorInterface;
 
 /**
  * Class Stdout.

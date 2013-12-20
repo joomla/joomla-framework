@@ -8,14 +8,14 @@
 
 namespace Joomla\Application\Cli;
 
-use \Joomla\Application\Cli\Output\Processors\ColorProcessor as RealColorProcessor;
+use \Joomla\Application\Cli\Output\Processor\ColorProcessor as RealColorProcessor;
 
 /**
  * Class ColorProcessor.
  *
  * @since  1.0
  *
- * @deprecated  Use \Joomla\Application\Cli\Output\Processors\ColorProcessor
+ * @deprecated  Use \Joomla\Application\Cli\Output\Processor\ColorProcessor
  */
 class ColorProcessor extends RealColorProcessor
 {
