@@ -8,8 +8,6 @@
 
 namespace Joomla\Event;
 
-use InvalidArgumentException;
-
 /**
  * Default Event class.
  *
@@ -112,7 +110,7 @@ class Event extends AbstractEvent
 	 *
 	 * @return  void
 	 *
-	 * @throws  InvalidArgumentException  If the argument name is null.
+	 * @throws  \InvalidArgumentException  If the argument name is null.
 	 *
 	 * @since   1.0
 	 */
@@ -120,7 +118,7 @@ class Event extends AbstractEvent
 	{
 		if (is_null($name))
 		{
-			throw new InvalidArgumentException('The argument name cannot be null.');
+			throw new \InvalidArgumentException('The argument name cannot be null.');
 		}
 
 		$this->setArgument($name, $value);

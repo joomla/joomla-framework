@@ -7,7 +7,9 @@
 namespace Joomla\Event\Tests;
 
 use Joomla\Event\ListenersPriorityQueue;
-use Joomla\Event\Tests\Stubs\EmptyListener;
+use Joomla\Event\Tests\Fixtures\ChildListener;
+use Joomla\Event\Tests\Fixtures\SomethingListener;
+use Joomla\Event;
 
 /**
  * Tests for the ListenersPriorityQueue class.
@@ -26,55 +28,92 @@ class ListenersPriorityQueueTest extends \PHPUnit_Framework_TestCase
 	private $instance;
 
 	/**
-	 * Test the add method.
+	 * Provide all possible callable listeners.
 	 *
-	 * @return  void
+	 * @return  array
 	 *
-	 * @since   1.0
+	 * @since   1.1
 	 */
-	public function testAdd()
+	public function getListeners()
 	{
-		$listener1 = new EmptyListener;
-		$listener2 = new EmptyListener;
-		$listener3 = function() {
-
-		};
-		$listener4 = new EmptyListener;
-
-		$this->instance->add($listener1, 5);
-		$this->instance->add($listener2, 5);
-		$this->instance->add($listener3, 0);
-		$this->instance->add($listener4, -100);
-
-		$this->assertTrue($this->instance->has($listener1));
-		$this->assertEquals(5, $this->instance->getPriority($listener1));
-
-		$this->assertTrue($this->instance->has($listener2));
-		$this->assertEquals(5, $this->instance->getPriority($listener2));
-
-		$this->assertTrue($this->instance->has($listener3));
-		$this->assertEquals(0, $this->instance->getPriority($listener3));
-
-		$this->assertTrue($this->instance->has($listener4));
-		$this->assertEquals(-100, $this->instance->getPriority($listener4));
+		return array(
+			// Function
+			array(
+				1,
+				'Joomla\Event\Tests\Fixtures\onFunction'
+			),
+			// Closure
+			array(
+				1,
+				function (Event $e) {}
+			),
+			// Static method from class
+			array(
+				2,
+				array('Joomla\Event\Tests\Fixtures\SomethingListener', 'onStatic')
+			),
+			// Static method from object
+			array(
+				2,
+				array(new SomethingListener, 'onStatic')
+			),
+			// Static call
+			array(
+				-5,
+				'Joomla\Event\Tests\Fixtures\SomethingListener::onStatic'
+			),
+			// Relative static call from class
+			array(
+				-5,
+				array('Joomla\Event\Tests\Fixtures\ChildListener', 'parent::onStatic')
+			),
+			// Relative static call from object
+			array(
+				-5,
+				array(new ChildListener, 'parent::onStatic')
+			),
+		);
 	}
 
 	/**
-	 * Test adding an existing listener will have no effect.
+	 * Test the add method.
+	 *
+	 * @param   integer   $priority  The priority
+	 * @param   callable  $listener  The listener
+	 *
+	 * @dataProvider getListeners
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testAddExisting()
+	public function testAdd($priority, $listener)
 	{
-		$listener = new EmptyListener;
-
-		$this->instance->add($listener, 5);
-		$this->instance->add($listener, 0);
+		$this->instance->add($listener, $priority);
 
 		$this->assertTrue($this->instance->has($listener));
-		$this->assertEquals(5, $this->instance->getPriority($listener));
+		$this->assertEquals($priority, $this->instance->getPriority($listener));
+	}
+
+	/**
+	 * Test adding a listener will have no effect.
+	 *
+	 * @param   integer   $priority  The priority
+	 * @param   callable  $listener  The listener
+	 *
+	 * @dataProvider getListeners
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testAddExisting($priority, $listener)
+	{
+		$this->instance->add($listener, $priority);
+		$this->instance->add($listener, -5000);
+
+		$this->assertTrue($this->instance->has($listener));
+		$this->assertEquals($priority, $this->instance->getPriority($listener));
 	}
 
 	/**
@@ -86,57 +125,58 @@ class ListenersPriorityQueueTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetPriorityNonExisting()
 	{
-		$this->assertNull($this->instance->getPriority(new EmptyListener));
-
-		$this->assertFalse(
-			$this->instance->getPriority(
-				function () {
-
-				},
-				false
-			)
-		);
+		$this->assertNull($this->instance->getPriority('Joomla\Event\Tests\Fixtures\onFunction'));
+		$this->assertFalse($this->instance->getPriority('Joomla\Event\Tests\Fixtures\onFunction', false));
 	}
 
 	/**
-	 * Test the remove method.
+	 * Test adding a listener will have no effect.
+	 *
+	 * @param   integer   $priority  The priority
+	 * @param   callable  $listener  The listener
+	 *
+	 * @dataProvider getListeners
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testRemove()
+	public function testRemove($priority, $listener)
 	{
-		$listener1 = new EmptyListener;
-		$listener2 = new EmptyListener;
-		$listener3 = function() {
+		$this->instance->add($listener, $priority);
+		$this->instance->remove($listener);
 
-		};
-		$listener4 = new EmptyListener;
+		$this->assertFalse($this->instance->has($listener));
+		$this->assertNull($this->instance->getPriority($listener));
+	}
 
-		$this->instance->add($listener1, 0);
-		$this->instance->add($listener2, 0);
-		$this->instance->add($listener3, 0);
+	/**
+	 * Registers and returns an array of listeners in the order
+	 * they will be sorted by the priority queue.
+	 *
+	 * @return  array
+	 */
+	private function getAndSetOrderedListeners()
+	{
+		$listeners = array(
+			0 => 'Joomla\Event\Tests\Fixtures\onFunction',
+			1 => function (Event $e) {},
+			2 => array('Joomla\Event\Tests\Fixtures\SomethingListener', 'onStatic'),
+			3 => array(new SomethingListener, 'onStatic'),
+			4 => 'Joomla\Event\Tests\Fixtures\SomethingListener::onStatic',
+			5 => array('Joomla\Event\Tests\Fixtures\ChildListener', 'parent::onStatic'),
+			6 => array(new ChildListener, 'parent::onStatic'),
+		);
 
-		// Removing a non existing listener has no effect.
-		$this->instance->remove($listener4);
+		$this->instance->add($listeners[0], 10);
+		$this->instance->add($listeners[1], 10);
+		$this->instance->add($listeners[3], 0);
+		$this->instance->add($listeners[2], 10);
+		$this->instance->add($listeners[6], -10);
+		$this->instance->add($listeners[4], 0);
+		$this->instance->add($listeners[5], -5);
 
-		$this->assertTrue($this->instance->has($listener1));
-		$this->assertTrue($this->instance->has($listener2));
-		$this->assertTrue($this->instance->has($listener3));
-
-		$this->instance->remove($listener1);
-
-		$this->assertFalse($this->instance->has($listener1));
-		$this->assertTrue($this->instance->has($listener2));
-		$this->assertTrue($this->instance->has($listener3));
-
-		$this->instance->remove($listener2);
-		$this->instance->remove($listener3);
-
-		$this->assertFalse($this->instance->has($listener1));
-		$this->assertFalse($this->instance->has($listener2));
-		$this->assertFalse($this->instance->has($listener3));
+		return $listeners;
 	}
 
 	/**
@@ -152,52 +192,9 @@ class ListenersPriorityQueueTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertEmpty($this->instance->getAll());
 
-		$listener0 = new EmptyListener;
-		$listener1 = new EmptyListener;
-		$listener2 = new EmptyListener;
+		$listeners = $this->getAndSetOrderedListeners();
 
-		$listener3 = function() {
-
-		};
-
-		$listener4 = new EmptyListener;
-		$listener5 = new EmptyListener;
-
-		$listener6 = function() {
-
-		};
-
-		$listener7 = new EmptyListener;
-
-		$listener8 = function() {
-
-		};
-
-		$listener9 = new EmptyListener;
-
-		$this->instance->add($listener0, 10);
-		$this->instance->add($listener1, 3);
-		$this->instance->add($listener2, 3);
-		$this->instance->add($listener3, 3);
-		$this->instance->add($listener4, 3);
-		$this->instance->add($listener5, 2);
-		$this->instance->add($listener6, 2);
-		$this->instance->add($listener7, 2);
-		$this->instance->add($listener8, 0);
-		$this->instance->add($listener9, -10);
-
-		$listeners = $this->instance->getAll();
-
-		$this->assertSame($listeners[0], $listener0);
-		$this->assertSame($listeners[1], $listener1);
-		$this->assertSame($listeners[2], $listener2);
-		$this->assertSame($listeners[3], $listener3);
-		$this->assertSame($listeners[4], $listener4);
-		$this->assertSame($listeners[5], $listener5);
-		$this->assertSame($listeners[6], $listener6);
-		$this->assertSame($listeners[7], $listener7);
-		$this->assertSame($listeners[8], $listener8);
-		$this->assertSame($listeners[9], $listener9);
+		$this->assertEquals($listeners, $this->instance->getAll());
 	}
 
 	/**
@@ -209,39 +206,7 @@ class ListenersPriorityQueueTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetIterator()
 	{
-		$listener0 = new EmptyListener;
-		$listener1 = new EmptyListener;
-		$listener2 = new EmptyListener;
-
-		$listener3 = function() {
-
-		};
-
-		$listener4 = new EmptyListener;
-		$listener5 = new EmptyListener;
-
-		$listener6 = function() {
-
-		};
-
-		$listener7 = new EmptyListener;
-
-		$listener8 = function() {
-
-		};
-
-		$listener9 = new EmptyListener;
-
-		$this->instance->add($listener0, 10);
-		$this->instance->add($listener1, 3);
-		$this->instance->add($listener2, 3);
-		$this->instance->add($listener3, 3);
-		$this->instance->add($listener4, 3);
-		$this->instance->add($listener5, 2);
-		$this->instance->add($listener6, 2);
-		$this->instance->add($listener7, 2);
-		$this->instance->add($listener8, 0);
-		$this->instance->add($listener9, -10);
+		$expectedListeners = $this->getAndSetOrderedListeners();
 
 		$listeners = array();
 
@@ -250,16 +215,7 @@ class ListenersPriorityQueueTest extends \PHPUnit_Framework_TestCase
 			$listeners[] = $listener;
 		}
 
-		$this->assertSame($listeners[0], $listener0);
-		$this->assertSame($listeners[1], $listener1);
-		$this->assertSame($listeners[2], $listener2);
-		$this->assertSame($listeners[3], $listener3);
-		$this->assertSame($listeners[4], $listener4);
-		$this->assertSame($listeners[5], $listener5);
-		$this->assertSame($listeners[6], $listener6);
-		$this->assertSame($listeners[7], $listener7);
-		$this->assertSame($listeners[8], $listener8);
-		$this->assertSame($listeners[9], $listener9);
+		$this->assertEquals($expectedListeners, $listeners);
 	}
 
 	/**
@@ -271,29 +227,10 @@ class ListenersPriorityQueueTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetIteratorMultipleIterations()
 	{
-		$listener0 = new EmptyListener;
-		$listener1 = new EmptyListener;
-		$listener2 = new EmptyListener;
+		$expectedListeners = $this->getAndSetOrderedListeners();
 
-		$this->instance->add($listener0, 0);
-		$this->instance->add($listener1, 1);
-		$this->instance->add($listener2, 2);
-
-		$firstListeners = array();
-
-		foreach ($this->instance as $listener)
-		{
-			$firstListeners[] = $listener;
-		}
-
-		$secondListeners = array();
-
-		foreach ($this->instance as $listener)
-		{
-			$secondListeners[] = $listener;
-		}
-
-		$this->assertSame($firstListeners, $secondListeners);
+		$this->assertEquals($expectedListeners, array_values(iterator_to_array($this->instance->getIterator())));
+		$this->assertEquals($expectedListeners, array_values(iterator_to_array($this->instance->getIterator())));
 	}
 
 	/**
@@ -307,8 +244,8 @@ class ListenersPriorityQueueTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertCount(0, $this->instance);
 
-		$listener1 = new EmptyListener;
-		$listener2 = new EmptyListener;
+		$listener1 = 'Joomla\Event\Tests\Fixtures\onFunction';
+		$listener2 = 'onOtherFunction';
 
 		$this->instance->add($listener1, 0);
 		$this->instance->add($listener2, 0);

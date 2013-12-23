@@ -8,8 +8,6 @@
 
 namespace Joomla\Event;
 
-use BadMethodCallException;
-
 /**
  * Implementation of an immutable Event.
  * An immutable event cannot be modified after instanciation :
@@ -38,7 +36,7 @@ final class EventImmutable extends AbstractEvent
 	 * @param   string  $name       The event name.
 	 * @param   array   $arguments  The event arguments.
 	 *
-	 * @throws  BadMethodCallException
+	 * @throws  \BadMethodCallException
 	 *
 	 * @since   1.0
 	 */
@@ -46,7 +44,7 @@ final class EventImmutable extends AbstractEvent
 	{
 		if ($this->constructed)
 		{
-			throw new BadMethodCallException(
+			throw new \BadMethodCallException(
 				sprintf('Cannot reconstruct the EventImmutable %s.', $this->name)
 			);
 		}
@@ -64,13 +62,13 @@ final class EventImmutable extends AbstractEvent
 	 *
 	 * @return  void
 	 *
-	 * @throws  BadMethodCallException
+	 * @throws  \BadMethodCallException
 	 *
 	 * @since   1.0
 	 */
 	public function offsetSet($name, $value)
 	{
-		throw new BadMethodCallException(
+		throw new \BadMethodCallException(
 			sprintf(
 				'Cannot set the argument %s of the immutable event %s.',
 				$name,
@@ -86,13 +84,13 @@ final class EventImmutable extends AbstractEvent
 	 *
 	 * @return  void
 	 *
-	 * @throws  BadMethodCallException
+	 * @throws  \BadMethodCallException
 	 *
 	 * @since   1.0
 	 */
 	public function offsetUnset($name)
 	{
-		throw new BadMethodCallException(
+		throw new \BadMethodCallException(
 			sprintf(
 				'Cannot remove the argument %s of the immutable event %s.',
 				$name,

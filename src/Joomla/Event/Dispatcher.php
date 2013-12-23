@@ -8,9 +8,6 @@
 
 namespace Joomla\Event;
 
-use InvalidArgumentException;
-use Closure;
-
 /**
  * Implementation of a DispatcherInterface supporting
  * prioritized listeners.
@@ -24,25 +21,15 @@ class Dispatcher implements DispatcherInterface
 	 * the event names.
 	 *
 	 * @var    EventInterface[]
-	 *
 	 * @since  1.0
 	 */
 	protected $events = array();
-
-	/**
-	 * A regular expression that will filter listener method names.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $listenerFilter;
 
 	/**
 	 * An array of ListenersPriorityQueue indexed
 	 * by the event names.
 	 *
 	 * @var    ListenersPriorityQueue[]
-	 *
 	 * @since  1.0
 	 */
 	protected $listeners = array();
@@ -60,22 +47,6 @@ class Dispatcher implements DispatcherInterface
 	public function setEvent(EventInterface $event)
 	{
 		$this->events[$event->getName()] = $event;
-
-		return $this;
-	}
-
-	/**
-	 * Sets a regular expression to filter the class methods when adding a listener.
-	 *
-	 * @param   string  $regex  A regular expression (for example '^on' will only register methods starting with "on").
-	 *
-	 * @return  Dispatcher  This method is chainable.
-	 *
-	 * @since   1.0
-	 */
-	public function setListenerFilter($regex)
-	{
-		$this->listenerFilter = $regex;
 
 		return $this;
 	}
@@ -203,73 +174,32 @@ class Dispatcher implements DispatcherInterface
 	}
 
 	/**
-	 * Add a listener to this dispatcher, only if not already registered to these events.
-	 * If no events are specified, it will be registered to all events matching it's methods name.
-	 * In the case of a closure, you must specify at least one event name.
+	 * Add a listener for the given event.
 	 *
-	 * @param   object|Closure  $listener  The listener
-	 * @param   array           $events    An associative array of event names as keys
-	 *                                     and the corresponding listener priority as values.
+	 * @param   callable  $listener   The listener.
+	 * @param   string    $eventName  An associative array of event names as keys
+	 *                                and the corresponding listener priority as values.
+	 * @param   integer   $priority   The listener priority.
 	 *
 	 * @return  Dispatcher  This method is chainable.
 	 *
-	 * @throws  InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 *
 	 * @since   1.0
 	 */
-	public function addListener($listener, array $events = array())
+	public function addListener($listener, $eventName, $priority = Priority::NORMAL)
 	{
-		if (!is_object($listener))
+		if (!is_callable($listener))
 		{
-			throw new InvalidArgumentException('The given listener is not an object.');
+			throw new \InvalidArgumentException('The listener is not callable');
 		}
 
-		// We deal with a closure.
-		if ($listener instanceof Closure)
+		if (!isset($this->listeners[$eventName]))
 		{
-			if (empty($events))
-			{
-				throw new InvalidArgumentException('No event name(s) and priority
-				specified for the Closure listener.');
-			}
-
-			foreach ($events as $name => $priority)
-			{
-				if (!isset($this->listeners[$name]))
-				{
-					$this->listeners[$name] = new ListenersPriorityQueue;
-				}
-
-				$this->listeners[$name]->add($listener, $priority);
-			}
-
-			return $this;
+			$this->listeners[$eventName] = new ListenersPriorityQueue;
 		}
 
-		// We deal with a "normal" object.
-		$methods = get_class_methods($listener);
-
-		if (!empty($events))
-		{
-			$methods = array_intersect($methods, array_keys($events));
-		}
-
-		$regex = $this->listenerFilter ?: '.*';
-
-		foreach ($methods as $event)
-		{
-			if (preg_match("#$regex#", $event))
-			{
-				if (!isset($this->listeners[$event]))
-				{
-					$this->listeners[$event] = new ListenersPriorityQueue;
-				}
-
-				$priority = isset($events[$event]) ? $events[$event] : Priority::NORMAL;
-
-				$this->listeners[$event]->add($listener, $priority);
-			}
-		}
+		$this->listeners[$eventName]->add($listener, $priority);
 
 		return $this;
 	}
@@ -277,7 +207,7 @@ class Dispatcher implements DispatcherInterface
 	/**
 	 * Get the priority of the given listener for the given event.
 	 *
-	 * @param   object|Closure         $listener  The listener.
+	 * @param   callable               $listener  The listener.
 	 * @param   EventInterface|string  $event     The event object or name.
 	 *
 	 * @return  mixed  The listener priority or null if the listener doesn't exist.
@@ -327,7 +257,7 @@ class Dispatcher implements DispatcherInterface
 	 * Tell if the given listener has been added.
 	 * If an event is specified, it will tell if the listener is registered for that event.
 	 *
-	 * @param   object|Closure         $listener  The listener.
+	 * @param   callable               $listener  The listener.
 	 * @param   EventInterface|string  $event     The event object or name.
 	 *
 	 * @return  boolean  True if the listener is registered, false otherwise.
@@ -366,7 +296,7 @@ class Dispatcher implements DispatcherInterface
 	 * Remove the given listener from this dispatcher.
 	 * If no event is specified, it will be removed from all events it is listening to.
 	 *
-	 * @param   object|Closure         $listener  The listener to remove.
+	 * @param   callable               $listener  The listener to remove.
 	 * @param   EventInterface|string  $event     The event object or name.
 	 *
 	 * @return  Dispatcher  This method is chainable.
@@ -484,15 +414,7 @@ class Dispatcher implements DispatcherInterface
 					return $event;
 				}
 
-				if ($listener instanceof Closure)
-				{
-					call_user_func($listener, $event);
-				}
-
-				else
-				{
-					call_user_func(array($listener, $event->getName()), $event);
-				}
+				call_user_func($listener, $event);
 			}
 		}
 

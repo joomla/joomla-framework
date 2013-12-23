@@ -4,13 +4,14 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Event\Tests\Stubs;
+namespace Joomla\Event\Tests\Fixtures;
 
 /**
- * A listener with no methods.
+ * A listener children of an other one.
  *
  * @since  1.0
  */
-class EmptyListener
+class ChildListener extends SomethingListener
 {
+
 }
