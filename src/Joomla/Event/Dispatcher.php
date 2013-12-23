@@ -34,6 +34,7 @@ class Dispatcher implements DispatcherInterface
 	 *
 	 * @var    string
 	 * @since  1.0
+	 * @deprecated
 	 */
 	protected $listenerFilter;
 
@@ -71,7 +72,8 @@ class Dispatcher implements DispatcherInterface
 	 *
 	 * @return  Dispatcher  This method is chainable.
 	 *
-	 * @since   1.0
+	 * @since       1.0
+	 * @deprecated  Incorporate a method in your listener object such as `getEvents` to feed into the `setListener` method.
 	 */
 	public function setListenerFilter($regex)
 	{
@@ -254,12 +256,15 @@ class Dispatcher implements DispatcherInterface
 			$methods = array_intersect($methods, array_keys($events));
 		}
 
+		// @deprecated
 		$regex = $this->listenerFilter ?: '.*';
 
 		foreach ($methods as $event)
 		{
+			// @deprecated - this outer `if` is deprecated.
 			if (preg_match("#$regex#", $event))
 			{
+				// Retain this inner code after removal of the outer `if`.
 				if (!isset($this->listeners[$event]))
 				{
 					$this->listeners[$event] = new ListenersPriorityQueue;
