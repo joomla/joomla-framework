@@ -34,82 +34,15 @@ $event->stop();
 
 ## Event Listeners
 
-An event listener can listen to one or more Events.
+Event listeners can be any php [callable](http://www.php.net/manual/en/language.types.callable.php).
 
-You can create two types of listeners : using a class or a closure (anonymous function).
+**It MUST take an EventInterface (or children) as unique parameter.**
 
-**The functions MUST take an EventInterface (or children) as unique parameter.**
-
-### Classes
-
-The listener listens to events having names matching its method names.
-
-```php
-namespace MyApp;
-
-use Joomla\Event\EventInterface;
-
-/**
- * A listener listening to content manipulation events.
- */
-class ContentListener
-{
-	/**
-	 * Listens to the onBeforeContentSave event.
-	 */
-	public function onBeforeContentSave(EventInterface $event)
-	{
-		// Do something with the event, you might want to inspect its arguments.
-	}
-
-	/**
-	 * Listens to the onAfterContentSave event.
-	 */
-	public function onAfterContentSave(EventInterface $event)
-	{
-
-	}
-}
-```
-
-### Closures
-
-Closures can listen to any Event, it must be declared when adding them to the Dispatcher (see below).
-
-```php
-namespace MyApp;
-
-use Joomla\Event\EventInterface;
-
-$listener = function (EventInterface $event) {
-	// Do something with the event, you might want to inspect its arguments.
-};
-```
 ## The Dispatcher
 
 The Dispatcher is the central point of the Event system, it manages the registration of Events, listeners and the triggering of Events.
 
-### Registering Object Listeners
-
-Following the example above, you can register the `ContentListener` to the dispatcher :
-
-```php
-namespace MyApp;
-
-use Joomla\Event\Dispatcher;
-
-// Creating a dispatcher.
-$dispatcher = new Dispatcher;
-
-/**
- * Adding the ContentListener to the Dispatcher.
- * By default, it will be registered to all events matching it's method names.
- * So, it will be registered to the onBeforeContentSave and onAfterContentSave events.
- */
-$dispatcher->addListener(new ContentListener);
-```
-
-### Registering Closure Listeners
+### Registering Listeners
 
 ```php
 namespace MyApp;
@@ -124,68 +57,26 @@ $listener = function (EventInterface $event) {
 $dispatcher = new Dispatcher;
 
 /**
- * Adding a Closure Listener to the Dispatcher.
- * You must specify the event name and the priority of the listener.
- * Here, we register it for the onContentSave event with a normal Priority.
+ * Here, we register it for the onContentSave event.
  */
 $dispatcher->addListener(
 	$listener,
-	array('onContentSave' => Priority::NORMAL)
+	'onContentSave'
 );
-```
-As you noticed, it is possible to specify a listener's priority for a given Event. It is also possible to do so with "object" Listeners.
-
-### Filtering Listeners
-
-Listeners class can become quite complex, and may support public methods other than those required for event handling. The `setListenerFilter` method can be used to set a regular expression that is used to check the method names of objects being added as listeners.
-
-```php
-// Ensure the dispatcher only registers "on*" methods.
-$dispatcher->setListenerFilter('^on');
 ```
 
 ### Registration with Priority
 
 ```php
-namespace MyApp;
 
-use Joomla\Event\Dispatcher;
-use Joomla\Event\Priority;
-
-/**
- * Adding the ContentListener to the Dispatcher.
- * It will be registered with a high priority for the onBeforeContentSave, and
- * an "Above normal" priority for the onAfterContentSave event.
- */
 $dispatcher->addListener(
-	new ContentListener,
-	array(
-		'onBeforeContentSave' => Priority::HIGH,
-		'onAfterContentSave' => Priority::ABOVE_NORMAL
-	)
+	$listener,
+	'onContentSave',
+	Priority::ABOVE_NORMAL
 );
 ```
 
-The default priority is the `Priority::NORMAL`.
-
-When you add an "object" Listener without specifying the event names, it is registered with a NORMAL priority to all events.
-
-```php
-/**
- * Here, it won't be registered to the onAfterContentSave event because
- * it is not specified.
- *
- * If you specify a priority for an Event,
- * then you must specify the priority for all Events.
- *
- * It is good pracctice to do so, it will avoid to register the listener
- * to "useless" events and by consequence save a bit of memory.
- */
-$dispatcher->addListener(
-	new ContentListener,
-	array('onBeforeContentSave' => Priority::NORMAL)
-);
-```
+The default priority is `Priority::NORMAL`.
 
 If some listeners have the same priority for a given event, they will be called in the order they were added to the Dispatcher.
 

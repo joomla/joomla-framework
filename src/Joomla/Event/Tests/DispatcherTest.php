@@ -6,16 +6,18 @@
 
 namespace Joomla\Event\Tests;
 
+require_once __DIR__ . '/Fixtures/functions.php';
+
 use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Event\EventInterface;
 use Joomla\Event\EventImmutable;
 use Joomla\Event\Priority;
-use Joomla\Event\Tests\Stubs\EmptyListener;
-use Joomla\Event\Tests\Stubs\FirstListener;
-use Joomla\Event\Tests\Stubs\SecondListener;
-use Joomla\Event\Tests\Stubs\SomethingListener;
-use Joomla\Event\Tests\Stubs\ThirdListener;
+use Joomla\Event\Tests\Fixtures\FirstListener;
+use Joomla\Event\Tests\Fixtures\SecondListener;
+use Joomla\Event\Tests\Fixtures\SomethingListener;
+use Joomla\Event\Tests\Fixtures\ThirdListener;
+use Joomla\Event\Tests\Fixtures\ChildListener;
 
 /**
  * Tests for the Dispatcher class.
@@ -58,29 +60,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 		$this->instance->setEvent($eventCopy);
 		$this->assertTrue($this->instance->hasEvent('onTest'));
 		$this->assertSame($eventCopy, $this->instance->getEvent('onTest'));
-	}
-
-	/**
-	 * Test the setEvent method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::setListenerFilter
-	 * @since   1.0
-	 */
-	public function testSetListenerFilter()
-	{
-		$listener1 = new FirstListener;
-		$this->instance->addListener($listener1);
-		$this->assertTrue($this->instance->hasListener($listener1, new Event('fooBar')));
-		$this->assertTrue($this->instance->hasListener($listener1, new Event('onSomething')));
-
-		$this->instance->setListenerFilter('^on');
-
-		$listener2 = new SecondListener;
-		$this->instance->addListener($listener2);
-		$this->assertFalse($this->instance->hasListener($listener2, new Event('fooBar')), 'Tests that `fooBar` was filtered out.');
-		$this->assertTrue($this->instance->hasListener($listener2, new Event('onSomething')));
 	}
 
 	/**
@@ -247,173 +226,81 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the addListener method with an empty listener (no methods).
-	 * It shouldn't be registered to any event.
+	 * Provide all possible callable listeners.
 	 *
-	 * @return  void
+	 * @return  array
 	 *
-	 * @covers  Joomla\Event\Dispatcher::addListener
-	 * @since   1.0
+	 * @since   1.1
 	 */
-	public function testAddListenerEmpty()
+	public function getListeners()
 	{
-		$listener = new EmptyListener;
-		$this->instance->addListener($listener);
-
-		$this->assertFalse($this->instance->hasListener($listener));
-
-		$this->instance->addListener($listener, array('onSomething'));
-		$this->assertFalse($this->instance->hasListener($listener, 'onSomething'));
+		return array(
+			// Function
+			array(
+				1,
+				'onSomething',
+				'Joomla\Event\Tests\Fixtures\onFunction'
+			),
+			// Closure
+			array(
+				1,
+				'onBeforeSomething',
+				function (Event $e) {}
+			),
+			// Static method from class
+			array(
+				2,
+				'onSomething',
+				array('Joomla\Event\Tests\Fixtures\SomethingListener', 'onStatic')
+			),
+			// Static method from object
+			array(
+				2,
+				'onBeforeSomething',
+				array(new SomethingListener, 'onStatic')
+			),
+			// Static call
+			array(
+				-5,
+				'onBeforeSomething',
+				'Joomla\Event\Tests\Fixtures\SomethingListener::onStatic'
+			),
+			// Relative static call from class
+			array(
+				-5,
+				'onAfterSomething',
+				array('Joomla\Event\Tests\Fixtures\ChildListener', 'parent::onStatic')
+			),
+			// Relative static call from object
+			array(
+				-5,
+				'onAfterSomething',
+				array(new ChildListener, 'parent::onStatic')
+			),
+		);
 	}
 
 	/**
 	 * Test the addListener method.
 	 *
+	 * @param   integer   $priority   The priority
+	 * @param   string    $eventName  The event name
+	 * @param   callable  $listener   The listener
+	 *
 	 * @return  void
+	 *
+	 * @dataProvider getListeners
 	 *
 	 * @covers  Joomla\Event\Dispatcher::addListener
 	 * @since   1.0
 	 */
-	public function testAddListener()
+	public function testAddListener($priority, $eventName, $listener)
 	{
-		// Add 3 listeners listening to the same events.
-		$listener1 = new SomethingListener;
-		$listener2 = new SomethingListener;
-		$listener3 = new SomethingListener;
-
-		$this->instance->addListener($listener1)
-			->addListener($listener2)
-			->addListener($listener3);
-
-		$this->assertTrue($this->instance->hasListener($listener1));
-		$this->assertTrue($this->instance->hasListener($listener1, 'onBeforeSomething'));
-		$this->assertTrue($this->instance->hasListener($listener1, 'onSomething'));
-		$this->assertTrue($this->instance->hasListener($listener1, 'onAfterSomething'));
-
-		$this->assertTrue($this->instance->hasListener($listener2));
-		$this->assertTrue($this->instance->hasListener($listener2, 'onBeforeSomething'));
-		$this->assertTrue($this->instance->hasListener($listener2, 'onSomething'));
-		$this->assertTrue($this->instance->hasListener($listener2, 'onAfterSomething'));
-
-		$this->assertTrue($this->instance->hasListener($listener3));
-		$this->assertTrue($this->instance->hasListener($listener3, 'onBeforeSomething'));
-		$this->assertTrue($this->instance->hasListener($listener3, 'onSomething'));
-		$this->assertTrue($this->instance->hasListener($listener3, 'onAfterSomething'));
-
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener1, 'onBeforeSomething'));
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener1, 'onSomething'));
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener1, 'onAfterSomething'));
-
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener1, 'onBeforeSomething'));
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener1, 'onSomething'));
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener1, 'onAfterSomething'));
-
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener3, 'onBeforeSomething'));
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener3, 'onSomething'));
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener3, 'onAfterSomething'));
-	}
-
-	/**
-	 * Test the addListener method by specifying the events and priorities.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::addListener
-	 * @since   1.0
-	 */
-	public function testAddListenerSpecifiedPriorities()
-	{
-		$listener = new SomethingListener;
-
-		$this->instance->addListener(
-			$listener,
-			array(
-				'onBeforeSomething' => Priority::MIN,
-				'onSomething' => Priority::ABOVE_NORMAL,
-				'onAfterSomething' => Priority::HIGH
-			)
-		);
-
-		$this->assertTrue($this->instance->hasListener($listener, 'onBeforeSomething'));
-		$this->assertTrue($this->instance->hasListener($listener, 'onSomething'));
-		$this->assertTrue($this->instance->hasListener($listener, 'onAfterSomething'));
-
-		$this->assertEquals(Priority::MIN, $this->instance->getListenerPriority($listener, 'onBeforeSomething'));
-		$this->assertEquals(Priority::ABOVE_NORMAL, $this->instance->getListenerPriority($listener, 'onSomething'));
-		$this->assertEquals(Priority::HIGH, $this->instance->getListenerPriority($listener, 'onAfterSomething'));
-	}
-
-	/**
-	 * Test the addListener method by specifying less events than its methods.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::addListener
-	 * @since   1.0
-	 */
-	public function testAddListenerLessEvents()
-	{
-		$listener = new SomethingListener;
-
-		$this->instance->addListener(
-			$listener,
-			array(
-				'onBeforeSomething' => Priority::NORMAL,
-				'onAfterSomething' => Priority::HIGH
-			)
-		);
-
-		$this->assertFalse($this->instance->hasListener($listener, 'onSomething'));
-		$this->assertTrue($this->instance->hasListener($listener, 'onBeforeSomething'));
-		$this->assertTrue($this->instance->hasListener($listener, 'onAfterSomething'));
-	}
-
-	/**
-	 * Test the addListener method with a closure listener.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::addListener
-	 * @since   1.0
-	 */
-	public function testAddClosureListener()
-	{
-		$listener = function (EventInterface $event) {
-
-		};
-
-		$this->instance->addListener(
-			$listener,
-			array(
-				'onSomething' => Priority::HIGH,
-				'onAfterSomething' => Priority::NORMAL
-			)
-		);
+		$this->instance->addListener($listener, $eventName, $priority);
 
 		$this->assertTrue($this->instance->hasListener($listener));
-		$this->assertTrue($this->instance->hasListener($listener, 'onSomething'));
-		$this->assertTrue($this->instance->hasListener($listener, 'onAfterSomething'));
-
-		$this->assertEquals(Priority::HIGH, $this->instance->getListenerPriority($listener, 'onSomething'));
-		$this->assertEquals(Priority::NORMAL, $this->instance->getListenerPriority($listener, 'onAfterSomething'));
-	}
-
-	/**
-	 * Test the addListener method with a closure listener without specified event.
-	 *
-	 * @return  void
-	 *
-	 * @covers             Joomla\Event\Dispatcher::addListener
-	 * @expectedException  \InvalidArgumentException
-	 * @since              1.0
-	 */
-	public function testAddClosureListenerNoEventsException()
-	{
-		$this->instance->addListener(
-			function (EventInterface $event) {
-
-			}
-		);
+		$this->assertTrue($this->instance->hasListener($listener, $eventName));
+		$this->assertEquals($priority, $this->instance->getListenerPriority($listener, $eventName));
 	}
 
 	/**
@@ -428,199 +315,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testAddListenerInvalidListenerException()
 	{
-		$this->instance->addListener('foo');
-	}
-
-	/**
-	 * Test the getListenerPriority method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::getListenerPriority
-	 * @since   1.0
-	 */
-	public function testGetListenerPriority()
-	{
-		$this->assertNull($this->instance->getListenerPriority(new \stdClass, 'onTest'));
-
-		$listener = new SomethingListener;
-		$this->instance->addListener($listener);
-
-		$this->assertEquals(
-			Priority::NORMAL,
-			$this->instance->getListenerPriority(
-				$listener,
-				new Event('onSomething')
-			)
-		);
-	}
-
-	/**
-	 * Test the getListeners method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::getListeners
-	 * @since   1.0
-	 */
-	public function testGetListeners()
-	{
-		$this->assertEmpty($this->instance->getListeners('onSomething'));
-
-		$listener1 = new SomethingListener;
-		$listener2 = new SomethingListener;
-		$listener3 = new SomethingListener;
-
-		$this->instance->addListener($listener1)
-			->addListener($listener2)
-			->addListener($listener3);
-
-		$onBeforeSomethingListeners = $this->instance->getListeners('onBeforeSomething');
-
-		$this->assertSame($listener1, $onBeforeSomethingListeners[0]);
-		$this->assertSame($listener2, $onBeforeSomethingListeners[1]);
-		$this->assertSame($listener3, $onBeforeSomethingListeners[2]);
-
-		$onSomethingListeners = $this->instance->getListeners(new Event('onSomething'));
-
-		$this->assertSame($listener1, $onSomethingListeners[0]);
-		$this->assertSame($listener2, $onSomethingListeners[1]);
-		$this->assertSame($listener3, $onSomethingListeners[2]);
-
-		$onAfterSomethingListeners = $this->instance->getListeners('onAfterSomething');
-
-		$this->assertSame($listener1, $onAfterSomethingListeners[0]);
-		$this->assertSame($listener2, $onAfterSomethingListeners[1]);
-		$this->assertSame($listener3, $onAfterSomethingListeners[2]);
-	}
-
-	/**
-	 * Test the hasListener method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::hasListener
-	 * @since   1.0
-	 */
-	public function testHasListener()
-	{
-		$this->assertFalse($this->instance->hasListener(new \stdClass, 'onTest'));
-
-		$listener = new SomethingListener;
-		$this->instance->addListener($listener);
-		$this->assertTrue($this->instance->hasListener($listener, new Event('onSomething')));
-	}
-
-	/**
-	 * Test the removeListener method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::removeListener
-	 * @since   1.0
-	 */
-	public function testRemoveListeners()
-	{
-		$listener = new SomethingListener;
-		$this->instance->addListener($listener);
-
-		// Remove the listener from all events.
-		$this->instance->removeListener($listener);
-
-		$this->assertFalse($this->instance->hasListener($listener, 'onBeforeSomething'));
-		$this->assertFalse($this->instance->hasListener($listener, 'onSomething'));
-		$this->assertFalse($this->instance->hasListener($listener, 'onAfterSomething'));
-
-		$this->instance->addListener($listener);
-
-		// Remove the listener from a specific event.
-		$this->instance->removeListener($listener, 'onBeforeSomething');
-
-		$this->assertFalse($this->instance->hasListener($listener, 'onBeforeSomething'));
-		$this->assertTrue($this->instance->hasListener($listener, 'onSomething'));
-		$this->assertTrue($this->instance->hasListener($listener, 'onAfterSomething'));
-
-		// Remove the listener from a specific event by passing an event object.
-		$this->instance->removeListener($listener, new Event('onSomething'));
-
-		$this->assertFalse($this->instance->hasListener($listener, 'onSomething'));
-		$this->assertTrue($this->instance->hasListener($listener, 'onAfterSomething'));
-	}
-
-	/**
-	 * Test the clearListeners method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::clearListeners
-	 * @since   1.0
-	 */
-	public function testClearListeners()
-	{
-		$listener1 = new SomethingListener;
-		$listener2 = new SomethingListener;
-		$listener3 = new SomethingListener;
-
-		$this->instance->addListener($listener1)
-			->addListener($listener2)
-			->addListener($listener3);
-
-		// Test without specified event.
-		$this->instance->clearListeners();
-
-		$this->assertFalse($this->instance->hasListener($listener1));
-		$this->assertFalse($this->instance->hasListener($listener2));
-		$this->assertFalse($this->instance->hasListener($listener3));
-
-		// Test with an event specified.
-		$this->instance->addListener($listener1)
-			->addListener($listener2)
-			->addListener($listener3);
-
-		$this->instance->clearListeners('onSomething');
-
-		$this->assertTrue($this->instance->hasListener($listener1));
-		$this->assertTrue($this->instance->hasListener($listener2));
-		$this->assertTrue($this->instance->hasListener($listener3));
-
-		$this->assertFalse($this->instance->hasListener($listener1, 'onSomething'));
-		$this->assertFalse($this->instance->hasListener($listener2, 'onSomething'));
-		$this->assertFalse($this->instance->hasListener($listener3, 'onSomething'));
-
-		// Test with a specified event object.
-		$this->instance->clearListeners(new Event('onAfterSomething'));
-
-		$this->assertTrue($this->instance->hasListener($listener1));
-		$this->assertTrue($this->instance->hasListener($listener2));
-		$this->assertTrue($this->instance->hasListener($listener3));
-
-		$this->assertFalse($this->instance->hasListener($listener1, 'onAfterSomething'));
-		$this->assertFalse($this->instance->hasListener($listener2, 'onAfterSomething'));
-		$this->assertFalse($this->instance->hasListener($listener3, 'onAfterSomething'));
-	}
-
-	/**
-	 * Test the clearListeners method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Event\Dispatcher::clearListeners
-	 * @since   1.0
-	 */
-	public function testCountListeners()
-	{
-		$this->assertEquals(0, $this->instance->countListeners('onTest'));
-
-		$listener1 = new SomethingListener;
-		$listener2 = new SomethingListener;
-		$listener3 = new SomethingListener;
-
-		$this->instance->addListener($listener1)
-			->addListener($listener2)
-			->addListener($listener3);
-
-		$this->assertEquals(3, $this->instance->countListeners('onSomething'));
-		$this->assertEquals(3, $this->instance->countListeners(new Event('onSomething')));
+		$this->instance->addListener(1, 'onSomething');
 	}
 
 	/**
@@ -650,9 +345,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testTriggerEventSamePriority()
 	{
-		$first = new FirstListener;
-		$second = new SecondListener;
-		$third = new ThirdListener;
+		$first = array(new FirstListener, 'onSomething');
+		$second = array(new SecondListener, 'onSomething');
+		$third = array(new ThirdListener, 'onSomething');
 
 		$fourth = function (Event $event) {
 			$listeners = $event->getArgument('listeners');
@@ -666,11 +361,11 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 			$event->setArgument('listeners', $listeners);
 		};
 
-		$this->instance->addListener($first)
-			->addListener($second)
-			->addListener($third)
-			->addListener($fourth, array('onSomething' => Priority::NORMAL))
-			->addListener($fifth, array('onSomething' => Priority::NORMAL));
+		$this->instance->addListener($first, 'onSomething')
+			->addListener($second, 'onSomething')
+			->addListener($third, 'onSomething')
+			->addListener($fourth, 'onSomething')
+			->addListener($fifth, 'onSomething');
 
 		// Inspect the event arguments to know the order of the listeners.
 		/** @var $event Event */
@@ -694,9 +389,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testTriggerEventDifferentPriorities()
 	{
-		$first = new FirstListener;
-		$second = new SecondListener;
-		$third = new ThirdListener;
+		$first = array(new FirstListener, 'onSomething');
+		$second = array(new SecondListener, 'onSomething');
+		$third = array(new ThirdListener, 'onSomething');
 
 		$fourth = function (Event $event) {
 			$listeners = $event->getArgument('listeners');
@@ -710,11 +405,11 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 			$event->setArgument('listeners', $listeners);
 		};
 
-		$this->instance->addListener($fourth, array('onSomething' => Priority::BELOW_NORMAL));
-		$this->instance->addListener($fifth, array('onSomething' => Priority::BELOW_NORMAL));
-		$this->instance->addListener($first, array('onSomething' => Priority::HIGH));
-		$this->instance->addListener($second, array('onSomething' => Priority::HIGH));
-		$this->instance->addListener($third, array('onSomething' => Priority::ABOVE_NORMAL));
+		$this->instance->addListener($fourth, 'onSomething', Priority::BELOW_NORMAL);
+		$this->instance->addListener($fifth, 'onSomething', Priority::BELOW_NORMAL);
+		$this->instance->addListener($first, 'onSomething', Priority::HIGH);
+		$this->instance->addListener($second, 'onSomething', Priority::HIGH);
+		$this->instance->addListener($third, 'onSomething', Priority::ABOVE_NORMAL);
 
 		// Inspect the event arguments to know the order of the listeners.
 		/** @var $event Event */
@@ -738,18 +433,18 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testTriggerEventStopped()
 	{
-		$first = new FirstListener;
-		$second = new SecondListener;
-		$third = new ThirdListener;
+		$first = array(new FirstListener, 'onSomething');
+		$second = array(new SecondListener, 'onSomething');
+		$third = array(new ThirdListener, 'onSomething');
 
 		$stopper = function (Event $event) {
 			$event->stop();
 		};
 
-		$this->instance->addListener($first)
-			->addListener($second)
-			->addListener($stopper, array('onSomething' => Priority::NORMAL))
-			->addListener($third);
+		$this->instance->addListener($first, 'onSomething')
+			->addListener($second, 'onSomething')
+			->addListener($stopper, 'onSomething')
+			->addListener($third, 'onSomething');
 
 		/** @var $event Event */
 		$event = $this->instance->triggerEvent('onSomething');
@@ -775,13 +470,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	{
 		$event = new Event('onSomething');
 
-		$mockedListener = $this->getMock('Joomla\Event\Test\Stubs\SomethingListener', array('onSomething'));
+		$mockedListener = $this->getMock('Joomla\Event\Test\Fixtures\SomethingListener', array('onSomething'));
 		$mockedListener->expects($this->once())
 			->method('onSomething')
 			->with($event);
 
 		$this->instance->addEvent($event);
-		$this->instance->addListener($mockedListener);
+		$this->instance->addListener(array($mockedListener, 'onSomething'), 'onSomething');
 
 		$this->instance->triggerEvent('onSomething');
 	}

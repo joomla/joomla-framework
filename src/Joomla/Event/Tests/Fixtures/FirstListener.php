@@ -4,19 +4,20 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Event\Tests\Stubs;
+namespace Joomla\Event\Tests\Fixtures;
 
 use Joomla\Event\Event;
 
 /**
- * A listener listening to some events.
+ * A listener used to test the triggerEvent method in the dispatcher.
+ * It will be added in first position.
  *
  * @since  1.0
  */
-class SomethingListener
+class FirstListener
 {
 	/**
-	 * Listen to onBeforeSomething.
+	 * Listen to `fooBar`.
 	 *
 	 * @param   Event  $event  The event.
 	 *
@@ -24,7 +25,7 @@ class SomethingListener
 	 *
 	 * @since   1.0
 	 */
-	public function onBeforeSomething(Event $event)
+	public function fooBar(Event $event)
 	{
 	}
 
@@ -39,18 +40,6 @@ class SomethingListener
 	 */
 	public function onSomething(Event $event)
 	{
-	}
-
-	/**
-	 * Listen to onAfterSomething.
-	 *
-	 * @param   Event  $event  The event.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function onAfterSomething(Event $event)
-	{
+		$event->setArgument('listeners', array('first'));
 	}
 }

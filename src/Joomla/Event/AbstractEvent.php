@@ -8,16 +8,12 @@
 
 namespace Joomla\Event;
 
-use Serializable;
-use ArrayAccess;
-use Countable;
-
 /**
  * Implementation of EventInterface.
  *
  * @since  1.0
  */
-abstract class AbstractEvent implements EventInterface, ArrayAccess, Serializable, Countable
+abstract class AbstractEvent implements EventInterface, \ArrayAccess, \Serializable, \Countable
 {
 	/**
 	 * The event name.

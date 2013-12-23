@@ -4,17 +4,17 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Event\Tests\Stubs;
+namespace Joomla\Event\Tests\Fixtures;
 
 use Joomla\Event\Event;
 
 /**
  * A listener used to test the triggerEvent method in the dispatcher.
- * It will be added in second position.
+ * It will be added in third position.
  *
  * @since  1.0
  */
-class SecondListener
+class ThirdListener
 {
 	/**
 	 * Listen to onSomething.
@@ -29,7 +29,7 @@ class SecondListener
 	{
 		$listeners = $event->getArgument('listeners');
 
-		$listeners[] = 'second';
+		$listeners[] = 'third';
 
 		$event->setArgument('listeners', $listeners);
 	}
