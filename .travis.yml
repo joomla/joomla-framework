@@ -1,8 +1,6 @@
 language: php
 
 php:
-  - 5.3
-  - 5.4
   - hhvm
 
 before_install:
@@ -21,5 +19,4 @@ before_script:
 
 script:
   - ant composervalidate
-  - ant travis-phpcs
   - phpunit --configuration phpunit.travis.xml
