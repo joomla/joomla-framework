@@ -50,6 +50,7 @@ class Memcached extends Cache
 	 */
 	public function clear()
 	{
+		$this->connect();
 		return $this->driver->flush();
 	}
 
