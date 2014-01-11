@@ -2,7 +2,7 @@
 
 echo $FOO
 
-EXTRA_PACKETS="hhvm-nightly hiphop-xhp "
+EXTRA_PACKETS="hhvm-nightly  "
 if [ "$1" ]
 then
     EXTRA_PACKETS="$EXTRA_PACKETS $1"
