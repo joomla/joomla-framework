@@ -2,7 +2,7 @@
 
 echo $FOO
 
-EXTRA_PACKETS="libgd3 "
+EXTRA_PACKETS="hhvm-nightly hiphop-xhp "
 if [ "$1" ]
 then
     EXTRA_PACKETS="$EXTRA_PACKETS $1"
