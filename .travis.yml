@@ -19,6 +19,7 @@ script:
   - uname -a
   - lsb_release -a
   - dpkg -l
+  - apt-cache dumpavail
   - ant composervalidate
   - php -v
   - phpunit --version
