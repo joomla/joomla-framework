@@ -5,19 +5,17 @@ php:
 
 before_install:
   - composer self-update
-  - sh -e build/travis/scripts/apt-get-hhvm.sh
-  - sh -e build/travis/scripts/hack-composer.sh
-  - sleep 10
+  - sh -e build/travis/scripts/hack-composer.sh # must hack composer to handle nightly hhvm version format
+  - sh -e build/travis/scripts/apt-get-hhvm.sh # install nightly hhvm
 
+install: true
 
-install:
+before_script:
   - composer --version
   - composer update --dev -vvv
   - phpenv rehash
-
-before_script:
-  - php -v
   - phpunit --version
+  - php -v
   - mysql -e 'create database joomla_ut;'
   - mysql joomla_ut < src/Joomla/Database/Tests/Stubs/mysql.sql
   - psql -c 'create database joomla_ut;' -U postgres
