@@ -16,6 +16,9 @@ before_script:
   - sh -e build/travis/scripts/alias-composer.sh # provide composer alias
   - sleep 4
   - composer --version
+  - alias composer="$HOME/composer/bin/composer"
+  - sleep 4
+  - composer --version
   - composer update --dev -vvv
   - phpenv rehash
   - phpunit --version
