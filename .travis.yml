@@ -22,4 +22,5 @@ script:
   - php -v
   - phpunit --version
   - php -i
+  - cat /home/travis/.phpenv/shims/php
   - phpunit --configuration phpunit.travis.xml
