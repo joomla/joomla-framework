@@ -171,11 +171,11 @@
 
 
     <target name="hhvm-composervalidate" description="Perform validation of composer.json files.">
-        <exec executable="~/composer/bin/composer" failonerror="true">
+        <exec executable="/home/travis/composer/bin/composer" failonerror="true">
             <arg value="validate" />
         </exec>
 
-        <apply executable="~/composer/bin/composer" failonerror="true">
+        <apply executable="/home/travis/composer/bin/composer" failonerror="true">
             <arg value="validate" />
 
             <fileset dir="${source}">
