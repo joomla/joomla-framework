@@ -7,6 +7,7 @@ before_install:
   - composer self-update
   - sh -e build/travis/scripts/apt-get-hhvm.sh
   - sh -e build/travis/scripts/hack-composer.sh
+  - sleep 10
 
 before_script:
   - php -v
