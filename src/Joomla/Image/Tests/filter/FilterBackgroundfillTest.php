@@ -35,7 +35,7 @@ class ImageFilterBackgroundfillTest extends PHPUnit_Framework_TestCase
 			// do clowny hack while your issue/pull request is being worked on
 			$this->markTestSkipped('No GD support on Travis so skipping Image tests.');
 		}
-		git 
+		
 	}
 
 	/**
