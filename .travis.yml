@@ -4,6 +4,7 @@ php:
   - hhvm
 
 before_install:
+  - dpkg -l
   - composer self-update
   - sh -e build/travis/scripts/apt-get-hhvm.sh
 
@@ -19,5 +20,4 @@ script:
   - ant composervalidate
   - php -v
   - phpunit --version
-  - dpkg -l
   - phpunit --configuration phpunit.travis.xml
