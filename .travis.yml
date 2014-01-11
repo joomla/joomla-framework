@@ -21,6 +21,6 @@ script:
   - ant composervalidate
   - php -v
   - phpunit --version
-  - php -i
+  - php --info
   - cat /home/travis/.phpenv/shims/php
   - phpunit --configuration phpunit.travis.xml
