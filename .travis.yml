@@ -7,7 +7,6 @@ before_install:
   - sh -e build/travis/scripts/apt-get-hhvm.sh
 
 before_script:
-  - composer self-update
   - composer update --dev
   - phpenv rehash
   - mysql -e 'create database joomla_ut;'
