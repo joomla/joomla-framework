@@ -11,6 +11,7 @@ before_install:
 
 
 install:
+  - composer --version
   - composer update --dev -vvv
   - phpenv rehash
 
