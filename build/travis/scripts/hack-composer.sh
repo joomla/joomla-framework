@@ -6,10 +6,13 @@ echo "---> Starting $(tput bold ; tput setaf 2)hack of composer$(tput sgr0)"
 git clone git://github.com/garyamort/composer.git $MYCOMPOSER
 cd $MYCOMPOSER
 composer install
-sleep 10
+echo "directory"
 ls
+echo "bin directory"
 ls ./bin
+echo "cat composer"
 cat ./bin/composer
+echo "my pwd"
 pwd
 MYCOMPOSEREXEC="$HOME/composer/bin/composer"
 echo "---> Creating composer for $(tput bold ; tput setaf 2)$MYCOMPOSEREXEC$(tput sgr0)"
