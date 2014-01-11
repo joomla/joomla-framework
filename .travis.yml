@@ -13,7 +13,6 @@ install:
 
 
 before_script:
-  - ~/composer/bin/composer --version
   - ~/composer/bin/composer update --dev -vvv
   - phpenv rehash
   - phpunit --version
