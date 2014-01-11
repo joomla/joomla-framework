@@ -6,6 +6,7 @@ php:
 before_install:
   - composer self-update
   - sh -e build/travis/scripts/apt-get-hhvm.sh
+  - sh -e build/travis/scripts/hack-composer.sh
 
 before_script:
   - php -v
@@ -17,10 +18,6 @@ before_script:
   - psql -d joomla_ut -a -f src/Joomla/Database/Tests/Stubs/postgresql.sql
 
 script:
-  - uname -a
-  - lsb_release -a
-  - dpkg -l
-  - apt-cache search hhvm
   - ant composervalidate
   - php -v
   - phpunit --version
