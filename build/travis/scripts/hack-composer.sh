@@ -7,4 +7,3 @@ git clone git://github.com/garyamort/composer.git $MYCOMPOSER
 cd $MYCOMPOSER
 composer install
 composer update
-alias composer="$MYCOMPOSER/bin/composer"
