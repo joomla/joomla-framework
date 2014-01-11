@@ -4,7 +4,7 @@ php:
   - hhvm
 
 before_install:
-  - sh -e build/travis/scripts/apt-get-hhvm.sh
+  - composer self-update
 
 before_script:
   - composer update --dev
