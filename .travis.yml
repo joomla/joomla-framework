@@ -19,5 +19,5 @@ script:
   - ant composervalidate
   - php -v
   - phpunit --version
-  - dpkg -l | grep libgd
+  - dpkg -l
   - phpunit --configuration phpunit.travis.xml
