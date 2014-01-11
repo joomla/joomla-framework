@@ -5,6 +5,9 @@ php:
 
 before_install:
   - composer self-update
+  - sleep 3 # give composer time to update
+  - sh -e build/travis/scripts/apt-get-hhvm.sh
+  - sleep 15  # hhvm time to install
 
 before_script:
   - composer update --dev
