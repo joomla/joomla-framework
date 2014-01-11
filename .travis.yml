@@ -19,4 +19,7 @@ before_script:
 
 script:
   - ant composervalidate
+  - php -v
+  - phpunit --version
+  - which php
   - phpunit --configuration phpunit.travis.xml
