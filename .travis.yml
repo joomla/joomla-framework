@@ -24,5 +24,5 @@ before_script:
   - psql -d joomla_ut -a -f src/Joomla/Database/Tests/Stubs/postgresql.sql
 
 script:
-  - ant composervalidate
+  - ant hhvm-composervalidate
   - phpunit --configuration phpunit.travis.xml
