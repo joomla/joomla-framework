@@ -21,7 +21,7 @@ script:
   - uname -a
   - lsb_release -a
   - dpkg -l
-  - apt-cache dumpavail
+  - apt-cache search hhvm
   - ant composervalidate
   - php -v
   - phpunit --version
