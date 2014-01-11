@@ -9,10 +9,14 @@ before_install:
   - sh -e build/travis/scripts/hack-composer.sh
   - sleep 10
 
-before_script:
-  - php -v
+
+install:
   - composer update --dev -vvv
   - phpenv rehash
+
+before_script:
+  - php -v
+  - phpunit --version
   - mysql -e 'create database joomla_ut;'
   - mysql joomla_ut < src/Joomla/Database/Tests/Stubs/mysql.sql
   - psql -c 'create database joomla_ut;' -U postgres
@@ -20,6 +24,4 @@ before_script:
 
 script:
   - ant composervalidate
-  - php -v
-  - phpunit --version
   - phpunit --configuration phpunit.travis.xml
