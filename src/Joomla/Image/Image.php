@@ -102,9 +102,9 @@ class Image implements LoggerAwareInterface
 		if (!isset(self::$formats[IMAGETYPE_JPEG]))
 		{
 			$info = gd_info();
-			self::$formats[IMAGETYPE_JPEG] = ($info['JPEG Support']) ? true : false;
-			self::$formats[IMAGETYPE_PNG] = ($info['PNG Support']) ? true : false;
-			self::$formats[IMAGETYPE_GIF] = ($info['GIF Read Support']) ? true : false;
+			self::$formats[IMAGETYPE_JPEG] = (array_key_exists('JPEG Support', $info) && $info['JPEG Support']) ? true : false;
+			self::$formats[IMAGETYPE_PNG] = (array_key_exists('PNG Support', $info) && $info['PNG Support']) ? true : false;
+			self::$formats[IMAGETYPE_GIF] = (array_key_exists('GIF Support', $info) && $info['GIF Read Support']) ? true : false;
 		}
 
 		// If the source input is a resource, set it as the image handle.
