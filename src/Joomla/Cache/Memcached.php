@@ -48,6 +48,8 @@ class Memcached extends Cache
 		{
 			throw new \RuntimeException('Memcached not supported.');
 		}
+
+        $this->checkDefaults();
 	}
 
     /**
