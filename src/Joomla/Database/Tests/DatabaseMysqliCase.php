@@ -43,6 +43,12 @@ abstract class DatabaseMysqliCase extends TestDatabase
 			return;
 		}
 
+        // We can't test mysqli if it is not there
+        if (!function_exists('mysqli_connect'))
+        {
+            return;
+        }
+
 		// First let's trim the mysql: part off the front of the DSN if it exists.
 		if (strpos($dsn, 'mysql:') === 0)
 		{
