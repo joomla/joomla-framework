@@ -98,6 +98,10 @@ class Image implements LoggerAwareInterface
 			// @codeCoverageIgnoreEnd
 		}
 
+        if (!defined('\\IMAGETYPE_JPEG'))
+        {
+            define('\\IMAGETYPE_JPEG', '\\IMAGETYPE_JPG');
+        }
 		// Determine which image types are supported by GD, but only once.
 		if (!isset(self::$formats[IMAGETYPE_JPEG]))
 		{
