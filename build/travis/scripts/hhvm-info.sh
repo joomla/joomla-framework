@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PHPINFO = "<?PHP echo phpinfo(); ?>"
+PHPINFO = "<?PHP phpinfo(); ?>"
 PHPIFILE = "$HOME/phpinfo.php"
 
 rm -f $PHPIFILE
