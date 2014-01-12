@@ -23,6 +23,15 @@ class Memcached extends Cache
 	 */
 	private $driver;
 
+
+    /**
+     * @var    Array  An array of default options Memcached depends on.
+     * @since  1.1
+     */
+    private $defaultOptions = array('memcache.pool' => false,
+        'memcache.servers' => Array(),
+        'memcache.compress' => false);
+
 	/**
 	 * Constructor.
 	 *
@@ -41,6 +50,24 @@ class Memcached extends Cache
 		}
 	}
 
+    /**
+     * This makes sure all options that need defaults are set to something
+     *
+     * @param   mixed  $options  An options array, or an object that implements \ArrayAccess
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function checkDefaults()
+    {
+        foreach ($this->defaultOptions as $k => $v)
+        {
+            if (!array_key_exists($k, $this->options))
+            {
+                $this->options[$k] = $v;
+            }
+        }
+    }
 	/**
 	 * This will wipe out the entire cache's keys
 	 *
