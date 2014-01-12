@@ -95,6 +95,6 @@ class Apc extends Storage
 	 */
 	public static function isSupported()
 	{
-		return extension_loaded('apc');
+        return function_exists('apc_cache_info');
 	}
 }

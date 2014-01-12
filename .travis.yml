@@ -5,7 +5,7 @@ php:
 
 before_install:
   - composer self-update
-  - sh -e build/travis/scripts/hack-composer.sh 
+  - sh -e build/travis/scripts/hack-composer.sh
   - sh -e build/travis/scripts/apt-get-prehhvm.sh
   - sh -e build/travis/scripts/apache2-vhost.sh
   - sh -e build/travis/scripts/apache2-configure.sh
@@ -15,7 +15,7 @@ install:
   - sh -e build/travis/scripts/apt-get-hhvm.sh # install nightly hhvm
 
 before_script:
-  - ~/composer/bin/composer update --dev -vvv
+  - ~/composer/bin/composer update --dev
   - phpenv rehash
   - phpunit --version
   - php -v

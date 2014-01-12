@@ -120,7 +120,7 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
 		{
 			$this->instance = new Cache\Memcached;
 		}
-		catch (\Exception $e)
+		catch (\RuntimeException $e)
 		{
 			$this->markTestSkipped();
 		}

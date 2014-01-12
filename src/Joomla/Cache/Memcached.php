@@ -35,7 +35,7 @@ class Memcached extends Cache
 	{
 		parent::__construct($options);
 
-		if (!extension_loaded('memcached') || !class_exists('Memcached'))
+		if (!class_exists('Memcached'))
 		{
 			throw new \RuntimeException('Memcached not supported.');
 		}
