@@ -9,6 +9,7 @@ before_install:
 
 
 install:
+  - sh -e build/travis/scripts/apt-get-prehhvm.sh # install nightly hhvm
   - sh -e build/travis/scripts/apt-get-hhvm.sh # install nightly hhvm
 
 
