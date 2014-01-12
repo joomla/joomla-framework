@@ -11,15 +11,13 @@ before_install:
 install:
   - sh -e build/travis/scripts/apt-get-prehhvm.sh # install nightly hhvm
   - sh -e build/travis/scripts/apt-get-hhvm.sh # install nightly hhvm
-  - sh -e build/travis/scripts/hhvm-info.sh # install nightly hhvm
-
 
 before_script:
   - ~/composer/bin/composer update --dev -vvv
   - phpenv rehash
   - phpunit --version
   - php -v
-  - php /home/travis/phpinfo.php
+  - php build/travis/scripts/hhvm-info.php
   - mysql -e 'create database joomla_ut;'
   - mysql joomla_ut < src/Joomla/Database/Tests/Stubs/mysql.sql
   - psql -c 'create database joomla_ut;' -U postgres
