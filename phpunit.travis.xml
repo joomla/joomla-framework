@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="tests/bootstrap.php" colors="false">
+<phpunit bootstrap="tests/bootstrap.php" colors="false" verbose="true">
 	<!-- These constants help setup environment configurations for running optional tests.-->
 	<php>
 		<const name="JTEST_DATABASE_MYSQL_DSN" value="host=localhost;dbname=joomla_ut;user=root;pass=" />

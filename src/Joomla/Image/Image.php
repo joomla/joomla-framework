@@ -98,13 +98,22 @@ class Image implements LoggerAwareInterface
 			// @codeCoverageIgnoreEnd
 		}
 
+        if (!defined('\\IMAGETYPE_JPEG'))
+        {
+            define('\\IMAGETYPE_JPEG', '\\IMAGETYPE_JPG');
+        }
 		// Determine which image types are supported by GD, but only once.
 		if (!isset(self::$formats[IMAGETYPE_JPEG]))
 		{
 			$info = gd_info();
-			self::$formats[IMAGETYPE_JPEG] = ($info['JPEG Support']) ? true : false;
-			self::$formats[IMAGETYPE_PNG] = ($info['PNG Support']) ? true : false;
-			self::$formats[IMAGETYPE_GIF] = ($info['GIF Read Support']) ? true : false;
+			self::$formats[IMAGETYPE_JPEG] = (array_key_exists('JPEG Support', $info) && $info['JPEG Support']) ? true : false;
+            // HHVM uses the string JPG Support instead
+            self::$formats[IMAGETYPE_JPEG] = (array_key_exists('JPG Support', $info) && $info['JPG Support']) ? true : self::$formats[IMAGETYPE_JPEG];
+            self::$formats[IMAGETYPE_PNG] = (array_key_exists('PNG Support', $info) && $info['PNG Support']) ? true : false;
+			self::$formats[IMAGETYPE_GIF] = (array_key_exists('GIF Read Support', $info) && $info['GIF Read Support']) ? true : false;
+
+            self::$formats[IMAGETYPE_WBMP] = (array_key_exists('WBMP Support', $info) && $info['WBMP Support']) ? true : false;
+            self::$formats[IMAGETYPE_XBM] = (array_key_exists('XBM Support', $info) && $info['XBM Support']) ? true : false;
 		}
 
 		// If the source input is a resource, set it as the image handle.

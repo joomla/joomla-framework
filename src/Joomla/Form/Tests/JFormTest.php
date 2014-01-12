@@ -214,7 +214,6 @@ class JFormTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$filtered = $form->filter($data);
-
 		$this->assertThat(
 			is_array($filtered),
 			$this->isTrue(),

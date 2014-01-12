@@ -5,7 +5,6 @@
     "homepage": "https://github.com/joomla/joomla-framework",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=5.3.10",
         "psr/log": "~1.0"
     },
     "require-dev": {

@@ -32,8 +32,6 @@ class Memcache extends Storage
 			throw new \RuntimeException('Memcache Extension is not available', 404);
 		}
 
-		parent::__construct($options);
-
 		// This will be an array of loveliness
 		// @todo: multiple servers
 		$this->_servers = array(
@@ -42,6 +40,8 @@ class Memcache extends Storage
 				'port' => isset($options['memcache_server_port']) ? $options['memcache_server_port'] : 11211
 			)
 		);
+
+        parent::__construct($options);
 	}
 
 	/**
@@ -66,6 +66,6 @@ class Memcache extends Storage
 	 */
 	static public function isSupported()
 	{
-		return (extension_loaded('memcache') && class_exists('Memcache'));
+		return class_exists('Memcache');
 	}
 }

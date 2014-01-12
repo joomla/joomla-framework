@@ -1,27 +1,30 @@
 language: php
 
 php:
-  - 5.3
-  - 5.4
+  - hhvm
 
 before_install:
   - composer self-update
-  - sh -e build/travis/scripts/apt-get.sh
+  - sh -e build/travis/scripts/hack-composer.sh
+  - sh -e build/travis/scripts/apt-get-prehhvm.sh
   - sh -e build/travis/scripts/apache2-vhost.sh
   - sh -e build/travis/scripts/apache2-configure.sh
 
+
+install:
+  - sh -e build/travis/scripts/apt-get-hhvm.sh # install nightly hhvm
+
 before_script:
-  - composer update --dev
-  - pyrus channel-discover pear.phpunit.de
-  - pyrus install --force phpunit/DbUnit
-  - pyrus install -f pear/PHP_CodeSniffer
+  - ~/composer/bin/composer update --dev
   - phpenv rehash
+  - phpunit --version
+  - php -v
+  - php build/travis/scripts/hhvm-info.php
   - mysql -e 'create database joomla_ut;'
   - mysql joomla_ut < src/Joomla/Database/Tests/Stubs/mysql.sql
   - psql -c 'create database joomla_ut;' -U postgres
   - psql -d joomla_ut -a -f src/Joomla/Database/Tests/Stubs/postgresql.sql
 
 script:
-  - ant composervalidate
-  - ant travis-phpcs
+  - ant hhvm-composervalidate
   - phpunit --configuration phpunit.travis.xml

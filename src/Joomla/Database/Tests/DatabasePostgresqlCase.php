@@ -43,6 +43,11 @@ abstract class DatabasePostgresqlCase extends TestDatabase
 			return;
 		}
 
+        // We can't test postgress if there is no function to call it
+        if (!(function_exists('pg_connect')))
+        {
+            return;
+        }
 		// First let's trim the pgsql: part off the front of the DSN if it exists.
 		if (strpos($dsn, 'pgsql:') === 0)
 		{

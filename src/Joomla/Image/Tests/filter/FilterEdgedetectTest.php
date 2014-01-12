@@ -29,6 +29,8 @@ class ImageFilterEdgedetectTest extends PHPUnit_Framework_TestCase
 		{
 			$this->markTestSkipped('No GD support so skipping Image tests.');
 		}
+
+
 	}
 
 	/**

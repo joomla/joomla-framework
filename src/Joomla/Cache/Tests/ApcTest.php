@@ -120,7 +120,7 @@ class ApcTest extends \PHPUnit_Framework_TestCase
 		{
 			$this->instance = new Cache\Apc;
 		}
-		catch (\Exception $e)
+		catch (\RuntimeException $e)
 		{
 			$this->markTestSkipped();
 		}

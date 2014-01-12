@@ -29,7 +29,7 @@ class Apc extends Cache
 	{
 		parent::__construct($options);
 
-		if (!extension_loaded('apc') || !is_callable('apc_fetch'))
+		if (is_callable('apc_fetch'))
 		{
 			throw new \RuntimeException('APC not supported.');
 		}

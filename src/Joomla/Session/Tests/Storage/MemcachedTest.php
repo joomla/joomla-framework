@@ -40,9 +40,11 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
 		if (!StorageMemcached::isSupported())
 		{
 			$this->markTestSkipped('Memcached storage is not enabled on this system.');
-		}
+		} else {
+            $this->object = Storage::getInstance('Memcached');
+        }
 
-		$this->object = Storage::getInstance('Memcached');
+
 	}
 
 	/**

@@ -36,6 +36,7 @@ class Brightness extends ImageFilter
 			throw new InvalidArgumentException('No valid brightness value was given.  Expected integer.');
 		}
 
+
 		// Perform the brightness filter.
 		imagefilter($this->handle, IMG_FILTER_BRIGHTNESS, $options[IMG_FILTER_BRIGHTNESS]);
 	}
