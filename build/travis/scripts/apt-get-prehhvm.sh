@@ -2,7 +2,7 @@
 
 echo $FOO
 
-HHVM_PACKETS="php5-mcrypt php5-imagick php5-mysql"
+HHVM_PACKETS="php5-mcrypt php5-imagick apache2 libapache2-mod-php5 php5-mysql"
 if [ "$1" ]
 then
     HHVM_PACKETS="$EXTRA_PACKETS $1"
