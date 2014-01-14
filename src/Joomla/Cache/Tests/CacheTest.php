@@ -5,10 +5,10 @@
  */
 
 namespace Joomla\Cache\Tests;
+require_once __DIR__ . '/Stubs/Concrete.php';
 
 use Joomla\Test\TestHelper;
-
-require_once __DIR__ . '/Stubs/Concrete.php';
+use Joomla\Cache\Tests\ConcreteCache;
 
 /**
  * Tests for the Joomla\Cache\Cache class.
