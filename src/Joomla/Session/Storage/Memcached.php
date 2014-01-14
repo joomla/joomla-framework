@@ -68,6 +68,6 @@ class Memcached extends Storage
 	 */
 	static public function isSupported()
 	{
-		return (extension_loaded('memcached') && class_exists('Memcached'));
+		return (class_exists('Memcached'));
 	}
 }

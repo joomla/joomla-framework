@@ -13,6 +13,14 @@ namespace Joomla\Session\Tests;
  */
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
+
+	/**
+	 * @var    String	Name of cache engine class
+	 * @since  1.0
+	 */
+	protected static $className;
+
+
 	/**
 	 * @var    \Joomla\Session\Storage
 	 * @since  1.0
@@ -68,6 +76,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 		static::$value = $value;
 		static::$sessionName = 'SessionName';
 		static::$sessionPath = 'SessionPath';
+		static::$className = get_class(static::$object);
 
 		parent::setUp();
 	}
@@ -203,6 +212,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(\Joomla\Session\Storage::isSupported(), $this->isTrue(), __LINE__);
+		$this->assertThat(static::$object->isSupported(), $this->isTrue(), __LINE__);
 	}
 }
