@@ -6,6 +6,7 @@
 
 namespace Joomla\Session\Tests\Storage;
 
+use Joomla\Session\Tests\StorageTest;
 use Joomla\Session\Storage\Memcached as StorageMemcached;
 use Joomla\Session\Storage;
 
@@ -14,15 +15,9 @@ use Joomla\Session\Storage;
  *
  * @since  1.0
  */
-class MemcachedTest extends \PHPUnit_Framework_TestCase
+class MemcachedTest extends StorageTest
 {
-	/**
-	 * Test object
-	 *
-	 * @var    StorageMemcached
-	 * @since  1.0
-	 */
-	protected $object;
+
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -34,105 +29,16 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		parent::setUp();
-
 		// Skip these tests if Memcache isn't available.
 		if (!StorageMemcached::isSupported())
 		{
 			$this->markTestSkipped('Memcached storage is not enabled on this system.');
 		}
+		
+		parent::setUp();
 
-		$this->object = Storage::getInstance('Memcached');
+		static::$object = Storage::getInstance('Memcached');
 	}
 
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testOpen().
-	 *
-	 * @return void
-	 */
-	public function testOpen()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
 
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testClose().
-	 *
-	 * @return void
-	 */
-	public function testClose()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testRead().
-	 *
-	 * @return void
-	 */
-	public function testRead()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testWrite().
-	 *
-	 * @return void
-	 */
-	public function testWrite()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testDestroy().
-	 *
-	 * @return void
-	 */
-	public function testDestroy()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testGc().
-	 *
-	 * @return void
-	 */
-	public function testGc()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
-
-	/**
-	 * Test...
-	 *
-	 * @todo Implement testIsSupported().
-	 *
-	 * @return void
-	 */
-	public function testIsSupported()
-	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete('This test has not been implemented yet.');
-	}
 }

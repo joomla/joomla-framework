@@ -128,7 +128,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOpen()
 	{
-		$this->assertThat(static::$object->open(static::sessionPath, static::sessionName), $this->isTrue(), __LINE__);
+		$this->assertThat(static::$object->open(static::$sessionPath, static::$sessionName), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -140,7 +140,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testClose()
 	{
-		static::$object->open(static::sessionPath, static::sessionName);
+		static::$object->open(static::$sessionPath, static::$sessionName);
 		$this->assertThat(static::$object->close(), $this->isTrue(), __LINE__);
 	}
 
