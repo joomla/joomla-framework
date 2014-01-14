@@ -17,7 +17,60 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 * @var    \Joomla\Session\Storage
 	 * @since  1.0
 	 */
-	protected $object;
+	protected static $object;
+
+	/**
+	 * @var    String  key to use in cache
+	 * @since  1.1
+	 */
+	protected static $key;
+
+	/**
+	 * @var    String  default value to store in cache
+	 * @since  1.1
+	 */
+	protected static $value;
+
+	/**
+	 * @var    String  name for session
+	 * @since  1.1
+	 */
+	protected static $sessionName;
+
+	/**
+	 * @var    String  path for session
+	 * @since  1.1
+	 */
+	protected static $sessionPath;
+
+
+
+
+	/**
+	 * Sets up the fixture.
+	 *
+	 * This method is called before a test is executed.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setUp()
+	{
+		if (empty(static::$object))
+		{
+			$this->markTestSkipped('There is no caching engine.');
+		}
+
+		$key = md5(date(DATE_RFC2822));
+		$value = 'Test value';
+		static::$key = $key;
+		static::$value = $value;
+		static::$sessionName = 'SessionName';
+		static::$sessionPath = 'SessionPath';
+
+		parent::setUp();
+	}
 
 	/**
 	 * Test getInstance
@@ -33,6 +86,23 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 			'This test has not been implemented yet.'
 		);
 	}
+
+
+	/**
+	 * Test...
+	 *
+	 * @todo Implement test__Construct().
+	 *
+	 * @return void
+	 */
+	public function test__Construct()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
+
 
 	/**
 	 * Test...
@@ -50,97 +120,82 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
+	 * Test session open
 	 *
-	 * @todo Implement testOpen().
+	 *
 	 *
 	 * @return void
 	 */
 	public function testOpen()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->assertThat(static::$object->open(static::sessionPath, static::sessionName), $this->isTrue(), __LINE__);
 	}
 
 	/**
-	 * Test...
+	 * Test close session
 	 *
-	 * @todo Implement testClose().
+	 *
 	 *
 	 * @return void
 	 */
 	public function testClose()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		static::$object->open(static::sessionPath, static::sessionName);
+		$this->assertThat(static::$object->close(), $this->isTrue(), __LINE__);
 	}
 
 	/**
-	 * Test...
+	 * Test read default key and value
 	 *
-	 * @todo Implement testRead().
+	 *
 	 *
 	 * @return void
 	 */
 	public function testRead()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		static::$object->write(static::$key, static::$value);
+		$this->assertThat(static::$object->read(static::$key), $this->equalTo(static::$value), __LINE__);
 	}
 
 	/**
-	 * Test...
+	 * Test write nothing default key and value
 	 *
-	 * @todo Implement testWrite().
+	 *
 	 *
 	 * @return void
 	 */
 	public function testWrite()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->assertThat(static::$object->write(static::$key, static::$value), $this->isTrue(), __LINE__);
 	}
 
 	/**
-	 * Test...
+	 * Test storage destroy no value
 	 *
-	 * @todo Implement testDestroy().
+	 *
 	 *
 	 * @return void
 	 */
 	public function testDestroy()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		// Create the key/value
+		static::$object->write(static::$key, static::$value);
+		$this->assertThat(static::$object->destroy(static::$key), $this->isTrue(), __LINE__);
 	}
 
 	/**
-	 * Test...
+	 * Test garbage collection
 	 *
-	 * @todo Implement testGc().
 	 *
 	 * @return void
 	 */
 	public function testGc()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->assertThat(static::$object->gc(), $this->isTrue(), __LINE__);
 	}
 
 	/**
-	 * Test...
+	 * Test isSupported
 	 *
 	 * @todo Implement testIsSupported().
 	 *
@@ -148,9 +203,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIsSupported()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->assertThat(\Joomla\Session\Storage::isSupported(), $this->isTrue(), __LINE__);
 	}
 }

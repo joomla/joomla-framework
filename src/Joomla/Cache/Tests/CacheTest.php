@@ -21,7 +21,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 * @var    \Joomla\Cache\Cache
 	 * @since  1.0
 	 */
-	private $instance;
+	static protected $instance;
 
 	/**
 	 * Tests the Joomla\Cache\Cache::__construct method.
@@ -34,7 +34,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	public function test__construct()
 	{
 		// This checks the default ttl and also that the options registry was initialised.
-		$this->assertEquals('900', $this->instance->getOption('ttl'));
+		$this->assertEquals('900', static::$instance->getOption('ttl'));
 	}
 
 	/**
@@ -47,7 +47,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetMultiple()
 	{
-		$result = $this->instance->getMultiple(array('foo', 'goo'));
+		$result = static::$instance->getMultiple(array('foo', 'goo'));
 		$this->assertArrayHasKey('foo', $result, 'Checks the return array (1).');
 		$this->assertArrayHasKey('goo', $result, 'Checks the return array (2).');
 		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $result['foo'], 'Checks the return type.');
@@ -63,7 +63,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRemoveMultiple()
 	{
-		$result = $this->instance->removeMultiple(array('foo', 'goo'));
+		$result = static::$instance->removeMultiple(array('foo', 'goo'));
 		$this->assertEquals(array('foo' => true, 'goo' => true), $result);
 	}
 
@@ -78,8 +78,8 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetOption()
 	{
-		$this->assertSame($this->instance, $this->instance->setOption('foo', 'bar'), 'Checks chaining');
-		$this->assertEquals('bar', $this->instance->getOption('foo'));
+		$this->assertSame(static::$instance, static::$instance->setOption('foo', 'bar'), 'Checks chaining');
+		$this->assertEquals('bar', static::$instance->getOption('foo'));
 	}
 
 	/**
@@ -92,10 +92,29 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetMultiple()
 	{
-		$result = $this->instance->setMultiple(array('foo' => 'bar', 'goo' => 'car'), 50);
+		$result = static::$instance->setMultiple(array('foo' => 'bar', 'goo' => 'car'), 50);
 		$this->assertTrue($result);
 	}
 
+	/**
+	 * Tests for the correct Psr\Cache return values.
+	 *
+	 * @return  void
+	 *
+	 * @coversNothing
+	 * @since   1.0
+	 */
+	public function testPsrCache()
+	{
+		$this->assertInstanceOf('\\Psr\\Cache\\CacheItemInterface', static::$instance, 'Checking Interface.');
+		$this->assertInternalType('boolean', static::$instance->clear(), 'Checking clear.');
+		$this->assertInternalType('boolean', static::$instance->set('for', 'bar'), 'Checking set.');
+		$this->assertInternalType('string', static::$instance->get('foo'), 'Checking get.');
+		$this->assertInternalType('boolean', static::$instance->remove('foo'), 'Checking remove.');
+		$this->assertInternalType('boolean', static::$instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
+		$this->assertInternalType('array', static::$instance->getMultiple(array('foo')), 'Checking getMultiple.');
+		$this->assertInternalType('array', static::$instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
+	}
 	/**
 	 * Setup the tests.
 	 *
@@ -107,6 +126,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->instance = new ConcreteCache;
+		static::$instance = new ConcreteCache;
 	}
 }
