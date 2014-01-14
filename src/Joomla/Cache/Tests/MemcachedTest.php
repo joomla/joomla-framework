@@ -15,7 +15,6 @@ use Joomla\Cache;
  */
 class MemcachedTest extends CacheTest
 {
-
 	/**
 	 * Tests the Joomla\Cache\Cache::__construct method.
 	 *
@@ -38,7 +37,6 @@ class MemcachedTest extends CacheTest
 	 */
 	protected function setUp()
 	{
-
 		static::$className = '\\Joomla\\Cache\\Memcached';
 		parent::setUp();
 	}

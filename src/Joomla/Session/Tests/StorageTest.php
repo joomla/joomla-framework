@@ -13,7 +13,6 @@ namespace Joomla\Session\Tests;
  */
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
-
 	/**
 	 * @var    String	Name of cache engine class
 	 * @since  1.0

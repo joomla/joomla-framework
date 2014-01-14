@@ -46,8 +46,6 @@ class Memcached extends Cache
 		{
 			$this->options['memcache.pool'] = false;
 		}
-
-
 	}
 
 	/**

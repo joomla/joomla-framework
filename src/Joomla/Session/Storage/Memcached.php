@@ -43,7 +43,6 @@ class Memcached extends Storage
 
 		// Parent calls register, so we have to set options before calling it
 		parent::__construct($options);
-
 	}
 
 	/**

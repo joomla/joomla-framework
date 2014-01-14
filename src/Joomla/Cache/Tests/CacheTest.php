@@ -134,7 +134,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
 		try
 		{
-			static::$instance =  new static::$className;;
+			static::$instance = new static::$className;;
 		}
 		catch (\RuntimeException $e)
 		{
