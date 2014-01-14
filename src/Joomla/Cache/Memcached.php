@@ -44,7 +44,7 @@ class Memcached extends Cache
 		// This option must exist, it can be false but it must exist
 		if (!isset($this->options['memcache.pool']))
 		{
-			$$this->options['memcache.pool'] = false;
+			$this->options['memcache.pool'] = false;
 		}
 
 
