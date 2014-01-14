@@ -2,7 +2,7 @@
 
 echo $FOO
 
-EXTRA_PACKETS="apache2 libapache2-mod-php5 php5-mysql"
+EXTRA_PACKETS="apache2 libapache2-mod-php5 php5-mysql php5-memcached"
 if [ "$1" ]
 then
     EXTRA_PACKETS="$EXTRA_PACKETS $1"
