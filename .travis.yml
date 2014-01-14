@@ -24,7 +24,8 @@ before_script:
   - psql -c 'create database joomla_ut;' -U postgres
   - psql -d joomla_ut -a -f src/Joomla/Database/Tests/Stubs/postgresql.sql
   - phpenv config-add build/travis/phpenv/memcached.ini
-  - phpenv config-add build/travis/phpenv/memcache.ini
+ # todo: enable memcache as well
+ # - phpenv config-add build/travis/phpenv/memcache.ini
 
 script:
   - ant composervalidate

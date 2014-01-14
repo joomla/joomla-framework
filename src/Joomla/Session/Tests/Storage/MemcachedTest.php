@@ -34,7 +34,7 @@ class MemcachedTest extends StorageTest
 		{
 			$this->markTestSkipped('Memcached storage is not enabled on this system.');
 		}
-		
+
 		parent::setUp();
 
 		static::$object = Storage::getInstance('Memcached');
