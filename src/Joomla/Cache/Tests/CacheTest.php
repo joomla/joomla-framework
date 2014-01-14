@@ -121,6 +121,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$this->assertInternalType('array', static::$instance->getMultiple(array('foo')), 'Checking getMultiple.');
 		$this->assertInternalType('array', static::$instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
 	}
+
 	/**
 	 * Setup the tests.
 	 *

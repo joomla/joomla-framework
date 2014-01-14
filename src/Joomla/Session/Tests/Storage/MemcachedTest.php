@@ -18,7 +18,6 @@ use Joomla\Session\Storage;
 class MemcachedTest extends StorageTest
 {
 
-
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
@@ -41,8 +40,6 @@ class MemcachedTest extends StorageTest
 		// Parent contains the rest of the setup
 		parent::setUp();
 
-
 	}
-
 
 }

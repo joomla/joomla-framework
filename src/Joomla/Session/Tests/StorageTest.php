@@ -20,7 +20,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected static $className;
 
-
 	/**
 	 * @var    \Joomla\Session\Storage
 	 * @since  1.0
@@ -50,9 +49,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 * @since  1.1
 	 */
 	protected static $sessionPath;
-
-
-
 
 	/**
 	 * Sets up the fixture.
@@ -96,7 +92,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
-
 	/**
 	 * Test...
 	 *
@@ -111,7 +106,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 			'This test has not been implemented yet.'
 		);
 	}
-
 
 	/**
 	 * Test...
@@ -131,8 +125,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test session open
 	 *
-	 *
-	 *
 	 * @return void
 	 */
 	public function testOpen()
@@ -142,8 +134,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * Test close session
-	 *
-	 *
 	 *
 	 * @return void
 	 */
@@ -156,8 +146,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test read default key and value
 	 *
-	 *
-	 *
 	 * @return void
 	 */
 	public function testRead()
@@ -169,8 +157,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test write nothing default key and value
 	 *
-	 *
-	 *
 	 * @return void
 	 */
 	public function testWrite()
@@ -180,8 +166,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * Test storage destroy no value
-	 *
-	 *
 	 *
 	 * @return void
 	 */
@@ -195,7 +179,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test garbage collection
 	 *
-	 *
 	 * @return void
 	 */
 	public function testGc()
@@ -205,8 +188,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * Test isSupported
-	 *
-	 * @todo Implement testIsSupported().
 	 *
 	 * @return void
 	 */
