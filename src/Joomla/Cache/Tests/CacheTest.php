@@ -130,16 +130,14 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-
 		try
 		{
-			static::$instance = new static::$className;;
+			static::$instance = new static::$className;
 		}
 		catch (\RuntimeException $e)
 		{
 			$this->markTestSkipped();
 		}
-
 		parent::setUp();
 	}
 }

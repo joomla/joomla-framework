@@ -40,4 +40,3 @@ class MemcachedTest extends StorageTest
 		parent::setUp();
 	}
 }
-
