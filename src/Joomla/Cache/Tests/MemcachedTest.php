@@ -18,6 +18,19 @@ class MemcachedTest extends CacheTest
 
 
 	/**
+	 * Tests the Joomla\Cache\Cache::__construct method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Cache::__construct
+	 * @since   1.0
+	 */
+	public function test__construct()
+	{
+		$this->markTestIncomplete();
+	}
+
+	/**
 	 * Setup the tests for memcached.
 	 *
 	 * @return  void
@@ -26,15 +39,9 @@ class MemcachedTest extends CacheTest
 	 */
 	protected function setUp()
 	{
+
+		static::$className = '\\Joomla\\Cache\\Memcached';
 		parent::setUp();
 
-		try
-		{
-			static::$instance =  new Cache\Memcached;
-		}
-		catch (\RuntimeException $e)
-		{
-			$this->markTestSkipped();
-		}
 	}
 }

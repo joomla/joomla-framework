@@ -24,6 +24,12 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	static protected $instance;
 
 	/**
+	 * @var    String Cache Classname to test
+	 * @since  1.0
+	 */
+	static protected $className = 'ConcreteCache';
+
+	/**
 	 * Tests the Joomla\Cache\Cache::__construct method.
 	 *
 	 * @return  void
@@ -124,8 +130,16 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		parent::setUp();
 
-		static::$instance = new ConcreteCache;
+		try
+		{
+			static::$instance =  new static::$className;;
+		}
+		catch (\RuntimeException $e)
+		{
+			$this->markTestSkipped();
+		}
+
+		parent::setUp();
 	}
 }
