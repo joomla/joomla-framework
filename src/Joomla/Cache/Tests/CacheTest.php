@@ -8,7 +8,6 @@ namespace Joomla\Cache\Tests;
 require_once __DIR__ . '/Stubs/Concrete.php';
 
 use Joomla\Test\TestHelper;
-use Joomla\Cache\Tests\ConcreteCache;
 
 /**
  * Tests for the Joomla\Cache\Cache class.
@@ -27,7 +26,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 * @var    String Cache Classname to test
 	 * @since  1.0
 	 */
-	static protected $className = 'ConcreteCache';
+	static protected $className = '\\Joomla\\Cache\\Tests\\ConcreteCache';
 
 	/**
 	 * Tests the Joomla\Cache\Cache::__construct method.
