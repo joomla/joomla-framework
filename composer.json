@@ -9,7 +9,10 @@
         "psr/log": "~1.0"
     },
     "require-dev": {
-         "symfony/yaml": "~2.0"
+        "symfony/yaml": "~2.0",
+        "phpunit/phpunit": "3.7.*",
+        "squizlabs/php_codesniffer": "1.*",
+	 "phpmd/phpmd" : "1.4.*"
     },
     "suggest": {
         "symfony/yaml": "Install symfony/yaml 2.* if you require YAML support."

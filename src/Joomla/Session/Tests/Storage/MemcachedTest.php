@@ -6,7 +6,7 @@
 
 namespace Joomla\Session\Tests\Storage;
 
-use Joomla\Session\Tests\StorageTest;
+use Joomla\Session\Tests\StorageCase;
 use Joomla\Session\Storage\Memcached as StorageMemcached;
 use Joomla\Session\Storage;
 
@@ -15,7 +15,7 @@ use Joomla\Session\Storage;
  *
  * @since  1.0
  */
-class MemcachedTest extends StorageTest
+class MemcachedTest extends StorageCase
 {
 	/**
 	 * Sets up the fixture, for example, opens a network connection.

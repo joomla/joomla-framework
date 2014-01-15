@@ -6,48 +6,15 @@
 
 namespace Joomla\Session\Tests;
 
+use Joomla\Session\Storage;
+
 /**
  * Test class for Joomla\Session\Storage.
  *
  * @since  1.0
  */
-class StorageTest extends \PHPUnit_Framework_TestCase
+class StorageTest extends StorageCase
 {
-	/**
-	 * @var    String	Name of cache engine class
-	 * @since  1.0
-	 */
-	protected static $className;
-
-	/**
-	 * @var    \Joomla\Session\Storage
-	 * @since  1.0
-	 */
-	protected static $object;
-
-	/**
-	 * @var    String  key to use in cache
-	 * @since  1.1
-	 */
-	protected static $key;
-
-	/**
-	 * @var    String  default value to store in cache
-	 * @since  1.1
-	 */
-	protected static $value;
-
-	/**
-	 * @var    String  name for session
-	 * @since  1.1
-	 */
-	protected static $sessionName;
-
-	/**
-	 * @var    String  path for session
-	 * @since  1.1
-	 */
-	protected static $sessionPath;
 
 	/**
 	 * Sets up the fixture.
@@ -60,20 +27,10 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		if (empty(static::$object))
-		{
-			$this->markTestSkipped('There is no caching engine.');
-		}
-
-		$key = md5(date(DATE_RFC2822));
-		$value = 'Test value';
-		static::$key = $key;
-		static::$value = $value;
-		static::$sessionName = 'SessionName';
-		static::$sessionPath = 'SessionPath';
-		static::$className = get_class(static::$object);
-
+		// Dummy object for testing
+		static::$object = $this;
 		parent::setUp();
+		static::$className  = '\\Joomla\\Session\\Storage';
 	}
 
 	/**
@@ -85,14 +42,17 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetInstance()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$className = static::$className;
+		$instance = $className::getInstance();
+		// Can't be us because we are abstract
+		$this->assertNotInstanceOf($className, $instance,  __LINE__);
+		// Should Default to None
+		$storageClass = '\\Joomla\\Session\\Storage\\None';
+		$this->assertNotInstanceOf($storageClass, $instance, __LINE__);
 	}
 
 	/**
-	 * Test...
+	 * Test __construct: can't construct an abstract class
 	 *
 	 * @todo Implement test__Construct().
 	 *
@@ -100,14 +60,12 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__Construct()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$reflectStorage = new ReflectionClass('TestAbstractClass');
+		$this->assertThat($reflectStorage->isAbstract(), $this->isTrye(), __LINE__);
 	}
 
 	/**
-	 * Test...
+	 * Test Register is not valid for an abstract model
 	 *
 	 * @todo Implement testRegister().
 	 *
@@ -115,10 +73,9 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRegister()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$reflectStorage = new ReflectionClass('TestAbstractClass');
+		$this->assertThat($reflectStorage->isAbstract(), $this->isTrue(), __LINE__);
+
 	}
 
 	/**
@@ -128,7 +85,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOpen()
 	{
-		$this->assertThat(static::$object->open(static::$sessionPath, static::$sessionName), $this->isTrue(), __LINE__);
+		$className = static::$className;
+		$this->assertThat($className::open(static::$sessionPath, static::$sessionName), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -138,8 +96,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testClose()
 	{
-		static::$object->open(static::$sessionPath, static::$sessionName);
-		$this->assertThat(static::$object->close(), $this->isTrue(), __LINE__);
+		$className = static::$className;
+		$this->assertThat($className::close(), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -149,8 +107,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRead()
 	{
-		static::$object->write(static::$key, static::$value);
-		$this->assertThat(static::$object->read(static::$key), $this->equalTo(static::$value), __LINE__);
+		$className = static::$className;
+		$this->assertThat($className::read(static::$key), $this->isNull(), __LINE__);
 	}
 
 	/**
@@ -160,7 +118,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testWrite()
 	{
-		$this->assertThat(static::$object->write(static::$key, static::$value), $this->isTrue(), __LINE__);
+		$className = static::$className;
+		$this->assertThat($className::write(static::$key, static::$value), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -170,9 +129,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDestroy()
 	{
-		// Create the key/value
-		static::$object->write(static::$key, static::$value);
-		$this->assertThat(static::$object->destroy(static::$key), $this->isTrue(), __LINE__);
+		$className = static::$className;
+		$this->assertThat($className::destroy(static::$key), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -182,7 +140,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGc()
 	{
-		$this->assertThat(static::$object->gc(), $this->isTrue(), __LINE__);
+		$className = static::$className;
+		$this->assertThat($className::gc(), $this->isTrue(), __LINE__);
 	}
 
 	/**
@@ -192,6 +151,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIsSupported()
 	{
-		$this->assertThat(static::$object->isSupported(), $this->isTrue(), __LINE__);
+		$className = static::$className;
+		$this->assertThat($className::isSupported(), $this->isTrue(), __LINE__);
 	}
 }
