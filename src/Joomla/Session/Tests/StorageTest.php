@@ -60,7 +60,7 @@ class StorageTest extends StorageCase
 	 */
 	public function test__Construct()
 	{
-		$reflectStorage = new ReflectionClass('TestAbstractClass');
+		$reflectStorage = new \ReflectionClass('TestAbstractClass');
 		$this->assertThat($reflectStorage->isAbstract(), $this->isTrye(), __LINE__);
 	}
 
@@ -73,7 +73,7 @@ class StorageTest extends StorageCase
 	 */
 	public function testRegister()
 	{
-		$reflectStorage = new ReflectionClass('TestAbstractClass');
+		$reflectStorage = new \ReflectionClass('TestAbstractClass');
 		$this->assertThat($reflectStorage->isAbstract(), $this->isTrue(), __LINE__);
 
 	}
