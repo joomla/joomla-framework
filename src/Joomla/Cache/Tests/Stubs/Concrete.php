@@ -81,6 +81,7 @@ class ConcreteCache extends Cache
 	public function getItem($key)
 	{
 		$item = new Item($key);
+
 		try
 		{
 			$value = $this->getValue($key);
@@ -88,7 +89,7 @@ class ConcreteCache extends Cache
 		}
 		catch ( \Exception $e)
 		{
-			//TODO: log exceptions
+			// TODO: log exceptions
 		}
 
 		return $item;
@@ -105,9 +106,12 @@ class ConcreteCache extends Cache
 	 */
 	public function getValue($key)
 	{
-		try {
+		try
+		{
 			$value = $this->db[$key];
-		} catch ( \Exception $e) {
+		}
+		catch ( \Exception $e)
+		{
 			// We don't handle issues, let our caller deal with them - we might want to log them
 			throw $e;
 		}
@@ -126,6 +130,7 @@ class ConcreteCache extends Cache
 	public function remove($key)
 	{
 		$oldCache = $this->db->getArrayCopy();
+
 		if (array_key_exists($key,$oldCache ))
 		{
 			$keyArray = array($key => $key );
@@ -167,7 +172,6 @@ class ConcreteCache extends Cache
 	 */
 	protected function exists($key)
 	{
-
 		return array_key_exists($this->db, $key);
 	}
 }

@@ -68,7 +68,10 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Checks to ensure a that $key is not set at all in the Cache
 	 *
+	 * @param   string $key Key of cache item to check
+	 * @param   string $value Value cache item should be
 	 * @return  void
+	 *
 	 * @since   1.1
 	 */
 	protected function missKey($key = '', $value = '')
@@ -86,9 +89,10 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Checks to ensure a that $key is set to $value in the Cache
 	 *
-	 * @param string $key
-	 * @param string $value
+	 * @param   string $key Key of cache item to check
+	 * @param   string $value Value cache item should be
 	 * @return  void
+	 *
 	 * @since   1.1
 	 */
 	protected function hitKey($key = '', $value = '')
@@ -139,13 +143,15 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$lessSamples = $samples;
 		$badSampleKeys = array( 'foobar', 'barfoo', 'helloworld');
 
-		// pop an item from the array
+		// Pop an item from the array
 		array_pop($lessSamples);
 		$keys = array_keys($samples);
+
 		foreach ($samples as $key => $value)
 		{
 			$cacheInstance->set($key, $value);
 		}
+
 		$results = $cacheInstance->getMultiple($keys);
 		$this->assertSameSize($samples, $results, __LINE__);
 		$this->assertNotSameSize($moreSamples, $results, __LINE__);
@@ -177,10 +183,12 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$cacheInstance = $this->instance;
 		$cacheInstance->clear();
 		$samples = array( 'foo' => 'bars', 'goo' => 'google', 'hello' => 'world');
+
 		foreach ($samples as $key => $value)
 		{
 			$cacheInstance->set($key, $value);
 		}
+
 		$sampleKeys = array_merge(
 			array_keys($samples),
 		array('foobar'));
@@ -189,13 +197,16 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		foreach ($results as $key => $removed)
 		{
 			$msg = "Removal of $key was $removed::";
+
 			if (array_key_exists($key, $samples))
 			{
-				$this->assertThat($removed, $this->equalTo(true), $msg.__LINE__);
+				$this->assertThat($removed, $this->equalTo(true), $msg . __LINE__);
 			} else {
-				$this->assertThat($removed, $this->equalTo(false), $msg.__LINE__);
+				$this->assertThat($removed, $this->equalTo(false), $msg . __LINE__);
 			}
+
 		}
+
 	}
 
 	/**
@@ -216,6 +227,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		{
 			$cacheInstance->set($key, $value);
 		}
+
 		$getFoo = $cacheInstance->get('foo2');
 		$this->assertThat($getFoo->isHit(), $this->equalTo(true), __LINE__);
 		$removeFoo = $cacheInstance->remove('foo2');
@@ -308,9 +320,10 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	{
 		$options = $this->cacheOptions;
 		$className = $this->cacheClass;
+
 		try
 		{
-			$cacheInstance= new $className($options);
+			$cacheInstance = new $className($options);
 		}
 		catch (\RuntimeException $e)
 		{

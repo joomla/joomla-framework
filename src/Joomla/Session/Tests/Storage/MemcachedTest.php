@@ -32,8 +32,10 @@ class MemcachedTest extends StorageCase
 			$this->markTestSkipped(
 				'The Memcached class does not exist.'
 			);
+
 			return;
 		}
+
 		// Create the caching object
 		static::$object = Storage::getInstance('Memcached');
 
@@ -41,9 +43,15 @@ class MemcachedTest extends StorageCase
 		parent::setUp();
 	}
 
+	/**
+	 * Test read default key and value,
+	 * Storage\Memcached lets PHP read/write data directly
+	 * via Session handlers so read is always null.
+	 *
+	 * @return void
+	 */
 	public function testRead()
 	{
-		// Memcached depends on PHP to save session data, so read is always null
 		static::$object->write(static::$key, static::$value);
 		$this->assertThat(static::$object->read(static::$key), $this->equalTo(null), __LINE__);
 	}

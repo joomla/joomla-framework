@@ -24,10 +24,12 @@ class MemcachedTest extends CacheTest
 	 */
 	public function setUp()
 	{
-		if (!class_exists('Memcached')) {
+		if (!class_exists('Memcached'))
+		{
 			$this->markTestSkipped(
 				'The Memcached class does not exist.'
 			);
+
 			return;
 		}
 
