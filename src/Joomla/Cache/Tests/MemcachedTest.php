@@ -15,35 +15,34 @@ use Joomla\Cache;
  */
 class MemcachedTest extends CacheTest
 {
-	static protected $className = '\\Joomla\\Cache\\Memcached';
 
-	/**
-	 * Tests the Joomla\Cache\Cache::__construct method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Cache::__construct
-	 * @since   1.0
-	 */
-	public function test__construct()
+	public function setUp()
 	{
-		$this->markTestIncomplete();
-	}
+		if (!class_exists('Memcached')) {
+			$this->markTestSkipped(
+				'The Memcached class does not exist.'
+			);
+			return;
+		}
 
-
-
-	/**
-	 * Tests the Joomla\Cache\Cache::set method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Cache::set
-	 * @since   1.0
-	 */
-	public function testSet()
-	{
-		$this->assertInstanceOf(static::$instance, '\\Joomla\\Cache\\Memcached', 'Checking Interface of class . '.get_class(static::$instance));
-
-		parent::testSet();
+		$options = $this->cacheOptions;
+		if (!$options)
+		{
+			$options = array();
+		}
+		if (!is_array($options))
+		{
+			$options = array($options);
+		}
+		if (!isset($options['memcache.servers']))
+		{
+			$server = new \StdClass();
+			$server->host = 'localhost';
+			$server->port = '11211';
+			$options['memcache.servers'] = array($server);
+		}
+		$this->cacheOptions = $options;
+		$this->cacheClass = 'Joomla\\Cache\\Memcached';
+		parent::setUp();
 	}
 }

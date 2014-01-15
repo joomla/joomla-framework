@@ -8,8 +8,6 @@
 
 namespace Joomla\Cache;
 
-use Psr\Cache\CacheItemInterface;
-
 /**
  * Memcached cache driver for the Joomla Framework.
  *
@@ -21,7 +19,7 @@ class Memcached extends Cache
 	 * @var    \Memcached  The memcached driver.
 	 * @since  1.0
 	 */
-	private $driver;
+	private $driver = false;
 
 	/**
 	 * Constructor.
@@ -65,6 +63,7 @@ class Memcached extends Cache
 	 */
 	public function clear()
 	{
+		$this->connect();
 		return $this->driver->flush();
 	}
 
@@ -107,7 +106,8 @@ class Memcached extends Cache
 
 		$this->driver->delete($key);
 
-		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
+		$rc = $this->driver->getResultCode();
+		if ( ($rc != \Memcached::RES_SUCCESS))
 		{
 // 			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 			return false;
@@ -164,7 +164,7 @@ class Memcached extends Cache
 	private function connect()
 	{
 		// We want to only create the driver once.
-		if (isset($this->driver))
+		if ($this->driver)
 		{
 			return;
 		}
