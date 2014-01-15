@@ -26,7 +26,6 @@ class JSessionTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-
 		if (!class_exists('JSession'))
 		{
 			$this->markTestSkipped(
