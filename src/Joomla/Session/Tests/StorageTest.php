@@ -44,36 +44,32 @@ class StorageTest extends StorageCase
 	{
 		$className = static::$className;
 		$instance = $className::getInstance();
+		$instanceClass = get_class($instance);
 		// Can't be us because we are abstract
-		$this->assertNotInstanceOf($className, $instance,  __LINE__);
+		$this->assertNotEquals($className, $instanceClass,  __LINE__);
 		// Should Default to None
-		$storageClass = '\\Joomla\\Session\\Storage\\None';
-		$this->assertNotInstanceOf($storageClass, $instance, __LINE__);
+		$storageClass = 'Joomla\\Session\\Storage\\None';
+		$this->assertInstanceOf($storageClass, $instance, __LINE__);
 	}
 
 	/**
 	 * Test __construct: can't construct an abstract class
 	 *
-	 * @todo Implement test__Construct().
-	 *
 	 * @return void
 	 */
 	public function test__Construct()
 	{
-		$reflectStorage = new \ReflectionClass('TestAbstractClass');
-		$this->assertThat($reflectStorage->isAbstract(), $this->isTrye(), __LINE__);
+		$reflectStorage = new \ReflectionClass('Joomla\\Session\\Storage');
+		$this->assertThat($reflectStorage->isAbstract(), $this->isTrue(), __LINE__);
 	}
 
 	/**
 	 * Test Register is not valid for an abstract model
-	 *
-	 * @todo Implement testRegister().
-	 *
 	 * @return void
 	 */
 	public function testRegister()
 	{
-		$reflectStorage = new \ReflectionClass('TestAbstractClass');
+		$reflectStorage = new \ReflectionClass('Joomla\Session\\Storage');
 		$this->assertThat($reflectStorage->isAbstract(), $this->isTrue(), __LINE__);
 
 	}

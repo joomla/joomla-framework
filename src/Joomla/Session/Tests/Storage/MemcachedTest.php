@@ -27,12 +27,12 @@ class MemcachedTest extends StorageCase
 	 */
 	protected function setUp()
 	{
-		// Skip these tests if Memcache isn't available.
-		if (!StorageMemcached::isSupported())
-		{
-			$this->markTestSkipped('Memcached storage is not enabled on this system.');
+		if (!class_exists('Memcached')) {
+			$this->markTestSkipped(
+				'The Memcached class does not exist.'
+			);
+			return;
 		}
-
 		// Create the caching object
 		static::$object = Storage::getInstance('Memcached');
 

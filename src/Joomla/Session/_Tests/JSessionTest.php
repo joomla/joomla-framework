@@ -11,7 +11,7 @@ use Joomla\Test\TestHelper;
  *
  * @since  1.0
  */
-class JSessionTest extends TestCase
+class JSessionTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var  JSession
@@ -26,6 +26,12 @@ class JSessionTest extends TestCase
 	 */
 	protected function setUp()
 	{
+		if (!class_exists('JSession')) {
+			$this->markTestSkipped(
+				'The JSession class does not exist.'
+			);
+			return;
+		}
 		parent::setUp();
 
 		$this->saveFactoryState();
