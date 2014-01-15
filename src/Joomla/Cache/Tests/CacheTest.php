@@ -55,7 +55,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$result = static::$instance->getMultiple(array('foo', 'goo'));
 		$this->assertArrayHasKey('foo', $result, 'Checks the return array (1).');
 		$this->assertArrayHasKey('goo', $result, 'Checks the return array (2).');
-		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $result['foo'], 'Checks the return type.');
 	}
 
 	/**
