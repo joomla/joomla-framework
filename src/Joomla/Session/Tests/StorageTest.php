@@ -15,7 +15,6 @@ use Joomla\Session\Storage;
  */
 class StorageTest extends StorageCase
 {
-
 	/**
 	 * Sets up the fixture.
 	 *
@@ -45,8 +44,10 @@ class StorageTest extends StorageCase
 		$className = static::$className;
 		$instance = $className::getInstance();
 		$instanceClass = get_class($instance);
+
 		// Can't be us because we are abstract
 		$this->assertNotEquals($className, $instanceClass,  __LINE__);
+
 		// Should Default to None
 		$storageClass = 'Joomla\\Session\\Storage\\None';
 		$this->assertInstanceOf($storageClass, $instance, __LINE__);
@@ -65,13 +66,13 @@ class StorageTest extends StorageCase
 
 	/**
 	 * Test Register is not valid for an abstract model
+	 *
 	 * @return void
 	 */
 	public function testRegister()
 	{
 		$reflectStorage = new \ReflectionClass('Joomla\Session\\Storage');
 		$this->assertThat($reflectStorage->isAbstract(), $this->isTrue(), __LINE__);
-
 	}
 
 	/**

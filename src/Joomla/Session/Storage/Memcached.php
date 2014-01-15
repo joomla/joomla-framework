@@ -40,8 +40,6 @@ class Memcached extends Storage
 				'port' => isset($options['memcache_server_port']) ? $options['memcache_server_port'] : 11211
 			)
 		);
-
-		// Parent calls register, so we have to set options before calling it
 		parent::__construct($options);
 	}
 

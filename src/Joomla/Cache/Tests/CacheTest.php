@@ -48,7 +48,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('900', $this->instance->getOption('ttl'));
 	}
 
-
 	/**
 	 * Tests the the Joomla\Cache\Cache::get method..
 	 *
@@ -64,17 +63,13 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$cacheInstance->set('foo', 'bar');
 		$this->hitKey('foo', 'bar');
 		$this->missKey('foobar', 'foobar');
-
 	}
 
-
 	/**
-	 * Tests the the Joomla\Cache\Cache::get method for missing key..
+	 * Checks to ensure a that $key is not set at all in the Cache
 	 *
 	 * @return  void
-	 *
-	 * @coversNothing
-	 * @since   1.0
+	 * @since   1.1
 	 */
 	protected function missKey($key = '', $value = '')
 	{
@@ -89,12 +84,12 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the the Joomla\Cache\Cache::get method for an existing key..
+	 * Checks to ensure a that $key is set to $value in the Cache
 	 *
+	 * @param string $key
+	 * @param string $value
 	 * @return  void
-	 *
-	 * @coversNothing
-	 * @since   1.0
+	 * @since   1.1
 	 */
 	protected function hitKey($key = '', $value = '')
 	{
@@ -107,6 +102,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$this->assertThat($cacheValue, $this->equalTo($value), __LINE__);
 		$this->assertThat($cacheHit, $this->equalTo(true), __LINE__);
 	}
+
 	/**
 	 * Tests the Joomla\Cache\Cache::set method.
 	 *
@@ -120,7 +116,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$cacheInstance = $this->instance;
 		$cacheInstance->clear();
 		$result = $cacheInstance->set('fooSet', 'barSet');
-
 		$this->assertThat($result, $this->equalTo(true), __LINE__);
 		$fooValue = $cacheInstance->get('fooSet')->getValue();
 		$this->assertThat($fooValue, $this->equalTo('barSet'), __LINE__);
@@ -155,6 +150,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$this->assertSameSize($samples, $results, __LINE__);
 		$this->assertNotSameSize($moreSamples, $results, __LINE__);
 		$this->assertNotSameSize($lessSamples, $results, __LINE__);
+
 		foreach ($results as $item)
 		{
 			$itemKey = $item->getKey();
@@ -215,6 +211,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$cacheInstance = $this->instance;
 		$cacheInstance->clear();
 		$samples = array( 'foo2' => 'bars', 'goo2' => 'google', 'hello2' => 'world');
+
 		foreach ($samples as $key => $value)
 		{
 			$cacheInstance->set($key, $value);
@@ -228,7 +225,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$getResult = $cacheInstance->get('foo2');
 		$this->assertThat($getResult->isHit(), $this->equalTo(false), __LINE__);
 	}
-
 
 	/**
 	 * Tests the Joomla\Cache\Cache::setOption method.
@@ -263,6 +259,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$result = $cacheInstance->setMultiple($samples, 50);
 		$this->assertThat($result, $this->isTrue(), __LINE__);
 		$i = 0;
+
 		foreach($keys as $key)
 		{
 			$cacheValue = $cacheInstance->get($key)->getValue();
@@ -270,7 +267,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 			$this->assertThat($cacheValue, $this->equalTo($sampleValue), __LINE__);
 			$i++;
 		}
-
 	}
 
 	/**
@@ -310,7 +306,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-
 		$options = $this->cacheOptions;
 		$className = $this->cacheClass;
 		try

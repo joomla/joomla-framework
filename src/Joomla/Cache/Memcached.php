@@ -44,10 +44,12 @@ class Memcached extends Cache
 		{
 			$this->options['memcache.pool'] = false;
 		}
+
 		if (!isset($this->options['memcache.compress']))
 		{
 			$this->options['memcache.compress'] = false;
 		}
+
 		if (!isset($this->options['memcache.servers']))
 		{
 			$this->options['memcache.servers'] = false;
@@ -64,6 +66,7 @@ class Memcached extends Cache
 	public function clear()
 	{
 		$this->connect();
+
 		return $this->driver->flush();
 	}
 
@@ -107,6 +110,7 @@ class Memcached extends Cache
 		$this->driver->delete($key);
 
 		$rc = $this->driver->getResultCode();
+
 		if ( ($rc != \Memcached::RES_SUCCESS))
 		{
 // 			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));

@@ -15,7 +15,13 @@ use Joomla\Cache;
  */
 class MemcachedTest extends CacheTest
 {
-
+	/**
+	 * Setup the tests.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
 	public function setUp()
 	{
 		if (!class_exists('Memcached')) {
@@ -26,21 +32,25 @@ class MemcachedTest extends CacheTest
 		}
 
 		$options = $this->cacheOptions;
+
 		if (!$options)
 		{
 			$options = array();
 		}
+
 		if (!is_array($options))
 		{
 			$options = array($options);
 		}
+
 		if (!isset($options['memcache.servers']))
 		{
-			$server = new \StdClass();
+			$server = new \StdClass;
 			$server->host = 'localhost';
 			$server->port = '11211';
 			$options['memcache.servers'] = array($server);
 		}
+
 		$this->cacheOptions = $options;
 		$this->cacheClass = 'Joomla\\Cache\\Memcached';
 		parent::setUp();

@@ -17,17 +17,24 @@ use Psr\Cache\CacheItemInterface;
  */
 class ConcreteCache extends Cache
 {
-
 	/**
 	 * @var    \ArrayAccess  Database of cached items
 	 * @since  1.1
 	 */
 	protected $db;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param   mixed  $options  An options array, or an object that implements \ArrayAccess
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
 	public function __construct($options = array())
 	{
 		parent::__construct($options);
-		$this->db = new \ArrayObject();
+		$this->db = new \ArrayObject;
 	}
 
 	/**
@@ -39,12 +46,11 @@ class ConcreteCache extends Cache
 	 */
 	public function clear()
 	{
-
 		// Replace the db with a new blank array
 		$clearData = $this->db->exchangeArray(array());
 		unset($clearData);
-		return true;
 
+		return true;
 	}
 
 	/**
@@ -59,6 +65,7 @@ class ConcreteCache extends Cache
 	public function get($key)
 	{
 		$item = $this->getItem($key);
+
 		return $item;
 	}
 
@@ -74,10 +81,13 @@ class ConcreteCache extends Cache
 	public function getItem($key)
 	{
 		$item = new Item($key);
-		try {
+		try
+		{
 			$value = $this->getValue($key);
 			$item->setValue($value);
-		} catch ( \Exception $e) {
+		}
+		catch ( \Exception $e)
+		{
 			//TODO: log exceptions
 		}
 
@@ -103,6 +113,7 @@ class ConcreteCache extends Cache
 		}
 		return $value;
 	}
+
 	/**
 	 * Method to remove a storage entry for a key.
 	 *
@@ -120,8 +131,10 @@ class ConcreteCache extends Cache
 			$keyArray = array($key => $key );
 			$newCache = array_diff_key($oldCache, $keyArray);
 			$this->db->exchangeArray($newCache);
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -139,6 +152,7 @@ class ConcreteCache extends Cache
 	public function set($key, $value, $ttl = null)
 	{
 		$this->db[$key] = $value;
+
 		return true;
 	}
 
@@ -153,6 +167,7 @@ class ConcreteCache extends Cache
 	 */
 	protected function exists($key)
 	{
+
 		return array_key_exists($this->db, $key);
 	}
 }

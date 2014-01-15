@@ -49,9 +49,6 @@ abstract class StorageCase extends \PHPUnit_Framework_TestCase
 	 */
 	protected static $sessionPath;
 
-
-
-
 	/**
 	 * Gets the Class Name of the model for this class
 	 *
@@ -77,7 +74,6 @@ abstract class StorageCase extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-
 		if (empty(static::$object))
 		{
 			$this->markTestSkipped('There is no caching engine.');
