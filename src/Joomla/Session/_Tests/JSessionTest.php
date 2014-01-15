@@ -26,29 +26,24 @@ class JSessionTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
+
 		if (!class_exists('JSession'))
 		{
 			$this->markTestSkipped(
-				'The JSession class does not exist.'
-			);
-
-			return;
+				'The JSession class does not exist.');
 		}
 
 		parent::setUp();
-
 		$this->saveFactoryState();
 		$this->object = JSession::getInstance('none', array('expire' => 20, 'force_ssl' => true, 'name' => 'name', 'id' => 'id', 'security' => 'security'));
 		$this->input = new JInput;
 		$this->input->cookie = $this->getMock('JInputCookie', array('set', 'get'));
 		$this->object->initialise($this->input);
-
 		$this->input->cookie->expects($this->any())
 			->method('set');
 		$this->input->cookie->expects($this->any())
 			->method('get')
 			->will($this->returnValue(null));
-
 		$this->object->start();
 	}
 
@@ -60,13 +55,17 @@ class JSessionTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-		if (session_id())
+		// Only tear down if JSession exists
+		if (class_exists('JSession'))
 		{
-			session_unset();
-			session_destroy();
-		}
+			if (session_id())
+			{
+				session_unset();
+				session_destroy();
+			}
 
-		$this->restoreFactoryState();
+			$this->restoreFactoryState();
+		}
 	}
 
 	/**
