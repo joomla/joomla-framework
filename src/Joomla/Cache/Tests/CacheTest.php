@@ -42,6 +42,41 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('900', static::$instance->getOption('ttl'));
 	}
 
+
+	/**
+	 * Tests the the Joomla\Cache\Cache::get method..
+	 *
+	 * @return  void
+	 *
+	 * @coversNothing
+	 * @since   1.0
+	 */
+	public function testGet()
+	{
+		$this->assertInstanceOf(static::$instance, '\\Psr\\Cache\\CacheItemInterface', 'Checking Interface.');
+		static::$instance->clear();
+		static::$instance->set('for', 'bar');
+		$fooValue = static::$instance->get('foo');
+		$this->assertThat($fooValue, $this->equalTo('foo'), __LINE__);
+	}
+
+	/**
+	 * Tests the Joomla\Cache\Cache::set method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Cache\Cache::set
+	 * @since   1.0
+	 */
+	public function testSet()
+	{
+		$this->assertInstanceOf(static::$instance, '\\Psr\\Cache\\CacheItemInterface', 'Checking Interface.');
+		static::$instance->clear();
+		static::$instance->set('for', 'barSet');
+		$fooValue = static::$instance->get('fooSet');
+		$this->assertThat($fooValue, $this->equalTo('fooSet'), __LINE__);
+	}
+
 	/**
 	 * Tests the Joomla\Cache\Cache::getMultiple method.
 	 *
@@ -52,9 +87,18 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetMultiple()
 	{
-		$result = static::$instance->getMultiple(array('foo', 'goo'));
-		$this->assertArrayHasKey('foo', $result, 'Checks the return array (1).');
-		$this->assertArrayHasKey('goo', $result, 'Checks the return array (2).');
+		static::$instance->clear();
+		$samples = array( 'foo' => 'foo', 'bar' => 'bar', 'hello' => 'world');
+		static::$instance->setMultiple(array($samples), 50);
+		$result = static::$instance->getMultiple($samples);
+		$i = 0;
+		foreach($samples as $key => $value)
+		{
+			$this->assertArrayHasKey($key, $result, "Array item $i missing ".__LINE__);
+			$this->assertThat($result[$key], $this->equalTo($value), "Array value $i incorrect ".__LINE__);
+			$i++;
+		}
+
 	}
 
 	/**
@@ -67,8 +111,10 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRemoveMultiple()
 	{
+		static::$instance->set('foo', 'bars');
+		static::$instance->set('goo', 'google');
 		$result = static::$instance->removeMultiple(array('foo', 'goo'));
-		$this->assertEquals(array('foo' => true, 'goo' => true), $result);
+		$this->assertThat($result, $this->equalTo(array('foo' => true, 'goo' => true)), __LINE__);
 	}
 
 	/**
@@ -96,8 +142,18 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetMultiple()
 	{
-		$result = static::$instance->setMultiple(array('foo' => 'bar', 'goo' => 'car'), 50);
-		$this->assertTrue($result);
+		static::$instance->clear();
+		$samples = array( 'foo' => 'fooSet', 'bar' => 'barSet', 'hello' => 'worldSet');
+		$result = static::$instance->setMultiple($samples, 50);
+		$this->assertThat($result, $this->isTrue(), __LINE__);
+		$i = 0;
+		foreach($samples as $key => $value)
+		{
+			$cacheValue = static::$instance->get($key);
+			$this->assertThat($cacheValue, $this->isEqual($value), "Value number $i incorrect ".__LINE__);
+			$i++;
+		}
+
 	}
 
 	/**
@@ -110,7 +166,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testPsrCache()
 	{
-		$this->assertInstanceOf('\\Psr\\Cache\\CacheItemInterface', static::$instance, 'Checking Interface.');
+		$this->assertInstanceOf(static::$instance, '\\Psr\\Cache\\CacheItemInterface', 'Checking Interface.');
 		$this->assertInternalType('boolean', static::$instance->clear(), 'Checking clear.');
 		$this->assertInternalType('boolean', static::$instance->set('for', 'bar'), 'Checking set.');
 		$this->assertInternalType('string', static::$instance->get('foo'), 'Checking get.');

@@ -39,4 +39,12 @@ class MemcachedTest extends StorageCase
 		// Parent contains the rest of the setup
 		parent::setUp();
 	}
+
+	public function testRead()
+	{
+		// Memcached depends on PHP to save session data, so read is always null
+		static::$object->write(static::$key, static::$value);
+		$this->assertThat(static::$object->read(static::$key), $this->equalTo(null), __LINE__);
+	}
+
 }
