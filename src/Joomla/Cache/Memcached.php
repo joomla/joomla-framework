@@ -41,10 +41,18 @@ class Memcached extends Cache
 		// Parent sets up the caching options and checks their type
 		parent::__construct($options);
 
-		// This option must exist, it can be false but it must exist
+		// These options must be set to something, so if not set make them false
 		if (!isset($this->options['memcache.pool']))
 		{
 			$this->options['memcache.pool'] = false;
+		}
+		if (!isset($this->options['memcache.compress']))
+		{
+			$this->options['memcache.compress'] = false;
+		}
+		if (!isset($this->options['memcache.servers']))
+		{
+			$this->options['memcache.servers'] = false;
 		}
 	}
 
