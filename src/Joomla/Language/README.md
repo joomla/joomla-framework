@@ -14,14 +14,14 @@ You may find helpful some [files distributed](https://github.com/joomla/joomla-c
 - `en-GB.localise.php` - To use language-specific methods like `getIgnoredSearchWords`.
 - `en-GB.xml` - To use Language metadata definitions (full name, rtl, locale, firstDay).
 
-In Framework 1.* Language handler loads language files from directory defined by `JPATH_ROOT . '/languages/[language tag]/`
+In the Framework version `1.*` Language handler loads language files from directory defined by `JPATH_ROOT . '/languages/[language tag]/`
 
 In the example below, we will additinally load your application language strings located in file `en-GB.application.ini`.
 
 
 ### Prepare configuration
 
-Assuming a `JSON` format
+Assuming configuration in a `JSON` format:
 
 ```JSON
 {
