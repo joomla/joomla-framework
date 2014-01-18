@@ -7,19 +7,21 @@
 
 Let's say you want to use English (UK) language pack.
 
-You may find helpful some [files distributed](https://github.com/joomla/joomla-cms/tree/master/language/en-GB) Joomla CMS:
+You may find helpful some [files distributed](https://github.com/joomla/joomla-cms/tree/master/language/en-GB) with Joomla CMS:
 
 - `en-GB.ini` - Common language strings such as `JYES`, `ERROR`, `JLOGIN`.
-- `en-GB.lib_joomla.ini` - Application language strings like `JLIB_APPLICATION_SAVE_SUCCESS` = 'Item successfully saved.'
-- `en-GB.localise.php` - To use language-specific methods like `getIgnoredSearchWords`
-- `en-GB.xml` - To use Language metadata defintions (full name, rtl, locale, firstDay)
+- `en-GB.lib_joomla.ini` - Application language strings like `JLIB_APPLICATION_SAVE_SUCCESS` ('Item successfully saved.').
+- `en-GB.localise.php` - To use language-specific methods like `getIgnoredSearchWords`.
+- `en-GB.xml` - To use Language metadata definitions (full name, rtl, locale, firstDay).
 
-- `en-GB.application.ini` - Your application language strings
+In Framework 1.* Language handler loads language files from directory defined by `JPATH_ROOT . '/languages/[language tag]/`
 
-At this moment Language handler loads language files from directory defined by `JPATH_ROOT . '/languages/[language tag/`
+In the example below, we will additinally load your application language strings located in file `en-GB.application.ini`.
 
 
 ### Prepare configuration
+
+Assuming a `JSON` format
 
 ```JSON
 {
