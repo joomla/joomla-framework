@@ -18,7 +18,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class RuntimeRegistryTest extends \Joomla\Cache\Tests\RuntimeTest
+class MockRuntimeRegistryTest extends RuntimeRegistryTest
 {
 
 
