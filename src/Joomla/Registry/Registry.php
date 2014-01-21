@@ -217,12 +217,12 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 */
 	public static function getInstance($id)
 	{
-		if (empty(self::$instances[$id]))
+		if (empty(static::$instances[$id]))
 		{
-			self::$instances[$id] = new self;
+			static::$instances[$id] = new self;
 		}
 
-		return self::$instances[$id];
+		return static::$instances[$id];
 	}
 
 	/**
