@@ -12,8 +12,26 @@ use Joomla\Test\TestHelper;
  *
  * @since  1.0
  */
-class RegistryTest extends PHPUnit_Framework_TestCase
+class RegistryTest extends \PHPUnit_Framework_TestCase
 {
+
+	/**
+	 * Get a new Registry Object
+	 *
+	 * @return  Registry
+	 *
+	 * @since   1.0
+	 */
+	private function createRegistry($arg = null)
+	{
+		if ($arg === null)
+		{
+			return new Registry;
+		}
+		return new Registry($arg);
+	}
+
+
 	/**
 	 * Test the Joomla\Registry\Registry::__clone method.
 	 *
@@ -24,7 +42,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__clone()
 	{
-		$a = new Registry(array('a' => '123', 'b' => '456'));
+		$a = $this->createRegistry(array('a' => '123', 'b' => '456'));
 		$a->set('foo', 'bar');
 		$b = clone $a;
 
@@ -51,7 +69,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	public function test__toString()
 	{
 		$object = new stdClass;
-		$a = new Registry($object);
+		$a = $this->createRegistry($object);
 		$a->set('foo', 'bar');
 
 		// __toString only allows for a JSON value.
@@ -78,7 +96,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 		}
 
 		$object = new stdClass;
-		$a = new Registry($object);
+		$a = $this->createRegistry($object);
 		$a->set('foo', 'bar');
 
 		// __toString only allows for a JSON value.
@@ -98,7 +116,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSerialize()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$a->set('foo', 'bar');
 
 		$serialized = serialize($a);
@@ -122,7 +140,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDef()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 
 		$this->assertThat(
 			$a->def('foo', 'bar'),
@@ -147,7 +165,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testBindData()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$parent = new stdClass;
 
 		TestHelper::invoke($a, 'bindData', $parent, 'foo');
@@ -189,7 +207,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testExists()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$a->set('foo', 'bar1');
 		$a->set('config.foo', 'bar2');
 		$a->set('deep.level.foo', 'bar3');
@@ -235,7 +253,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGet()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$a->set('foo', 'bar');
 		$this->assertEquals('bar', $a->get('foo'), 'Line: ' . __LINE__ . ' get method should work.');
 		$this->assertNull($a->get('xxx.yyy'), 'Line: ' . __LINE__ . ' get should return null when not found.');
@@ -291,7 +309,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 		$array = array(
 			'foo' => 'bar'
 		);
-		$registry = new Registry;
+		$registry = $this->createRegistry();
 		$result = $registry->loadArray($array);
 
 		// Checking result is self that we can chaining
@@ -315,7 +333,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testLoadFile()
 	{
-		$registry = new Registry;
+		$registry = $this->createRegistry();
 
 		// Result is always true, no error checking in method.
 
@@ -365,7 +383,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testLoadString()
 	{
-		$registry = new Registry;
+		$registry = $this->createRegistry();
 		$result = $registry->loadString('foo="testloadini1"', 'INI');
 
 		// Test getting a known value.
@@ -395,7 +413,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 
 		$string = '{"foo":"testloadjson"}';
 
-		$registry = new Registry;
+		$registry = $this->createRegistry();
 		$result = $registry->loadString($string);
 
 		// Checking result is self that we can chaining
@@ -422,7 +440,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 		$object = new stdClass;
 		$object->foo = 'testloadobject';
 
-		$registry = new Registry;
+		$registry = $this->createRegistry();
 		$result = $registry->loadObject($object);
 
 		// Checking result is self that we can chaining
@@ -436,7 +454,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 		);
 
 		// Test that loadObject will auto recursive merge
-		$registry = new Registry;
+		$registry = $this->createRegistry();
 
 		$object1 = '{
 			"foo" : "foo value",
@@ -482,10 +500,10 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 			'foo' => 'soap',
 			'dum' => 'huh'
 		);
-		$registry1 = new Registry;
+		$registry1 = $this->createRegistry();
 		$registry1->loadArray($array1);
 
-		$registry2 = new Registry;
+		$registry2 = $this->createRegistry();
 		$registry2->loadArray($array2);
 
 		$registry1->merge($registry2);
@@ -515,8 +533,8 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 			"param4":-1,
 			"param5":1
 		}';
-		$a = new Registry($json1);
-		$b = new Registry;
+		$a = $this->createRegistry($json1);
+		$b = $this->createRegistry();
 		$b->loadString($json2, 'JSON');
 		$result = $a->merge($b);
 
@@ -528,7 +546,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(1, $a->get('param5'), '$b value of 1 should override $a value');
 
 		// Test recursive merge
-		$registry = new Registry;
+		$registry = $this->createRegistry();
 
 		$object1 = '{
 			"foo" : "foo value",
@@ -545,8 +563,8 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 			}
 		}';
 
-		$registry1 = new Registry(json_decode($object1));
-		$registry2 = new Registry(json_decode($object2));
+		$registry1 = $this->createRegistry(json_decode($object1));
+		$registry2 = $this->createRegistry(json_decode($object2));
 
 		$registry1->merge($registry2, true);
 
@@ -554,7 +572,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($registry1->get('bar.bar1'), 'bar value 1', 'Line: ' . __LINE__ . '. bar.bar1 should not be overrided.');
 
 		// Chicking we merge a non Registry object will return error.
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$b = new stdClass;
 
 		try
@@ -577,7 +595,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetExists()
 	{
-		$instance = new Registry;
+		$instance = $this->createRegistry();
 
 		$this->assertTrue(empty($instance['foo.bar']));
 
@@ -597,7 +615,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetGet()
 	{
-		$instance = new Registry;
+		$instance = $this->createRegistry();
 		$instance->set('foo.bar', 'value');
 
 		$this->assertEquals('value', $instance['foo.bar'], 'Checks a known offset.');
@@ -614,7 +632,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetSet()
 	{
-		$instance = new Registry;
+		$instance = $this->createRegistry();
 
 		$instance['foo.bar'] = 'value';
 		$this->assertEquals('value', $instance->get('foo.bar'), 'Checks the set.');
@@ -630,7 +648,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetUnset()
 	{
-		$instance = new Registry;
+		$instance = $this->createRegistry();
 		$instance->set('foo.bar', 'value');
 
 		unset($instance['foo.bar']);
@@ -647,7 +665,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSet()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$a->set('foo', 'testsetvalue1');
 
 		$this->assertThat(
@@ -667,7 +685,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToArray()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$a->set('foo1', 'testtoarray1');
 		$a->set('foo2', 'testtoarray2');
 		$a->set('config.foo3', 'testtoarray3');
@@ -695,7 +713,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToObject()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$a->set('foo1', 'testtoobject1');
 		$a->set('foo2', 'testtoobject2');
 		$a->set('config.foo3', 'testtoobject3');
@@ -723,7 +741,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToString()
 	{
-		$a = new Registry;
+		$a = $this->createRegistry();
 		$a->set('foo1', 'testtostring1');
 		$a->set('foo2', 'testtostring2');
 		$a->set('config.foo3', 'testtostring3');
