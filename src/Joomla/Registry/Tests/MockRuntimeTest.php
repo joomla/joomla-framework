@@ -5,26 +5,22 @@
  */
 
 
+require_once(__DIR__.'/Stubs/MockRuntime.php');
+
+use Joomla\Registry\Tests\MockRuntime;
 use Joomla\Registry\Runtime;
 use Joomla\Test\TestHelper;
 use Joomla\Registry\Registry;
 
 /**
- * Test class for Runtime Registry.
+ * Test class for MockRuntime Registry - important to check the Mock Runtime stub
+ * because other packages need to depened on it..
  *
  * @since  1.0
  */
-class RuntimeRegistryTest extends RegistryTest
+class RuntimeRegistryTest extends \Joomla\Cache\Tests\RuntimeTest
 {
 
-	/**
-	 * mockRuntime
-	 *   The mock runtime object
-	 *
-	 * @var    boolean
-	 * @since  1.1
-	 */
-	public $mockRuntime;
 
 	/**
 	 * Get a new Runtime Registry Object
@@ -37,9 +33,9 @@ class RuntimeRegistryTest extends RegistryTest
 	{
 		if ($arg === null)
 		{
-			return new Runtime;
+			return new MockRuntime();
 		}
-		return new Runtime($arg);
+		return new MockRuntime($arg);
 	}
 
 
@@ -74,9 +70,9 @@ class RuntimeRegistryTest extends RegistryTest
 	public function testGetInstance()
 	{
 		// Test INI format.
-		$a = Runtime::getInstance('a');
-		$b = Runtime::getInstance('a');
-		$c = Runtime::getInstance('c');
+		$a = MockRuntime::getInstance('a');
+		$b = MockRuntime::getInstance('a');
+		$c = MockRuntime::getInstance('c');
 
 		// Check the object type.
 		$this->assertThat(
@@ -88,6 +84,14 @@ class RuntimeRegistryTest extends RegistryTest
 		// Check the object type.
 		$this->assertThat(
 			$a instanceof Joomla\Registry\Runtime,
+			$this->isTrue(),
+			'Line: ' . __LINE__ . '.'
+		);
+
+
+		// Check the object type.
+		$this->assertThat(
+			$a instanceof Joomla\Registry\Tests\MockRuntime,
 			$this->isTrue(),
 			'Line: ' . __LINE__ . '.'
 		);
@@ -105,7 +109,6 @@ class RuntimeRegistryTest extends RegistryTest
 			'Line: ' . __LINE__ . '.'
 		);
 	}
-
 
 
 }

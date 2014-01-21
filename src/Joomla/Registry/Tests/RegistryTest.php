@@ -15,6 +15,16 @@ use Joomla\Test\TestHelper;
 class RegistryTest extends \PHPUnit_Framework_TestCase
 {
 
+
+	/**
+	 * Instance
+	 *   A Registry instance to use for tests
+	 *
+	 * @var    Registry
+	 * @since  1.1
+	 */
+	protected $instance;
+
 	/**
 	 * Get a new Registry Object
 	 *
@@ -761,5 +771,27 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 			),
 			'Line: ' . __LINE__ . '.'
 		);
+	}
+
+	/**
+	 * Setup the tests.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setUp()
+	{
+		parent::setUp();
+
+		try
+		{
+			$this->instance = $this->createRegistry();
+		}
+		catch (\Exception $e)
+		{
+			$this->markTestSkipped();
+		}
+
 	}
 }
