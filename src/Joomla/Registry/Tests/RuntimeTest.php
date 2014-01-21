@@ -14,7 +14,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class RuntimeRegistryTest extends \RegistryTest
+class RuntimeRegistryTest extends RegistryTest
 {
 
 	/**
@@ -98,4 +98,24 @@ class RuntimeRegistryTest extends \RegistryTest
 	}
 
 
+	/**
+	 * Setup the tests.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setUp()
+	{
+		parent::setUp();
+
+		try
+		{
+			$this->instance = new Runtime;
+		}
+		catch (\Exception $e)
+		{
+			$this->markTestSkipped();
+		}
+	}
 }
