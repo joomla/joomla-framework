@@ -123,7 +123,7 @@ class Runtime extends Registry
 		}
 
 		// Load full runtime environment
-		self::loadRuntime($load, $this->useCache);
+		static::loadRuntime($load, $this->useCache);
 
 	}
 
@@ -143,9 +143,9 @@ class Runtime extends Registry
 		{
 			return true;
 		}
-		$loadedFunctions = self::loadFunctions($reload, $useCache);
-		$loadedClasses = self::loadClasses($reload, $useCache);
-		$loadedExtensions = self::loadExtensions($reload, $useCache);
+		$loadedFunctions = static::loadFunctions($reload, $useCache);
+		$loadedClasses = static::loadClasses($reload, $useCache);
+		$loadedExtensions = static::loadExtensions($reload, $useCache);
 		$loaded = $loadedFunctions || $loadedClasses || $loadedExtensions;
 		return $loaded;
 	}
@@ -169,11 +169,11 @@ class Runtime extends Registry
 		}
 		// Load the functions if force reload is true or they have not been loaded
 		if ($reload ||
-			isset(self::$phpInternalFunctions))
+			isset(static::$phpInternalFunctions))
 		{
 			$functions = get_defined_functions();
-			self::$phpInternalFunctions = asort($functions['internal']);
-			self::$phpUserFunctions = asort($functions['user']);
+			static::$phpInternalFunctions = asort($functions['internal']);
+			static::$phpUserFunctions = asort($functions['user']);
 			return true;
 		}
 
@@ -198,10 +198,10 @@ class Runtime extends Registry
 		}
 		// Load the functions if force reload is true or they have not been loaded
 		if ($reload ||
-			isset(self::$phpClasses))
+			isset(static::$phpClasses))
 		{
 			$classes = get_declared_classes();
-			self::$phpClasses = asort($classes);
+			static::$phpClasses = asort($classes);
 			return true;
 		}
 
@@ -225,10 +225,10 @@ class Runtime extends Registry
 		}
 		// Load the functions if force reload is true or they have not been loaded
 		if ($reload ||
-			isset(self::$phpExtensions))
+			isset(static::$phpExtensions))
 		{
 			$extensions = get_loaded_extensions();
-			self::$phpExtensions = asort($extensions);
+			static::$phpExtensions = asort($extensions);
 			return true;
 		}
 		return false;
@@ -260,16 +260,16 @@ class Runtime extends Registry
 	static public function checkExtensionCache($path)
 	{
 		// Make sure extension cache is loaded
-		$loaded = self::loadExtensions(false, true);
-		$exists =  in_array($path, self::$phpExtensions);
+		$loaded = static::loadExtensions(false, true);
+		$exists =  in_array($path, static::$phpExtensions);
 		// If extension cache was not reloaded here, make sure it does not really exist
 		if (!$exists && !$loaded)
 		{
-			$exists = self::checkExtension($path);
+			$exists = static::checkExtension($path);
 			// Reload extension cache on change
 			if ($exists)
 			{
-				$reloaded = self::loadExtensions(true, true);
+				$reloaded = static::loadExtensions(true, true);
 			}
 		}
 
@@ -290,11 +290,11 @@ class Runtime extends Registry
 	{
 		if ($this->useCache)
 		{
-			return self::checkExtensionCache($path);
+			return static::checkExtensionCache($path);
 		}
 		else
 		{
-			return self::checkExtension($path);
+			return static::checkExtension($path);
 		}
 	}
 
@@ -326,20 +326,20 @@ class Runtime extends Registry
 	{
 
 		// Make sure extension cache is loaded
-		$loaded = self::loadFunctions(false, true);
-		$exists = in_array($path, self::$phpUserFunctions);
+		$loaded = static::loadFunctions(false, true);
+		$exists = in_array($path, static::$phpUserFunctions);
 		if (!$exists)
 		{
-			$exists = in_array($path, self::$phpInternalFunctions);
+			$exists = in_array($path, static::$phpInternalFunctions);
 		}
 		// If extension cache was not reloaded here, make sure it does not really exist
 		if (!$exists && !$loaded)
 		{
-			$exists = self::checkFunction($path);
+			$exists = static::checkFunction($path);
 			// Reload extension cache on change
 			if ($exists)
 			{
-				$reloaded = self::loadFunctions(true, true);
+				$reloaded = static::loadFunctions(true, true);
 			}
 		}
 		return $exists;
@@ -359,11 +359,11 @@ class Runtime extends Registry
 	{
 		if ($this->useCache)
 		{
-			return self::checkFunctionCache($path);
+			return static::checkFunctionCache($path);
 		}
 		else
 		{
-			return self::checkFunction($path);
+			return static::checkFunction($path);
 		}
 	}
 
@@ -395,16 +395,16 @@ class Runtime extends Registry
 	static public function checkClassCache($path, $autoload = false)
 	{
 		// Make sure extension cache is loaded
-		$loaded = self::loadClasses(false, true);
-		$exists = in_array($path, self::$phpClasses);
+		$loaded = static::loadClasses(false, true);
+		$exists = in_array($path, static::$phpClasses);
 		// If extension cache was not reloaded here, make sure it does not really exist
 		if (!$exists && !$loaded)
 		{
-			$exists = self::checkClass($path, $autoload);
+			$exists = static::checkClass($path, $autoload);
 			// Reload extension cache on change
 			if ($exists)
 			{
-				$reloaded = self::loadClasses(true, true);
+				$reloaded = static::loadClasses(true, true);
 			}
 		}
 		return $exists;
@@ -424,11 +424,11 @@ class Runtime extends Registry
 	{
 		if ($this->useCache)
 		{
-			return self::checkClassCache($path, $this->autoloadClasses);
+			return static::checkClassCache($path, $this->autoloadClasses);
 		}
 		else
 		{
-			return self::checkClass($path, $this->autoloadClasses);
+			return static::checkClass($path, $this->autoloadClasses);
 		}
 	}
 
