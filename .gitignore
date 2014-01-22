@@ -9,9 +9,5 @@ composer.lock
 # Required composer dependencies
 /vendor/*
 
-# But keep packages shipped with Framework
-!/vendor/psr/cache/
-
-
 # Test Related Files #
 phpunit.xml
