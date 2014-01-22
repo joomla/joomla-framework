@@ -38,6 +38,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 		{
 			return new Registry;
 		}
+
 		return new Registry($arg);
 	}
 
@@ -101,6 +102,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 		{
 			$this->markTestSkipped('This test requires PHP 5.4 or newer.');
 		}
+
 		$object = new stdClass;
 		$a = $this->createRegistry($object);
 		$a->set('foo', 'bar');
@@ -332,6 +334,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 		// Result is always true, no error checking in method.
 		// JSON.
 		$result = $registry->loadFile(__DIR__ . '/Stubs/jregistry.json');
+
 		// Test getting a known value.
 		$this->assertThat(
 			$registry->get('foo'),
@@ -341,6 +344,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
 		// INI.
 		$result = $registry->loadFile(__DIR__ . '/Stubs/jregistry.ini', 'ini');
+
 		// Test getting a known value.
 		$this->assertThat(
 			$registry->get('foo'),
@@ -350,14 +354,17 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
 		// INI + section.
 		$result = $registry->loadFile(__DIR__ . '/Stubs/jregistry.ini', 'ini', array('processSections' => true));
+
 		// Checking result is self that we can chaining
 		$this->assertEquals($result, $registry, '$result should be $registry self that support chaining');
+
 		// Test getting a known value.
 		$this->assertThat(
 			$registry->get('section.foo'),
 			$this->equalTo('bar'),
 			'Line: ' . __LINE__ . '.'
 		);
+
 		// XML and PHP versions do not support stringToObject.
 	}
 
