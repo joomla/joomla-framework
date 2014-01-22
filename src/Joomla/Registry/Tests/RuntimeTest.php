@@ -27,6 +27,8 @@ class RuntimeRegistryTest extends RegistryTest
 	 */
 	public $mockRuntime;
 
+
+
 	/**
 	 * Get a new Runtime Registry Object
 	 *
@@ -63,7 +65,170 @@ class RuntimeRegistryTest extends RegistryTest
 	}
 
 
+	/**
+	 * Test the Joomla\Registry\Runtime::checkExtension method.
+	 *
+	 * @var	string $validItem	a valid item in the list
+	 * @var	string	$nvalidItem	an invalid item in the list
+	 * @var	string	$method	the check method to run
+	 *
+	 * @return  void
+	 * @since   1.0
+	 */
+	private function testCheck($validItem, $invalidItem, $method)
+	{
+		/** @var Joomla\Registry\Runtime $instance */
+		$instance =& $this->instance;
 
+		$result = $instance->$method($validItem);
+		// Check the object type.
+		$this->assertThat(
+			$result,
+			$this->isTrue(),
+			'Method: ' . $method . ' Item: ' . $validItem . ' Line: ' . __LINE__ . '.'
+		);
+
+		$result = $instance->$method($invalidItem);
+		$this->assertThat(
+			$result,
+			$this->isFalse(),
+			'Method: ' . $method . ' Item: ' . $invalidItem . ' Line: ' . __LINE__ . '.'
+		);
+
+	}
+
+	/**
+	 * Gets some test extension strings
+	 *
+	 * @return  \StdClass an object with the item strings
+	 * @since   1.0
+	 */
+	private function getExtensionTests()
+	{
+
+		$validItems = get_loaded_extensions();
+		$validItem = array_pop($validItems);
+		$invalidItem = $validItem;
+		while (in_array($invalidItem, $validItems))
+		{
+			$invalidItem = str_shuffle($invalidItem);
+		}
+
+		$item = new \StdClass;
+		$item->validItems = $validItems;
+		$item->validItem = $validItem;
+		$item->invalidItem = $invalidItem;
+
+		return $item;
+
+	}
+
+
+	/**
+	 * Test the Joomla\Registry\Runtime::checkExtension method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Registry\Runtime::checkExtension
+	 * @since   1.0
+	 */
+	public function testCheckExtension()
+	{
+
+		$item = $this->getExtensionTests();
+		$this->testCheck($item->validItem, $item->invalidItem, 'checkExtension');
+
+	}
+
+
+	/**
+	 * Gets some test function strings
+	 *
+	 * @return  \StdClass an object with the item strings
+	 * @since   1.0
+	 */
+	private function getFunctionTests($type = 'internal')
+	{
+
+		$validItemsM = get_defined_functions();
+		$validItems = $validItemsM[$type];
+		$validItem = array_pop($validItems);
+		$invalidItem = $validItem;
+		while (in_array($invalidItem, $validItems))
+		{
+			$invalidItem = str_shuffle($invalidItem);
+		}
+
+
+		$item = new \StdClass;
+		$item->validItems = $validItems;
+		$item->validItem = $validItem;
+		$item->invalidItem = $invalidItem;
+
+		return $item;
+
+	}
+
+
+	/**
+	 * Test the Joomla\Registry\Runtime::checkFunction method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Registry\Runtime::checkFunction
+	 * @since   1.0
+	 */
+	public function testCheckFunction()
+	{
+		$item = $this->getFunctionTests();
+		$this->testCheck($item->validItem, $item->invalidItem, 'checkFunction');
+
+	}
+
+	/**
+	 * Gets some test class strings
+	 *
+	 * @return  \StdClass an object with the item strings
+	 * @since   1.0
+	 */
+	private function getClassTests($type = 'internal')
+	{
+
+		$validItemsM = get_declared_classes();
+		$validItems = $validItemsM[$type];
+		$validItem = array_pop($validItems);
+		$invalidItem = $validItem;
+		while (in_array($invalidItem, $validItems))
+		{
+			$invalidItem = str_shuffle($invalidItem);
+		}
+
+
+		$item = new \StdClass;
+		$item->validItems = $validItems;
+		$item->validItem = $validItem;
+		$item->invalidItem = $invalidItem;
+
+		return $item;
+
+	}
+
+
+	/**
+	 * Test the Joomla\Registry\Runtime::checkFunction method.
+	 *
+	 * @return  void
+	 *
+	 * @covers  Joomla\Registry\Runtime::checkFunction
+	 * @since   1.0
+	 */
+	public function testCheckClass()
+	{
+		$item = $this->getClassTests();
+		$this->testCheck($item->validItem, $item->validItem, 'checkClass');
+
+
+	}
 	/**
 	 * Test the Joomla\Registry\Runtime::getInstance method.
 	 *
