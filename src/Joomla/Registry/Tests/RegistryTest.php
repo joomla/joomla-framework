@@ -26,6 +26,8 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Get a new Registry Object
 	 *
+	 * @param   mixed  $arg  The data to bind to the new Registry object.
+	 *
 	 * @return  Registry
 	 *
 	 * @since   1.0
@@ -76,6 +78,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 		$object = new stdClass;
 		$a = $this->createRegistry($object);
 		$a->set('foo', 'bar');
+
 		// __toString only allows for a JSON value.
 		$this->assertThat(
 			(string) $a,
@@ -123,6 +126,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 		$a->set('foo', 'bar');
 		$serialized = serialize($a);
 		$b = unserialize($serialized);
+
 		// __toString only allows for a JSON value.
 		$this->assertThat(
 			$b,
@@ -377,6 +381,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 			'Line: ' . __LINE__ . '.'
 		);
 		$result = $registry->loadString("[section]\nfoo=\"testloadini2\"", 'INI');
+
 		// Test getting a known value.
 		$this->assertThat(
 			$registry->get('foo'),
@@ -385,6 +390,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$result = $registry->loadString("[section]\nfoo=\"testloadini3\"", 'INI', array('processSections' => true));
+
 		// Test getting a known value after processing sections.
 		$this->assertThat(
 			$registry->get('section.foo'),
@@ -537,9 +543,10 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($registry1->get('bar.bar2'), 'new bar value 2', 'Line: ' . __LINE__ . '. bar.bar2 shuould be override.');
 		$this->assertEquals($registry1->get('bar.bar1'), 'bar value 1', 'Line: ' . __LINE__ . '. bar.bar1 should not be overrided.');
 
-		// Chicking we merge a non Registry object will return error.
+		// Checking we merge a non Registry object will return error.
 		$a = $this->createRegistry();
 		$b = new stdClass;
+
 		try
 		{
 			$a->merge($b);

@@ -29,6 +29,8 @@ class RuntimeRegistryTest extends RegistryTest
 	/**
 	 * Get a new Runtime Registry Object
 	 *
+	 * @param   mixed  $arg  The data to bind to the new Registry object.
+	 *
 	 * @return  Runtime
 	 *
 	 * @since   1.0
@@ -60,11 +62,12 @@ class RuntimeRegistryTest extends RegistryTest
 	/**
 	 * Test the Joomla\Registry\Runtime::checkExtension method.
 	 *
-	 * @var	string $validItem	a valid item in the list
-	 * @var	string	$nvalidItem	an invalid item in the list
-	 * @var	string	$method	the check method to run
+	 * @@param	string $validItem	a valid item in the list
+	 * @param	string	$invalidItem	an invalid item in the list
+	 * @param	string	$method	the check method to run
 	 *
 	 * @return  void
+	 *
 	 * @since   1.0
 	 */
 	public function testCheck($validItem = false, $invalidItem = false, $method = false)
@@ -112,6 +115,7 @@ class RuntimeRegistryTest extends RegistryTest
 	 * Gets some test extension strings
 	 *
 	 * @return  \StdClass an object with the item strings
+	 *
 	 * @since   1.0
 	 */
 	private function getExtensionTests()
@@ -119,6 +123,7 @@ class RuntimeRegistryTest extends RegistryTest
 		$validItems = get_loaded_extensions();
 		$validItem = array_pop($validItems);
 		$invalidItem = str_shuffle($validItem);
+
 		while (in_array($invalidItem, $validItems))
 		{
 			$invalidItem = str_shuffle($invalidItem);
@@ -149,6 +154,7 @@ class RuntimeRegistryTest extends RegistryTest
 	 * Gets some test function strings
 	 *
 	 * @return  \StdClass an object with the item strings
+	 *
 	 * @since   1.0
 	 */
 	private function getFunctionTests($type = 'internal')
@@ -157,6 +163,7 @@ class RuntimeRegistryTest extends RegistryTest
 		$validItems = $validItemsM[$type];
 		$validItem = array_shift($validItems);
 		$invalidItem = str_shuffle($validItem);
+
 		while (in_array($invalidItem, $validItems))
 		{
 			$invalidItem = str_shuffle($invalidItem);
@@ -188,6 +195,7 @@ class RuntimeRegistryTest extends RegistryTest
 	 * Gets some test class strings
 	 *
 	 * @return  \StdClass an object with the item strings
+	 *
 	 * @since   1.0
 	 */
 	private function getClassTests()
@@ -195,6 +203,7 @@ class RuntimeRegistryTest extends RegistryTest
 		$validItems = get_declared_classes();
 		$validItem = array_pop($validItems);
 		$invalidItem = str_shuffle($validItem);
+
 		while (in_array($invalidItem, $validItems))
 		{
 			$invalidItem = str_shuffle($invalidItem);
@@ -249,6 +258,7 @@ class RuntimeRegistryTest extends RegistryTest
 			$this->isTrue(),
 			'Class: '. $classname . 'Line: ' . __LINE__ . '.'
 		);
+
 		// Check cache handling for same registry id.
 		$this->assertThat(
 			$a,
