@@ -5,7 +5,8 @@
  */
 
 
-require_once(__DIR__.'/Stubs/MockRuntime.php');
+require_once(__DIR__.'/RuntimeTest.php');
+require_once(__DIR__.'/../Stubs/MockRuntime.php');
 
 use Joomla\Registry\Tests\MockRuntime;
 use Joomla\Registry\Runtime;

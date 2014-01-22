@@ -4,6 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+require_once(__DIR__.'/RegistryTest.php');
 
 use Joomla\Registry\Runtime;
 use Joomla\Test\TestHelper;
