@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-require_once(__DIR__.'/RegistryTest.php');
+require_once __DIR__ . '/RegistryTest.php';
 
 use Joomla\Registry\Runtime;
 use Joomla\Test\TestHelper;
@@ -17,7 +17,6 @@ use Joomla\Registry\Registry;
  */
 class RuntimeRegistryTest extends RegistryTest
 {
-
 	/**
 	 * mockRuntime
 	 *   The mock runtime object
@@ -26,8 +25,6 @@ class RuntimeRegistryTest extends RegistryTest
 	 * @since  1.1
 	 */
 	public $mockRuntime;
-
-
 
 	/**
 	 * Get a new Runtime Registry Object
@@ -45,9 +42,6 @@ class RuntimeRegistryTest extends RegistryTest
 		return new Runtime($arg);
 	}
 
-
-
-
 	/**
 	 * Test the Joomla\Registry\Runtime::exists method.
 	 *
@@ -60,10 +54,8 @@ class RuntimeRegistryTest extends RegistryTest
 	{
 		// Must pass all parents existence tests
 		parent::testExists();
-
 		$this->markTestIncomplete('Did not test class specific exists calls');
 	}
-
 
 	/**
 	 * Test the Joomla\Registry\Runtime::checkExtension method.
@@ -81,11 +73,9 @@ class RuntimeRegistryTest extends RegistryTest
 		{
 			return;
 		}
-
 		/** @var Joomla\Registry\Runtime $instance */
 		$instance =& $this->instance;
 		$classname = get_class($instance);
-
 
 		if ($validItem)
 		{
@@ -116,7 +106,6 @@ class RuntimeRegistryTest extends RegistryTest
 		{
 			$this->markTestIncomplete('No invalid item to test');
 	}
-
 }
 
 	/**
@@ -127,7 +116,6 @@ class RuntimeRegistryTest extends RegistryTest
 	 */
 	private function getExtensionTests()
 	{
-
 		$validItems = get_loaded_extensions();
 		$validItem = array_pop($validItems);
 		$invalidItem = str_shuffle($validItem);
@@ -140,11 +128,8 @@ class RuntimeRegistryTest extends RegistryTest
 		$item->validItems = $validItems;
 		$item->validItem = $validItem;
 		$item->invalidItem = $invalidItem;
-
 		return $item;
-
 	}
-
 
 	/**
 	 * Test the Joomla\Registry\Runtime::checkExtension method.
@@ -156,12 +141,9 @@ class RuntimeRegistryTest extends RegistryTest
 	 */
 	public function testCheckExtension()
 	{
-
 		$item = $this->getExtensionTests();
 		$this->testCheck($item->validItem, $item->invalidItem, 'checkExtension');
-
 	}
-
 
 	/**
 	 * Gets some test function strings
@@ -171,7 +153,6 @@ class RuntimeRegistryTest extends RegistryTest
 	 */
 	private function getFunctionTests($type = 'internal')
 	{
-
 		$validItemsM = get_defined_functions();
 		$validItems = $validItemsM[$type];
 		$validItem = array_shift($validItems);
@@ -181,16 +162,13 @@ class RuntimeRegistryTest extends RegistryTest
 			$invalidItem = str_shuffle($invalidItem);
 		}
 
-
 		$item = new \StdClass;
 		$item->validItems = $validItems;
 		$item->validItem = $validItem;
 		$item->invalidItem = $invalidItem;
 
 		return $item;
-
 	}
-
 
 	/**
 	 * Test the Joomla\Registry\Runtime::checkFunction method.
@@ -204,7 +182,6 @@ class RuntimeRegistryTest extends RegistryTest
 	{
 		$item = $this->getFunctionTests();
 		$this->testCheck($item->validItem, $item->invalidItem, 'checkFunction');
-
 	}
 
 	/**
@@ -215,7 +192,6 @@ class RuntimeRegistryTest extends RegistryTest
 	 */
 	private function getClassTests()
 	{
-
 		$validItems = get_declared_classes();
 		$validItem = array_pop($validItems);
 		$invalidItem = str_shuffle($validItem);
@@ -224,16 +200,12 @@ class RuntimeRegistryTest extends RegistryTest
 			$invalidItem = str_shuffle($invalidItem);
 		}
 
-
 		$item = new \StdClass;
 		$item->validItems = $validItems;
 		$item->validItem = $validItem;
 		$item->invalidItem = $invalidItem;
-
 		return $item;
-
 	}
-
 
 	/**
 	 * Test the Joomla\Registry\Runtime::checkFunction method.
@@ -247,8 +219,6 @@ class RuntimeRegistryTest extends RegistryTest
 	{
 		$item = $this->getClassTests();
 		$this->testCheck($item->validItem, $item->invalidItem, 'checkClass');
-
-
 	}
 	/**
 	 * Test the Joomla\Registry\Runtime::getInstance method.
@@ -293,7 +263,4 @@ class RuntimeRegistryTest extends RegistryTest
 			'Line: ' . __LINE__ . '.'
 		);
 	}
-
-
-
 }

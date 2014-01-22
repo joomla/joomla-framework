@@ -33,7 +33,6 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 */
 	protected static $instances = array();
 
-
 	/**
 	 * Constructor
 	 *

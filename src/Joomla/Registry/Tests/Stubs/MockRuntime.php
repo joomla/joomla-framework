@@ -8,7 +8,7 @@
 
 namespace Joomla\Registry\Tests;
 
-require_once(__DIR__.'/../../Runtime.php');
+require_once __DIR__ . '/../../Runtime.php';
 use Joomla\Utilities\ArrayHelper;
 use Joomla\Registry\Runtime;
 use Joomla\Test\TestHelper;
@@ -77,6 +77,8 @@ class MockRuntime extends Runtime
 	 *
 	 * @param   boolean  $load  Whether to initialize the runtime registry.
 	 *
+	 * @return  boolean
+	 *
 	 * @since   1.1
 	 */
 	public function setReturn($return)
@@ -87,6 +89,7 @@ class MockRuntime extends Runtime
 			static::$staticReturn = $return;
 			return true;
 		}
+
 		return false;
 	}
 
@@ -96,8 +99,8 @@ class MockRuntime extends Runtime
 	 * @param   boolean  $reload    Whether to force reloading of runtime
 	 * @param   boolean  $useCache  Whether the extension cache is used
 	 *
-	 *
 	 * @return  boolean
+	 *
 	 * @since   1.1
 	 */
 	static public function loadRuntime($reload = true, $useCache = true)
@@ -105,15 +108,14 @@ class MockRuntime extends Runtime
 		return static::$staticReturn;
 	}
 
-
 	/**
 	 * Loads the runtime function cache
 	 *
 	 * @param   boolean  $reload    Whether to force reloading of runtime functions
 	 * @param   boolean  $useCache  Whether the extension cache is used
 	 *
-	 *
 	 * @return  boolean  True if cache is enabled and data was refreshed or if cache is disabled
+	 *
 	 * @since   1.1
 	 */
 	static public function loadFunctions($reload = true, $useCache = true)
@@ -127,8 +129,8 @@ class MockRuntime extends Runtime
 	 * @param   boolean  $reload    Whether to force reloading of runtime functions
 	 * @param   boolean  $useCache  Whether the extension cache is used
 	 *
-	 *
 	 * @return  boolean  True if cache is enabled and data was refreshed or if cache is disabled
+	 *
 	 * @since   1.1
 	 */
 	static public function loadClasses($reload = true, $useCache = true)
@@ -143,6 +145,7 @@ class MockRuntime extends Runtime
 	 * @param   boolean  $useCache  Whether the extension cache is used
 	 *
 	 * @return  boolean  True if cache is enabled and data was refreshed or if cache is disabled
+	 *
 	 * @since   1.1
 	 */
 	static public function loadExtensions($reload = true, $useCache = true)
@@ -178,7 +181,6 @@ class MockRuntime extends Runtime
 		return static::$staticReturn;
 	}
 
-
 	/**
 	 * Check if a PHP extension is loaded
 	 *
@@ -192,7 +194,6 @@ class MockRuntime extends Runtime
 	{
 		return $this->objectReturn;
 	}
-
 
 	/**
 	 * Check if a PHP function is defined at this moment
@@ -219,10 +220,8 @@ class MockRuntime extends Runtime
 	 */
 	static public function checkFunctionCache($path)
 	{
-
 		return static::$staticReturn;
 	}
-
 
 	/**
 	 * Check if a PHP Function is defined
@@ -237,7 +236,6 @@ class MockRuntime extends Runtime
 	{
 		return $this->objectReturn;
 	}
-
 
 	/**
 	 * Check if a PHP class exists at this moment
@@ -258,6 +256,7 @@ class MockRuntime extends Runtime
 	 * Check if a PHP function is listed in the cache
 	 *
 	 * @param   string  $path  Name of class to check for
+	 * @param   boolean  $autoload  If class_exists is called, should autoloaders be enabled
 	 *
 	 * @return  boolean
 	 *
@@ -267,7 +266,6 @@ class MockRuntime extends Runtime
 	{
 		return static::$staticReturn;
 	}
-
 
 	/**
 	 * Check if a PHP function is defined
@@ -282,5 +280,4 @@ class MockRuntime extends Runtime
 	{
 		return $this->objectReturn;
 	}
-
 }

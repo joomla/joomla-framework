@@ -421,6 +421,7 @@ class Runtime extends Registry
 	 * Check if a PHP function is listed in the cache
 	 *
 	 * @param   string  $path  Name of class to check for
+	 * @param   boolean  $autoload  If class_exists is called, should autoloaders be enabled
 	 *
 	 * @return  boolean
 	 *
@@ -443,7 +444,6 @@ class Runtime extends Registry
 		}
 		return $exists;
 	}
-
 
 	/**
 	 * Check if a PHP function is defined
@@ -478,7 +478,6 @@ class Runtime extends Registry
 	 */
 	public function exists($path)
 	{
-
 		$myRegistryKey = str_replace('\\', '.', __CLASS__);
 		// Special logic to support functions, classes, and extensions
 		if (strpos($path, $myRegistryKey) === 0)
