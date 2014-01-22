@@ -229,6 +229,7 @@ class Runtime extends Registry
 		{
 			return true;
 		}
+
 		// Load the functions if force reload is true or they have not been loaded
 		if ($reload
 			||	isset(static::$phpClasses))
