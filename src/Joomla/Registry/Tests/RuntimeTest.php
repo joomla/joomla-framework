@@ -46,7 +46,7 @@ class RuntimeRegistryTest extends RegistryTest
 	}
 
 	/**
-	 * Test the Joomla\Registry\Runtime::exists method.
+	 * testExists checks the Joomla\Registry\Runtime::exists method.
 	 *
 	 * @return  void
 	 *
@@ -63,9 +63,9 @@ class RuntimeRegistryTest extends RegistryTest
 	/**
 	 * Test the Joomla\Registry\Runtime::checkExtension method.
 	 *
-	 * @param   string  $validItem  a valid item in the list
+	 * @param   string  $validItem    a valid item in the list
 	 * @param   string  $invalidItem  an invalid item in the list
-	 * @param   string  $method  the check method to run
+	 * @param   string  $method       the check method to run
 	 *
 	 * @return  void
 	 *

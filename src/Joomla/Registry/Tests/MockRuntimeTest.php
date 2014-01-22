@@ -55,7 +55,7 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 	/**
 	 * Get a new Runtime Registry Object
 	 *
-	 * @param	$arg	Registry data
+	 * @param   Register  $arg  Registry data
 	 *
 	 * @return  MockRuntime
 	 *
@@ -67,6 +67,7 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 		{
 			return new MockRuntime;
 		}
+
 		return new MockRuntime($arg);
 	}
 
@@ -137,11 +138,11 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 	}
 
 	/**
-	 * Test the Joomla\Registry\Runtime::checkExtension method.
+	 * testCheck tests the Joomla\Registry\Runtime::checkExtension method.
 	 *
-	 * @param	string $validItem	a valid item in the list
-	 * @param	string	$invalidItem	an invalid item in the list
-	 * @param	string	$method	the check method to run
+	 * @param   string  $validItem    a valid item in the list
+	 * @param   string  $invalidItem  an invalid item in the list
+	 * @param   string  $method       the check method to run
 	 *
 	 * @return  void
 	 *

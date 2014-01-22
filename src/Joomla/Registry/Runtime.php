@@ -117,6 +117,7 @@ class Runtime extends Registry
 		foreach ($myProperties as $property => $value)
 		{
 			$propertyKey = $myRegistryKey . '.' . $property;
+
 			if ($options->exists($propertyKey))
 			{
 				$this->$property = $options->get($propertyKey);
@@ -156,7 +157,6 @@ class Runtime extends Registry
 		return static::$instances[$id];
 	}
 
-
 	/**
 	 * Loads the runtime environment cache
 	 *
@@ -182,7 +182,6 @@ class Runtime extends Registry
 		return $loaded;
 	}
 
-
 	/**
 	 * Loads the runtime function cache
 	 *
@@ -201,8 +200,8 @@ class Runtime extends Registry
 		}
 
 		// Load the functions if force reload is true or they have not been loaded
-		if ($reload ||
-			isset(static::$phpInternalFunctions))
+		if ($reload
+			||	isset(static::$phpInternalFunctions))
 		{
 			$functions = get_defined_functions();
 			static::$phpInternalFunctions = asort($functions['internal']);
@@ -231,11 +230,12 @@ class Runtime extends Registry
 			return true;
 		}
 		// Load the functions if force reload is true or they have not been loaded
-		if ($reload ||
-			isset(static::$phpClasses))
+		if ($reload
+			||	isset(static::$phpClasses))
 		{
 			$classes = get_declared_classes();
 			static::$phpClasses = asort($classes);
+
 			return true;
 		}
 
@@ -260,11 +260,12 @@ class Runtime extends Registry
 		}
 
 		// Load the functions if force reload is true or they have not been loaded
-		if ($reload ||
-			isset(static::$phpExtensions))
+		if ($reload
+			|| isset(static::$phpExtensions))
 		{
 			$extensions = get_loaded_extensions();
 			static::$phpExtensions = asort($extensions);
+
 			return true;
 		}
 
@@ -298,7 +299,7 @@ class Runtime extends Registry
 	{
 		// Make sure extension cache is loaded
 		$loaded = static::loadExtensions(false, true);
-		$exists =  in_array($path, static::$phpExtensions);
+		$exists = in_array($path, static::$phpExtensions);
 
 		// If extension cache was not reloaded here, make sure it does not really exist
 		if (!$exists && !$loaded)
@@ -361,7 +362,6 @@ class Runtime extends Registry
 	 */
 	static public function checkFunctionCache($path)
 	{
-
 		// Make sure extension cache is loaded
 		$loaded = static::loadFunctions(false, true);
 		$exists = in_array($path, static::$phpUserFunctions);
@@ -385,7 +385,6 @@ class Runtime extends Registry
 
 		return $exists;
 	}
-
 
 	/**
 	 * Check if a PHP Function is defined
@@ -443,6 +442,7 @@ class Runtime extends Registry
 		if (!$exists && !$loaded)
 		{
 			$exists = static::checkClass($path, $autoload);
+
 			// Reload extension cache on change
 			if ($exists)
 			{
@@ -487,6 +487,7 @@ class Runtime extends Registry
 	public function exists($path)
 	{
 		$myRegistryKey = str_replace('\\', '.', __CLASS__);
+
 		// Special logic to support functions, classes, and extensions
 		if (strpos($path, $myRegistryKey) === 0)
 		{
