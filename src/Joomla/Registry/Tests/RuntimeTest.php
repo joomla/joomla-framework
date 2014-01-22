@@ -156,7 +156,7 @@ class RuntimeRegistryTest extends RegistryTest
 	/**
 	 * Gets some test function strings
 	 *
-	 * @param	string	$type	Function type, can be internal or user
+	 * @param   string  $type  Function type, can be internal or user
 	 *
 	 * @return  \StdClass an object with the item strings
 	 *
