@@ -17,7 +17,6 @@ use Joomla\Utilities\ArrayHelper;
  */
 class Runtime extends Registry
 {
-
 	/**
 	 * Registry instances container.
 	 *
@@ -42,7 +41,7 @@ class Runtime extends Registry
 	 * @var    boolean
 	 * @since  1.1
 	 */
-	 public $useCache = false;
+	public $useCache = false;
 
 	/**
 	 * autoloadClasses
@@ -89,12 +88,11 @@ class Runtime extends Registry
 	 */
 	static protected $phpExtensions = false;
 
-
 	/**
 	 * Constructor
 	 *
-	 * @param   mixed  $data  The data to bind to the new Registry object.
-	 * @param   boolean  $load  Whether to initialize the runtime registry.
+	 * @param   mixed     $data     The data to bind to the new Registry object.
+	 * @param   boolean   $load     Whether to initialize the runtime registry.
 	 * @param   Registry  $options  A list of options for the runtime registry.
 	 * Registry contents of joomla.registry.runtime.key will be set as properties.
 	 *
@@ -102,7 +100,6 @@ class Runtime extends Registry
 	 */
 	public function __construct($data = null, $load = true, $options = false)
 	{
-
 		// Load the options
 		if (!$options)
 		{
@@ -116,6 +113,7 @@ class Runtime extends Registry
 		// Set this objects properties from this objects registry configuration
 		$myRegistryKey = str_replace('\\', '.', __CLASS__);
 		$myProperties = get_object_vars($this);
+
 		foreach ($myProperties as $property => $value)
 		{
 			$propertyKey = $myRegistryKey . '.' . $property;
@@ -133,9 +131,7 @@ class Runtime extends Registry
 
 		// Load full runtime environment
 		static::loadRuntime($load, $this->useCache);
-
 	}
-
 
 	/**
 	 * Returns a reference to a global Registry object, only creating it
@@ -167,8 +163,8 @@ class Runtime extends Registry
 	 * @param   boolean  $reload    Whether to force reloading of runtime
 	 * @param   boolean  $useCache  Whether the extension cache is used
 	 *
-	 *
 	 * @return  boolean  True if cache is enabled and some data was refreshed or if cache is disabled
+	 *
 	 * @since   1.1
 	 */
 	static public function loadRuntime($reload = true, $useCache = true)
@@ -177,10 +173,12 @@ class Runtime extends Registry
 		{
 			return true;
 		}
+
 		$loadedFunctions = static::loadFunctions($reload, $useCache);
 		$loadedClasses = static::loadClasses($reload, $useCache);
 		$loadedExtensions = static::loadExtensions($reload, $useCache);
 		$loaded = $loadedFunctions || $loadedClasses || $loadedExtensions;
+
 		return $loaded;
 	}
 
@@ -191,8 +189,8 @@ class Runtime extends Registry
 	 * @param   boolean  $reload    Whether to force reloading of runtime functions
 	 * @param   boolean  $useCache  Whether the extension cache is used
 	 *
-	 *
 	 * @return  boolean  True if cache is enabled and data was refreshed or if cache is disabled
+	 *
 	 * @since   1.1
 	 */
 	static public function loadFunctions($reload = true, $useCache = true)
@@ -201,6 +199,7 @@ class Runtime extends Registry
 		{
 			return true;
 		}
+
 		// Load the functions if force reload is true or they have not been loaded
 		if ($reload ||
 			isset(static::$phpInternalFunctions))
@@ -208,6 +207,7 @@ class Runtime extends Registry
 			$functions = get_defined_functions();
 			static::$phpInternalFunctions = asort($functions['internal']);
 			static::$phpUserFunctions = asort($functions['user']);
+
 			return true;
 		}
 
@@ -220,8 +220,8 @@ class Runtime extends Registry
 	 * @param   boolean  $reload    Whether to force reloading of runtime functions
 	 * @param   boolean  $useCache  Whether the extension cache is used
 	 *
-	 *
 	 * @return  boolean  True if cache is enabled and data was refreshed or if cache is disabled
+	 *
 	 * @since   1.1
 	 */
 	static public function loadClasses($reload = true, $useCache = true)
@@ -249,6 +249,7 @@ class Runtime extends Registry
 	 * @param   boolean  $useCache  Whether the extension cache is used
 	 *
 	 * @return  boolean  True if cache is enabled and data was refreshed or if cache is disabled
+	 *
 	 * @since   1.1
 	 */
 	static public function loadExtensions($reload = true, $useCache = true)
@@ -257,6 +258,7 @@ class Runtime extends Registry
 		{
 			return true;
 		}
+
 		// Load the functions if force reload is true or they have not been loaded
 		if ($reload ||
 			isset(static::$phpExtensions))
@@ -265,6 +267,7 @@ class Runtime extends Registry
 			static::$phpExtensions = asort($extensions);
 			return true;
 		}
+
 		return false;
 	}
 
@@ -296,10 +299,12 @@ class Runtime extends Registry
 		// Make sure extension cache is loaded
 		$loaded = static::loadExtensions(false, true);
 		$exists =  in_array($path, static::$phpExtensions);
+
 		// If extension cache was not reloaded here, make sure it does not really exist
 		if (!$exists && !$loaded)
 		{
 			$exists = static::checkExtension($path);
+
 			// Reload extension cache on change
 			if ($exists)
 			{
@@ -309,7 +314,6 @@ class Runtime extends Registry
 
 		return $exists;
 	}
-
 
 	/**
 	 * Check if a PHP extension is loaded
@@ -331,7 +335,6 @@ class Runtime extends Registry
 			return static::checkExtension($path);
 		}
 	}
-
 
 	/**
 	 * Check if a PHP function is defined at this moment
@@ -362,20 +365,24 @@ class Runtime extends Registry
 		// Make sure extension cache is loaded
 		$loaded = static::loadFunctions(false, true);
 		$exists = in_array($path, static::$phpUserFunctions);
+
 		if (!$exists)
 		{
 			$exists = in_array($path, static::$phpInternalFunctions);
 		}
+
 		// If extension cache was not reloaded here, make sure it does not really exist
 		if (!$exists && !$loaded)
 		{
 			$exists = static::checkFunction($path);
+
 			// Reload extension cache on change
 			if ($exists)
 			{
 				$reloaded = static::loadFunctions(true, true);
 			}
 		}
+
 		return $exists;
 	}
 
@@ -401,11 +408,10 @@ class Runtime extends Registry
 		}
 	}
 
-
 	/**
 	 * Check if a PHP class exists at this moment
 	 *
-	 * @param   string  $path  Name of class to check for
+	 * @param   string   $path      Name of class to check for
 	 * @param   boolean  $autoload  Whether class autoloaders should be called
 	 *
 	 * @return  boolean
@@ -420,7 +426,7 @@ class Runtime extends Registry
 	/**
 	 * Check if a PHP function is listed in the cache
 	 *
-	 * @param   string  $path  Name of class to check for
+	 * @param   string   $path      Name of class to check for
 	 * @param   boolean  $autoload  If class_exists is called, should autoloaders be enabled
 	 *
 	 * @return  boolean
@@ -432,6 +438,7 @@ class Runtime extends Registry
 		// Make sure extension cache is loaded
 		$loaded = static::loadClasses(false, true);
 		$exists = in_array($path, static::$phpClasses);
+
 		// If extension cache was not reloaded here, make sure it does not really exist
 		if (!$exists && !$loaded)
 		{
@@ -442,6 +449,7 @@ class Runtime extends Registry
 				$reloaded = static::loadClasses(true, true);
 			}
 		}
+
 		return $exists;
 	}
 
@@ -482,24 +490,31 @@ class Runtime extends Registry
 		// Special logic to support functions, classes, and extensions
 		if (strpos($path, $myRegistryKey) === 0)
 		{
-			$tmpPath = substr($path,0,strlen($myRegistryKey));
+			$tmpPath = substr($path, 0, strlen($myRegistryKey));
+
 			if (strlen($tmpPath) > 0)
 			{
 				$nodes = explode('.', $tmpPath);
 				$checkFor = array_shift($nodes);
+
 				if ($checkFor == 'function')
 				{
 					$path = implode('.', $nodes);
+
 					return $this->functionExists($path);
 				}
+
 				if ($checkFor == 'extension')
 				{
 					$path = implode('.', $nodes);
+
 					return $this->functionExists($path);
 				}
+
 				if ($checkFor == 'class')
 				{
 					$path = implode('.', $nodes);
+
 					return $this->functionExists($path);
 				}
 			}

@@ -21,7 +21,6 @@ use Joomla\Registry\Registry;
  */
 class MockRuntime extends Runtime
 {
-
 	/**
 	 * Registry instances container.
 	 *
@@ -29,7 +28,6 @@ class MockRuntime extends Runtime
 	 * @since  1.0
 	 */
 	protected static $instances = array();
-
 
 	/**
 	 * return
@@ -75,7 +73,7 @@ class MockRuntime extends Runtime
 	/**
 	 * setReturn sets the return value for future calls
 	 *
-	 * @param   boolean  $load  Whether to initialize the runtime registry.
+	 * @param   boolean  $return  Boolean value to return for all Runtime methods.
 	 *
 	 * @return  boolean
 	 *
@@ -87,6 +85,7 @@ class MockRuntime extends Runtime
 		{
 			$this->objectReturn = $return;
 			static::$staticReturn = $return;
+
 			return true;
 		}
 
@@ -240,7 +239,7 @@ class MockRuntime extends Runtime
 	/**
 	 * Check if a PHP class exists at this moment
 	 *
-	 * @param   string  $path  Name of class to check for
+	 * @param   string   $path      Name of class to check for
 	 * @param   boolean  $autoload  Whether class autoloaders should be called
 	 *
 	 * @return  boolean
@@ -255,7 +254,7 @@ class MockRuntime extends Runtime
 	/**
 	 * Check if a PHP function is listed in the cache
 	 *
-	 * @param   string  $path  Name of class to check for
+	 * @param   string   $path      Name of class to check for
 	 * @param   boolean  $autoload  If class_exists is called, should autoloaders be enabled
 	 *
 	 * @return  boolean
