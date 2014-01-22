@@ -5,8 +5,8 @@
  */
 
 
-require_once(__DIR__.'/RuntimeTest.php');
-require_once(__DIR__.'/Stubs/MockRuntime.php');
+require_once __DIR__ . '/RuntimeTest.php';
+require_once __DIR__ . '/Stubs/MockRuntime.php';
 
 use Joomla\Registry\Tests\MockRuntime;
 use Joomla\Registry\Runtime;
@@ -21,8 +21,6 @@ use Joomla\Registry\Registry;
  */
 class MockRuntimeRegistryTest extends RuntimeRegistryTest
 {
-
-
 	/**
 	 * Registry instances container.
 	 *
@@ -50,7 +48,6 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 		{
 			static::$instances[$id] = new MockRuntime();
 		}
-
 		return static::$instances[$id];
 	}
 
@@ -69,7 +66,6 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 		}
 		return new MockRuntime($arg);
 	}
-
 
 	/**
 	 * Test the Joomla\Registry\Runtime::getInstance method.
@@ -100,13 +96,13 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 			'Line: ' . __LINE__ . '.'
 		);
 
-
 		// Check the object type.
 		$this->assertThat(
 			$a instanceof Joomla\Registry\Tests\MockRuntime,
 			$this->isTrue(),
 			'Line: ' . __LINE__ . '.'
 		);
+
 		// Check cache handling for same registry id.
 		$this->assertThat(
 			$a,
@@ -122,7 +118,6 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 		);
 	}
 
-
 	/**
 	 * Test the Joomla\Registry\Runtime::exists method.
 	 *
@@ -135,10 +130,8 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 	{
 		// Must pass all parents existence tests
 		parent::testExists();
-
 		$this->markTestIncomplete('Did not test class specific exists calls');
 	}
-
 
 	/**
 	 * Test the Joomla\Registry\Runtime::checkExtension method.
@@ -161,10 +154,8 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 		$instance =& $this->instance;
 		$classname = get_class($instance);
 
-
 		if ($validItem)
 		{
-
 			$instance->setReturn(true);
 			$result = $classname::$method($validItem);
 			// Check the object type.
@@ -193,8 +184,5 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 		{
 			$this->markTestIncomplete('No invalid item to test');
 		}
-
 	}
-
-
 }
