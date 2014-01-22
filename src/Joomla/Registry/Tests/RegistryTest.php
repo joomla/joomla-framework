@@ -32,7 +32,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	private function createRegistry($arg = null)
+	protected function createRegistry($arg = null)
 	{
 		if ($arg === null)
 		{

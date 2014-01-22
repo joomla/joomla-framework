@@ -8,6 +8,7 @@
 
 namespace Joomla\Registry\Tests;
 
+require_once(__DIR__.'/../../Runtime.php');
 use Joomla\Utilities\ArrayHelper;
 use Joomla\Registry\Runtime;
 use Joomla\Test\TestHelper;
@@ -20,6 +21,14 @@ use Joomla\Registry\Registry;
  */
 class MockRuntime extends Runtime
 {
+
+	/**
+	 * Registry instances container.
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected static $instances = array();
 
 
 	/**
@@ -41,18 +50,26 @@ class MockRuntime extends Runtime
 	static public $staticReturn;
 
 	/**
-	 * Constructor
+	 * Returns a reference to a global Registry object, only creating it
+	 * if it doesn't already exist.
 	 *
-	 * @param   mixed  $data  The data to bind to the new Registry object.
-	 * @param   boolean  $load  Whether to initialize the runtime registry.
-	 * @param   Registry  $options  A list of options for the runtime registry.
-	 * Registry contents of joomla.registry.runtime.key will be set as properties.
+	 * This method must be invoked as:
+	 * <pre>$registry = Registry::getInstance($id);</pre>
 	 *
-	 * @since   1.1
+	 * @param   string  $id  An ID for the registry instance
+	 *
+	 * @return  Registry  The Registry object.
+	 *
+	 * @since   1.0
 	 */
-	public function __construct($data = null, $load = true, $options = false)
+	public static function getInstance($id)
 	{
+		if (empty(static::$instances[$id]))
+		{
+			static::$instances[$id] = new MockRuntime;
+		}
 
+		return static::$instances[$id];
 	}
 
 	/**

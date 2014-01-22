@@ -36,7 +36,7 @@ class RuntimeRegistryTest extends RegistryTest
 	 *
 	 * @since   1.0
 	 */
-	private function createRegistry($arg = null)
+	protected function createRegistry($arg = null)
 	{
 		if ($arg === null)
 		{
@@ -75,27 +75,49 @@ class RuntimeRegistryTest extends RegistryTest
 	 * @return  void
 	 * @since   1.0
 	 */
-	private function testCheck($validItem, $invalidItem, $method)
+	public function testCheck($validItem = false, $invalidItem = false, $method = false)
 	{
+		if (!$method)
+		{
+			return;
+		}
+
 		/** @var Joomla\Registry\Runtime $instance */
 		$instance =& $this->instance;
+		$classname = get_class($instance);
 
-		$result = $instance->$method($validItem);
+
+		if ($validItem)
+		{
+		$rawCheck = extension_loaded($validItem);
+		$result = $classname::$method($validItem);
 		// Check the object type.
 		$this->assertThat(
 			$result,
 			$this->isTrue(),
-			'Method: ' . $method . ' Item: ' . $validItem . ' Line: ' . __LINE__ . '.'
+			'Class: ' . $classname . ' Method: ' . $method . ' Item: ' . $validItem . ' Line: ' . __LINE__ . '.'
 		);
+		}
+		else
+		{
+			$this->markTestIncomplete('No valid item to test');
+		}
 
-		$result = $instance->$method($invalidItem);
+		if ($invalidItem)
+		{
+		$result = $classname::$method($invalidItem);
 		$this->assertThat(
 			$result,
 			$this->isFalse(),
-			'Method: ' . $method . ' Item: ' . $invalidItem . ' Line: ' . __LINE__ . '.'
+			'Class: ' . $classname . ' Method: ' . $method . ' Item: ' . $invalidItem . ' Line: ' . __LINE__ . '.'
 		);
-
+		}
+		else
+		{
+			$this->markTestIncomplete('No invalid item to test');
 	}
+
+}
 
 	/**
 	 * Gets some test extension strings
@@ -108,7 +130,7 @@ class RuntimeRegistryTest extends RegistryTest
 
 		$validItems = get_loaded_extensions();
 		$validItem = array_pop($validItems);
-		$invalidItem = $validItem;
+		$invalidItem = str_shuffle($validItem);
 		while (in_array($invalidItem, $validItems))
 		{
 			$invalidItem = str_shuffle($invalidItem);
@@ -152,8 +174,8 @@ class RuntimeRegistryTest extends RegistryTest
 
 		$validItemsM = get_defined_functions();
 		$validItems = $validItemsM[$type];
-		$validItem = array_pop($validItems);
-		$invalidItem = $validItem;
+		$validItem = array_shift($validItems);
+		$invalidItem = str_shuffle($validItem);
 		while (in_array($invalidItem, $validItems))
 		{
 			$invalidItem = str_shuffle($invalidItem);
@@ -191,13 +213,12 @@ class RuntimeRegistryTest extends RegistryTest
 	 * @return  \StdClass an object with the item strings
 	 * @since   1.0
 	 */
-	private function getClassTests($type = 'internal')
+	private function getClassTests()
 	{
 
-		$validItemsM = get_declared_classes();
-		$validItems = $validItemsM[$type];
+		$validItems = get_declared_classes();
 		$validItem = array_pop($validItems);
-		$invalidItem = $validItem;
+		$invalidItem = str_shuffle($validItem);
 		while (in_array($invalidItem, $validItems))
 		{
 			$invalidItem = str_shuffle($invalidItem);
@@ -225,7 +246,7 @@ class RuntimeRegistryTest extends RegistryTest
 	public function testCheckClass()
 	{
 		$item = $this->getClassTests();
-		$this->testCheck($item->validItem, $item->validItem, 'checkClass');
+		$this->testCheck($item->validItem, $item->invalidItem, 'checkClass');
 
 
 	}
@@ -252,10 +273,11 @@ class RuntimeRegistryTest extends RegistryTest
 		);
 
 		// Check the object type.
+		$classname = get_class($a);
 		$this->assertThat(
 			$a instanceof Joomla\Registry\Runtime,
 			$this->isTrue(),
-			'Line: ' . __LINE__ . '.'
+			'Class: '. $classname . 'Line: ' . __LINE__ . '.'
 		);
 		// Check cache handling for same registry id.
 		$this->assertThat(

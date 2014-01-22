@@ -19,6 +19,14 @@ class Runtime extends Registry
 {
 
 	/**
+	 * Registry instances container.
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected static $instances = array();
+
+	/**
 	 * Options
 	 *   Options for this Registry Runtime instance
 	 *
@@ -81,6 +89,7 @@ class Runtime extends Registry
 	 */
 	static protected $phpExtensions = false;
 
+
 	/**
 	 * Constructor
 	 *
@@ -126,6 +135,31 @@ class Runtime extends Registry
 		static::loadRuntime($load, $this->useCache);
 
 	}
+
+
+	/**
+	 * Returns a reference to a global Registry object, only creating it
+	 * if it doesn't already exist.
+	 *
+	 * This method must be invoked as:
+	 * <pre>$registry = Registry::getInstance($id);</pre>
+	 *
+	 * @param   string  $id  An ID for the registry instance
+	 *
+	 * @return  Registry  The Registry object.
+	 *
+	 * @since   1.0
+	 */
+	public static function getInstance($id)
+	{
+		if (empty(static::$instances[$id]))
+		{
+			static::$instances[$id] = new Runtime;
+		}
+
+		return static::$instances[$id];
+	}
+
 
 	/**
 	 * Loads the runtime environment cache

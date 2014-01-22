@@ -33,6 +33,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	 */
 	protected static $instances = array();
 
+
 	/**
 	 * Constructor
 	 *
@@ -219,7 +220,7 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	{
 		if (empty(static::$instances[$id]))
 		{
-			static::$instances[$id] = new static;
+			static::$instances[$id] = new Registry;
 		}
 
 		return static::$instances[$id];
