@@ -46,13 +46,16 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 	{
 		if (empty(static::$instances[$id]))
 		{
-			static::$instances[$id] = new MockRuntime();
+			static::$instances[$id] = new MockRuntime;
 		}
+
 		return static::$instances[$id];
 	}
 
 	/**
 	 * Get a new Runtime Registry Object
+	 *
+	 * @param	$arg	Registry data
 	 *
 	 * @return  MockRuntime
 	 *
@@ -62,7 +65,7 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 	{
 		if ($arg === null)
 		{
-			return new MockRuntime();
+			return new MockRuntime;
 		}
 		return new MockRuntime($arg);
 	}
@@ -136,11 +139,12 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 	/**
 	 * Test the Joomla\Registry\Runtime::checkExtension method.
 	 *
-	 * @var	string $validItem	a valid item in the list
-	 * @var	string	$nvalidItem	an invalid item in the list
-	 * @var	string	$method	the check method to run
+	 * @param	string $validItem	a valid item in the list
+	 * @param	string	$invalidItem	an invalid item in the list
+	 * @param	string	$method	the check method to run
 	 *
 	 * @return  void
+	 *
 	 * @since   1.0
 	 */
 	public function testCheck($validItem = false, $invalidItem = false, $method = false)
@@ -158,6 +162,7 @@ class MockRuntimeRegistryTest extends RuntimeRegistryTest
 		{
 			$instance->setReturn(true);
 			$result = $classname::$method($validItem);
+
 			// Check the object type.
 			$this->assertThat(
 				$result,

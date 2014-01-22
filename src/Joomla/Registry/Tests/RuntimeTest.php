@@ -41,6 +41,7 @@ class RuntimeRegistryTest extends RegistryTest
 		{
 			return new Runtime;
 		}
+
 		return new Runtime($arg);
 	}
 
@@ -62,9 +63,9 @@ class RuntimeRegistryTest extends RegistryTest
 	/**
 	 * Test the Joomla\Registry\Runtime::checkExtension method.
 	 *
-	 * @@param	string $validItem	a valid item in the list
-	 * @param	string	$invalidItem	an invalid item in the list
-	 * @param	string	$method	the check method to run
+	 * @param   string  $validItem  a valid item in the list
+	 * @param   string  $invalidItem  an invalid item in the list
+	 * @param   string  $method  the check method to run
 	 *
 	 * @return  void
 	 *
@@ -76,14 +77,15 @@ class RuntimeRegistryTest extends RegistryTest
 		{
 			return;
 		}
+
 		/** @var Joomla\Registry\Runtime $instance */
 		$instance =& $this->instance;
 		$classname = get_class($instance);
 
 		if ($validItem)
 		{
-		$rawCheck = extension_loaded($validItem);
 		$result = $classname::$method($validItem);
+
 		// Check the object type.
 		$this->assertThat(
 			$result,
@@ -108,8 +110,8 @@ class RuntimeRegistryTest extends RegistryTest
 		else
 		{
 			$this->markTestIncomplete('No invalid item to test');
+		}
 	}
-}
 
 	/**
 	 * Gets some test extension strings
@@ -133,6 +135,7 @@ class RuntimeRegistryTest extends RegistryTest
 		$item->validItems = $validItems;
 		$item->validItem = $validItem;
 		$item->invalidItem = $invalidItem;
+
 		return $item;
 	}
 
@@ -152,6 +155,8 @@ class RuntimeRegistryTest extends RegistryTest
 
 	/**
 	 * Gets some test function strings
+	 *
+	 * @param	string	$type	Function type, can be internal or user
 	 *
 	 * @return  \StdClass an object with the item strings
 	 *
@@ -213,6 +218,7 @@ class RuntimeRegistryTest extends RegistryTest
 		$item->validItems = $validItems;
 		$item->validItem = $validItem;
 		$item->invalidItem = $invalidItem;
+
 		return $item;
 	}
 
@@ -229,6 +235,7 @@ class RuntimeRegistryTest extends RegistryTest
 		$item = $this->getClassTests();
 		$this->testCheck($item->validItem, $item->invalidItem, 'checkClass');
 	}
+
 	/**
 	 * Test the Joomla\Registry\Runtime::getInstance method.
 	 *
@@ -256,7 +263,7 @@ class RuntimeRegistryTest extends RegistryTest
 		$this->assertThat(
 			$a instanceof Joomla\Registry\Runtime,
 			$this->isTrue(),
-			'Class: '. $classname . 'Line: ' . __LINE__ . '.'
+			'Line: ' . __LINE__ . '.'
 		);
 
 		// Check cache handling for same registry id.
