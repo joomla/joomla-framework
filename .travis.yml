@@ -3,19 +3,32 @@ language: php
 php:
   - 5.3
   - 5.4
+  - hhvm
+
+# Establishes a matrix and allows the hhvm build to fail without impacting success
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: hhvm
 
 before_install:
   - composer self-update
-  - sh -e build/travis/scripts/apt-get.sh
-  - sh -e build/travis/scripts/apache2-vhost.sh
-  - sh -e build/travis/scripts/apache2-configure.sh
+  - sudo -E -s build/travis/scripts/before-install.sh
+  - sudo -E -s build/travis/scripts/apache2-vhost.sh
+  - sudo -E -s build/travis/scripts/apache2-configure.sh
+
+
+install:
+  - sudo -E -s build/travis/scripts/install.sh
 
 before_script:
   - composer update --dev
-  - pyrus channel-discover pear.phpunit.de
-  - pyrus install --force phpunit/DbUnit
-  - pyrus install -f pear/PHP_CodeSniffer
+  - sudo -E -s build/travis/scripts/before-script.sh
   - phpenv rehash
+  # dump some environmental info
+  - phpunit --version
+  - php -v
+  # Setup Databases
   - mysql -e 'create database joomla_ut;'
   - mysql joomla_ut < src/Joomla/Database/Tests/Stubs/mysql.sql
   - psql -c 'create database joomla_ut;' -U postgres
@@ -24,4 +37,4 @@ before_script:
 script:
   - ant composervalidate
   - ant travis-phpcs
-  - phpunit --configuration phpunit.travis.xml
+  - vendor/bin/phpunit --configuration phpunit.travis.xml
