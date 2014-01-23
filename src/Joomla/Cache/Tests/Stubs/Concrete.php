@@ -18,6 +18,29 @@ use Psr\Cache\CacheItemInterface;
 class ConcreteCache extends Cache
 {
 	/**
+	 * @var    \ArrayObject  Database of cached items,
+	 * we use ArrayObject so it can be easily
+	 * passed by reference
+	 *
+	 * @since  1.1
+	 */
+	protected $db;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param   mixed  $options  An options array, or an object that implements \ArrayAccess
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function __construct($options = array())
+	{
+		parent::__construct($options);
+		$this->db = new \ArrayObject;
+	}
+
+	/**
 	 * This will wipe out the entire cache's keys
 	 *
 	 * @return  boolean  The result of the clear operation.
@@ -26,9 +49,27 @@ class ConcreteCache extends Cache
 	 */
 	public function clear()
 	{
-		$this->do .= 'doClear';
+		// Replace the db with a new blank array
+		$clearData = $this->db->exchangeArray(array());
+		unset($clearData);
 
 		return true;
+	}
+
+	/**
+	 * Method to generate a Cache Item from a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  CacheItemInterface
+	 *
+	 * @since   1.0
+	 */
+	public function get($key)
+	{
+		$item = $this->getItem($key);
+
+		return $item;
 	}
 
 	/**
@@ -40,9 +81,61 @@ class ConcreteCache extends Cache
 	 *
 	 * @since   1.0
 	 */
-	public function get($key)
+	public function getItem($key)
 	{
-		return new Item($key);
+		$item = new Item($key);
+
+		try
+		{
+			$value = $this->getValue($key);
+			$item->setValue($value);
+		}
+		catch ( \Exception $e)
+		{
+			/**
+			 * Backend caching mechanisms may throw exceptions
+			 * to indicate missing data.  Catch all exceptions
+			 * so program flow is uninterrupted.  For misses
+			 * we can safely do nothing and return the
+			 * CacheItem we created since it flags itself as
+			 * a miss when constructed.  Specific cache classes
+			 * should override this method and deal with
+			 * exceptions appropriately.
+			 */
+		}
+
+		return $item;
+	}
+
+	/**
+	 * Method to get a storage entry value from a key.
+	 *
+	 * @param   string  $key  The storage entry identifier.
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 */
+	public function getValue($key)
+	{
+		try
+		{
+			$value = $this->db[$key];
+		}
+		catch ( \Exception $e)
+		{
+			/**
+			 * Backend caching mechanisms may throw exceptions
+			 * to indicate missing data.  Catch all exceptions
+			 * so program flow is uninterrupted.  If the exception
+			 * can be recovered from gracefully, do so.  If not
+			 * re-throw the exception.  As with getItem() this
+			 * logic must be added for specific cache engine
+			 * test suites.
+			 */
+			throw $e;
+		}
+		return $value;
 	}
 
 	/**
@@ -56,7 +149,18 @@ class ConcreteCache extends Cache
 	 */
 	public function remove($key)
 	{
-		return true;
+		$oldCache = $this->db->getArrayCopy();
+
+		if (array_key_exists($key,$oldCache ))
+		{
+			$keyArray = array($key => $key );
+			$newCache = array_diff_key($oldCache, $keyArray);
+			$this->db->exchangeArray($newCache);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -72,6 +176,8 @@ class ConcreteCache extends Cache
 	 */
 	public function set($key, $value, $ttl = null)
 	{
+		$this->db[$key] = $value;
+
 		return true;
 	}
 
@@ -86,6 +192,6 @@ class ConcreteCache extends Cache
 	 */
 	protected function exists($key)
 	{
-		return false;
+		return array_key_exists($this->db, $key);
 	}
 }

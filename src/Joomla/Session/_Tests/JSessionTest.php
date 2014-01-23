@@ -11,7 +11,7 @@ use Joomla\Test\TestHelper;
  *
  * @since  1.0
  */
-class JSessionTest extends TestCase
+class JSessionTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var  JSession
@@ -26,21 +26,24 @@ class JSessionTest extends TestCase
 	 */
 	protected function setUp()
 	{
+		if (!class_exists('JSession'))
+		{
+			$this->markTestSkipped(
+				'The JSession class does not exist.');
+		}
+
+		// TODO: This code logic appears useless, many missing methods are being called.  Review.
 		parent::setUp();
-
 		$this->saveFactoryState();
-
 		$this->object = JSession::getInstance('none', array('expire' => 20, 'force_ssl' => true, 'name' => 'name', 'id' => 'id', 'security' => 'security'));
 		$this->input = new JInput;
 		$this->input->cookie = $this->getMock('JInputCookie', array('set', 'get'));
 		$this->object->initialise($this->input);
-
 		$this->input->cookie->expects($this->any())
 			->method('set');
 		$this->input->cookie->expects($this->any())
 			->method('get')
 			->will($this->returnValue(null));
-
 		$this->object->start();
 	}
 
@@ -52,13 +55,17 @@ class JSessionTest extends TestCase
 	 */
 	protected function tearDown()
 	{
-		if (session_id())
+		// Only tear down if JSession exists, avoids aborting Unit Testing due to missing methods.
+		if (class_exists('JSession'))
 		{
-			session_unset();
-			session_destroy();
-		}
+			if (session_id())
+			{
+				session_unset();
+				session_destroy();
+			}
 
-		$this->restoreFactoryState();
+			$this->restoreFactoryState();
+		}
 	}
 
 	/**

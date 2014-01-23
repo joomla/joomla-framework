@@ -13,98 +13,8 @@ use Joomla\Cache;
  *
  * @since  1.0
  */
-class MemcachedTest extends \PHPUnit_Framework_TestCase
+class MemcachedTest extends CacheTest
 {
-	/**
-	 * @var    Cache\Memcached
-	 * @since  1.0
-	 */
-	private $instance;
-
-	/**
-	 * Tests for the correct Psr\Cache return values.
-	 *
-	 * @return  void
-	 *
-	 * @coversNothing
-	 * @since   1.0
-	 */
-	public function testPsrCache()
-	{
-		$this->assertInternalType('boolean', $this->instance->clear(), 'Checking clear.');
-		$this->assertInstanceOf('\Psr\Cache\CacheItemInterface', $this->instance->get('foo'), 'Checking get.');
-		$this->assertInternalType('array', $this->instance->getMultiple(array('foo')), 'Checking getMultiple.');
-		$this->assertInternalType('boolean', $this->instance->remove('foo'), 'Checking remove.');
-		$this->assertInternalType('array', $this->instance->removeMultiple(array('foo')), 'Checking removeMultiple.');
-		$this->assertInternalType('boolean', $this->instance->set('for', 'bar'), 'Checking set.');
-		$this->assertInternalType('boolean', $this->instance->setMultiple(array('foo' => 'bar')), 'Checking setMultiple.');
-	}
-
-	/**
-	 * Tests the Joomla\Cache\Memcached::clear method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Memcached::clear
-	 * @since   1.0
-	 */
-	public function testClear()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the Joomla\Cache\Memcached::exists method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Memcached::exists
-	 * @since   1.0
-	 */
-	public function testExists()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the Joomla\Cache\Memcached::get method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Memcached::get
-	 * @since   1.0
-	 */
-	public function testGet()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the Joomla\Cache\Memcached::remove method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Memcached::remove
-	 * @since   1.0
-	 */
-	public function testRemove()
-	{
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * Tests the Joomla\Cache\Memcached::set method.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Joomla\Cache\Memcached::set
-	 * @since   1.0
-	 */
-	public function testSet()
-	{
-		$this->markTestIncomplete();
-	}
-
 	/**
 	 * Setup the tests.
 	 *
@@ -112,17 +22,39 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	protected function setUp()
+	public function setUp()
 	{
-		parent::setUp();
+		if (!class_exists('Memcached'))
+		{
+			$this->markTestSkipped(
+				'The Memcached class does not exist.'
+			);
 
-		try
-		{
-			$this->instance = new Cache\Memcached;
+			return;
 		}
-		catch (\Exception $e)
+
+		$options = $this->cacheOptions;
+
+		if (!$options)
 		{
-			$this->markTestSkipped();
+			$options = array();
 		}
+
+		if (!is_array($options))
+		{
+			$options = array($options);
+		}
+
+		if (!isset($options['memcache.servers']))
+		{
+			$server = new \StdClass;
+			$server->host = 'localhost';
+			$server->port = '11211';
+			$options['memcache.servers'] = array($server);
+		}
+
+		$this->cacheOptions = $options;
+		$this->cacheClass = 'Joomla\\Cache\\Memcached';
+		parent::setUp();
 	}
 }
