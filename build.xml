@@ -104,7 +104,7 @@
 	</target>
 
 	<target name="travis-phpcs" description="Generate codestyle report using PHP_CodeSniffer for output on Travis-CI">
-		<exec executable="phpcs${script-suffix}">
+		<exec executable="${basedir}/vendor/bin/phpcs${script-suffix}">
 			<arg value="--report=full" />
 			<arg value="--extensions=php" />
 			<arg value="--ignore=${basedir}/src/Joomla/String/phputf8" />
