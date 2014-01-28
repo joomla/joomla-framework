@@ -20,7 +20,7 @@ use Joomla\Github\AbstractPackage;
 class Releases extends AbstractPackage
 {
 	/**
-	 * Method to create a pull request.
+	 * Method to create a release.
 	 *
 	 * @param   string   $user             The name of the owner of the GitHub repository.
 	 * @param   string   $repo             The name of the GitHub repository.
@@ -30,15 +30,14 @@ class Releases extends AbstractPackage
 	 *                                     should be an existing branch on the current repository. You cannot
 	 *                                     submit a pull request to one repo that requests a merge to a base
 	 *                                     of another repo.
-	 * @param   boolean  $body             The body text for the new pull request.
-	 * @param   boolean  $draft            The branch (or git ref) where your changes are implemented.
-	 * @param   string   $preRelease       The branch (or git ref) where your changes are implemented.
+	 * @param   string   $body             Text describing the contents of the tag.
+	 * @param   boolean  $draft            True to create a draft (unpublished) release, false to create a published one.
+	 * @param   boolean  $preRelease       True to identify the release as a prerelease. false to identify the release as a full release.
 	 *
 	 * @return  object
 	 *
 	 * @link    http://developer.github.com/v3/repos/releases/#create-a-release
 	 * @since   __DEPLOY_VERSION__
-	 * @throws  \DomainException
 	 */
 	public function create($user, $repo, $tagName, $targetCommitish = '', $name = '', $body = '', $draft = false, $preRelease = false)
 	{
@@ -58,17 +57,7 @@ class Releases extends AbstractPackage
 		);
 
 		// Send the request.
-		$response = $this->client->post($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 201)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new \DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->post($this->fetchUrl($path), $data), 201);
 	}
 
 	/**
@@ -133,17 +122,7 @@ class Releases extends AbstractPackage
 		$data = json_encode($data);
 
 		// Send the request.
-		$response = $this->client->patch($this->fetchUrl($path), $data);
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new \DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->patch($this->fetchUrl($path), $data));
 	}
 
 	/**
@@ -164,17 +143,7 @@ class Releases extends AbstractPackage
 		$path = '/repos/' . $user . '/' . $repo . '/releases/' . $ref;
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new \DomainException($error->message, $response->code);
-		}
-
-		return json_decode($response->body);
+		return $this->processResponse($this->client->get($this->fetchUrl($path)));
 	}
 
 	/**
@@ -196,17 +165,8 @@ class Releases extends AbstractPackage
 		$path = '/repos/' . $user . '/' . $repo . '/releases';
 
 		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path, $page, $limit));
+		$response = $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)));
 
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new \DomainException($error->message, $response->code);
-		}
-
-		$response =  json_decode($response->body);
 		$releases = array();
 
 		if (is_array($response))
