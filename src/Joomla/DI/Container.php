@@ -347,7 +347,7 @@ class Container
 		{
 			if (!isset($this->instances[$key]) || $forceNew)
 			{
-				$this->instances[$key] = call_user_func_array($raw['callback'], array($this));
+				$this->instances[$key] = call_user_func($raw['callback'], $this);
 			}
 
 			return $this->instances[$key];
