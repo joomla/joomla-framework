@@ -113,4 +113,79 @@ class ReleasesTest extends \PHPUnit_Framework_TestCase
 			$this->equalTo(json_decode($this->response->body))
 		);
 	}
+
+	/**
+	 * Tests the create method with failure.
+	 *
+	 * @return  void
+	 */
+	public function testCreateFailure()
+	{
+		$this->response->code = 201;
+		$this->response->body = $this->sampleString;
+
+		$data = '{"tag_name":"0.1","target_commitish":"targetCommitish","name":"master","body":"New release","draft":false,"prerelease":false}';
+		$this->client->expects($this->once())
+			->method('post')
+			->with('/repos/joomla/joomla-platform/releases', $data, 0, 0)
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->create('joomla', 'joomla-platform', '0.1', 'targetCommitish', 'master', 'New release', false, false),
+			$this->equalTo(json_decode($this->response->body))
+		);
+	}
+
+	/**
+	 * Tests the edit method.
+	 *
+	 * @return  void
+	 */
+	public function testEdit()
+	{
+		$this->response->code = 200;
+		$this->response->body = $this->sampleString;
+
+		$releaseId = 123;
+
+		$data = '{"tag_name":"tagName","target_commitish":"targetCommitish","name":"name","body":"body","draft":"draft","prerelease":"preRelease"}';
+		$this->client->expects($this->once())
+			->method('patch')
+			->with('/repos/joomla/joomla-platform/releases/' . $releaseId, $data, 0, 0)
+
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->edit('joomla', 'joomla-platform', $releaseId, 'tagName', 'targetCommitish', 'name', 'body', 'draft', 'preRelease'),
+			$this->equalTo(json_decode($this->response->body))
+		);
+	}
+
+	/**
+	 * Tests the getList method.
+	 *
+	 * @return  void
+	 */
+	public function testGetList()
+	{
+		$this->response->code = 200;
+		$this->response->body = '[{"tag_name":"1"},{"tag_name":"2"}]';
+
+		$releases = array();
+
+		foreach (json_decode($this->response->body) as $release)
+		{
+			$releases[$release->tag_name] = $release;
+		}
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/repos/joomla/joomla-platform/releases', 0, 0)
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->getList('joomla', 'joomla-platform'),
+			$this->equalTo($releases)
+		);
+	}
 }
