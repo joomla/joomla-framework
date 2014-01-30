@@ -44,8 +44,9 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 		$input->args = array('foo');
 
 		/** @var $console Console */
-		$console = with(new Console($input, null, new TestStdout))
-			->setName('Test Console')
+		$console = new Console($input, null, new TestStdout);
+
+		$console->setName('Test Console')
 			->setVersion('1.2.3')
 			->setDescription('Test desc.')
 			->setAutoExit(false);
