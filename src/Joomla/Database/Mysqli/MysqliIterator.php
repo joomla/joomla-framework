@@ -11,7 +11,7 @@ namespace Joomla\Database\Mysqli;
 use Joomla\Database\DatabaseIterator;
 
 /**
- * MySQLi database iterator.
+ * MySQLi Database Iterator.
  *
  * @since  1.0
  */

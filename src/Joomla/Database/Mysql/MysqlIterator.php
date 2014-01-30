@@ -11,7 +11,7 @@ namespace Joomla\Database\Mysql;
 use Joomla\Database\Pdo\PdoIterator;
 
 /**
- * MySQL database iterator.
+ * MySQL Database Iterator
  *
  * @see    http://dev.mysql.com/doc/
  * @since  1.0

@@ -11,7 +11,7 @@ namespace Joomla\Database\Sqlsrv;
 use Joomla\Database\DatabaseQuery;
 
 /**
- * Query Building Class.
+ * SQL Server Query Building Class.
  *
  * @since  1.0
  */
@@ -24,7 +24,6 @@ class SqlsrvQuery extends DatabaseQuery
 	 * used for the opening quote and the second for the closing quote.
 	 *
 	 * @var    string
-	 *
 	 * @since  1.0
 	 */
 	protected $name_quotes = '`';
@@ -34,7 +33,6 @@ class SqlsrvQuery extends DatabaseQuery
 	 * defined in child classes to hold the appropriate value for the engine.
 	 *
 	 * @var    string
-	 *
 	 * @since  1.0
 	 */
 	protected $null_date = '1900-01-01 00:00:00';

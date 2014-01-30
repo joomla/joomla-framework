@@ -879,6 +879,7 @@ class DriverPostgresqlTest extends DatabasePostgresqlCase
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @deprecated  2.0
 	 */
 	public function testTest()
 	{

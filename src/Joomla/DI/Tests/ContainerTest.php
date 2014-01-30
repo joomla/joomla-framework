@@ -18,11 +18,23 @@ include_once 'Stubs/stubs.php';
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
- 	 * Holds the Container instance for testing.
+	 * Holds the Container instance for testing.
 	 *
 	 * @var  \Joomla\DI\Container
 	 */
 	protected $fixture;
+
+	/**
+	 * Callable object method.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function callMe()
+	{
+		return 'called';
+	}
 
 	/**
 	 * Setup the tests.
@@ -305,7 +317,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 			'foo',
 			function ()
 			{
-				// noop
+				// Noop.
 			}
 		);
 	}
@@ -439,13 +451,26 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the set method a callable value.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testSetCallable()
+	{
+		$this->fixture->set('foo', array($this, 'callMe'));
+		$this->assertEquals('called', $this->fixture->get('foo'));
+	}
+
+	/**
 	 * Tests the set method with bad callback.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function testSetNotClosure()
+	public function testSetNotCallable()
 	{
 		$this->fixture->set('foo', 'bar');
 
@@ -796,6 +821,31 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test exists
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testExists()
+	{
+		$reflection = new \ReflectionProperty($this->fixture, 'dataStore');
+		$reflection->setAccessible(true);
+		$reflection->setValue($this->fixture, array('foo' => 'bar'));
+
+		$this->assertTrue(
+			$this->fixture->exists('foo'),
+			'When calling exists on an item that has been set in the container, it should return true.'
+		);
+
+		$this->assertFalse(
+			$this->fixture->exists('baz'),
+			'When calling exists on an item that has not been set in the container, it should return false.'
+		);
+	}
+	
+
+	/**
 	 * Test getRaw
 	 *
 	 * @return  void
@@ -854,7 +904,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the getNew method which will always return a 
+	 * Tests the getNew method which will always return a
 	 * new instance, even if the $key was set to be shared.
 	 *
 	 * @return  void

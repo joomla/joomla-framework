@@ -11,7 +11,7 @@ namespace Joomla\Data;
 use Joomla\Registry\Registry;
 
 /**
- * Data\DataObject is a class that is used to store data but allowing you to access the data
+ * DataObject is a class that is used to store data but allowing you to access the data
  * by mimicking the way PHP handles class properties.
  *
  * @since  1.0
@@ -169,7 +169,7 @@ class DataObject implements DumpableInterface, \IteratorAggregate, \JsonSerializ
 	 *                                      form. A depth of 1 will recurse into the first level of properties only.
 	 * @param   \SplObjectStorage  $dumped  An array of already serialized objects that is used to avoid infinite loops.
 	 *
-	 * @return  object  The data properties as a simple PHP stdClass object.
+	 * @return  \stdClass  The data properties as a simple PHP stdClass object.
 	 *
 	 * @since   1.0
 	 */

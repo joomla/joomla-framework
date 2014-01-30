@@ -164,7 +164,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	protected $errorMsg;
 
 	/**
-	 * JDatabaseDriver instances container.
+	 * DatabaseDriver instances container.
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -524,7 +524,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 
 	/**
 	 * Method that provides access to the underlying database connection. Useful for when you need to call a
-	 * proprietary method such as postgresql's lo_* methods.
+	 * proprietary method such as PostgreSQL's lo_* methods.
 	 *
 	 * @return  resource  The underlying database connection resource.
 	 *
@@ -815,7 +815,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 * @param   object  &$object  A reference to an object whose public properties match the table fields.
 	 * @param   string  $key      The name of the primary key. If provided the object property is updated.
 	 *
-	 * @return  boolean    True on success.
+	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -848,8 +848,8 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 		// Create the base insert statement.
 		$query = $this->getQuery(true);
 		$query->insert($this->quoteName($table))
-				->columns($fields)
-				->values(implode(',', $values));
+			->columns($fields)
+			->values(implode(',', $values));
 
 		// Set the query and execute the insert.
 		$this->setQuery($query);
@@ -927,7 +927,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 *
 	 * @param   string  $key     The name of a field on which to key the result array.
 	 * @param   string  $column  An optional column name. Instead of the whole row, only this column value will be in
-	 * the result array.
+	 *                           the result array.
 	 *
 	 * @return  mixed   The return value or null if the query failed.
 	 *
@@ -973,7 +973,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 *
 	 * @param   integer  $offset  The row offset to use to build the result array.
 	 *
-	 * @return  mixed    The return value or null if the query failed.
+	 * @return  mixed  The return value or null if the query failed.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -1007,7 +1007,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 *
 	 * @param   string  $class  The class name to use for the returned row object.
 	 *
-	 * @return  mixed   The return value or null if the query failed.
+	 * @return  mixed  The return value or null if the query failed.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -1048,7 +1048,7 @@ abstract class DatabaseDriver implements DatabaseInterface, Log\LoggerAwareInter
 	 * @param   string  $key    The name of a field on which to key the result array.
 	 * @param   string  $class  The class name to use for the returned row objects.
 	 *
-	 * @return  mixed   The return value or null if the query failed.
+	 * @return  mixed  The return value or null if the query failed.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

@@ -10,7 +10,6 @@ namespace Joomla\Google\Data\Picasa;
 
 use Joomla\Google\Data;
 use Joomla\Google\Auth;
-use Joomla\Filesystem\File;
 use Joomla\Registry\Registry;
 
 /**

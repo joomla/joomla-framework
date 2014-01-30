@@ -8,10 +8,10 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API DB class for the Joomla Platform.
+ * GitHub API DB class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/git/
  *
@@ -47,6 +47,6 @@ use Joomla\Github\Package;
  * It might seem complex, but it’s actually pretty simple when you understand the model and it opens up a ton of things
  * you could potentially do with the API.
  */
-class Data extends Package
+class Data extends AbstractPackage
 {
 }

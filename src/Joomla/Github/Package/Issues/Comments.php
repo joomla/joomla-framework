@@ -8,11 +8,11 @@
 
 namespace Joomla\Github\Package\Issues;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 use Joomla\Date\Date;
 
 /**
- * GitHub API Comments class for the Joomla Platform.
+ * GitHub API Comments class for the Joomla Framework.
  *
  * The Issue Comments API supports listing, viewing, editing, and creating comments
  * on issues and pull requests.
@@ -21,7 +21,7 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  */
-class Comments extends Package
+class Comments extends AbstractPackage
 {
 	/**
 	 * Method to get the list of comments on an issue.

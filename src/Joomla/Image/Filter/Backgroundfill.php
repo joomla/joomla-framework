@@ -84,7 +84,7 @@ class Backgroundfill extends ImageFilter
 	 *                         or hex RGBA string when alpha FF is opaque.
 	 *                         Defaults to black and opaque alpha
 	 *
-	 * @return  array  Associative array of red, green, blue and alpha		 
+	 * @return  array  Associative array of red, green, blue and alpha
 	 *
 	 * @since   1.0
 	 *
@@ -100,8 +100,8 @@ class Backgroundfill extends ImageFilter
 		{
 			$colors = array_merge($colors, $input);
 		}
-		// Convert RGBA 6-9 char string
 		elseif (is_string($input))
+		// Convert RGBA 6-9 char string
 		{
 			$hex = ltrim($input, '#');
 
@@ -120,8 +120,8 @@ class Backgroundfill extends ImageFilter
 				$colors['alpha'] = floor((255 - $colors['alpha']) / 2);
 			}
 		}
-		// Cannot sanitize such type
 		else
+		// Cannot sanitize such type
 		{
 			return $colors;
 		}

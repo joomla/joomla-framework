@@ -9,7 +9,7 @@
 namespace Joomla\Crypt;
 
 /**
- * JCrypt cipher for mcrypt algorithm encryption, decryption and key generation.
+ * Cipher class for mcrypt algorithm encryption, decryption and key generation.
  *
  * @since  1.0
  */

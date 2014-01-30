@@ -16,7 +16,7 @@ namespace Joomla\Database;
 abstract class DatabaseExporter
 {
 	/**
-	 * The type of output format (xml).
+	 * The type of output format.
 	 *
 	 * @var    string
 	 * @since  1.0
@@ -170,7 +170,7 @@ abstract class DatabaseExporter
 		}
 		else
 		{
-			throw new \Exception('JPLATFORM_ERROR_INPUT_REQUIRES_STRING_OR_ARRAY');
+			throw new \Exception('The exporter requires either a single table name or array of table names');
 		}
 
 		return $this;

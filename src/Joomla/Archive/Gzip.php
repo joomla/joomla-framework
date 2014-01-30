@@ -12,7 +12,7 @@ use Joomla\Filesystem\File;
 use Joomla\Filesystem\Stream;
 
 /**
- * Gzip format adapter for the JArchive class
+ * Gzip format adapter for the Archive package
  *
  * This class is inspired from and draws heavily in code and concept from the Compress package of
  * The Horde Project <http://www.horde.org>

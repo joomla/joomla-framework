@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class PackageTest extends \PHPUnit_Framework_TestCase
+class AbstractPackageTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Registry  Options for the GitHub object.

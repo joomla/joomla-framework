@@ -45,8 +45,8 @@ class Google
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Google options object.
-	 * @param   Auth      $auth     The authentication client object.
+	 * @param   array  $options  Google options object.
+	 * @param   Auth   $auth     The authentication client object.
 	 *
 	 * @since   1.0
 	 */
@@ -59,9 +59,9 @@ class Google
 	/**
 	 * Method to create Data objects
 	 *
-	 * @param   string    $name     Name of property to retrieve
-	 * @param   Registry  $options  Google options object.
-	 * @param   Auth      $auth     The authentication client object.
+	 * @param   string  $name     Name of property to retrieve
+	 * @param   array   $options  Google options object.
+	 * @param   Auth    $auth     The authentication client object.
 	 *
 	 * @return  Data  Google data API object.
 	 *
@@ -101,8 +101,8 @@ class Google
 	/**
 	 * Method to create Embed objects
 	 *
-	 * @param   string    $name     Name of property to retrieve
-	 * @param   Registry  $options  Google options object.
+	 * @param   string  $name     Name of property to retrieve
+	 * @param   array   $options  Google options object.
 	 *
 	 * @return  Embed  Google embed API object.
 	 *

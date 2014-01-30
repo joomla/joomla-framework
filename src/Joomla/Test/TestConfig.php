@@ -15,5 +15,11 @@ namespace Joomla\Test;
  */
 class Config
 {
+	/**
+	 * Test variable
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	public $foo = 'bar';
 }

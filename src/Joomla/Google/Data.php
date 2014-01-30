@@ -34,8 +34,8 @@ abstract class Data
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $options  Google options object.
-	 * @param   Auth      $auth     Google data http client object.
+	 * @param   array  $options  Google options object.
+	 * @param   Auth   $auth     Google data http client object.
 	 *
 	 * @since   1.0
 	 */

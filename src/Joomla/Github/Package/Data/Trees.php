@@ -8,16 +8,16 @@
 
 namespace Joomla\Github\Package\Data;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Data Trees class for the Joomla Platform.
+ * GitHub API Data Trees class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/git/trees/
  *
  * @since  1.0
  */
-class Trees extends Package
+class Trees extends AbstractPackage
 {
 	/**
 	 * Get a Tree

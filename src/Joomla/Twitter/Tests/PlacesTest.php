@@ -232,12 +232,12 @@ class PlacesTest extends TwitterTestCase
 	}
 
 	/**
-	* Provides test data for request format detection.
-	*
-	* @return array
-	*
-	* @since 1.0
-	*/
+	 * Provides test data for request format detection.
+	 *
+	 * @return array
+	 *
+	 * @since 1.0
+	 */
 	public function seedSearch()
 	{
 		// User latitude, longitude, query and ip

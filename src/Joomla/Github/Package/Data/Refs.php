@@ -9,16 +9,16 @@
 namespace Joomla\Github\Package\Data;
 
 use DomainException;
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API References class for the Joomla Platform.
+ * GitHub API References class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/git/refs/
  *
  * @since  1.0
  */
-class Refs extends Package
+class Refs extends AbstractPackage
 {
 	/**
 	 * Method to get a reference.

@@ -175,4 +175,26 @@ class StatisticsTest extends \PHPUnit_Framework_TestCase
 			$this->equalTo(json_decode($this->sampleString))
 		);
 	}
+
+	/**
+	 * Tests the ProcessResponse method with failure.
+	 *
+	 * @expectedException \DomainException
+	 * @return  void
+	 */
+	public function testProcessResponse202()
+	{
+		$this->response->code = 202;
+		$this->response->body = $this->sampleString;
+
+		$this->client->expects($this->once())
+			->method('get')
+			->with('/repos/joomla/joomla-framework/stats/punch_card')
+			->will($this->returnValue($this->response));
+
+		$this->assertThat(
+			$this->object->getPunchCard('joomla', 'joomla-framework'),
+			$this->equalTo(json_decode($this->sampleString))
+		);
+	}
 }

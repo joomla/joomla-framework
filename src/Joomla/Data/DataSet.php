@@ -2,14 +2,14 @@
 /**
  * Part of the Joomla Framework Data Package
  *
- * @copyright  Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
 namespace Joomla\Data;
 
 /**
- * Data\Set is a collection class that allows the developer to operate on a set of Data\Object objects as if they were in a
+ * DataSet is a collection class that allows the developer to operate on a set of DataObject objects as if they were in a
  * typical PHP array.
  *
  * @since  1.0
@@ -233,9 +233,9 @@ class DataSet implements DumpableInterface, \ArrayAccess, \Countable, \Iterator
 	 *                                      form. A depth of 1 will recurse into the first level of properties only.
 	 * @param   \SplObjectStorage  $dumped  An array of already serialized objects that is used to avoid infinite loops.
 	 *
-	 * @return  array  An associative array of the date objects in the set, dumped as a simple PHP stdClass object.
+	 * @return  array  An associative array of the data objects in the set, dumped as a simple PHP stdClass object.
 	 *
-	 * @see     Joomla\Data\DataObject::dump()
+	 * @see     DataObject::dump()
 	 * @since   1.0
 	 */
 	public function dump($depth = 3, \SplObjectStorage $dumped = null)

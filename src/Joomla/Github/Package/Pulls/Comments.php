@@ -8,16 +8,16 @@
 
 namespace Joomla\Github\Package\Pulls;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Pulls Comments class for the Joomla Platform.
+ * GitHub API Pulls Comments class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/pulls/comments/
  *
  * @since  1.0
  */
-class Comments extends Package
+class Comments extends AbstractPackage
 {
 	/**
 	 * Method to create a comment on a pull request.

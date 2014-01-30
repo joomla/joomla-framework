@@ -8,10 +8,10 @@
 
 namespace Joomla\Github\Package\Data;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Data Tags class for the Joomla Platform.
+ * GitHub API Data Tags class for the Joomla Framework.
  *
  * This tags API only deals with tag objects - so only annotated tags, not lightweight tags.
  *
@@ -19,7 +19,7 @@ use Joomla\Github\Package;
  *
  * @since  1.0
  */
-class Tags extends Package
+class Tags extends AbstractPackage
 {
 	/**
 	 * Get a Tag.
@@ -75,9 +75,11 @@ class Tags extends Package
 			'message'      => $message,
 			'object'       => $object,
 			'type'         => $type,
-			'tagger_name'  => $tagger_name,
-			'tagger_email' => $tagger_email,
-			'tagger_date'  => $tagger_date
+			'tagger'  => array(
+				'name' => $tagger_name,
+				'email' => $tagger_email,
+				'date'  => $tagger_date
+			)
 		);
 
 		return $this->processResponse(

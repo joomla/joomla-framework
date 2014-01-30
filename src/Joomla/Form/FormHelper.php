@@ -8,13 +8,11 @@
 
 namespace Joomla\Form;
 
-
-use Joomla\String\String;
 use Joomla\Filesystem\Path;
 
 /**
- * JForm's helper class.
- * Provides a storage for filesystem's paths where JForm's entities reside and methods for creating those entities.
+ * Helper class for the Form package.
+ * Provides a storage for filesystem's paths where Joomla\Form entities reside and methods for creating those entities.
  * Also stores objects with entities' prototypes for further reusing.
  *
  * @since  1.0
@@ -39,7 +37,7 @@ class FormHelper
 	protected static $paths;
 
 	/**
-	 * Static array of JForm's entity objects for re-use.
+	 * Static array of Joomla\Form's entity objects for re-use.
 	 * Prototypes for all fields and rules are here.
 	 *
 	 * Array's structure:
@@ -60,7 +58,7 @@ class FormHelper
 	 * @param   string   $type  The field type.
 	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
 	 *
-	 * @return  mixed  JFormField object on success, false otherwise.
+	 * @return  mixed  Field object on success, false otherwise.
 	 *
 	 * @since   1.0
 	 */
@@ -75,7 +73,7 @@ class FormHelper
 	 * @param   string   $type  The rule type.
 	 * @param   boolean  $new   Flag to toggle whether we should get a new instance of the object.
 	 *
-	 * @return  mixed  JFormRule object on success, false otherwise.
+	 * @return  mixed  Rule object on success, false otherwise.
 	 *
 	 * @since   1.0
 	 */
@@ -126,8 +124,8 @@ class FormHelper
 	}
 
 	/**
-	 * Attempt to import the JFormField class file if it isn't already imported.
-	 * You can use this method outside of JForm for loading a field for inheritance or composition.
+	 * Attempt to import the Field class file if it isn't already imported.
+	 * You can use this method outside of Joomla\Form for loading a field for inheritance or composition.
 	 *
 	 * @param   string  $type  Type of a field whose class should be loaded.
 	 *
@@ -141,8 +139,8 @@ class FormHelper
 	}
 
 	/**
-	 * Attempt to import the JFormRule class file if it isn't already imported.
-	 * You can use this method outside of JForm for loading a rule for inheritance or composition.
+	 * Attempt to import the Rule class file if it isn't already imported.
+	 * You can use this method outside of Joomla\Form for loading a rule for inheritance or composition.
 	 *
 	 * @param   string  $type  Type of a rule whose class should be loaded.
 	 *

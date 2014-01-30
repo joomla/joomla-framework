@@ -1,17 +1,17 @@
-# Joomla Framework
+# Joomla! Framework
 
 [![Build Status](https://travis-ci.org/joomla/joomla-framework.png?branch=master)](https://travis-ci.org/joomla/joomla-framework)
 
 
-## What is the Joomla Framework ?
+## What is the Joomla! Framework ?
 
-The `Joomla Framework` is a platform for writing web and command line applications in PHP.  It is free and open source software, distributed under the GNU General Public License version 2 or later.
+The `Joomla! Framework` is a platform for writing web and command line applications in PHP.  It is free and open source software, distributed under the GNU General Public License version 2 or later.
 
-It comprises code originally developed for the Joomla Content Management System (CMS). For more information about the Joomla CMS visit [http://www.joomla.org/about-joomla.html](http://www.joomla.org/about-joomla.html).
+It is composed of code originally developed for the Joomla Content Management System (CMS). For more information about the Joomla CMS visit [http://www.joomla.org/about-joomla.html](http://www.joomla.org/about-joomla.html).
 
 For news and information about developing with Joomla, please visit [http://developer.joomla.org](http://developer.joomla.org).
 
-View the Joomla Framework API Documentation at [http://joomla.github.com/joomla-framework](http://joomla.github.com/joomla-framework). Powered by [phpDocumentor 2](http://www.phpdoc.org).
+View the Joomla Framework API Documentation at [http://api.joomla.org](http://api.joomla.org) and is powered by [phpDocumentor 2](http://www.phpdoc.org).
 
 You can discuss Joomla Framework development by joining the mailing list at [http://groups.google.com/group/joomla-dev-framework](http://groups.google.com/group/joomla-dev-framework).
 

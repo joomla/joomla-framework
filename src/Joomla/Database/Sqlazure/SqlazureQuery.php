@@ -11,7 +11,7 @@ namespace Joomla\Database\Sqlazure;
 use Joomla\Database\Sqlsrv\SqlsrvQuery;
 
 /**
- * Query Building Class.
+ * SQL Azure Query Building Class.
  *
  * @since  1.0
  */
@@ -24,7 +24,6 @@ class SqlazureQuery extends SqlsrvQuery
 	 * used for the opening quote and the second for the closing quote.
 	 *
 	 * @var    string
-	 *
 	 * @since  1.0
 	 */
 	protected $name_quotes = '';

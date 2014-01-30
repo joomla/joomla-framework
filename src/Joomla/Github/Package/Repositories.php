@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
  * GitHub API Activity class for the Joomla Framework.
@@ -26,10 +26,11 @@ use Joomla\Github\Package;
  * @property-read  Repositories\Hooks          $hooks          GitHub API object for hooks.
  * @property-read  Repositories\Keys           $keys           GitHub API object for keys.
  * @property-read  Repositories\Merging        $merging        GitHub API object for merging.
+ * @property-read  Repositories\Releases       $releases       GitHub API object for releases.
  * @property-read  Repositories\Statuses       $statuses       GitHub API object for statuses.
  * @property-read  Repositories\Statistics     $statistics     GitHub API object for statistics.
  */
-class Repositories extends Package
+class Repositories extends AbstractPackage
 {
 	/**
 	 * List your repositories.
@@ -40,9 +41,10 @@ class Repositories extends Package
 	 * @param   string  $sort       Sort field. created, updated, pushed, full_name, default: full_name.
 	 * @param   string  $direction  Sort direction. asc or desc, default: when using full_name: asc, otherwise desc.
 	 *
-	 * @throws \RuntimeException
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getListOwn($type = 'all', $sort = 'full_name', $direction = '')
 	{
@@ -86,9 +88,11 @@ class Repositories extends Package
 	 * @param   string  $sort       Sort field. created, updated, pushed, full_name, default: full_name.
 	 * @param   string  $direction  Sort direction. asc or desc, default: when using full_name: asc, otherwise desc.
 	 *
-	 * @throws \RuntimeException
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getListUser($user, $type = 'all', $sort = 'full_name', $direction = '')
 	{
@@ -130,9 +134,10 @@ class Repositories extends Package
 	 * @param   string  $org   The name of the organization.
 	 * @param   string  $type  Sort type. all, public, private, forks, sources, member. Default: all.
 	 *
-	 * @throws \RuntimeException
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getListOrg($org, $type = 'all')
 	{
@@ -158,9 +163,10 @@ class Repositories extends Package
 	 *
 	 * @param   integer  $id  The integer ID of the last Repository that you’ve seen.
 	 *
-	 * @throws \RuntimeException
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getList($id = 0)
 	{
@@ -195,7 +201,9 @@ class Repositories extends Package
 	 *                                        Use the name of the template without the extension.
 	 *                                        For example, “Haskell” Ignored if auto_init parameter is not provided.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function create($name, $org = '', $description = '', $homepage = '', $private = false, $has_issues = false,
 		$has_wiki = false, $has_downloads = false, $team_id = 0, $auto_init = false, $gitignore_template = '')
@@ -232,7 +240,9 @@ class Repositories extends Package
 	 * @param   string  $owner  Repository owner.
 	 * @param   string  $repo   Repository name.
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function get($owner, $repo)
 	{
@@ -260,7 +270,9 @@ class Repositories extends Package
 	 * @param   boolean  $has_downloads   Set true to enable downloads for this repository, false to disable them.
 	 * @param   string   $default_branch  Update the default branch for this repository
 	 *
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
 	 */
 	public function edit($owner, $repo, $name, $description = '', $homepage = '', $private = false, $has_issues = false,
 		$has_wiki = false, $has_downloads = false, $default_branch = '')

@@ -9,6 +9,7 @@
 namespace Joomla\OAuth1;
 
 use Joomla\Http\Http;
+use Joomla\Http\Response;
 use Joomla\Input\Input;
 use Joomla\Application\AbstractWebApplication;
 
@@ -66,7 +67,7 @@ abstract class Client
 	 *
 	 * @since 1.0
 	 */
-	public function __construct($options = array(), Http $client, Input $input, AbstractWebApplication $application, $version = '1.0a')
+	public function __construct($options, Http $client, Input $input, AbstractWebApplication $application, $version = '1.0a')
 	{
 		$this->options = $options;
 		$this->client = $client;

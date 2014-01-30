@@ -57,11 +57,12 @@ $child->set('Some\Interface\I\NeedInterface', new My\Other\InterfaceImplementati
 
 Setting an item within the container is very straightforward. You pass the `set` method a string `$key`
 and a `$value`, which can be pretty much anything. If the `$value` is an anonymous function or a `Closure`,
+or a callable value,
 that value will be set as the resolving callback for the `$key`. If it is anything else (an instantiated
 object, array, integer, serialized controller, etc) it will be wrapped in a closure and that closure will
 be set as the resolving callback for the `$key`.
 
-> If the `$value` you are setting is a closure, it will receive a single function argument,
+> If the `$value` you are setting is a closure or a callable, it will receive a single function argument,
 > the calling container. This allows access to the container within your resolving callback.
 
 ```php
@@ -69,8 +70,12 @@ be set as the resolving callback for the `$key`.
 $container->set('foo', 'bar');
 
 $container->set('something', new Something);
+
+$container->set('callMe', array($this, 'callMe');
 // etc
 ```
+
+In the case of a callable, the called method must take a `Container` object as its first and only argument.
 
 When setting items in the container, you are allowed to specify whether the item is supposed to be a
 shared or protected item. A shared item means that when you get an item from the container, the resolving
@@ -346,6 +351,32 @@ class DatabaseServiceProvider implements ServiceProviderInterface
 
 $container->registerServiceProvider(new DatabaseServiceProvider);
 ```
+
+Here is an alternative using a callable.
+
+```php
+// Assume a created $container
+use Joomla\DI\Container;
+use Joomla\DI\ServiceProviderInterface;
+
+class CallableServiceProvider implements ServiceProviderInterface
+{
+    public function getCallable(Container $c)
+    {
+        return 'something';
+    }
+
+    public function register(Container $container)
+    {
+        $container->set('callable', array($this, 'getCallable');
+    }
+}
+
+$container->registerServiceProvider(new CallableServiceProvider);
+```
+
+The advantage here is that it is easier to write unit tests for the callable method (closures can be awkward to isolate
+and test).
 
 ### Container Aware Objects
 

@@ -8,16 +8,16 @@
 
 namespace Joomla\Github\Package\Issues;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Assignees class for the Joomla Platform.
+ * GitHub API Assignees class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/issues/assignees/
  *
  * @since  1.0
  */
-class Assignees extends Package
+class Assignees extends AbstractPackage
 {
 	/**
 	 * List assignees.

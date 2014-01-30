@@ -30,6 +30,14 @@ class Dispatcher implements DispatcherInterface
 	protected $events = array();
 
 	/**
+	 * A regular expression that will filter listener method names.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $listenerFilter;
+
+	/**
 	 * An array of ListenersPriorityQueue indexed
 	 * by the event names.
 	 *
@@ -52,6 +60,22 @@ class Dispatcher implements DispatcherInterface
 	public function setEvent(EventInterface $event)
 	{
 		$this->events[$event->getName()] = $event;
+
+		return $this;
+	}
+
+	/**
+	 * Sets a regular expression to filter the class methods when adding a listener.
+	 *
+	 * @param   string  $regex  A regular expression (for example '^on' will only register methods starting with "on").
+	 *
+	 * @return  Dispatcher  This method is chainable.
+	 *
+	 * @since   1.0
+	 */
+	public function setListenerFilter($regex)
+	{
+		$this->listenerFilter = $regex;
 
 		return $this;
 	}
@@ -230,16 +254,21 @@ class Dispatcher implements DispatcherInterface
 			$methods = array_intersect($methods, array_keys($events));
 		}
 
+		$regex = $this->listenerFilter ?: '.*';
+
 		foreach ($methods as $event)
 		{
-			if (!isset($this->listeners[$event]))
+			if (preg_match("#$regex#", $event))
 			{
-				$this->listeners[$event] = new ListenersPriorityQueue;
+				if (!isset($this->listeners[$event]))
+				{
+					$this->listeners[$event] = new ListenersPriorityQueue;
+				}
+
+				$priority = isset($events[$event]) ? $events[$event] : Priority::NORMAL;
+
+				$this->listeners[$event]->add($listener, $priority);
 			}
-
-			$priority = isset($events[$event]) ? $events[$event] : Priority::NORMAL;
-
-			$this->listeners[$event]->add($listener, $priority);
 		}
 
 		return $this;
@@ -319,7 +348,6 @@ class Dispatcher implements DispatcherInterface
 				return $this->listeners[$event]->has($listener);
 			}
 		}
-
 		else
 		{
 			foreach ($this->listeners as $queue)

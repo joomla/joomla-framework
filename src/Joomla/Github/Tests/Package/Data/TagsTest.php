@@ -102,7 +102,7 @@ class TagsTest extends \PHPUnit_Framework_TestCase
 		$this->response->code = 201;
 		$this->response->body = $this->sampleString;
 
-		$data = '{"tag":"0.1","message":"Message","object":"12345","type":"commit","tagger_name":"elkuku","tagger_email":"email@example.com","tagger_date":"123456789"}';
+		$data = '{"tag":"0.1","message":"Message","object":"12345","type":"commit","tagger":{"name":"elkuku","email":"email@example.com","date":"123456789"}}';
 		$this->client->expects($this->once())
 			->method('post')
 			->with('/repos/joomla/joomla-platform/git/tags', $data, 0, 0)

@@ -366,11 +366,11 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/teams/123/repos/joomla')
+			->with('/teams/123/repos/joomla/cms')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->checkRepo(123, 'joomla'),
+			$this->object->checkRepo(123, 'joomla', 'cms'),
 			$this->equalTo(true)
 		);
 	}
@@ -387,11 +387,11 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/teams/123/repos/joomla')
+			->with('/teams/123/repos/joomla/cms')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->checkRepo(123, 'joomla'),
+			$this->object->checkRepo(123, 'joomla', 'cms'),
 			$this->equalTo(false)
 		);
 	}
@@ -410,11 +410,11 @@ class TeamsTest extends \PHPUnit_Framework_TestCase
 
 		$this->client->expects($this->once())
 			->method('get')
-			->with('/teams/123/repos/joomla')
+			->with('/teams/123/repos/joomla/cms')
 			->will($this->returnValue($this->response));
 
 		$this->assertThat(
-			$this->object->checkRepo(123, 'joomla'),
+			$this->object->checkRepo(123, 'joomla', 'cms'),
 			$this->equalTo(true)
 		);
 	}

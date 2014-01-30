@@ -8,9 +8,6 @@
 
 namespace Joomla\Linkedin;
 
-use Joomla\Linkedin\Object;
-use \RuntimeException;
-
 /**
  * Linkedin API Companies class for the Joomla Framework.
  *
@@ -29,7 +26,7 @@ class Companies extends Object
 	 * @return  array  The decoded JSON response
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getCompanies($id = null, $name = null, $domain = null, $fields = null)
 	{
@@ -37,7 +34,7 @@ class Companies extends Object
 		if ($id == null && $name == null && $domain == null)
 		{
 			// We don't have a valid entry
-			throw new RuntimeException('You must specify a company ID, a universal name, or an email domain.');
+			throw new \RuntimeException('You must specify a company ID, a universal name, or an email domain.');
 		}
 
 		$token = $this->oauth->getToken();

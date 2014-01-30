@@ -8,10 +8,10 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Activity class for the Joomla Platform.
+ * GitHub API Activity class for the Joomla Framework.
  *
  * @since  1.0
  *
@@ -19,6 +19,6 @@ use Joomla\Github\Package;
  *
  * @property-read  Activity\Events  $events  GitHub API object for events.
  */
-class Activity extends Package
+class Activity extends AbstractPackage
 {
 }

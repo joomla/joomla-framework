@@ -8,16 +8,16 @@
 
 namespace Joomla\Github\Package\Users;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API References class for the Joomla Platform.
+ * GitHub API References class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/repos/users/keys
  *
  * @since  1.0
  */
-class Keys extends Package
+class Keys extends AbstractPackage
 {
 	/**
 	 * List public keys for a user.

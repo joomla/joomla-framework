@@ -8,8 +8,6 @@
 
 namespace Joomla\Cache;
 
-use Psr\Cache\CacheItemInterface;
-
 /**
  * Memcached cache driver for the Joomla Framework.
  *
@@ -18,10 +16,10 @@ use Psr\Cache\CacheItemInterface;
 class Memcached extends Cache
 {
 	/**
-	 * @var    \Memcached  The memcached driver.
+	 * @var    \Memcached  The memcached driver, initialize to false to avoid having to repeated run isset before using it..
 	 * @since  1.0
 	 */
-	private $driver;
+	private $driver = false;
 
 	/**
 	 * Constructor.
@@ -33,11 +31,28 @@ class Memcached extends Cache
 	 */
 	public function __construct($options = array())
 	{
-		parent::__construct($options);
-
 		if (!extension_loaded('memcached') || !class_exists('Memcached'))
 		{
 			throw new \RuntimeException('Memcached not supported.');
+		}
+
+		// Parent sets up the caching options and checks their type
+		parent::__construct($options);
+
+		// These options must be set to something, so if not set make them false
+		if (!isset($this->options['memcache.pool']))
+		{
+			$this->options['memcache.pool'] = false;
+		}
+
+		if (!isset($this->options['memcache.compress']))
+		{
+			$this->options['memcache.compress'] = false;
+		}
+
+		if (!isset($this->options['memcache.servers']))
+		{
+			$this->options['memcache.servers'] = false;
 		}
 	}
 
@@ -50,6 +65,8 @@ class Memcached extends Cache
 	 */
 	public function clear()
 	{
+		$this->connect();
+
 		return $this->driver->flush();
 	}
 
@@ -92,7 +109,9 @@ class Memcached extends Cache
 
 		$this->driver->delete($key);
 
-		if ($this->driver->getResultCode() != \Memcached::RES_SUCCESS || $this->driver->getResultCode() != \Memcached::RES_NOTFOUND)
+		$rc = $this->driver->getResultCode();
+
+		if ( ($rc != \Memcached::RES_SUCCESS))
 		{
 // 			throw new \RuntimeException(sprintf('Unable to remove cache entry for %s. Error message `%s`.', $key, $this->driver->getResultMessage()));
 			return false;
@@ -149,7 +168,7 @@ class Memcached extends Cache
 	private function connect()
 	{
 		// We want to only create the driver once.
-		if (isset($this->driver))
+		if ($this->driver)
 		{
 			return;
 		}

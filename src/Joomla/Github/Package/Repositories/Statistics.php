@@ -8,7 +8,7 @@
 
 namespace Joomla\Github\Package\Repositories;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 use Joomla\Http\Response;
 
 /**
@@ -21,7 +21,7 @@ use Joomla\Http\Response;
  *
  * @since  1.0
  */
-class Statistics  extends Package
+class Statistics  extends AbstractPackage
 {
 	/**
 	 * Get contributors list with additions, deletions, and commit counts.

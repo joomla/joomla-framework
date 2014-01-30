@@ -8,16 +8,16 @@
 
 namespace Joomla\Github\Package\Issues;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API Milestones class for the Joomla Platform.
+ * GitHub API Milestones class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/issues/milestones/
  *
  * @since  1.0
  */
-class Milestones extends Package
+class Milestones extends AbstractPackage
 {
 	/**
 	 * Method to get the list of milestones for a repo.

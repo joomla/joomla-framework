@@ -8,25 +8,26 @@
 
 namespace Joomla\Github\Package;
 
-use Joomla\Github\Package;
+use Joomla\Github\AbstractPackage;
 
 /**
- * GitHub API References class for the Joomla Platform.
+ * GitHub API References class for the Joomla Framework.
  *
  * @documentation http://developer.github.com/v3/repos/users
  *
  * @since  1.0
  */
-class Users extends Package
+class Users extends AbstractPackage
 {
 	/**
 	 * Get a single user.
 	 *
 	 * @param   string  $user  The users login name.
 	 *
-	 * @throws \DomainException
+	 * @return  object
 	 *
-	 * @return object
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function get($user)
 	{
@@ -42,9 +43,10 @@ class Users extends Package
 	/**
 	 * Get the current authenticated user.
 	 *
-	 * @throws \DomainException
+	 * @return  mixed
 	 *
-	 * @return mixed
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getAuthenticatedUser()
 	{
@@ -68,9 +70,10 @@ class Users extends Package
 	 * @param   string  $hireable  If he is unemplayed :P
 	 * @param   string  $bio       The biometrical DNA fingerprint (or smthng...)
 	 *
-	 * @throws \DomainException
+	 * @return  mixed
 	 *
-	 * @return mixed
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function edit($name = '', $email = '', $blog = '', $company = '', $location = '', $hireable = '', $bio = '')
 	{
@@ -100,8 +103,10 @@ class Users extends Package
 	 *
 	 * @param   integer  $since  The integer ID of the last User that you’ve seen.
 	 *
-	 * @throws \DomainException
-	 * @return mixed
+	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function getList($since = 0)
 	{
