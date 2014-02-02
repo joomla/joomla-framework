@@ -146,48 +146,95 @@ class JFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @todo Implement testCopy().
+	 * Test makeCopy method
 	 *
 	 * @return void
+	 *
+	 * @covers        Joomla\Filesystem\File::copy
+	 * @since         1.0
 	 */
 	public function testCopy()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$name = 'tempFile';
+		$path = __DIR__;
+		$copiedFileName = 'copiedTempFile';
+		$data = 'Lorem ipsum dolor sit amet';
+
+		// Create a temp file to test copy operation
+		$this->object->write($path . '/' . $name, $data);
+
+		$this->assertThat(
+			File::copy($path . '/' . $name, $path . '/' . $copiedFileName),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should copy successfully.'
 		);
+		File::delete($path . '/' . $copiedFileName);
+
+		$this->assertThat(
+			File::copy($name, $copiedFileName, $path),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should copy successfully.'
+		);
+		File::delete($path . '/' . $copiedFileName);
+
+		File::delete($path . '/' . $name);
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @todo Implement testDelete().
+	 * Test delete method
 	 *
 	 * @return void
+	 *
+	 * @covers        Joomla\Filesystem\File::delete
+	 * @since         1.0
 	 */
 	public function testDelete()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$name = 'tempFile';
+		$path = __DIR__;
+		$data = 'Lorem ipsum dolor sit amet';
+
+		// Create a temp file to test delete operation
+		$this->object->write($path . '/' . $name, $data);
+
+		$this->assertThat(
+			File::delete($path . '/' . $name),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should be deleted successfully.'
 		);
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @todo Implement testMove().
+	 * Test move method
 	 *
 	 * @return void
+	 *
+	 * @covers        Joomla\Filesystem\File::move
+	 * @since         1.0
 	 */
 	public function testMove()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$name = 'tempFile';
+		$path = __DIR__;
+		$movedFileName = 'movedTempFile';
+		$data = 'Lorem ipsum dolor sit amet';
+
+		// Create a temp file to test copy operation
+		$this->object->write($path . '/' . $name, $data);
+
+		$this->assertThat(
+			File::move($path . '/' . $name, $path . '/' . $movedFileName),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should be moved successfully.'
 		);
+
+		$this->assertThat(
+			File::move($movedFileName, $name, $path),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should be moved successfully.'
+		);
+
+		File::delete($path . '/' . $name);
 	}
 
 	/**
@@ -206,18 +253,26 @@ class JFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @todo Implement testWrite().
+	 * Test write method
 	 *
 	 * @return void
+	 *
+	 * @covers        Joomla\Filesystem\File::write
+	 * @since         1.0
 	 */
 	public function testWrite()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$name = 'tempFile';
+		$path = __DIR__;
+		$data = 'Lorem ipsum dolor sit amet';
+
+		$this->assertThat(
+			File::write($path . '/' . $name, $data),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should be written successfully.'
 		);
+
+		File::delete($path . '/' . $name);
 	}
 
 	/**
