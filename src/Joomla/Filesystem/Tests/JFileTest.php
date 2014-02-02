@@ -32,17 +32,48 @@ class JFileTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
+	 * Provides the data to test the makeSafe method.
 	 *
-	 * @todo Implement testStripExt().
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function dataTestStripExt()
+	{
+		return array(
+			array(
+				'foobar.php',
+				'foobar',
+			),
+			array(
+				'foobar..php',
+				'foobar.',
+			),
+			array(
+				'foobar.php.',
+				'foobar.php',
+			),
+		);
+	}
+
+	/**
+	 * Test makeSafe method
+	 *
+	 * @param   string  $fileName        The name of the file with extension
+	 * @param   string  $nameWithoutExt  Name without extension
 	 *
 	 * @return void
+	 *
+	 * @covers        Joomla\Filesystem\File::stripExt
+	 * @dataProvider  dataTestStripExt
+	 * @since         1.0
 	 */
-	public function testStripExt()
+	public function testStripExt($fileName, $nameWithoutExt)
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$this->assertEquals(
+			$this->object->stripExt($fileName),
+			$nameWithoutExt,
+			'Line:' . __LINE__ . ' file extension should be stripped.'
 		);
 	}
 
