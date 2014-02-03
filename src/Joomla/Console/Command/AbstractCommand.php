@@ -214,7 +214,7 @@ abstract class AbstractCommand implements \ArrayAccess
 	 *
 	 * @throws \LogicException
 	 *
-	 * @return void
+	 * @return mixed
 	 *
 	 * @since  1.0
 	 */
@@ -597,7 +597,7 @@ abstract class AbstractCommand implements \ArrayAccess
 	}
 
 	/**
-	 * Get options.
+	 * Get options as array.
 	 *
 	 * @param   boolean  $global  is Global options.
 	 *
@@ -658,7 +658,7 @@ abstract class AbstractCommand implements \ArrayAccess
 	}
 
 	/**
-	 * add the option alias.
+	 * set the option alias.
 	 *
 	 * @param   mixed   $aliases  The alias to map this option.
 	 * @param   string  $name     The option name.
@@ -668,7 +668,7 @@ abstract class AbstractCommand implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 */
-	public function addOptionAlias($aliases, $name, $global = false)
+	public function setOptionAlias($aliases, $name, $global = false)
 	{
 		if ($global)
 		{
@@ -877,9 +877,9 @@ abstract class AbstractCommand implements \ArrayAccess
 			 * Here we use "Levenshtein distance" to compare wrong name with every command names.
 			 *
 			 * If the difference number less than 1/3 of wrong name which user typed, means this is a similar name,
-			 * we can prompt user to choose these similar names.
+			 * we can notice user to choose these similar names.
 			 *
-			 * And if the string of wrong name can be found in a command name, we also prompt user to choose it.
+			 * And if the string of wrong name can be found in a command name, we also notice user to choose it.
 			 */
 			if (levenshtein($wrongName, $commandName) <= (strlen($wrongName) / 3) || strpos($commandName, $wrongName) !== false)
 			{
@@ -954,7 +954,14 @@ EOF;
 	 */
 	public function err($text = '', $nl = true)
 	{
-		$this->output->err($text, $nl);
+		if ($this->output instanceof \Joomla\Console\Output\Stdout)
+		{
+			$this->output->err($text, $nl);
+		}
+		else
+		{
+			$this->output->out($text, $nl);
+		}
 
 		return $this;
 	}
