@@ -103,7 +103,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->instance->addCommand(new FooCommand);
 
-		$this->assertEquals('foo', $this->instance->getDefaultCommand()->getArgument('foo')->getName());
+		$this->assertEquals('foo', $this->instance->getDefaultCommand()->getChild('foo')->getName());
 	}
 
 	/**
@@ -162,7 +162,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->instance->register('bar');
 
-		$this->assertInstanceOf('Joomla\\Console\\Command\\Command', $this->instance->getDefaultCommand()->getArgument('bar'), 'Need Command instance');
+		$this->assertInstanceOf('Joomla\\Console\\Command\\Command', $this->instance->getDefaultCommand()->getChild('bar'), 'Need Command instance');
 	}
 
 	/**

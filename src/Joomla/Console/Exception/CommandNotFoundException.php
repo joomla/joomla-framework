@@ -74,7 +74,7 @@ class CommandNotFoundException extends \RuntimeException
 	 *
 	 * @since  1.0
 	 */
-	public function getArgument()
+	public function getChild()
 	{
 		return $this->argument;
 	}

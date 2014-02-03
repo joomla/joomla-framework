@@ -186,7 +186,7 @@ class OptionTest extends PHPUnit_Framework_TestCase
 		)
 		->addCommand('kkk');
 
-		$kkk = $this->command->getArgument('kkk');
+		$kkk = $this->command->getChild('kkk');
 
 		$options = $kkk->getAllOptions();
 

@@ -512,7 +512,7 @@ $descriptor = new new XmlDescriptorHelper(
 );
 
 $console->getDefaultCommand()
-    ->getArgument('help')
+    ->getChild('help')
     ->setDescriptor($descriptor);
 
 // ...

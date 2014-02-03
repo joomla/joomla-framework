@@ -188,7 +188,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 			}
 		);
 
-		$command = $this->instance->getArgument('bar');
+		$command = $this->instance->getChild('bar');
 
 		$this->assertEquals(65, $command->execute(), 'Wrong exit code returned.');
 
@@ -202,7 +202,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf(
 			'Joomla\\Console\\Tests\\Stubs\\FooCommand',
-			$this->instance->getArgument('foo'),
+			$this->instance->getChild('foo'),
 			'Argument not FooCommand.'
 		);
 	}
@@ -214,11 +214,11 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @since  1.0
 	 *
-	 * @covers Joomla\Console\Command\AbstractCommand::getArgument
+	 * @covers Joomla\Console\Command\AbstractCommand::getChild
 	 */
-	public function testGetArgument()
+	public function testgetChild()
 	{
-		$yoo = $this->instance->getArgument('yoo');
+		$yoo = $this->instance->getChild('yoo');
 
 		$this->assertEquals('yoo desc', $yoo->getDescription(), 'Yoo command desc not match.');
 	}
@@ -272,7 +272,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 		// Test for global option
 		$cmd->addCommand(new FooCommand);
 
-		$this->assertSame(1, (int) $cmd->getArgument('foo')->getOption('y'), 'Sub command should have global option');
+		$this->assertSame(1, (int) $cmd->getChild('foo')->getOption('y'), 'Sub command should have global option');
 	}
 
 	/**

@@ -72,7 +72,7 @@ class Command extends AbstractCommand
 
 		$output = $this->application
 			->getDefaultCommand()
-			->getArgument('help')
+			->getChild('help')
 			->getDescriptor()
 			->describe($this);
 

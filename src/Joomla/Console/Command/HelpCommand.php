@@ -105,7 +105,7 @@ class HelpCommand extends Command
 
 		foreach ($args as $arg)
 		{
-			$command = $command->getArgument($arg);
+			$command = $command->getChild($arg);
 
 			if (!$command)
 			{

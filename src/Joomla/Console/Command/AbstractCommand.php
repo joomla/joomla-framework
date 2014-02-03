@@ -188,7 +188,7 @@ abstract class AbstractCommand
 			}
 			catch (CommandNotFoundException $e)
 			{
-				$e->getCommand()->renderAlternatives($e->getArgument(), $e);
+				$e->getCommand()->renderAlternatives($e->getChild(), $e);
 
 				return $e->getCode();
 			}
@@ -465,7 +465,7 @@ abstract class AbstractCommand
 	 *
 	 * @since  1.0
 	 */
-	public function getArgument($name)
+	public function getChild($name)
 	{
 		if (!empty($this->children[$name]))
 		{
@@ -482,7 +482,7 @@ abstract class AbstractCommand
 	 *
 	 * @since  1.0
 	 */
-	public function getchildren()
+	public function getChildren()
 	{
 		return $this->children;
 	}
