@@ -19,6 +19,13 @@ use Joomla\Application\Cli\Output\Stdout;
 class PasswordPrompter extends CallbackPrompter
 {
 	/**
+	 * Property shell.
+	 *
+	 * @var string
+	 */
+	protected static $shell;
+
+	/**
 	 * Property win.
 	 *
 	 * @var  boolean
@@ -40,7 +47,7 @@ class PasswordPrompter extends CallbackPrompter
 	{
 		$this->win = defined('PHP_WINDOWS_VERSION_BUILD');
 
-		$this->hidenExe = __DIR__ . '/../bin/hiddeninput.exe';
+		$this->hiddenExe = __DIR__ . '/../bin/hiddeninput.exe';
 
 		parent::__construct($input, $output);
 	}
@@ -60,39 +67,74 @@ class PasswordPrompter extends CallbackPrompter
 
 	public function in($question = '')
 	{
-		// if ($this->win)
-		if (false)
+		if ($this->win)
 		{
 			if ($question)
 			{
 				$this->output->out($question, false);
 			}
 
-			$value = rtrim(shell_exec($this->hidenExe));
+			$value = rtrim(shell_exec($this->hiddenExe));
 
 			$this->output->out();
 
 			return $value;
 		}
 
+		// For linux & Unix system
 		else
 		{
-			$command = "/usr/bin/env bash -c 'echo OK'";
+			// Find shell.
+			$shell = $this->findShell();
 
-			if (rtrim(shell_exec($command)) !== 'OK')
+			if (!$shell)
 			{
-				throw new \RuntimeException("Can't invoke bash");
+				throw new \RuntimeException("Can't invoke shell");
 			}
 
-			$command = "/usr/bin/env bash -c 'read -s -p "
-      . addslashes($question)
-      . " mypassword && echo \$mypassword'";
+			// Using read to write password
+			$read = sprintf('read -s -p "%s" mypassword && echo $mypassword', $question);
 
-    $password = rtrim(shell_exec($command));
-    echo "\n";
-    return $password;
+			// Here we use bash to handle this command.
+			$command = sprintf("/usr/bin/env bash -c '%s'", $read);
+
+			$value = rtrim(shell_exec($command));
+
+			$this->output->out();
+
+			return $value;
 		}
+
+		// @TODO: Using Stty
 	}
 
+	/**
+	 * findShell
+	 *
+	 * @return  string
+	 *
+	 * @throws \RuntimeException
+	 */
+	protected function findShell()
+	{
+		if (self::$shell)
+		{
+			return self::$shell;
+		}
+
+		$command = "/usr/bin/env %s -c 'echo Hello'";
+
+		foreach (array('bash', 'zsh', 'ksh', 'csh') as $shell)
+		{
+			if (rtrim(shell_exec(sprintf($command, $shell))) === 'Hello')
+			{
+				self::$shell = $shell;
+
+				return $shell;
+			}
+		}
+
+		return null;
+	}
 }
  

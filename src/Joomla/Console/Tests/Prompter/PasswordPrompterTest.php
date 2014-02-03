@@ -27,15 +27,20 @@ class PasswordPrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new PasswordPrompter;// (null, $this->output);
+		$this->instance = $prompter = new PasswordPrompter(null, $this->output);
 	}
 
 	public function testAsk()
 	{
+		if (defined('PHP_WINDOWS_VERSION_BUILD'))
+		{
+			$this->markTestSkipped('This test is not supported on Windows');
+		}
 
+		$this->setStream("1234qwer\n");
 
-		echo $in = $this->instance->ask('Enter password: ');
+		$in = $this->instance->ask('Enter password: ');
 
-		die;
+		$this->assertEquals('1234qwer', $in);
 	}
 }
