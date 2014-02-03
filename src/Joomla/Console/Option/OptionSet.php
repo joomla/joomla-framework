@@ -18,7 +18,9 @@ class OptionSet extends \ArrayObject
 	/**
 	 * Option aliases.
 	 *
-	 * @var  array
+	 * @var    array
+	 *
+	 * @since  1.0
 	 */
 	protected $aliases = array();
 
@@ -28,6 +30,8 @@ class OptionSet extends \ArrayObject
 	 * @param   Option  $option  Option object.
 	 *
 	 * @return  OptionSet Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function addOption(Option $option)
 	{
@@ -42,6 +46,8 @@ class OptionSet extends \ArrayObject
 	 * @param   mixed  $name  Option name.
 	 *
 	 * @return  boolean True if option exists.
+	 *
+	 * @since   1.0
 	 */
 	public function offsetExists($name)
 	{
@@ -56,6 +62,8 @@ class OptionSet extends \ArrayObject
 	 * @param   mixed   $name  Option name to get option.
 	 *
 	 * @return  Option|null  Return option object if exists.
+	 *
+	 * @since   1.0
 	 */
 	public function offsetGet($name)
 	{
@@ -76,6 +84,8 @@ class OptionSet extends \ArrayObject
 	 * @param   Option  $option  The option object to set in this set.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function offsetSet($name, $option)
 	{
@@ -94,6 +104,8 @@ class OptionSet extends \ArrayObject
 	 * @param   string  $name  Option name to remove from this set.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function offsetUnset($name)
 	{
@@ -114,6 +126,8 @@ class OptionSet extends \ArrayObject
 	 * @param   string        $option   The option which we want to add alias.
 	 *
 	 * @return  OptionSet  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setAlias($aliases, $option)
 	{
@@ -133,6 +147,8 @@ class OptionSet extends \ArrayObject
 	 * @param   string  $alias  An alias to help us get option name.
 	 *
 	 * @return  string  Return name if found, or return alias as name.
+	 *
+	 * @since   1.0
 	 */
 	protected function resolveAlias($alias)
 	{
