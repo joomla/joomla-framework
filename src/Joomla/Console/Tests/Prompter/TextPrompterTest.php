@@ -9,7 +9,7 @@
 use Joomla\Console\Prompter\TextPrompter;
 
 /**
- * Class PrompterTest
+ * Class TextPrompterTest
  *
  * @since  1.0
  */
@@ -30,6 +30,13 @@ class TextPrompterTest extends AbstractPrompterTest
 		$this->instance = $prompter = new TextPrompter(null, $this->output);
 	}
 
+	/**
+	 * Test prompter ask.
+	 *
+	 * @return  void
+	 *
+	 * @since  1.0
+	 */
 	public function testAsk()
 	{
 		$this->setStream("y");

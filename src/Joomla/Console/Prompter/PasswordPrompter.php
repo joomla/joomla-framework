@@ -12,43 +12,57 @@ use Joomla\Input;
 use Joomla\Application\Cli\Output\Stdout;
 
 /**
- * Class Prompter
+ * A password prompter supports hidden input.
  *
- * @since 1.0
+ * @since  1.0
  */
 class PasswordPrompter extends CallbackPrompter
 {
 	/**
-	 * Property shell.
+	 * Which shell we use.
 	 *
 	 * @var string
+	 *
+	 * @since  1.0
 	 */
 	protected static $shell;
 
 	/**
-	 * Property stty.
+	 * Is stty available?
 	 *
 	 * @var boolean
+	 *
+	 * @since  1.0
 	 */
 	protected static $stty;
 
 	/**
-	 * Property win.
+	 * Is Windows OS?
 	 *
 	 * @var  boolean
+	 *
+	 * @since  1.0
 	 */
 	protected $win = false;
 
 	/**
-	 * Property hiddenExe.
+	 * The Hidden input exe poath for Windows OS.
 	 *
-	 * @var  null
+	 * @see https://github.com/Seldaek/hidden-input
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $hiddenExe = null;
 
 	/**
-	 * @param Input\Cli $input
-	 * @param Stdout    $output
+	 * Constructor.
+	 *
+	 * @param   Input\Cli  $input   The input object.
+	 * @param   Stdout     $output  The output object.
+	 *
+	 * @since   1.0
 	 */
 	function __construct(Input\Cli $input = null, Stdout $output = null)
 	{
@@ -60,18 +74,31 @@ class PasswordPrompter extends CallbackPrompter
 	}
 
 	/**
-	 * ask
+	 * Show prompt to ask user.
 	 *
-	 * @param string $msg
-	 * @param string $default
+	 * @param   string  $msg      Question.
+	 * @param   string  $default  Default value.
 	 *
-	 * @return  mixed
+	 * @return  string  The value that use input.
+	 *
+	 * @since   1.0
 	 */
 	public function ask($msg = '', $default = null)
 	{
 		return $this->in($msg) ? : $default;
 	}
 
+	/**
+	 * Get a value from standard input.
+	 *
+	 * @param   string  $question  The question you want to ask user.
+	 *
+	 * @throws  \RuntimeException
+	 *
+	 * @return  string  The input string from standard input.
+	 *
+	 * @since   1.0
+	 */
 	public function in($question = '')
 	{
 		if ($this->win)
@@ -141,11 +168,13 @@ class PasswordPrompter extends CallbackPrompter
 	}
 
 	/**
-	 * findShell
+	 * Find which shell we use (only in UNIX & LINUX).
 	 *
-	 * @return  string
+	 * @return  string  Shell name.
 	 *
-	 * @throws \RuntimeException
+	 * @throws  \RuntimeException
+	 *
+	 * @since   1.0
 	 */
 	protected function findShell()
 	{
@@ -170,9 +199,11 @@ class PasswordPrompter extends CallbackPrompter
 	}
 
 	/**
-	 * findStty
+	 * Find stty (only in UNIX & LINUX).
 	 *
-	 * @return  bool
+	 * @return  boolean  Stty exists or not.
+	 *
+	 * @since   1.0
 	 */
 	protected function findStty()
 	{

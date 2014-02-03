@@ -16,33 +16,41 @@ namespace Joomla\Console\Prompter;
 class BooleanPrompter extends TextPrompter
 {
 	/**
-	 * Property trueAlias.
+	 * Aliases of true.
 	 *
 	 * @var  array
+	 *
+	 * @since  1.0
 	 */
 	protected $trueAlias = array('y', 'yes', 1);
 
 	/**
-	 * Property falseAlias.
+	 * Aliases of false.
 	 *
 	 * @var  array
+	 *
+	 * @since  1.0
 	 */
 	protected $falseAlias = array('n', 'no', 0, 'null');
 
 	/**
-	 * Property attempt.
+	 * Retry times.
 	 *
 	 * @var  int
+	 *
+	 * @since  1.0
 	 */
 	protected $attempt = 1;
 
 	/**
-	 * ask
+	 * Show prompt to ask user.
 	 *
-	 * @param string $msg
-	 * @param null   $default
+	 * @param   string  $msg      Question.
+	 * @param   string  $default  Default value.
 	 *
-	 * @return  bool|mixed
+	 * @return  string  The value that use input.
+	 *
+	 * @since   1.0
 	 */
 	public function ask($msg = '', $default = null)
 	{
@@ -68,9 +76,11 @@ class BooleanPrompter extends TextPrompter
 	}
 
 	/**
-	 * getTrueAlias
+	 * Get true value alias.
 	 *
-	 * @return  array
+	 * @return  array  Aliases.
+	 *
+	 * @since   1.0
 	 */
 	public function getTrueAlias()
 	{
@@ -78,11 +88,13 @@ class BooleanPrompter extends TextPrompter
 	}
 
 	/**
-	 * setTrueAlias
+	 * Set true value alias.
 	 *
-	 * @param   array $trueAlias
+	 * @param   array  $trueAlias  Alias you want to set.
 	 *
 	 * @return  BooleanPrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setTrueAlias($trueAlias)
 	{
@@ -92,9 +104,11 @@ class BooleanPrompter extends TextPrompter
 	}
 
 	/**
-	 * getFalseAlias
+	 * Get aliases of false value.
 	 *
-	 * @return  array
+	 * @return  array  Aliases.
+	 *
+	 * @since   1.0
 	 */
 	public function getFalseAlias()
 	{
@@ -102,11 +116,13 @@ class BooleanPrompter extends TextPrompter
 	}
 
 	/**
-	 * setFalseAlias
+	 * Set aliases of false value.
 	 *
-	 * @param   array $falseAlias
+	 * @param   array  $falseAlias  Alias you want to set.
 	 *
 	 * @return  BooleanPrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setFalseAlias($falseAlias)
 	{

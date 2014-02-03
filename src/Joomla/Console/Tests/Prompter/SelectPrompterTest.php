@@ -9,7 +9,7 @@
 use Joomla\Console\Prompter\SelectPrompter;
 
 /**
- * Class PrompterTest
+ * Class SelectPrompterTest
  *
  * @since  1.0
  */
@@ -38,9 +38,11 @@ class SelectPrompterTest extends AbstractPrompterTest
 	}
 
 	/**
-	 * testAsk
+	 * Test prompter ask.
 	 *
 	 * @return  void
+	 *
+	 * @since  1.0
 	 */
 	public function testAsk()
 	{
@@ -73,7 +75,7 @@ EOF;
 		);
 
 		// Default value
-		$this->assertEquals($in, 2);
+		$this->assertEquals($in, 2, 'Return value should be default (2).');
 
 		$this->setStream("1");
 

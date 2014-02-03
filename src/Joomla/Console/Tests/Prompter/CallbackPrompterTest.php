@@ -9,7 +9,7 @@
 use Joomla\Console\Prompter\CallbackPrompter;
 
 /**
- * Class PrompterTest
+ * Class CallbackPrompterTest
  *
  * @since  1.0
  */
@@ -30,6 +30,13 @@ class CallbackPrompterTest extends AbstractPrompterTest
 		$this->instance = $prompter = new CallbackPrompter(null, $this->output);
 	}
 
+	/**
+	 * Test prompter ask.
+	 *
+	 * @return  void
+	 *
+	 * @since  1.0
+	 */
 	public function testAsk()
 	{
 		$this->instance->setHandler(
@@ -46,14 +53,14 @@ class CallbackPrompterTest extends AbstractPrompterTest
 
 		$this->setStream("4\n5\n6");
 
-		$this->assertEquals($this->instance->ask('Tell me something: ', 3), 3);
+		$this->assertEquals($this->instance->ask('Tell me something: ', 3), 3, 'Should return 3.');
 
 		$this->setStream("4\n5\n6");
 
-		$this->assertNull($this->instance->ask('Tell me something: '));
+		$this->assertNull($this->instance->ask('Tell me something: '), 'Should not get anything.');
 
 		$this->setStream(3);
 
-		$this->assertEquals($this->instance->ask('Tell me something: '), 3);
+		$this->assertEquals($this->instance->ask('Tell me something: '), 3, 'Should return 3.');
 	}
 }

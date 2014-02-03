@@ -9,7 +9,7 @@
 use Joomla\Console\Prompter\PasswordPrompter;
 
 /**
- * Class PrompterTest
+ * Class PasswordPrompterTest
  *
  * @since  1.0
  */
@@ -30,6 +30,13 @@ class PasswordPrompterTest extends AbstractPrompterTest
 		$this->instance = $prompter = new PasswordPrompter(null, $this->output);
 	}
 
+	/**
+	 * Test prompter ask.
+	 *
+	 * @return  void
+	 *
+	 * @since  1.0
+	 */
 	public function testAsk()
 	{
 		if (defined('PHP_WINDOWS_VERSION_BUILD'))

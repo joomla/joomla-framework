@@ -9,19 +9,21 @@
 namespace Joomla\Console\Prompter;
 
 /**
- * Class Prompter
+ * General text prompter.
  *
- * @since 1.0
+ * @since  1.0
  */
 class TextPrompter extends AbstractPrompter
 {
 	/**
-	 * ask
+	 * Show prompt to ask user.
 	 *
-	 * @param string $msg
-	 * @param string $default
+	 * @param   string  $msg      Question.
+	 * @param   string  $default  Default value.
 	 *
-	 * @return  mixed
+	 * @return  string  The value that use input.
+	 *
+	 * @since   1.0
 	 */
 	public function ask($msg = '', $default = null)
 	{

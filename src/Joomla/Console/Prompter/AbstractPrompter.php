@@ -12,38 +12,50 @@ use Joomla\Application\Cli\Output\Stdout;
 use Joomla\Input;
 
 /**
- * Class AbstractPrompter
+ * Prompter class.
  *
- * @since 1.0
+ * Help us show dialog to ask use questions.
+ *
+ * @since  1.0
  */
 abstract class AbstractPrompter implements PrompterInterface
 {
 	/**
-	 * Property input.
+	 * The input object.
 	 *
 	 * @var  Input\Cli
+	 *
+	 * @since  1.0
 	 */
 	protected $input = null;
 
 	/**
-	 * Property output.
+	 * Output object.
 	 *
 	 * @var  Stdout
+	 *
+	 * @since  1.0
 	 */
 	protected $output = null;
 
 	/**
-	 * Property inputStream.
+	 * Input stream, default is STDIN.
+	 *
+	 * Replace this resource help us easily test this class.
 	 *
 	 * @var  resource
+	 *
+	 * @since  1.0
 	 */
 	protected $inputStream = STDIN;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param Input\Cli $input
-	 * @param Stdout    $output
+	 * @param   Input\Cli  $input   The input object.
+	 * @param   Stdout     $output  The output object.
+	 *
+	 * @since   1.0
 	 */
 	function __construct(Input\Cli $input = null, Stdout $output = null)
 	{
@@ -52,12 +64,14 @@ abstract class AbstractPrompter implements PrompterInterface
 	}
 
 	/**
-	 * ask
+	 * Show prompt to ask user.
 	 *
-	 * @param string $msg
-	 * @param string $default
+	 * @param   string  $msg      Question.
+	 * @param   string  $default  Default value.
 	 *
-	 * @return  mixed
+	 * @return  string  The value that use input.
+	 *
+	 * @since   1.0
 	 */
 	abstract public function ask($msg = '', $default = '');
 
@@ -85,9 +99,11 @@ abstract class AbstractPrompter implements PrompterInterface
 	}
 
 	/**
-	 * getInput
+	 * Get input object.
 	 *
 	 * @return  Input\Cli
+	 *
+	 * @since   1.0
 	 */
 	public function getInput()
 	{
@@ -95,11 +111,13 @@ abstract class AbstractPrompter implements PrompterInterface
 	}
 
 	/**
-	 * setInput
+	 * Set input object.
 	 *
-	 * @param   Input\Cli  $input
+	 * @param   Input\Cli  $input  The input object.
 	 *
 	 * @return  AbstractPrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setInput($input)
 	{
@@ -109,9 +127,11 @@ abstract class AbstractPrompter implements PrompterInterface
 	}
 
 	/**
-	 * getOutput
+	 * Get output object.
 	 *
 	 * @return  Stdout
+	 *
+	 * @since   1.0
 	 */
 	public function getOutput()
 	{
@@ -119,11 +139,13 @@ abstract class AbstractPrompter implements PrompterInterface
 	}
 
 	/**
-	 * setOutput
+	 * Set output object.
 	 *
-	 * @param   Stdout  $output
+	 * @param   Stdout  $output  The output object.
 	 *
 	 * @return  AbstractPrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setOutput($output)
 	{
@@ -133,9 +155,11 @@ abstract class AbstractPrompter implements PrompterInterface
 	}
 
 	/**
-	 * getInputStream
+	 * Get input stream resource.
 	 *
-	 * @return  resource
+	 * @return  resource  The input stream resource.
+	 *
+	 * @since   1.0
 	 */
 	public function getInputStream()
 	{
@@ -143,11 +167,15 @@ abstract class AbstractPrompter implements PrompterInterface
 	}
 
 	/**
-	 * setInputStream
+	 * Set input stream resource, default is STDIN.
 	 *
-	 * @param   resource  $inputStream
+	 * Replace this resource help us easily test this class.
+	 *
+	 * @param   resource  $inputStream  The input stream resource.
 	 *
 	 * @return  AbstractPrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setInputStream($inputStream)
 	{

@@ -9,55 +9,70 @@
 namespace Joomla\Console\Prompter;
 
 /**
- * Class ValidatePrompter
+ * Callback validate prompter.
  *
- * @since 1.0
+ * It supports custom callback to validate use input and retry if fail.
+ *
+ * @since  1.0
  */
 class CallbackPrompter extends AbstractPrompter
 {
 	/**
-	 * Property handler.
+	 * The callable handler.
 	 *
 	 * @var  callable
+	 *
+	 * @since  1.0
 	 */
 	protected $handler = null;
 
 	/**
-	 * Property attempt.
+	 * Retry times.
 	 *
 	 * @var  int
+	 *
+	 * @since  1.0
 	 */
 	protected $attempt = 3;
 
 	/**
-	 * Property failToClose.
+	 * If this property set to true, application will be closed when validate fail.
 	 *
-	 * @var  bool
+	 * @var  boolean
+	 *
+	 * @since  1.0
 	 */
 	protected $failToClose = false;
 
 	/**
-	 * Property noValidMessage.
+	 * Returning message if valid fail.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
-	protected $noValidMessage = '  Not a valid selection';
+	protected $noValidMessage = '  Not a valid value.';
 
 	/**
-	 * Property closeMessage.
+	 * Returning message if valid fail and close.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
-	protected $closeMessage = 'No selected and close.';
+	protected $closeMessage = '  Valid fail and close.';
 
 	/**
-	 * ask
+	 * Show prompt to ask user.
 	 *
-	 * @param string $msg
-	 * @param null   $default
+	 * @param   string  $msg      Question.
+	 * @param   string  $default  Default value.
 	 *
-	 * @throws \LogicException
-	 * @return  null|string
+	 * @throws  \LogicException
+	 *
+	 * @return  string  The value that use input.
+	 *
+	 * @since   1.0
 	 */
 	public function ask($msg = '', $default = null)
 	{
@@ -91,11 +106,16 @@ class CallbackPrompter extends AbstractPrompter
 	}
 
 	/**
-	 * setHandler
+	 * Set a callable handler, can be a Closure.
 	 *
-	 * @param   callable $handler
+	 * This function should contain a param that is the value which from user input,
+	 * and must return TRUE or FALSE means validate success or fail.
+	 *
+	 * @param   callable  $handler  The validate callback.
 	 *
 	 * @return  ValidatePrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setHandler($handler)
 	{
@@ -105,9 +125,11 @@ class CallbackPrompter extends AbstractPrompter
 	}
 
 	/**
-	 * getHandler
+	 * Get callable handler.
 	 *
-	 * @return  callable
+	 * @return  callable  The validate callback.
+	 *
+	 * @since   1.0
 	 */
 	public function getHandler()
 	{
@@ -115,11 +137,13 @@ class CallbackPrompter extends AbstractPrompter
 	}
 
 	/**
-	 * setAttempt
+	 * Set attempt number.
 	 *
-	 * @param   int $attempt
+	 * @param   int  $attempt  Retry times.
 	 *
 	 * @return  ValidatePrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setAttempt($attempt)
 	{
@@ -129,11 +153,13 @@ class CallbackPrompter extends AbstractPrompter
 	}
 
 	/**
-	 * setNoValidMessage
+	 * Set message when validate fail.
 	 *
-	 * @param   string $noValidMessage
+	 * @param   string   $noValidMessage  Validate fail message.
 	 *
 	 * @return  ValidatePrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setNoValidMessage($noValidMessage)
 	{
@@ -143,12 +169,14 @@ class CallbackPrompter extends AbstractPrompter
 	}
 
 	/**
-	 * setFailToClose
+	 * If validate fail, whether close application or not.
 	 *
-	 * @param   boolean $failToClose
-	 * @param   string  $message
+	 * @param   boolean  $failToClose  TRUE or FALSE, if is NULL, will be getter of $failToClose property.
+	 * @param   string   $message      Message when close.
 	 *
 	 * @return  ValidatePrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function failToClose($failToClose = null, $message = '')
 	{

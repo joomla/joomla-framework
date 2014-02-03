@@ -12,25 +12,29 @@ use Joomla\Input;
 use Joomla\Application\Cli\Output\Stdout;
 
 /**
- * Class ValidatePrompter
+ * A text prompter but we can set an array to validate input value.
  *
- * @since 1.0
+ * @since  1.0
  */
 class ValidatePrompter extends CallbackPrompter
 {
 	/**
-	 * Property options.
+	 * The option list to validate input.
 	 *
 	 * @var array
+	 *
+	 * @since  1.0
 	 */
 	protected $options = array();
 
 	/**
 	 * Constructor.
 	 *
-	 * @param array     $options
-	 * @param Input\Cli $input
-	 * @param Stdout    $output
+	 * @param   array      $options  The option list to validate input.
+	 * @param   Input\Cli  $input    The input object.
+	 * @param   Stdout     $output   The output object.
+	 *
+	 * @since   1.0
 	 */
 	function __construct($options = array(), Input\Cli $input = null, Stdout $output = null)
 	{
@@ -40,9 +44,11 @@ class ValidatePrompter extends CallbackPrompter
 	}
 
 	/**
-	 * getHandler
+	 * Get callable handler.
 	 *
-	 * @return  callable
+	 * @return  callable  The validate callback.
+	 *
+	 * @since   1.0
 	 */
 	public function getHandler()
 	{
@@ -65,12 +71,14 @@ class ValidatePrompter extends CallbackPrompter
 	}
 
 	/**
-	 * addOption
+	 * Add an option.
 	 *
-	 * @param string $description
-	 * @param string $option
+	 * @param   string  $description  Option description.
+	 * @param   string  $option       Option key, if this param is NULL, will use int as option key.
 	 *
-	 * @return  $this
+	 * @return  ValidatePrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function addOption($description, $option = null)
 	{
@@ -87,11 +95,13 @@ class ValidatePrompter extends CallbackPrompter
 	}
 
 	/**
-	 * removeOption
+	 * Remove an option by key.
 	 *
-	 * @param $key
+	 * @param   mixed  $key  The option key you want to remove.
 	 *
-	 * @return  $this
+	 * @return  ValidatePrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function removeOption($key)
 	{
@@ -104,11 +114,13 @@ class ValidatePrompter extends CallbackPrompter
 	}
 
 	/**
-	 * setOptions
+	 * Set option list.
 	 *
-	 * @param $options
+	 * @param   array  $options  The option list.
 	 *
-	 * @return  $this
+	 * @return  ValidatePrompter  Return self to support chaining.
+	 *
+	 * @since   1.0
 	 */
 	public function setOptions($options)
 	{

@@ -9,7 +9,7 @@
 use Joomla\Console\Prompter\ValidatePrompter;
 
 /**
- * Class PrompterTest
+ * Class ValidatePrompterTest
  *
  * @since  1.0
  */
@@ -30,18 +30,25 @@ class ValidatePrompterTest extends AbstractPrompterTest
 		$this->instance = $prompter = new ValidatePrompter(array('flower', 'sakura', 'rose'), null, $this->output);
 	}
 
+	/**
+	 * Test prompter ask.
+	 *
+	 * @return  void
+	 *
+	 * @since  1.0
+	 */
 	public function testAsk()
 	{
 		$this->setStream("4\n5\n6");
 
-		$this->assertEquals($this->instance->ask('Tell me something: ', 'sakura'), 'sakura');
+		$this->assertEquals($this->instance->ask('Tell me something: ', 'sakura'), 'sakura', 'Should validate fail and return default.');
 
 		$this->setStream("4\n5\n6");
 
-		$this->assertNull($this->instance->ask('Tell me something: '));
+		$this->assertNull($this->instance->ask('Tell me something: '), 'Should validate fail and get NULL.');
 
 		$this->setStream('sakura');
 
-		$this->assertEquals($this->instance->ask('Tell me something: '), 'sakura');
+		$this->assertEquals($this->instance->ask('Tell me something: '), 'sakura', 'Should validate success and pass.');
 	}
 }

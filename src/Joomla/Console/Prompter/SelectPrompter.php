@@ -9,9 +9,9 @@
 namespace Joomla\Console\Prompter;
 
 /**
- * Class ValidatePrompter
+ * A prompter supports select list.
  *
- * @since 1.0
+ * @since  1.0
  */
 class SelectPrompter extends ValidatePrompter
 {
@@ -19,16 +19,38 @@ class SelectPrompter extends ValidatePrompter
 	 * Property listTemplate.
 	 *
 	 * @var  string
+	 *
+	 * @since  1.0
 	 */
 	protected $listTemplate = " %-{WIDTH}s[%s] - %s";
 
 	/**
-	 * ask
+	 * Returning message if valid fail.
 	 *
-	 * @param string $msg
-	 * @param null   $default
+	 * @var  string
 	 *
-	 * @return  null|string
+	 * @since  1.0
+	 */
+	protected $noValidMessage = '  Not a valid selection';
+
+	/**
+	 * Returning message if valid fail and close.
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	protected $closeMessage = 'No selected and close.';
+
+	/**
+	 * Show prompt to ask user.
+	 *
+	 * @param   string  $msg      Question.
+	 * @param   string  $default  Default value.
+	 *
+	 * @return  string  The value that use input.
+	 *
+	 * @since   1.0
 	 */
 	public function ask($msg = '', $default = null)
 	{
@@ -38,9 +60,11 @@ class SelectPrompter extends ValidatePrompter
 	}
 
 	/**
-	 * renderList
+	 * Render select option list.
 	 *
-	 * @return  string
+	 * @return  string  list string.
+	 *
+	 * @since   1.0
 	 */
 	protected function renderList()
 	{
@@ -65,9 +89,11 @@ class SelectPrompter extends ValidatePrompter
 	}
 
 	/**
-	 * getHandler
+	 * Get callable handler.
 	 *
-	 * @return  callable
+	 * @return  callable  The validate callback.
+	 *
+	 * @since   1.0
 	 */
 	public function getHandler()
 	{

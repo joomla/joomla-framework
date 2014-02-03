@@ -9,7 +9,7 @@
 use Joomla\Console\Prompter\BooleanPrompter;
 
 /**
- * Class PrompterTest
+ * Class BooleanPrompterTest
  *
  * @since  1.0
  */
@@ -30,33 +30,40 @@ class BooleanPrompterTest extends AbstractPrompterTest
 		$this->instance = $prompter = new BooleanPrompter(null, $this->output);
 	}
 
+	/**
+	 * Test prompter ask.
+	 *
+	 * @return  void
+	 *
+	 * @since  1.0
+	 */
 	public function testAsk()
 	{
 		$this->setStream("y");
 
-		$in = $this->instance->ask('True or False: ');
+		$in = $this->instance->ask('True or False [Y/n]: ');
 
-		$this->assertTrue($in);
+		$this->assertTrue($in, 'Input result should be TRUE.');
 
 
 		$this->setStream("yes");
 
-		$in = $this->instance->ask('True or False: ');
+		$in = $this->instance->ask('True or False [Y/n]: ');
 
-		$this->assertTrue($in);
+		$this->assertTrue($in, 'Input result should be TRUE.');
 
 
 		$this->setStream("Y");
 
-		$in = $this->instance->ask('True or False: ');
+		$in = $this->instance->ask('True or False [Y/n]: ');
 
-		$this->assertTrue($in);
+		$this->assertTrue($in, 'Input result should be TRUE.');
 
 
 		$this->setStream("n");
 
-		$in = $this->instance->ask('True or False: ');
+		$in = $this->instance->ask('True or False [Y/n]: ');
 
-		$this->assertFalse($in);
+		$this->assertFalse($in, 'Input result should be FALSE.');
 	}
 }

@@ -8,6 +8,11 @@
 
 use Joomla\Console\Tests\Output\TestStdout;
 
+/**
+ * Class AbstractPrompterTest
+ *
+ * @since 1.0
+ */
 abstract class AbstractPrompterTest extends PHPUnit_Framework_TestCase
 {
 	/**
@@ -47,7 +52,7 @@ abstract class AbstractPrompterTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * writeMemory
+	 * Write in Memory for test.
 	 *
 	 * @param string $text
 	 *
