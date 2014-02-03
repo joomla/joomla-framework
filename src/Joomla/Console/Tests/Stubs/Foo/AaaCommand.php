@@ -33,7 +33,7 @@ class AaaCommand extends Command
 	 */
 	public function configure()
 	{
-		$this->addArgument(new Aaa\BbbCommand)
+		$this->addCommand(new Aaa\BbbCommand)
 			->addOption(
 				array('a', 'aaa', 'a3'),
 				true,

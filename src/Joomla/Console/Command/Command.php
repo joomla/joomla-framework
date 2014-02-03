@@ -85,7 +85,7 @@ class Command extends AbstractCommand
 	 * Add an argument(sub command) setting. This method in Command use 'self' instead 'static' to make sure every sub
 	 * command add Command class as arguments.
 	 *
-	 * @param   string|AbstractCommand  $argument     The argument name or Console object.
+	 * @param   string|AbstractCommand  $command      The argument name or Console object.
 	 *                                                If we just send a string, the object will auto create.
 	 * @param   null                    $description  Console description.
 	 * @param   array                   $options      Console options.
@@ -95,55 +95,14 @@ class Command extends AbstractCommand
 	 *
 	 * @since   1.0
 	 */
-	public function addArgument($argument, $description = null, $options = array(), \Closure $code = null)
+	public function addCommand($command, $description = null, $options = array(), \Closure $code = null)
 	{
-		if (!($argument instanceof AbstractCommand))
+		if (!($command instanceof AbstractCommand))
 		{
-			$argument = new self($argument, $this->input, $this->output, $this);
+			$command = new self($command, $this->input, $this->output, $this);
 		}
 
-		// Set argument detail
-		$argument->setApplication($this->application)
-			->setInput($this->input);
-
-		if ($description !== null)
-		{
-			$argument->setDescription($description);
-		}
-
-		if (count($options))
-		{
-			$argument->setOptions($options);
-		}
-
-		if ($code)
-		{
-			$argument->setCode($code);
-		}
-
-		// Set parent
-		$argument->setParent($this);
-
-		// Set global options to sub command
-		/** @var $option Option */
-		foreach ($this->globalOptions as $option)
-		{
-			$argument->addOption($option);
-
-			$alias  = $option->getAlias();
-			$global = $option->isGlobal();
-
-			foreach ($alias as $var)
-			{
-				$argument->setOptionAlias($option->getName(), $var, $global);
-			}
-		}
-
-		$name  = $argument->getName();
-
-		$this->arguments[$name] = $argument;
-
-		return $this;
+		return parent::addCommand($command, $description, $options, $code);
 	}
 
 	/**

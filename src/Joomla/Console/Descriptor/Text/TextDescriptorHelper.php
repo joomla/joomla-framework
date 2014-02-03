@@ -74,7 +74,7 @@ EOF;
 			$commandDescriptor->addItem($cmd);
 		}
 
-		$render['command'] = count($commands) ? "\n\nAvailable commands:\n\n" . $commandDescriptor->render() : '';
+		$render['command'] = count($commands) ? "\nAvailable commands:\n\n" . $commandDescriptor->render() : '';
 
 		// Render Help template
 		/** @var Console $console */

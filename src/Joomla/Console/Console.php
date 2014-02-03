@@ -182,7 +182,7 @@ class Console extends AbstractCliApplication
 		$this->defaultCommand = new DefaultCommand(null, $this->input, $this->output);
 
 		$this->defaultCommand->setApplication($this)
-			->addArgument(new HelpCommand);
+			->addCommand(new HelpCommand);
 
 		return $this;
 	}
@@ -214,7 +214,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function addCommand(AbstractCommand $command)
 	{
-		$this->getDefaultCommand()->addArgument($command);
+		$this->getDefaultCommand()->addCommand($command);
 
 		return $command;
 	}

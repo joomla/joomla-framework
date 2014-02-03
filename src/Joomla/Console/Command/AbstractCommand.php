@@ -376,7 +376,7 @@ abstract class AbstractCommand
 	/**
 	 * Add an argument(sub command) setting.
 	 *
-	 * @param   string|AbstractCommand  $argument     The argument name or Console object.
+	 * @param   string|AbstractCommand  $command      The argument name or Console object.
 	 *                                                If we just send a string, the object will auto create.
 	 * @param   null                    $description  Console description.
 	 * @param   array                   $options      Console options.
@@ -386,55 +386,74 @@ abstract class AbstractCommand
 	 *
 	 * @since  1.0
 	 */
-	public function addArgument($argument, $description = null, $options = array(), \Closure $code = null)
+	public function addCommand($command, $description = null, $options = array(), \Closure $code = null)
 	{
-		if (!($argument instanceof AbstractCommand))
+		if (!($command instanceof AbstractCommand))
 		{
-			$argument = new static($argument, $this->input, $this->output, $this);
+			$command = new static($command, $this->input, $this->output, $this);
 		}
 
 		// Set argument detail
-		$argument->setApplication($this->application)
+		$command->setApplication($this->application)
 			->setInput($this->input);
 
 		if ($description !== null)
 		{
-			$argument->setDescription($description);
+			$command->setDescription($description);
 		}
 
 		if (count($options))
 		{
-			$argument->setOptions($options);
+			$command->setOptions($options);
 		}
 
 		if ($code)
 		{
-			$argument->setCode($code);
+			$command->setCode($code);
 		}
 
 		// Set parent
-		$argument->setParent($this);
+		$command->setParent($this);
 
 		// Set global options to sub command
 		/** @var $option Option */
 		foreach ($this->globalOptions as $option)
 		{
-			$argument->addOption($option);
+			$command->addOption($option);
 
 			$alias  = $option->getAlias();
 			$global = $option->isGlobal();
 
 			foreach ($alias as $var)
 			{
-				$argument->setOptionAlias($option->getName(), $var, $global);
+				$command->setOptionAlias($option->getName(), $var, $global);
 			}
 		}
 
-		$name  = $argument->getName();
+		$name  = $command->getName();
 
-		$this->arguments[$name] = $argument;
+		$this->arguments[$name] = $command;
 
 		return $this;
+	}
+
+	/**
+	 * Alias for addCommand for legacy.
+	 *
+	 * @param   string|AbstractCommand  $argument     The argument name or Console object.
+	 *                                                If we just send a string, the object will auto create.
+	 * @param   null                    $description  Console description.
+	 * @param   array                   $options      Console options.
+	 * @param   \Closure                $code         The closure to execute.
+	 *
+	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since      1.0
+	 * @deprecated This method will be removed.
+	 */
+	public function addArgument($argument, $description = null, $options = array(), \Closure $code = null)
+	{
+		return $this->addCommand($argument, $description, $options, $code);
 	}
 
 	/**
@@ -483,7 +502,7 @@ abstract class AbstractCommand
 
 		foreach ($arguments as $argument)
 		{
-			$this->addArgument($argument);
+			$this->addCommand($argument);
 		}
 
 		return $this;

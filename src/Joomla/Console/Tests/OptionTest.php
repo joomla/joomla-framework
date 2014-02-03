@@ -184,7 +184,7 @@ class OptionTest extends PHPUnit_Framework_TestCase
 			'k desc',
 			Option::IS_GLOBAL
 		)
-		->addArgument('kkk');
+		->addCommand('kkk');
 
 		$kkk = $this->command->getArgument('kkk');
 

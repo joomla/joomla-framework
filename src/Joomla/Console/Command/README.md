@@ -168,7 +168,7 @@ try
             }
         )
         // Second level commend
-        ->addArgument(
+        ->addCommand(
             'second',
             'The second level argument',
             array(
@@ -237,7 +237,7 @@ class FooCommand extends Command
 	{
 		$this->setName('foo')
 		    ->setDescription('foo desc')
-			->addArgument(new Foo\BarCommand)
+			->addCommand(new Foo\BarCommand)
 			->addOption(
 			    'q',
 			    0,

@@ -91,18 +91,18 @@ foo help';
 			->setDescription('foo desc')
 			->setUsage('foo command option')
 			->setHelp('foo help')
-			->addArgument(
+			->addCommand(
 				'bar',
 				'Bar command desc'
 			)
-			->addArgument('yoo')
+			->addCommand('yoo')
 			->addOption(array('q', 'quiet'), 'default', 'q desc');
 
 		$result = $this->instance->describe($command);
 
 		$this->assertEquals(
-			str_replace(array("\r", "\n"), '', trim($compare)),
-			str_replace(array("\r", "\n"), '', trim($result))
+			str_replace(PHP_EOL, "\n", trim($compare)),
+			str_replace(PHP_EOL, "\n", trim($result))
 		);
 	}
 }

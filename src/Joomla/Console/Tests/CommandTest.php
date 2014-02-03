@@ -43,7 +43,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 		$command = new DefaultCommand('default', null, new TestStdout);
 
 		$command
-			->addArgument(
+			->addCommand(
 				'yoo',
 				'yoo desc'
 			)
@@ -82,6 +82,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSetInput()
 	{
+		// Using mock to make sure we get same object.
 		$mockInput = $this->getMock('Joomla\Input\Cli', array('test'), array(), '', false);
 		$mockInput
 			->expects($this->any())
@@ -107,6 +108,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testSetOutput()
 	{
+		// Using mock to make sure we get same object.
 		$mockOutput = $this->getMock('Joomla\Application\Cli\Output\Stdout', array('test'), array(), '', false);
 		$mockOutput
 			->expects($this->any())
@@ -162,11 +164,11 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @since  1.0
 	 *
-	 * @covers Joomla\Console\Command\AbstractCommand::addArgument
+	 * @covers Joomla\Console\Command\AbstractCommand::addCommand
 	 */
-	public function testAddArgument()
+	public function testaddCommand()
 	{
-		$this->instance->addArgument(
+		$this->instance->addCommand(
 			'bar',
 			'bar desc',
 			array(
@@ -196,7 +198,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(56, $command->execute(), 'Wrong exit code returned.');
 
 		// Test send an instance
-		$this->instance->addArgument(new FooCommand);
+		$this->instance->addCommand(new FooCommand);
 
 		$this->assertInstanceOf(
 			'Joomla\\Console\\Tests\\Stubs\\FooCommand',
@@ -268,7 +270,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 		$this->assertSame(1, (int) $cmd->getOption('Y'), 'uppercase option value not matched.');
 
 		// Test for global option
-		$cmd->addArgument(new FooCommand);
+		$cmd->addCommand(new FooCommand);
 
 		$this->assertSame(1, (int) $cmd->getArgument('foo')->getOption('y'), 'Sub command should have global option');
 	}
