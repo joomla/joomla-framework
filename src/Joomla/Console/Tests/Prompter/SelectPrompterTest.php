@@ -48,18 +48,23 @@ class SelectPrompterTest extends AbstractPrompterTest
 		$this->setStream("4\n5\n6\n7\n8");
 
 		$in = $this->instance->setAttempt(5)
-			->ask('Please select an option []: ', 2);
+			->ask('Please select an option []:', 2);
 
 		$outputCompare = <<<EOF
   [0] - red
   [1] - yellow
   [2] - blue
 
-Please select an option []:   Not a valid selection
-Please select an option []:   Not a valid selection
-Please select an option []:   Not a valid selection
-Please select an option []:   Not a valid selection
-Please select an option []:   Not a valid selection
+Please select an option []:
+  Not a valid selection
+Please select an option []:
+  Not a valid selection
+Please select an option []:
+  Not a valid selection
+Please select an option []:
+  Not a valid selection
+Please select an option []:
+  Not a valid selection
 EOF;
 
 		$this->assertEquals(
@@ -72,7 +77,7 @@ EOF;
 
 		$this->setStream("1");
 
-		$in = $this->instance->ask('Please select an option []: ', 2);
+		$in = $this->instance->ask('Please select an option []:', 2);
 
 		$this->assertEquals($in, 1);
 	}

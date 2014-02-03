@@ -6,14 +6,14 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Console\Prompter\TextPrompter;
+use Joomla\Console\Prompter\PasswordPrompter;
 
 /**
  * Class PrompterTest
  *
  * @since  1.0
  */
-class TextPrompterTest extends AbstractPrompterTest
+class PasswordPrompterTest extends AbstractPrompterTest
 {
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -27,20 +27,15 @@ class TextPrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new TextPrompter(null, $this->output);
+		$this->instance = $prompter = new PasswordPrompter;// (null, $this->output);
 	}
 
 	public function testAsk()
 	{
-		$this->setStream("y");
 
-		$in = $this->instance->ask('Tell me something: ');
 
-		$this->assertEquals(
-			trim($this->output->getOutput()),
-			trim('Tell me something: ')
-		);
+		echo $in = $this->instance->ask('Enter password: ');
 
-		$this->assertEquals($in, 'y');
+		die;
 	}
 }
