@@ -332,13 +332,13 @@ class Console extends AbstractCliApplication
 	/**
 	 * Set execute code to default command.
 	 *
-	 * @param   \Closure  $closure  Console execute code.
+	 * @param   callable  $closure  Console execute code.
 	 *
 	 * @return  Console  Return this object to support chaining.
 	 *
 	 * @since  1.0
 	 */
-	public function setHandler(\Closure $closure)
+	public function setHandler($closure)
 	{
 		$this->getDefaultCommand()->setHandler($closure);
 
