@@ -20,7 +20,7 @@ ini_set('display_errors', 1);
  */
 if (!defined('JPATH_ROOT'))
 {
-	define('JPATH_ROOT', realpath(__DIR__));
+	define('JPATH_ROOT', realpath(dirname(__DIR__)));
 }
 
 // Search for the Composer autoload file
