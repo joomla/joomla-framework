@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of jframework project. 
+ * Part of jframework project.
  *
  * @copyright  Copyright (C) 2011 - 2014 SMS Taiwan, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
@@ -24,6 +24,13 @@ class PasswordPrompter extends CallbackPrompter
 	 * @var string
 	 */
 	protected static $shell;
+
+	/**
+	 * Property stty.
+	 *
+	 * @var boolean
+	 */
+	protected static $stty;
 
 	/**
 	 * Property win.
@@ -81,6 +88,33 @@ class PasswordPrompter extends CallbackPrompter
 			return $value;
 		}
 
+		// Using stty help us test this class.
+		elseif ($this->findStty())
+		{
+			if ($question)
+			{
+				$this->output->out($question, false);
+			}
+
+			// Get stty setting
+			$setting = shell_exec('stty -g');
+
+			shell_exec('stty -echo');
+
+			$value = fread($this->inputStream, 8192);
+
+			shell_exec(sprintf('stty %s', $setting));
+
+			if ($value === false)
+			{
+				throw new \RuntimeException('Cannot get input value.');
+			}
+
+			$this->output->out();
+
+			return rtrim($value);
+		}
+
 		// For linux & Unix system
 		else
 		{
@@ -104,8 +138,6 @@ class PasswordPrompter extends CallbackPrompter
 
 			return $value;
 		}
-
-		// @TODO: Using Stty
 	}
 
 	/**
@@ -136,5 +168,21 @@ class PasswordPrompter extends CallbackPrompter
 
 		return null;
 	}
+
+	/**
+	 * findStty
+	 *
+	 * @return  bool
+	 */
+	protected function findStty()
+	{
+		if (null !== self::$stty)
+		{
+			return self::$stty;
+		}
+
+		exec('stty 2>&1', $output, $exitcode);
+
+		return self::$stty = ($exitcode === 0);
+	}
 }
- 
