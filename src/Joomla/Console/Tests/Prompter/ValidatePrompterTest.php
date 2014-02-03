@@ -27,7 +27,7 @@ class ValidatePrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new ValidatePrompter(array('flower', 'sakura', 'rose'), null, $this->output);
+		$this->instance = $prompter = new ValidatePrompter('Tell me something: ', array('flower', 'sakura', 'rose'), null, $this->output);
 	}
 
 	/**
@@ -41,11 +41,11 @@ class ValidatePrompterTest extends AbstractPrompterTest
 	{
 		$this->setStream("4\n5\n6");
 
-		$this->assertEquals($this->instance->ask('Tell me something: ', 'sakura'), 'sakura', 'Should validate fail and return default.');
+		$this->assertEquals($this->instance->ask(null, 'sakura'), 'sakura', 'Should validate fail and return default.');
 
 		$this->setStream("4\n5\n6");
 
-		$this->assertNull($this->instance->ask('Tell me something: '), 'Should validate fail and get NULL.');
+		$this->assertNull($this->instance->ask(null), 'Should validate fail and get NULL.');
 
 		$this->setStream('sakura');
 

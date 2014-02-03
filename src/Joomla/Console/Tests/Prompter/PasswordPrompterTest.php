@@ -27,7 +27,7 @@ class PasswordPrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new PasswordPrompter(null, $this->output);
+		$this->instance = $prompter = new PasswordPrompter(null, null, $this->output);
 	}
 
 	/**

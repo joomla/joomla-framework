@@ -59,18 +59,19 @@ class PasswordPrompter extends CallbackPrompter
 	/**
 	 * Constructor.
 	 *
-	 * @param   Input\Cli  $input   The input object.
-	 * @param   Stdout     $output  The output object.
+	 * @param   string     $question  The question you want to ask.
+	 * @param   Input\Cli  $input     The input object.
+	 * @param   Stdout     $output    The output object.
 	 *
 	 * @since   1.0
 	 */
-	function __construct(Input\Cli $input = null, Stdout $output = null)
+	function __construct($question = null, Input\Cli $input = null, Stdout $output = null)
 	{
 		$this->win = defined('PHP_WINDOWS_VERSION_BUILD');
 
 		$this->hiddenExe = __DIR__ . '/../bin/hiddeninput.exe';
 
-		parent::__construct($input, $output);
+		parent::__construct($question, $input, $output);
 	}
 
 	/**
@@ -101,11 +102,13 @@ class PasswordPrompter extends CallbackPrompter
 	 */
 	public function in($question = '')
 	{
+		$question ? : $this->question;
+
 		if ($this->win)
 		{
 			if ($question)
 			{
-				$this->output->out($question, false);
+				$this->output->out()->out($question, false);
 			}
 
 			$value = rtrim(shell_exec($this->hiddenExe));
@@ -120,7 +123,7 @@ class PasswordPrompter extends CallbackPrompter
 		{
 			if ($question)
 			{
-				$this->output->out($question, false);
+				$this->output->out()->out($question, false);
 			}
 
 			// Get stty setting
@@ -152,6 +155,8 @@ class PasswordPrompter extends CallbackPrompter
 			{
 				throw new \RuntimeException("Can't invoke shell");
 			}
+
+			$this->output->out();
 
 			// Using read to write password
 			$read = sprintf('read -s -p "%s" mypassword && echo $mypassword', $question);

@@ -27,7 +27,7 @@ class CallbackPrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new CallbackPrompter(null, $this->output);
+		$this->instance = $prompter = new CallbackPrompter(null, null, $this->output);
 	}
 
 	/**

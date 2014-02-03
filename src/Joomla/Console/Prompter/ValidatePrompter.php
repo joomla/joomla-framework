@@ -30,17 +30,18 @@ class ValidatePrompter extends CallbackPrompter
 	/**
 	 * Constructor.
 	 *
-	 * @param   array      $options  The option list to validate input.
-	 * @param   Input\Cli  $input    The input object.
-	 * @param   Stdout     $output   The output object.
+	 * @param   string     $question  The question you want to ask.
+	 * @param   array      $options   The option list to validate input.
+	 * @param   Input\Cli  $input     The input object.
+	 * @param   Stdout     $output    The output object.
 	 *
 	 * @since   1.0
 	 */
-	function __construct($options = array(), Input\Cli $input = null, Stdout $output = null)
+	function __construct($question = null, $options = array(), Input\Cli $input = null, Stdout $output = null)
 	{
 		$this->options = $options;
 
-		parent::__construct($input, $output);
+		parent::__construct($question, $input, $output);
 	}
 
 	/**

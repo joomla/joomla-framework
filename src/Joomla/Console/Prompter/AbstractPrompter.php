@@ -21,6 +21,13 @@ use Joomla\Input;
 abstract class AbstractPrompter implements PrompterInterface
 {
 	/**
+	 * Property question.
+	 *
+	 * @var  string
+	 */
+	protected $question = null;
+
+	/**
 	 * The input object.
 	 *
 	 * @var  Input\Cli
@@ -52,15 +59,17 @@ abstract class AbstractPrompter implements PrompterInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param   Input\Cli  $input   The input object.
-	 * @param   Stdout     $output  The output object.
+	 * @param   string     $question  The question you want to ask.
+	 * @param   Input\Cli  $input     The input object.
+	 * @param   Stdout     $output    The output object.
 	 *
 	 * @since   1.0
 	 */
-	function __construct(Input\Cli $input = null, Stdout $output = null)
+	function __construct($question = null, Input\Cli $input = null, Stdout $output = null)
 	{
-		$this->input  = $input  ? : new Input\Cli;
-		$this->output = $output ? : new Stdout;
+		$this->input    = $input  ? : new Input\Cli;
+		$this->output   = $output ? : new Stdout;
+		$this->question = $question;
 	}
 
 	/**
@@ -84,11 +93,13 @@ abstract class AbstractPrompter implements PrompterInterface
 	 *
 	 * @since   1.0
 	 */
-	public function in($question = '')
+	public function in($question = null)
 	{
+		$question = $question ? : $this->question;
+
 		if ($question)
 		{
-			$this->output->out($question, false);
+			$this->output->out()->out($question, false);
 		}
 
 		$value = rtrim(fread($this->inputStream, 8192), "\n");

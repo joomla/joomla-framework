@@ -34,7 +34,7 @@ class SelectPrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new SelectPrompter($this->options, null, $this->output);
+		$this->instance = $prompter = new SelectPrompter(null, $this->options, null, $this->output);
 	}
 
 	/**
@@ -59,12 +59,16 @@ class SelectPrompterTest extends AbstractPrompterTest
 
 Please select an option []:
   Not a valid selection
+
 Please select an option []:
   Not a valid selection
+
 Please select an option []:
   Not a valid selection
+
 Please select an option []:
   Not a valid selection
+
 Please select an option []:
   Not a valid selection
 EOF;

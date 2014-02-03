@@ -85,7 +85,7 @@ class SelectPrompter extends ValidatePrompter
 			$list .= sprintf($tmpl, ' ', $key, $description) . "\n";
 		}
 
-		return $list;
+		return rtrim($list);
 	}
 
 	/**

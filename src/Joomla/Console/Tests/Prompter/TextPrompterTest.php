@@ -27,7 +27,7 @@ class TextPrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new TextPrompter(null, $this->output);
+		$this->instance = $prompter = new TextPrompter('Tell me something: ', null, $this->output);
 	}
 
 	/**
@@ -41,7 +41,7 @@ class TextPrompterTest extends AbstractPrompterTest
 	{
 		$this->setStream("y");
 
-		$in = $this->instance->ask('Tell me something: ');
+		$in = $this->instance->ask();
 
 		$this->assertEquals(
 			trim($this->output->getOutput()),

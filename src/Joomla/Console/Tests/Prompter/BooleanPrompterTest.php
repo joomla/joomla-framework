@@ -27,7 +27,7 @@ class BooleanPrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new BooleanPrompter(null, $this->output);
+		$this->instance = $prompter = new BooleanPrompter('True or False [Y/n]: ', null, $this->output);
 	}
 
 	/**
@@ -41,28 +41,28 @@ class BooleanPrompterTest extends AbstractPrompterTest
 	{
 		$this->setStream("y");
 
-		$in = $this->instance->ask('True or False [Y/n]: ');
+		$in = $this->instance->ask();
 
 		$this->assertTrue($in, 'Input result should be TRUE.');
 
 
 		$this->setStream("yes");
 
-		$in = $this->instance->ask('True or False [Y/n]: ');
+		$in = $this->instance->ask();
 
 		$this->assertTrue($in, 'Input result should be TRUE.');
 
 
 		$this->setStream("Y");
 
-		$in = $this->instance->ask('True or False [Y/n]: ');
+		$in = $this->instance->ask();
 
 		$this->assertTrue($in, 'Input result should be TRUE.');
 
 
 		$this->setStream("n");
 
-		$in = $this->instance->ask('True or False [Y/n]: ');
+		$in = $this->instance->ask();
 
 		$this->assertFalse($in, 'Input result should be FALSE.');
 	}
