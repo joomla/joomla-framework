@@ -25,7 +25,7 @@ class TextPrompter extends AbstractPrompter
 	 */
 	public function ask($msg = '', $default = null)
 	{
-		return $this->in($msg);
+		return $this->in($msg) ? : $default;
 	}
 }
  

@@ -26,6 +26,34 @@ class ValidatePrompter extends CallbackPrompter
 	protected $options = array();
 
 	/**
+	 * Property attempt.
+	 *
+	 * @var  int
+	 */
+	protected $attempt = 3;
+
+	/**
+	 * Property failToClose.
+	 *
+	 * @var  bool
+	 */
+	protected $failToClose = false;
+
+	/**
+	 * Property noValidMessage.
+	 *
+	 * @var  string
+	 */
+	protected $noValidMessage = '  Not a valid selection';
+
+	/**
+	 * Property closeMessage.
+	 *
+	 * @var  string
+	 */
+	protected $closeMessage = 'No selected and close.';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array     $options
@@ -40,12 +68,49 @@ class ValidatePrompter extends CallbackPrompter
 	}
 
 	/**
+	 * ask
+	 *
+	 * @param string $msg
+	 * @param null   $default
+	 *
+	 * @throws \LogicException
+	 * @return  null|string
+	 */
+	public function ask($msg = '', $default = null)
+	{
+		for ($i = 1; $i <= $this->attempt; $i++)
+		{
+			// Get parent ask process.
+			if ($value = parent::ask($msg, null))
+			{
+				return $value;
+			}
+
+			$this->output->out($this->noValidMessage);
+		}
+
+		if ($this->failToClose)
+		{
+			$this->output->out()->out($this->closeMessage);
+
+			die;
+		}
+
+		return $default;
+	}
+
+	/**
 	 * getHandler
 	 *
 	 * @return  callable
 	 */
 	public function getHandler()
 	{
+		if (is_callable($this->handler))
+		{
+			return $this->handler;
+		}
+
 		$options = $this->options;
 
 		return function($value) use ($options)
@@ -108,6 +173,55 @@ class ValidatePrompter extends CallbackPrompter
 	public function setOptions($options)
 	{
 		$this->options = $options;
+
+		return $this;
+	}
+
+	/**
+	 * setAttempt
+	 *
+	 * @param   int $attempt
+	 *
+	 * @return  ValidatePrompter  Return self to support chaining.
+	 */
+	public function setAttempt($attempt)
+	{
+		$this->attempt = $attempt;
+
+		return $this;
+	}
+
+	/**
+	 * setNoValidMessage
+	 *
+	 * @param   string $noValidMessage
+	 *
+	 * @return  ValidatePrompter  Return self to support chaining.
+	 */
+	public function setNoValidMessage($noValidMessage)
+	{
+		$this->noValidMessage = $noValidMessage;
+
+		return $this;
+	}
+
+	/**
+	 * setFailToClose
+	 *
+	 * @param   boolean $failToClose
+	 * @param   string  $message
+	 *
+	 * @return  ValidatePrompter  Return self to support chaining.
+	 */
+	public function failToClose($failToClose = null, $message = '')
+	{
+		if (is_null($failToClose))
+		{
+			return $this->failToClose;
+		}
+
+		$this->failToClose  = $failToClose;
+		$this->closeMessage = $message ? $message : $this->closeMessage;
 
 		return $this;
 	}

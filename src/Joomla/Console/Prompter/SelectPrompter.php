@@ -71,6 +71,11 @@ class SelectPrompter extends ValidatePrompter
 	 */
 	public function getHandler()
 	{
+		if (is_callable($this->handler))
+		{
+			return $this->handler;
+		}
+
 		$options = $this->options;
 
 		return function($value) use ($options)
