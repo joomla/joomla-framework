@@ -8,9 +8,6 @@
 
 namespace Joomla\Console\Prompter;
 
-use Joomla\Input;
-use Joomla\Application\Cli\Output\Stdout;
-
 /**
  * Class ValidatePrompter
  *
@@ -19,13 +16,6 @@ use Joomla\Application\Cli\Output\Stdout;
 class SelectPrompter extends ValidatePrompter
 {
 	/**
-	 * Property options.
-	 *
-	 * @var array
-	 */
-	protected $options;
-
-	/**
 	 * Property listTemplate.
 	 *
 	 * @var  string
@@ -33,20 +23,26 @@ class SelectPrompter extends ValidatePrompter
 	protected $listTemplate = " %-{WIDTH}s[%s] - %s";
 
 	/**
-	 * Constructor.
+	 * ask
 	 *
-	 * @param array     $options
-	 * @param Input\Cli $input
-	 * @param Stdout    $output
+	 * @param string $msg
+	 * @param null   $default
+	 *
+	 * @return  null|string
 	 */
-	function __construct($options, Input\Cli $input = null, Stdout $output = null)
+	public function ask($msg = '', $default = null)
 	{
-		$this->options = $options;
+		$this->output->out("\n\n" . $this->renderList());
 
-		parent::__construct($input, $output);
+		return parent::ask($msg, $default);
 	}
 
-	public function ask($msg = '', $default = null)
+	/**
+	 * renderList
+	 *
+	 * @return  string
+	 */
+	protected function renderList()
 	{
 		$list        = '';
 		$alignSpaces = 8;
@@ -65,9 +61,7 @@ class SelectPrompter extends ValidatePrompter
 			$list .= sprintf($tmpl, ' ', $key, $description) . "\n";
 		}
 
-		$this->output->out("\n\n" . $list);
-
-		return parent::ask($msg, $default);
+		return $list;
 	}
 
 	/**
@@ -88,42 +82,6 @@ class SelectPrompter extends ValidatePrompter
 
 			return false;
 		};
-	}
-
-	/**
-	 * addOption
-	 *
-	 * @param string $description
-	 * @param string $option
-	 *
-	 * @return  $this
-	 */
-	public function addOption($description, $option = null)
-	{
-		if ($option)
-		{
-			$this->options[$option] = $description;
-		}
-		else
-		{
-			$this->options[] = $description;
-		}
-
-		return $this;
-	}
-
-	/**
-	 * setOptions
-	 *
-	 * @param $options
-	 *
-	 * @return  $this
-	 */
-	public function setOptions($options)
-	{
-		$this->options = $options;
-
-		return $this;
 	}
 }
  

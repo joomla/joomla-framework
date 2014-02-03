@@ -8,92 +8,35 @@
 
 namespace Joomla\Console\Prompter;
 
+use Joomla\Input;
+use Joomla\Application\Cli\Output\Stdout;
+
 /**
  * Class ValidatePrompter
  *
  * @since 1.0
  */
-class ValidatePrompter extends AbstractPrompter
+class ValidatePrompter extends CallbackPrompter
 {
 	/**
-	 * Property handler.
+	 * Property options.
 	 *
-	 * @var  callable
+	 * @var array
 	 */
-	protected $handler = null;
+	protected $options = array();
 
 	/**
-	 * Property attempt.
+	 * Constructor.
 	 *
-	 * @var  int
+	 * @param array     $options
+	 * @param Input\Cli $input
+	 * @param Stdout    $output
 	 */
-	protected $attempt = 3;
-
-	/**
-	 * Property failToClose.
-	 *
-	 * @var  bool
-	 */
-	protected $failToClose = false;
-
-	/**
-	 * Property noValidMessage.
-	 *
-	 * @var  string
-	 */
-	protected $noValidMessage = '  Not a valid selection';
-
-	/**
-	 * Property closeMessage.
-	 *
-	 * @var  string
-	 */
-	protected $closeMessage = 'No selected and close.';
-
-	/**
-	 * ask
-	 *
-	 * @param string $msg
-	 * @param null   $default
-	 *
-	 * @return  null|string
-	 */
-	public function ask($msg = '', $default = null)
+	function __construct($options = array(), Input\Cli $input = null, Stdout $output = null)
 	{
-		for ($i = 1; $i <= $this->attempt; $i++)
-		{
-			$value = trim($this->in($msg));
+		$this->options = $options;
 
-			if (call_user_func($this->getHandler(), $value))
-			{
-				return $value;
-			}
-
-			$this->output->out($this->noValidMessage);
-		}
-
-		if ($this->failToClose)
-		{
-			$this->output->out()->out($this->closeMessage);
-
-			die;
-		}
-
-		return $default;
-	}
-
-	/**
-	 * setHandler
-	 *
-	 * @param   callable $handler
-	 *
-	 * @return  ValidatePrompter  Return self to support chaining.
-	 */
-	public function setHandler($handler)
-	{
-		$this->handler = $handler;
-
-		return $this;
+		parent::__construct($input, $output);
 	}
 
 	/**
@@ -103,56 +46,70 @@ class ValidatePrompter extends AbstractPrompter
 	 */
 	public function getHandler()
 	{
-		return $this->handler;
-	}
+		$options = $this->options;
 
-	/**
-	 * setAttempt
-	 *
-	 * @param   int $attempt
-	 *
-	 * @return  ValidatePrompter  Return self to support chaining.
-	 */
-	public function setAttempt($attempt)
-	{
-		$this->attempt = $attempt;
-
-		return $this;
-	}
-
-	/**
-	 * setNoValidMessage
-	 *
-	 * @param   string $noValidMessage
-	 *
-	 * @return  ValidatePrompter  Return self to support chaining.
-	 */
-	public function setNoValidMessage($noValidMessage)
-	{
-		$this->noValidMessage = $noValidMessage;
-
-		return $this;
-	}
-
-	/**
-	 * setFailToClose
-	 *
-	 * @param   boolean $failToClose
-	 * @param   string  $message
-	 *
-	 * @return  ValidatePrompter  Return self to support chaining.
-	 */
-	public function failToClose($failToClose = null, $message = '')
-	{
-		if (is_null($failToClose))
+		return function($value) use ($options)
 		{
-			return $this->failToClose;
+			if (in_array($value, $options))
+			{
+				return true;
+			}
+
+			return false;
+		};
+	}
+
+	/**
+	 * addOption
+	 *
+	 * @param string $description
+	 * @param string $option
+	 *
+	 * @return  $this
+	 */
+	public function addOption($description, $option = null)
+	{
+		if ($option)
+		{
+			$this->options[$option] = $description;
+		}
+		else
+		{
+			$this->options[] = $description;
 		}
 
-		$this->failToClose  = $failToClose;
-		$this->closeMessage = $message ? $message : $this->closeMessage;
+		return $this;
+	}
+
+	/**
+	 * removeOption
+	 *
+	 * @param $key
+	 *
+	 * @return  $this
+	 */
+	public function removeOption($key)
+	{
+		if (!empty($this->options[$key]))
+		{
+			unset($this->options[$key]);
+		}
 
 		return $this;
-}
+	}
+
+	/**
+	 * setOptions
+	 *
+	 * @param $options
+	 *
+	 * @return  $this
+	 */
+	public function setOptions($options)
+	{
+		$this->options = $options;
+
+		return $this;
+	}
 }
  
