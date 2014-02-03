@@ -135,7 +135,7 @@ class Console extends AbstractCliApplication
 	{
 		$command  = $this->getDefaultCommand();
 
-		if ((!$command->getCode() && !count($this->input->args)))
+		if ((!$command->getHandler() && !count($this->input->args)))
 		{
 			array_unshift($this->input->args, 'help');
 		}
@@ -154,7 +154,7 @@ class Console extends AbstractCliApplication
 		{
 			$command->renderException($e);
 
-			$exitCode = $e->getCode();
+			$exitCode = $e->getHandler();
 		}
 
 		if ($this->autoExit)
@@ -338,9 +338,9 @@ class Console extends AbstractCliApplication
 	 *
 	 * @since  1.0
 	 */
-	public function setCode(\Closure $closure)
+	public function setHandler(\Closure $closure)
 	{
-		$this->getDefaultCommand()->setCode($closure);
+		$this->getDefaultCommand()->setHandler($closure);
 
 		return $this;
 	}

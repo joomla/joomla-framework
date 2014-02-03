@@ -47,7 +47,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 				'yoo',
 				'yoo desc'
 			)
-			->setCode(
+			->setHandler(
 				function($command)
 				{
 					return 123;
@@ -376,17 +376,41 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @since  1.0
 	 *
-	 * @covers Joomla\Console\Command\AbstractCommand::getCode
+	 * @covers Joomla\Console\Command\AbstractCommand::getHandler
 	 */
-	public function testSetAndGetCode()
+	public function testSetAndgetHandler()
 	{
-		$code = $this->instance->getCode();
+		$code = $this->instance->getHandler();
 
-		$this->assertInstanceOf('\Closure', $code, 'Code not exists');
+		$this->assertInstanceOf('\Closure', $code, 'Handler not exists');
 
-		$this->instance->setCode(null);
+		$this->instance->setHandler(null);
 
-		$this->assertEquals(null, $this->instance->getCode(), 'Code should have been cleaned');
+		$this->assertEquals(null, $this->instance->getHandler(), 'Handler should have been cleaned');
+	}
+
+	/**
+	 * Test get & set code by callable.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
+	 *
+	 * @covers Joomla\Console\Command\AbstractCommand::getHandler
+	 */
+	public function testSetAndgetCallableHandler()
+	{
+		$this->instance->setHandler(array($this, 'fakeHandler'));
+
+		$code = $this->instance->getHandler();
+
+		$this->assertTrue(is_callable($code), 'Handler not exists');
+
+		$this->assertEquals('Hello', $this->instance->execute(), 'Handler result failure.');
+
+		$this->instance->setHandler(null);
+
+		$this->assertEquals(null, $this->instance->getHandler(), 'Handler should have been cleaned');
 	}
 
 	/**
@@ -551,5 +575,17 @@ Did you mean one of these?
 		$this->instance->err('errrr', false);
 
 		$this->assertEquals('errrr', $this->instance->getOutput()->getOutput());
+	}
+
+	/**
+	 * fakeHandler
+	 *
+	 * @param $command
+	 *
+	 * @return  string
+	 */
+	public function fakeHandler($command)
+	{
+		return 'Hello';
 	}
 }

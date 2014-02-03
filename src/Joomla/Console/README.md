@@ -108,7 +108,7 @@ Welcome to Joomla! Console.
 
 ### Set Executing Code for DefaultCommand
 
-We can add closure to every commands, that this command will execute this function first. Use `setCode()` on
+We can add closure to every commands, that this command will execute this function first. Use `setHandler()` on
 `$console`, the Console will auto pass the code to DefaultCommand:
 
 ``` php
@@ -117,7 +117,7 @@ We can add closure to every commands, that this command will execute this functi
 
 // ...
 
-$console->setCode(
+$console->setHandler(
 	function($command)
 	{
 		$command->out('This is default command.');
@@ -139,7 +139,7 @@ This will do same action:
 
 $console
     ->getDefaultCommand() // Return the DefaultCommand
-    ->setCode(
+    ->setHandler(
         function($command)
         {
             $command->out('This is default command.');
@@ -221,7 +221,7 @@ $console->register('foo')
 	->setDescription('This is first level foo command.')
 	->setUsage('foo command [--option]')
 	->setHelp('foo help')
-	->setCode(
+	->setHandler(
 		function($command)
 		{
 			$command->out('This is Foo Command executing code.');

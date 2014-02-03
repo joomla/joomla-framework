@@ -59,7 +59,7 @@ try
             'Yell will make output upper case.',
             Option::IS_PRIVATE // sub command will not extends normal option
         )
-        ->setCode(
+        ->setHandler(
             function($command, $input, $output)
             {
                 if (empty($input->args[0]))
@@ -161,7 +161,7 @@ try
             Option::IS_GLOBAL
         )
         // First level code
-        ->setCode(
+        ->setHandler(
             function($command, $input, $output)
             {
                 $output->out('First level command.');

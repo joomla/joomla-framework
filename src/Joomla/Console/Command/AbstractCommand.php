@@ -116,11 +116,11 @@ abstract class AbstractCommand implements \ArrayAccess
 	/**
 	 * The closure to execute.
 	 *
-	 * @var  \Closure
+	 * @var  callable
 	 *
 	 * @since  1.0
 	 */
-	protected $code;
+	protected $handler;
 
 	/**
 	 * The parent Console if this is a sub comment.
@@ -192,17 +192,17 @@ abstract class AbstractCommand implements \ArrayAccess
 			}
 		}
 
-		if ($this->code)
+		if ($this->handler)
 		{
-			if ($this->code instanceof \Closure)
+			if ($this->handler instanceof \Closure)
 			{
-				$code = $this->code;
+				$code = $this->handler;
 
 				return $code($this);
 			}
-			elseif (is_callable($this->code))
+			elseif (is_callable($this->handler))
 			{
-				return call_user_func_array($this->code, array($this));
+				return call_user_func($this->handler, $this);
 			}
 		}
 
@@ -401,7 +401,7 @@ abstract class AbstractCommand implements \ArrayAccess
 
 		if ($code)
 		{
-			$command->setCode($code);
+			$command->setHandler($code);
 		}
 
 		// Set parent
@@ -753,23 +753,23 @@ abstract class AbstractCommand implements \ArrayAccess
 	 *
 	 * @since   1.0
 	 */
-	public function getCode()
+	public function getHandler()
 	{
-		return $this->code;
+		return $this->handler;
 	}
 
 	/**
 	 * Console execute code setter.
 	 *
-	 * @param   \Closure  $code  Console execute code.
+	 * @param   callable  $handler  Console execute handler.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function setCode(\Closure $code = null)
+	public function setHandler($handler = null)
 	{
-		$this->code = $code;
+		$this->handler = $handler;
 
 		return $this;
 	}

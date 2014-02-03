@@ -250,16 +250,16 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since  1.0
 	 */
-	public function testSetCode()
+	public function testsetHandler()
 	{
-		$this->instance->setCode(
+		$this->instance->setHandler(
 			function($command)
 			{
 				return 221;
 			}
 		);
 
-		$this->assertInstanceOf('\Closure', $this->instance->getDefaultCommand()->getCode(), 'Code need to be a closure.');
+		$this->assertInstanceOf('\Closure', $this->instance->getDefaultCommand()->getHandler(), 'Code need to be a closure.');
 
 		$this->assertEquals(221, $this->instance->getDefaultCommand()->setInput(new Input\Cli)->execute());
 	}

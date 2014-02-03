@@ -170,9 +170,4 @@ class TestHelper
 			$property->setValue($object, $value);
 		}
 	}
-
-	public static function replacePhpEol($text, $eol = PHP_EOL)
-	{
-
-	}
 }
