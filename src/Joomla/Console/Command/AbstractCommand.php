@@ -20,7 +20,7 @@ use Joomla\Input;
  *
  * @since  1.0
  */
-abstract class AbstractCommand
+abstract class AbstractCommand implements \ArrayAccess
 {
 	/**
 	 * Console application.
@@ -384,7 +384,7 @@ abstract class AbstractCommand
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function addCommand($command, $description = null, $options = array(), \Closure $code = null)
 	{
@@ -457,22 +457,51 @@ abstract class AbstractCommand
 	}
 
 	/**
-	 * Get a argument(command) by name.
+	 * Alias for addCommand if someone think child is more semantic.
 	 *
-	 * @param   string  $name  Argument name.
+	 * @param   string|AbstractCommand  $argument     The argument name or Console object.
+	 *                                                If we just send a string, the object will auto create.
+	 * @param   null                    $description  Console description.
+	 * @param   array                   $options      Console options.
+	 * @param   \Closure                $code         The closure to execute.
+	 *
+	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function addChild($argument, $description = null, $options = array(), \Closure $code = null)
+	{
+		return $this->addCommand($argument, $description, $options, $code);
+	}
+
+	/**
+	 * Get a argument(command) by name path.
+	 *
+	 * @param   string  $path  Command name path.
 	 *
 	 * @return  AbstractCommand|null  Return command or null.
 	 *
 	 * @since  1.0
 	 */
-	public function getChild($name)
+	public function getChild($path)
 	{
-		if (!empty($this->children[$name]))
+		$path    = str_replace(array('/', '\\'), '\\', $path);
+		$names   = explode('\\', $path);
+		$command = $this;
+
+		foreach ($names as $name)
 		{
-			return $this->children[$name];
+			if (isset($command[$name]))
+			{
+				$command = $command[$name];
+
+				continue;
+			}
+
+			return null;
 		}
 
-		return null;
+		return $command;
 	}
 
 	/**
@@ -496,7 +525,7 @@ abstract class AbstractCommand
 	 *
 	 * @since   1.0
 	 */
-	public function setchildren($children)
+	public function setChildren($children)
 	{
 		$children = (array) $children;
 
@@ -984,5 +1013,62 @@ EOF;
 		}
 
 		return rtrim(fread(STDIN, 8192), "\n");
+	}
+
+	/**
+	 * Set child command, note the key is no use, we use command name as key.
+	 *
+	 * @param   mixed            $offset  No use here.
+	 * @param   AbstractCommand  $value   Command object.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function offsetSet($offset, $value)
+	{
+		$this->addCommand($value);
+	}
+
+	/**
+	 * Is a child exists?
+	 *
+	 * @param   string  $offset  The command name to get command.
+	 *
+	 * @return  boolean  True if command exists.
+	 *
+	 * @since   1.0
+	 */
+	public function offsetExists($offset)
+	{
+		return isset($this->children[$offset]);
+	}
+
+	/**
+	 * Unset a child command.
+	 *
+	 * @param   string  $offset  The command name to remove.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function offsetUnset($offset)
+	{
+		unset($this->children[$offset]);
+	}
+
+	/**
+	 * Get a command by name.
+	 *
+	 * @param   string  $offset  The command name to get command.
+	 *
+	 * @return  AbstractCommand|null  Return command object if found.
+	 *
+	 * @since   1.0
+	 */
+	public function offsetGet($offset)
+	{
+		return isset($this->children[$offset]) ? $this->children[$offset] : null;
 	}
 }
