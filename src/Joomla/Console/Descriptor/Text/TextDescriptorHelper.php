@@ -66,7 +66,7 @@ EOF;
 		$render['option'] = count($options) ? "\n\nOptions:\n\n" . $optionDescriptor->render() : '';
 
 		// Describe Commands
-		$commands          = $command->getArguments();
+		$commands          = $command->getChildren();
 		$commandDescriptor = $this->getCommendDescriptor();
 
 		foreach ($commands as $cmd)

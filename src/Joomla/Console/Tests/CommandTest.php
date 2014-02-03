@@ -224,17 +224,17 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test the getArguments methods.
+	 * Test the getChildren methods.
 	 *
 	 * @return void
 	 *
 	 * @since  1.0
 	 *
-	 * @covers Joomla\Console\Command\AbstractCommand::getArguments
+	 * @covers Joomla\Console\Command\AbstractCommand::getChildren
 	 */
-	public function testGetArguments()
+	public function testgetChildren()
 	{
-		$args = $this->instance->getArguments();
+		$args = $this->instance->getChildren();
 
 		$this->assertInternalType('array', $args, 'Return not array');
 

@@ -59,13 +59,13 @@ abstract class AbstractCommand
 	protected $name;
 
 	/**
-	 * The Arguments(SubCommends) storage.
+	 * The children(SubCommends) storage.
 	 *
 	 * @var array
 	 *
 	 * @since  1.0
 	 */
-	protected $arguments = array();
+	protected $children = array();
 
 	/**
 	 * The Options storage.
@@ -178,7 +178,7 @@ abstract class AbstractCommand
 	 */
 	public function execute()
 	{
-		if (count($this->arguments) && count($this->input->args))
+		if (count($this->children) && count($this->input->args))
 		{
 			$name = $this->input->args[0];
 
@@ -256,13 +256,13 @@ abstract class AbstractCommand
 	 */
 	protected function executeSubCommand($name, Input\Cli $input = null, CliOutput $output = null)
 	{
-		if (empty($this->arguments[$name]))
+		if (empty($this->children[$name]))
 		{
 			throw new CommandNotFoundException(sprintf('Command "%s" not found.', $name), $this, $name);
 		}
 
 		/** @var $subCommand AbstractCommand */
-		$subCommand = $this->arguments[$name];
+		$subCommand = $this->children[$name];
 
 		// Remove first argument and send it to child
 		if (!$input)
@@ -432,7 +432,7 @@ abstract class AbstractCommand
 
 		$name  = $command->getName();
 
-		$this->arguments[$name] = $command;
+		$this->children[$name] = $command;
 
 		return $this;
 	}
@@ -467,40 +467,40 @@ abstract class AbstractCommand
 	 */
 	public function getArgument($name)
 	{
-		if (!empty($this->arguments[$name]))
+		if (!empty($this->children[$name]))
 		{
-			return $this->arguments[$name];
+			return $this->children[$name];
 		}
 
 		return null;
 	}
 
 	/**
-	 * Get arguments array.
+	 * Get children array.
 	 *
-	 * @return array  Arguments.
+	 * @return array  children.
 	 *
 	 * @since  1.0
 	 */
-	public function getArguments()
+	public function getchildren()
 	{
-		return $this->arguments;
+		return $this->children;
 	}
 
 	/**
-	 * Batch set arguments (sub commands).
+	 * Batch set children (sub commands).
 	 *
-	 * @param   array  $arguments  An array include argument objects.
+	 * @param   array  $children  An array include argument objects.
 	 *
 	 * @return  AbstractCommand  Return this object to support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function setArguments($arguments)
+	public function setchildren($children)
 	{
-		$arguments = (array) $arguments;
+		$children = (array) $children;
 
-		foreach ($arguments as $argument)
+		foreach ($children as $argument)
 		{
 			$this->addCommand($argument);
 		}
@@ -876,7 +876,7 @@ abstract class AbstractCommand
 		$alternatives = array();
 
 		// Autocomplete
-		foreach ($this->arguments as $command)
+		foreach ($this->children as $command)
 		{
 			/** @var $command Command */
 			$commandName = $command->getName();
