@@ -14,6 +14,7 @@ use Joomla\Application\Cli\CliOutput;
 use Joomla\Console\Exception\CommandNotFoundException;
 use Joomla\Console\Option\Option;
 use Joomla\Console\Option\OptionSet;
+use Joomla\Console\Prompter\PrompterInterface;
 use Joomla\Input;
 
 /**
@@ -422,7 +423,32 @@ abstract class AbstractCommand implements \ArrayAccess
 	}
 
 	/**
-	 * Alias for addCommand for legacy.
+	 * Get argument by offset or return default.
+	 *
+	 * @param   int                      $offset   Argument offset.
+	 * @param   PrompterInterface|mixed  $default  Default value, if is a prompter object, will execute ask().
+	 *
+	 * @return  null|string  Values from argument or user input.
+	 */
+	public function getArgument($offset, $default = null)
+	{
+		$args = $this->input->args;
+
+		if (isset($args[$offset]))
+		{
+			return $args[$offset];
+		}
+
+		if ($default instanceof PrompterInterface)
+		{
+			return $default->ask(null, $default);
+		}
+
+		return $default;
+	}
+
+	/**
+	 * Alias of addCommand for legacy.
 	 *
 	 * @param   string|AbstractCommand  $argument     The argument name or Console object.
 	 *                                                If we just send a string, the object will auto create.
@@ -441,7 +467,7 @@ abstract class AbstractCommand implements \ArrayAccess
 	}
 
 	/**
-	 * Alias for addCommand if someone think child is more semantic.
+	 * Alias of addCommand if someone think child is more semantic.
 	 *
 	 * @param   string|AbstractCommand  $argument     The argument name or Console object.
 	 *                                                If we just send a string, the object will auto create.
