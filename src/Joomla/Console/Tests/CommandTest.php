@@ -273,6 +273,11 @@ class CommandTest extends PHPUnit_Framework_TestCase
 		$cmd->addCommand(new FooCommand);
 
 		$this->assertSame(1, (int) $cmd->getChild('foo')->getOption('y'), 'Sub command should have global option');
+
+		// Test for children
+		$bbb = $cmd->getChild('foo/aaa/bbb');
+
+		$this->assertSame(1, (int) $bbb->getOption('y'), 'Sub command "bbb" should have global option');
 	}
 
 	/**

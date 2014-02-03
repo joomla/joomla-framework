@@ -13,6 +13,7 @@ use Joomla\Application\Cli\Output\Stdout;
 use Joomla\Application\Cli\CliOutput;
 use Joomla\Console\Exception\CommandNotFoundException;
 use Joomla\Console\Option\Option;
+use Joomla\Console\Option\OptionSet;
 use Joomla\Input;
 
 /**
@@ -70,32 +71,20 @@ abstract class AbstractCommand implements \ArrayAccess
 	/**
 	 * The Options storage.
 	 *
-	 * @var array
+	 * @var OptionSet
 	 *
 	 * @since  1.0
 	 */
-	protected $options = array();
+	protected $options = null;
 
 	/**
 	 * Global Options.
 	 *
-	 * @var array
+	 * @var OptionSet
 	 *
 	 * @since  1.0
 	 */
-	protected $globalOptions = array();
-
-	/**
-	 * Alias of options.
-	 *
-	 * @var array
-	 *
-	 * @since  1.0
-	 */
-	protected $optionAlias = array(
-		'global' => array(),
-		'private' => array()
-	);
+	protected $globalOptions = null;
 
 	/**
 	 * The command description.
@@ -160,6 +149,9 @@ abstract class AbstractCommand implements \ArrayAccess
 		$this->input  = $input  ?: new Input\Cli;
 		$this->output = $output ?: new Stdout;
 		$this->parent = $parent;
+
+		$this->options       = new OptionSet;
+		$this->globalOptions = new OptionSet;
 
 		$this->configure();
 
@@ -420,14 +412,6 @@ abstract class AbstractCommand implements \ArrayAccess
 		foreach ($this->globalOptions as $option)
 		{
 			$command->addOption($option);
-
-			$alias  = $option->getAlias();
-			$global = $option->isGlobal();
-
-			foreach ($alias as $var)
-			{
-				$command->setOptionAlias($option->getName(), $var, $global);
-			}
 		}
 
 		$name  = $command->getName();
@@ -560,7 +544,6 @@ abstract class AbstractCommand implements \ArrayAccess
 		$option->setInput($this->input);
 
 		$name   = $option->getName();
-		$alias  = $option->getAlias();
 		$global = $option->isGlobal();
 
 		if ($global)
@@ -578,8 +561,6 @@ abstract class AbstractCommand implements \ArrayAccess
 			unset($this->globalOptions[$name]);
 		}
 
-		$this->setOptionAlias($name, $alias, $global);
-
 		return $this;
 	}
 
@@ -589,7 +570,7 @@ abstract class AbstractCommand implements \ArrayAccess
 	 * If the name not found, we use alias to find options.
 	 *
 	 * @param   string  $name     The option name.
-	 * @param   string  $default  The default value when option not setted.
+	 * @param   string  $default  The default value when option not set.
 	 *
 	 * @return  mixed  The option value we want to get or default value if option not exists.
 	 *
@@ -597,35 +578,13 @@ abstract class AbstractCommand implements \ArrayAccess
 	 */
 	public function getOption($name, $default = null)
 	{
-		$options = $this->options;
-
 		// Get from private
-		if (empty($this->options[$name]))
+		$option = $this->options[$name];
+
+		if (!$option)
 		{
-			// Get from private alias
-			if (!empty($this->optionAlias['private'][$name]))
-			{
-				$name = $this->optionAlias['private'][$name];
-			}
-			// Get from global
-			else
-			{
-				$options = $this->globalOptions;
-
-				// Get from global alias
-				if (!empty($this->optionAlias['global'][$name]))
-				{
-					$name = $this->optionAlias['global'][$name];
-				}
-			}
+			$option = $this->globalOptions[$name];
 		}
-
-		if (empty($options[$name]))
-		{
-			return $default;
-		}
-
-		$option = $options[$name];
 
 		if ($option instanceof Option)
 		{
@@ -640,13 +599,29 @@ abstract class AbstractCommand implements \ArrayAccess
 	/**
 	 * Get options.
 	 *
-	 * @return mixed  The options array.
+	 * @param   boolean  $global  is Global options.
 	 *
-	 * @since  1.0
+	 * @return  mixed  The options array.
+	 *
+	 * @since   1.0
 	 */
-	public function getOptions()
+	public function getOptions($global = false)
 	{
-		return $this->options;
+		return $global ? (array) $this->options : (array) $this->globalOptions;
+	}
+
+	/**
+	 * Get option set object.
+	 *
+	 * @param   boolean  $global  is Global options.
+	 *
+	 * @return  mixed  The options array.
+	 *
+	 * @since   1.0
+	 */
+	public function getOptionSet($global = false)
+	{
+		return $global ? $this->options : $this->globalOptions;
 	}
 
 	/**
@@ -658,7 +633,7 @@ abstract class AbstractCommand implements \ArrayAccess
 	 */
 	public function getAllOptions()
 	{
-		return array_merge($this->globalOptions, $this->options);
+		return array_merge((array) $this->globalOptions, (array) $this->options);
 	}
 
 	/**
@@ -677,6 +652,31 @@ abstract class AbstractCommand implements \ArrayAccess
 		foreach ($options as $option)
 		{
 			$this->addOption($option);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * add the option alias.
+	 *
+	 * @param   mixed   $aliases  The alias to map this option.
+	 * @param   string  $name     The option name.
+	 * @param   bool    $global   Is global option?
+	 *
+	 * @return  AbstractCommand  Return this object to support chaining.
+	 *
+	 * @since   1.0
+	 */
+	public function addOptionAlias($aliases, $name, $global = false)
+	{
+		if ($global)
+		{
+			$this->globalOptions->setAlias($aliases, $name);
+		}
+		else
+		{
+			$this->options->setAlias($aliases, $name);
 		}
 
 		return $this;
@@ -762,43 +762,6 @@ abstract class AbstractCommand implements \ArrayAccess
 	public function setCode(\Closure $code = null)
 	{
 		$this->code = $code;
-
-		return $this;
-	}
-
-	/**
-	 * Get the options alias.
-	 *
-	 * @return  array  The option alias.
-	 *
-	 * @since   1.0
-	 */
-	public function getOptionAlias()
-	{
-		return $this->optionAlias;
-	}
-
-	/**
-	 * Sets the option alias.
-	 *
-	 * @param   string  $name    The option name.
-	 * @param   string  $alias   The alias to map this option.
-	 * @param   bool    $global  Is global option?
-	 *
-	 * @return  AbstractCommand  Return this object to support chaining.
-	 *
-	 * @since   1.0
-	 */
-	public function setOptionAlias($name, $alias, $global = false)
-	{
-		$subKey = $global ? 'global' : 'private';
-
-		$alias = (array) $alias;
-
-		foreach ($alias as $var)
-		{
-			$this->optionAlias[$subKey][$var] = $name;
-		}
 
 		return $this;
 	}
