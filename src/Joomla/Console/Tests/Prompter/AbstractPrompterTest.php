@@ -1,12 +1,11 @@
 <?php
 /**
- * Part of jframework project. 
+ * Part of the Joomla Framework Console Package
  *
- * @copyright  Copyright (C) 2011 - 2014 SMS Taiwan, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Console\Prompter\Prompter;
 use Joomla\Console\Tests\Output\TestStdout;
 
 abstract class AbstractPrompterTest extends PHPUnit_Framework_TestCase
