@@ -552,6 +552,12 @@ abstract class AbstractCommand implements \ArrayAccess
 
 			// Global option should not equal to private option
 			unset($this->options[$name]);
+
+			// We should pass global option to all children.
+			foreach ($this->children as $child)
+			{
+				$child->addOption($option);
+			}
 		}
 		else
 		{
@@ -588,6 +594,8 @@ abstract class AbstractCommand implements \ArrayAccess
 
 		if ($option instanceof Option)
 		{
+			$option->setInput($this->input);
+
 			return $option->getValue();
 		}
 		else
@@ -621,7 +629,7 @@ abstract class AbstractCommand implements \ArrayAccess
 	 */
 	public function getOptionSet($global = false)
 	{
-		return $global ? $this->options : $this->globalOptions;
+		return $global ? $this->globalOptions : $this->options;
 	}
 
 	/**

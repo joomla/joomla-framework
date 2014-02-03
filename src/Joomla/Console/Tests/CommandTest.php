@@ -277,7 +277,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 		// Test for children
 		$bbb = $cmd->getChild('foo/aaa/bbb');
 
-		$this->assertSame(1, (int) $bbb->getOption('y'), 'Sub command "bbb" should have global option');
+		$this->assertInstanceOf('Joomla\\Console\\Option\\Option', $bbb->getOptionSet(true)->offsetGet('y'), 'Sub command "bbb" should have global option');
 	}
 
 	/**
