@@ -5,6 +5,7 @@
  */
 
 use Joomla\Filesystem\File;
+use Joomla\Filesystem\Folder;
 
 /**
  * Test class for Joomla\Filesystem\File.
@@ -163,6 +164,14 @@ class JFileTest extends PHPUnit_Framework_TestCase
 		// Create a temp file to test copy operation
 		$this->object->write($path . '/' . $name, $data);
 
+		// Trying to read non-existing file.
+		$this->assertThat(
+			File::copy($path . '/' . $name . 'foobar', $path . '/' . $copiedFileName),
+			$this->isFalse(),
+			'Line:' . __LINE__ . ' File should not copy successfully.'
+		);
+		File::delete($path . '/' . $copiedFileName);
+
 		$this->assertThat(
 			File::copy($path . '/' . $name, $path . '/' . $copiedFileName),
 			$this->isTrue(),
@@ -172,6 +181,14 @@ class JFileTest extends PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			File::copy($name, $copiedFileName, $path),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should copy successfully.'
+		);
+		File::delete($path . '/' . $copiedFileName);
+
+		// Copy using streams.
+		$this->assertThat(
+			File::copy($name, $copiedFileName, $path, true),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' File should copy successfully.'
 		);
@@ -234,7 +251,14 @@ class JFileTest extends PHPUnit_Framework_TestCase
 			'Line:' . __LINE__ . ' File should be moved successfully.'
 		);
 
-		File::delete($path . '/' . $name);
+		// Using streams.
+		$this->assertThat(
+			File::move($name, $movedFileName, $path, true),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should be moved successfully.'
+		);
+
+		File::delete($path . '/' . $movedFileName);
 	}
 
 	/**
@@ -266,13 +290,30 @@ class JFileTest extends PHPUnit_Framework_TestCase
 		$path = __DIR__;
 		$data = 'Lorem ipsum dolor sit amet';
 
+		// Create a file on pre existing path.
 		$this->assertThat(
 			File::write($path . '/' . $name, $data),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' File should be written successfully.'
 		);
 
+		// Create a file on pre existing path by using streams.
+		$this->assertThat(
+			File::write($path . '/' . $name, $data, true),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should be written successfully.'
+		);
+
+		// Create a file on non-existing path.
+		$this->assertThat(
+			File::write($path . '/TempFolder/' . $name, $data),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' File should be written successfully.'
+		);
+
+		// Removes file and folder.
 		File::delete($path . '/' . $name);
+		Folder::delete($path . '/TempFolder');
 	}
 
 	/**
