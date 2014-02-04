@@ -82,6 +82,22 @@ class Cli extends Input
 	}
 
 	/**
+	 * Gets a value from the input data.
+	 *
+	 * @param   string  $name     Name of the value to get.
+	 * @param   mixed   $default  Default value to return if variable does not exist.
+	 * @param   string  $filter   Filter to apply to the value.
+	 *
+	 * @return  mixed  The filtered input value.
+	 *
+	 * @since   1.0
+	 */
+	public function get($name, $default = null, $filter = 'string')
+	{
+		return parent::get($name, $default, $filter);
+	}
+
+	/**
 	 * Method to unserialize the input.
 	 *
 	 * @param   string  $input  The serialized input.
