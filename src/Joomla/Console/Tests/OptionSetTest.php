@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Console\Tests;
+
 use Joomla\Console\Option\Option;
 use Joomla\Console\Option\OptionSet;
 
@@ -14,7 +16,7 @@ use Joomla\Console\Option\OptionSet;
  *
  * @since  1.0
  */
-class OptionSetTest extends PHPUnit_Framework_TestCase
+class OptionSetTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test instance.

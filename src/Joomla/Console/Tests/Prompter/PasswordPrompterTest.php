@@ -6,7 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Console\Prompter\PasswordPrompter;
+namespace Joomla\Console\Tests\Prompter;
+
+use Joomla\Console\Tests\Prompter\Stubs\FakePasswordPrompter;
 
 /**
  * Class PasswordPrompterTest
@@ -27,7 +29,7 @@ class PasswordPrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new PasswordPrompter(null, null, $this->output);
+		$this->instance = $prompter = new FakePasswordPrompter(null, null, $this->output);
 	}
 
 	/**

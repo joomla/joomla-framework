@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Console\Tests;
+
 use Joomla\Console\Command\Command;
 use Joomla\Console\Command\DefaultCommand;
 use Joomla\Console\Console;
@@ -20,7 +22,7 @@ use Joomla\Test\TestHelper;
  *
  * @since  1.0
  */
-class CommandTest extends PHPUnit_Framework_TestCase
+class CommandTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test instance.

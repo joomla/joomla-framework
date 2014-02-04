@@ -269,16 +269,16 @@ class Option
 
 		$name = $this->name;
 
-		if ($input->get($name))
+		if ($input->getString($name))
 		{
-			return $input->get($name);
+			return $input->getString($name);
 		}
 
 		foreach ($this->alias as $alias)
 		{
-			if ($input->get($alias))
+			if ($input->getString($alias))
 			{
-				return $input->get($alias);
+				return $input->getString($alias);
 			}
 		}
 
