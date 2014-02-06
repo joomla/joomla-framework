@@ -17,7 +17,7 @@ use Joomla\Console\Option\Option;
  *
  * @since  1.0
  */
-class DefaultCommand extends Command
+class RootCommand extends Command
 {
 	/**
 	 * Configure command.

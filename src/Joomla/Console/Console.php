@@ -13,7 +13,7 @@ use Joomla\Application\Cli\CliOutput;
 use Joomla\Application\Cli\Output;
 use Joomla\Console\Command\AbstractCommand;
 use Joomla\Console\Command\Command;
-use Joomla\Console\Command\DefaultCommand;
+use Joomla\Console\Command\RootCommand;
 use Joomla\Console\Command\HelpCommand;
 use Joomla\Input;
 use Joomla\Registry\Registry;
@@ -68,7 +68,7 @@ class Console extends AbstractCliApplication
 	 *
 	 * @since  1.0
 	 */
-	protected $defaultCommand;
+	protected $rootCommand;
 
 	/**
 	 * True to set this app auto exit.
@@ -98,7 +98,7 @@ class Console extends AbstractCliApplication
 	{
 		parent::__construct($input, $config, $output);
 
-		$this->registerDefaultCommand();
+		$this->registerRootCommand();
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function doExecute()
 	{
-		$command  = $this->getDefaultCommand();
+		$command  = $this->getRootCommand();
 
 		if ((!$command->getHandler() && !count($this->input->args)))
 		{
@@ -177,11 +177,11 @@ class Console extends AbstractCliApplication
 	 *
 	 * @since  1.0
 	 */
-	public function registerDefaultCommand()
+	public function registerRootCommand()
 	{
-		$this->defaultCommand = new DefaultCommand(null, $this->input, $this->output);
+		$this->rootCommand = new RootCommand(null, $this->input, $this->output);
 
-		$this->defaultCommand->setApplication($this)
+		$this->rootCommand->setApplication($this)
 			->addCommand(new HelpCommand);
 
 		return $this;
@@ -214,7 +214,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function addCommand(AbstractCommand $command)
 	{
-		$this->getDefaultCommand()->addCommand($command);
+		$this->getRootCommand()->addCommand($command);
 
 		return $command;
 	}
@@ -242,9 +242,9 @@ class Console extends AbstractCliApplication
 	 *
 	 * @since  1.0
 	 */
-	public function getDefaultCommand()
+	public function getRootCommand()
 	{
-		return $this->defaultCommand;
+		return $this->rootCommand;
 	}
 
 	/**
@@ -310,7 +310,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function getDescription()
 	{
-		return $this->getDefaultCommand()->getDescription();
+		return $this->getRootCommand()->getDescription();
 	}
 
 	/**
@@ -324,7 +324,7 @@ class Console extends AbstractCliApplication
 	 */
 	public function setDescription($description)
 	{
-		$this->getDefaultCommand()->setDescription($description);
+		$this->getRootCommand()->setDescription($description);
 
 		return $this;
 	}
@@ -340,21 +340,21 @@ class Console extends AbstractCliApplication
 	 */
 	public function setHandler($closure)
 	{
-		$this->getDefaultCommand()->setHandler($closure);
+		$this->getRootCommand()->setHandler($closure);
 
 		return $this;
 	}
 
 	public function setUsage($usage)
 	{
-		$this->getDefaultCommand()->setUsage($usage);
+		$this->getRootCommand()->setUsage($usage);
 
 		return $this;
 	}
 
 	public function setHelp($help)
 	{
-		$this->getDefaultCommand()->setHelp($help);
+		$this->getRootCommand()->setHelp($help);
 
 		return $this;
 	}

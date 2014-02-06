@@ -103,7 +103,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->instance->addCommand(new FooCommand);
 
-		$this->assertEquals('foo', $this->instance->getDefaultCommand()->getChild('foo')->getName());
+		$this->assertEquals('foo', $this->instance->getRootCommand()->getChild('foo')->getName());
 	}
 
 	/**
@@ -146,9 +146,9 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since  1.0
 	 */
-	public function testRegisterDefaultCommand()
+	public function testRegisterRootCommand()
 	{
-		$this->assertInstanceOf('Joomla\\Console\\Command\\DefaultCommand', $this->instance->getDefaultCommand(), 'Default Command wrong');
+		$this->assertInstanceOf('Joomla\\Console\\Command\\RootCommand', $this->instance->getRootCommand(), 'Default Command wrong');
 	}
 
 	/**
@@ -162,7 +162,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->instance->register('bar');
 
-		$this->assertInstanceOf('Joomla\\Console\\Command\\Command', $this->instance->getDefaultCommand()->getChild('bar'), 'Need Command instance');
+		$this->assertInstanceOf('Joomla\\Console\\Command\\Command', $this->instance->getRootCommand()->getChild('bar'), 'Need Command instance');
 	}
 
 	/**
@@ -259,8 +259,8 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 			}
 		);
 
-		$this->assertInstanceOf('\Closure', $this->instance->getDefaultCommand()->getHandler(), 'Code need to be a closure.');
+		$this->assertInstanceOf('\Closure', $this->instance->getRootCommand()->getHandler(), 'Code need to be a closure.');
 
-		$this->assertEquals(221, $this->instance->getDefaultCommand()->setInput(new Input\Cli)->execute());
+		$this->assertEquals(221, $this->instance->getRootCommand()->setInput(new Input\Cli)->execute());
 	}
 }

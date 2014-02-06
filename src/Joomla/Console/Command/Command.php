@@ -71,7 +71,7 @@ class Command extends AbstractCommand
 		$this->input->args = array($this->name);
 
 		$output = $this->application
-			->getDefaultCommand()
+			->getRootCommand()
 			->getChild('help')
 			->getDescriptor()
 			->describe($this);

@@ -13,7 +13,7 @@ $ php cli/console.php command1 command2 command3 -a -b -cd --help
 The command calling flow is:
 
 ```
-defaultCommand (console application)
+rootCommand (console application)
     ->configure
     ->execute
 
@@ -62,7 +62,7 @@ console will execute the `Default Command`.
 
 ### Default Command
 
-`DefaultCommand` is a command object extends from base `Command` object. It provides some useful helper,
+`RootCommand` is a command object extends from base `Command` object. It provides some useful helper,
 we can list all commands by typing:
 
 ``` bash
@@ -106,10 +106,10 @@ Available commands:
 Welcome to Joomla! Console.
 ```
 
-### Set Executing Code for DefaultCommand
+### Set Executing Code for RootCommand
 
 We can add closure to every commands, that this command will execute this function first. Use `setHandler()` on
-`$console`, the Console will auto pass the code to DefaultCommand:
+`$console`, the Console will auto pass the code to RootCommand:
 
 ``` php
 <?php
@@ -138,7 +138,7 @@ This will do same action:
 // ...
 
 $console
-    ->getDefaultCommand() // Return the DefaultCommand
+    ->getRootCommand() // Return the RootCommand
     ->setHandler(
         function($command)
         {
@@ -482,7 +482,7 @@ When we use `addCommand()`, `addOption()` and set some description or other info
 
 Every command has these information, you can use setter and getter to access them:
 
-* `Name` (Command name. The name of DefaultCommand is file name.)
+* `Name` (Command name. The name of RootCommand is file name.)
 * `Description` (Command description, will show after title in help output.)
 * `Usage` (Will show in help output of current command.)
 * `Help` (Will show in the help output bottom as a manual of current command)
@@ -490,9 +490,9 @@ Every command has these information, you can use setter and getter to access the
 The Console information:
 
 * `Name` (Name of this application, will show as title in help output.)
-* `Description` (DefaultCommand description.)
-* `Usage` (DefaultCommand usage.)
-* `Help` (DefaultCommand help)
+* `Description` (RootCommand description.)
+* `Usage` (RootCommand usage.)
+* `Help` (RootCommand help)
 
 ### Use Your Own Descriptor
 
@@ -511,7 +511,7 @@ $descriptor = new new XmlDescriptorHelper(
     new XmlOptionDescriptor
 );
 
-$console->getDefaultCommand()
+$console->getRootCommand()
     ->getChild('help')
     ->setDescriptor($descriptor);
 

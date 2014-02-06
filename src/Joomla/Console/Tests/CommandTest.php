@@ -7,7 +7,7 @@
  */
 
 use Joomla\Console\Command\Command;
-use Joomla\Console\Command\DefaultCommand;
+use Joomla\Console\Command\RootCommand;
 use Joomla\Console\Console;
 use Joomla\Console\Option\Option;
 use Joomla\Console\Tests\Output\TestStdout;
@@ -40,7 +40,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$command = new DefaultCommand('default', null, new TestStdout);
+		$command = new RootCommand('default', null, new TestStdout);
 
 		$command
 			->addCommand(

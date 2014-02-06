@@ -305,20 +305,20 @@ Output
 Bar
 ```
 
-## Using DefaultCommand and Help
+## Using RootCommand and Help
 
-You can use the `DefaultCommand` instead base `Command`, it provides some useful functions like `--help`, `--verbose`, `--quiet`.
+You can use the `RootCommand` instead base `Command`, it provides some useful functions like `--help`, `--verbose`, `--quiet`.
 
 If we catched an exception, the `--verbose|-v` option can help us print backtrace information.
 
 ``` php
 <?php
 
-use Joomla\Console\Command\DefaultCommand;
+use Joomla\Console\Command\RootCommand;
 
 try
 {
-	$command = new DefaultCommand;
+	$command = new RootCommand;
 
 	$command->execute();
 }
