@@ -1016,7 +1016,7 @@ EOF;
 			$this->out($question, false);
 		}
 
-		return rtrim(fread(STDIN, 8192), "\n");
+		return rtrim(fread(STDIN, 8192), "\n\r");
 	}
 
 	/**
