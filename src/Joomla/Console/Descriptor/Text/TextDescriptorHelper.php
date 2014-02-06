@@ -67,7 +67,7 @@ EOF;
 
 		// Describe Commands
 		$commands          = $command->getChildren();
-		$commandDescriptor = $this->getCommendDescriptor();
+		$commandDescriptor = $this->getCommandDescriptor();
 
 		foreach ($commands as $cmd)
 		{

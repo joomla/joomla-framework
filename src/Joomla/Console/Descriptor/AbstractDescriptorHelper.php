@@ -22,7 +22,7 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	 *
 	 * @since  1.0
 	 */
-	protected $commendDescriptor;
+	protected $CommandDescriptor;
 
 	/**
 	 * Option descriptor.
@@ -36,14 +36,14 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	/**
 	 * The class constructor.
 	 *
-	 * @param   DescriptorInterface  $commendDescriptor  Command descriptor.
+	 * @param   DescriptorInterface  $CommandDescriptor  Command descriptor.
 	 * @param   DescriptorInterface  $optionDescriptor   Option descriptor.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DescriptorInterface $commendDescriptor = null, DescriptorInterface $optionDescriptor = null)
+	public function __construct(DescriptorInterface $CommandDescriptor = null, DescriptorInterface $optionDescriptor = null)
 	{
-		$this->commendDescriptor = $commendDescriptor;
+		$this->CommandDescriptor = $CommandDescriptor;
 		$this->optionDescriptor  = $optionDescriptor;
 	}
 
@@ -54,23 +54,23 @@ abstract class AbstractDescriptorHelper implements DescriptorHelperInterface
 	 *
 	 * @since   1.0
 	 */
-	public function getCommendDescriptor()
+	public function getCommandDescriptor()
 	{
-		return $this->commendDescriptor;
+		return $this->CommandDescriptor;
 	}
 
 	/**
 	 * Command descriptor setter.
 	 *
-	 * @param   DescriptorInterface  $commendDescriptor  Command descriptor.
+	 * @param   DescriptorInterface  $CommandDescriptor  Command descriptor.
 	 *
 	 * @return  $this Support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function setCommendDescriptor($commendDescriptor)
+	public function setCommandDescriptor($CommandDescriptor)
 	{
-		$this->commendDescriptor = $commendDescriptor;
+		$this->CommandDescriptor = $CommandDescriptor;
 
 		return $this;
 	}
