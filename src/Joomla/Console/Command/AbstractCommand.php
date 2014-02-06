@@ -425,8 +425,8 @@ abstract class AbstractCommand implements \ArrayAccess
 	/**
 	 * Get argument by offset or return default.
 	 *
-	 * @param   int                      $offset   Argument offset.
-	 * @param   PrompterInterface|mixed  $default  Default value, if is a prompter object, will execute ask().
+	 * @param   int             $offset   Argument offset.
+	 * @param   callable|mixed  $default  Default value, if is a callable, will execute it.
 	 *
 	 * @return  null|string  Values from argument or user input.
 	 */
@@ -439,9 +439,9 @@ abstract class AbstractCommand implements \ArrayAccess
 			return $args[$offset];
 		}
 
-		if ($default instanceof PrompterInterface)
+		if (is_callable($default))
 		{
-			return $default->ask(null, $default);
+			return $default();
 		}
 
 		return $default;

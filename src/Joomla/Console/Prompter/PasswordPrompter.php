@@ -60,18 +60,19 @@ class PasswordPrompter extends CallbackPrompter
 	 * Constructor.
 	 *
 	 * @param   string     $question  The question you want to ask.
+	 * @param   $default   $default   The default value.
 	 * @param   Input\Cli  $input     The input object.
 	 * @param   Stdout     $output    The output object.
 	 *
 	 * @since   1.0
 	 */
-	function __construct($question = null, Input\Cli $input = null, Stdout $output = null)
+	function __construct($question = null, $default = null,  Input\Cli $input = null, Stdout $output = null)
 	{
 		$this->win = defined('PHP_WINDOWS_VERSION_BUILD');
 
 		$this->hiddenExe = __DIR__ . '/../bin/hiddeninput.exe';
 
-		parent::__construct($question, $input, $output);
+		parent::__construct($question, $default, $input, $output);
 	}
 
 	/**

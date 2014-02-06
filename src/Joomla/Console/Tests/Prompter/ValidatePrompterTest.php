@@ -27,7 +27,7 @@ class ValidatePrompterTest extends AbstractPrompterTest
 	{
 		parent::setUp();
 
-		$this->instance = $prompter = new ValidatePrompter('Tell me something: ', array('flower', 'sakura', 'rose'), null, $this->output);
+		$this->instance = $prompter = new ValidatePrompter('Tell me something: ', null, array('flower', 'sakura', 'rose'), null, $this->output);
 	}
 
 	/**

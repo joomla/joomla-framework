@@ -28,5 +28,16 @@ interface PrompterInterface
 	 * @since   1.0
 	 */
 	public function ask($msg = '', $default = '');
+
+	/**
+	 * Proxy to ask method.
+	 *
+	 * @param   string  $default  Default value.
+	 *
+	 * @return  string  The value that use input.
+	 *
+	 * @since   1.0
+	 */
+	public function __invoke($default = '');
 }
  

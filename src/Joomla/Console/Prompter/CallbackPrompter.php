@@ -102,6 +102,8 @@ class CallbackPrompter extends AbstractPrompter
 			die;
 		}
 
+		$default = $default ? : $this->default;
+
 		return $default;
 	}
 

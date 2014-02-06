@@ -46,6 +46,13 @@ abstract class AbstractPrompter implements PrompterInterface
 	protected $output = null;
 
 	/**
+	 * The default value.
+	 *
+	 * @var  mixed
+	 */
+	protected $default = null;
+
+	/**
 	 * Input stream, default is STDIN.
 	 *
 	 * Replace this resource help us easily test this class.
@@ -60,16 +67,18 @@ abstract class AbstractPrompter implements PrompterInterface
 	 * Constructor.
 	 *
 	 * @param   string     $question  The question you want to ask.
+	 * @param   $default   $default   The default value.
 	 * @param   Input\Cli  $input     The input object.
 	 * @param   Stdout     $output    The output object.
 	 *
 	 * @since   1.0
 	 */
-	function __construct($question = null, Input\Cli $input = null, Stdout $output = null)
+	function __construct($question = null, $default = null, Input\Cli $input = null, Stdout $output = null)
 	{
 		$this->input    = $input  ? : new Input\Cli;
 		$this->output   = $output ? : new Stdout;
 		$this->question = $question;
+		$this->default  = $default;
 	}
 
 	/**
@@ -193,5 +202,20 @@ abstract class AbstractPrompter implements PrompterInterface
 		$this->inputStream = $inputStream;
 
 		return $this;
+	}
+
+	/**
+	 * Proxy to ask method.
+	 *
+	 * @param   string  $msg      Question.
+	 * @param   string  $default  Default value.
+	 *
+	 * @return  string  The value that use input.
+	 *
+	 * @since   1.0
+	 */
+	public function __invoke($msg = null, $default = null)
+	{
+		return $this->ask($msg, $default);
 	}
 }

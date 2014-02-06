@@ -308,6 +308,31 @@ class CommandTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test get arg.
+	 *
+	 * @return void
+	 *
+	 * @since  1.0
+	 *
+	 * @covers Joomla\Console\Command\AbstractCommand::getArgument
+	 */
+	public function testGetArgument()
+	{
+		$this->instance->getInput()->args = array('flower', 'sakura');
+
+		$this->assertEquals('flower', $this->instance->getArgument(0), 'First arg not matched.');
+
+		$this->assertEquals('rose', $this->instance->getArgument(2, 'rose'), 'Default value not matched.');
+
+		$callback = function()
+		{
+			return 'Morning Glory';
+		};
+
+		$this->assertEquals('Morning Glory', $this->instance->getArgument(2, $callback), 'Default value not matched.');
+	}
+
+	/**
 	 * Test get all options.
 	 *
 	 * @return void
