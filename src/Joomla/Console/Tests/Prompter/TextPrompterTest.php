@@ -6,7 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-use Joomla\Console\Prompter\AbstractPrompter;
+namespace Joomla\Console\Tests\Prompter;
+
 use Joomla\Console\Prompter\TextPrompter;
 
 /**

@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Console\Tests;
+
 use Joomla\Console\Console;
 use Joomla\Console\Descriptor\Text\TextCommandDescriptor;
 use Joomla\Console\Descriptor\Text\TextDescriptorHelper;
@@ -18,7 +20,7 @@ use Joomla\Console\Tests\Stubs\FooCommand;
  *
  * @since  1.0
  */
-class TextDescriptorHelperTest extends PHPUnit_Framework_TestCase
+class TextDescriptorHelperTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test instance.

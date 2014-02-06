@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Console\Tests;
+
 use Joomla\Console\Command\RootCommand;
 use Joomla\Console\Option\Option;
 
@@ -14,7 +16,7 @@ use Joomla\Console\Option\Option;
  *
  * @since  1.0
  */
-class OptionTest extends PHPUnit_Framework_TestCase
+class OptionTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test instance.
@@ -167,6 +169,11 @@ class OptionTest extends PHPUnit_Framework_TestCase
 				$this->assertEquals(1, $this->instance->getValue($val));
 			}
 		}
+
+		// Filter
+		$this->instance->getInput()->set('y', 'flower sakura');
+
+		$this->assertEquals('flower sakura', $this->instance->getValue('y'), 'Default input filter should string.');
 	}
 
 	/**

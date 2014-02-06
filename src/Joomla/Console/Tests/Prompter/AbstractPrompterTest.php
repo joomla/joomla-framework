@@ -6,6 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
+namespace Joomla\Console\Tests\Prompter;
+
 use Joomla\Console\Tests\Output\TestStdout;
 
 /**
@@ -13,7 +15,7 @@ use Joomla\Console\Tests\Output\TestStdout;
  *
  * @since 1.0
  */
-abstract class AbstractPrompterTest extends PHPUnit_Framework_TestCase
+abstract class AbstractPrompterTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test instance.
