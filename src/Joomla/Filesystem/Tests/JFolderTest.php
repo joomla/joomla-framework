@@ -5,6 +5,7 @@
  */
 
 use Joomla\Filesystem\Folder;
+use Joomla\Filesystem\File;
 use Joomla\Filesystem\Path;
 
 /**
@@ -28,10 +29,91 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCopy()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$name = 'tempFolder';
+		$copiedFolderName = 'tempCopiedFolderName';
+		$path = __DIR__;
+
+		Folder::create($path . '/' . $name);
+
+		$this->assertThat(
+			Folder::copy($name, $copiedFolderName, $path),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be copied successfully.'
 		);
+		Folder::delete($path . '/' . $copiedFolderName);
+
+		$this->assertThat(
+			Folder::copy($path . '/' . $name, $path . '/' . $copiedFolderName),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be copied successfully.'
+		);
+		Folder::delete($path . '/' . $copiedFolderName);
+
+		Folder::delete($path . '/' . $name);
+	}
+
+	/**
+	 * Test...
+	 *
+	 * @todo Implement testCopy().
+	 *
+	 * @return void
+	 *
+	 * @expectedException  RuntimeException
+	 */
+	public function testCopySrcDontExist()
+	{
+		$name = 'tempFolder';
+		$copiedFolderName = 'tempCopiedFolderName';
+		$path = __DIR__;
+
+		Folder::create($path . '/' . $name);
+
+		// Source folder doesn't exist.
+		$this->assertInstanceOf(
+			'RuntimeException',
+			Folder::copy($path . '/' . $name . 'foobar', $path . '/' . $copiedFolderName),
+			'Line:' . __LINE__ . ' Folder should not be copied successfully.'
+		);
+
+		Folder::delete($path . '/' . $copiedFolderName);
+		Folder::delete($path . '/' . $name);
+	}
+
+	/**
+	 * Test...
+	 *
+	 * @todo Implement testCopy().
+	 *
+	 * @return void
+	 *
+	 * @expectedException  RuntimeException
+	 */
+	public function testCopyDestDontExist()
+	{
+		$name = 'tempFolder';
+		$copiedFolderName = 'tempCopiedFolderName';
+		$path = __DIR__;
+
+		Folder::create($path . '/' . $name);
+
+		// Source folder doesn't exist so create first.
+		$this->assertThat(
+			Folder::copy($path . '/' . $name, $path . 'foobar/' . $copiedFolderName),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be copied successfully.'
+		);
+		Folder::delete($path . '/' . $copiedFolderName);
+
+		// Source folder doesn't exist.
+		$this->assertInstanceOf(
+			'RuntimeException',
+			Folder::copy($path . '/' . $name, $path . 'foobar/' . $copiedFolderName, true),
+			'Line:' . __LINE__ . ' Folder should not be copied successfully.'
+		);
+		Folder::delete($path . '/' . $copiedFolderName);
+
+		Folder::delete($path . '/' . $name);
 	}
 
 	/**
@@ -43,10 +125,42 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCreate()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$name = 'tempFolder';
+		$path = __DIR__;
+
+		$this->assertThat(
+			Folder::create($path . '/' . $name),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be created successfully.'
 		);
+
+		// Already existing directory (made by previous call).
+		$this->assertThat(
+			Folder::create($path . '/' . $name),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be created successfully.'
+		);
+
+		Folder::delete($path . '/' . $name);
+
+		// Creating parent directory recursively.
+		$this->assertThat(
+			Folder::create($path . '/' . $name . '/' . $name),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be created successfully.'
+		);
+
+		Folder::delete($path . '/' . $name . '/' . $name);
+
+		// Checking for infinite loop in the path.
+		$path = __DIR__ . '/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z';
+		$this->assertThat(
+			Folder::create($path . '/' . $name),
+			$this->isFalse(),
+			'Line:' . __LINE__ . ' Folder should be created successfully.'
+		);
+
+		Folder::delete($path . '/' . $name);
 	}
 
 	/**
@@ -58,9 +172,34 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDelete()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$name = 'tempFolder';
+		$path = __DIR__;
+
+		Folder::create($path . '/' . $name);
+
+		$this->assertThat(
+			Folder::delete($path . '/' . $name),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be deleted successfully.'
+		);
+
+		// Create a folder and a sub-folder and file in it.
+		$data = 'Lorem ipsum dolor sit amet';
+		Folder::create($path . '/' . $name);
+		File::write($path . '/' . $name . '/' . $name . '.txt', $data);
+		Folder::create($path . '/' . $name . '/' . $name);
+
+		$this->assertThat(
+			Folder::delete($path . '/' . $name),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder and its sub folder & files should be deleted successfully.'
+		);
+
+		// Testing empty path.
+		$this->assertThat(
+			Folder::delete(''),
+			$this->isFalse(),
+			'Line:' . __LINE__ . ' Base folder should not be deleted successfully.'
 		);
 	}
 
@@ -85,10 +224,46 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testMove()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$name = 'tempFolder';
+		$movedFolderName = 'tempMovedFolderName';
+		$path = __DIR__;
+
+		Folder::create($path . '/' . $name);
+
+		$this->assertThat(
+			Folder::move($name, $movedFolderName, $path),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be moved successfully.'
 		);
+
+		// Testing using streams.
+		$this->assertThat(
+			Folder::move($movedFolderName, $name, $path, true),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be moved successfully.'
+		);
+
+		$this->assertThat(
+			Folder::move($path . '/' . $name, $path . '/' . $movedFolderName),
+			$this->isTrue(),
+			'Line:' . __LINE__ . ' Folder should be moved successfully.'
+		);
+
+		// Testing condition of source folder don't exist.
+		$this->assertEquals(
+			Folder::move($name, $movedFolderName, $path),
+			'Cannot find source folder',
+			'Line:' . __LINE__ . ' Folder should not be moved successfully.'
+		);
+
+		// Testing condition of dest folder exist already.
+		$this->assertEquals(
+			Folder::move($movedFolderName, $movedFolderName, $path),
+			'Folder already exists',
+			'Line:' . __LINE__ . ' Folder should not be moved successfully.'
+		);
+
+		Folder::delete($path . '/' . $movedFolderName);
 	}
 
 	/**
