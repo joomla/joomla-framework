@@ -111,7 +111,7 @@ abstract class AbstractPrompter implements PrompterInterface
 			$this->output->out()->out($question, false);
 		}
 
-		$value = rtrim(fread($this->inputStream, 8192), "\n");
+		$value = rtrim(fread($this->inputStream, 8192), "\n\r");
 
 		$this->output->out();
 
