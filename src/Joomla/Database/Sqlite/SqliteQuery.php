@@ -119,6 +119,27 @@ class SqliteQuery extends PdoQuery implements PreparableInterface, LimitableInte
 	}
 
 	/**
+	 * Gets the number of characters in a string.
+	 *
+	 * Note, use 'length' to find the number of bytes in a string.
+	 *
+	 * Usage:
+	 * $query->select($query->charLength('a'));
+	 *
+	 * @param   string  $field      A value.
+	 * @param   string  $operator   Comparison operator between charLength integer value and $condition
+	 * @param   string  $condition  Integer value to compare charLength with.
+	 *
+	 * @return  string  The required char length call.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function charLength($field, $operator = null, $condition = null)
+	{
+		return 'length(' . $field . ')' . (isset($operator) && isset($condition) ? ' ' . $operator . ' ' . $condition : '');
+	}
+
+	/**
 	 * Clear data from the query or a specific clause of the query.
 	 *
 	 * @param   string  $clause  Optionally, the name of the clause to clear, or nothing to clear the whole query.
@@ -137,6 +158,31 @@ class SqliteQuery extends PdoQuery implements PreparableInterface, LimitableInte
 		}
 
 		return parent::clear($clause);
+	}
+
+	/**
+	 * Concatenates an array of column names or values.
+	 *
+	 * Usage:
+	 * $query->select($query->concatenate(array('a', 'b')));
+	 *
+	 * @param   array   $values     An array of values to concatenate.
+	 * @param   string  $separator  As separator to place between each value.
+	 *
+	 * @return  string  The concatenated values.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function concatenate($values, $separator = null)
+	{
+		if ($separator)
+		{
+			return implode(' || ' . $this->quote($separator) . ' || ', $values);
+		}
+		else
+		{
+			return implode(' || ', $values);
+		}
 	}
 
 	/**
