@@ -193,7 +193,7 @@ class Client
 	/**
 	 * Send a signed Oauth request.
 	 *
-	 * @param   string  $url      The URL forf the request.
+	 * @param   string  $url      The URL for the request.
 	 * @param   mixed   $data     The data to include in the request
 	 * @param   array   $headers  The headers to send with the request
 	 * @param   string  $method   The method with which to send the request
