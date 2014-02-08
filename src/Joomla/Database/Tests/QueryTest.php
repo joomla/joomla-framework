@@ -8,8 +8,6 @@ namespace Joomla\Database\Tests;
 
 use Joomla\Test\TestHelper;
 
-require_once __DIR__ . '/QueryInspector.php';
-
 /**
  * Test class for \Joomla\Database\DatabaseQuery.
  *
@@ -28,7 +26,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * The instance of the object to test.
 	 *
-	 * @var    QueryInspector
+	 * @var    \Joomla\Database\DatabaseQuery
 	 * @since  1.0
 	 */
 	private $instance;
@@ -48,7 +46,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 		$this->dbo = Mock\Driver::create($this);
 
-		$this->instance = new QueryInspector($this->dbo);
+		$this->instance = new Mock\Query($this->dbo);
 	}
 
 	/**
@@ -131,7 +129,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	public function test__get()
 	{
 		$this->instance->select('*');
-		$this->assertEquals('select', $this->instance->type);
+		$this->assertEquals('select', TestHelper::getValue($this->instance, 'type'));
 	}
 
 	/**
@@ -143,7 +141,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringFrom_subquery()
 	{
-		$subq = new QueryInspector($this->dbo);
+		$subq = $this->dbo->getQuery(true);
 		$subq->select('col2')->from('table')->where('a=1');
 
 		$this->instance->select('col')->from($subq, 'alias');
@@ -166,7 +164,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__toStringInsert_subquery()
 	{
-		$subq = new QueryInspector($this->dbo);
+		$subq = $this->dbo->getQuery(true);
 		$subq->select('col2')->where('a=1');
 
 		$this->instance->insert('table')->columns('col')->values($subq);
@@ -373,7 +371,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertSame($this->instance, $this->instance->call('foo'), 'Checks chaining');
 		$this->instance->call('bar');
-		$this->assertEquals('CALL foo,bar', trim($this->instance->call), 'Checks method by rendering.');
+		$this->assertEquals('CALL foo,bar', trim(TestHelper::getValue($this->instance, 'call')), 'Checks method by rendering.');
 	}
 
 	/**
@@ -464,7 +462,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		// First pass - set the values.
 		foreach ($properties as $property)
 		{
-			$this->instance->$property = $property;
+			TestHelper::setValue($this->instance, $property, $property);
 		}
 
 		// Clear the whole query.
@@ -474,14 +472,14 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		foreach ($properties as $property)
 		{
 			$this->assertThat(
-				$this->instance->get($property),
+				TestHelper::getValue($this->instance, $property),
 				$this->equalTo(null)
 			);
 		}
 
 		// And check that the type has been cleared.
 		$this->assertThat(
-			$this->instance->type,
+			TestHelper::getValue($this->instance, 'type'),
 			$this->equalTo(null)
 		);
 	}
@@ -514,12 +512,12 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		// Test each clause.
 		foreach ($clauses as $clause)
 		{
-			$q = new QueryInspector($this->dbo);
+			$q = $this->dbo->getQuery(true);
 
 			// Set the clauses
 			foreach ($clauses as $clause2)
 			{
-				$q->$clause2 = $clause2;
+				TestHelper::setValue($q, $clause2, $clause2);
 			}
 
 			// Clear the clause.
@@ -527,7 +525,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 			// Check that clause was cleared.
 			$this->assertThat(
-				$q->get($clause),
+				TestHelper::getValue($q, $clause),
 				$this->equalTo(null)
 			);
 
@@ -537,9 +535,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 				if ($clause != $clause2)
 				{
 					$this->assertThat(
-						$q->get($clause2),
+						TestHelper::getValue($q, $clause2),
 						$this->equalTo($clause2),
-						"Clearing $clause resulted in $clause2 having a value of " . $q->get($clause2) . '.'
+						"Clearing $clause resulted in $clause2 having a value of " . TestHelper::getValue($q, $clause2) . '.'
 					);
 				}
 			}
@@ -579,26 +577,26 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		// Set the clauses.
 		foreach ($clauses as $clause)
 		{
-			$this->instance->$clause = $clause;
+			TestHelper::setValue($this->instance, $clause, $clause);
 		}
 
 		// Check that all properties have been cleared
 		foreach ($types as $type)
 		{
 			// Set the type.
-			$this->instance->$type = $type;
+			TestHelper::setValue($this->instance, $type, $type);
 
 			// Clear the type.
 			$this->instance->clear($type);
 
 			// Check the type has been cleared.
 			$this->assertThat(
-				$this->instance->type,
+				TestHelper::getValue($this->instance, 'type'),
 				$this->equalTo(null)
 			);
 
 			$this->assertThat(
-				$this->instance->get($type),
+				TestHelper::getValue($this->instance, $type),
 				$this->equalTo(null)
 			);
 
@@ -606,7 +604,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 			foreach ($clauses as $clause)
 			{
 				$this->assertThat(
-					$this->instance->get($clause),
+					TestHelper::getValue($this->instance, $clause),
 					$this->equalTo($clause)
 				);
 			}
@@ -630,7 +628,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->columns),
+			trim(TestHelper::getValue($this->instance, 'columns')),
 			$this->equalTo('(foo)'),
 			'Tests rendered value.'
 		);
@@ -639,7 +637,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$this->instance->columns('bar');
 
 		$this->assertThat(
-			trim($this->instance->columns),
+			trim(TestHelper::getValue($this->instance, 'columns')),
 			$this->equalTo('(foo,bar)'),
 			'Tests rendered value after second use.'
 		);
@@ -706,13 +704,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers             \Joomla\Database\DatabaseQuery::dateFormat
-	 * @expectedException  RuntimeException
+	 * @expectedException  \RuntimeException
 	 * @since           1.0
 	 */
 	public function testDateFormatException()
 	{
 		// Override the internal database for testing.
-		$this->instance->db = new \stdClass;
+		TestHelper::setValue($this->instance, 'db', new \stdClass);
 
 		$this->instance->dateFormat();
 	}
@@ -734,19 +732,19 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			$this->instance->type,
+			TestHelper::getValue($this->instance, 'type'),
 			$this->equalTo('delete'),
 			'Tests the type property is set correctly.'
 		);
 
 		$this->assertThat(
-			trim($this->instance->delete),
+			trim(TestHelper::getValue($this->instance, 'delete')),
 			$this->equalTo('DELETE'),
 			'Tests the delete element is set correctly.'
 		);
 
 		$this->assertThat(
-			trim($this->instance->from),
+			trim(TestHelper::getValue($this->instance, 'from')),
 			$this->equalTo('FROM #__foo'),
 			'Tests the from element is set correctly.'
 		);
@@ -818,13 +816,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers             \Joomla\Database\DatabaseQuery::escape
-	 * @expectedException  RuntimeException
+	 * @expectedException  \RuntimeException
 	 * @since           1.0
 	 */
 	public function testEscapeException()
 	{
 		// Override the internal database for testing.
-		$this->instance->db = new \stdClass;
+		TestHelper::setValue($this->instance, 'db', new \stdClass);
 
 		$this->instance->escape('foo');
 	}
@@ -841,7 +839,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertSame($this->instance, $this->instance->exec('a.*'), 'Checks chaining');
 		$this->instance->exec('b.*');
-		$this->assertEquals('EXEC a.*,b.*', trim($this->instance->exec), 'Checks method by rendering.');
+		$this->assertEquals('EXEC a.*,b.*', trim(TestHelper::getValue($this->instance, 'exec')), 'Checks method by rendering.');
 	}
 
 	/**
@@ -874,7 +872,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->from),
+			trim(TestHelper::getValue($this->instance, 'from')),
 			$this->equalTo('FROM #__foo'),
 			'Tests rendered value.'
 		);
@@ -883,7 +881,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$this->instance->from('#__bar');
 
 		$this->assertThat(
-			trim($this->instance->from),
+			trim(TestHelper::getValue($this->instance, 'from')),
 			$this->equalTo('FROM #__foo,#__bar'),
 			'Tests rendered value after second use.'
 		);
@@ -906,7 +904,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->group),
+			trim(TestHelper::getValue($this->instance, 'group')),
 			$this->equalTo('GROUP BY foo'),
 			'Tests rendered value.'
 		);
@@ -915,7 +913,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$this->instance->group('bar');
 
 		$this->assertThat(
-			trim($this->instance->group),
+			trim(TestHelper::getValue($this->instance, 'group')),
 			$this->equalTo('GROUP BY foo,bar'),
 			'Tests rendered value after second use.'
 		);
@@ -938,7 +936,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->having),
+			trim(TestHelper::getValue($this->instance, 'having')),
 			$this->equalTo('HAVING COUNT(foo) > 1'),
 			'Tests rendered value.'
 		);
@@ -947,18 +945,18 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$this->instance->having('COUNT(bar) > 2');
 
 		$this->assertThat(
-			trim($this->instance->having),
+			trim(TestHelper::getValue($this->instance, 'having')),
 			$this->equalTo('HAVING COUNT(foo) > 1 AND COUNT(bar) > 2'),
 			'Tests rendered value after second use.'
 		);
 
 		// Reset the field to test the glue.
-		$this->instance->having = null;
+		TestHelper::setValue($this->instance, 'having', null);
 		$this->instance->having('COUNT(foo) > 1', 'OR');
 		$this->instance->having('COUNT(bar) > 2');
 
 		$this->assertThat(
-			trim($this->instance->having),
+			trim(TestHelper::getValue($this->instance, 'having')),
 			$this->equalTo('HAVING COUNT(foo) > 1 OR COUNT(bar) > 2'),
 			'Tests rendered value with OR glue.'
 		);
@@ -974,8 +972,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testInnerJoin()
 	{
-		$q1 = new QueryInspector($this->dbo);
-		$q2 = new QueryInspector($this->dbo);
+		$q1 = $this->dbo->getQuery(true);
+		$q2 = $this->dbo->getQuery(true);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -987,8 +985,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$q2->join('INNER', $condition);
 
 		$this->assertThat(
-			$q1->join,
-			$this->equalTo($q2->join),
+			TestHelper::getValue($q1, 'join'),
+			$this->equalTo(TestHelper::getValue($q2, 'join')),
 			'Tests that innerJoin is an alias for join.'
 		);
 	}
@@ -1010,13 +1008,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			$this->instance->type,
+			TestHelper::getValue($this->instance, 'type'),
 			$this->equalTo('insert'),
 			'Tests the type property is set correctly.'
 		);
 
 		$this->assertThat(
-			trim($this->instance->insert),
+			trim(TestHelper::getValue($this->instance, 'insert')),
 			$this->equalTo('INSERT INTO #__foo'),
 			'Tests the delete element is set correctly.'
 		);
@@ -1039,7 +1037,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->join[0]),
+			trim(TestHelper::getValue($this->instance, 'join')[0]),
 			$this->equalTo('INNER JOIN foo ON foo.id = bar.id'),
 			'Tests that first join renders correctly.'
 		);
@@ -1047,7 +1045,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$this->instance->join('OUTER', 'goo ON goo.id = car.id');
 
 		$this->assertThat(
-			trim($this->instance->join[1]),
+			trim(TestHelper::getValue($this->instance, 'join')[1]),
 			$this->equalTo('OUTER JOIN goo ON goo.id = car.id'),
 			'Tests that second join renders correctly.'
 		);
@@ -1063,8 +1061,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testLeftJoin()
 	{
-		$q1 = new QueryInspector($this->dbo);
-		$q2 = new QueryInspector($this->dbo);
+		$q1 = $this->dbo->getQuery(true);
+		$q2 = $this->dbo->getQuery(true);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -1076,8 +1074,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$q2->join('LEFT', $condition);
 
 		$this->assertThat(
-			$q1->join,
-			$this->equalTo($q2->join),
+			TestHelper::getValue($q1, 'join'),
+			$this->equalTo(TestHelper::getValue($q2, 'join')),
 			'Tests that leftJoin is an alias for join.'
 		);
 	}
@@ -1126,13 +1124,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers             \Joomla\Database\DatabaseQuery::nullDate
-	 * @expectedException  RuntimeException
+	 * @expectedException  \RuntimeException
 	 * @since           1.0
 	 */
 	public function testNullDateException()
 	{
 		// Override the internal database for testing.
-		$this->instance->db = new \stdClass;
+		TestHelper::setValue($this->instance, 'db', new \stdClass);
 
 		$this->instance->nullDate();
 	}
@@ -1154,7 +1152,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->order),
+			trim(TestHelper::getValue($this->instance, 'order')),
 			$this->equalTo('ORDER BY foo'),
 			'Tests rendered value.'
 		);
@@ -1163,7 +1161,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$this->instance->order('bar');
 
 		$this->assertThat(
-			trim($this->instance->order),
+			trim(TestHelper::getValue($this->instance, 'order')),
 			$this->equalTo('ORDER BY foo,bar'),
 			'Tests rendered value after second use.'
 		);
@@ -1175,7 +1173,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->order),
+			trim(TestHelper::getValue($this->instance, 'order')),
 			$this->equalTo('ORDER BY foo,bar,goo,car'),
 			'Tests array input.'
 		);
@@ -1191,8 +1189,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testOuterJoin()
 	{
-		$q1 = new QueryInspector($this->dbo);
-		$q2 = new QueryInspector($this->dbo);
+		$q1 = $this->dbo->getQuery(true);
+		$q2 = $this->dbo->getQuery(true);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -1204,8 +1202,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$q2->join('OUTER', $condition);
 
 		$this->assertThat(
-			$q1->join,
-			$this->equalTo($q2->join),
+			TestHelper::getValue($q1, 'join'),
+			$this->equalTo(TestHelper::getValue($q2, 'join')),
 			'Tests that outerJoin is an alias for join.'
 		);
 	}
@@ -1234,13 +1232,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers             \Joomla\Database\DatabaseQuery::quote
-	 * @expectedException  RuntimeException
+	 * @expectedException  \RuntimeException
 	 * @since           1.0
 	 */
 	public function testQuoteException()
 	{
 		// Override the internal database for testing.
-		$this->instance->db = new \stdClass;
+		TestHelper::setValue($this->instance, 'db', new \stdClass);
 
 		$this->instance->quote('foo');
 	}
@@ -1268,13 +1266,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @covers             \Joomla\Database\DatabaseQuery::quoteName
-	 * @expectedException  RuntimeException
+	 * @expectedException  \RuntimeException
 	 * @since           1.0
 	 */
 	public function testQuoteNameException()
 	{
 		// Override the internal database for testing.
-		$this->instance->db = new \stdClass;
+		TestHelper::setValue($this->instance, 'db', new \stdClass);
 
 		$this->instance->quoteName('foo');
 	}
@@ -1289,8 +1287,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testRightJoin()
 	{
-		$q1 = new QueryInspector($this->dbo);
-		$q2 = new QueryInspector($this->dbo);
+		$q1 = $this->dbo->getQuery(true);
+		$q2 = $this->dbo->getQuery(true);
 		$condition = 'foo ON foo.id = bar.id';
 
 		$this->assertThat(
@@ -1302,8 +1300,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$q2->join('RIGHT', $condition);
 
 		$this->assertThat(
-			$q1->join,
-			$this->equalTo($q2->join),
+			TestHelper::getValue($q1, 'join'),
+			$this->equalTo(TestHelper::getValue($q2, 'join')),
 			'Tests that rightJoin is an alias for join.'
 		);
 	}
@@ -1325,13 +1323,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			$this->instance->type,
+			TestHelper::getValue($this->instance, 'type'),
 			$this->equalTo('select'),
 			'Tests the type property is set correctly.'
 		);
 
 		$this->assertThat(
-			trim($this->instance->select),
+			trim(TestHelper::getValue($this->instance, 'select')),
 			$this->equalTo('SELECT foo'),
 			'Tests the select element is set correctly.'
 		);
@@ -1339,7 +1337,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$this->instance->select('bar');
 
 		$this->assertThat(
-			trim($this->instance->select),
+			trim(TestHelper::getValue($this->instance, 'select')),
 			$this->equalTo('SELECT foo,bar'),
 			'Tests the second use appends correctly.'
 		);
@@ -1351,7 +1349,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->select),
+			trim(TestHelper::getValue($this->instance, 'select')),
 			$this->equalTo('SELECT foo,bar,goo,car'),
 			'Tests the second use appends correctly.'
 		);
@@ -1374,16 +1372,16 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->set),
+			trim(TestHelper::getValue($this->instance, 'set')),
 			$this->identicalTo('SET foo = 1'),
 			'Tests set with a string.'
 		);
 
 		$this->instance->set('bar = 2');
-		$this->assertEquals("SET foo = 1" . PHP_EOL . "\t, bar = 2", trim($this->instance->set), 'Tests appending with set().');
+		$this->assertEquals("SET foo = 1" . PHP_EOL . "\t, bar = 2", trim(TestHelper::getValue($this->instance, 'set')), 'Tests appending with set().');
 
 		// Clear the set.
-		$this->instance->set = null;
+		TestHelper::setValue($this->instance, 'set', null);
 		$this->instance->set(
 			array(
 				'foo = 1',
@@ -1392,13 +1390,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->set),
+			trim(TestHelper::getValue($this->instance, 'set')),
 			$this->identicalTo("SET foo = 1" . PHP_EOL . "\t, bar = 2"),
 			'Tests set with an array.'
 		);
 
 		// Clear the set.
-		$this->instance->set = null;
+		TestHelper::setValue($this->instance, 'set', null);
 		$this->instance->set(
 			array(
 				'foo = 1',
@@ -1408,7 +1406,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->set),
+			trim(TestHelper::getValue($this->instance, 'set')),
 			$this->identicalTo("SET foo = 1" . PHP_EOL . "\t; bar = 2"),
 			'Tests set with an array and glue.'
 		);
@@ -1459,13 +1457,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			$this->instance->type,
+			TestHelper::getValue($this->instance, 'type'),
 			$this->equalTo('update'),
 			'Tests the type property is set correctly.'
 		);
 
 		$this->assertThat(
-			trim($this->instance->update),
+			trim(TestHelper::getValue($this->instance, 'update')),
 			$this->equalTo('UPDATE #__foo'),
 			'Tests the update element is set correctly.'
 		);
@@ -1488,7 +1486,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->values),
+			trim(TestHelper::getValue($this->instance, 'values')),
 			$this->equalTo('(1,2,3)'),
 			'Tests rendered value.'
 		);
@@ -1502,7 +1500,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->values),
+			trim(TestHelper::getValue($this->instance, 'values')),
 			$this->equalTo('(1,2,3),(4,5,6),(7,8,9)'),
 			'Tests rendered value after second use and array input.'
 		);
@@ -1525,7 +1523,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->where),
+			trim(TestHelper::getValue($this->instance, 'where')),
 			$this->equalTo('WHERE foo = 1'),
 			'Tests rendered value.'
 		);
@@ -1539,13 +1537,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->where),
+			trim(TestHelper::getValue($this->instance, 'where')),
 			$this->equalTo('WHERE foo = 1 AND bar = 2 AND goo = 3'),
 			'Tests rendered value after second use and array input.'
 		);
 
 		// Clear the where
-		$this->instance->where = null;
+		TestHelper::setValue($this->instance, 'where', null);
 		$this->instance->where(
 			array(
 				'bar = 2',
@@ -1555,7 +1553,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertThat(
-			trim($this->instance->where),
+			trim(TestHelper::getValue($this->instance, 'where')),
 			$this->equalTo('WHERE bar = 2 OR goo = 3'),
 			'Tests rendered value with glue.'
 		);
@@ -1570,7 +1568,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__clone_array()
 	{
-		$baseElement = new QueryInspector(Mock\Driver::create($this));
+		$baseElement = $this->dbo->getQuery(true);
 
 		$baseElement->testArray = array();
 
@@ -1599,7 +1597,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__clone_object()
 	{
-		$baseElement = new QueryInspector(Mock\Driver::create($this));
+		$baseElement = $this->dbo->getQuery(true);
 
 		$baseElement->testObject = new \stdClass;
 
@@ -1644,12 +1642,12 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionClear()
 	{
-		$this->instance->union = null;
-		$this->instance->order = null;
+		TestHelper::setValue($this->instance, 'union', null);
+		TestHelper::setValue($this->instance, 'order', null);
 		$this->instance->order('bar');
 		$this->instance->union('SELECT name FROM foo');
 		$this->assertThat(
-			$this->instance->order,
+			TestHelper::getValue($this->instance, 'order'),
 			$this->equalTo(null),
 			'Tests that ORDER BY is cleared with union.'
 		);
@@ -1665,9 +1663,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionUnion()
 	{
-		$this->instance->union = null;
+		TestHelper::setValue($this->instance, 'union', null);
 		$this->instance->union('SELECT name FROM foo');
-		$teststring = (string) $this->instance->union;
+		$teststring = (string) TestHelper::getValue($this->instance, 'union');
 		$this->assertThat(
 			$teststring,
 			$this->equalTo(PHP_EOL . "UNION (SELECT name FROM foo)"),
@@ -1685,9 +1683,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionDistinctString()
 	{
-		$this->instance->union = null;
+		TestHelper::setValue($this->instance, 'union', null);
 		$this->instance->union('SELECT name FROM foo', 'distinct');
-		$teststring = (string) $this->instance->union;
+		$teststring = (string) TestHelper::getValue($this->instance, 'union');
 		$this->assertThat(
 			$teststring,
 			$this->equalTo(PHP_EOL . "UNION DISTINCT (SELECT name FROM foo)"),
@@ -1705,9 +1703,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionDistinctTrue()
 	{
-		$this->instance->union = null;
+		TestHelper::setValue($this->instance, 'union', null);
 		$this->instance->union('SELECT name FROM foo', true);
-		$teststring = (string) $this->instance->union;
+		$teststring = (string) TestHelper::getValue($this->instance, 'union');
 		$this->assertThat(
 			$teststring,
 			$this->equalTo(PHP_EOL . "UNION DISTINCT (SELECT name FROM foo)"),
@@ -1725,9 +1723,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionDistinctFalse()
 	{
-		$this->instance->union = null;
+		TestHelper::setValue($this->instance, 'union', null);
 		$this->instance->union('SELECT name FROM foo', false);
-		$teststring = (string) $this->instance->union;
+		$teststring = (string) TestHelper::getValue($this->instance, 'union');
 		$this->assertThat(
 			$teststring,
 			$this->equalTo(PHP_EOL . "UNION (SELECT name FROM foo)"),
@@ -1745,9 +1743,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionArray()
 	{
-		$this->instance->union = null;
+		TestHelper::setValue($this->instance, 'union', null);
 		$this->instance->union(array('SELECT name FROM foo', 'SELECT name FROM bar'));
-		$teststring = (string) $this->instance->union;
+		$teststring = (string) TestHelper::getValue($this->instance, 'union');
 		$this->assertThat(
 			$teststring,
 			$this->equalTo(PHP_EOL . "UNION (SELECT name FROM foo)" . PHP_EOL . "UNION (SELECT name FROM bar)"),
@@ -1765,10 +1763,10 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionTwo()
 	{
-		$this->instance->union = null;
+		TestHelper::setValue($this->instance, 'union', null);
 		$this->instance->union('SELECT name FROM foo');
 		$this->instance->union('SELECT name FROM bar');
-		$teststring = (string) $this->instance->union;
+		$teststring = (string) TestHelper::getValue($this->instance, 'union');
 		$this->assertThat(
 			$teststring,
 			$this->equalTo(PHP_EOL . "UNION (SELECT name FROM foo)" . PHP_EOL . "UNION (SELECT name FROM bar)"),
@@ -1786,9 +1784,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionDistinct()
 	{
-		$this->instance->union = null;
+		TestHelper::setValue($this->instance, 'union', null);
 		$this->instance->unionDistinct('SELECT name FROM foo');
-		$teststring = (string) $this->instance->union;
+		$teststring = (string) TestHelper::getValue($this->instance, 'union');
 		$this->assertThat(
 			trim($teststring),
 			$this->equalTo("UNION DISTINCT (SELECT name FROM foo)"),
@@ -1806,9 +1804,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnionDistinctArray()
 	{
-		$this->instance->union = null;
+		TestHelper::setValue($this->instance, 'union', null);
 		$this->instance->unionDistinct(array('SELECT name FROM foo', 'SELECT name FROM bar'));
-		$teststring = (string) $this->instance->union;
+		$teststring = (string) TestHelper::getValue($this->instance, 'union');
 		$this->assertThat(
 			$teststring,
 			$this->equalTo(PHP_EOL . "UNION DISTINCT (SELECT name FROM foo)" . PHP_EOL . "UNION DISTINCT (SELECT name FROM bar)"),
