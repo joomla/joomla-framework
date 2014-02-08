@@ -1036,8 +1036,10 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 			'Tests chaining.'
 		);
 
+		$join = TestHelper::getValue($this->instance, 'join');
+
 		$this->assertThat(
-			trim(TestHelper::getValue($this->instance, 'join')[0]),
+			trim($join[0]),
 			$this->equalTo('INNER JOIN foo ON foo.id = bar.id'),
 			'Tests that first join renders correctly.'
 		);
@@ -1045,7 +1047,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 		$this->instance->join('OUTER', 'goo ON goo.id = car.id');
 
 		$this->assertThat(
-			trim(TestHelper::getValue($this->instance, 'join')[1]),
+			trim($join[1]),
 			$this->equalTo('OUTER JOIN goo ON goo.id = car.id'),
 			'Tests that second join renders correctly.'
 		);
