@@ -1046,6 +1046,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 		$this->instance->join('OUTER', 'goo ON goo.id = car.id');
 
+		$join = TestHelper::getValue($this->instance, 'join');
+
 		$this->assertThat(
 			trim($join[1]),
 			$this->equalTo('OUTER JOIN goo ON goo.id = car.id'),
