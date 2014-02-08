@@ -109,6 +109,23 @@ $dispatcher = new Dispatcher;
 $dispatcher->addListener(new ContentListener);
 ```
 
+If the object contains other methods that should not be registered, you will need to explicitly list the events to be
+registered. For example:
+
+```php
+$dispatcher->addListener(
+    new ContentListener,
+    array(
+        'onBeforeContentSave' => Priority::NORMAL,
+        'onAfterContentSave' => Priority::NORMAL,
+    )
+);
+
+// Alternatively, include a helper method:
+$listener = new ContentListener;
+$dispatcher->addListener($listener, $listener->getEvents());
+```
+
 ### Registering Closure Listeners
 
 ```php
@@ -136,6 +153,8 @@ $dispatcher->addListener(
 As you noticed, it is possible to specify a listener's priority for a given Event. It is also possible to do so with "object" Listeners.
 
 ### Filtering Listeners
+
+DEPRECATED
 
 Listeners class can become quite complex, and may support public methods other than those required for event handling. The `setListenerFilter` method can be used to set a regular expression that is used to check the method names of objects being added as listeners.
 

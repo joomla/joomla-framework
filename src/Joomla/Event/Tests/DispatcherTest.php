@@ -67,6 +67,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @covers  Joomla\Event\Dispatcher::setListenerFilter
 	 * @since   1.0
+	 * @deprecated
 	 */
 	public function testSetListenerFilter()
 	{
