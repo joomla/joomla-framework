@@ -448,6 +448,26 @@ class AuthorizationsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests the getRateLimit method for an unlimited user.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function testGetRateLimit_unlimited()
+	{
+		$this->response->code = 404;
+		$this->response->body = '';
+
+		$this->client->expects($this->once())
+					 ->method('get')
+					 ->with('/rate_limit')
+					 ->will($this->returnValue($this->response));
+
+		$this->assertFalse($this->object->getRateLimit()->limit, 'The limit should be false for unlimited');
+	}
+
+	/**
 	 * Tests the getRateLimit method - failure
 	 *
 	 * @return  void
