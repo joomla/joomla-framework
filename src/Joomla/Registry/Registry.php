@@ -516,9 +516,14 @@ class Registry implements \JsonSerializable, \ArrayAccess
 	{
 		$array = array();
 
-		foreach (get_object_vars((object) $data) as $k => $v)
+		if (is_object($data))
 		{
-			if (is_object($v))
+			$data = get_object_vars($data);
+		}
+
+		foreach ($data as $k => $v)
+		{
+			if (is_object($v) || is_array($v))
 			{
 				$array[$k] = $this->asArray($v);
 			}
