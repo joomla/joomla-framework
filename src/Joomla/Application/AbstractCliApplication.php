@@ -102,6 +102,6 @@ abstract class AbstractCliApplication extends AbstractApplication
 	 */
 	public function in()
 	{
-		return rtrim(fread(STDIN, 8192), "\n");
+		return rtrim(fread(STDIN, 8192), "\n\r");
 	}
 }
