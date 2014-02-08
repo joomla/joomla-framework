@@ -27,7 +27,7 @@ class CliTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGet()
 	{
-		$_SERVER['argv'] = array('/dev/null', '--foo=bar', '-ab', 'blah');
+		$_SERVER['argv'] = array('/dev/null', '--foo=bar', '-ab', 'blah', '-g', 'flower sakura');
 		$instance = new Cli(null, array('filter' => new FilterInputMock));
 
 		$this->assertThat(
@@ -52,6 +52,13 @@ class CliTest extends \PHPUnit_Framework_TestCase
 			$instance->args,
 			$this->equalTo(array('blah')),
 			'Line: ' . __LINE__ . '.'
+		);
+
+		// Default filter
+		$this->assertEquals(
+			'flower sakura',
+			$instance->get('g'),
+			'Default filter should be string. Line: ' . __LINE__
 		);
 	}
 
