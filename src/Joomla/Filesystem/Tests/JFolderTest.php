@@ -57,7 +57,7 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @expectedException  RuntimeException
+	 * @since   1.0
 	 */
 	public function testCopySrcDontExist()
 	{
@@ -67,12 +67,19 @@ class FolderTest extends PHPUnit_Framework_TestCase
 
 		Folder::create($path . '/' . $name);
 
-		// Source folder doesn't exist.
-		$this->assertInstanceOf(
-			'RuntimeException',
-			Folder::copy($path . '/' . $name . 'foobar', $path . '/' . $copiedFolderName),
-			'Line:' . __LINE__ . ' Folder should not be copied successfully.'
-		);
+		try
+		{
+			Folder::copy($path . '/' . $name . 'foobar', $path . '/' . $copiedFolderName);
+		}
+		catch (Exception $exception)
+		{
+			// Source folder doesn't exist.
+			$this->assertInstanceOf(
+				'RuntimeException',
+				$exception,
+				'Line:' . __LINE__ . ' Folder should not be copied successfully.'
+			);
+		}
 
 		Folder::delete($path . '/' . $copiedFolderName);
 		Folder::delete($path . '/' . $name);
@@ -83,30 +90,38 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 *
-	 * @expectedException  RuntimeException
+	 * @since   1.0
 	 */
-	public function testCopyDestDontExist()
+	public function testCopyDestExist()
 	{
 		$name = 'tempFolder';
 		$copiedFolderName = 'tempCopiedFolderName';
 		$path = __DIR__;
 
 		Folder::create($path . '/' . $name);
+		Folder::create($path . '/' . $copiedFolderName);
 
-		// Source folder doesn't exist so create first.
+		// Destination folder exist already and copy is forced.
 		$this->assertThat(
-			Folder::copy($path . '/' . $name, $path . 'foobar/' . $copiedFolderName),
+			Folder::copy($name, $copiedFolderName, $path, true),
 			$this->isTrue(),
 			'Line:' . __LINE__ . ' Folder should be copied successfully.'
 		);
-		Folder::delete($path . '/' . $copiedFolderName);
 
-		// Source folder doesn't exist.
-		$this->assertInstanceOf(
-			'RuntimeException',
-			Folder::copy($path . '/' . $name, $path . 'foobar/' . $copiedFolderName, true),
-			'Line:' . __LINE__ . ' Folder should not be copied successfully.'
-		);
+		try
+		{
+			Folder::copy($name, $copiedFolderName, $path);
+		}
+		catch (Exception $exception)
+		{
+			// Destination folder exist already and copy is not forced.
+			$this->assertInstanceOf(
+				'RuntimeException',
+				$exception,
+				'Line:' . __LINE__ . ' Folder should not be copied successfully.'
+			);
+		}
+
 		Folder::delete($path . '/' . $copiedFolderName);
 
 		Folder::delete($path . '/' . $name);
