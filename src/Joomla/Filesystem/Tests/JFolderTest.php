@@ -21,11 +21,11 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	protected $object;
 
 	/**
-	 * Test...
+	 * Tests the Folder::copy method.
 	 *
-	 * @todo Implement testCopy().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function testCopy()
 	{
@@ -53,9 +53,7 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @todo Implement testCopy().
+	 * Test the Folder::copy method where source folder doesn't exist.
 	 *
 	 * @return void
 	 *
@@ -81,9 +79,7 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
-	 *
-	 * @todo Implement testCopy().
+	 * Test the Folder::copy method where destination folder exist already.
 	 *
 	 * @return void
 	 *
@@ -117,11 +113,11 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the Folder::create method.
 	 *
-	 * @todo Implement testCreate().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function testCreate()
 	{
@@ -164,11 +160,11 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the Folder::delete method.
 	 *
-	 * @todo Implement testDelete().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function testDelete()
 	{
@@ -216,11 +212,11 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the Folder::move method.
 	 *
-	 * @todo Implement testMove().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function testMove()
 	{
@@ -493,11 +489,11 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test...
+	 * Tests the Folder::listFolderTree method.
 	 *
-	 * @todo Implement testListFolderTree().
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function testListFolderTree()
 	{
