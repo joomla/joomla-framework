@@ -102,6 +102,32 @@ class HelloController extends AbstractController
 
 ```
 
+### Using `Text` From Twig ###
+
+If you are using [Twig](http://twig.sensiolabs.org/) as a templating engine you will be unable to execute PHP code in the layout to use the `Text` magic function directly.  One option is to add each string to the view, however you can also use Twig functions.
+
+Creating a Twig function will allow the use of syntax like the below in your layout file.
+
+	jtext('APP_YOURSAMPLE_STRING')
+
+To create a Twig function to do this after creating the Twig_Environment and before rendering add the following code:
+
+	$loader = new \Twig_Loader_Filesystem($this->path);
+	$twig = new \Twig_Environment($loader);
+
+	$jtextFunction = new \Twig_SimpleFunction('text',function($string){
+		$translation = Text::_($string);
+		return $translation;
+	},array('is_safe'=>array('html')));
+
+	$twig->addFunction($jtextFunction);
+
+You will now be able translate strings in your twig file using:
+
+	{{jtext('APP_YOURSAMPLE_STRING')}}
+
+
+
 
 ### Load component language files
 
