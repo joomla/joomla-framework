@@ -501,10 +501,99 @@ class FolderTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testListFolderTree()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$name = 'tempFolder';
+		$path = __DIR__;
+
+		// -tempFolder
+		Folder::create("$path/$name");
+		$this->assertEquals(
+			Folder::listFolderTree("$path/$name", '.'),
+			array(),
+			'Line: ' . __LINE__ . ' Observed folder tree is not correct.');
+
+		// -tempFolder
+		// ---SubFolder
+		$subfullname = "$path/$name/SubFolder";
+		$subrelname = str_replace(JPATH_ROOT, '', $subfullname);
+		Folder::create($subfullname);
+		$this->assertEquals(
+			Folder::listFolderTree("$path/$name", '.'),
+			array(
+				array(
+					'id' => 1,
+					'parent' => 0,
+					'name' => 'SubFolder',
+					'fullname' => $subfullname,
+					'relname' => $subrelname
+				)
+			),
+			'Line: ' . __LINE__ . ' Observed folder tree is not correct.');
+
+		/* -tempFolder
+			---SubFolder
+			---AnotherSubFolder
+		*/
+		$anothersubfullname = "$path/$name/AnotherSubFolder";
+		$anothersubrelname = str_replace(JPATH_ROOT, '', $anothersubfullname);
+		Folder::create($anothersubfullname);
+		$this->assertEquals(
+			Folder::listFolderTree("$path/$name", '.'),
+			array(
+				array(
+					'id' => 1,
+					'parent' => 0,
+					'name' => 'AnotherSubFolder',
+					'fullname' => $anothersubfullname,
+					'relname' => $anothersubrelname
+				),
+				array(
+					'id' => 2,
+					'parent' => 0,
+					'name' => 'SubFolder',
+					'fullname' => $subfullname,
+					'relname' => $subrelname
+				)
+
+			),
+			'Line: ' . __LINE__ . ' Observed folder tree is not correct.');
+
+		/* -tempFolder
+				-SubFolder
+					-SubSubFolder
+				-AnotherSubFolder
+		*/
+		$subsubfullname = "$subfullname/SubSubFolder";
+		$subsubrelname = str_replace(JPATH_ROOT, '', $subsubfullname);
+		Folder::create($subsubfullname);
+		$this->assertEquals(
+			Folder::listFolderTree("$path/$name", '.'),
+			array(
+				array(
+					'id' => 1,
+					'parent' => 0,
+					'name' => 'AnotherSubFolder',
+					'fullname' => $anothersubfullname,
+					'relname' => $anothersubrelname
+				),
+				array(
+					'id' => 2,
+					'parent' => 0,
+					'name' => 'SubFolder',
+					'fullname' => $subfullname,
+					'relname' => $subrelname
+				),
+				array(
+					'id' => 3,
+					'parent' => 2,
+					'name' => 'SubSubFolder',
+					'fullname' => $subsubfullname,
+					'relname' => $subsubrelname
+				)
+
+			),
+			'Line: ' . __LINE__ . ' Observed folder tree is not correct.');
+
+		Folder::delete($path . '/' . $name);
 	}
 
 	/**
