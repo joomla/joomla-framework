@@ -17,6 +17,13 @@ require_once __DIR__ . '/ZipInspector.php';
  */
 class ZipTest extends \PHPUnit_Framework_TestCase
 {
+
+	/**
+	 * Output directory
+	 *
+	 * @var string
+	 * @since 1.0
+	 */
 	protected static $outputPath;
 
 	/**
