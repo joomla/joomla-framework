@@ -26,7 +26,7 @@ class WincacheTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return  void
 	 *
-	 * @coversNothing
+	 * @covers  Nothing
 	 * @since   1.0
 	 */
 	public function testPsrCache()
