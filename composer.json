@@ -1,67 +1,55 @@
 {
     "name": "joomla/framework",
+    "type": "metapackage",
     "description": "The Joomla Framework is a platform for writing Web and command line applications in PHP.",
     "keywords": ["joomla","framework"],
     "homepage": "https://github.com/joomla/joomla-framework",
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "psr/log": "~1.0"
+        "joomla/application": "@dev",
+        "joomla/archive": "@dev",
+        "joomla/authentication": "@dev",
+        "joomla/cache": "@dev",
+        "joomla/compat": "@dev",
+        "joomla/controller": "@dev",
+        "joomla/crypt": "@dev",
+        "joomla/database": "@dev",
+        "joomla/data": "@dev",
+        "joomla/date": "@dev",
+        "joomla/di": "@dev",
+        "joomla/event": "@dev",
+        "joomla/facebook": "@dev",
+        "joomla/filesystem": "@dev",
+        "joomla/filter": "@dev",
+        "joomla/form": "@dev",
+        "joomla/github": "@dev",
+        "joomla/google": "@dev",
+        "joomla/http": "@dev",
+        "joomla/input": "@dev",
+        "joomla/keychain": "@dev",
+        "joomla/language": "@dev",
+        "joomla/ldap": "@dev",
+        "joomla/linkedin": "@dev",
+        "joomla/log": "@dev",
+        "joomla/model": "@dev",
+        "joomla/oauth1": "@dev",
+        "joomla/oauth2": "@dev",
+        "joomla/profiler": "@dev",
+        "joomla/registry": "@dev",
+        "joomla/router": "@dev",
+        "joomla/session": "@dev",
+        "joomla/string": "@dev",
+        "joomla/test": "@dev",
+        "joomla/twitter": "@dev",
+        "joomla/uri": "@dev",
+        "joomla/utilities": "@dev",
+        "joomla/view": "@dev",
+        "joomla/image": "@dev"
     },
     "require-dev": {
-         "symfony/yaml": "~2.0"
+        "phpunit/phpunit": "@dev",
+        "phpunit/dbunit": "@dev"
     },
-    "suggest": {
-        "symfony/yaml": "Install symfony/yaml 2.* if you require YAML support."
-    },
-    "autoload": {
-        "psr-0": {
-            "Joomla": "src/",
-            "Psr": "vendor/psr/cache"
-        },
-        "classmap": [
-            "src/Joomla/Compat/JsonSerializable.php"
-        ],
-        "files": [
-            "src/Joomla/PHP/methods.php"
-        ]
-    },
-    "replace": {
-        "joomla/application": "self.version",
-        "joomla/archive": "self.version",
-        "joomla/cache": "self.version",
-        "joomla/compat": "self.version",
-        "joomla/controller": "self.version",
-        "joomla/crypt": "self.version",
-        "joomla/data": "self.version",
-        "joomla/database": "self.version",
-        "joomla/date": "self.version",
-        "joomla/facebook": "self.version",
-        "joomla/filesystem": "self.version",
-        "joomla/filter": "self.version",
-        "joomla/form": "self.version",
-        "joomla/github": "self.version",
-        "joomla/google": "self.version",
-        "joomla/http": "self.version",
-        "joomla/image": "self.version",
-        "joomla/input": "self.version",
-        "joomla/keychain": "self.version",
-        "joomla/language": "self.version",
-        "joomla/linkedin": "self.version",
-        "joomla/log": "self.version",
-        "joomla/model": "self.version",
-        "joomla/oauth1": "self.version",
-        "joomla/oauth2": "self.version",
-        "joomla/profiler": "self.version",
-        "joomla/registry": "self.version",
-        "joomla/router": "self.version",
-        "joomla/session": "self.version",
-        "joomla/string": "self.version",
-        "joomla/test": "self.version",
-        "joomla/twitter": "self.version",
-        "joomla/uri": "self.version",
-        "joomla/utilities": "self.version",
-        "joomla/view": "self.version"
-    },
-    "minimum-stability": "beta"
+    "minimum-stability": "dev"
 }

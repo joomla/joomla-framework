@@ -7,12 +7,12 @@
 		<const name="JTEST_DATABASE_POSTGRESQL_DSN" value="host=localhost;port=5432;dbname=joomla_ut;user=postgres;pass=" />
 		<!--<const name="JTEST_DATABASE_ORACLE_DSN" value="host=localhost;port=1521;dbname=joomla_ut;user=utuser;pass=ut1234" />
 		<const name="JTEST_DATABASE_SQLSRV_DSN" value="host=localhost;dbname=joomla_ut;user=utuser;pass=ut1234" />-->
-		<const name="JTEST_HTTP_STUB" value="http://virtualhost.local/src/Joomla/Http/Tests/stubs/jhttp_stub.php" />
+		<const name="JTEST_HTTP_STUB" value="http://virtualhost.local/vendor/joomla/http/Tests/stubs/jhttp_stub.php" />
 	</php>
 
 	<testsuites>
 		<testsuite name="Unit">
-			<directory>src/Joomla/*/Tests</directory>
+			<directory>vendor/joomla/*/Tests</directory>
 		</testsuite>
 	</testsuites>
 

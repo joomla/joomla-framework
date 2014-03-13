@@ -1,5 +1,11 @@
 # Joomla Framework Manual
 
+## Composer
+The Joomla Framework package is a composer metapackage.  This means that there is no deployable code in the Framework package - it simply consists a list of each individual framework package.  When using composer these packages will be installed in the vendor/joomla directory.
+
+## Package files
+The Joomla Framework package does contain some files that can be used to perform unit testing on the entire framework at once.  It also contains some documentation that applies to all packages.
+
 ## Folder Structure
 
 The following outlines the purpose of the top-level folder structure of
@@ -9,9 +15,8 @@ Folder     | Description
 ---------- | --------------------
 /build     | Contains information relevant for building code style reports about the platform. Output from various automated processes may also end up in this folder.
 /docs      | Contain developer manuals in Markdown format.
-/src       | Contains all the server-side PHP code used in the Joomla Framework API.
 /tests     | Contains general unit tests used for quality control. (Package specific tests are located in their respective packages.)
-/vendor    | Contains composer-installable code that is required by the Joomla Framework.
+/vendor    | Directory used by composer to install Joomla Framework packages and others as required
 
 ## Bootstrapping
 
@@ -24,4 +29,4 @@ directories.
 
 All class auto-loading is handled by [Composer](http://getcomposer.org).
 The Joomla Framework and it's packages follow the [PSR-0](http://www.php-fig.org/psr/psr-0/)
-auto-loading standard. The Framework packages are located in the `src/` directory.
+auto-loading standard. The individual Framework packages are located in their own seperate repositories and composer is used to install them.
