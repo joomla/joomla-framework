@@ -20,12 +20,11 @@ before_script:
   - pyrus install -f pear/PHP_CodeSniffer
   - phpenv rehash
   - mysql -e 'create database joomla_ut;'
-  - mysql joomla_ut < src/Joomla/Database/Tests/Stubs/mysql.sql
+  - mysql joomla_ut < vendor/joomla/database/Tests/Stubs/mysql.sql
   - psql -c 'create database joomla_ut;' -U postgres
-  - psql -d joomla_ut -a -f src/Joomla/Database/Tests/Stubs/postgresql.sql
+  - psql -d joomla_ut -a -f vendor/joomla/database/Tests/Stubs/postgresql.sql
   - phpenv config-add build/travis/phpenv/memcached.ini
 
 script:
   - ant composervalidate
-  - ant travis-phpcs
   - phpunit --configuration phpunit.travis.xml

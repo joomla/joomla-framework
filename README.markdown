@@ -5,7 +5,7 @@
 
 ## What is the Joomla! Framework ?
 
-The `Joomla! Framework` is a platform for writing web and command line applications in PHP.  It is free and open source software, distributed under the GNU General Public License version 2 or later.
+The `Joomla! Framework` is a collection of packages for writing web and command line applications in PHP.  It is free and open source software, distributed under the GNU General Public License version 2 or later.
 
 It is composed of code originally developed for the Joomla Content Management System (CMS). For more information about the Joomla CMS visit [http://www.joomla.org/about-joomla.html](http://www.joomla.org/about-joomla.html).
 

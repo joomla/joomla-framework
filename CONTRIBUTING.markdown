@@ -28,7 +28,7 @@ that need to be competed to "catch up" on work that was missed out in previous v
 ## Joomla Contributor Agreement
 
 Ideally, everybody who contributes to the Joomla Framework, or any other Open Source Matters supported project for that
-matter, should sign a [Joomla Contributor Agreement](http://developer.joomla.org/contributor-agreements.htm) (JCA).
+matter, should sign a [Joomla Contributor Agreement](http://developer.joomla.org/contributor-agreements.html) (JCA).
 
 But, we are aware that some contributors will not want to take the extra effort, especially for one-time contributors of
 modest amounts of code.  As a compromise, the Joomla Project requires a JCA from anybody who makes a significant

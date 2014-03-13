@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="joomla-framework" default="build" basedir=".">
-	<property name="source" value="src" />
-	<property name="testsource" value="${basedir}/src/Joomla/*/Tests,${basedir}/src/Joomla/*/_Tests" />
+	<property name="source" value="${basedir}/vendor/joomla/*/src" />
+	<property name="testsource" value="${basedir}/vendor/joomla/*/Tests,${basedir}/vendor/joomla/*/_Tests" />
 
 	<condition property="script-suffix" value=".bat" else="">
 		<os family="windows" />
@@ -98,8 +98,8 @@
 			<arg value="--extensions=php" />
 			<arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
 			<arg value="--standard=${basedir}/build/phpcs/Joomla" />
-			<arg value="--ignore=${basedir}/src/Joomla/String/phputf8" />
-			<arg path="${source}" />
+			<arg value="--ignore=${basedir}/vendor/joomla/string/phputf8,${basedir}/vendor/joomla/*/Tests" />
+			<arg path="${basedir}/vendor/joomla" />
 		</exec>
 	</target>
 
@@ -107,16 +107,16 @@
 		<exec executable="phpcs${script-suffix}">
 			<arg value="--report=full" />
 			<arg value="--extensions=php" />
-			<arg value="--ignore=${basedir}/src/Joomla/String/phputf8" />
+			<arg value="--ignore=${basedir}/vendor/joomla/string/phputf8,${basedir}/vendor/joomla/*/Tests" />
 			<arg value="--standard=${basedir}/build/phpcs/Joomla/ruleset.xml" />
-			<arg path="${source}" />
+			<arg path="${basedir}/vendor/joomla" />
 		</exec>
 	</target>
 
 	<target name="phpdoc" description="Generate API documentation using phpDocumentor">
 		<exec executable="phpdoc${script-suffix}">
 			<arg value="-i" />
-			<arg path="${source}/Joomla/String/phputf8/,${source}/Joomla/*/Tests/,${source}/Joomla/*/_Tests/" />
+			<arg path="${source}/vendor/joomla/string/phputf8/,${source}/vendor/joomla/*/Tests/,${source}/vendor/joomla/*/_Tests/" />
 			<arg value="-d" />
 			<arg path="${source}" />
 			<arg value="-t" />
@@ -162,7 +162,7 @@
 		<apply executable="composer" failonerror="true">
 			<arg value="validate" />
 
-			<fileset dir="${source}">
+			<fileset dir="${basedir}">
 				<include name="**/composer.json" />
 				<modified />
 			</fileset>
