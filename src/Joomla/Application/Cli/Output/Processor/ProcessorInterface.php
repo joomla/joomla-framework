@@ -11,7 +11,7 @@ namespace Joomla\Application\Cli\Output\Processor;
 /**
  * Class ProcessorInterface.
  *
- * @since  __DEPLOY_VERSION__
+ * @since  1.1.0
  */
 interface ProcessorInterface
 {
@@ -22,7 +22,7 @@ interface ProcessorInterface
 	 *
 	 * @return  string
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since   1.1.0
 	 */
 	public function process($output);
 }

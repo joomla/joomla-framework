@@ -132,7 +132,7 @@ class SqliteQuery extends PdoQuery implements PreparableInterface, LimitableInte
 	 *
 	 * @return  string  The required char length call.
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since   1.1.0
 	 */
 	public function charLength($field, $operator = null, $condition = null)
 	{
@@ -171,7 +171,7 @@ class SqliteQuery extends PdoQuery implements PreparableInterface, LimitableInte
 	 *
 	 * @return  string  The concatenated values.
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since   1.1.0
 	 */
 	public function concatenate($values, $separator = null)
 	{
