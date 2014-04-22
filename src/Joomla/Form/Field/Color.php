@@ -13,7 +13,7 @@ namespace Joomla\Form;
  * Supports an html colour picker
  *
  * @link   http://www.w3.org/TR/html5/forms.html#color-state-(type=color)
- * @since  1.0
+ * @since  _DEPLOY_VERSION__
  */
 class Field_Color extends Field
 {
@@ -22,7 +22,7 @@ class Field_Color extends Field
 	 *
 	 * @var    string
 	 *
-	 * @since  1.0
+	 * @since  _DEPLOY_VERSION__
 	 */
 	protected $type = 'Color';
 
@@ -31,7 +31,7 @@ class Field_Color extends Field
 	 *
 	 * @return  string  The field input markup.
 	 *
-	 * @since   1.0
+	 * @since   _DEPLOY_VERSION__
 	 */
 	protected function getInput()
 	{
