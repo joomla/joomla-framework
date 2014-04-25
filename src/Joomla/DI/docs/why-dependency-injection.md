@@ -59,7 +59,7 @@ In the last code block above, imagine yourself as the commander of a samurai arm
 
 ### The Problem
 
-Since your told your warrior to prepare himself for battle, he took the items he was familiar with and prepared the best he could. There's no way he could carry every possible weapon you might request of him. Instead of letting the samurai dictate what weapons to use, it would obviously be better for you to provide the weapons for him.
+Since you told your warrior to prepare himself for battle, he took the items he was familiar with and prepared the best he could. There's no way he could carry every possible weapon you might request of him. Instead of letting the samurai dictate what weapons to use, it would obviously be better for you to provide the weapons for him.
 
 ### The Solution
 
