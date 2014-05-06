@@ -17,7 +17,6 @@ use Joomla\Registry\Registry;
 class WatchingTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	/**
 	 * @var    Registry  Options for the GitHub object.
 	 * @since  1.0
 	 */
