@@ -123,7 +123,7 @@ class Stream implements TransportInterface
 		$options['ignore_errors'] = 1;
 
 		// Follow redirects.
-		$options['follow_location'] = (int) $this->options->get('follow_location', 1);
+		$options['follow_location'] = (int) (isset($options['follow_location']) ? $options['follow_location'] : 1);
 
 		// Create the stream context for the request.
 		$context = stream_context_create(array('http' => $options));
