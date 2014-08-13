@@ -470,6 +470,24 @@ class Form
 
 		return $fieldsets;
 	}
+	
+	/**
+	 * Method to set the form control. This string serves as a container for all form fields. For
+	 * example, if there is a field named 'foo' and a field named 'bar' and the form control is
+	 * empty the fields will be rendered like: <input name="foo" /> and <input name="bar" />.  If
+	 * the form control is set to 'joomla' however, the fields would be rendered like:
+	 * <input name="joomla[foo]" /> and <input name="joomla[bar]" />.
+	 *
+	 * @return  static
+	 *
+	 * @since   1.0
+	 */
+	 public function setFormControl($control)
+	 {
+	 	$this->options['control'] = (string) $control;
+	 	
+	 	return $this;
+	 }
 
 	/**
 	 * Method to get the form control. This string serves as a container for all form fields. For
