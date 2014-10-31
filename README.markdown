@@ -43,26 +43,10 @@ If you are interested in working with the development code (in the master branch
 
 ### Package Installation Via Composer
 
-There are two ways to add our packages to your existing composer powered application.
-
-##### Adding packages manually to the `require` option in your `composer.json`.
-
-```json
-{
-    "require": {
-        "joomla/PACKAGENAME": "VERSION"
-    }
-}
-```
-and then run install (or update).
-```sh
-php composer.phar install
-```
-
 ##### Adding packages using `composer require`
 
 ```sh
-php composer.phar require joomla/packagename:version
+php composer.phar require joomla/packagename
 ```
 
 ### Full Installation Via Git
