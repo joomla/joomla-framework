@@ -766,8 +766,8 @@ class Form
 			}
 		}
 
-		// Attempt to load the XML file.
-		$xml = simplexml_load_file($file);
+		// Attempt to load the XML files.
+		$xml = simplexml_load_file($file, 'SimpleXMLElement', LIBXML_NOENT);
 
 		return $this->load($xml, $reset, $xpath);
 	}
