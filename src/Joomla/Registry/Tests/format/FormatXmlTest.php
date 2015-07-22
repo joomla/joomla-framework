@@ -36,7 +36,7 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 		$object->array = array('nestedarray' => array('test1' => 'value1'));
 
 		// Check for different PHP behavior of displaying boolean false in XML.
-		$checkFalse = '<check/>' == simplexml_load_string('<test/>')->addChild('check', false)->asXML()
+		$checkFalse = '<check/>' == simplexml_load_string('<test/>')->addChild('check', false)->asXml()
 			? '/>'
 			: '></node>';
 

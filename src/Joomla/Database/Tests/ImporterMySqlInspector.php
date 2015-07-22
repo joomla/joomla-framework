@@ -49,9 +49,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getAddColumnSQL($table, \SimpleXMLElement $field)
+	public function getAddColumnSql($table, \SimpleXMLElement $field)
 	{
-		return parent::getAddColumnSQL($table, $field);
+		return parent::getAddColumnSql($table, $field);
 	}
 
 	/**
@@ -64,9 +64,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getAddKeySQL($table, $keys)
+	public function getAddKeySql($table, $keys)
 	{
-		return parent::getAddKeySQL($table, $keys);
+		return parent::getAddKeySql($table, $keys);
 	}
 
 	/**
@@ -78,9 +78,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getAlterTableSQL(\SimpleXMLElement $structure)
+	public function getAlterTableSql(\SimpleXMLElement $structure)
 	{
-		return parent::getAlterTableSQL($structure);
+		return parent::getAlterTableSql($structure);
 	}
 
 	/**
@@ -93,9 +93,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getChangeColumnSQL($table, \SimpleXMLElement $field)
+	public function getChangeColumnSql($table, \SimpleXMLElement $field)
 	{
-		return parent::getChangeColumnSQL($table, $field);
+		return parent::getChangeColumnSql($table, $field);
 	}
 
 	/**
@@ -107,9 +107,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getColumnSQL(\SimpleXMLElement $field)
+	public function getColumnSql(\SimpleXMLElement $field)
 	{
-		return parent::getColumnSQL($field);
+		return parent::getColumnSql($field);
 	}
 
 	/**
@@ -122,9 +122,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getDropColumnSQL($table, $name)
+	public function getDropColumnSql($table, $name)
 	{
-		return parent::getDropColumnSQL($table, $name);
+		return parent::getDropColumnSql($table, $name);
 	}
 
 	/**
@@ -139,9 +139,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getDropKeySQL($table, $name)
+	public function getDropKeySql($table, $name)
 	{
-		return parent::getDropKeySQL($table, $name);
+		return parent::getDropKeySql($table, $name);
 	}
 
 	/**
@@ -153,9 +153,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getDropPrimaryKeySQL($table)
+	public function getDropPrimaryKeySql($table)
 	{
-		return parent::getDropPrimaryKeySQL($table);
+		return parent::getDropPrimaryKeySql($table);
 	}
 
 	/**
@@ -182,9 +182,9 @@ class ImporterMySqlInspector extends \Joomla\Database\Mysql\MysqlImporter
 	 *
 	 * @since   1.0
 	 */
-	public function getKeySQL($columns)
+	public function getKeySql($columns)
 	{
-		return parent::getKeySQL($columns);
+		return parent::getKeySql($columns);
 	}
 
 	/**

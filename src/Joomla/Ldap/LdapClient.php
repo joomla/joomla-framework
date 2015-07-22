@@ -192,7 +192,7 @@ class LdapClient
 	 *
 	 * @since   1.0
 	 */
-	public function setDN($username, $nosub = 0)
+	public function setDn($username, $nosub = 0)
 	{
 		if ($this->users_dn == '' || $nosub)
 		{
@@ -215,7 +215,7 @@ class LdapClient
 	 *
 	 * @since   1.0
 	 */
-	public function getDN()
+	public function getDn()
 	{
 		return $this->dn;
 	}
@@ -257,8 +257,8 @@ class LdapClient
 			$password = $this->password;
 		}
 
-		$this->setDN($username, $nosub);
-		$bindResult = @ldap_bind($this->resource, $this->getDN(), $password);
+		$this->setDn($username, $nosub);
+		$bindResult = @ldap_bind($this->resource, $this->getDn(), $password);
 
 		return $bindResult;
 	}
@@ -570,7 +570,7 @@ class LdapClient
 	 * @author  Jay Burrell, Systems & Networks, Mississippi State University
 	 * @since   1.0
 	 */
-	public static function LDAPNetAddr($networkaddress)
+	public static function LdapNetAddr($networkaddress)
 	{
 		$addr = "";
 		$addrtype = (int) substr($networkaddress, 0, 1);

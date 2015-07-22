@@ -241,7 +241,7 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function dataGetAlterTableSQL()
+	public function dataGetAlterTableSql()
 	{
 		$f1 = '<field Field="id" Type="int(11) unsigned" Null="NO" Key="PRI" Default="" Extra="auto_increment" />';
 		$f2 = '<field Field="title" Type="varchar(255)" Null="NO" Key="" Default="" Extra="" />';
@@ -296,7 +296,7 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function dataGetColumnSQL()
+	public function dataGetColumnSql()
 	{
 		return array(
 			array(
@@ -330,7 +330,7 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function dataGetKeySQL()
+	public function dataGetKeySql()
 	{
 		return array(
 			array(
@@ -500,13 +500,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testGetAddColumnSQL()
+	public function testGetAddColumnSql()
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			$instance->getAddColumnSQL(
+			$instance->getAddColumnSql(
 				'jos_test',
 				new \SimpleXmlElement($this->sample['xml-title-field'])
 			),
@@ -526,13 +526,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testGetAddKeySQL()
+	public function testGetAddKeySql()
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			$instance->getAddKeySQL(
+			$instance->getAddKeySql(
 				'jos_test',
 				array(
 					new \SimpleXmlElement($this->sample['xml-primary-key'])
@@ -558,13 +558,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider dataGetAlterTableSQL
 	 */
-	public function testGetAlterTableSQL($structure, $expected, $message)
+	public function testGetAlterTableSql($structure, $expected, $message)
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			$instance->getAlterTableSQL($structure),
+			$instance->getAlterTableSql($structure),
 			$this->equalTo(
 				$expected
 			),
@@ -581,13 +581,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testGetChangeColumnSQL()
+	public function testGetChangeColumnSql()
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			$instance->getChangeColumnSQL(
+			$instance->getChangeColumnSql(
 				'jos_test',
 				new \SimpleXmlElement($this->sample['xml-title-field'])
 			),
@@ -611,13 +611,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider dataGetColumnSQL
 	 */
-	public function testGetColumnSQL($field, $expected, $message)
+	public function testGetColumnSql($field, $expected, $message)
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			strtolower($instance->getColumnSQL($field)),
+			strtolower($instance->getColumnSql($field)),
 			$this->equalTo(strtolower($expected)),
 			$message
 		);
@@ -630,13 +630,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testGetDropColumnSQL()
+	public function testGetDropColumnSql()
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			$instance->getDropColumnSQL(
+			$instance->getDropColumnSql(
 				'jos_test',
 				'title'
 			),
@@ -654,13 +654,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testGetDropKeySQL()
+	public function testGetDropKeySql()
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			$instance->getDropKeySQL(
+			$instance->getDropKeySql(
 				'jos_test',
 				'idx_title'
 			),
@@ -678,13 +678,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testGetDropPrimaryKeySQL()
+	public function testGetDropPrimaryKeySql()
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			$instance->getDropPrimaryKeySQL(
+			$instance->getDropPrimaryKeySql(
 				'jos_test'
 			),
 			$this->equalTo(
@@ -753,13 +753,13 @@ class ImporterMySqlTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @dataProvider dataGetKeySQL
 	 */
-	public function testGetKeySQL($field, $expected, $message)
+	public function testGetKeySql($field, $expected, $message)
 	{
 		$instance = new ImporterMySqlInspector;
 		$instance->setDbo($this->dbo);
 
 		$this->assertThat(
-			strtolower($instance->getKeySQL($field)),
+			strtolower($instance->getKeySql($field)),
 			$this->equalTo(strtolower($expected)),
 			$message
 		);

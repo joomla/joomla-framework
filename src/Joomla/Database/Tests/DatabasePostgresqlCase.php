@@ -103,7 +103,7 @@ abstract class DatabasePostgresqlCase extends TestDatabase
 	 */
 	protected function getDataSet()
 	{
-		return $this->createXMLDataSet(__DIR__ . '/Stubs/database.xml');
+		return $this->createXmlDataSet(__DIR__ . '/Stubs/database.xml');
 	}
 
 	/**
@@ -121,6 +121,6 @@ abstract class DatabasePostgresqlCase extends TestDatabase
 		// Create the PDO object from the DSN and options.
 		$pdo = new \PDO($dsn, self::$options['user'], self::$options['password']);
 
-		return $this->createDefaultDBConnection($pdo, self::$options['database']);
+		return $this->createDefaultDbConnection($pdo, self::$options['database']);
 	}
 }

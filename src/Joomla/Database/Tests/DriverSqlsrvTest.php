@@ -525,9 +525,9 @@ class DriverSqlsrvTest extends DatabaseSqlsrvCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Implement testSetUTF().
+	 * @todo    Implement testSetUtf().
 	 */
-	public function testSetUTF()
+	public function testSetUtf()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');

@@ -57,13 +57,13 @@ class Ini extends AbstractRegistryFormat
 				// Add the properties for this section.
 				foreach (get_object_vars($value) as $k => $v)
 				{
-					$local[] = $k . '=' . $this->getValueAsINI($v);
+					$local[] = $k . '=' . $this->getValueAsIni($v);
 				}
 			}
 			else
 			{
 				// Not in a section so add the property to the global array.
-				$global[] = $key . '=' . $this->getValueAsINI($value);
+				$global[] = $key . '=' . $this->getValueAsIni($value);
 			}
 		}
 
@@ -212,7 +212,7 @@ class Ini extends AbstractRegistryFormat
 	 *
 	 * @since   1.0
 	 */
-	protected function getValueAsINI($value)
+	protected function getValueAsIni($value)
 	{
 		$string = '';
 

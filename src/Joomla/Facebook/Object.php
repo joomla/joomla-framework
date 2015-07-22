@@ -283,7 +283,7 @@ abstract class Object
 	 *
 	 * @since   1.0
 	 */
-	public function setOAuth($oauth)
+	public function setOauth($oauth)
 	{
 		$this->oauth = $oauth;
 
@@ -297,7 +297,7 @@ abstract class Object
 	 *
 	 * @since   1.0
 	 */
-	public function getOAuth()
+	public function getOauth()
 	{
 		return $this->oauth;
 	}
