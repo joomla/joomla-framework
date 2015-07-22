@@ -9,7 +9,7 @@
  *
  * @since  1.0
  */
-abstract class En_GBLocalise
+abstract class En_gbLocalise
 {
 	/**
 	 * Returns the potential suffixes for a specific number of items

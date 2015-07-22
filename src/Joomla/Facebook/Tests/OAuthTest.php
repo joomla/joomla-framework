@@ -6,7 +6,7 @@
 
 namespace Joomla\Facebook\Tests;
 
-use Joomla\Facebook\OAuth;
+use Joomla\Facebook\Oauth;
 use Joomla\Input\Input;
 use Joomla\Test\WebInspector;
 use Joomla\Test\TestHelper;
@@ -18,7 +18,7 @@ require_once __DIR__ . '/case/FacebookTestCase.php';
  *
  * @since  1.0
  */
-class OAuthTest extends FacebookTestCase
+class OauthTest extends FacebookTestCase
 {
 	/**
 	 * @var    WebInspector  The application object to send HTTP headers for redirects.
@@ -47,7 +47,7 @@ class OAuthTest extends FacebookTestCase
 		$this->input = new Input;
 
 		$this->application = new WebInspector;
-		$this->object = new OAuth($this->options, $this->client, $this->input, $this->application);
+		$this->object = new Oauth($this->options, $this->client, $this->input, $this->application);
 	}
 
 	/**

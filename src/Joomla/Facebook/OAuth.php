@@ -18,7 +18,7 @@ use Joomla\Input\Input;
  *
  * @since  1.0
  */
-class OAuth extends Client
+class Oauth extends Client
 {
 	/**
 	 * @var   array  Options for the OAuth object.
@@ -60,7 +60,7 @@ class OAuth extends Client
 	 *
 	 * @param   string  $scope  Comma separated list of permissions.
 	 *
-	 * @return  OAuth  This object for method chaining
+	 * @return  Oauth  This object for method chaining
 	 *
 	 * @since   1.0
 	 */

@@ -17,7 +17,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.0
  */
-class OAuth2 extends Auth
+class Oauth2 extends Auth
 {
 	/**
 	 * @var    Client  OAuth client for the Google authentication object.

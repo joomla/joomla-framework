@@ -17,7 +17,7 @@ require_once __DIR__ . '/case/LinkedinTestCase.php';
  *
  * @since  1.0
  */
-class OAuthTest extends LinkedinTestCase
+class OauthTest extends LinkedinTestCase
 {
 	/**
 	 * Provides test data for request format detection.

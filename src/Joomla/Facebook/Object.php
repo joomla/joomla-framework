@@ -31,7 +31,7 @@ abstract class Object
 	protected $client;
 
 	/**
-	 * @var    OAuth  The OAuth client.
+	 * @var    Oauth  The OAuth client.
 	 * @since  1.0
 	 */
 	protected $oauth;
@@ -41,11 +41,11 @@ abstract class Object
 	 *
 	 * @param   array  $options  Facebook options array.
 	 * @param   Http   $client   The HTTP client object.
-	 * @param   OAuth  $oauth    The OAuth client.
+	 * @param   Oauth  $oauth    The OAuth client.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($options = array(), Http $client = null, OAuth $oauth = null)
+	public function __construct($options = array(), Http $client = null, Oauth $oauth = null)
 	{
 		$this->options = $options;
 		$this->client = $client;
@@ -277,7 +277,7 @@ abstract class Object
 	/**
 	 * Method used to set the OAuth client.
 	 *
-	 * @param   OAuth  $oauth  The OAuth client object.
+	 * @param   Oauth  $oauth  The OAuth client object.
 	 *
 	 * @return  Object  This object for method chaining.
 	 *
@@ -293,7 +293,7 @@ abstract class Object
 	/**
 	 * Method used to get the OAuth client.
 	 *
-	 * @return  OAuth  The OAuth client
+	 * @return  Oauth  The OAuth client
 	 *
 	 * @since   1.0
 	 */

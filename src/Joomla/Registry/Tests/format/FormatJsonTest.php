@@ -12,7 +12,7 @@ use Joomla\Registry\AbstractRegistryFormat;
  *
  * @since  1.0
  */
-class JRegistryFormatJSONTest extends PHPUnit_Framework_TestCase
+class JRegistryFormatJsonTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test the Json::objectToString method.

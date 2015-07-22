@@ -91,7 +91,7 @@ class TwitterTestCase extends \PHPUnit_Framework_TestCase
 		$this->input = new Input;
 		$this->client = $this->getMock('Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
 		$this->application = new WebInspector;
-		$this->oauth = new OAuth($this->options, $this->client, $this->input, $this->application);
+		$this->oauth = new Oauth($this->options, $this->client, $this->input, $this->application);
 		$this->oauth->setToken($access_token);
 	}
 
