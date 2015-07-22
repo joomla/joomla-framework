@@ -378,7 +378,7 @@ class NosqlDriver extends DatabaseDriver
 	 *
 	 * @since   1.0
 	 */
-	public function setUTF()
+	public function setUtf()
 	{
 		return false;
 	}

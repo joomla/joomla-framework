@@ -6,7 +6,7 @@
 
 namespace Joomla\Facebook\Tests;
 
-use Joomla\Facebook\OAuth;
+use Joomla\Facebook\Oauth;
 use Joomla\Input\Input;
 use Joomla\Test\WebInspector;
 
@@ -24,7 +24,7 @@ class FacebookTestCase extends \PHPUnit_Framework_TestCase
 	protected $options;
 
 	/**
-	 * @var    OAuth  OAuth client for Facebook.
+	 * @var    Oauth  OAuth client for Facebook.
 	 * @since  1.0
 	 */
 	protected $oauth;
@@ -95,7 +95,7 @@ class FacebookTestCase extends \PHPUnit_Framework_TestCase
 		$this->client = $this->getMock('Joomla\\Http\\Http', array('get', 'post', 'delete', 'put'));
 		$this->input = new Input;
 		$this->application = new WebInspector;
-		$this->oauth = new OAuth($this->options, $this->client, $this->input, $this->application);
+		$this->oauth = new Oauth($this->options, $this->client, $this->input, $this->application);
 		$this->oauth->setToken($access_token);
 	}
 

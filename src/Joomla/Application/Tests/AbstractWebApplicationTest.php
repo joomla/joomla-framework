@@ -1252,19 +1252,19 @@ class AbstractWebApplicationTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @return void
 	 */
-	public function testIsSSLConnection()
+	public function testIsSslConnection()
 	{
 		unset($_SERVER['HTTPS']);
 
 		$this->assertThat(
-			$this->instance->isSSLConnection(),
+			$this->instance->isSslConnection(),
 			$this->equalTo(false)
 		);
 
 		$_SERVER['HTTPS'] = 'on';
 
 		$this->assertThat(
-			$this->instance->isSSLConnection(),
+			$this->instance->isSslConnection(),
 			$this->equalTo(true)
 		);
 	}

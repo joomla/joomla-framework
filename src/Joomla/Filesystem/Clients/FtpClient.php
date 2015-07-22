@@ -343,7 +343,7 @@ class FtpClient
 		{
 			if (@ftp_login($this->conn, $user, $pass) === false)
 			{
-				Log::add('JFTP::login: Unable to login', Log::WARNING, 'jerror');
+				Log::add('JFtp::login: Unable to login', Log::WARNING, 'jerror');
 
 				return false;
 			}

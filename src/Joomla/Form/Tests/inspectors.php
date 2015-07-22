@@ -164,7 +164,7 @@ class JFormInspector extends \Joomla\Form\Form
 	 *
 	 * @since   1.0
 	 */
-	public function getXML()
+	public function getXml()
 	{
 		return $this->xml;
 	}

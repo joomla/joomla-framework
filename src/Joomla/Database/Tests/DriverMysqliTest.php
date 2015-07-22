@@ -613,7 +613,7 @@ class DriverMysqliTest extends DatabaseMysqliCase
 	 *
 	 * @since   1.0
 	 */
-	public function testSetUTF()
+	public function testSetUtf()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
 	}

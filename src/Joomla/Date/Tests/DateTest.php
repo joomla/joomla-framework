@@ -201,7 +201,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function seedTestGetOffsetFromGMT()
+	public function seedTestGetOffsetFromGmt()
 	{
 		return array(
 			'basic' => array(
@@ -533,7 +533,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 	 * @since   1.0
 	 * @covers  Joomla\Date\Date::getOffsetFromGMT
 	 */
-	public function testGetOffsetFromGMT($tz, $setTime, $hours, $expected)
+	public function testGetOffsetFromGmt($tz, $setTime, $hours, $expected)
 	{
 		if (is_null($tz))
 		{
@@ -546,11 +546,11 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
 		if (is_null($hours))
 		{
-			$offset = $testDate->getOffsetFromGMT();
+			$offset = $testDate->getOffsetFromGmt();
 		}
 		else
 		{
-			$offset = $testDate->getOffsetFromGMT($hours);
+			$offset = $testDate->getOffsetFromGmt($hours);
 		}
 
 		$this->assertThat($offset, $this->equalTo($expected));

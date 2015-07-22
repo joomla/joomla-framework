@@ -54,7 +54,7 @@ class KeychainTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function testLoadCLIKeychain()
+	public function testLoadCliKeychain()
 	{
 		$keychain = new Keychain;
 

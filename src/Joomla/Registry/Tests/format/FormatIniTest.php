@@ -11,7 +11,7 @@ use Joomla\Registry\AbstractRegistryFormat;
  *
  * @since  1.0
  */
-class JRegistryFormatINITest extends PHPUnit_Framework_TestCase
+class JRegistryFormatIniTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test the Ini::objectToString method.

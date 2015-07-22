@@ -977,15 +977,15 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers Joomla\Language\Language::isRTL
-	 * @todo Implement testIsRTL().
+	 * @covers Joomla\Language\Language::isRtl
+	 * @todo Implement testIsRtl().
 	 *
 	 * @return void
 	 */
-	public function testIsRTL()
+	public function testIsRtl()
 	{
 		$this->assertFalse(
-			$this->object->isRTL()
+			$this->object->isRtl()
 		);
 
 		// Remove the following lines when you implement this test.
@@ -1343,11 +1343,11 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers  Joomla\Language\Language::parseXMLLanguageFile
+	 * @covers  Joomla\Language\Language::parseXmlLanguageFile
 	 *
 	 * @return void
 	 */
-	public function testParseXMLLanguageFile()
+	public function testParseXmlLanguageFile()
 	{
 		$option = array(
 			'name' => 'English (United Kingdom)',
@@ -1361,14 +1361,14 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals(
 			$option,
-			Language::parseXMLLanguageFile($path),
+			Language::parseXmlLanguageFile($path),
 			'Line: ' . __LINE__
 		);
 
 		$path2 = __DIR__ . '/data/language/es-ES/es-ES.xml';
 		$this->assertEquals(
 			$option,
-			Language::parseXMLLanguageFile($path),
+			Language::parseXmlLanguageFile($path),
 			'Line: ' . __LINE__
 		);
 	}
@@ -1376,15 +1376,15 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @covers  Joomla\Language\Language::parseXMLLanguageFile
+	 * @covers  Joomla\Language\Language::parseXmlLanguageFile
 	 * @expectedException  RuntimeException
 	 *
 	 * @return void
 	 */
-	public function testParseXMLLanguageFileException()
+	public function testParseXmlLanguageFileException()
 	{
 		$path = __DIR__ . '/data/language/es-ES/es-ES.xml';
 
-		Language::parseXMLLanguageFile($path);
+		Language::parseXmlLanguageFile($path);
 	}
 }

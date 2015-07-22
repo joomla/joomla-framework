@@ -11,7 +11,7 @@ use Joomla\Registry\AbstractRegistryFormat;
  *
  * @since  1.0
  */
-class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
+class JRegistryFormatXmlTest extends PHPUnit_Framework_TestCase
 {
 	/**
 	 * Test the Cml::objectToString method.
@@ -36,7 +36,7 @@ class JRegistryFormatXMLTest extends PHPUnit_Framework_TestCase
 		$object->array = array('nestedarray' => array('test1' => 'value1'));
 
 		// Check for different PHP behavior of displaying boolean false in XML.
-		$checkFalse = '<check/>' == simplexml_load_string('<test/>')->addChild('check', false)->asXML()
+		$checkFalse = '<check/>' == simplexml_load_string('<test/>')->addChild('check', false)->asXml()
 			? '/>'
 			: '></node>';
 

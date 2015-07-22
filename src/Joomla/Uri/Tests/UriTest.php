@@ -497,21 +497,21 @@ class UriTest extends \PHPUnit_Framework_TestCase
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @covers  Joomla\Uri\Uri::isSSL
+	 * @covers  Joomla\Uri\Uri::isSsl
 	 */
-	public function testIsSSL()
+	public function testIsSsl()
 	{
 		$object = new Uri('https://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
 
 		$this->assertThat(
-			$object->isSSL(),
+			$object->isSsl(),
 			$this->equalTo(true)
 		);
 
 		$object = new Uri('http://someuser:somepass@www.example.com:80/path/file.html?var=value#fragment');
 
 		$this->assertThat(
-			$object->isSSL(),
+			$object->isSsl(),
 			$this->equalTo(false)
 		);
 	}

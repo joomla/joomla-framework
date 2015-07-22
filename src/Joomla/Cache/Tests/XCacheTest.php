@@ -13,7 +13,7 @@ use Joomla\Cache;
  *
  * @since  1.0
  */
-class XCacheTest extends \PHPUnit_Framework_TestCase
+class XcacheTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @var    Cache\XCache
@@ -41,11 +41,11 @@ class XCacheTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Cache\XCache::clear method.
+	 * Tests the Joomla\Cache\Xcache::clear method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::clear
+	 * @covers  Joomla\Cache\Xcache::clear
 	 * @since   1.0
 	 */
 	public function testClear()
@@ -54,11 +54,11 @@ class XCacheTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Cache\XCache::exists method.
+	 * Tests the Joomla\Cache\Xcache::exists method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::exists
+	 * @covers  Joomla\Cache\Xcache::exists
 	 * @since   1.0
 	 */
 	public function testExists()
@@ -67,11 +67,11 @@ class XCacheTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Cache\XCache::get method.
+	 * Tests the Joomla\Cache\Xcache::get method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::get
+	 * @covers  Joomla\Cache\Xcache::get
 	 * @since   1.0
 	 */
 	public function testGet()
@@ -80,11 +80,11 @@ class XCacheTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Cache\XCache::remove method.
+	 * Tests the Joomla\Cache\Xcache::remove method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::remove
+	 * @covers  Joomla\Cache\Xcache::remove
 	 * @since   1.0
 	 */
 	public function testRemove()
@@ -93,11 +93,11 @@ class XCacheTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests the Joomla\Cache\XCache::set method.
+	 * Tests the Joomla\Cache\Xcache::set method.
 	 *
 	 * @return  void
 	 *
-	 * @covers  Joomla\Cache\XCache::set
+	 * @covers  Joomla\Cache\Xcache::set
 	 * @since   1.0
 	 */
 	public function testSet()

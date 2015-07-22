@@ -39,7 +39,7 @@ class JFormFieldLanguageTest extends TestDatabase
 	 */
 	protected function getDataSet()
 	{
-		return $this->createXMLDataSet(__DIR__ . '/testfiles/JFormField.xml');
+		return $this->createXmlDataSet(__DIR__ . '/testfiles/JFormField.xml');
 	}
 
 	/**

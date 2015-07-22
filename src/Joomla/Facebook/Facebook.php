@@ -30,7 +30,7 @@ class Facebook
 	protected $client;
 
 	/**
-	 * @var    \Joomla\Facebook\OAuth  The OAuth client.
+	 * @var    \Joomla\Facebook\Oauth  The OAuth client.
 	 * @since  1.0
 	 */
 	protected $oauth;
@@ -110,13 +110,13 @@ class Facebook
 	/**
 	 * Constructor.
 	 *
-	 * @param   OAuth  $oauth    OAuth client.
+	 * @param   Oauth  $oauth    OAuth client.
 	 * @param   array  $options  Facebook options array.
 	 * @param   Http   $client   The HTTP client object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(OAuth $oauth = null, $options = array(), Http $client = null)
+	public function __construct(Oauth $oauth = null, $options = array(), Http $client = null)
 	{
 		$this->oauth = $oauth;
 		$this->options = $options;

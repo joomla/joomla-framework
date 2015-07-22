@@ -17,7 +17,7 @@ require_once __DIR__ . '/case/TwitterTestCase.php';
  *
  * @since  1.0
  */
-class OAuthTest extends TwitterTestCase
+class OauthTest extends TwitterTestCase
 {
 	/**
 	 * @var    string  Sample JSON error message.

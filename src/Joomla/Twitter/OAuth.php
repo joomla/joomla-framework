@@ -18,7 +18,7 @@ use Joomla\Application\AbstractWebApplication;
  *
  * @since  1.0
  */
-class OAuth extends Client
+class Oauth extends Client
 {
 	/**
 	 * @var    array  Options for the Twitter OAuth object.

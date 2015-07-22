@@ -26,7 +26,7 @@ class DatabaseTest extends TestDatabase
 	 */
 	protected function getDataSet()
 	{
-		return $this->createXMLDataSet(__DIR__ . '/stubs/S01.xml');
+		return $this->createXmlDataSet(__DIR__ . '/stubs/S01.xml');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class DatabaseTest extends TestDatabase
 		$logger = new Database($config);
 
 		// Get the expected database from XML.
-		$expected = $this->createXMLDataSet(__DIR__ . '/stubs/S01E01.xml');
+		$expected = $this->createXmlDataSet(__DIR__ . '/stubs/S01E01.xml');
 
 		// Add the new entries to the database.
 		$logger->addEntry(new LogEntry('Testing Entry 02', Log::INFO, null, '2009-12-01 12:30:00'));

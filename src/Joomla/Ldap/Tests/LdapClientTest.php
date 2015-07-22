@@ -62,11 +62,11 @@ class LdapClientTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @todo Implement testSetDN().
+	 * @todo Implement testSetDn().
 	 *
 	 * @return void
 	 */
-	public function testSetDN()
+	public function testSetDn()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
@@ -75,11 +75,11 @@ class LdapClientTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @todo Implement testGetDN().
+	 * @todo Implement testGetDn().
 	 *
 	 * @return void
 	 */
-	public function testGetDN()
+	public function testGetDn()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');
@@ -283,11 +283,11 @@ class LdapClientTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Test...
 	 *
-	 * @todo Implement testLDAPNetAddr().
+	 * @todo Implement testLdapNetAddr().
 	 *
 	 * @return void
 	 */
-	public function testLDAPNetAddr()
+	public function testLdapNetAddr()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete('This test has not been implemented yet.');

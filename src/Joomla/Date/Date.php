@@ -231,7 +231,7 @@ class Date extends \DateTime
 	 *
 	 * @since   1.0
 	 */
-	public function getOffsetFromGMT($hours = false)
+	public function getOffsetFromGmt($hours = false)
 	{
 		return (float) $hours ? ($this->tz->getOffset($this) / 3600) : $this->tz->getOffset($this);
 	}

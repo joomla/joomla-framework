@@ -37,7 +37,7 @@ class ApcTest extends \PHPUnit_Framework_TestCase
 		parent::setUp();
 
 		// Skip these tests if APC isn't available.
-		if (!StorageAPC::isSupported())
+		if (!StorageApc::isSupported())
 		{
 			$this->markTestSkipped('APC storage is not enabled on this system.');
 		}

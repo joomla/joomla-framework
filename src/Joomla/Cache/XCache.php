@@ -15,7 +15,7 @@ use Psr\Cache\CacheItemInterface;
  *
  * @since  1.0
  */
-class XCache extends Cache
+class Xcache extends Cache
 {
 	/**
 	 * Constructor.

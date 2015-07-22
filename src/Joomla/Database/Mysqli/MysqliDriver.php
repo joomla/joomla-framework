@@ -190,7 +190,7 @@ class MysqliDriver extends DatabaseDriver
 		}
 
 		// Set charactersets (needed for MySQL 4.1.2+).
-		$this->setUTF();
+		$this->setUtf();
 	}
 
 	/**
@@ -650,7 +650,7 @@ class MysqliDriver extends DatabaseDriver
 	 *
 	 * @since   1.0
 	 */
-	public function setUTF()
+	public function setUtf()
 	{
 		$this->connect();
 

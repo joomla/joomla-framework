@@ -855,7 +855,7 @@ class PostgresqlDriver extends DatabaseDriver
 	 *
 	 * @since   1.0
 	 */
-	public function setUTF()
+	public function setUtf()
 	{
 		$this->connect();
 
@@ -1196,7 +1196,7 @@ class PostgresqlDriver extends DatabaseDriver
 	 *
 	 * @since   1.0
 	 */
-	public function getStringPositionSQL($substring, $string)
+	public function getStringPositionSql($substring, $string)
 	{
 		$this->connect();
 
