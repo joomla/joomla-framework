@@ -59,7 +59,7 @@ class Field_DatabaseConnection extends Field_List
 
 			foreach ($supported as $support)
 			{
-				if (in_array($support, $available))
+				if (in_array(ucfirst(strtolower($support)), $available))
 				{
 					$options[$support] = Text::_(ucfirst($support));
 				}
