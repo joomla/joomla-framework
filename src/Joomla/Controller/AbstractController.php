@@ -24,7 +24,7 @@ abstract class AbstractController implements ControllerInterface
 	 * @var    Application\AbstractApplication
 	 * @since  1.0
 	 */
-	private $app;
+	protected $app;
 
 	/**
 	 * The input object.
@@ -32,7 +32,7 @@ abstract class AbstractController implements ControllerInterface
 	 * @var    Input
 	 * @since  1.0
 	 */
-	private $input;
+	protected $input;
 
 	/**
 	 * Instantiate the controller.
