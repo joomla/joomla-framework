@@ -123,6 +123,12 @@ If debugging is enabled (using `setDebug(true)`), all queries are logged with a 
 * **category** : A value of "databasequery" is used.
 
 
+## Database Drivers Supported
+### Gcloudsqli
+
+
+**Gcloudsqli** is a modified implementation of the Mysqli driver designed to execute against a Google Cloud SQL database server - see https://developers.google.com/appengine/docs/php/cloud-sql/ for details.  Such servers can be accessed by ip address and port normally, however from within the Google App Engine Environment you must use a mysql socket with naming convention of /cloudsql/app-id:database-id which is not parseable by the MySQLi driver.  This driver allows both the host/port combination as well as the socket name to be defined in a single configuration string where the socket string is seperated from the host/port string by a vertical line: |.
+
 ## Installation via Composer
 
 Add `"joomla/database": "dev-master"` to the require block in your composer.json, make sure you have `"minimum-stability": "dev"` and then run `composer install`.
