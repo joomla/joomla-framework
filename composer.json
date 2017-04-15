@@ -4,12 +4,27 @@
     "keywords": ["joomla","framework"],
     "homepage": "https://github.com/joomla/joomla-framework",
     "license": "GPL-2.0+",
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/garyamort/PsrCache.git"
+		}
+	],
     "require": {
         "php": ">=5.3.10",
-        "psr/log": "~1.0"
+        "psr/log": "*",
+		"psr/cache": "dev-master"
     },
     "require-dev": {
-         "symfony/yaml": "~2.0"
+		"symfony/yaml": "~2.0",
+		"phpunit/phpunit": "3.7.*",
+		"squizlabs/php_codesniffer": "*",
+		"phpmd/phpmd" : "*",
+		"phpunit/dbunit": "1.3.*",
+		"phpunit/php-invoker": "*",
+		"phpunit/phpunit-skeleton-generator": "dev-master",
+		"phpunit/phpunit-story": "dev-master",
+		"phpunit/phpunit-selenium": "dev-master"
     },
     "suggest": {
         "symfony/yaml": "Install symfony/yaml 2.* if you require YAML support."
