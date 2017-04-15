@@ -370,6 +370,60 @@ class DriverTest extends TestDatabase
 			$this->equalTo('SELECT * FROM &dbtest'),
 			'replacePrefix method should return the query string with the #__ prefix replaced by the actual table prefix.'
 		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM #_dbtest'),
+			$this->equalTo('SELECT * FROM #_dbtest'),
+			'replacePrefix method should return the query string without the #_ prefix replaced.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM #___dbtest'),
+			$this->equalTo('SELECT * FROM &_dbtest'),
+			'replacePrefix method should return the query string with the `#__` prefix (first 2 of 3 underscores) replaced.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM $_#__dbtest'),
+			$this->equalTo('SELECT * FROM $_&dbtest'),
+			'replacePrefix method should return the query string with the #__ prefix in the middle of a table string replaced.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM #__#__dbtest'),
+			$this->equalTo('SELECT * FROM &&dbtest'),
+			'replacePrefix method should return the query string with multiple #__ prefixes replaced.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM ' . $this->instance->quoteName('#__dbtest')),
+			$this->equalTo('SELECT * FROM [&dbtest]'),
+			'replacePrefix method should return the query string with the table name quoted and #__ prefix replaced by the actual table prefix.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM ' . $this->instance->quoteName('#_dbtest')),
+			$this->equalTo('SELECT * FROM [#_dbtest]'),
+			'replacePrefix method should return the query string with the table name quoted and #_ prefix not replaced.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM ' . $this->instance->quoteName('#___dbtest')),
+			$this->equalTo('SELECT * FROM [&_dbtest]'),
+			'replacePrefix method should return the query string with the table name quoted and `#__` prefix (first 2 of 3 underscores) replaced.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM ' . $this->instance->quoteName('$_#__dbtest')),
+			$this->equalTo('SELECT * FROM [$_&dbtest]'),
+			'replacePrefix method should return the query string with the table name quoted and #__ prefix in the middle of a table string replaced.'
+		);
+
+		$this->assertThat(
+			$this->instance->replacePrefix('SELECT * FROM ' . $this->instance->quoteName('#__#__dbtest')),
+			$this->equalTo('SELECT * FROM [&&dbtest]'),
+			'replacePrefix method should return the query string with the table name quoted and multiple #__ prefixes replaced.'
+		);
 	}
 
 	/**
