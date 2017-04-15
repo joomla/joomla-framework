@@ -29,7 +29,7 @@ class Stdout extends CliOutput
 	 */
 	public function out($text = '', $nl = true)
 	{
-		fwrite(STDOUT, $this->processor->process($text) . ($nl ? "\n" : null));
+		fwrite(STDOUT, $this->processor->process((string) $text) . ($nl ? "\n" : null));
 
 		return $this;
 	}
